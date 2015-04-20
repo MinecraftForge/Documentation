@@ -1,2 +1,2 @@
 # Documentation
-Read the docs MinecraftForge documentation
+This is the Read the docs MinecraftForge documentation
