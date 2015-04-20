@@ -12,7 +12,7 @@ This is a simple guide to get you from nothing to a basic mod. The rest of this 
     * For IntelliJ, you should run `gradlew idea` - this will download artifacts for building intellij IDEA projects, and place an IntelliJ project in the current directory.
 5. Load your project into your IDE.
     * For Eclipse, use `Import | Existing Projects into Workspace` and import from the directory you extracted to.
-    * For IntelliJ do something else...
+    * For IntelliJ, do `File | Open` and open the .ipr file in the directory you extracted to.
 6. Edit the sample code, or import your existing mod code, or create your new mod.
 
 ## Customizing your mod information
