@@ -18,7 +18,8 @@ This is a simple guide to get you from nothing to a basic mod. The rest of this 
 ## Customizing your mod information
 Edit the `build.gradle` file to customize how your mod is built (the file names, versions, and other things).
 
-**DO NOT edit the `buildscript {}` section of the build.gradle file - this is special. Almost anything underneath `apply project: forge` and the `// EDITS GO BELOW HERE` marker can be changed, many things can be removed and customized.**
+**DO NOT edit the `buildscript {}` section of the build.gradle file - this is special.**
+Almost anything underneath `apply project: forge` and the `// EDITS GO BELOW HERE` marker can be changed, many things can be removed and customized there as well.
 
 There is a whole site dedicated to customizing the forge `build.gradle` files - the [ForgeGradle cookbook][]. Once you're comfortable with your mod setup, you'll find many useful recipes there.
 [forgegradle cookbook]: https://forgegradle.readthedocs.org/en/latest/cookbook/ "The ForgeGradle cookbook"
