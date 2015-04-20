@@ -13,7 +13,7 @@
 6. Edit the sample code, or import your existing mod code, or create your new mod.
 
 ## Customizing your mod information
-Edit the build.gradle file to customize how your mod is built (the file names, versions, and other things). DO NOT edit the "buildscript {}" section of the build.gradle file - this is special. Almost anything underneath "apply project: forge" and "#EDIT BELOW HERE" marker can be changed, many things can be removed and customized. There is a whole site dedicated to editing the forge build.gradle files.
+Edit the build.gradle file to customize how your mod is built (the file names, versions, and other things). DO NOT edit the "buildscript {}" section of the build.gradle file - this is special. Almost anything underneath "apply project: forge" and "// EDIT BELOW HERE" marker can be changed, many things can be removed and customized. There is a whole site dedicated to editing the forge build.gradle files.
 
 ###Simple customizations
 These customizations are highly recommended for all projects
