@@ -1,0 +1,9 @@
+site_name: Minecraft Forge
+pages:
+  - [index.md, Home]
+  - [styleguide.md, Style Guide]
+  - [gettingstarted/index.md, Getting Started, Home]
+  - [gettingstarted/structuring.md, Getting Started, Structuring Your Mod]
+  - [networking/index.md, Networking, Home]
+  - [networking/overview.md, Networking, Overview]
+  - [networking/simpleimpl.md, Networking, SimpleImpl]
