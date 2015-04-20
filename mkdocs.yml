@@ -1,4 +1,4 @@
-site_name: Minecraft Forge
+site_name: Forge Documentation
 pages:
   - [index.md, Home]
   - [styleguide.md, Style Guide]
