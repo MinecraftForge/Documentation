@@ -1,8 +1,10 @@
-# Using SimpleImpl for Networking
+SimpleImpl
+==========
 
 SimpleImpl is the name given to the packet system that revolves around the `SimpleNetworkWrapper` class. Using this system is by far the easiest way to send custom data between clients and the server.
 
-## Getting Started
+Getting Started
+---------------
 
 First you need to create your `SimpleNetworkWrapper` object. We recommend that you do this in a separate class, possibly something like `ModidPacketHandler`. Create your `SimpleNetworkWrapper` as a static field in this class, like so:
 
@@ -10,9 +12,11 @@ First you need to create your `SimpleNetworkWrapper` object. We recommend that y
 
 Where `"mymodid"` is a short identifier for your packet channel, typically just your mod ID, unless that is unusually long.
 
-## Making Packets
+Making Packets
+--------------
 
 ### IMessage
+
 A packet is defined by using the `IMessage` interface. This interface defines 2 methods, `toBytes` and `fromBytes`. These methods, respectively, write and read the data in your packet to and from a `ByteBuf` object, which is an object used to hold a stream (array) of bytes which are sent through the network.
 
 For an example, let's define a small packet that is designed to send a single int over the network:
@@ -61,7 +65,9 @@ public class PacketHandler implements IMessageHandler<Packet, IMessage> {
 ```
 It is recommended (but not required) that for organization's sake, this class is an inner class to your Packet class. If this is done, note that the class must also be declared `static`.
 
-### Registering Packets
+Registering Packets
+-------------------
+
 So now we have a packet, and a handler for this packet. But the `SimpleNetworkWrapper` needs one more thing to function! For it to use a packet, the packet must be registered with an *discriminator*, which is just an integer used to map packet types between server and client. To do this, call `INSTANCE.registerMessage(PacketHandler.class, Packet.class, 0, Side.Server);` where `INSTANCE` is the `SimpleNetworkWrapper` we defined earlier.
 
 This is quite a complex method, so lets break it down a bit.
@@ -72,7 +78,8 @@ This is quite a complex method, so lets break it down a bit.
 - The fourth and final parameter is the side that your packet will be ***recieved*** on. If you are planning to send the packet to both sides, it must be registered twice with a ***different*** discriminator.
 
 
-## Using Packets
+Using Packets
+-------------
 
 When sending packets, make sure that there is a handler registered *on the receiving side* for said packet. If there is not, the packet will be sent across the network and then thrown away, resulting in a "leaked" packet. This is harmless other than needless network usage, but should still be fixed.
 
@@ -81,6 +88,7 @@ When sending packets, make sure that there is a handler registered *on the recei
 There is but one way to send a packet to the server. This is because there is only ever *one* server, and only *one* way to send to that server, of course. To do so, we must again use that `SimpleNetworkWrapper` that was defined earlier. Simply call `INSTANCE.sendToServer(new Packet(toSend))`. The message will be sent to the `Side.SERVER` `IMessageHandler` for its type, if one exists.
 
 ### Sending to Clients
+
 
 There are four different methods of sending packets to clients.
 

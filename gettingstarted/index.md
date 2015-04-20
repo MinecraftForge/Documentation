@@ -1,7 +1,10 @@
-# Getting started with Forge
+Getting Started with Forge
+==========================
+
 This is a simple guide to get you from nothing to a basic mod. The rest of this documentation is about where to go from here.
 
-## From Zero to modding
+From Zero to modding
+--------------------
 1. Obtain a source distribution from forge's [files][] site. (Look for the Src file type).
 [files]: http://files.minecraftforge.net "Forge Files distribution site"
 2. Extract the downloaded source distribution to an empty directory. You should see a bunch of files, and an example mod is placed in `src/main/java` for you to look at.
@@ -15,7 +18,8 @@ This is a simple guide to get you from nothing to a basic mod. The rest of this 
     * For IntelliJ, do `File | Open` and open the .ipr file in the directory you extracted to.
 6. Edit the sample code, or import your existing mod code, or create your new mod.
 
-## Customizing your mod information
+Customizing your mod information
+--------------------------------
 Edit the `build.gradle` file to customize how your mod is built (the file names, versions, and other things).
 
 **DO NOT edit the `buildscript {}` section of the build.gradle file - this is special.**
@@ -28,10 +32,11 @@ There is a whole site dedicated to customizing the forge `build.gradle` files - 
 These customizations are highly recommended for all projects.
 
 * To change the name of the file you build - edit the value of `archivesBaseName` to suit.
-* To change your "maven coordinates" - edit the value of `group` as well. 
+* To change your "maven coordinates" - edit the value of `group` as well.
 * To change the version number - edit the value of `version`.
 
-## Building and testing your mod
+Building and testing your mod
+-----------------------------
 1. To build your mod, run `gradlew build`. This will output a file in `build/libs` with the name `<archivesBaseName>-<version>.jar`. This file can be placed in the `mods` folder of a forge enabled minecraft setup, and distributed.
 2. To test run with your mod, run `gradlew runClient`. This will launch minecraft from the `<runDir>` location, including your mod code. There are various customizations to this command. Consult the [ForgeGradle cookbook][] for more information.
 3. You can also run a dedicated server with `gradlew runServer`. This will launch the minecraft server with it's GUI. *It is always adviseable to test your mod in a dedicated server environment if it is intended to run there*.
