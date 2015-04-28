@@ -19,7 +19,7 @@ Your Event Use
 
 The basics for subscribing to an event are as follows:
 
-```
+```java
 public class WhateverYouChoseForClassName
 {
 	@SubscribeEvent(priority = EventPriority.LOWEST)
@@ -38,7 +38,7 @@ Example
 
 If the event you are subscribed to is the BreakSpeed event in the PlayerEvent class your subscription could look like this:
 
-```
+```java
 public class BreakSpeedHandler
 {
 	@SubscribeEvent(priority = EventPriority.LOWEST)
