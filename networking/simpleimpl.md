@@ -22,12 +22,12 @@ A packet is defined by using the `IMessage` interface. This interface defines 2 
 For an example, let's define a small packet that is designed to send a single int over the network:
 
 ```
-public class Packet implements IMessage {
+public class MyMessage implements IMessage {
   // A default constructor is always required
-  public Packet(){}
+  public MyMessage(){}
 
   private int toSend;
-  public Packet(int toSend) {
+  public MyMessage(int toSend) {
     this.toSend = toSend;
   }
 
@@ -49,10 +49,10 @@ Now, how can we use this packet? Well, first we must have a class that can *hand
 
 ```
 // The params of the IMessageHandler are <REQ, REPLY>, meaning that the first is the packet you are receiving, and the second is the packet you are returning. The returned packet can be used as a "response" from a sent packet.
-public class PacketHandler implements IMessageHandler<Packet, IMessage> {
+public class MyMessageHandler implements IMessageHandler<MyMessage, IMessage> {
   // Do note that the default constructor is required, but implicitly defined in this case
 
-  @Override public IMessage onMessage(Packet message, MessageContext ctx) {
+  @Override public IMessage onMessage(MyMessage message, MessageContext ctx) {
     // This is the player the packet was sent to the server from
     EntityPlayerMP serverPlayer = ctx.getServerHandler().playerEntity;
     // The value that was sent
@@ -63,12 +63,12 @@ public class PacketHandler implements IMessageHandler<Packet, IMessage> {
   }
 }
 ```
-It is recommended (but not required) that for organization's sake, this class is an inner class to your Packet class. If this is done, note that the class must also be declared `static`.
+It is recommended (but not required) that for organization's sake, this class is an inner class to your MyMessage class. If this is done, note that the class must also be declared `static`.
 
 Registering Packets
 -------------------
 
-So now we have a packet, and a handler for this packet. But the `SimpleNetworkWrapper` needs one more thing to function! For it to use a packet, the packet must be registered with an *discriminator*, which is just an integer used to map packet types between server and client. To do this, call `INSTANCE.registerMessage(PacketHandler.class, Packet.class, 0, Side.Server);` where `INSTANCE` is the `SimpleNetworkWrapper` we defined earlier.
+So now we have a packet, and a handler for this packet. But the `SimpleNetworkWrapper` needs one more thing to function! For it to use a packet, the packet must be registered with an *discriminator*, which is just an integer used to map packet types between server and client. To do this, call `INSTANCE.registerMessage(MyMessageHandler.class, MyMessage.class, 0, Side.Server);` where `INSTANCE` is the `SimpleNetworkWrapper` we defined earlier.
 
 This is quite a complex method, so lets break it down a bit.
 
@@ -85,7 +85,7 @@ When sending packets, make sure that there is a handler registered *on the recei
 
 ### Sending to the Server
 
-There is but one way to send a packet to the server. This is because there is only ever *one* server, and only *one* way to send to that server, of course. To do so, we must again use that `SimpleNetworkWrapper` that was defined earlier. Simply call `INSTANCE.sendToServer(new Packet(toSend))`. The message will be sent to the `Side.SERVER` `IMessageHandler` for its type, if one exists.
+There is but one way to send a packet to the server. This is because there is only ever *one* server, and only *one* way to send to that server, of course. To do so, we must again use that `SimpleNetworkWrapper` that was defined earlier. Simply call `INSTANCE.sendToServer(new MyMessage(toSend))`. The message will be sent to the `Side.SERVER` `IMessageHandler` for its type, if one exists.
 
 ### Sending to Clients
 
