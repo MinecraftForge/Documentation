@@ -46,11 +46,18 @@ class BlockCustomGrass extends Block {
 ```
 
 This isn't sufficient to get the nice `snowy=true` and `snowy=false` to work in the JSON however, we're going to have to write a bit of code to tell the game what properties our block has.
+Additionally, we need to tell the game how to convert our properties in to the 4-bit metadata value.
+Since we can compute whether or not the block is snowy at runtime, we're just going to tell the game that the metadata is always 0.
 
 ```java
     @Override
     protected BlockState createBlockState() {
         return new BlockState(this, new IProperty[] { SNOWY });
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return 0;
     }
 ```
 
