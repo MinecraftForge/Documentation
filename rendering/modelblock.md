@@ -110,7 +110,9 @@ class BlockCustomGrass extends Block {
 ```
 
 Now of course, we can't rely on the vanilla machinery figuring out right way to map our properties to JSON strings so we'll have to give it a hand.
-In order to describe our mapping, we'll need a client proxy
+In order to describe our mapping, we'll need a client proxy.
+Using the client proxy, we'll create a custom `StateMap`, using `StateMap.Builder` that ignores our `POWERED` state.
+
 ```java
 import net.minecraftforge.client.model.ModelLoader;
 public class ClientProxy extends CommonProxy {
