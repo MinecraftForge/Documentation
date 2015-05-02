@@ -40,6 +40,7 @@ class BlockCustomGrass extends Block {
     public static final PropertyBool SNOWY = PropertyBool.create("snowy");
 
     public BlockCustomGrass() {
+        super(Material.grass);
         this.setDefaultState(this.blockState.getBaseState().withProperty(SNOWY, Boolean.valueOf(false)));
     }
 }
@@ -90,6 +91,7 @@ class BlockCustomGrass extends Block {
     public static final PropertyBool POWERED = PropertyBool.create("powered");
 
     public BlockCustomGrass() {
+        super(Material.grass);
         this.setDefaultState(
             this.blockState.getBaseState().withProperty(SNOWY, boolean.valueOf(false))
                                           .withProperty(POWERED, boolean.valueOf(False))
