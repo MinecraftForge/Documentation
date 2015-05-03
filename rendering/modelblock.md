@@ -31,31 +31,47 @@ The Default `StateMapper`
 It allows the MC runtime to choose the correct variant of a block based on the current `BlockState` for that block, removing a lot of the special-case code that existed in previous versions of the game.
 Most of the time, you won't actually have to write your own `StateMapper`: if you use the built-in property system, (from `net.minecraft.block.properties`) you can just assume the game will figure everything out.
 Of course, you do need to provide some information.
-So, to start our custom grass block implementation, we'll have to set up our Block class:
+So, to start our custom grass block implementation, we're going to need a property that we want to keep track of. Snowyness is a good example, as it's pretty self contained:
+
+``java
+// somewhere, probably in your block class
+public static final PropertyBool SNOWY = PropertyBool.create("snowy");
+``
+
+We'll need to initialize the default state of our property by calling `setDefaultState` on our block.
+`setDefaultState` takes an `IBlockState` which we can create from our property by requesting a default state from the block. Usually this is all done in the block constructor, so something like
+
+``java
+this.blockState.getBaseState()
+``
+
+will give us a clean state object. To add our `SNOWY` property to it, all we'll need to do is invoke `withProperty` which expects an `IProperty` and a value of the type the property tracks. In this case,
+
+``java
+withProperty(SNOWY, false);
+``
+should do just fine.`
+Putting things in context, it'll look something like this:
 
 ```java
-// snip imports and package declaration
-class BlockCustomGrass extends Block {
-    // snip a whole bunch of important stuff for brevity's sake, I'll assume you already have a basic block working.
-    public static final PropertyBool SNOWY = PropertyBool.create("snowy");
-
-    public BlockCustomGrass() {
-        super(Material.grass);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(SNOWY, Boolean.valueOf(false)));
-    }
-}
+this.setDefaultState(this.blockState.getBaseState().withProperty(SNOWY, false));
 ```
 
 This isn't sufficient to get the nice `snowy=true` and `snowy=false` to work in the JSON however, we're going to have to write a bit of code to tell the game what properties our block has.
-Additionally, we need to tell the game how to convert our properties in to the 4-bit metadata value.
-Since we can compute whether or not the block is snowy at runtime, we're just going to tell the game that the metadata is always 0.
+To do this, we need to override the `createBlockState` method.
+`createBlockState` returns a `BlockState`, essentially a container for the list of properties our block will have.
+Fortunately the `BlockState` constructor is varardic, so we can just list out the properties.
 
 ```java
     @Override
     protected BlockState createBlockState() {
-        return new BlockState(this, new IProperty[] { SNOWY });
+        return new BlockState(this, SNOWY);
     }
+```
 
+Additionally, we need to tell the game how to convert our properties in to the 4-bit metadata value.
+Since we can compute whether or not the block is snowy at runtime, we're just going to tell the game that the metadata is always 0.
+```java
     @Override
     public int getMetaFromState(IBlockState state) {
         return 0;
@@ -63,13 +79,15 @@ Since we can compute whether or not the block is snowy at runtime, we're just go
 ```
 
 We also need to be able to return the right state depending on the state of the world when rendering takes place.
+In order to do this, we'll override the `getActualState` to check if the block above us is snow, and report that in the `BlockState`.
+Similar to how we set the `SNOWY` property in the default `BlockState`, we'll just use `withProperty` to set `SNOWY` to true.
 In this case, we want to know when the block above us is snow.
 
 ```java
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
         Block b = world.getBlockState(pos.up()).getBlock();
-        return state.withProperty(SNOWY, Boolean.valueOf(b == Blocks.snow || b == Blocks.snow_layer));
+        return state.withProperty(SNOWY, b == Blocks.snow || b == Blocks.snow_layer);
     }
 ```
 
@@ -83,46 +101,71 @@ General StateMaps
 The most common use for the `StateMap` class is when you have a block with some `Property` that you need for other reasons but want to ignore when rendering, as it doesn't affect the visuals of the block.
 Redstone powered state is a common candidate for this sort of thing.
 For example, lets say our `BlockCustomGrass` needed to know if it was powered.
+We'll add a powered property:
 
 ```java
-class BlockCustomGrass extends Block {
-    // snip a whole bunch of important stuff for brevity's sake, I'll assume you already have a basic block working.
-    public static final PropertyBool SNOWY = PropertyBool.create("snowy");
-    public static final PropertyBool POWERED = PropertyBool.create("powered");
-
-    public BlockCustomGrass() {
-        super(Material.grass);
-        this.setDefaultState(
-            this.blockState.getBaseState().withProperty(SNOWY, boolean.valueOf(false))
-                                          .withProperty(POWERED, boolean.valueOf(False))
-        );
-    }
-
-    @Override
-    protected BLockState createBlockState() {
-        return new BlockState(this, new IProperty[] { SNOWY, POWERED });
-    }
-    // Snip rest of the implementation, left as an excercise for the reader
-    // You'll need to implement getActualState at least to get everything
-    // working. If you're curious about how vanilla handles this sort of
-    // thing, check out BlockDoor upon which much of this section is based.
-}
+public static final PropertyBool POWERED = PropertyBool.create("powered");
 ```
 
-Now of course, we can't rely on the vanilla machinery figuring out right way to map our properties to JSON strings so we'll have to give it a hand.
-In order to describe our mapping, we'll need a client proxy.
-Using the client proxy, we'll create a custom `StateMap`, using `StateMap.Builder` that ignores our `POWERED` state.
+remember to add this to your default block state.
+Fortunately `withProperty` returns the new `BlockState` so we can chain calls to it, similar to how `setHardness` and friends work when configuring your block.
 
 ```java
-import net.minecraftforge.client.model.ModelLoader;
-public class ClientProxy extends CommonProxy {
-    @Override
-    public void preInit () {
-        ModelLoader.setCustomStateMappeR(BlockCustomGrass.class,
-            (new StateMap.Builder()).addPropertiesToIgnore(new IProperty[] {BlockCustomGrass.POWERED}).build())
-        );
-    }
-}
+this.setDefaultState(
+    this.blockState.getBaseState().withProperty(SNOWY, boolean.valueOf(false))
+                                  .withProperty(POWERED, boolean.valueOf(false))
+);
+```
+
+We'll also need to modify the implementatino of `createBlockState`, as the state we need to create is now a bit more complex.
+This is where the varardic nature of the BlockState constructor comes in handy: all we need to do is add `POWERED` to the list of Properties.
+
+```java
+return new BlockState(this, new IProperty[] { SNOWY, POWERED });
+```
+
+Similarly, in your mod you'll need to modify `getActualState` to properly get the powered state of your block, but that will be left as an excercise for the reader.
+Consider it practice!
+
+Now of course, we can't rely on the vanilla machinery figuring out right way to map our properties to JSON strings so we'll have to give it a hand.
+In our client proxy, we'll create a custom `StateMap`, using `StateMap.Builder` that ignores our `POWERED` state and tell the game to use that `StateMapper` when looking up the model for our block.
+Fortunately for us, this is a common case in vanilla as well so there is a handy set of utilities availible to us in the form of `StateMap` and `StateMap.Builder`.
+`StateMap.Builder`s are used to build new `StateMap`s (well, you could manually construct one but really, why would you?).
+Creating one is dead simple: the constructor takes no arguments, so all we need to do is
+
+```java
+StateMap.Builder smb = new StateMap.Builder();
+```
+
+In our case, we want to ignore our `POWERED` state, so we'll call `addPropertiesToIgnore`.
+`addPropertiesToIgnore` takes a list of properties to, well, ignore!
+You can call this as many times as you like, or just list out all the properties at once: `addPropertiesToIgnore` is varardic, so it'll take as many properties as you can throw at it.
+Here of course we only have one: the `POWERED` state.
+
+```java
+smb.addPropertiesToIgnore(BlockCustomGrass.POWERED);
+```
+
+Note that we're refering to a `BlockCustomGrass` here: that's just some namespacing to enphasize the fact that this takes place in your client proxy, not the block class.
+Once we've described what properties we want to track, all we need to do is build the `StateMap`, using `build`.
+
+```java
+StateMap sm = smb.build();
+```
+
+Once we've got a `StateMap`, it's a simple matter to register it with the `ModelLoader`.
+`ModelLoader` has a lot of interesting functionality, but all we're interested in right now is the cabability to register custom state mappers with `setCustomStateMapper`.
+`setCustomStateMapper` takes two arguments: the class type of the block the mapper is for, and the mapper itself.
+Continuing our example, we'll register the `StateMapper` for our `BlockCustomGrass`:
+
+```java
+ModelLoader.setCustomStateMapper(BlockCustomGrass.class, sm);
+```
+
+Putting it all together, we can do all of this in one concise line of code:
+
+```java
+ModelLoader.setCustomStateMapper(BlockCustomGrass.class, (new StateMap.Builder()).addPropertiesToIgnore(BlockCustomGrass.POWERED).build());
 ```
 
 Of course, sometimes you need *even more* power, for which we can go one more level up the inheritance tree...
