@@ -33,23 +33,23 @@ Most of the time, you won't actually have to write your own `StateMapper`: if yo
 Of course, you do need to provide some information.
 So, to start our custom grass block implementation, we're going to need a property that we want to keep track of. Snowyness is a good example, as it's pretty self contained:
 
-``java
+```java
 // somewhere, probably in your block class
 public static final PropertyBool SNOWY = PropertyBool.create("snowy");
-``
+```
 
 We'll need to initialize the default state of our property by calling `setDefaultState` on our block.
 `setDefaultState` takes an `IBlockState` which we can create from our property by requesting a default state from the block. Usually this is all done in the block constructor, so something like
 
-``java
+```java
 this.blockState.getBaseState()
-``
+```
 
 will give us a clean state object. To add our `SNOWY` property to it, all we'll need to do is invoke `withProperty` which expects an `IProperty` and a value of the type the property tracks. In this case,
 
-``java
+```java
 withProperty(SNOWY, false);
-``
+```
 should do just fine.`
 Putting things in context, it'll look something like this:
 
@@ -107,13 +107,13 @@ We'll add a powered property:
 public static final PropertyBool POWERED = PropertyBool.create("powered");
 ```
 
-remember to add this to your default block state.
+We'll need to add this property to our default block state.
 Fortunately `withProperty` returns the new `BlockState` so we can chain calls to it, similar to how `setHardness` and friends work when configuring your block.
 
 ```java
 this.setDefaultState(
-    this.blockState.getBaseState().withProperty(SNOWY, boolean.valueOf(false))
-                                  .withProperty(POWERED, boolean.valueOf(false))
+    this.blockState.getBaseState().withProperty(SNOWY, false)
+                                  .withProperty(POWERED, false)
 );
 ```
 
@@ -127,8 +127,8 @@ return new BlockState(this, new IProperty[] { SNOWY, POWERED });
 Similarly, in your mod you'll need to modify `getActualState` to properly get the powered state of your block, but that will be left as an excercise for the reader.
 Consider it practice!
 
-Now of course, we can't rely on the vanilla machinery figuring out right way to map our properties to JSON strings so we'll have to give it a hand.
-In our client proxy, we'll create a custom `StateMap`, using `StateMap.Builder` that ignores our `POWERED` state and tell the game to use that `StateMapper` when looking up the model for our block.
+We can no longer rely on the vanilla machinery figuring out right way to map our properties to JSON strings, so we'll have to give it a hand.
+In our client proxy, we'll create a custom `StateMap`, using `StateMap.Builder` that ignores our `POWERED` state and tells the game to use that `StateMapper` when looking up the model for our block.
 Fortunately for us, this is a common case in vanilla as well so there is a handy set of utilities availible to us in the form of `StateMap` and `StateMap.Builder`.
 `StateMap.Builder`s are used to build new `StateMap`s (well, you could manually construct one but really, why would you?).
 Creating one is dead simple: the constructor takes no arguments, so all we need to do is
@@ -140,7 +140,7 @@ StateMap.Builder smb = new StateMap.Builder();
 In our case, we want to ignore our `POWERED` state, so we'll call `addPropertiesToIgnore`.
 `addPropertiesToIgnore` takes a list of properties to, well, ignore!
 You can call this as many times as you like, or just list out all the properties at once: `addPropertiesToIgnore` is varardic, so it'll take as many properties as you can throw at it.
-Here of course we only have one: the `POWERED` state.
+Here we only have one: the `POWERED` state.
 
 ```java
 smb.addPropertiesToIgnore(BlockCustomGrass.POWERED);
@@ -165,7 +165,10 @@ ModelLoader.setCustomStateMapper(BlockCustomGrass.class, sm);
 Putting it all together, we can do all of this in one concise line of code:
 
 ```java
-ModelLoader.setCustomStateMapper(BlockCustomGrass.class, (new StateMap.Builder()).addPropertiesToIgnore(BlockCustomGrass.POWERED).build());
+ModelLoader.setCustomStateMapper(
+    BlockCustomGrass.class,
+    (new StateMap.Builder()).
+        addPropertiesToIgnore(BlockCustomGrass.POWERED).build());
 ```
 
 Of course, sometimes you need *even more* power, for which we can go one more level up the inheritance tree...
