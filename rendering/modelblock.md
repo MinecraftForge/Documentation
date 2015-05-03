@@ -126,3 +126,32 @@ public class ClientProxy extends CommonProxy {
 ```
 
 Of course, sometimes you need *even more* power, for which we can go one more level up the inheritance tree...
+
+The `IStateMapper` Interface
+----------------------------
+
+This is the great granddaddy of the `StateMap` class we've been looking at so far.
+In a lot of ways this is the least interesting utility wise, as most of the time `StateMap` is sufficient to handle anything you can throw at it.
+However, for those times when you need the absolute maximum amount of control over how `IBlockStates` are transformed in to `ModelResourceLocation`s, `IStateMapper` is how you go about it.
+So without further ado, `IStateMapper`!
+
+```java
+@SideOnly(Side.CLIENT)
+public interface IStateMapper {
+    Map putStateModelLocations(Block b);
+}
+```
+
+Perhaps some type signatures can clear things up
+
+```java
+@SideOnly(Side.CLIENT)
+public interface IStateMapper {
+    Map<IBlockState, ModelResourceLocation> putStateModelLocations(Block b);
+}
+```
+
+Essentially, this sums up everything we've been trying to accomplish so far.
+In a way, this interface is responsible for both steps 2 and 3 mentioned above: for every `IStateMapper` that MC knows about at resource pack load time, the game will ask that it enumerate every possible state for a block and map those states to `ModelResourceLocation`s.
+Those mappings are then used at draw time to figure out what block should get rendered.
+If you want to use this interface, it's possible that your usecase could be better served by extending `StateMapperBase` which provides a few utilities, chief among them `getPropertyString` which allows you to turn a `Map<IProperty, Comparable>` to a pretty property string of the form `prop1=val1,prop2=val2`.
