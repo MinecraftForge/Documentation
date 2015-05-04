@@ -50,7 +50,7 @@ will give us a clean state object. To add our `SNOWY` property to it, all we'll 
 ```java
 withProperty(SNOWY, false);
 ```
-should do just fine.`
+should do just fine.
 Putting things in context, it'll look something like this:
 
 ```java
@@ -117,7 +117,7 @@ this.setDefaultState(
 );
 ```
 
-We'll also need to modify the implementatino of `createBlockState`, as the state we need to create is now a bit more complex.
+We'll also need to modify the implementation of `createBlockState`, as the state we need to create is now a bit more complex.
 This is where the varardic nature of the BlockState constructor comes in handy: all we need to do is add `POWERED` to the list of Properties.
 
 ```java
@@ -170,6 +170,34 @@ ModelLoader.setCustomStateMapper(
     (new StateMap.Builder()).
         addPropertiesToIgnore(BlockCustomGrass.POWERED).build());
 ```
+
+The `StateMap.Builder` has two more methods which we will touch on breifely here.
+First up is `setProperty`.
+`setProperty` is useful when you want to break up your blockstate JSON files a little bit.
+Vanilla Minecraft leverages this capability for things like slabs and stairs that are internally represented by one `Block` class, but effectively have multiple conceptual materials.
+The effect of `setProperty` is essentially to "lift" the selection of the variant from the in-file "variants" block to choosing different blockstate JSON resource locations for different values of the property.
+As an example, we can take a look at the vanilla `stone` block.
+`stone` has a `StateMap` constructed as follows:
+
+```java
+(new StateMap.Builder()).setProperty(BlockStone.VARIANT).build()
+```
+
+The `BlockStone.VARIANT` property is a `PropertyEnum` which serializes to one of `stone`, `granite`, `smooth_granite`, `diorite`, `smooth_diorite`, `andesite`, or `smooth_andesite`
+This is why if you open up the `blockstates/stone.json` file you won't find specifications for granite, diorite, or andesite.
+The `StateMapper` in play here has actually mapped those different stone types to different resource locations: in this case `granite.json`, `smooth_granite.json`, etc..
+
+When used in conjunction with the `setBuilderSuffix` method (or even on its own), `setProperty` can provide a nice way of organizing your blockstates.
+As an example, we'll look at the vanilla `stone_slab2` block (we're looking at `stone_slab2` over `stone_slab` because it's slightly simpler).
+This is the builder that vanilla maps to `stone_slab2`:
+
+```java
+(new StateMap.Builder()).setProperty(BlockStoneSlabNew.VARIANT).setBuilderSuffix("_slab")
+```
+
+`BlockStoneSlabNew.VARIANT` will only ever serialize to `red_sandstone` (at least in 1.8), so we would naturally expect this `StateMapper` to always return `minecraft:blockstates/red_sandstone.json` for the blockstate.
+However, this would create a name conflict with the actual `red_sandstone` block.
+This is why we need the `setBuilderSuffix("_slab")` call: it causes the `StateMap` to always append `"_slab"` to the end of the resource location, effectively resolving our potential name conflict with the full `red_sandstone` block.
 
 Of course, sometimes you need *even more* power, for which we can go one more level up the inheritance tree...
 
