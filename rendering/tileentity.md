@@ -27,7 +27,7 @@ ClientRegistry.bindTileEntitySpecialRenderer(MyTileEntity.class, new MyTileEntit
 ```
 
 Once registered thusly, the game will use `MyTileEntitySpecialRenderer` to render any tile entity of the class type `MyTileEntity`.
-If your tile entity has special requirements (i.e. not a unit cube or needs to render in the translucent pass), you may want to take a look at the [`TileEntity` Plumbing](#te-plumbing) section.
+If your tile entity has special requirements (i.e. `getBlock` returns null, or the tile entity needs to render in the translucent pass), you may want to take a look at the [`TileEntity` Plumbing](#tileentity-plumbing) section.
 
 Implementing TESRs
 ------------------
@@ -43,12 +43,11 @@ Here, `dx`, `dy`, and `dz` refer to the delta in position between your `TileEnti
 The `partialTicks` input is usually used for animations that aren't really tied to the state of the object: the enchantment table uses it to create the bobbing book effect for example.
 The final argument, `breakState`, is an integer in the range \[1, 10\] which correspond to the 10 break states a block progresses through when being broken.
 Most of the time `TileEntity`s don't concern themselves with handling this properly: in vanilla, only chests, enderchests, signs and skulls declare support for rendering the breaking animation.
-If you want to support breaking animations, see the section on [supporting breaking animations](#breaking-animation-support) below.
+If you want to support breaking animations, see the section on [supporting breaking animations](#supporting-breaking-animations) below.
 
 `TileEntity` Plumbing
 ---------------------
-#te-plumbing
-If you are planning on writing a TESR that either draws translucent geometry or a model outside of the standard cube allocated to your block, you'll have to make one of two tweaks to your `TileEntity` class.
+If you are planning on writing a TESR that either draws translucent geometry or returns null from `getBlock` you'll have to make one of two tweaks to your `TileEntity` class.
 
 In order to get drawn in the translucent pass, you'll have to override the default implementation of `shouldRenderInPass`.
 `shouldRenderInPass` takes only one argument: the render pass which is about to be generated.
@@ -71,7 +70,6 @@ While the performance cost of rendering one or two of your blocks may be insigni
 
 Supporting Breaking Animations
 ------------------------------
-#breaking-animation-support
 
 TODO//tl;dr: 1-10 is the animation progress, 0 and -1 are used in different parts of the codebase when rendering unbroken stuff
 
