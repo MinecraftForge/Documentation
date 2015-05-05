@@ -175,7 +175,7 @@ The `StateMap.Builder` has two more methods which we will touch on breifely here
 First up is `setProperty`.
 `setProperty` is useful when you want to break up your blockstate JSON files a little bit.
 Vanilla Minecraft leverages this capability for things like slabs and stairs that are internally represented by one `Block` class, but effectively have multiple conceptual materials.
-The effect of `setProperty` is essentially to "lift" the selection of the variant from the in-file "variants" block to choosing different blockstate JSON resource locations for different values of the property.
+The effect of `setProperty` is essentially to "lift" the selection of the variant from the in-file "variants" section to choosing different blockstate JSON resource locations for different values of the property.
 As an example, we can take a look at the vanilla `stone` block.
 `stone` has a `StateMap` constructed as follows:
 
@@ -183,12 +183,12 @@ As an example, we can take a look at the vanilla `stone` block.
 (new StateMap.Builder()).setProperty(BlockStone.VARIANT).build()
 ```
 
-The `BlockStone.VARIANT` property is a `PropertyEnum` which serializes to one of `stone`, `granite`, `smooth_granite`, `diorite`, `smooth_diorite`, `andesite`, or `smooth_andesite`
+The `BlockStone.VARIANT` property is a `PropertyEnum` which serializes to one of `stone`, `granite`, `smooth_granite`, `diorite`, `smooth_diorite`, `andesite`, or `smooth_andesite`.
 This is why if you open up the `blockstates/stone.json` file you won't find specifications for granite, diorite, or andesite.
-The `StateMapper` in play here has actually mapped those different stone types to different resource locations: in this case `granite.json`, `smooth_granite.json`, etc..
+The `StateMapper` in play here has actually mapped those different stone types to different resource locations: in this case `minecraft:blockstates/granite.json`, `minecraft:blockstates/smooth_granite`, etc...
 
-When used in conjunction with the `setBuilderSuffix` method (or even on its own), `setProperty` can provide a nice way of organizing your blockstates.
-As an example, we'll look at the vanilla `stone_slab2` block (we're looking at `stone_slab2` over `stone_slab` because it's slightly simpler).
+The final method of `StateMap.Builder` we have yet to look at is `setBuilderSuffix`.
+For a specific example, we'll look at the vanilla `stone_slab2` statemapper (we're looking at `stone_slab2` over `stone_slab` because it's slightly simpler).
 This is the builder that vanilla maps to `stone_slab2`:
 
 ```java
