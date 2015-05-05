@@ -65,8 +65,14 @@ this.getBlock().getCollisionBoundingBox(this.world, this.getPos()
 ```
 which may be acceptable in your situation.
 Should `this.getBlock()` return null, the default implementation will return a bounding box of infinite extent.
-While leaving such behavior in place and always rendering your block will technically allow your block to work, it is preferable that you always return a tight bounding box around your rendered object in keeping with being a good citizen of the modding community.
-While the performance cost of rendering one or two of your blocks may be insignificant, there is little reason for you to unnecessarily cause additional load (read: lag) on your user's computers.
+While leaving such behavior in place and always rendering your block will technically allow your block to work, it is preferable that you always return a tight-ish bounding box around your rendered object in keeping with being a good citizen of the modding community.
+The performance cost of rendering one or two of your blocks may be insignificant, but there is little reason for you to unnecessarily cause additional load (read: lag) on your user's computers.
+Your bounding box doesn't need to be perfect of course: vanilla uses a (-1, 0, -1) to (2, 1, 2) bounding box around chests for example.
+You do however need to ensure the box is properly positioned in world space.
+For example, the chest bounding box could be created as follows:
+```java
+new AxisAlignedBB(getPos().add(-1, 0, -1), getPos().add(2, 2, 2));
+```
 
 Supporting Breaking Animations
 ------------------------------
