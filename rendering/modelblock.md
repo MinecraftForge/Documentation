@@ -121,7 +121,7 @@ We'll also need to modify the implementation of `createBlockState`, as the state
 This is where the varardic nature of the BlockState constructor comes in handy: all we need to do is add `POWERED` to the list of Properties.
 
 ```java
-return new BlockState(this, new IProperty[] { SNOWY, POWERED });
+return new BlockState(this, SNOWY, POWERED);
 ```
 
 Similarly, in your mod you'll need to modify `getActualState` to properly get the powered state of your block, but that will be left as an excercise for the reader.
@@ -162,13 +162,13 @@ Continuing our example, we'll register the `StateMapper` for our `BlockCustomGra
 ModelLoader.setCustomStateMapper(BlockCustomGrass.class, sm);
 ```
 
-Putting it all together, we can do all of this in one concise line of code:
+Putting it all together, it would probably look something like this:
 
 ```java
 ModelLoader.setCustomStateMapper(
     BlockCustomGrass.class,
-    (new StateMap.Builder()).
-        addPropertiesToIgnore(BlockCustomGrass.POWERED).build());
+    (new StateMap.Builder())
+        .addPropertiesToIgnore(BlockCustomGrass.POWERED).build());
 ```
 
 The `StateMap.Builder` has two more methods which we will touch on breifely here.
