@@ -2,7 +2,7 @@ UsingEvents
 ===========
 
 The use of an event is all based around when the event is actually fired.
-An event's documentation will tell you when the event is fired (the nature and locations), wether the event can be canceled, if it has a result and what can be modified. Use this information to determine wether or not a specific event will allow you to do what you need.
+An event's documentation will tell you when the event is fired (the nature and locations), whether the event can be canceled, if it has a result and what can be modified. Use this information to determine whether or not a specific event will allow you to do what you need.
 
 Registering
 -----------
