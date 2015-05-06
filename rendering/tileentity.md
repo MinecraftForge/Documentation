@@ -42,28 +42,33 @@ Here,  is `ent` is the tile entity instance we'll be rendering.
 `dx`, `dy`, and `dz` refer to the delta in position between your `TileEntity` and the player's position.
 `partialTicks` will be in the range \[0, 1\) and represents how much of a game tick has occurred since the last render frame.
 The `partialTicks` input is usually used for animations that aren't really tied to the state of the object: the enchantment table uses it to create the bobbing book effect for example.
-The final argument, `breakState`, is an integer in the range \[1, 10\] which correspond to the 10 break states a block progresses through when being broken.
+The final argument, `breakState`, is an integer which correspond to the either the break state of the block.
 Most of the time `TileEntity`s don't concern themselves with handling this properly: in vanilla, only chests, enderchests, signs and skulls declare support for rendering the breaking animation.
 If you want to support breaking animations, see the section on [supporting breaking animations](#supporting-breaking-animations) below.
 
 Like most dynamic elements in the game, most vanilla `TileEntitySpecialRenderer`s use the [model](model.md) system to draw their components.
 This means you can use a tool like iChunn's [Tabula](http://ichun.us/mods/tabula-minecraft-modeler/) to create a model and drop it right in.
-Here we won't be covering custom models (that's over on the [model](model.md)) page, but we will try to recreate the book bobbing effect used by the enchantment table.
+Here we won't be covering custom models (that's over on the [model](model.md) page), but we will try to recreate the book bobbing effect used by the enchantment table.
 We also won't be rendering the base or performing the page flipping animation.
-Rendering of the base is a static task best handled by the [block model](modelblock.md) system, and the page flipping animation can be created with a bit of creativity using the tools you learn here.
+Rendering of the base is a static task best handled by the [block model](modelblock.md) system, and the page flipping animation can be created with a bit of creativity using the tools you learn here combined with an understanding of the join system from the [model](model.md) page.
+
+To start off, we'll need to keep track of the current absolute accumulated time in order to make our animation smooth, so make sure to stash that somewhere on your tile entity.
+
+```java
+ent.renderElapsed += partialTicks;
+```
 
 In order to position our model we'll be using the `GlStateManager` to shift things around and rotate them.
-Because we don't want to draw the rest of the world askew (or try and get floating point matrix multiplications to line back up) we're going to start by pushing the matrix stack.
+Because we don't want to draw the rest of the world askew we're going to start by pushing the matrix stack.
 
 ```java
 GlStateManager.pushMatrix();
 ```
 
-We'll need to keep track of the current absolute accumulated time in order to make our animation smooth, so make sure to stash that somewhere on your tile entity.
-
-```java
-ent.renderElapsed += partialTicks;
-```
+If you don't know what the matrix stack is, you should check out [chapter three of the red book](http://www.glprogramming.com/red/chapter03.html) which talks about the matrix stack and how all the transformations we're going to use here work under the hood.
+The short version of the matrix stack talk is that it's a stack of world positions you can save to and restore from.
+It's highly recommend you read the first 2 sections of that page (overview and modelview transformations) and at least glance through the rest of that page, even if the math goes over your head.
+The mathematics and concepts described therein are the foundations upon which much of real time computer graphics is based, and getting a feel for the transformations will likely help you debug problems with your TESRs in the future.
 
 Since we're trying to create a bobbing effect here, we want to have the vertical component vary with time.
 I'm going to introduce an arbitrary floating point constant here, `BOB_RATE`, to represent the "wavelength" of bobs i.e. how many ticks will elapse before the book completes one full cycle
