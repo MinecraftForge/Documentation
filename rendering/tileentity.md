@@ -38,12 +38,64 @@ Its type signature is as follows:
 public abstract void renderTileEntityAt(TileEntity ent, double dx, double dz, double dy, float partialTicks, int breakState);
 ```
 
-Here, `dx`, `dy`, and `dz` refer to the delta in position between your `TileEntity` and the player's position.
+Here,  is `ent` is the tile entity instance we'll be rendering.
+`dx`, `dy`, and `dz` refer to the delta in position between your `TileEntity` and the player's position.
 `partialTicks` will be in the range \[0, 1\) and represents how much of a game tick has occurred since the last render frame.
 The `partialTicks` input is usually used for animations that aren't really tied to the state of the object: the enchantment table uses it to create the bobbing book effect for example.
 The final argument, `breakState`, is an integer in the range \[1, 10\] which correspond to the 10 break states a block progresses through when being broken.
 Most of the time `TileEntity`s don't concern themselves with handling this properly: in vanilla, only chests, enderchests, signs and skulls declare support for rendering the breaking animation.
 If you want to support breaking animations, see the section on [supporting breaking animations](#supporting-breaking-animations) below.
+
+Like most dynamic elements in the game, most vanilla `TileEntitySpecialRenderer`s use the [model](model.md) system to draw their components.
+This means you can use a tool like iChunn's [Tabula](http://ichun.us/mods/tabula-minecraft-modeler/) to create a model and drop it right in.
+Here we won't be covering custom models (that's over on the [model](model.md)) page, but we will try to recreate the book bobbing effect used by the enchantment table.
+We also won't be rendering the base or performing the page flipping animation.
+Rendering of the base is a static task best handled by the [block model](modelblock.md) system, and the page flipping animation can be created with a bit of creativity using the tools you learn here.
+
+In order to position our model we'll be using the `GlStateManager` to shift things around and rotate them.
+Because we don't want to draw the rest of the world askew (or try and get floating point matrix multiplications to line back up) we're going to start by pushing the matrix stack.
+
+```java
+GlStateManager.pushMatrix();
+```
+
+We'll need to keep track of the current absolute accumulated time in order to make our animation smooth, so make sure to stash that somewhere on your tile entity.
+
+```java
+ent.renderElapsed += partialTicks;
+```
+
+Since we're trying to create a bobbing effect here, we want to have the vertical component vary with time.
+I'm going to introduce an arbitrary floating point constant here, `BOB_RATE`, to represent the "wavelength" of bobs i.e. how many ticks will elapse before the book completes one full cycle
+Setting this constant to about 63 will approximate the vanilla bob rate.
+We could do something linear with `ent.renderElapsed % BOB_RATE`, but sharp changes in direction tend to be visually jarring and unappealing so we'll use `sin(ent.renderElapsed * 2 * Math.PI / BOB_RATE)` to create a much smoother effect.
+
+```java
+float y = 0.85f + (float)(MathHelper.sin(ent.renderElapsed * 2 * Math.PI * BOB_RATE) * 0.01f;
+```
+
+The offset/scaling constants make sure the book is in a "reasonable" place.
+In the context of TESRs, an offset of `1.f` is equal to offsetting by exactly one block, so here we're making sure the book's origin is near the top of the block.
+To actually render the book at the right height we'll use the `translate` function from `GlStateManager`.
+
+```java
+GlStateManager.translate(0.5f, y, 0.5f);
+```
+
+The `0.5f`s above are to center the book in the block.
+Once we've positioned the model, all that's left to do before we clean up is to render the book model and then clean up the matrix stack.
+Don't mind the parameters here: they just specify the rotation and parent entity of the book, which we aren't dealing with here.
+See [the model page](model.md) if you want to learn all about this call.
+
+```java
+this.bookModel.render(null, 0, 0, 0, 0, 0, 0);
+```
+
+Once we've drawn the model, we'll just clean up after ourselves by popping the matrix stack, and we're done!
+
+```java
+GlStateManager.pushMatrix();
+```
 
 `TileEntity` Plumbing
 ---------------------
