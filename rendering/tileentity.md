@@ -2,8 +2,8 @@ Tile Entities Renderers
 =======================
 
 One of the most powerful features of tile entities is the ability to associate them with `TileEntitySpecialRenderer`s (usually written TESRs when autocomplete is not available).
-TESRs have several advantages over using the [block model](modelblock.md) system.
-The most commonly leveraged capability of TESRs is the fact that they can be animated.
+TESRs specify their rendering commands every frame, unlike [block models](modelblock.md) which only update when the render chunk is marked dirty.
+This means that TESRs can be animated, beyond the texture animation facilities provided for block models.
 Additionally, tile entities can to generate their models at runtime, meaning they aren't constrained to some pre-defined of models as pure block models are.
 However, before you dive straight in to writing a new `TileEntitySpecialRenderer` for every tile entity in your mod, consider the number of graphical states the block will be in.
 If your tile entity is only ever going to be displayed in a small handful of states (say active, inactive, and unable to activate) it may be sufficient to leverage the [block model](modelblock.md) system.
