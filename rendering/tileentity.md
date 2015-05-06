@@ -1,10 +1,6 @@
 Tile Entities Renderers
 =======================
 
-So, you've got a shiny new tile entity!
-It's really great I'm sure: everybody will be super excited to err... wait.
-It's not rendering yet is it?
-
 One of the most powerful features of tile entities is the ability to associate them with `TileEntitySpecialRenderer`s (usually written TESRs when autocomplete is not available).
 TESRs have several advantages over using the [block model](modelblock.md) system.
 The most commonly leveraged capability of TESRs is the fact that they can be animated.
