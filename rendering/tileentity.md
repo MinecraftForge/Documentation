@@ -95,7 +95,7 @@ this.bookModel.render(null, 0, 0, 0, 0, 0, 0);
 Once we've drawn the model, we'll just clean up after ourselves by popping the matrix stack, and we're done!
 
 ```java
-GlStateManager.pushMatrix();
+GlStateManager.popMatrix();
 ```
 
 `TileEntity` Plumbing
