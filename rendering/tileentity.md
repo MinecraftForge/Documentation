@@ -23,7 +23,7 @@ ClientRegistry.bindTileEntitySpecialRenderer(MyTileEntity.class, new MyTileEntit
 ```
 
 Once registered thusly, the game will use `MyTileEntitySpecialRenderer` to render any tile entity of the class type `MyTileEntity`.
-If your tile entity has special requirements (i.e. `getBlock` returns null, or the tile entity needs to render in the translucent pass), you may want to take a look at the [`TileEntity` Plumbing](#tileentity-plumbing) section.
+If your tile entity has special requirements (i.e. `getBlock` returns null, you render content outside of the collision bounds for your block, or the tile entity needs to render in the translucent pass), you may want to take a look at the [`TileEntity` Plumbing](#tileentity-plumbing) section.
 
 Implementing TESRs
 ------------------
@@ -80,10 +80,11 @@ In the context of TESRs, an offset of `1.f` is equal to offsetting by exactly on
 To actually render the book at the right height we'll use the `translate` function from `GlStateManager`.
 
 ```java
-GlStateManager.translate(0.5f, y, 0.5f);
+GlStateManager.translate(dx + 0.5f, dy + y, dz + 0.5f);
 ```
 
 The `0.5f`s above are to center the book in the block.
+We also want to offset ourselves by (`dx`, `dy`, `dz`) so we render at the proper world location, and not at the player's feet.
 Once we've positioned the model, all that's left to do before we clean up is to render the book model and then clean up the matrix stack.
 Don't mind the parameters here: they just specify the rotation and parent entity of the book, which we aren't dealing with here.
 See [the model page](model.md) if you want to learn all about this call.
