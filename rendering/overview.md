@@ -7,6 +7,6 @@ Despite its name, `EntityRenderer` is responsible for rendering the entire world
 
   - [Culling](culling.md) works to minimize the amount of pointless work the later systems perform.
   - [Particles](particle.md) are rendered by the `EffectRenderer`.
-  - [Static Blocks](modelblock.md) uses `ModelBlocks` to render and cache static blocks.
+  - [Static Blocks](modelblock.md) uses `ModelBlock`s to render anything that will only need to change when the whole render chunk is invalidated (i.e. not animated).
   - [Tile Entities](tileentity.md) are rendering using `TileEntitySpecialRenderers` (some people refer to these as TESRs).
   - [Entities](entity.md) are rendered using a `Render`, most of which just dispatch work to a `Model`.
