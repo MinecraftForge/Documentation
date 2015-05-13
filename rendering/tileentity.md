@@ -4,7 +4,7 @@ Tile Entities Renderers
 One of the most powerful features of tile entities is the ability to associate them with `TileEntitySpecialRenderer`s (usually written TESRs when autocomplete is not available).
 TESRs specify their rendering commands every frame, unlike [block models](modelblock.md) which only update when the render chunk is marked dirty.
 This means that TESRs can be animated, beyond the texture animation facilities provided for block models.
-Additionally, tile entities can to generate their models at runtime, meaning they aren't constrained to some pre-defined of models as pure block models are.
+Because what rendering commands are submitted by TESRs are determined at runtime, TESRs can generate their models at runtime which means they aren't constrained to some pre-defined set of models as pure block models are.
 However, before you dive straight in to writing a new `TileEntitySpecialRenderer` for every tile entity in your mod, consider the number of graphical states the block will be in.
 If your tile entity is only ever going to be displayed in a small handful of states (say active, inactive, and unable to activate) it may be sufficient to leverage the [block model](modelblock.md) system.
 Using block models is preferable to TESRs because they are much lighter weight in terms of CPU, memory, and GPU resources and allow resource pack creators more freedom in how they style your block.
@@ -22,8 +22,38 @@ Fortunately the interface to bind new TESRs is quite easy to use, all you need t
 ClientRegistry.bindTileEntitySpecialRenderer(MyTileEntity.class, new MyTileEntitySpecialRenderer());
 ```
 
-Once registered thusly, the game will use `MyTileEntitySpecialRenderer` to render any tile entity of the class type `MyTileEntity`.
-If your tile entity has special requirements (i.e. `getBlock` returns null, you render content outside of the collision bounds for your block, or the tile entity needs to render in the translucent pass), you may want to take a look at the [`TileEntity` Plumbing](#tileentity-plumbing) section.
+Once registered thusly, the game will use the newly created `MyTileEntitySpecialRenderer` to render any tile entity of the class type `MyTileEntity`.
+Before we dive in to implementing TESRs, there are a few assorted fiddly bits that need to be taken care of in your tile entity class.
+
+`TileEntity` Plumbing
+---------------------
+Sometime the culling algorithms will determine that your block is not visible and not call your TESR, or the rendering system will call it at the wrong time, or call it more often than is proper.
+This can happen when your tile entity's `getBlock` method returns null, or you render content outside of the collision bounds for your block, or the tile entity needs to render in the translucent pass, or in a number of other circumstances.
+
+In order to get drawn in the translucent pass, you'll have to override the default implementation of `shouldRenderInPass`.
+`shouldRenderInPass` takes only one argument: the render pass which is about to be generated.
+This number will be one of two values: `0` for the solid geometry and `1` during the translucent pass.
+The default implementation returns true only for the solid pass.
+You are free to declare that you wish to render in both passes, but be aware that the same TESR and the same `renderTileEntityAt` method is called for both passes.
+If you want to render both solid and translucent geometry, you'll likely want to test the value of `MinecraftForgeClient.getRenderPass()`.
+
+The culling bounding box situation is slightly trickier.
+You can override the culling bounding box computation explicitly by providing your own implementation of `getRenderBoundingBox`.
+However, sometimes this is unnecessary as the default behavior of `getRenderBoundingBox` is to return the bounding box returned by
+```java
+this.getBlock().getCollisionBoundingBox(this.world, this.getPos()
+                                       ,this.worldObj.getBlockState(this.getPos()));
+```
+which may be acceptable in your situation.
+Should `this.getBlock()` return null, the default implementation will return a bounding box of infinite extent.
+While leaving such behavior in place and always rendering your block will technically allow your block to work, it is preferable that you always return a tight-ish bounding box around your rendered object in keeping with being a good citizen of the modding community.
+The performance cost of rendering one or two of your blocks may be insignificant, but there is little reason for you to unnecessarily cause additional load (read: lag) on your user's computers.
+Your bounding box doesn't need to be perfect of course: vanilla uses a (-1, 0, -1) to (2, 1, 2) bounding box around chests for example.
+You do however need to ensure the box is properly positioned in world space.
+For example, the chest bounding box could be created as follows:
+```java
+new AxisAlignedBB(getPos().add(-1, 0, -1), getPos().add(2, 2, 2));
+```
 
 Implementing TESRs
 ------------------
@@ -34,7 +64,7 @@ Its type signature is as follows:
 public abstract void renderTileEntityAt(TileEntity ent, double dx, double dz, double dy, float partialTicks, int breakState);
 ```
 
-Here,  is `ent` is the tile entity instance we'll be rendering.
+Here, `ent` is the tile entity instance we'll be rendering.
 `dx`, `dy`, and `dz` refer to the delta in position between your `TileEntity` and the player's position.
 `partialTicks` will be in the range \[0, 1\) and represents how much of a game tick has occurred since the last render frame.
 The `partialTicks` input is usually used for animations that aren't really tied to the state of the object: the enchantment table uses it to create the bobbing book effect for example.
@@ -97,35 +127,6 @@ Once we've drawn the model, we'll just clean up after ourselves by popping the m
 
 ```java
 GlStateManager.popMatrix();
-```
-
-`TileEntity` Plumbing
----------------------
-If you are planning on writing a TESR that either draws translucent geometry or returns null from `getBlock` you'll have to make one of two tweaks to your `TileEntity` class.
-
-In order to get drawn in the translucent pass, you'll have to override the default implementation of `shouldRenderInPass`.
-`shouldRenderInPass` takes only one argument: the render pass which is about to be generated.
-This number will be one of two values: `0` for the solid geometry and `1` during the translucent pass.
-The default implementation returns true only for the solid pass.
-You are free to declare that you wish to render in both passes, but be aware that the same TESR and the same `renderTileEntityAt` method is called for both passes.
-If you want to render both solid and translucent geometry, you'll likely want to test the value of `MinecraftForgeClient.getRenderPass()`.
-
-The culling bounding box situation is slightly trickier.
-You can override the culling bounding box computation explicitly by providing your own implementation of `getRenderBoundingBox`.
-However, sometimes this is unnecessary as the default behavior of `getRenderBoundingBox` is to return the bounding box returned by
-```java
-this.getBlock().getCollisionBoundingBox(this.world, this.getPos()
-                                       ,this.worldObj.getBlockState(this.getPos()));
-```
-which may be acceptable in your situation.
-Should `this.getBlock()` return null, the default implementation will return a bounding box of infinite extent.
-While leaving such behavior in place and always rendering your block will technically allow your block to work, it is preferable that you always return a tight-ish bounding box around your rendered object in keeping with being a good citizen of the modding community.
-The performance cost of rendering one or two of your blocks may be insignificant, but there is little reason for you to unnecessarily cause additional load (read: lag) on your user's computers.
-Your bounding box doesn't need to be perfect of course: vanilla uses a (-1, 0, -1) to (2, 1, 2) bounding box around chests for example.
-You do however need to ensure the box is properly positioned in world space.
-For example, the chest bounding box could be created as follows:
-```java
-new AxisAlignedBB(getPos().add(-1, 0, -1), getPos().add(2, 2, 2));
 ```
 
 Supporting Breaking Animations
