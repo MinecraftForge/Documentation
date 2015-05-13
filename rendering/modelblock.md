@@ -155,12 +155,12 @@ This is where the varardic nature of the BlockState constructor comes in handy: 
 return new BlockState(this, SNOWY, POWERED);
 ```
 
-Similarly, in your mod you'll need to modify `getActualState` to properly get the powered state of your block, but that will be left as an excercise for the reader.
+Similarly, in your mod you'll need to modify `getActualState` to properly get the powered state of your block, but that will be left as an exercise for the reader.
 Consider it practice!
 
 We can no longer rely on the vanilla machinery figuring out right way to map our properties to JSON strings, so we'll have to give it a hand.
 In our client proxy, we'll create a custom `StateMap`, using `StateMap.Builder` that ignores our `POWERED` state and tells the game to use that `StateMapper` when looking up the model for our block.
-Fortunately for us, this is a common case in vanilla as well so there is a handy set of utilities availible to us in the form of `StateMap` and `StateMap.Builder`.
+Fortunately for us, this is a common case in vanilla as well so there is a handy set of utilities available to us in the form of `StateMap` and `StateMap.Builder`.
 `StateMap.Builder`s are used to build new `StateMap`s (well, you could manually construct one but really, why would you?).
 Creating one is dead simple: the constructor takes no arguments, so all we need to do is
 
@@ -177,7 +177,7 @@ Here we only have one: the `POWERED` state.
 smb.addPropertiesToIgnore(BlockCustomGrass.POWERED);
 ```
 
-Note that we're refering to a `BlockCustomGrass` here: that's just some namespacing to enphasize the fact that this takes place in your client proxy, not the block class.
+Note that we're referring to a `BlockCustomGrass` here: that's just some namespacing to emphasize the fact that this takes place in your client proxy as part of the pre-initialization phase, not in the block class.
 Once we've described what properties we want to track, all we need to do is build the `StateMap`, using `build`.
 
 ```java
@@ -185,7 +185,7 @@ StateMap sm = smb.build();
 ```
 
 Once we've got a `StateMap`, it's a simple matter to register it with the `ModelLoader`.
-`ModelLoader` has a lot of interesting functionality, but all we're interested in right now is the cabability to register custom state mappers with `setCustomStateMapper`.
+`ModelLoader` has a lot of interesting functionality, but all we're interested in right now is the capability to register custom state mappers with `setCustomStateMapper`.
 `setCustomStateMapper` takes two arguments: the class type of the block the mapper is for, and the mapper itself.
 Continuing our example, we'll register the `StateMapper` for our `BlockCustomGrass`:
 
@@ -202,7 +202,7 @@ ModelLoader.setCustomStateMapper(
         .addPropertiesToIgnore(BlockCustomGrass.POWERED).build());
 ```
 
-The `StateMap.Builder` has two more methods which we will touch on breifely here.
+The `StateMap.Builder` has two more methods which we will touch on briefly here.
 First up is `setProperty`.
 `setProperty` is useful when you want to break up your blockstate JSON files a little bit.
 Vanilla Minecraft leverages this capability for things like slabs and stairs that are internally represented by one `Block` class, but effectively have multiple conceptual materials.
@@ -257,6 +257,6 @@ public interface IStateMapper {
 ```
 
 Essentially, this sums up everything we've been trying to accomplish so far.
-In a way, this interface is responsible for both steps 2 and 3 mentioned above: for every `IStateMapper` that MC knows about at resource pack load time, the game will ask that it enumerate every possible state for a block and map those states to `ModelResourceLocation`s.
+In a way, this interface is responsible for both steps 2 and 3 mentioned way back at the start: for every `IStateMapper` that MC knows about at resource pack load time, the game will ask that it enumerate every possible state for a block and map those states to `ModelResourceLocation`s.
 Those mappings are then used at draw time to figure out what block should get rendered.
-If you want to use this interface, it's possible that your usecase could be better served by extending `StateMapperBase` which provides a few utilities, chief among them `getPropertyString` which allows you to turn a `Map<IProperty, Comparable>` to a pretty property string of the form `prop1=val1,prop2=val2`.
+If you want to use this interface, it's possible that your usecase could be better served by extending `StateMapperBase` which provides a few utilities, chief among them `getPropertyString` which allows you to turn a `Map<IProperty, Comparable>` into a pretty property string of the form `prop1=val1,prop2=val2`.
