@@ -12,6 +12,7 @@ Here, we're going to show how the `snowy` property on grass blocks works, as it 
 The process of turning JSON in to a renderable object consists of several stages, which will we go through in varying levels of detail.
   - *Parsing of the actual JSON* - This part isn't particularly interesting (unless you want to add custom shapes to the JSON parse, but that is beyond the scope of this document).
     If you're really interested, the parsing happens in `net.minecraft.client.resources.model` as part of resource pack loading.
+    As with most things resolved against resource packs, model block assets will be resolved relative to `assets/modname`.
   - *Enumeration of model states* - When MC is ready to start drawing worlds, it walks the list of all known blocks and gathers up a list of all the states those blocks can be in.
     During this step, MC caches all the `BlockModel`s it will ever possibly need.
     This means that your block must have some reasonable number of (graphical) states, and you must be wary of [combinatorial explosion](http://en.wikipedia.org/wiki/Combinatorial_explosion).
@@ -29,6 +30,7 @@ The Default `StateMapper`
 
 `StateMapper`s are at the core of the magic of the new static block rendering.
 It allows the MC runtime to choose the correct variant of a block based on the current `BlockState` for that block, removing a lot of the special-case code that existed in previous versions of the game.
+The default `StateMapper` will use the block state JSON file located at `assets/modname/blockstates/block_name.json`, where `modname` is your `modid` and `block_name` is the mod-unique name you used when registering the block with the `GameRegistry`.
 Most of the time, you won't actually have to write your own `StateMapper`: if you use the built-in property system, (from `net.minecraft.block.properties`) you can just assume the game will figure everything out.
 Of course, you do need to provide some information.
 So, to start our custom grass block implementation, we're going to need a property that we want to keep track of. Snowyness is a good example, as it's pretty self contained:
@@ -91,7 +93,36 @@ In this case, we want to know when the block above us is snow.
     }
 ```
 
-And we're done!
+To make this actually do something interesting, we'll have to set up our blockstate JSON file correctly.
+For a syntax reference, see the vanilla wiki page [here](http://minecraft.gamepedia.com/Models) which is a fantastic reference when working on creating your own blocks and block state json files.
+Here, we only have one state variable and we won't be doing any interesting variants so the file will be pretty simple: just a root node, with a `variants` property.
+```json
+{
+    "variants" : {}
+}
+```
+
+To specify the variants, we'll just add tags for each of the states:
+
+```json
+{
+    "variants" : {
+        "snowy=true" : {}
+        "snowy=false" : {}
+    }
+}
+```
+
+Each of those tags will specify what model we want to use (along with some other optional information, see the vanilla wiki page [here](http://minecraft.gamepedia.com/Models) for a full explanation), which will go something like this:
+
+```json
+"snowy=true": { "model" : "modname:snowy_grass" }
+```
+
+Notice the usage of the usual `modname:` syntax for namespaced resources: block models don't try to inherit their resource namespace from the blockstate JSON that references them, so you'll have to explicit here.
+This will tell the block model system to look up a model JSON file in `assets/modname/models/block`.
+The syntax for the block model files themselves can be quite intricate, but fortunately there are plenty of examples both [online](http://minecraft.gamepedia.com/Models) and in the `recompSrc/assets` directory in your `decomp` workspace.
+If you want your block to render properly in the inventory, there's a bit more work involved, but all that is covered over on the [inventory rendering](inventory.md) page.
 Everything else is handled automatically, and as long as your JSON is set up right, everything will Just Work(TM).
 Of course, sometimes we need a bit more control over what properties change the visuals of our block, and for that we turn to the default `StateMapper`'s more powerful cousin, housed at `net.minecraft.client.renderer.block.statemap.StateMap`.
 
