@@ -107,7 +107,7 @@ To specify the variants, we'll just add tags for each of the states:
 ```json
 {
     "variants" : {
-        "snowy=true" : {}
+        "snowy=true" : {},
         "snowy=false" : {}
     }
 }
