@@ -11,3 +11,7 @@ The simplest, for a new mod, would be [SimpleImpl][], where most of the complexi
 abstracted away. It uses a message and handler style system.
 [netty]: http://netty.io "Netty website"
 [SimpleImpl]: simpleimpl.md "SimpleImpl in detail"
+
+
+If you just need to sync a serverside tile entity to client, use [Simple Tile Entity Syncing][]
+[Simple Tile Entity Syncing]: SimpleTileEntities.md "Simple Tile Entity Syncing"
