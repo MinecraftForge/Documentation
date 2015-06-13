@@ -13,4 +13,12 @@ However, these techniques are now decades old, have been depreciated officially 
 MC 1.8 starts the long slog towards modernizing the rendering pipeline, hopefully a trend that will continue through 1.9.
 Regardless of what 1.9 will bring, we're here to talk about how things currently stand in 1.8.
 
-Head over to the [overview](overview.md) page to get a top-down perspective on Minecraft's rendering pipeline.
+The entry point for the rendering system is at `EntityRenderer.updateCameraAndRender()`.
+Despite its name, `EntityRenderer` is responsible for rendering the entire world, including tile entities and entities.
+`EntityRenderer` is responsible for setting up the camera and then dispatching work out to a few subsystems which are covered in detail in other places:
+
+  - [Culling](culling.md) works to minimize the amount of pointless work the later systems perform.
+  - [Particles](particle.md) are rendered by the `EffectRenderer`.
+  - [Static Blocks](modelblock.md) uses `ModelBlock`s to render anything that will only need to change when the whole render chunk is invalidated (i.e. not animated).
+  - [Tile Entities](tileentity.md) are rendering using `TileEntitySpecialRenderers` (some people refer to these as TESRs).
+  - [Entities](entity.md) are rendered using a `Render`, most of which just dispatch work to a `Model`.
