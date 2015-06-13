@@ -5,7 +5,10 @@ One of the most powerful features of tile entities is the ability to associate t
 TESRs specify their rendering commands every frame, unlike [block models](modelblock.md) which only update when the render chunk is marked dirty.
 This means that TESRs can be animated, beyond the texture animation facilities provided for block models.
 Because what rendering commands are submitted by TESRs are determined at runtime, TESRs can generate their models at runtime which means they aren't constrained to some pre-defined set of models as pure block models are.
-However, before you dive straight in to writing a new `TileEntitySpecialRenderer` for every tile entity in your mod, consider the number of graphical states the block will be in.
+
+However, before you dive straight in to writing a new `TileEntitySpecialRenderer` for every tile entity in your mod, there are a few drawbacks to consider.
+The largest constraint is that TESRs do not render in the inventory, or at least not without .
+ the number of graphical states the block will be in.
 If your tile entity is only ever going to be displayed in a small handful of states (say active, inactive, and unable to activate) it may be sufficient to leverage the [block model](modelblock.md) system.
 Using block models is preferable to TESRs because they are much lighter weight in terms of CPU, memory, and GPU resources and allow resource pack creators more freedom in how they style your block.
 Even if you can't use block models for your entire block, you can offload static components to the block model system and still get the full power of a TESR for the animated components.
@@ -23,14 +26,14 @@ ClientRegistry.bindTileEntitySpecialRenderer(MyTileEntity.class, new MyTileEntit
 ```
 
 Once registered thusly, the game will use the newly created `MyTileEntitySpecialRenderer` to render any tile entity of the class type `MyTileEntity`.
-Before we dive in to implementing TESRs, there are a few assorted fiddly bits that need to be taken care of in your tile entity class.
+Before we dive in to implementing TESRs, there are a few assorted fiddly bits that need to be taken care of in your tile entity and block classes.
 
 `TileEntity` Plumbing
 ---------------------
 Sometime the culling algorithms will determine that your block is not visible and not call your TESR, or the rendering system will call it at the wrong time, or call it more often than is proper.
 This can happen when your tile entity's `getBlock` method returns null, or you render content outside of the collision bounds for your block, or the tile entity needs to render in the translucent pass, or in a number of other circumstances.
 
-In order to get drawn in the translucent pass, you'll have to override the default implementation of `shouldRenderInPass`.
+In order to get drawn in the translucent pass, you'll have to override the default implementation of `shouldRenderInPass` in your `TileEntity`.
 `shouldRenderInPass` takes only one argument: the render pass which is about to be generated.
 This number will be one of two values: `0` for the solid geometry and `1` during the translucent pass.
 The default implementation returns true only for the solid pass.
@@ -78,10 +81,19 @@ Here we won't be covering custom models (that's over on the [model](model.md) pa
 We also won't be rendering the base or performing the page flipping animation.
 Rendering of the base is a static task best handled by the [block model](modelblock.md) system, and the page flipping animation can be created with a bit of creativity using the tools you learn here combined with an understanding of the join system from the [model](model.md) page.
 
-To start off, we'll need to keep track of the current absolute accumulated time in order to make our animation smooth, so make sure to stash that somewhere on your tile entity.
+The first order of buisiness is to get a reference to our `TileEntity`.
+We already have it in the form of `ent`, but `ent` is of type `TileEntity`.
+Since we know that our TESR will only ever be called when `TileEntity` is of the type we registered the TESR for, an unchecekd cast should be safe.
 
 ```java
-ent.renderElapsed += partialTicks;
+MyTileEntity te = (MyTileEntity)ent;
+```
+
+To have a continuously running annimation, need to keep track of the current absolute accumulated time in order to make our animation smooth.
+Usually, this time is stashed somewhere on your TileEntity.
+
+```java
+te.renderElapsed += partialTicks;
 ```
 
 In order to position our model we'll be using the `GlStateManager` to shift things around and rotate them.
@@ -102,7 +114,7 @@ Setting this constant to about 63 will approximate the vanilla bob rate.
 We could do something linear with `ent.renderElapsed % BOB_RATE`, but sharp changes in direction tend to be visually jarring and unappealing so we'll use `sin(ent.renderElapsed * 2 * Math.PI / BOB_RATE)` to create a much smoother effect.
 
 ```java
-float y = 0.85f + (float)(MathHelper.sin(ent.renderElapsed * 2 * Math.PI * BOB_RATE) * 0.01f;
+float y = 0.85f + (float)(MathHelper.sin(ent.renderElapsed * 2 * Math.PI / BOB_RATE) * 0.1f;
 ```
 
 The offset/scaling constants make sure the book is in a "reasonable" place.
