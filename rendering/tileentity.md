@@ -7,8 +7,11 @@ This means that TESRs can be animated, beyond the texture animation facilities p
 Because what rendering commands are submitted by TESRs are determined at runtime, TESRs can generate their models at runtime which means they aren't constrained to some pre-defined set of models as pure block models are.
 
 However, before you dive straight in to writing a new `TileEntitySpecialRenderer` for every tile entity in your mod, there are a few drawbacks to consider.
-The largest constraint is that TESRs do not render in the inventory, or at least not without .
- the number of graphical states the block will be in.
+The largest constraint is that TESRs do not render in the inventory.
+Since a TESR must have a TileEntity to render, and there is no machinery to create a default instance of a tile entity, asking a TESR to render in the inventory is nonsensical.
+This means that you'll need to create a block model JSON file which describes how to render the tile entity in the player's inventory.
+
+Second, think about the number of graphical states the block will be in.
 If your tile entity is only ever going to be displayed in a small handful of states (say active, inactive, and unable to activate) it may be sufficient to leverage the [block model](modelblock.md) system.
 Using block models is preferable to TESRs because they are much lighter weight in terms of CPU, memory, and GPU resources and allow resource pack creators more freedom in how they style your block.
 Even if you can't use block models for your entire block, you can offload static components to the block model system and still get the full power of a TESR for the animated components.
