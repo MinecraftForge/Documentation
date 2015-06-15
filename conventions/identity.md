@@ -53,20 +53,22 @@ If, for some reason, you cannot use semver, versions should be a string of numbe
 
 Examples, with semver:
 
- - **Initial release:** 0.0.1
- - **Bugfix release:** 0.0.2
- - **Adds a new block:** 0.1.0
- - **More bugfixes:** 0.1.1
- - **Removes a block:** 1.0.0
- - **Updates to a new version of Minecraft:** 2.0.0
- - **Bugfixes, for the old version of Minecraft:** 1.0.1
- - **Prerelease of some new features, that are compatible:** 2.1.0-pre1
- - **Another prerelease:** 2.1.0-pre2
- - **Release candidate:** 2.1.0-rc1
- - **Another release candidate:** 2.1.0-rc2
- - **Release:** 2.1.0
+ - **Initial (WIP) release:** 0.0.1
+ - **Bugfix (WIP) release:** 0.0.2
+ - **Adds a new block in WIP:** 0.1.0
+ - **More bugfixes in WIP:** 0.1.1
+ - **Removes a block in WIP:** 0.2.0 (WIP builds only increment minor)
+ - **Full initial release:** 1.0.0
+ - **Adds a new item:** 1.1.0
+ - **Removes a block:** 2.0.0 (incompatible changes in release *must* increment major)
+ - **Updates to a new version of Minecraft:** 3.0.0
+ - **Bugfixes, for the old version of Minecraft:** 2.0.1
+ - **Prerelease of some new features, that are compatible:** 3.1.0-pre1
+ - **Another prerelease:** 3.1.0-pre2
+ - **Release candidate:** 3.1.0-rc1
+ - **Another release candidate:** 3.1.0-rc2
+ - **Release:** 3.1.0
 
-You can skip 0.x.x and go straight to 1.0.0 if you like.
 
 Examples, without semver (**strongly discouraged**):
 
