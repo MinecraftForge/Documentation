@@ -8,15 +8,19 @@ Here is a (most likely incomplete) list of things that increment the various var
 + MAJORMOD
 	+ Removing items, blocks, tile entities, etc.
 	+ Changing or removing previously existing mechanics.
-	+ Updating to a new Minecraft version.
+	+ Making other changes that require permanent changes to the save file (changes that completely invalidate the world should be mentioned in a changelog).
 + MAJORAPI
+	+ _Can be omitted if your mod does not have an API_
 	+ Changing the order or variables of enums.
+	+ Changing method signatures.
 	+ Changing return types of methods.
-	+ Removing public methods altogether.
+	+ Removing fields or methods.
+	+ Other changes that break API and/or ABI compatibility for mods that use your API.
 + MINOR
 	+ Adding items, blocks, tile entities, etc.
 	+ Adding new mechanics.
-	+ Deprecating public methods. (This is not a MAJOR-API increment since it doesn't break an API.)
+	+ Adding new features to the API.
+	+ Moving blocks and offering a graceful update process (e.g. merging two blocks into one with a crafting recipe and/or automatic means to convert them).
 + PATCH
 	+ Bugfixes.
 
@@ -36,3 +40,27 @@ It is also possible to prerelease work-in-progress features, which means new fea
 
 ### Release candidates
 Release candidates act as prereleases before an actual version change. These versions should be appended with -rcX, where X is the number of the release candidate which should, in theory, only be increased for bugfixes. Already released versions can not receive release candidates; variables (mostly MINOR, but MAJORAPI and MAJORMOD can also prerelease)  should be updated accordingly before adding the -rc suffix. When releasing a release candidate as stable build, it can either be exactly the same as the last release candidate or have a few more bug fixes.
+
+### Examples
+A few examples of what could be considered a standard update process for a mod:
+ - **1.7.10-0.0.0.0** (Initial experimental release, unfinished)
+ - **1.7.10-0.0.1.0** (Add a feature)
+ - **1.7.10-1.0.0.0** (Confident enough in stability and feature completeness to make an initial release)
+ - **1.7.10-1.0.0.1** (Fix a bug)
+ - **1.7.10-1.0.1.0** (Add a feature)
+ - **1.7.10-1.0.1.1** (Fix another bug)
+ - **1.7.10-1.1.0.0** (Remove an API method)
+ - **1.7.10-1.1.1.0** (Deprecate an API method)
+ - **1.7.10-2.0.0.0** (Remove an item)
+ - **1.8-2.0.0.0** (Update to Minecraft 1.8)
+ - **1.7.10-2.0.0.1**, **1.8-2.0.0.1** (Fix a bug in both versions)
+ - **1.7.10-2.0.0.1-final** (Drop support for 1.7.10)
+ - **1.8-3.0.0.0-pre1** (Pre-release of some major changes)
+ - **1.8-3.0.0.0-pre2** (Some fixes are made to the pre-release)
+ - **1.8-3.0.0.0-pre3** (A couple new features are added)
+ - **1.8-3.0.0.0-pre4** (Remove a feature added in a previous pre-release)
+ - **1.8-3.0.0.0-rc1** (Most of the bugs are thought to be fixed, and so it is now a release candidate)
+ - **1.8-3.0.0.0-rc2** (Bugfixes)
+ - **1.8-3.0.0.0** (Release of the version, maybe with a few more bugfixes, or potentially exactly the same as rc2)
+ - **1.9-3.0.0.0** (Update to Minecraft 1.9, no new features)
+ - **1.10-3.0.1.0** (Update to Minecraft 1.10, and a new feature)
