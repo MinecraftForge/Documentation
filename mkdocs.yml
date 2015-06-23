@@ -1,12 +1,16 @@
 site_name: Forge Documentation
 pages:
-  - [index.md, Home]
-  - [styleguide.md, Style Guide]
-  - [gettingstarted/index.md, Getting Started, Home]
-  - [gettingstarted/structuring.md, Getting Started, Structuring Your Mod]
-  - [blockstates/introduction.md, Models & Rendering, Blockstates]
-  - [blockstates/forgeBlockstates.md, Models & Rendering, Blockstates, Forges Blockstates]
-  - [networking/index.md, Networking, Home]
-  - [networking/overview.md, Networking, Overview]
-  - [networking/simpleimpl.md, Networking, SimpleImpl]
-  - [conventions/versioning.md, Conventions, Versioning]
+  - Home: 'index.md'
+  - Style Guide: 'styleguide.md'
+  - Getting Started:
+    - Home: 'gettingstarted/index.md'
+    - Structuring Your Mod: 'gettingstarted/structuring.md'
+  - Models & Rendering:
+    - Blockstates: 'blockstates/introduction.md'
+    - Forge Blockstates: 'blockstates/forgeBlockstates.md'
+  - Networking:
+    - Home: 'networking/index.md'
+    - Overview: 'networking/overview.md'
+    - SimpleImpl: 'networking/simpleimpl.md'
+  - Conventions:
+    - Versioning: 'conventions/versioning.md'
