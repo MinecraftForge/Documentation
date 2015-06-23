@@ -4,6 +4,8 @@ pages:
   - [styleguide.md, Style Guide]
   - [gettingstarted/index.md, Getting Started, Home]
   - [gettingstarted/structuring.md, Getting Started, Structuring Your Mod]
+  - [blockstates/introduction.md, Models & Rendering, Blockstates]
+  - [blockstates/forgeBlockstates.md, Models & Rendering, Blockstates, Forges Blockstates]
   - [networking/index.md, Networking, Home]
   - [networking/overview.md, Networking, Overview]
   - [networking/simpleimpl.md, Networking, SimpleImpl]
