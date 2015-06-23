@@ -18,11 +18,11 @@ As an example, let's take a look at the vanilla oak-log:
 }
 ```
 
-As you can see there is no normal state, only different variants depending on the value of "axis". Depending on which axis the log is aligned it will use either a model of the upright log, a model of the sideways log (rotated by 90° or not) or, should the block not have any axis set, it'll display the bark model which has the bark on all 6 sides.
+As you can see there is no normal state, only different variants depending on the value of "axis". Depending on which axis the log is aligned it will use either a model of the upright log, a model of the sideways log (rotated by 90ï¿½ or not) or, should the block not have any axis set, it'll display the bark model which has the bark on all 6 sides.
 
 The log only has one property: axis. A blockstate always has to be defined for all of its properties. This can quickly lead to a combinatorial explosion of variants. Let's look at one variant of the vanilla fence:
 ```json
 "east=false,north=false,south=false,west=false": { "model": "oak_fence_post" }
 ```
-And that is only one variant of 16. This can quickly lead to very big and verbose blockstate files, and is one of the main problems in Minecraft 1.8. Minecraft 1.9 will introduce a system that allows to get this under control. [Forges Blockstate Json][1] allows you to do so in 1.8.
-[1]: forgeBlockstates.md "Forges Blockstate Json"
+And that is only one variant of 16. This can quickly lead to very big and verbose blockstate files, and is one of the main problems in Minecraft 1.8. Minecraft 1.9 will introduce a system that allows to get this under control. [Forges Blockstate Json][forge] allows you to do so in 1.8.
+[forge]: forgeBlockstates.md "Forges Blockstate Json"
