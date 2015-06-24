@@ -1,9 +1,9 @@
-Forges Blockstates
+Forge's Blockstates
 ===================
 
 Forge has its own blockstate json format to accommodate for modders needs. It introduces submodels, which allows you to build the final blockstate from different parts. You can build a models *normal* blockstate from multiple parts as well as create a complex variant depending on the blocks properties.
 
-*DISCLAIMER: Note that all models and textures referenced are from vanilla minecraft. For your own mod, you have to use the full location! For example: "mymod:blocks/blockTexture". You don't have to use Forges blockstate format at all, you can also use the vanilla format!*
+*DISCLAIMER: Note that all models and textures referenced are from vanilla minecraft. For your own mod, you have to use the full location! For example: "mymod:blocks/blockTexture". You don't have to use Forge's blockstate format at all, you can also use the vanilla format!*
 
 ## General structure of the format
 
@@ -44,7 +44,7 @@ The 1 is the version of the format, which ensures that old blockstate jsons can 
 	}
 ```
 
-The defaults section contains the default values for all variants. They can be overwritten by the variants. The defaults section is **optional**! You do not need to define defaults, the block can be omitted alltogether.
+The defaults section contains the default values for all variants. They can be overwritten by the variants. The defaults section is **optional**! You do not need to define defaults, the block can be omitted altogether.
 
 ```json
 	"variants": {
@@ -126,7 +126,7 @@ Instead of defining "this combination of properties gives model X" we say "this 
 
 * If mossy is true, the pressure plate uses the mossy cobblestone texture
 * If pillarCount is 1 it will add one wall with connection facing north. The default texture for the wall is oak-planks.
-* If pillarCount is 2 it will add two walls, both facing north. However the second wall will be rotated by 90 degree. This showcases that you do not need separate model with forges system. You only need once and rotate it around the Y axis. Additionally the texture of the walls is changed to cobblestone.
+* If pillarCount is 2 it will add two walls, both facing north. However the second wall will be rotated by 90 degree. This showcases that you do not need separate model with Forge's system. You only need once and rotate it around the Y axis. Additionally the texture of the walls is changed to cobblestone.
 * If pillarCount is 0 no walls will be added.
 
 And here is the result of our work:

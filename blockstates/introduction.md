@@ -25,4 +25,4 @@ The log only has one property: axis. A blockstate always has to be defined for a
 "east=false,north=false,south=false,west=false": { "model": "oak_fence_post" }
 ```
 And that is only one variant of 16. This can quickly lead to very big and verbose blockstate files, and is one of the main problems in Minecraft 1.8. Minecraft 1.9 will introduce a system that allows to get this under control. [Forges Blockstate Json][forge] allows you to do so in 1.8.
-[forge]: forgeBlockstates.md "Forges Blockstate Json"
+[forge]: forgeBlockstates.md "Forge's Blockstate Json"
