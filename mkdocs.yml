@@ -22,3 +22,6 @@ markdown_extensions:
   - admonition
   - smarty
   - sane_lists
+
+extra_css:
+  - css/code_fixer.css
