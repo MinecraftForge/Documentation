@@ -42,8 +42,8 @@ A common class naming scheme allows easier deciphering of what a class is, and a
 
 For Example:
 
-- An `Item` called `PowerRing` would be in an `items` package, with a class name of `ItemPowerRing`.
-- A `Block` called `NotDirt` would be in the package of `blocks`, with a class name of `BlockNotDirt`.
-- Finally, a `TileEntity` for a block called `SuperChewer` would be in a subpackage of `tiles` or `tileentities` with a classname of `TileSuperChewer`.
+- An `Item` called `PowerRing` would be in an `item` package, with a class name of `ItemPowerRing`.
+- A `Block` called `NotDirt` would be in a `block` package, with a class name of `BlockNotDirt`.
+- Finally, a `TileEntity` for a block called `SuperChewer` would be a `tile` or `tileentity` package, with a classname of `TileSuperChewer`.
 
 Prepending your class names with what *kind* of object they are makes it easier to figure out what a class is, or guess the class for an object.
