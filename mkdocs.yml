@@ -1,4 +1,4 @@
-site_name: Forge Documentation
+# If you add a page, you must add it to the index here
 pages:
   - Home: 'index.md'
   - Style Guide: 'styleguide.md'
@@ -14,3 +14,11 @@ pages:
     - SimpleImpl: 'networking/simpleimpl.md'
   - Conventions:
     - Versioning: 'conventions/versioning.md'
+
+# Do not edit in PRs below here
+site_name: Forge Documentation
+
+markdown_extensions:
+  - admonition
+  - smarty
+  - sane_lists
