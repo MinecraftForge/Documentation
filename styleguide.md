@@ -10,3 +10,10 @@ We have a wiki elsewhere that can capture more comprehensive code examples.
 Our audience is anyone who wants to understand how to build a mod using Forge.
 
 Please don't try to turn this documentation into a tutorial on Java Development - it is intended for people who understand how a Java class works, and other fundamental structures of Java.
+
+Formatting
+----------
+
+!!! important
+
+    Please use TWO SPACES to indent, not tabs.

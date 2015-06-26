@@ -7,4 +7,4 @@ The intent with this is to create a curated *definitive* source of documentation
 
 Feel free to submit pull requests related to documentation of Forge development here.
 
-Note that PRs will generally be reviewed on a bi-weekly schedule on weekends. Don't expect this to be constantly being updated, though we will try and remedy egregious errors more quickly.
+Don't expect this to be constantly being updated, though we will try and remedy egregious errors more quickly.
