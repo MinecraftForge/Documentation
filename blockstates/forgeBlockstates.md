@@ -3,7 +3,11 @@ Forge's Blockstates
 
 Forge has its own blockstate json format to accommodate for modders needs. It introduces submodels, which allows you to build the final blockstate from different parts. You can build a models *normal* blockstate from multiple parts as well as create a complex variant depending on the blocks properties.
 
-*DISCLAIMER: Note that all models and textures referenced are from vanilla minecraft. For your own mod, you have to use the full location! For example: "mymod:blocks/blockTexture". You don't have to use Forge's blockstate format at all, you can also use the vanilla format!*
+!!! Attention
+
+    Note that all models and textures referenced are from vanilla minecraft. For your own mod, you have to use the full location! For example: "mymod:blocks/blockTexture".
+
+		You don't have to use Forge's blockstate format at all, you can also use the vanilla format!
 
 ## General structure of the format
 
@@ -19,7 +23,7 @@ Forge has its own blockstate json format to accommodate for modders needs. It in
 	},
 	"variants": {
 		"normal": [{
-			
+
 		}]
 	}
 }
@@ -49,7 +53,7 @@ The defaults section contains the default values for all variants. They can be o
 ```json
 	"variants": {
 		"normal": [{
-			
+
 		}]
 	}
 ```

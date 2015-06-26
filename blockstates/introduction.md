@@ -5,8 +5,7 @@ Blockstates tell the game which model it shall use depending on data on the bloc
 A simple block only has a "*normal*" blockstate which is its default.
 A more complex block that can be displayed in different ways has so called *variants*.
 
-As an example, let's take a look at the vanilla oak-log:
-*oak_log.json*
+As an example, let's take a look at the vanilla `oak-log.json`:
 ```json
 {
     "variants": {

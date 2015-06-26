@@ -65,19 +65,14 @@ public class MyMessageHandler implements IMessageHandler<MyMessage, IMessage> {
 ```
 It is recommended (but not required) that for organization's sake, this class is an inner class to your MyMessage class. If this is done, note that the class must also be declared `static`.
 
-Note also that as of Minecraft 1.8 packets are by default handled on the network thread. That means that your `IMessageHandler` can _not_ interact with most game objects directly. The example above for example would not be correct.
-Minecraft provides a convenient way to make your code execute on the main thread instead, like so:
+!!! warning
 
-```
-mainThread.addScheduledTask(new Runnable() {
-    @Override
-    public void run() {
-        // do stuff
-    }
-  });
-```
+    As of Minecraft 1.8 packets are by default handled on the network thread.
 
-The `mainThread` variable is of type `IThreadListener`. On the server use the world (`(WorldServer) serverPlayer.worldObj`), on the client use the `Minecraft` instance (`Minecraft.getMinecraft()`).
+    That means that your `IMessageHandler` can _not_ interact with most game objects directly. The example above for example would not be correct.
+    Minecraft provides a convenient way to make your code execute on the main thread instead using `IThreadLisenter.addScheduledTask`.
+
+    You can obtain an `IThreadListener` with the `mainThread` variable on either the `Minecraft` instance (client side) or a `WorldServer` instance (server side). 
 
 Registering Packets
 -------------------
