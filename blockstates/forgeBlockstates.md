@@ -134,4 +134,5 @@ Instead of defining "this combination of properties gives model X" we say "this 
 * If pillarCount is 0 no walls will be added.
 
 And here is the result of our work:
+
 ![The model in different variations](example.png)
