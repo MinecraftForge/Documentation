@@ -72,7 +72,7 @@ It is recommended (but not required) that for organization's sake, this class is
     That means that your `IMessageHandler` can _not_ interact with most game objects directly. The example above for example would not be correct.
     Minecraft provides a convenient way to make your code execute on the main thread instead using `IThreadLisenter.addScheduledTask`.
 
-    You can obtain an `IThreadListener` with the `mainThread` variable on either the `Minecraft` instance (client side) or a `WorldServer` instance (server side). 
+    The way to obtain an `IThreadListener` is using either the `Minecraft` instance (client side) or a `WorldServer` instance (server side).
 
 Registering Packets
 -------------------
