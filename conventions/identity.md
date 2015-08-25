@@ -47,30 +47,56 @@ For example, if you had a mod called "BananaCraft", version 2.1.4, you would nam
 
 
 ## Versions
-Versions should, when possible, match [Semantic Versioning](http://semver.org). Semantic Versioning has many benefits, and may be required on some distribution platforms.
+In general projects, Semantic Versioning is often used (with format MAJOR.MINOR.PATCH). However, in the case of modding, it may be more beneficial to use the format MCVERSION-MAJORMOD.MAJORAPI.MINOR.PATCH (Modified SemVer), to be able to differenciate between save-changing and API-breaking changes, and to make it easier to see what version of the mod is for which version of Minecraft.
 
-If, for some reason, you cannot use semver, versions should be a string of numbers, delimited by periods (.).
+### Explanation of 'Modified SemVer'
+A most likely incomplete list of things that should increment the various parts of the version number:
 
-Examples, with semver:
+ - **MCVERSION**
+  - Should always match the Minecraft version this mod is for
+ - **MAJORMOD**
+  - Removing items, blocks, tile entities, entities, etc
+  - Changing or removing previously existing mechanics
+  - Making other changes that require permanent changes to the save file (changes that completely invalidate the world should be mentioned in a changelog)
+ - **MAJORAPI**
+  - *Can be omitted if your mod does not have an API*
+  - Changing the order of variables or enums
+  - Changing method signatures
+  - Changing method return types
+  - Removing fields or methods
+  - Other changes that break API and/or ABI compatibility for mods that use your API
+ - **MINOR**
+  - Adding items, blocks, tile entities, entities, etc
+  - Adding new mechanics
+  - Adding new features to the API
+  - Moving blocks and offering a graceful update process (e.g. merging two blocks into one with a crafting recipe and/or automatic means to convert them)
+ - **PATCH**
+  - Bugfixes.
 
- - **Initial (WIP) release:** 0.0.1
- - **Bugfix (WIP) release:** 0.0.2
- - **Adds a new block in WIP:** 0.1.0
- - **More bugfixes in WIP:** 0.1.1
- - **Removes a block in WIP:** 0.2.0 (WIP builds only increment minor)
- - **Full initial release:** 1.0.0
- - **Adds a new item:** 1.1.0
- - **Removes a block:** 2.0.0 (incompatible changes in release *must* increment major)
- - **Updates to a new version of Minecraft:** 3.0.0
- - **Bugfixes, for the old version of Minecraft:** 2.0.1
- - **Prerelease of some new features, that are compatible:** 3.1.0-pre1
- - **Another prerelease:** 3.1.0-pre2
- - **Release candidate:** 3.1.0-rc1
- - **Another release candidate:** 3.1.0-rc2
- - **Release:** 3.1.0
+Whenever a part of the version is incremented, all lesser fields should be reset to zero. For example, if MINOR is incremented, PATCH should become 0. If MAJOR-API is incremented, MINOR and PATCH should become 0.
 
+In addition, a version can have a "qualifier", such as "pre1" to denote a pre-release, or "rc1" to denote a release candidate. This should be placed after the version, preceded by a hyphen (-).
 
-Examples, without semver (**strongly discouraged**):
-
- - Inconsistent, no examples available
-
+### Examples
+A few examples of what could be considered a standard update process for a mod:
+ - **1.7.10-0.0.0.0** (Initial experimental release, unfinished)
+ - **1.7.10-0.0.1.0** (Add a feature)
+ - **1.7.10-1.0.0.0** (Confident enough in stability and feature completeness to make an initial release)
+ - **1.7.10-1.0.0.1** (Fix a bug)
+ - **1.7.10-1.0.1.0** (Add a feature)
+ - **1.7.10-1.0.1.1** (Fix another bug)
+ - **1.7.10-1.1.0.0** (Remove an API method)
+ - **1.7.10-1.1.1.0** (Deprecate an API method)
+ - **1.7.10-2.0.0.0** (Remove an item)
+ - **1.8-2.0.0.0** (Update to Minecraft 1.8)
+ - **1.7.10-2.0.0.1**, **1.8-2.0.0.1** (Fix a bug in both versions)
+ - **1.7.10-2.0.0.1-final** (Drop support for 1.7.10)
+ - **1.8-3.0.0.0-pre1** (Pre-release of some major changes)
+ - **1.8-3.0.0.0-pre2** (Some fixes are made to the pre-release)
+ - **1.8-3.0.0.0-pre3** (A couple new features are added)
+ - **1.8-3.0.0.0-pre4** (Remove a feature added in a previous pre-release)
+ - **1.8-3.0.0.0-rc1** (Most of the bugs are thought to be fixed, and so it is now a release candidate)
+ - **1.8-3.0.0.0-rc2** (Bugfixes)
+ - **1.8-3.0.0.0** (Release of the version, maybe with a few more bugfixes, or potentially exactly the same as rc2)
+ - **1.9-3.0.0.0** (Update to Minecraft 1.9, no new features)
+ - **1.10-3.0.1.0** (Update to Minecraft 1.10, and a new feature)
