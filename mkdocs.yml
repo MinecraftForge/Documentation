@@ -13,6 +13,8 @@ pages:
     - Overview: 'networking/overview.md'
     - SimpleImpl: 'networking/simpleimpl.md'
   - Conventions:
+    - Home: 'conventions/index.md'
+    - Identity: 'conventions/identity.md'
     - Versioning: 'conventions/versioning.md'
 
 # Do not edit in PRs below here
