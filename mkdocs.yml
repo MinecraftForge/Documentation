@@ -16,6 +16,7 @@ pages:
     - Home: 'conventions/index.md'
     - Identity: 'conventions/identity.md'
     - Versioning: 'conventions/versioning.md'
+    - Packaging: 'conventions/packaging.md'
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
