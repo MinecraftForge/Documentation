@@ -39,14 +39,27 @@ all classes which extend Entity belong in .entity, and anything that uses Simple
 should go in .network.
 
 You can go another level deeper if your mod becomes unwieldy; this would be ".client.render",
-".block.item", and ".client.gui". Anything that extends Render would go in ".client.render",
-any ItemBlocks would be ".block.item", and any GuiScreens or GuiInventorys would be ".client.gui".
+".block.item", ".block.entity", and ".client.gui". Anything that extends Render would go in
+".client.render", any ItemBlocks would be ".block.item", any GuiScreens or GuiInventorys
+would be ".client.gui", and any TileEntitys would be ".block.entity".
+
+## Class Naming
+
+Classes should generally be named based on what kind of class they are, followed by what they are,
+and should always use CamelCase naming.
+
+You can see this naming scheme in all of the Block, Item, Entity, and Render classes in Minecraft.
+
+For example, a Banana Furnace block would be "BlockBananaFurnace", a Banana Monster entity would be
+"EntityBananaMonster", etc.
 
 ## Example
 Here's an example of a well-structured mod based on this system:
 
  - com.example.bananacraft
      - block
+         - entity
+             - TileEntityBananaFurnace
          - BlockBananaFurnace
          - BlockBananaTreeLog
          - BlockBananaTreeLeaves
@@ -67,3 +80,5 @@ Here's an example of a well-structured mod based on this system:
          - MessageBananaVision
          - HandlerBananaVision
      - BananaCraftMod
+     - BananaCraftBlocks
+     - BananaCraftItems
