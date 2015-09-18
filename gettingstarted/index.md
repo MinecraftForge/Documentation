@@ -5,7 +5,7 @@ This is a simple guide to get you from nothing to a basic mod. The rest of this 
 
 From Zero to modding
 --------------------
-1. Obtain a source distribution from forge's [files][] site. (Look for the Src file type).
+1. Obtain a source distribution from forge's [files][] site. (Look for the MDK (src for older builds) file type).
 [files]: http://files.minecraftforge.net "Forge Files distribution site"
 2. Extract the downloaded source distribution to an empty directory. You should see a bunch of files, and an example mod is placed in `src/main/java` for you to look at.
 3. Run `gradlew setupDecompWorkspace`. This will download a bunch of artifacts from the internet needed to decompile and build minecraft and forge. This might take some time, as it will download stuff and then decompile minecraft.
