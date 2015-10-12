@@ -3,6 +3,7 @@ In general projects, [Semantic Versioning](http://semver.org/) is often used (wh
 
 ## Examples
 Here is a (most likely incomplete) list of things that increment the various variables.
+
 + MCVERSION
 	+ Always matches the Minecraft version the mod is for.
 + MAJORMOD
