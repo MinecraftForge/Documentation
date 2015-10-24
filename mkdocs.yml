@@ -12,6 +12,7 @@ pages:
     - Home: 'networking/index.md'
     - Overview: 'networking/overview.md'
     - SimpleImpl: 'networking/simpleimpl.md'
+  - Events: 'events.md'
   - Conventions:
     - Versioning: 'conventions/versioning.md'
 
