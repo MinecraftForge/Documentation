@@ -25,3 +25,5 @@ markdown_extensions:
 
 extra_css:
   - css/code_fixer.css
+
+theme: readthedocs
