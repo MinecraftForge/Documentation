@@ -24,6 +24,7 @@ pages:
   - Conventions:
     - Versioning: 'conventions/versioning.md'
     - Locations: 'conventions/locations.md'
+    - Loading Stages: 'conventions/loadstages.md'
   - Concepts:
     - Sides: 'concepts/sides.md'
 
