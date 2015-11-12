@@ -3,22 +3,22 @@ In general projects, [Semantic Versioning](http://semver.org/) is often used (wh
 
 ## Examples
 Here is a (most likely incomplete) list of things that increment the various variables.
-+ MCVERSION
-	+ Always matches the Minecraft version the mod is for.
-+ MAJORMOD
-	+ Removing items, blocks, tile entities, etc.
-	+ Changing or removing previously existing mechanics.
-	+ Updating to a new Minecraft version.
-+ MAJORAPI
-	+ Changing the order or variables of enums.
-	+ Changing return types of methods.
-	+ Removing public methods altogether.
-+ MINOR
-	+ Adding items, blocks, tile entities, etc.
-	+ Adding new mechanics.
-	+ Deprecating public methods. (This is not a MAJOR-API increment since it doesn't break an API.)
-+ PATCH
-	+ Bugfixes.
+* MCVERSION
+	* Always matches the Minecraft version the mod is for.
+* MAJORMOD
+	* Removing items, blocks, tile entities, etc.
+	* Changing or removing previously existing mechanics.
+	* Updating to a new Minecraft version.
+* MAJORAPI
+	* Changing the order or variables of enums.
+	* Changing return types of methods.
+	* Removing public methods altogether.
+* MINOR
+	* Adding items, blocks, tile entities, etc.
+	* Adding new mechanics.
+	* Deprecating public methods. (This is not a MAJOR-API increment since it doesn't break an API.)
+* PATCH
+	* Bugfixes.
 
 When incrementing any variable, all lesser variables should reset to 0. For instance, if MINOR would increment, PATCH would become 0. If MAJOR-MOD would increment, all other variables would become 0.
 
