@@ -3,7 +3,7 @@ Getting Started with Forge
 
 This is a simple guide to get you from nothing to a basic mod. The rest of this documentation is about where to go from here.
 
-From Zero to modding
+From Zero to Modding
 --------------------
 
 1. Obtain a source distribution from forge's [files][] site. (Look for the Mdk file type, or Src in older 1.8/1.7 versions).
@@ -23,7 +23,7 @@ From Zero to modding
 
 [files]: http://files.minecraftforge.net "Forge Files distribution site"
 
-Customizing your mod information
+Customizing Your Mod Information
 --------------------------------
 Edit the `build.gradle` file to customize how your mod is built (the file names, versions, and other things).
 
@@ -36,14 +36,14 @@ Almost anything underneath `apply project: forge` and the `// EDITS GO BELOW HER
 There is a whole site dedicated to customizing the forge `build.gradle` files - the [ForgeGradle cookbook][]. Once you're comfortable with your mod setup, you'll find many useful recipes there.
 [forgegradle cookbook]: https://forgegradle.readthedocs.org/en/latest/cookbook/ "The ForgeGradle cookbook"
 
-### Simple `build.gradle` customizations
+### Simple `build.gradle` Customizations
 These customizations are highly recommended for all projects.
 
 * To change the name of the file you build - edit the value of `archivesBaseName` to suit.
 * To change your "maven coordinates" - edit the value of `group` as well.
 * To change the version number - edit the value of `version`.
 
-Building and testing your mod
+Building and Testing Your Mod
 -----------------------------
 1. To build your mod, run `gradlew build`. This will output a file in `build/libs` with the name `[archivesBaseName]-[version].jar`. This file can be placed in the `mods` folder of a forge enabled Minecraft setup, and distributed.
 2. To test run with your mod, the easist way is to use the run configs that were generated when you set up your project. Otherwise, you can run `gradlew runClient`. This will launch Minecraft from the `<runDir>` location, including your mod code. There are various customizations to this command. Consult the [ForgeGradle cookbook][] for more information.

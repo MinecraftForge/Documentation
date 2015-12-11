@@ -9,7 +9,8 @@ Forge has its own blockstate json format to accommodate for modders needs. It in
 
     You don't have to use Forge's blockstate format at all, you can also use the vanilla format!
 
-## General structure of the format
+General Structure of the Format
+-------------------------------
 
 ```json
 {
@@ -72,7 +73,8 @@ For example:
 
 This normal variant would use the *cube_column* model with cobblestone on the sides and dirt on top and bottom.
 
-## Sub-Models
+Sub-Models
+----------
 
 To show the use of submodels we will create a model that has different variants. Each variant will use submodels to create a different model.
 The model will be a pressure plate, and depending on its state it will have parts added to it.

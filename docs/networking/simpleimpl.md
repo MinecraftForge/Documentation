@@ -49,7 +49,7 @@ Now, how can we use this packet? Well, first we must have a class that can *hand
 
 ```
 // The params of the IMessageHandler are <REQ, REPLY>
-// This means that the first param is the packet you are receiving, and the second is the packet you are returning. 
+// This means that the first param is the packet you are receiving, and the second is the packet you are returning.
 // The returned packet can be used as a "response" from a sent packet.
 public class MyMessageHandler implements IMessageHandler<MyMessage, IMessage> {
   // Do note that the default constructor is required, but implicitly defined in this case

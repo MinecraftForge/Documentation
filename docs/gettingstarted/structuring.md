@@ -13,18 +13,18 @@ Pick a unique package name. If you own a URL associated with your project, you c
 
 After the top level package (if you have one) you append a unique name for your mod, such as `examplemod`. In our case it will end up as `com.fakemods.examplemod`.
 
-The mod file
+The Mod File
 ------------
 Generally, we'll start with a file named after your mod, and put into your package. This is the *entry point* to your mod
 and will contain some special indicators marking it as such.
 
-What is @Mod?
+What is `@Mod`?
 -------------
-This is an annotation indicating to the Forge Mod Loader that the class is a Mod entry point. It contains various metadata about the mod. It also designates the class that will receive @EventHandler events. More information can be found at... (Coming Soon)
+This is an annotation indicating to the Forge Mod Loader that the class is a Mod entry point. It contains various metadata about the mod. It also designates the class that will receive `@EventHandler` events. More information can be found at... (Coming Soon)
 
 You can find an example mod in the [Forge src download](http://files.minecraftforge.net/).
 
-Keeping your code clean using sub-packages
+Keeping Your Code Clean Using Sub-packages
 ------------------------------------------
 Rather than clutter up a single class and package with everything, it is recommended you break your mod into subpackages.
 
@@ -36,7 +36,7 @@ A common subpackage strategy has packages for `common` and `client` code, which 
 
 By keeping your code in clean subpackages, you can grow your mod much more organically.
 
-Class naming schemes
+Class Naming Schemes
 --------------------
 A common class naming scheme allows easier deciphering of what a class is, and also makes it easier for someone developing with your mod to find things.
 

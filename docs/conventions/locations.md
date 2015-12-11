@@ -1,4 +1,6 @@
-# Locations
+Locations
+=========
+
 Minecraft expects certain parts of your project to be in certain locations, such as textures and JSONs.
 All locations and items covered in this page are relative to your `./src/main/resources/` folder.
 
