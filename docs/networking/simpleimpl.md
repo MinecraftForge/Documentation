@@ -48,7 +48,9 @@ public class MyMessage implements IMessage {
 Now, how can we use this packet? Well, first we must have a class that can *handle* this packet. This is created with the `IMessageHandler` interface. Say we wanted to use this integer we sent to give the player that many diamonds on the server. Let's make this handler:
 
 ```
-// The params of the IMessageHandler are <REQ, REPLY>, meaning that the first is the packet you are receiving, and the second is the packet you are returning. The returned packet can be used as a "response" from a sent packet.
+// The params of the IMessageHandler are <REQ, REPLY>
+// This means that the first param is the packet you are receiving, and the second is the packet you are returning. 
+// The returned packet can be used as a "response" from a sent packet.
 public class MyMessageHandler implements IMessageHandler<MyMessage, IMessage> {
   // Do note that the default constructor is required, but implicitly defined in this case
 

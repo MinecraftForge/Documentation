@@ -14,6 +14,7 @@ pages:
     - SimpleImpl: 'networking/simpleimpl.md'
   - Conventions:
     - Versioning: 'conventions/versioning.md'
+    - Locations: 'conventions/locations.md'
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
@@ -25,3 +26,5 @@ markdown_extensions:
 
 extra_css:
   - css/code_fixer.css
+
+theme: readthedocs
