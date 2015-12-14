@@ -37,7 +37,7 @@ To go back to the above example, here is an example proxy implementation that re
 ```
 package com.yourmod.common;
 
-public class CommonProxy {
+public abstract class CommonProxy {
   public abstract void registerItemModels();
 }
 ```
