@@ -10,7 +10,8 @@ Sided proxies are a way to introduce side-specific things into your mod's code b
 An example of this would be a piece of code meant to register item models for rendering:
 
 ```
-ModelLoader.setCustomModelResourceLocation(yourItem, 0, new ModelResourceLocation("modid:model_name", "inventory"));```
+ModelLoader.setCustomModelResourceLocation(yourItem, 0, new ModelResourceLocation("modid:model_name", "inventory"));
+```
 
 While in your @Mod file you may want to just check for an appropriate side in one of the lifecycle events, it still won't help as the will still run in the server-side, where ModelResourceLocation cannot be found, causing an error.
 The solution is to use a proxy class, which only gets loaded on client, thus making sure that the above code is called on the right place.
@@ -25,7 +26,8 @@ For example:
 
 ```
 @SidedProxy(clientSide = "com.yourmod.client.ClientProxy", serverSide = "com.yourmod.server.ServerProxy")
-public static CommonProxy proxy;```
+public static CommonProxy proxy;
+```
 
 Now you can use the proxy-field to refer and use your proxy's methods in order to any side-specific stuff, like registering renderers.
 
