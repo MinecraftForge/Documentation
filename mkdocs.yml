@@ -5,6 +5,7 @@ pages:
   - Getting Started:
     - Home: 'gettingstarted/index.md'
     - Structuring Your Mod: 'gettingstarted/structuring.md'
+    - Using sided proxies: 'gettingstarted/proxies.md'
   - Models & Rendering:
     - Blockstates: 'blockstates/introduction.md'
     - Forge Blockstates: 'blockstates/forgeBlockstates.md'
