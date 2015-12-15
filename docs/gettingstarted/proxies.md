@@ -95,7 +95,7 @@ Uses for SidedProxies
 Some alternetive styles of proxies
 ----------------------------------
 
-There are also alternetive styles of writing these proxies that you can explore. Here are some of them:
+There are also alternative styles of writing these proxies that you can explore. Here are some of them:
 * Have preInit, init and postInit be inside the proxies
 
   Example:
@@ -127,4 +127,4 @@ There are also alternetive styles of writing these proxies that you can explore.
     // Put whatever methods here
   }
   ```
-  Then you extend your clientproxy fom this commonrproxy to get access to the methods, and in your `@Mod`-class you just have the CommonProxy be your serverSide-proxy and proceed like normal. Note that even the methods that only do something in client have to be still present and at least empty here or your code **will** crash on server.
+  Then you extend your clientproxy from this commonproxy to get access to the methods, and in your `@Mod`-class you just have the CommonProxy be your serverSide-proxy and proceed like normal. Note that even the methods that only do something in client have to be still present and at least empty here or your code **will** crash on server.
