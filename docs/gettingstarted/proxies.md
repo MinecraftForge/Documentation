@@ -13,7 +13,8 @@ An example of this would be a piece of code meant to register item models for re
 ModelLoader.setCustomModelResourceLocation(yourItem, 0, new ModelResourceLocation("modid:model_name", "inventory"));
 ```
 
-While in your `@Mod` file you may want to just check for an appropriate side in one of the lifecycle events, it still won't help as the will still run in the server-side, where ModelResourceLocation cannot be found, causing an error.
+While in your `@Mod` file you may want to just check for an appropriate side in one of the lifecycle events, it still won't help as all the classes referenced there will still be loaded, including ModelResourceLocation,
+which does not exist on the dedicated server, causing an error there.
 The solution is to use a proxy class, which only gets loaded on client, thus making sure that the above code is called on the right place.
 
 Using sided proxies
@@ -123,7 +124,7 @@ There are also alternetive styles of writing these proxies that you can explore.
 
   ```
   public class CommonProxy {
-    // Put hatever methods here
+    // Put whatever methods here
   }
   ```
   Then you extend your clientproxy fom this commonrproxy to get access to the methods, and in your `@Mod`-class you just have the CommonProxy be your serverSide-proxy and proceed like normal. Note that even the methods that only do something in client have to be still present and at least empty here or your code **will** crash on server.
