@@ -11,8 +11,9 @@ From Zero to Modding
     * `build.gradle`
     * `gradlew` (both `.bat` and `.sh`)
     * The `gradle` folder
-    
+
   You may reuse these files for all your projects.
+
 3. Move the files listed above to a new folder, this will be your mod project folder.
 4. Open up a command prompt in the folder you created in step (3), then run `gradlew setupDecompWorkspace`. This will download a bunch of artifacts from the internet needed to decompile and build Minecraft and forge. This might take some time, as it will download stuff and then decompile Minecraft. Note that, in general, these things will only need to be downloaded and decompiled once, unless you delete the gradle artifact cache.
 5. Choose your IDE: Forge explicitly supports developing with Eclipse or IntelliJ environments, but any environment, from Netbeans to vi/emacs, can be made to work.
