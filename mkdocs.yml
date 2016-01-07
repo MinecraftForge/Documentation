@@ -15,6 +15,7 @@ pages:
   - Conventions:
     - Versioning: 'conventions/versioning.md'
     - Locations: 'conventions/locations.md'
+    - Loading Stages: 'conventions/loadstages.md'
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
