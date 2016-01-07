@@ -1,6 +1,7 @@
 div.admonition code {
   display: inline-block;
   overflow-x: visible;
+  line-height: 18px;
   color: #404040;
   border: 1px solid rgba(0, 0, 0, 0.2);
   background: rgba(255, 255, 255, 0.7);
@@ -10,7 +11,7 @@ div.admonition p {
   margin-bottom: 5px;
 }
 
-p {
+p, ol, ul {
   text-align: justify;
 }
 
