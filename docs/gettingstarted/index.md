@@ -13,18 +13,6 @@ From Zero to Modding
     * The `gradle` folder
 3. Move the files listed above to a new folder, this will be your mod project folder.
 4. Open up a command prompt in the folder you created in step (3), then run `gradlew setupDecompWorkspace`. This will download a bunch of artifacts from the internet needed to decompile and build Minecraft and forge. This might take some time, as it will download stuff and then decompile Minecraft. Note that, in general, these things will only need to be downloaded and decompiled once, unless you delete the gradle artifact cache.
-
-!!! note
-
-    In case you will receive an error while running the task `:decompileMC`
-
-    ```
-      Execution failed for task ':decompileMc'.
-      GC overhead limit exceeded
-    ```
-
-    assign more RAM into gradle by adding `org.gradle.jvmargs=-Xmx2G` into `~/.gradle/gradle.properties` (create file if doesn't exist).
-
 5. Choose your IDE: Forge explicitly supports developing with Eclipse or IntelliJ environments, but any environment, from Netbeans to vi/emacs, can be made to work.
     * For Eclipse, you should run `gradlew eclipse` - this will download some more artifacts for building eclipse projects and then place the eclipse project artifacts in your current directory.
     * For IntelliJ, simply import the build.gradle file.
@@ -32,6 +20,19 @@ From Zero to Modding
     * For Eclipse, create a workspace anywhere (though the easiest location is one level above your project folder). Then simply import your project folder as a project, everything will be done automatically.
     * For IntelliJ, you only need to create run configs. You can run `gradlew genIntellijRuns` to do this.
 
+!!! note
+
+    In case you will receive an error while running the task `:decompileMC` ( the fourth step )
+
+    ```
+      Execution failed for task ':decompileMc'.
+      GC overhead limit exceeded
+    ```
+
+    assign more RAM into gradle by adding `org.gradle.jvmargs=-Xmx2G` into the file `~/.gradle/gradle.properties` (create file if doesn't exist). The `~` sign means it's a user's [home directory][]    .
+
+
+[home directory]: https://en.wikipedia.org/wiki/Home_directory#Default_home_directory_per_operating_system "Default user's home folder location for different operation systems"
 [files]: http://files.minecraftforge.net "Forge Files distribution site"
 
 Customizing Your Mod Information
