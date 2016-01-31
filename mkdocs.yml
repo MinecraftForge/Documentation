@@ -12,6 +12,9 @@ pages:
     - Home: 'networking/index.md'
     - Overview: 'networking/overview.md'
     - SimpleImpl: 'networking/simpleimpl.md'
+  - Data Storage:
+    - Extended Entity Properties: 'datastorage/extendedentityproperties.md'
+    - World Saved Data: 'datastorage/worldsaveddata.md'
   - Conventions:
     - Versioning: 'conventions/versioning.md'
     - Locations: 'conventions/locations.md'
