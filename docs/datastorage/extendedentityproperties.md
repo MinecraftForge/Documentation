@@ -3,7 +3,7 @@ Extended Entity Properties
 
 Extended entity properties allow attaching data to entities.
 
-**WARNING: THIS SYSTEM HAS BEEN DEPRECATED IN FAVOR OF THE CAPABILITY SYSTEM**
+**WARNING: THIS SYSTEM HAS BEEN DEPRECATED IN FAVOR OF THE [CAPABILITY](capabilities.md) SYSTEM**
 
 Declaration and Registration
 ----------------------------
