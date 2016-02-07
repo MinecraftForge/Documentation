@@ -5,7 +5,6 @@ pages:
   - Getting Started:
     - Home: 'gettingstarted/index.md'
     - Structuring Your Mod: 'gettingstarted/structuring.md'
-    - Using sided proxies: 'gettingstarted/proxies.md'
   - Models & Rendering:
     - Blockstates: 'blockstates/introduction.md'
     - Forge Blockstates: 'blockstates/forgeBlockstates.md'
@@ -22,6 +21,7 @@ pages:
     - Locations: 'conventions/locations.md'
   - Concepts:
     - Sides: 'concepts/sides.md'
+    - Using sided proxies: 'concepts/proxies.md'
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
