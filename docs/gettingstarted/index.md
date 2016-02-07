@@ -7,12 +7,10 @@ From Zero to Modding
 --------------------
 
 1. Obtain a source distribution from forge's [files][] site. (Look for the Mdk file type, or Src in older 1.8/1.7 versions).
-2. Extract the downloaded source distribution to an empty directory. You should see a bunch of files, and an example mod is placed in `src/main/java` for you to look at. Only a few of these files are strictly necessary for mod development:
+2. Extract the downloaded source distribution to an empty directory. You should see a bunch of files, and an example mod is placed in `src/main/java` for you to look at. Only a few of these files are strictly necessary for mod development, and you may reuse these files for all your projects These files are:
     * `build.gradle`
     * `gradlew` (both `.bat` and `.sh`)
     * The `gradle` folder
-    
-  You may reuse these files for all your projects.
 3. Move the files listed above to a new folder, this will be your mod project folder.
 4. Open up a command prompt in the folder you created in step (3), then run `gradlew setupDecompWorkspace`. This will download a bunch of artifacts from the internet needed to decompile and build Minecraft and forge. This might take some time, as it will download stuff and then decompile Minecraft. Note that, in general, these things will only need to be downloaded and decompiled once, unless you delete the gradle artifact cache.
 5. Choose your IDE: Forge explicitly supports developing with Eclipse or IntelliJ environments, but any environment, from Netbeans to vi/emacs, can be made to work.
@@ -22,6 +20,19 @@ From Zero to Modding
     * For Eclipse, create a workspace anywhere (though the easiest location is one level above your project folder). Then simply import your project folder as a project, everything will be done automatically.
     * For IntelliJ, you only need to create run configs. You can run `gradlew genIntellijRuns` to do this.
 
+!!! note
+
+    In case you will receive an error while running the task `:decompileMC` ( the fourth step )
+
+    ```
+      Execution failed for task ':decompileMc'.
+      GC overhead limit exceeded
+    ```
+
+    assign more RAM into gradle by adding `org.gradle.jvmargs=-Xmx2G` into the file `~/.gradle/gradle.properties` (create file if doesn't exist). The `~` sign means it's a user's [home directory][]    .
+
+
+[home directory]: https://en.wikipedia.org/wiki/Home_directory#Default_home_directory_per_operating_system "Default user's home folder location for different operation systems"
 [files]: http://files.minecraftforge.net "Forge Files distribution site"
 
 Customizing Your Mod Information

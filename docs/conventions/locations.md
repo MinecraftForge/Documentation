@@ -15,7 +15,7 @@ Localizations are plain-text files with the file extension .lang and the name be
 They are located in the `./lang/` folder.
 
 ### Models
-Model files are in JSON format and are located in `./models/block/` or `./models/item/` depending on weather they are for a block or an item, respectively.
+Model files are in JSON format and are located in `./models/block/` or `./models/item/` depending on whether they are for a block or an item, respectively.
 
 ### Textures
-Textures are in the PNG format and are located in `./textures/blocks/` or `./textures/items/` depending on weather they are for a block or an item, respectively.
+Textures are in the PNG format and are located in `./textures/blocks/` or `./textures/items/` depending on whether they are for a block or an item, respectively.
