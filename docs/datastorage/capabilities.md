@@ -69,6 +69,7 @@ Attaching Capabilities
 ----------------------
 
 As mentioned, attaching capabilities to entities and itemstacks can be done through the AttachCapabilityEvent. This event has 3 sub-events, for extra granularity:
+
 * `AttachCapabilityEvent.Entity`: Fires only for entities.
 * `AttachCapabilityEvent.TileEntity`: Fires only for tile entities.
 * `AttachCapabilityEvent.Item`: Fires only for item stacks.
