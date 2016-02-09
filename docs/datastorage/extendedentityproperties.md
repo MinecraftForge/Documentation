@@ -3,7 +3,9 @@ Extended Entity Properties
 
 Extended entity properties allow attaching data to entities.
 
-**WARNING: THIS SYSTEM HAS BEEN DEPRECATED IN FAVOR OF THE [CAPABILITY](capabilities.md) SYSTEM**
+!!!warning
+
+    This system has been *deprecated* in favor of the [Capability](capabilities.md) system.
 
 Declaration and Registration
 ----------------------------
@@ -20,19 +22,16 @@ The implementation will need to make use of events in order to attach the IEEP t
 A basic skeleton to get started:
 
 ```Java
-public class ExampleEntityProperty implements IExtendedEntityProperties
-{
+public class ExampleEntityProperty implements IExtendedEntityProperties {
   public static final String PROP_NAME = ExampleMod.MODID + "_ExampleEntityData";
 
-  public static void register()
-  {
+  public static void register() {
     MinecraftForge.EVENT_BUS.register(new Handler());
   }
 
-  // IExtendedEntityProperties methods
+  // IExtendedEntityProperties methods go here
 
-  public static class Handler
-  {
+  public static class Handler {
     // Event handlers will go here
   }
 }
@@ -50,12 +49,11 @@ In order to uniquely identify your property and avoid duplication, the method ta
 In order to handle this event, you could do something like this:
 ```Java
 @SubscribeEvent
-public void entityConstruct(EntityEvent.EntityConstructing e)
-{
-  if (e.entity instanceof EntityPlayer)
-  {
-    if (e.entity.getExtendedProperties(PROP_NAME) == null)
+public void entityConstruct(EntityEvent.EntityConstructing e) {
+  if (e.entity instanceof EntityPlayer) {
+    if (e.entity.getExtendedProperties(PROP_NAME) == null) {
       e.entity.registerExtendedProperties(PROP_NAME, new ExampleEntityProperty());
+    }
   }
 }
 ```
@@ -70,8 +68,7 @@ To obtain the IEEP reference, one would use Entity#getExtendedProperties, with t
 A good idea is to create a static "get" method in your IEEP implementation, that will automatically obtain the instance, and cast it to your implementation class. It can be as simple as:
 
 ```Java
-public static ExampleEntityProperty get(Entity p)
-{
+public static ExampleEntityProperty get(Entity p) {
   return (ExampleEntityProperty) p.getExtendedProperties(PROP_NAME);
 }
 ```
@@ -87,8 +84,7 @@ Your code may look a bit like this:
 
 ```Java
 @Override
-public void saveNBTData(NBTTagCompound compound)
-{
+public void saveNBTData(NBTTagCompound compound) {
   NBTTagCompound propertyData = new NBTTagCompound();
 
   // Write data to propertyData
@@ -97,10 +93,8 @@ public void saveNBTData(NBTTagCompound compound)
 }
 
 @Override
-public void loadNBTData(NBTTagCompound compound)
-{
-  if(compound.hasKey(PROP_NAME, Constants.NBT.TAG_COMPOUND))
-  {
+public void loadNBTData(NBTTagCompound compound) {
+  if(compound.hasKey(PROP_NAME, Constants.NBT.TAG_COMPOUND)) {
     NBTTagCompound propertyData = compound.getCompoundTag(PROP_NAME);
 
     // Read data from propertyData
@@ -124,27 +118,22 @@ Refer to the [Networking](../networking/index.md) page for more information on i
 For example:
 
 ```Java
-private void dataChanged()
-{
-  if(!world.isRemote)
-  {
+private void dataChanged() {
+  if(!world.isRemote) {
     EntityTracker tracker = ((WorldServer)world).getEntityTracker();
     ExampleEntityPropertySync message = new ExampleEntityPropertySync(this);
 
-    for (EntityPlayer entityPlayer : tracker.getTrackingPlayers(entity))
-    {
+    for (EntityPlayer entityPlayer : tracker.getTrackingPlayers(entity)) {
       ExampleMod.channel.sendTo(message, (EntityPlayerMP)entityPlayer);
     }
   }
 }
 
-private void entitySpawned()
-{
+private void entitySpawned() {
   dataChanged();
 }
 
-private void playerStartedTracking(EntityPlayer entityPlayer)
-{
+private void playerStartedTracking(EntityPlayer entityPlayer) {
   ExampleMod.channel.sendTo(new ExampleEntityPropertySync(this), (EntityPlayerMP)entityPlayer);
 }
 ```
@@ -153,8 +142,7 @@ And the corresponding event handlers:
 
 ```Java
 @SubscribeEvent
-public void entityJoinWorld(EntityJoinWorldEvent e)
-{
+public void entityJoinWorld(EntityJoinWorldEvent e) {
   ExampleEntityProperty data = ExampleEntityProperty.get(e.entity);
   if (data != null)
     data.entitySpawned();
@@ -178,10 +166,8 @@ This can be done by handling the `PlayerEvent.Clone` event. In this event, the `
 
 ```Java
 @SubscribeEvent
-public void onClonePlayer(PlayerEvent.Clone e)
-{
-  if(e.wasDeath)
-  {
+public void onClonePlayer(PlayerEvent.Clone e) {
+  if(e.wasDeath) {
     NBTTagCompound compound = new NBTTagCompound();
     ExampleEntityProperty.get(e.original).saveNBTData(compound);
     ExampleEntityProperty.get(e.entityPlayer).loadNBTData(compound);

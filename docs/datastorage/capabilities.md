@@ -43,10 +43,10 @@ Once you have your own instance of the capability interface, you will want to no
 
 ```Java
 @Override
-public boolean hasCapability(Capability<?> capability, EnumFacing facing)
-{
-  if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+  if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
     return true;
+  }
   return super.hasCapability(capability, facing);
 }
 ```
@@ -55,10 +55,10 @@ Similarly, you will want to provide the interface reference to your capability i
 
 ```Java
 @Override
-public <T> T getCapability(Capability<T> capability, EnumFacing facing)
-{
-  if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-    return (T)inventory;
+public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+  if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+    return (T) inventory;
+  }
   return super.getCapability(capability, facing);
 }
 ```
@@ -68,7 +68,7 @@ It is strongly suggested that direct checks in code are used to test for capabil
 Attaching Capabilities
 ----------------------
 
-As mentioned, attaching capabilities to entities and itemstacks can be done through the AttachCapabilityEvent. This event has 3 sub-events, for extra granularity:
+As mentioned, attaching capabilities to entities and itemstacks can be done through the `AttachCapabilityEvent`. This event has 3 sub-events, for extra granularity:
 
 * `AttachCapabilityEvent.Entity`: Fires only for entities.
 * `AttachCapabilityEvent.TileEntity`: Fires only for tile entities.
@@ -83,7 +83,7 @@ Creating Your Own Capability
 
 In general terms, a capability is declared and registered through a single method call to `CapabilityManager.INSTANCE.register()`. One possibility is to define a static `register()` method inside a dedicated class for the capability, but this is not required by the capability system. For the purpose of this documentation we will be describing each part as a separate named class, although anonymous classes are an option.
 
-```Java
+```
 CapabilityManager.INSTANCE.register(capability interface class, storage, default implementation factory);
 ```
 
@@ -93,17 +93,15 @@ The second parameter is an instance of a class that implements `Capability.IStor
 
 ```Java
 private static class Storage
-    implements Capability.IStorage<IExampleCapability>
-{
+    implements Capability.IStorage<IExampleCapability> {
+
   @Override
-  public NBTBase writeNBT(Capability<IExampleCapability> capability, IExampleCapability instance, EnumFacing side)
-  {
+  public NBTBase writeNBT(Capability<IExampleCapability> capability, IExampleCapability instance, EnumFacing side) {
     // return an NBT tag
   }
 
   @Override
-  public void readNBT(Capability<IExampleCapability> capability, IExampleCapability instance, EnumFacing side, NBTBase nbt)
-  {
+  public void readNBT(Capability<IExampleCapability> capability, IExampleCapability instance, EnumFacing side, NBTBase nbt) {
     // load from the NBT tag
   }
 }
@@ -112,11 +110,10 @@ private static class Storage
 The last parameter is a callable factory that will return new instances of the default implementation.
 
 ```Java
-private static class Factory implements Callable<IExampleCapability>
-{
+private static class Factory implements Callable<IExampleCapability> {
+
   @Override
-  public IExampleCapability call() throws Exception
-  {
+  public IExampleCapability call() throws Exception {
     return new Implementation();
   }
 }

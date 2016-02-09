@@ -16,17 +16,14 @@ An implementation will override this class, and instances of this implementation
 A basic skeleton may look like this:
 
 ```Java
-public class ExampleWorldSavedData extends WorldSavedData
-{
+public class ExampleWorldSavedData extends WorldSavedData {
   private static final String DATA_NAME = MODID + "_ExampleData";
 
   // Required constructors
-  public ExampleWorldSavedData()
-  {
+  public ExampleWorldSavedData() {
     super(DATA_NAME);
   }
-  public ExampleWorldSavedData(String s)
-  {
+  public ExampleWorldSavedData(String s) {
     super(s);
   }
 
@@ -46,17 +43,15 @@ In code, these storage locations are represented by two instances of `MapStorage
 The existing data can be obtained using `MapStorage#loadData`, and new data can be attached using `MapStorage#setData`.
 
 ```Java
-public static ExampleWorldSavedData get(World world)
-{
+public static ExampleWorldSavedData get(World world) {
   // The IS_GLOBAL constant is there for clarity, and should be simplified into the right branch.
   MapStorage storage = IS_GLOBAL ? world.getMapStorage() : world.getPerWorldStorage();
   ExampleWorldSavedData instance = (ExampleWorldSavedData) storage.loadData(ExampleWorldSavedData.class, DATA_NAME);
-  if (instance == null)
-  {
+
+  if (instance == null) {
     instance = new ExampleWorldSavedData();
     storage.setData(DATA_NAME, instance);
   }
-
   return instance;
 }
 ```
