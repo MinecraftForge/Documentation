@@ -149,8 +149,7 @@ public void entityJoinWorld(EntityJoinWorldEvent e) {
 }
 
 @SubscribeEvent
-public void playerStartedTracking(PlayerEvent.StartTracking e)
-{
+public void playerStartedTracking(PlayerEvent.StartTracking e) {
   ExampleEntityProperty data = ExampleEntityProperty.get(e.target);
   if (data != null)
     data.playerStartedTracking(e.entityPlayer);
