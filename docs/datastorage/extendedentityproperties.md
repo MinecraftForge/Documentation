@@ -22,7 +22,7 @@ The implementation will need to make use of events in order to attach the IEEP t
 
 A basic skeleton to get started:
 
-```Java
+```java
 public class ExampleEntityProperty implements IExtendedEntityProperties {
   public static final String PROP_NAME = ExampleMod.MODID + "_ExampleEntityData";
 
@@ -51,7 +51,7 @@ In order to uniquely identify your property and avoid duplication, the method ta
 
 In order to handle this event, you could do something like this:
 
-```Java
+```java
 @SubscribeEvent
 public void entityConstruct(EntityEvent.EntityConstructing e) {
   if (e.entity instanceof EntityPlayer) {
@@ -71,7 +71,7 @@ To obtain the IEEP reference, one would use `Entity#getExtendedProperties`, with
 
 A good idea is to create a static "get" method in your IEEP implementation, that will automatically obtain the instance, and cast it to your implementation class. It can be as simple as:
 
-```Java
+```java
 public static ExampleEntityProperty get(Entity p) {
   return (ExampleEntityProperty) p.getExtendedProperties(PROP_NAME);
 }
@@ -86,7 +86,7 @@ There are some cases where an IEEP may benefit from accessing this global data, 
 
 Your code may look a bit like this:
 
-```Java
+```java
 @Override
 public void saveNBTData(NBTTagCompound compound) {
   NBTTagCompound propertyData = new NBTTagCompound();
@@ -121,7 +121,7 @@ Refer to the [Networking](../networking/index.md) page for more information on i
 
 For example:
 
-```Java
+```java
 private void dataChanged() {
   if(!world.isRemote) {
     EntityTracker tracker = ((WorldServer)world).getEntityTracker();
@@ -144,7 +144,7 @@ private void playerStartedTracking(EntityPlayer entityPlayer) {
 
 And the corresponding event handlers:
 
-```Java
+```java
 @SubscribeEvent
 public void entityJoinWorld(EntityJoinWorldEvent e) {
   ExampleEntityProperty data = ExampleEntityProperty.get(e.entity);
@@ -167,7 +167,7 @@ By default, the entity data does not persist on death. In order to change this, 
 
 This can be done by handling the `PlayerEvent.Clone` event. In this event, the `wasDead` field can be used to distinguish between respawning after death, and returning from the End. This is important because the data will already exist, so care has to be taken to not duplicate values when returning from the End dimension.
 
-```Java
+```java
 @SubscribeEvent
 public void onClonePlayer(PlayerEvent.Clone e) {
   if(e.wasDeath) {
