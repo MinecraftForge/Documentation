@@ -25,8 +25,8 @@ From Zero to Modding
     In case you will receive an error while running the task `:decompileMC` ( the fourth step )
 
     ```
-      Execution failed for task ':decompileMc'.
-      GC overhead limit exceeded
+    Execution failed for task ':decompileMc'.
+    GC overhead limit exceeded
     ```
 
     assign more RAM into gradle by adding `org.gradle.jvmargs=-Xmx2G` into the file `~/.gradle/gradle.properties` (create file if doesn't exist). The `~` sign means it's a user's [home directory][]    .
@@ -37,6 +37,7 @@ From Zero to Modding
 
 Customizing Your Mod Information
 --------------------------------
+
 Edit the `build.gradle` file to customize how your mod is built (the file names, versions, and other things).
 
 !!! important
@@ -46,9 +47,11 @@ Edit the `build.gradle` file to customize how your mod is built (the file names,
 Almost anything underneath `apply project: forge` and the `// EDITS GO BELOW HERE` marker can be changed, many things can be removed and customized there as well.
 
 There is a whole site dedicated to customizing the forge `build.gradle` files - the [ForgeGradle cookbook][]. Once you're comfortable with your mod setup, you'll find many useful recipes there.
+
 [forgegradle cookbook]: https://forgegradle.readthedocs.org/en/latest/cookbook/ "The ForgeGradle cookbook"
 
 ### Simple `build.gradle` Customizations
+
 These customizations are highly recommended for all projects.
 
 * To change the name of the file you build - edit the value of `archivesBaseName` to suit.
@@ -57,6 +60,7 @@ These customizations are highly recommended for all projects.
 
 Building and Testing Your Mod
 -----------------------------
+
 1. To build your mod, run `gradlew build`. This will output a file in `build/libs` with the name `[archivesBaseName]-[version].jar`. This file can be placed in the `mods` folder of a forge enabled Minecraft setup, and distributed.
 2. To test run with your mod, the easist way is to use the run configs that were generated when you set up your project. Otherwise, you can run `gradlew runClient`. This will launch Minecraft from the `<runDir>` location, including your mod code. There are various customizations to this command. Consult the [ForgeGradle cookbook][] for more information.
 3. You can also run a dedicated server using the server run config, or `gradlew runServer`. This will launch the Minecraft server with it's GUI.

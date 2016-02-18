@@ -11,6 +11,7 @@ Declaration and Registration
 ----------------------------
 
 The basis of the EEPs is the `IExtendedEntityProperties` interface. This interface provides the basic methods required for managing the extended data:
+
 * `init`: Allows the implementation to have knowledge about the entity it's attached to, and the world this entity is loaded into.
 * `saveNBTData`: Allows the implementation to store data in the save file, to be loaded when the entity gets loaded into the world.
 * `loadNBTData`: Allows the implementation to read the previously saved data for this entity.
@@ -44,9 +45,12 @@ In order to attach the extended property to an entity, it is done by handling th
 
 In order to uniquely identify your property and avoid duplication, the method takes a string parameter with an identifier for the property. A good practice is to include the modid in this string, so that it will not collide with other mods.
 
-**WARNING**: If the same property identifier is added twice, Forge will append a number to it, and return this modified identifier from the `registerExtendedProperties` method. If you don't want that to happen, you can use `Entity#getExtendedProperties` to check if an IEEP with that name was already added.
+!!!warning
+
+    If the same property identifier is added twice, Forge will append a number to it, and return this modified identifier from the `registerExtendedProperties` method. If you don't want that to happen, you can use `Entity#getExtendedProperties` to check if an IEEP with that name was already added.
 
 In order to handle this event, you could do something like this:
+
 ```Java
 @SubscribeEvent
 public void entityConstruct(EntityEvent.EntityConstructing e) {
@@ -63,7 +67,7 @@ Making Use of the Implementation
 
 To make use of the extended data, the instance of the IEEP implementation has to be obtained from the Entity, and because the entity could have been unloaded or may have changed dimensions, it is not safe to cache the references.
 
-To obtain the IEEP reference, one would use Entity#getExtendedProperties, with the same property ID specified on registration. The return value, if not null, is the instance of `IExtendedEntityProperties` added during entity construction.
+To obtain the IEEP reference, one would use `Entity#getExtendedProperties`, with the same property ID specified on registration. The return value, if not null, is the instance of `IExtendedEntityProperties` added during entity construction.
 
 A good idea is to create a static "get" method in your IEEP implementation, that will automatically obtain the instance, and cast it to your implementation class. It can be as simple as:
 
@@ -110,8 +114,8 @@ By default, the entity data is not sent to clients. In order to change this, the
 There are three different situation in which you may want to send synchronization packets, all of them optional:
 
 1. When the entity spawns in the world, you may want to share the initialization-assigned values with the clients.
-1. When the stored data changes, you may want to notify some or all of the watching clients.
-1. When a new client starts viewing the entity, you may want to notify it of the existing data.
+2. When the stored data changes, you may want to notify some or all of the watching clients.
+3. When a new client starts viewing the entity, you may want to notify it of the existing data.
 
 Refer to the [Networking](../networking/index.md) page for more information on implementing the network packets.
 

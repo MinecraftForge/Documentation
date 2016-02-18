@@ -61,6 +61,7 @@ The defaults section contains the default values for all variants. They can be o
 
 This defines all variants for the block. The simple dirt block only has its default, the *normal* variant. It does not contain any additional information in this case. Everything that is defined in defaults could also be defined here.
 For example:
+
 ```json
 	"normal": [{
 		"textures": {
