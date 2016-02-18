@@ -1,5 +1,5 @@
 The Capability System
-==========================
+=====================
 
 Capabilities allow exposing features in a dynamic and flexible way, without having to resort to directly implementing many interfaces.
 
@@ -12,7 +12,7 @@ Forge-provided Capabilities
 
 As of this writing, Forge provides just one capability: IItemHandler.
 
-This capability exposes an interface for handling inventory slots. It can be applied to TileEntities (chests, machines, ...), Entities (extra player slots, mob/creature inventories/bags), or ItemStacks (portable backpacks and such). It replaces the old `IInventory` and `ISidedInventory` with with an automation-friendly system.
+This capability exposes an interface for handling inventory slots. It can be applied to TileEntities (chests, machines, etc.), Entities (extra player slots, mob/creature inventories/bags), or ItemStacks (portable backpacks and such). It replaces the old `IInventory` and `ISidedInventory` with with an automation-friendly system.
 
 Using an Existing Capability
 ----------------------------
@@ -129,8 +129,8 @@ By default, Capability data is not sent to clients. In order to change this, the
 There are three different situation in which you may want to send synchronization packets, all of them optional:
 
 1. When the entity spawns in the world, or the block is placed, you may want to share the initialization-assigned values with the clients.
-1. When the stored data changes, you may want to notify some or all of the watching clients.
-1. When a new client starts viewing the entity or block, you may want to notify it of the existing data.
+2. When the stored data changes, you may want to notify some or all of the watching clients.
+3. When a new client starts viewing the entity or block, you may want to notify it of the existing data.
 
 Refer to the [Networking](../networking/index.md) page for more information on implementing network packets.
 

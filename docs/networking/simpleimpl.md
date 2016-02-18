@@ -8,7 +8,9 @@ Getting Started
 
 First you need to create your `SimpleNetworkWrapper` object. We recommend that you do this in a separate class, possibly something like `ModidPacketHandler`. Create your `SimpleNetworkWrapper` as a static field in this class, like so:
 
-`public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel("mymodid");`
+```java
+public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel("mymodid");
+```
 
 Where `"mymodid"` is a short identifier for your packet channel, typically just your mod ID, unless that is unusually long.
 
@@ -21,7 +23,7 @@ A packet is defined by using the `IMessage` interface. This interface defines 2 
 
 For an example, let's define a small packet that is designed to send a single int over the network:
 
-```
+```java
 public class MyMessage implements IMessage {
   // A default constructor is always required
   public MyMessage(){}
@@ -47,7 +49,7 @@ public class MyMessage implements IMessage {
 
 Now, how can we use this packet? Well, first we must have a class that can *handle* this packet. This is created with the `IMessageHandler` interface. Say we wanted to use this integer we sent to give the player that many diamonds on the server. Let's make this handler:
 
-```
+```java
 // The params of the IMessageHandler are <REQ, REPLY>
 // This means that the first param is the packet you are receiving, and the second is the packet you are returning.
 // The returned packet can be used as a "response" from a sent packet.
@@ -65,6 +67,7 @@ public class MyMessageHandler implements IMessageHandler<MyMessage, IMessage> {
   }
 }
 ```
+
 It is recommended (but not required) that for organization's sake, this class is an inner class to your MyMessage class. If this is done, note that the class must also be declared `static`.
 
 !!! warning
@@ -101,7 +104,7 @@ There is but one way to send a packet to the server. This is because there is on
 ### Sending to Clients
 
 
-There are four different methods of sending packets to clients.
+There are four different methods of sending packets to clients:
 
 1. `sendToAll` - Calling `INSTANCE.sendToAll` will send the packet once to every single player on the current server, no matter what location or dimension they are in.
 2. `sendToDimension` - `INSTANCE.sendToDimension` takes two arguments, an `IMessage` and an integer. The integer is the dimension ID to send to, which can be gotten with `world.provider.dimensionID`. The packet will be sent to all players currently in the given dimension.
