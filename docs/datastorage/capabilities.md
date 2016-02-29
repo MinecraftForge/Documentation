@@ -12,7 +12,7 @@ Forge-provided Capabilities
 
 As of this writing, Forge provides just one capability: IItemHandler.
 
-This capability exposes an interface for handling inventory slots. It can be applied to TileEntities (chests, machines, etc.), Entities (extra player slots, mob/creature inventories/bags), or ItemStacks (portable backpacks and such). It replaces the old `IInventory` and `ISidedInventory` with with an automation-friendly system.
+This capability exposes an interface for handling inventory slots. It can be applied to TileEntities (chests, machines, etc.), Entities (extra player slots, mob/creature inventories/bags), or ItemStacks (portable backpacks and such). It replaces the old `IInventory` and `ISidedInventory` with an automation-friendly system.
 
 Using an Existing Capability
 ----------------------------
