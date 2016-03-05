@@ -5,7 +5,7 @@ This page will go through all the benefits of using proxies and in what circumst
 
 What are sided proxies
 ----------------------
-Sided proxies are a way to introduce side-specific things into your mod's code base in such a way that the other side will not crash when referencing classes intended for the other side. As a quick recap, sides here refer to either client or dedicated servers.
+Sided proxies are a way to introduce environment-specific things into code base of your mod in such a way that the other environment will not crash when referencing classes intended for the other environment. As a quick recap, environment here refer to either the client or the dedicated server.
 
 An example of this would be a piece of code meant to register item models for rendering:
 
@@ -13,15 +13,15 @@ An example of this would be a piece of code meant to register item models for re
 ModelLoader.setCustomModelResourceLocation(yourItem, 0, new ModelResourceLocation("modid:model_name", "inventory"));
 ```
 
-While in your `@Mod` file you may want to just check for an appropriate side in one of the lifecycle events, it still won't help as all the classes referenced there will still be loaded, including ModelResourceLocation,
+While in your `@Mod` file you may want to just check for an appropriate environment in one of the lifecycle events, it still won't help as all the classes referenced there will still be loaded, including ModelResourceLocation,
 which does not exist on the dedicated server, causing an error there.
 The solution is to use a proxy class, which only gets loaded on client, thus making sure that the above code is called on the right place.
 
 Using sided proxies
 -------------------
 
-The main meat of using proxies is an Forge-added annotation called `@SidedProxy`. You give the annotation two strings as paths to your proxy classes, both client and server.
-This annotation belongs above a field, whose type is a common superclass shared by both server proxy and client proxy classes.
+The core of using proxies is an Forge-added annotation called `@SidedProxy`. You give the annotation two strings as paths to your proxy classes, both client and server.
+This annotation belongs above a `public static` field, whose type is a common superclass shared by both server proxy and client proxy classes.
 
 For example:
 
@@ -30,12 +30,13 @@ For example:
 public static CommonProxy proxy;
 ```
 
-Now you can use the proxy-field to refer and use your proxy's methods in order to any side-specific stuff, like registering renderers.
+Now you can use the proxy-field to refer and use your proxy's methods in order to do any environment-specific stuff, like registering renderers.
 
 To go back to the above example, here is an example proxy implementation that registers the item model at appropriate time:
 
-#### The common proxy (Notice that the method inside is abstract, Note #2: this could also be an interface)
+#### The common proxy
 ```
+//Notice that the method inside is abstract, Note #2: this could also be an interface
 package com.yourmod.common;
 
 public abstract class CommonProxy {
@@ -43,8 +44,9 @@ public abstract class CommonProxy {
 }
 ```
 
-#### The client proxy (Notice how this is a subclass of the CommonProxy)
+#### The client proxy
 ```
+//Notice how this is a subclass of the CommonProxy
 package com.yourmod.client;
 
 import com.yourmod.common.CommonProxy;
@@ -62,8 +64,9 @@ public class ClientProxy extends CommonProxy {
 }
 ```
 
-#### The server proxy (Notice how the registerItemModels is still implemented, but empty)
+#### The server proxy
 ```
+//Notice how the registerItemModels is still implemented, but empty
 package com.yourmod.server;
 
 import com.yourmod.common.CommonProxy;
@@ -79,7 +82,7 @@ public class ServerProxy extends CommonProxy {
 }
 ```
 
-Now in your mod's preInit method you can call ```proxy.registerItemModels();``` and it won't crash with a ClassNotFoundException when you try to use your mod on a dedicated server, as Forge makes sure that the ClientProxy is never refered there, therefor eliminating any change of accidentially using that client side method implementation on server.
+Now in your preInit method of your class, you can call `proxy.registerItemModels()` and it won't crash with a `ClassNotFoundException` when you try to use your mod on a dedicated server, as Forge makes sure that the ClientProxy is never referred there, therefore eliminating any change of accidentally using that client environment implementation on the dedicated server.
 
 Uses for SidedProxies
 ---------------------
@@ -92,7 +95,7 @@ Uses for SidedProxies
 * Server proxy
   1. Registering chat commands only usable on dedicated multiplayer server
 
-Some alternetive styles of proxies
+Some alternative styles of proxies
 ----------------------------------
 
 There are also alternative styles of writing these proxies that you can explore. Here are some of them:
@@ -101,7 +104,7 @@ There are also alternative styles of writing these proxies that you can explore.
   Example:
 
   ```
-  * your package and possible includes *
+  // your package and possible includes
   public class CommonProxy {
     public void preInit() {
       // Stuff like registering blocks and items.
@@ -113,10 +116,37 @@ There are also alternative styles of writing these proxies that you can explore.
       // Same note as above
     }
 
-    // And so on for every event
+    public void postInit() {
+      // Stuff like any cross-mod stuff you'd like to do.
+      // Same note as always
+    }
+    // And so on for any other desired lifecycle events
   }
   ```
   Then you just implement these in your client and server proxies, remember to call the super-class methods before doing anything side-specific so you do not forget to register items or whatever. And then call these inside your lifecycle-events in your `@Mod`-class.
+  Example of that:
+  ```
+  // Your package and possible includes here
+  // Do the same for the possible ServerProxy class
+  public class ClientProxy extends CommonProxy {
+    @Override
+    public void preInit() {
+      super.preInit();
+      // Any client-specific preInit stuff here
+    }
+    @Override
+    public void init() {
+      super.init();
+      // Any client-specific init stuff here
+    }
+    @Override
+    public void postInit() {
+      super.postInit();
+      // Any client-specific postInit stuff here
+    }
+    // And so on for any other desired lifecycle events.
+  }
+  ```
 
 * Have CommonProxy be the proxy for server side
 
@@ -127,4 +157,4 @@ There are also alternative styles of writing these proxies that you can explore.
     // Put whatever methods here
   }
   ```
-  Then you extend your clientproxy from this commonproxy to get access to the methods, and in your `@Mod`-class you just have the CommonProxy be your serverSide-proxy and proceed like normal. Note that even the methods that only do something in client have to be still present and at least empty here or your code **will** crash on server.
+  Then you extend your `ClientProxy` from this `CommonProxy` to get access to the methods, and in your `@Mod`-class you just have the CommonProxy be your serverSide-proxy and proceed like normal. Note that even the methods that only do something in the client have to be still present and at least empty here or your code **will** crash on server.
