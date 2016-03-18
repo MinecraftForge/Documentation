@@ -5,9 +5,10 @@ pages:
   - Getting Started:
     - Home: 'gettingstarted/index.md'
     - Structuring Your Mod: 'gettingstarted/structuring.md'
-  - Models & Rendering:
-    - Blockstates: 'blockstates/introduction.md'
-    - Forge Blockstates: 'blockstates/forgeBlockstates.md'
+  - Blockstates:
+    - Intro to Blockstates: 'blockstates/states.md' 
+    - Intro to Blockstate JSONs: 'blockstates/introduction.md'
+    - Forge Blockstate JSON: 'blockstates/forgeBlockstates.md'
   - Networking:
     - Home: 'networking/index.md'
     - Overview: 'networking/overview.md'

@@ -29,6 +29,7 @@ Note that the meta numbers aren't gone, the new system just allows us to stuff a
 In your Block class, override the method `createBlockState()`. This will be called when your block is first initialized, and returns a `BlockState` object. This name is kind of a misnomer. It isn't a block state, it rather manages all the blockstates of your block. Its name in 1.9 has been changed to the more appropriate `BlockStateContainer`. Call the constructor of this class, and pass it your block object, and then all `IProperty`'s that the block will need. `IProperty` instances should be static final fields. Vanilla stores them with their associated block classes, while other mods may share a single `IProperty` among its blocks.
 
 Vanilla provides us a couple implementations of IProperty<?>: 
+
     * PropertyInteger: Implements `IProperty<Integer>`. Created by calling PropertyInteger.create("<name>", <min>, <max>);
     * PropertyBool: Implements `IProperty<Boolean>`. Created by calling PropertyBool.create("<name>");
     * PropertyEnum<E extends Enum<E>>: Implements `IProperty<E>`, Defines a property that can take on the values of an Enum class. Created by calling PropertyEnum.create("name", <enumclass>);
