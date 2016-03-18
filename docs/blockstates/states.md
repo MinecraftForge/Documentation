@@ -30,12 +30,12 @@ In your Block class, override the method `createBlockState()`. This will be call
 
 Vanilla provides us a couple implementations of IProperty<?>: 
 
-    * PropertyInteger: Implements `IProperty<Integer>`. Created by calling PropertyInteger.create("<name>", <min>, <max>);
-    * PropertyBool: Implements `IProperty<Boolean>`. Created by calling PropertyBool.create("<name>");
-    * PropertyEnum<E extends Enum<E>>: Implements `IProperty<E>`, Defines a property that can take on the values of an Enum class. Created by calling PropertyEnum.create("name", <enumclass>);
-        * You can also specify specific enum values that are valid by passing them in using varargs or a Collection. There is also a factory that takes a predicate that returns true if the value is valid
-    * PropertyDirection: This is a convenience implementation of PropertyEnum<EnumFacing>
-        * Several convenience predicates are also provided. For example, to get a property that represents the cardinal directions, you would call `PropertyDirection.create("<name>", EnumFacing.Plane.HORIZONTAL)`. Or to get the X directions, `PropertyDirection.create("<name>", EnumFacing.Axis.X)`
+  * PropertyInteger: Implements `IProperty<Integer>`. Created by calling PropertyInteger.create("<name>", <min>, <max>);
+  * PropertyBool: Implements `IProperty<Boolean>`. Created by calling PropertyBool.create("<name>");
+  * PropertyEnum<E extends Enum<E>>: Implements `IProperty<E>`, Defines a property that can take on the values of an Enum class. Created by calling PropertyEnum.create("name", <enumclass>);
+    * You can also specify specific enum values that are valid by passing them in using varargs or a Collection. There is also a factory that takes a predicate that returns true if the value is valid
+  * PropertyDirection: This is a convenience implementation of PropertyEnum<EnumFacing>
+    * Several convenience predicates are also provided. For example, to get a property that represents the cardinal directions, you would call `PropertyDirection.create("<name>", EnumFacing.Plane.HORIZONTAL)`. Or to get the X directions, `PropertyDirection.create("<name>", EnumFacing.Axis.X)`
 
 Finally, Minecraft will then generate all possible IBlockState objects for your block by generating all possible combinations of the property values.
 
