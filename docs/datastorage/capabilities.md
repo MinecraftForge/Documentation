@@ -140,3 +140,28 @@ Persisting across Player Deaths
 By default, the capability data does not persist on death. In order to change this, the data has to be manually copied when the player entity is cloned during the respawn process.
 
 This can be done by handling the `PlayerEvent.Clone` event, reading the data from the original entity, and assigning it to the new entity. In this event, the `wasDead` field can be used to distinguish between respawning after death, and returning from the End. This is important because the data will already exist when returning from the End, so care has to be taken to not duplicate values in this case.
+
+Migrating from IExtendedEntityProperties
+---------------------------
+
+Although the Capability system can do everything IEEPs (IExtendedEntityProperties) did and more, the two concepts don't fully match 1:1. In this section, I will explain how to convert existing IEEPs into Capabilities.
+
+This is a quick list of IEEP concepts and their Capability equivalent:
+
+* Property name/id (`String`): Capability key (`ResourceLocation`)
+* Registration (`EntityConstructing`): Attaching (`AttachCapabilityEvent.Entity`), the real registration of the Capability happens during pre-init.
+* NBT read/write methods: Does not happen automatically. Attach an `ICapabilitySerializable` in the event, and run the read/write methods from the `serializeNBT`/`deserializeNBT`.
+
+Features you probably will not need (if the IEEP was for internal use only):
+
+* The Capability system provides a default implementation concept, meant to simplify usage by third party consumers, but it doesn't really make much sense for an internal Capability designed to replace an IEEP. You can safely return null from the factory if the capability is be for internal use only.
+* The Capability system provides an `IStorage` system that can be used to read/write data from those default implementations, if you choose not to provide default implementations, then the IStorage system will never get called, and can be left blank.
+
+The following steps assume you have read the rest of the document, and you understand the concepts of the capability system.
+
+Quick conversion guide:
+
+1. Convert the IEEP key/id string into a `ResourceLocation` (which will use your MODID as a domain).
+2. In your handler class (not the class that implements your capability interface), create a field that will hold the Capability instance.
+3. Change the `EntityConstructing` event to `AttachCapabilityEvent`, and instead of querying the IEEP, you will want to attach an `ICapabilityProvider` (probably `ICapabilitySerializable`, which allows saving/loading from NBT).
+4. Create a registration method if you don't have one (you may have one where you registered your IEEP's event handlers) and in it, run the capability registration function.
