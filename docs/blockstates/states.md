@@ -81,9 +81,7 @@ Sadly, abstractions are lies at their core. We still have the responsibility of 
 
 If you specify any `IProperty`'s, you **must** override `getMetaFromState` and `getStateFromMeta`
 
-Here you will read the values of your properties and return an appropriate integer between 0 and 15, or the other way around.
-
-The reader is left to check examples from vanilla blocks by themselves.
+Here you will read the values of your properties and return an appropriate integer between 0 and 15, or the other way around; the reader is left to check examples from vanilla blocks by themselves.
 
 !!! Warning
     Your getMetaFromState and getStateFromMeta methods MUST be one to one! In other words, the same set of properties and values must map to the same meta value and back. Failing to do this, unfortunately, WON'T cause a crash. It'll just cause everything to behave extremely weirdly.
@@ -93,8 +91,10 @@ The reader is left to check examples from vanilla blocks by themselves.
 -------------
 
 Some sharper minds might know that fences don't save any of their connections to meta, yet they still have properties and values in the F3 menu! What is this blasphemy?!
+
 Blocks can declare properties that are not saved to metadata. These are usually used for rendering purposes, but could possibly have other useful applications.
 You still declare them in `createBlockState` and set their value in `setDefaultState`. However, these properties you do NOT touch **at all** in `getMetaFromState` and `getStateFromMeta`.
+
 Instead, override `getActualState` in your Block class. Here you will receive the `IBlockState` corresponding with the metadata in the world, and you return another `IBlockState` with missing information such as fence connections, redstone connections , etc. filled in using `withProperty`. You can also use this to read Tile Entity data for a value (with appropriate safety checks of course!).
 
 !!! Note
