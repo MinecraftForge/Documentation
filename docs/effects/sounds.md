@@ -30,7 +30,7 @@ A full specification is available [on the wiki], but we highlight the important 
     "category": "block",
     "subtitle": "mymod.subtitle.openChest",
     "sounds": [ "mymod:openChestSoundFile" ]
-  }.
+  },
   "epicMusic": {
     "category": "record",
     "sounds": [
@@ -69,7 +69,9 @@ Hold on to the `SoundEvent` object as you'll need it later to play sounds. If yo
 Playing Sounds
 --------------
 
-Vanilla has lots of methods for playing sounds, and it's unclear which to use at times. I've trawled through all of them and come up with what each one does and a rough idea of when to use it. Note that each takes a `SoundEvent`, the ones that you registered above:
+Vanilla has lots of methods for playing sounds, and it's unclear which to use at times. I've trawled through all of them and come up with what each one does and a rough idea of when to use it. This information is up-to-date as of Forge 1907, please let someone know if it is out of date!
+
+Note that each takes a `SoundEvent`, the ones that you registered above.
 
 In `World`:
   1. `playSound(EntityPlayer, BlockPos, SoundEvent, SoundCategory, volume, pitch)`
@@ -80,7 +82,6 @@ In `World`:
       - USEFUL FOR: The correspondence between the behaviours implies that these two methods are to be called from some player-initiated code that will be run on both logical sides at the same time - the logical client handles playing it to the user and the logical server handles everyone else hearing it without re-playing it to the original user.
       - They can also be used to play any sound in general at any position serverside by calling it on the logical server and passing in a `null` player, thus letting everyone hear it.
 
-In `World`, continued:
   3. `playSound(double x, double y, double z, SoundEvent, SoundCategory, volume, pitch, distanceDelay)`
       - LOGICAL CLIENT: Just plays the Sound Event in the client world. If `distanceDelay` is true, then delays the sound based on how far it is from the player. Used for thunder.
       - LOGICAL SERVER: NO-OP
@@ -100,7 +101,7 @@ In `Entity`:
 In `EntityPlayer`, overriding the above
   1. `playSound(SoundEvent, volume, pitch)`
       - Forward to `World`'s overload 2, passing in `this` as the player
-      - LOGICAL SERVER: Okays the sound to everyone nearby EXCEPT this player
+      - LOGICAL SERVER: Plays the sound to everyone nearby EXCEPT this player
       - LOGICAL CLIENT: N/A, it's overrided again below
       - USEFUL FOR: See next one.
 
