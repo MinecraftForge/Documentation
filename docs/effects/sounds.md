@@ -49,7 +49,7 @@ Under each event we specify the category of the Sound Event, then a subtitle loc
 
 Finally, we specify the actual Sound Files to be played. Note that the value is an array - if we specify multiple Sound Files then the game will randomly choose one to play whenever the Sound Event is triggered.
 
-The top and bottom examples represent two different ways to specify a Sound File. The wiki has precise details, but generally, make sure to use the second form for long Sound Files such as BGM or music discs, because the "stream" argument tells Minecraft to not load the entire Sound File into memory but instead stream it from disk. Using the second form also allows you to specify the volume, pitch, and random weight of that Sound File - again, see the vanilla wiki for precise details.
+The two examples represent two different ways to specify a Sound File. The wiki has precise details, but generally, make sure to use the second form for long Sound Files such as BGM or music discs, because the "stream" argument tells Minecraft to not load the entire Sound File into memory but instead stream it from disk. Using the second form also allows you to specify the volume, pitch, and random weight of that Sound File - again, see the vanilla wiki for precise details.
 
 In either case, you specify the path to your Sound File starting from your "sounds" asset directory. Thus, "mymod:openChestSoundFile" corresponds to the path "assets/mymod/sounds/openChestSoundFile.ogg" and "mymod:music/epicMusic" corresponds to the path "assets/mymod/sounds/music/epicMusic.ogg".
 
@@ -64,7 +64,7 @@ SoundEvent event = new SoundEvent(name);
 GameRegistry.register(event, name);
 ```
 
-Hold on to the `SoundEvent` object as you'll need it later to play sounds. If you have an API and want addons to be able to play your Sound Events, then put these in your API (Do not register them in your API, just have fields that you assign to in the mod-proper).
+Hold on to the `SoundEvent` object as you'll need it later to play sounds. If you have an API and want addons to be able to play your Sound Events, then put these in your API (Do not register them in your API, just have fields in your API that you set during initialization of the actual mod).
 
 Playing Sounds
 --------------
