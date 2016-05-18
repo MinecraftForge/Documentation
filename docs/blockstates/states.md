@@ -8,7 +8,7 @@ Motivation
 ----------
 
 In Minecraft 1.8 and above, direct manipulation of blocks and metadata values have been abstracted away into what is known as blockstates.
-The premise of the system is to remove the usage and manipulation of raw metadata numbers, which are ugly and carry no meaning.
+The premise of the system is to remove the usage and manipulation of raw metadata numbers, which are nondescript and carry no meaning.
 
 For example, consider this switch statement for some arbitrary block that can face a direction and be on either half of the block space:
 
@@ -49,20 +49,20 @@ In your Block class, create static final `IProperty<>` objects for every propert
     * Several convenience predicates are also provided. For example, to get a property that represents the cardinal directions, you would call `PropertyDirection.create("<name>", EnumFacing.Plane.HORIZONTAL)`. Or to get the X directions, `PropertyDirection.create("<name>", EnumFacing.Axis.X)`
 
 Note that you are free to make your own `IProperty<>` implementations, but the means to do that are not covered in this article.
-In addition, note that you can share the same `IProperty` object between different blocks if you wish. Vanilla generally has separate ones for every single block, but it's just a matter of preference.
+In addition, note that you can share the same `IProperty` object between different blocks if you wish. Vanilla generally has separate ones for every single block, but it is merely personal preference.
 
 !!! Note 
     If your mod has an API or is meant to be interacted with from other mods, it is HIGHLY, HIGHLY recommended that you instead place your `IProperty`'s (and any classes used as values) in your API. That way, people can use properties and values to set your blocks in the world instead of having to suffer with arbitrary numbers like you used to.
 
-After you've created your `IProperty<>` objects, override `createBlockState` in your Block class. In that method, simply `return new BlockState()`. Pass the constructor first your Block, `this`, then follow it with every `IProperty` you want to declare. In 1.9 and above, the `BlockState` class has been renamed to `BlockStateContainer`, more in line with what this class actually does.
+After you've created your `IProperty<>` objects, override `createBlockState` in your Block class. In that method, simply write `return new BlockState()`. Pass the `BlockState` constructor first your Block, `this`, then follow it with every `IProperty` you want to declare. Note that in 1.9 and above, the `BlockState` class has been renamed to `BlockStateContainer`, more in line with what this class actually does.
 
-The object you just created is a pretty magical one - it manages the generation of all the triples above. That is, it runs through every property and gathers the set of *all* values that property can take on, then combines them with all other values of all the *other* properties, therefore generating every possible IBlockState - every possible triple of (Block, properties, values).
+The object you just created is a pretty magical one - it manages the generation of all the triples above. That is, it generates all possible combinations of every value for each property (for math-oriented people, it takes the set of possible values of each property and computes the cartesian product of those sets). Thus, it generates every unique (Block, properties, values) possible - every `IBlockState` possible for the given properties.
 
-If you do not set one of these `IBlockState`'s to act as the "default" state, then one is chosen for you. You probably don't want this (it will cause weird things to happen most of the time), so at the end of your Block's constructor call `setDefaultState()`, passing in the `IBlockState` you want to be the default. Get the one that was chosen for you using `this.blockState.getBaseState()` then modify it to suit your needs. Be sure to set a default value for **every** property your Block has declared.
+If you do not set one of these `IBlockState`'s to act as the "default" state for your Block, then one is chosen for you. You probably don't want this (it will cause weird things to happen most of the time), so at the end of your Block's constructor call `setDefaultState()`, passing in the `IBlockState` you want to be the default. Get the one that was chosen for you using `this.blockState.getBaseState()` then set a value for *every* property using `withProperty`
 
-"Modifying" probably isn't a good word to use there, as `IBlockState`'s are immutable and precomputed. Calling `IBlockState.withProperty(<PROPERTY>, <NEW_VALUE>)` simply will go to the `BlockState`/`BlockStateContainer` and request the IBlockState with the set of values you want, not make a new `IBlockState`.
+Because `IBlockState`'s are immutable and pregenerated, calling `IBlockState.withProperty(<PROPERTY>, <NEW_VALUE>)` will simply go to the `BlockState`/`BlockStateContainer` and request the IBlockState with the set of values you want, instead of constructing a new `IBlockState`.
 
-It follows very easily from this that since basic `IBlockState`'s are generated into a fixed set at startup, you are able and encouraged to use reference comparison (==) to check if they're equal!
+It follows very easily from this that since basic `IBlockState`'s are generated into a fixed set at startup, you are able and encouraged to use reference comparison (==) to check if they are equal!
 
 
 Using `IBlockState`'s
@@ -79,7 +79,7 @@ Illusion Breaker
 
 Sadly, abstractions are lies at their core. We still have the responsibility of translating every `IBlockState` back into a number between 0 and 15 inclusive that will be stored in the world and vice versa for loading.
 
-If you specify any `IProperty`'s, you **must** override `getMetaFromState` and `getStateFromMeta`
+If you declare any `IProperty`'s, you **must** override `getMetaFromState` and `getStateFromMeta`
 
 Here you will read the values of your properties and return an appropriate integer between 0 and 15, or the other way around; the reader is left to check examples from vanilla blocks by themselves.
 

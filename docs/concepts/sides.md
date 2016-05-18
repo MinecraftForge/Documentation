@@ -34,11 +34,11 @@ How do we resolve this? Luckily, FML provides us with a `@SidedProxy` annotation
 
 !!! note
 
-    It is important to understand that FML picks the proxy to instantiate based on the physical side. A single player world (logical server, logical client within a physical client) will still have a proxy of the type you specify in `clientSide`! If you want behaviours that should run on both physical sides, you must arrange for that to happen outside of the proxies
+    It is important to understand that FML picks the proxy to instantiate based on the **physical** side. A single player world (logical server + logical client within a physical client) will still have a proxy of the type you specify in `clientSide`!
 
 A common use case is to register renderers and models, something which must be called from the main initialization methods `preInit`, `init`, or `postInit`. However, many rendering related classes and registries are not present on the physical server and may crash it. Therefore, we put these actions into the client proxy, ensuring that they will always execute for the physical client.
 
-Since both proxies must be assignable to the same field, it is a common pattern to have an interface `IProxy` as the field type, and then have two implementations, `ClientProxy` and `ServerProxy` for the two corresponding physical sides.
+Remember that both of your specified proxies must have a type that is assignable into the field you annotate with `@SidedProxy`. A common pattern, but by no means the only strategy, is to have an interface `IProxy` as the field type, and then have two implementations, `ClientProxy` and `ServerProxy` for the two corresponding physical sides.
 
 ### `getEffectiveSide`
 
