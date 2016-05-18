@@ -22,7 +22,7 @@ Sounds.json
 
 This json should be located in your base asset directory (src/main/resource/assets/MODID/sounds.json) and indicates to the vanilla resource system what Sound Events you declare and what Sound Files those events use.
 
-A full specification is available [on the wiki], but we highlight the important parts here with an example:
+A full specification is available on the vanilla [wiki], but we highlight the important parts here with an example:
 
 ```Json
 {
@@ -49,7 +49,7 @@ Under each event we specify the category of the Sound Event, then a subtitle loc
 
 Finally, we specify the actual Sound Files to be played. Note that the value is an array - if we specify multiple Sound Files then the game will randomly choose one to play whenever the Sound Event is triggered.
 
-The two examples represent two different ways to specify a Sound File. The wiki has precise details, but generally, make sure to use the second form for long Sound Files such as BGM or music discs, because the "stream" argument tells Minecraft to not load the entire Sound File into memory but instead stream it from disk. Using the second form also allows you to specify the volume, pitch, and random weight of that Sound File - again, see the vanilla wiki for precise details.
+The two examples represent two different ways to specify a Sound File. The [wiki] has precise details, but generally, make sure to use the second form for long Sound Files such as BGM or music discs, because the "stream" argument tells Minecraft to not load the entire Sound File into memory but instead stream it from disk. Using the second form also allows you to specify the volume, pitch, and random weight of that Sound File - again, see the vanilla [wiki] for precise details.
 
 In either case, you specify the path to your Sound File starting from your "sounds" asset directory. Thus, "mymod:openChestSoundFile" corresponds to the path "assets/mymod/sounds/openChestSoundFile.ogg" and "mymod:music/epicMusic" corresponds to the path "assets/mymod/sounds/music/epicMusic.ogg".
 
@@ -59,9 +59,9 @@ Code Registration
 Simply specifying the Sound Events in JSON isn't enough, however. Due to changes in the sound system in 1.9, we must also register Sound Events in code. This very simple to do: 
 
 ```Java
-ResourceLocation name = new ResourceLocation("mymod", "openChest");
-SoundEvent event = new SoundEvent(name);
-GameRegistry.register(event, name);
+ResourceLocation location = new ResourceLocation("mymod", "openChest");
+SoundEvent event = new SoundEvent(location);
+GameRegistry.register(event, location);
 ```
 
 Hold on to the `SoundEvent` object as you'll need it later to play sounds. If you have an API and want addons to be able to play your Sound Events, then put these in your API (Do not register them in your API, just have fields in your API that you set during initialization of the actual mod).
@@ -112,4 +112,4 @@ In `EntityPlayerSP`, overriding the above two
       - LOGICAL CLIENT: Just plays the Sound Event
       - USEFUL FOR: Just like the ones in world, these two overrides in the player classes seem to be for code that runs together on both sides. The client handles playing the sound to the user, while the server handles everyone else hearing it without re-playing to the original user.
 
-[on the wiki]: http://minecraft.gamepedia.com/Sounds.json
+[wiki]: http://minecraft.gamepedia.com/Sounds.json
