@@ -20,7 +20,11 @@ Terminology
 Sounds.json
 -----------
 
-This json should be located in your base asset directory (src/main/resource/assets/MODID/sounds.json) and indicates to the vanilla resource system what Sound Events you declare and what Sound Files those events use.
+This json should be located in your base asset directory:
+```
+src/main/resources/assets/[mod id]/sounds.json
+```
+This indicates to the vanilla resource system what Sound Events you declare and what Sound Files those events use.
 
 A full specification is available on the vanilla [wiki], but we highlight the important parts here with an example:
 
@@ -51,7 +55,9 @@ Finally, we specify the actual Sound Files to be played. Note that the value is 
 
 The two examples represent two different ways to specify a Sound File. The [wiki] has precise details, but generally, make sure to use the second form for long Sound Files such as BGM or music discs, because the "stream" argument tells Minecraft to not load the entire Sound File into memory but instead stream it from disk. Using the second form also allows you to specify the volume, pitch, and random weight of that Sound File - again, see the vanilla [wiki] for precise details.
 
-In either case, you specify the path to your Sound File starting from your "sounds" asset directory. Thus, "mymod:openChestSoundFile" corresponds to the path "assets/mymod/sounds/openChestSoundFile.ogg" and "mymod:music/epicMusic" corresponds to the path "assets/mymod/sounds/music/epicMusic.ogg".
+In either case, you specify the path to your Sound File starting from your "sounds" asset directory.  
+Thus, "mymod:openChestSoundFile" corresponds to the path "assets/mymod/sounds/openChestSoundFile.ogg"  
+and "mymod:music/epicMusic" corresponds to the path "assets/mymod/sounds/music/epicMusic.ogg".
 
 Code Registration
 -----------------
@@ -74,6 +80,7 @@ Vanilla has lots of methods for playing sounds, and it's unclear which to use at
 Note that each takes a `SoundEvent`, the ones that you registered above.
 
 In `World`:
+
   1. `playSound(EntityPlayer, BlockPos, SoundEvent, SoundCategory, volume, pitch)`
       - Simply forwards to the overload immediately below this one, adding 0.5 to each coordinate of the `BlockPos` given
   2. `playSound(EntityPlayer, double x, double y, double z, SoundEvent, SoundCategory, volume, pitch)`
@@ -88,10 +95,12 @@ In `World`:
       - USEFUL FOR: This method only works clientside, and thus is useful for sounds that you send in custom packets, or other client-only effect-type sounds.
 
 In `WorldClient`:
+
   1. `playSound(BlockPos, SoundEvent, SoundCategory, volume, pitch, distanceDelay)`
       - Simply forwards to the overload immediately above this one, adding 0.5 to each coordinate of the `BlockPos` given
 
 In `Entity`:
+
   1. `playSound(SoundEvent, volume, pitch)`
       - Forwards to `World`'s overload 2, passing in `null` as the player
       - LOGICAL CLIENT: NO-OP
@@ -99,6 +108,7 @@ In `Entity`:
       - USEFUL FOR: Emitting any sound from any non-player entity serverside
 
 In `EntityPlayer`, overriding the above
+
   1. `playSound(SoundEvent, volume, pitch)`
       - Forward to `World`'s overload 2, passing in `this` as the player
       - LOGICAL SERVER: Plays the sound to everyone nearby EXCEPT this player
@@ -106,6 +116,7 @@ In `EntityPlayer`, overriding the above
       - USEFUL FOR: See next one.
 
 In `EntityPlayerSP`, overriding the above two
+
   1. `playSound(SoundEvent, volume, pitch)`
       - Forward to `World`'s overload 2, passing in `this` as the player
       - LOGICAL SERVER: N/A
