@@ -84,15 +84,15 @@ In `World`:
   1. `playSound(EntityPlayer, BlockPos, SoundEvent, SoundCategory, volume, pitch)`
       - Simply forwards to the overload immediately below this one, adding 0.5 to each coordinate of the `BlockPos` given
   2. `playSound(EntityPlayer, double x, double y, double z, SoundEvent, SoundCategory, volume, pitch)`
-      - LOGICAL SERVER: Plays the Sound Event to everyone nearby EXCEPT the passed in player. Player can be null.
-      - LOGICAL CLIENT: If the passed in player is *the* client player, plays the  Sound Event to the client player
-      - USEFUL FOR: The correspondence between the behaviours implies that these two methods are to be called from some player-initiated code that will be run on both logical sides at the same time - the logical client handles playing it to the user and the logical server handles everyone else hearing it without re-playing it to the original user.
+      - **Logical Server**: Plays the Sound Event to everyone nearby **except** the passed in player. Player can be null.
+      - **Logical Client**: If the passed in player is *the* client player, plays the  Sound Event to the client player
+      - **Useful for**: The correspondence between the behaviours implies that these two methods are to be called from some player-initiated code that will be run on both logical sides at the same time - the logical client handles playing it to the user and the logical server handles everyone else hearing it without re-playing it to the original user.
       - They can also be used to play any sound in general at any position serverside by calling it on the logical server and passing in a `null` player, thus letting everyone hear it.
 
   3. `playSound(double x, double y, double z, SoundEvent, SoundCategory, volume, pitch, distanceDelay)`
-      - LOGICAL CLIENT: Just plays the Sound Event in the client world. If `distanceDelay` is true, then delays the sound based on how far it is from the player. Used for thunder.
-      - LOGICAL SERVER: NO-OP
-      - USEFUL FOR: This method only works clientside, and thus is useful for sounds that you send in custom packets, or other client-only effect-type sounds.
+      - **Logical Server**: Just plays the Sound Event in the client world. If `distanceDelay` is true, then delays the sound based on how far it is from the player. Used for thunder.
+      - **Logical Client**: NO-OP
+      - **Useful for**: This method only works clientside, and thus is useful for sounds that you send in custom packets, or other client-only effect-type sounds.
 
 In `WorldClient`:
 
@@ -103,24 +103,24 @@ In `Entity`:
 
   1. `playSound(SoundEvent, volume, pitch)`
       - Forwards to `World`'s overload 2, passing in `null` as the player
-      - LOGICAL CLIENT: NO-OP
-      - LOGICAL SERVER: Plays the Sound Event to everyone at this entity's position
-      - USEFUL FOR: Emitting any sound from any non-player entity serverside
+      - **Logical Client**: NO-OP
+      - **Logical Server**: Plays the Sound Event to everyone at this entity's position
+      - **Useful for**: Emitting any sound from any non-player entity serverside
 
 In `EntityPlayer`, overriding the above
 
   1. `playSound(SoundEvent, volume, pitch)`
       - Forward to `World`'s overload 2, passing in `this` as the player
-      - LOGICAL SERVER: Plays the sound to everyone nearby EXCEPT this player
-      - LOGICAL CLIENT: N/A, it's overrided again below
-      - USEFUL FOR: See next one.
+      - **Logical Server**: Plays the sound to everyone nearby *except* this player
+      - **Logical Client**: N/A, it's overrided again below
+      - **Useful for**: See next one.
 
 In `EntityPlayerSP`, overriding the above two
-
+  <a name="entityplayersp-playsound"></a>
   1. `playSound(SoundEvent, volume, pitch)`
       - Forward to `World`'s overload 2, passing in `this` as the player
-      - LOGICAL SERVER: N/A
-      - LOGICAL CLIENT: Just plays the Sound Event
-      - USEFUL FOR: Just like the ones in world, these two overrides in the player classes seem to be for code that runs together on both sides. The client handles playing the sound to the user, while the server handles everyone else hearing it without re-playing to the original user.
+      - **Logical Server**: N/A
+      - **Logical Client**: Just plays the Sound Event
+      - **Useful for**: Just like the ones in world, these two overrides in the player classes seem to be for code that runs together on both sides. The client handles playing the sound to the user, while the server handles everyone else hearing it without re-playing to the original user.
 
 [wiki]: http://minecraft.gamepedia.com/Sounds.json

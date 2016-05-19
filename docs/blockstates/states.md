@@ -1,7 +1,7 @@
 Block States
 ============
 
-Please read ALL of this guide before starting to code. Your understanding will be more comprehensive and correct than if you just picked parts out.
+Please read **all** of this guide before starting to code. Your understanding will be more comprehensive and correct than if you just picked parts out.
 This guide is designed for an entry level introduction to Block States. If you know what Extended States are, you'll notice some simplifying assumptions I've made below. They are intentional and are meant to avoid overloading beginners with information they may not immediately need. If you don't know what they are, no need to fear, there will be another document for them eventually.
 
 Motivation
@@ -52,7 +52,7 @@ Note that you are free to make your own `IProperty<>` implementations, but the m
 In addition, note that you can share the same `IProperty` object between different blocks if you wish. Vanilla generally has separate ones for every single block, but it is merely personal preference.
 
 !!! Note 
-    If your mod has an API or is meant to be interacted with from other mods, it is HIGHLY, HIGHLY recommended that you instead place your `IProperty`'s (and any classes used as values) in your API. That way, people can use properties and values to set your blocks in the world instead of having to suffer with arbitrary numbers like you used to.
+    If your mod has an API or is meant to be interacted with from other mods, it is **very highly** recommended that you instead place your `IProperty`'s (and any classes used as values) in your API. That way, people can use properties and values to set your blocks in the world instead of having to suffer with arbitrary numbers like you used to.
 
 After you've created your `IProperty<>` objects, override `createBlockState` in your Block class. In that method, simply write `return new BlockState()`. Pass the `BlockState` constructor first your Block, `this`, then follow it with every `IProperty` you want to declare. Note that in 1.9 and above, the `BlockState` class has been renamed to `BlockStateContainer`, more in line with what this class actually does.
 
@@ -84,7 +84,7 @@ If you declare any `IProperty`'s, you **must** override `getMetaFromState` and `
 Here you will read the values of your properties and return an appropriate integer between 0 and 15, or the other way around; the reader is left to check examples from vanilla blocks by themselves.
 
 !!! Warning
-    Your getMetaFromState and getStateFromMeta methods MUST be one to one! In other words, the same set of properties and values must map to the same meta value and back. Failing to do this, unfortunately, WON'T cause a crash. It'll just cause everything to behave extremely weirdly.
+    Your getMetaFromState and getStateFromMeta methods **must** be one to one! In other words, the same set of properties and values must map to the same meta value and back. Failing to do this, unfortunately, **won't** cause a crash. It'll just cause everything to behave extremely weirdly.
 
 
 "Actual" States
@@ -93,7 +93,7 @@ Here you will read the values of your properties and return an appropriate integ
 Some sharper minds might know that fences don't save any of their connections to meta, yet they still have properties and values in the F3 menu! What is this blasphemy?!
 
 Blocks can declare properties that are not saved to metadata. These are usually used for rendering purposes, but could possibly have other useful applications.
-You still declare them in `createBlockState` and set their value in `setDefaultState`. However, these properties you do NOT touch **at all** in `getMetaFromState` and `getStateFromMeta`.
+You still declare them in `createBlockState` and set their value in `setDefaultState`. However, these properties you do **not** touch **at all** in `getMetaFromState` and `getStateFromMeta`.
 
 Instead, override `getActualState` in your Block class. Here you will receive the `IBlockState` corresponding with the metadata in the world, and you return another `IBlockState` with missing information such as fence connections, redstone connections , etc. filled in using `withProperty`. You can also use this to read Tile Entity data for a value (with appropriate safety checks of course!).
 

@@ -33,7 +33,7 @@ If you are in the initial development stage of your mod (before any official rel
 
 ### Multiple Minecraft Versions
 
-If the mod upgrades to a new version of Minecraft, and the old version will only receive bug fixes, the PATCH variable should be updated based on the version before the upgrade. If the mod is still in active development in both the old and the new version of Minecraft, it is advised to append the version to BOTH build numbers. For example, if the mod is upgraded to version 3.0.0.0 due to a Minecraft version change, the old mod should also be updated to 3.0.0.0. The old version will become, for example, version 1.7.10-3.0.0.0, while the new version will become 1.8-3.0.0.0. If there are no changes at all when building for a newer Minecraft version, all variables except for the Minecraft version should stay the same.
+If the mod upgrades to a new version of Minecraft, and the old version will only receive bug fixes, the PATCH variable should be updated based on the version before the upgrade. If the mod is still in active development in both the old and the new version of Minecraft, it is advised to append the version to **both** build numbers. For example, if the mod is upgraded to version 3.0.0.0 due to a Minecraft version change, the old mod should also be updated to 3.0.0.0. The old version will become, for example, version 1.7.10-3.0.0.0, while the new version will become 1.8-3.0.0.0. If there are no changes at all when building for a newer Minecraft version, all variables except for the Minecraft version should stay the same.
 
 ### Final Release
 

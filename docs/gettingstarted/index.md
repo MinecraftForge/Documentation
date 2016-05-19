@@ -42,7 +42,7 @@ Edit the `build.gradle` file to customize how your mod is built (the file names,
 
 !!! important
 
-    DO NOT edit the `buildscript {}` section of the build.gradle file, its default text is necessary for ForgeGradle to function.
+    **Do not** edit the `buildscript {}` section of the build.gradle file, its default text is necessary for ForgeGradle to function.
 
 Almost anything underneath `apply project: forge` and the `// EDITS GO BELOW HERE` marker can be changed, many things can be removed and customized there as well.
 

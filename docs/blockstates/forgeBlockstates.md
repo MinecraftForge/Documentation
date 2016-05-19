@@ -129,7 +129,7 @@ The model will be a pressure plate, and depending on its state it will have part
 
 The comments already explain the details on the separate parts, but here's how it works overall: The block definition in code has two Properties. One boolean property named "mossy" and one integer property named "pillarCount". Notice here that the string used in the json is **lowercase**, however. It has to be lowercase or it wont be found.
 
-Instead of defining "this combination of properties gives model X" we say "this value for this property has THAT impact on the model". In this example it's quite straight forward:
+Instead of defining "this combination of properties gives model X" we say "**this** value for this property has **that** impact on the model". In this example it's quite straight forward:
 
 * If mossy is true, the pressure plate uses the mossy cobblestone texture
 * If pillarCount is 1 it will add one wall with connection facing north. The default texture for the wall is oak-planks.
