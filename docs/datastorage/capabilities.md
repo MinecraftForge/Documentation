@@ -26,7 +26,7 @@ In order to obtain a capability, you will need to refer it by its unique instanc
 static Capability<IItemHandler> ITEM_HANDLER_CAPABILITY = null;
 ```
 
-This annotation can be applied to fields and methods. When applied to a field, it will assign the instance of the capability (the same one gets assigned to all fields) upon registration of the capability, and left to the existing value (null), if the capabilitiy was never registered. Because local static field accesses are fast, it is a good idea to keep your own local copy of the reference for objects that work with capabilities. This annotation can also be used on a method, in order to get notified when a capability is registered, so that certain features can be enabled conditionally.
+This annotation can be applied to fields and methods. When applied to a field, it will assign the instance of the capability (the same one gets assigned to all fields) upon registration of the capability, and left to the existing value (`null`), if the capabilitiy was never registered. Because local static field accesses are fast, it is a good idea to keep your own local copy of the reference for objects that work with capabilities. This annotation can also be used on a method, in order to get notified when a capability is registered, so that certain features can be enabled conditionally.
 
 Both the `hasCapability` and `getCapability` methods have a second parameter, of type EnumFacing, which can be used in the to request the specific instance for that one face. If passed `null`, it can be assumed that the request comes either from within the block, or from some place where the side has no meaning, such as a different dimension. In this case a general capability instance that does not care about sides will be requested instead. The return type of `getCapability` will correspond to the type declared in the capability passed to the method. For the Item Handler capability, this is indeed `IItemHandler`.
 
@@ -154,7 +154,7 @@ This is a quick list of IEEP concepts and their Capability equivalent:
 
 Features you probably will not need (if the IEEP was for internal use only):
 
-* The Capability system provides a default implementation concept, meant to simplify usage by third party consumers, but it doesn't really make much sense for an internal Capability designed to replace an IEEP. You can safely return null from the factory if the capability is be for internal use only.
+* The Capability system provides a default implementation concept, meant to simplify usage by third party consumers, but it doesn't really make much sense for an internal Capability designed to replace an IEEP. You can safely return `null` from the factory if the capability is be for internal use only.
 * The Capability system provides an `IStorage` system that can be used to read/write data from those default implementations, if you choose not to provide default implementations, then the IStorage system will never get called, and can be left blank.
 
 The following steps assume you have read the rest of the document, and you understand the concepts of the capability system.
