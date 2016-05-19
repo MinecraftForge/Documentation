@@ -5,7 +5,7 @@ Forge has its own blockstate json format to accommodate for modders needs. It in
 
 !!! Attention
 
-    Note that all models and textures referenced are from vanilla minecraft. For your own mod, you have to use the full location! For example: "mymod:blocks/blockTexture".
+    Note that all models and textures referenced are from vanilla minecraft. For your own mod, you have to use the full location! For example: `"mymod:blocks/blockTexture"`.
 
     You don't have to use Forge's blockstate format at all, you can also use the vanilla format!
 

@@ -6,7 +6,7 @@ We'll look at how to organize your mod into different files and what those files
 Packaging
 ---------
 
-Pick a unique package name. If you own a URL associated with your project, you can use it as your top level package. For example if you own "example.com", you may `com.example` as your top level package.
+Pick a unique package name. If you own a URL associated with your project, you can use it as your top level package. For example if you own "example.com", you may use `com.example` as your top level package.
 
 !!! important
 
