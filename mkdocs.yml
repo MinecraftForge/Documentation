@@ -17,6 +17,8 @@ pages:
     - Capabilities: 'datastorage/capabilities.md'
     - World Saved Data: 'datastorage/worldsaveddata.md'
     - Extended Entity Properties: 'datastorage/extendedentityproperties.md'
+  - Effects:
+    - Sounds: 'effects/sounds.md'
   - Conventions:
     - Versioning: 'conventions/versioning.md'
     - Locations: 'conventions/locations.md'
