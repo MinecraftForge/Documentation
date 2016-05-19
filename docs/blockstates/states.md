@@ -2,11 +2,15 @@ Block States
 ============
 
 Please read ALL of this guide before starting to code. Your understanding will be more comprehensive and correct than if you just picked parts out.
+This guide is designed for an entry level introduction to Block States. If you know what Extended States are, you'll notice some simplifying assumptions I've made below. They are intentional and are meant to avoid overloading beginners with information they may not immediately need. If you don't know what they are, no need to fear, there will be another document for them eventually.
 
-In Minecraft 1.8, direct manipulation of blocks and metadata values have been abstracted away into what is known as blockstates.
-The premise of the system is to remove the manipulation of raw metadata, which are ugly and carry no meaning.
+Motivation
+----------
 
-For example, consider this
+In Minecraft 1.8 and above, direct manipulation of blocks and metadata values have been abstracted away into what is known as blockstates.
+The premise of the system is to remove the usage and manipulation of raw metadata numbers, which are nondescript and carry no meaning.
+
+For example, consider this switch statement for some arbitrary block that can face a direction and be on either half of the block space:
 
 ```Java
 switch(meta) {
@@ -23,62 +27,81 @@ The numbers themselves carry no meaning whatsoever! If the comments weren't ther
 A New Way of Thinking
 ---------------------
 
-Instead of having to munge around with numbers everywhere, we instead declare the *properties* that the block should have. Unsurprisingly, the interface is called `IProperty`.
-Note that the meta numbers aren't gone, the new system just allows us to stuff all the dirty number crunching into two methods and forget about them.
+How about, instead of having to munge around with numbers everywhere, we instead use some system that abstracts out the details of saving from the semantics of the block itself?
+This is where `IProperty<?>` comes in. Each Block has a set of zero or more of these objects, that describe, unsurprisingly, *properties* that the block have. Examples of this include color (`IProperty<EnumDyeColor>`), facing (`IProperty<EnumFacing>`), integer and boolean values, etc. Each property can have a *value* of the type parameterized by `IProperty`. For example, for the respective example properties, we can have values `EnumDyeColor.WHITE`, `EnumFacing.EAST`, `1`, or `false`.
 
-In your Block class, override the method `createBlockState()`. This will be called when your block is first initialized, and returns a `BlockState` object. This name is kind of a misnomer. It isn't a block state, it rather manages all the blockstates of your block. Its name in 1.9 has been changed to the more appropriate `BlockStateContainer`. Call the constructor of this class, and pass it your block object, and then all `IProperty`'s that the block will need. `IProperty` instances should be static final fields. Vanilla stores them with their associated block classes, while other mods may share a single `IProperty` among its blocks.
+Then, following from this, we see that every unique triple (Block, set of properties, set of values for those properties) is a suitable abstracted replacement for Block and metadata. Now, instead of "minecraft:stone_button meta 9" we have "minecraft:stone_button[facing=east,powered=true]". Guess which is more meaningful?
 
-Vanilla provides us a couple implementations of IProperty<?>: 
+We have a very special name for these triples - they're called `IBlockState`'s.
 
-  * PropertyInteger: Implements `IProperty<Integer>`. Created by calling PropertyInteger.create("<name>", <min>, <max>);
-  * PropertyBool: Implements `IProperty<Boolean>`. Created by calling PropertyBool.create("<name>");
-  * PropertyEnum<E extends Enum<E>>: Implements `IProperty<E>`, Defines a property that can take on the values of an Enum class. Created by calling PropertyEnum.create("name", <enumclass>);
-    * You can also specify specific enum values that are valid by passing them in using varargs or a Collection. There is also a factory that takes a predicate that returns true if the value is valid
-  * PropertyDirection: This is a convenience implementation of PropertyEnum<EnumFacing>
+Imbuing your Blocks with these Magical Properties
+-------------------------------------------------
+
+Now that I've successfully convinced you that properties and values are superior to arbitrary numbers, let's move on to the actual how-to-do part.
+
+In your Block class, create static final `IProperty<>` objects for every property that your Block has. Vanilla provides us several convenience implementations:
+  
+  * `PropertyInteger`: Implements `IProperty<Integer>`. Created by calling PropertyInteger.create("<name>", <min>, <max>);
+  * `PropertyBool`: Implements `IProperty<Boolean>`. Created by calling PropertyBool.create("<name>");
+  * `PropertyEnum<E extends Enum<E>>`: Implements `IProperty<E>`, Defines a property that can take on the values of an Enum class. Created by calling PropertyEnum.create("name", <enumclass>);
+    * You can also use only a subset of the Enum values (for example, you can use only 4 of the 16 `EnumDyeColor`'s. Take a look at the other overloads of `PropertyEnum.create`)
+  * `PropertyDirection`: This is a convenience implementation of `PropertyEnum<EnumFacing>`
     * Several convenience predicates are also provided. For example, to get a property that represents the cardinal directions, you would call `PropertyDirection.create("<name>", EnumFacing.Plane.HORIZONTAL)`. Or to get the X directions, `PropertyDirection.create("<name>", EnumFacing.Axis.X)`
 
-Finally, Minecraft will then generate all possible IBlockState objects for your block by generating all possible combinations of the property values.
+Note that you are free to make your own `IProperty<>` implementations, but the means to do that are not covered in this article.
+In addition, note that you can share the same `IProperty` object between different blocks if you wish. Vanilla generally has separate ones for every single block, but it is merely personal preference.
 
 !!! Note 
-    If your mod has an API or is meant to be interacted with from other mods, it is HIGHLY, HIGHLY recommended that you store your `IProperty`'s in your API. That way, people can use blockstates to change your blocks without having to fudge around with metadata.
+    If your mod has an API or is meant to be interacted with from other mods, it is HIGHLY, HIGHLY recommended that you instead place your `IProperty`'s (and any classes used as values) in your API. That way, people can use properties and values to set your blocks in the world instead of having to suffer with arbitrary numbers like you used to.
 
-IBlockState
------------
+After you've created your `IProperty<>` objects, override `createBlockState` in your Block class. In that method, simply write `return new BlockState()`. Pass the `BlockState` constructor first your Block, `this`, then follow it with every `IProperty` you want to declare. Note that in 1.9 and above, the `BlockState` class has been renamed to `BlockStateContainer`, more in line with what this class actually does.
 
-`IBlockState` is the new "block + meta" of 1.8. Within it, it carries information about a Block, its properties, and a *value* for each of those properties. For example, an `IBlockState` of a wooden log contains the Block "Blocks.log" or "Blocks.log2", the *properties* AXIS and VARIANT, and *values* for those properties, e.g. `Axis.Y` and `BlockPlanks.WoodType.BIRCH`.
-You can acquire one with `world.getBlockState(BlockPos)`
-To test the value of a property, use IBlockState.getValue(<property>). So for our log, if we wanted to see if it was birch we would do `world.getBlockState(pos).getValue(VARIANT) == BlockPlanks.WoodType.BIRCH`.
-To get the IBlockState object for another combination of properties and valuee, use `withProperty(IProperty<T>, T)`. This will return a different IBlockState object with the values you requested.
+The object you just created is a pretty magical one - it manages the generation of all the triples above. That is, it generates all possible combinations of every value for each property (for math-oriented people, it takes the set of possible values of each property and computes the cartesian product of those sets). Thus, it generates every unique (Block, properties, values) possible - every `IBlockState` possible for the given properties.
 
-!!! Note
-    All IBlockState objects are generated by Minecraft on startup. For each unique set of block+properties+values, there is exactly one IBlockState. Thus it is perfectly safe and recommended to compare IBlockStates using reference equality (==) ! 
+If you do not set one of these `IBlockState`'s to act as the "default" state for your Block, then one is chosen for you. You probably don't want this (it will cause weird things to happen most of the time), so at the end of your Block's constructor call `setDefaultState()`, passing in the `IBlockState` you want to be the default. Get the one that was chosen for you using `this.blockState.getBaseState()` then set a value for *every* property using `withProperty`
 
-In the constructor of your block, it is necessary you set the default blockstate. You simply do this by calling `setDefaultState(blockState.getBaseState().withProperty(...))`. Be sure to do this for ALL of your `IProperty`'s, or the values of the ones you skip will be undefined in your default blockstate, which once again causes hidden bugs that don't crash the game but have strange behaviour.
+Because `IBlockState`'s are immutable and pregenerated, calling `IBlockState.withProperty(<PROPERTY>, <NEW_VALUE>)` will simply go to the `BlockState`/`BlockStateContainer` and request the IBlockState with the set of values you want, instead of constructing a new `IBlockState`.
 
-Saving and Restoring from Meta
-------------------------------
+It follows very easily from this that since basic `IBlockState`'s are generated into a fixed set at startup, you are able and encouraged to use reference comparison (==) to check if they are equal!
 
-If your Block uses no `IProperty`'s, you don't need to override these two methods. Otherwise, you MUST or else Minecraft will crash on startup.
-Override getMetaFromState and getStateFromMeta. These two methods are where all the ugly bitmasking/bitpacking/bit testing will take place. Note that since the save format has not changed, you are still limited to 16 meta values (0 to 15 inclusive).
+
+Using `IBlockState`'s
+---------------------
+
+`IBlockState`, as we know now, is a powerful object. You can get the value of a property by calling `getValue(<PROPERTY>)`, passing it the `IProperty<>` you want to test.
+If you want to get an IBlockState with a different set of values, simply call `withProperty(<PROPERTY>, <NEW_VALUE>)` as mentioned above. This will return another of the pregenerated `IBlockState`'s with the values you requested.
+
+You can get and put `IBlockState`'s in the world using `setBlockState()` and `getBlockState()`.
+
+
+Illusion Breaker
+----------------
+
+Sadly, abstractions are lies at their core. We still have the responsibility of translating every `IBlockState` back into a number between 0 and 15 inclusive that will be stored in the world and vice versa for loading.
+
+If you declare any `IProperty`'s, you **must** override `getMetaFromState` and `getStateFromMeta`
+
+Here you will read the values of your properties and return an appropriate integer between 0 and 15, or the other way around; the reader is left to check examples from vanilla blocks by themselves.
 
 !!! Warning
     Your getMetaFromState and getStateFromMeta methods MUST be one to one! In other words, the same set of properties and values must map to the same meta value and back. Failing to do this, unfortunately, WON'T cause a crash. It'll just cause everything to behave extremely weirdly.
 
-IBlockState: More than just Block and Meta
-------------------------------------------
 
-This isn't the end of the story, though. 
-If you've ever hovered over a vanilla fence with F3 activated, you might have noticed the boolean properties north, south, west, and east with. Sharper minds might notice that fences don't save their connection to meta, so what's going on here?
-It turns out, `IBlockState`s are able to hold values for properties that aren't saved to meta! You register them in createBlockState as usual.
-Override `getActualState` in your block class. Here, fences and redstones check their sides for connections, and modify the state appropriately. 
+"Actual" States
+-------------
+
+Some sharper minds might know that fences don't save any of their connections to meta, yet they still have properties and values in the F3 menu! What is this blasphemy?!
+
+Blocks can declare properties that are not saved to metadata. These are usually used for rendering purposes, but could possibly have other useful applications.
+You still declare them in `createBlockState` and set their value in `setDefaultState`. However, these properties you do NOT touch **at all** in `getMetaFromState` and `getStateFromMeta`.
+
+Instead, override `getActualState` in your Block class. Here you will receive the `IBlockState` corresponding with the metadata in the world, and you return another `IBlockState` with missing information such as fence connections, redstone connections , etc. filled in using `withProperty`. You can also use this to read Tile Entity data for a value (with appropriate safety checks of course!).
 
 !!! Note
-    Querying `world.getBlockState()` will give you the `IBlockState` representing the saved metadata. Thus the returned `IBlockState` will not have all the data from `getActualState` filled in. If that matters to your code, make sure you call `getActualState`!
-
-!!! Warning
-    Do NOT touch your rendering-only properties in getMetaFromState/getStateFromMeta! Those two methods should only manipulate the properties that you need to save.
+    Querying `world.getBlockState()` will give you the `IBlockState` representing only the metadata. Thus the returned `IBlockState` will not have data from `getActualState` filled in. If that matters to your code, make sure you call `getActualState`!
 
 Further Reading
 ---------------
 
-Rendering in 1.8 and Extended States: TODO
+  * Rendering in 1.8+: TODO
+  * Extended States: TODO
