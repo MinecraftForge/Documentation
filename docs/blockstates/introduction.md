@@ -1,7 +1,7 @@
-Introduction to blockstate jsons
-===========================
+Introduction to blockstate JSONs
+================================
 
-Blockstate jsons tell the game which model it should use depending on the values of the block's [blockstate properties][blockstate].
+Blockstate JSONs tell the game which model it should use depending on the values of the block's [blockstate properties][blockstate].
 A simple block with no properties only has a "*normal*" blockstate which is its default.
 A more complex block that can be displayed in different ways has so called *variants*.
 

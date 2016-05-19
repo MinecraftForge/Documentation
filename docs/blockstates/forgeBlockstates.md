@@ -37,7 +37,7 @@ This json declares a simple blockstate that has dirt on each side. Let's go thro
 ```
 
 This tells the game that the blockstate json is the one from Forge, not from vanilla Minecraft.
-The 1 is the version of the format, which ensures that old blockstate jsons can be supported should the format ever change. Currently there is only this one.
+The 1 is the version of the format, which ensures that old blockstate JSONs can be supported should the format ever change. Currently there is only this one.
 
 ```json
 	"defaults": {

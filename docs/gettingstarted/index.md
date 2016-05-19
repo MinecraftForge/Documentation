@@ -62,9 +62,9 @@ Building and Testing Your Mod
 -----------------------------
 
 1. To build your mod, run `gradlew build`. This will output a file in `build/libs` with the name `[archivesBaseName]-[version].jar`. This file can be placed in the `mods` folder of a forge enabled Minecraft setup, and distributed.
-2. To test run with your mod, the easist way is to use the run configs that were generated when you set up your project. Otherwise, you can run `gradlew runClient`. This will launch Minecraft from the `<runDir>` location, including your mod code. There are various customizations to this command. Consult the [ForgeGradle cookbook][] for more information.
+2. To test run with your mod, the easiest way is to use the run configs that were generated when you set up your project. Otherwise, you can run `gradlew runClient`. This will launch Minecraft from the `<runDir>` location, including your mod code. There are various customizations to this command. Consult the [ForgeGradle cookbook][] for more information.
 3. You can also run a dedicated server using the server run config, or `gradlew runServer`. This will launch the Minecraft server with it's GUI.
 
 !!! note
 
-    It is always adviseable to test your mod in a dedicated server environment if it is intended to run there.
+    It is always advisable to test your mod in a dedicated server environment if it is intended to run there.

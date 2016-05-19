@@ -28,7 +28,7 @@ A New Way of Thinking
 ---------------------
 
 How about, instead of having to munge around with numbers everywhere, we instead use some system that abstracts out the details of saving from the semantics of the block itself?
-This is where `IProperty<?>` comes in. Each Block has a set of zero or more of these objects, that describe, unsurprisingly, *properties* that the block have. Examples of this include color (`IProperty<EnumDyeColor>`), facing (`IProperty<EnumFacing>`), integer and boolean values, etc. Each property can have a *value* of the type parameterized by `IProperty`. For example, for the respective example properties, we can have values `EnumDyeColor.WHITE`, `EnumFacing.EAST`, `1`, or `false`.
+This is where `IProperty<?>` comes in. Each Block has a set of zero or more of these objects, that describe, unsurprisingly, *properties* that the block have. Examples of this include color (`IProperty<EnumDyeColor>`), facing (`IProperty<EnumFacing>`), integer and boolean values, etc. Each property can have a *value* of the type parametrized by `IProperty`. For example, for the respective example properties, we can have values `EnumDyeColor.WHITE`, `EnumFacing.EAST`, `1`, or `false`.
 
 Then, following from this, we see that every unique triple (Block, set of properties, set of values for those properties) is a suitable abstracted replacement for Block and metadata. Now, instead of "minecraft:stone_button meta 9" we have "minecraft:stone_button[facing=east,powered=true]". Guess which is more meaningful?
 
@@ -43,7 +43,7 @@ In your Block class, create static final `IProperty<>` objects for every propert
   
   * `PropertyInteger`: Implements `IProperty<Integer>`. Created by calling PropertyInteger.create("<name>", <min>, <max>);
   * `PropertyBool`: Implements `IProperty<Boolean>`. Created by calling PropertyBool.create("<name>");
-  * `PropertyEnum<E extends Enum<E>>`: Implements `IProperty<E>`, Defines a property that can take on the values of an Enum class. Created by calling PropertyEnum.create("name", <enumclass>);
+  * `PropertyEnum<E extends Enum<E>>`: Implements `IProperty<E>`, Defines a property that can take on the values of an Enum class. Created by calling PropertyEnum.create("name", <enum_class>);
     * You can also use only a subset of the Enum values (for example, you can use only 4 of the 16 `EnumDyeColor`'s. Take a look at the other overloads of `PropertyEnum.create`)
   * `PropertyDirection`: This is a convenience implementation of `PropertyEnum<EnumFacing>`
     * Several convenience predicates are also provided. For example, to get a property that represents the cardinal directions, you would call `PropertyDirection.create("<name>", EnumFacing.Plane.HORIZONTAL)`. Or to get the X directions, `PropertyDirection.create("<name>", EnumFacing.Axis.X)`

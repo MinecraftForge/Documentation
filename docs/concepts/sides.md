@@ -22,9 +22,9 @@ Performing Side-Specific Operations
 
 This boolean check will be your most used way to check sides. Querying this field on a `World` object establishes the  **logical** side the world belongs to. That is, if this field is `true`, the world is currently running on the logical client. If the field is `false`, the world is running on the logical server. It follows that the physical server will always contain `false` in this field, but we cannot assume that `false` implies a physical server, since this field can also be `false` for the logical server inside a physical client (in other words, a single player world).
 
-Use this check whenever you need to determine if game logic and other mechanics should be run. For example, if you want to damage the player every time they click your block, or have your machine process dirt into diamonds, you should only do so after ensuring `world.isRemote` is `false`. Applying game logic to the logical client can cause desyncs (ghost entities, desynchronized stats, etc.) in the lightest case, and crashes in the worst case.
+Use this check whenever you need to determine if game logic and other mechanics should be run. For example, if you want to damage the player every time they click your block, or have your machine process dirt into diamonds, you should only do so after ensuring `world.isRemote` is `false`. Applying game logic to the logical client can cause desynchronization (ghost entities, desynchronized stats, etc.) in the lightest case, and crashes in the worst case.
 
-This check should be used as your go-to default. Aside from proxies, rarely will you need the other ways of determining side and adjusting behaviour.
+This check should be used as your go-to default. Aside from proxies, rarely will you need the other ways of determining side and adjusting behavior.
 
 ### `@SidedProxy`
 
@@ -48,7 +48,7 @@ Remember that both of your specified proxies must have a type that is assignable
 
 `FMLCommonHandler.getSide()` can be called in order to retrieve the **physical** side your code is running on. Since it is determined at startup, it does not rely on guessing to return its result. The number of use cases for this method is limited, however.
 
-Annotating a method or field with the `@SideOnly` annotation indicates to the loader that the respective member should be completely stripped out of the definition not on the specified **physical** side. Usually, these are only seen when browsing through the decompiled Minecraft code, indicating methods that the Mojang obfuscator stripped out. There is little to no reason for using this annotation directly. Only use it if you are overriding a vanilla method that already has `@SideOnly` defined. In most other cases where you need to dispatch behaviour based on physical sides, use `@SidedProxy` or a check on `getSide()` instead.
+Annotating a method or field with the `@SideOnly` annotation indicates to the loader that the respective member should be completely stripped out of the definition not on the specified **physical** side. Usually, these are only seen when browsing through the decompiled Minecraft code, indicating methods that the Mojang obfuscator stripped out. There is little to no reason for using this annotation directly. Only use it if you are overriding a vanilla method that already has `@SideOnly` defined. In most other cases where you need to dispatch behavior based on physical sides, use `@SidedProxy` or a check on `getSide()` instead.
 
 Common Mistakes
 ---------------
