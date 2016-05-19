@@ -16,7 +16,7 @@ Formatting
 
 !!! important
 
-    Please use TWO SPACES to indent, not tabs.
+    Please use **two spaces** to indent, not tabs.
 
 Titles should be capitalized in the standard titling format. For example,
 

@@ -1,7 +1,7 @@
-Introduction to blockstate jsons
-===========================
+Introduction to blockstate JSONs
+================================
 
-Blockstate jsons tell the game which model it should use depending on the values of the block's [blockstate properties][blockstate].
+Blockstate JSONs tell the game which model it should use depending on the values of the block's [blockstate properties][blockstate].
 A simple block with no properties only has a "*normal*" blockstate which is its default.
 A more complex block that can be displayed in different ways has so called *variants*.
 
@@ -28,5 +28,5 @@ The log only has one property: axis. A blockstate always has to be defined for a
 
 And that is only one variant of 16. This can quickly lead to very big and verbose blockstate files, and is one of the main problems in Minecraft 1.8. Minecraft 1.9 will introduce a system that allows to get this under control. [Forge's Blockstate Json][forge] allows you to do so in 1.8.
 
-[forge]: forgeBlockstates.md "Forge's Blockstate Json"
+[forge]: forgeBlockstates.md "Forge's Blockstate JSON"
 [blockstate]: states.md "blockstate properties"

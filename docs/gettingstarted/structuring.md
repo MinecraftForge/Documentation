@@ -6,13 +6,13 @@ We'll look at how to organize your mod into different files and what those files
 Packaging
 ---------
 
-Pick a unique package name. If you own a URL associated with your project, you can use it as your top level package. For example if you own "fakemods.com", you may `com.fakemods` as your top level package.
+Pick a unique package name. If you own a URL associated with your project, you can use it as your top level package. For example if you own "example.com", you may use `com.example` as your top level package.
 
 !!! important
 
     If you do not own a domain, do not use it for your top level package. It is perfectly acceptable to start your package with anything, such as your name/nickname, or the name of the mod.
 
-After the top level package (if you have one) you append a unique name for your mod, such as `examplemod`. In our case it will end up as `com.fakemods.examplemod`.
+After the top level package (if you have one) you append a unique name for your mod, such as `examplemod`. In our case it will end up as `com.example.examplemod`.
 
 The Mod File
 ------------
@@ -49,6 +49,6 @@ For Example:
 
 * An `Item` called `PowerRing` would be in an `item` package, with a class name of `ItemPowerRing`.
 * A `Block` called `NotDirt` would be in a `block` package, with a class name of `BlockNotDirt`.
-* Finally, a `TileEntity` for a block called `SuperChewer` would be a `tile` or `tileentity` package, with a classname of `TileSuperChewer`.
+* Finally, a `TileEntity` for a block called `SuperChewer` would be a `tile` or `tileentity` package, with a class name of `TileSuperChewer`.
 
 Prepending your class names with what *kind* of object they are makes it easier to figure out what a class is, or guess the class for an object.

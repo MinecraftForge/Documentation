@@ -67,9 +67,9 @@ Making Use of the Implementation
 
 To make use of the extended data, the instance of the IEEP implementation has to be obtained from the Entity, and because the entity could have been unloaded or may have changed dimensions, it is not safe to cache the references.
 
-To obtain the IEEP reference, one would use `Entity#getExtendedProperties`, with the same property ID specified on registration. The return value, if not null, is the instance of `IExtendedEntityProperties` added during entity construction.
+To obtain the IEEP reference, one would use `Entity#getExtendedProperties`, with the same property ID specified on registration. The return value, if not `null`, is the instance of `IExtendedEntityProperties` added during entity construction.
 
-A good idea is to create a static "get" method in your IEEP implementation, that will automatically obtain the instance, and cast it to your implementation class. It can be as simple as:
+A good idea is to create a static `get` method in your IEEP implementation, that will automatically obtain the instance, and cast it to your implementation class. It can be as simple as:
 
 ```java
 public static ExampleEntityProperty get(Entity p) {
