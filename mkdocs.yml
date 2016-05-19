@@ -34,6 +34,6 @@ markdown_extensions:
   - sane_lists
 
 extra_css:
-  - css/code_fixer.css
+  - css/style_fixes.css
 
 theme: readthedocs
