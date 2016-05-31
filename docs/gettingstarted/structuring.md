@@ -25,12 +25,12 @@ What is `@Mod`?
 
 This is an annotation indicating to the Forge Mod Loader that the class is a Mod entry point. It contains various metadata about the mod. It also designates the class that will receive `@EventHandler` events. More information can be found at... (Coming Soon)
 
-All components of @Mod() are written inside the paratheses and chained together. There's only ever a single @Mod in your entire mod, sitting on top of your entry class.
+All components of @Mod() are written inside the parantheses and chained together. There's only ever a single @Mod in your entire mod, sitting on top of your entry class.
 
 Components:
 
 `modid` [Required]
-This identifies your mod uniquely to Forge and should probably the first thing you enter. It's only visible internally.
+This identifies your mod uniquely to Forge and should probably be the first thing you enter. It's only visible internally.
 
 Example: @Mod(modid="examplemod")
 
@@ -53,8 +53,38 @@ Example: [TODO]
 
 `canBeDeactivated` [Optional]
 This lets Forge know whether or not your mod can be safely turned off/on during gameplay. There's a menu option for enabling/disabling mods in the main menu, which uses this. Unlike most other annotation options this one takes a boolean instead of a string, so it's without quotes.
+Beware: This should NEVER be true for mods that add things to the game, like items or blocks. Things will go sideways if that happens. Some things cannot be taken back.
 
 Example: @Mod(canBeDeactivated=true)
+
+`clientSideOnly` [Optional]
+This prevents the mod from being loaded on the server at all, no matter what. If this is set together with the option below the universe will explode. Or the game crashes. One or the other.
+
+Example: @Mod(clientSideOnly=true)
+
+`serverSideOnly` [Optional]
+The opposite of the option above. This prevents the mod from being loaded on client-side. Beware: This also includes the internal server in singleplayer.
+
+Example: @Mod(serverSideOnly=true)
+
+`dependencies` [Optional]
+This defines what other mods yours depends on. Possibly also the reverse. Multiple entries can be made here, separated by a ; (What is this called?).
+[TODO: There seems to be some additional constructs and structures here that someone needs to expand on. Is there something other than "required-after"?]
+
+Example: @Mod(dependencies="required-after:Forge@[12.16.0.1859,);")
+
+`acceptedMinecraftVersions` [Optional]
+This tells Forge what versions of Minecraft your mod runs on. By default it's set to "whatever I'm currently editing it with in Eclipse". 
+
+[TODO: Multiple versions and constructs can be added here. Explain them. "[1.9,1.10)" seems to be a valid construct for 1.9.*, including the bracket/parantheses. What makes it work?]
+
+Example: @Mod(acceptedMinecraftVersions="1.9, 1.9.1, 1.9.2")
+
+`updateJSON` [Optional]
+This does... something. JSON-related, likely.
+[TODO: Someone explain this. Certainly ain't gonna be me.]
+
+Example: [TODO]
 
 [More annotations to be added here]
 
