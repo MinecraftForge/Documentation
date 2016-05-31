@@ -25,6 +25,39 @@ What is `@Mod`?
 
 This is an annotation indicating to the Forge Mod Loader that the class is a Mod entry point. It contains various metadata about the mod. It also designates the class that will receive `@EventHandler` events. More information can be found at... (Coming Soon)
 
+All components of @Mod() are written inside the paratheses and chained together. There's only ever a single @Mod in your entire mod, sitting on top of your entry class.
+
+Components:
+
+`modid` [Required]
+This identifies your mod uniquely to Forge and should probably the first thing you enter. It's only visible internally.
+
+Example: @Mod(modid="examplemod")
+
+`name` [Required]
+This is the public name of your mod, as the user sees it.
+
+Example: @Mod(modid="examplemod", name="Mad Mod For Kool Kids")
+
+`version` [Required]
+This is the version of your mod and gets both publically displayed and internally used to detect version mismatches.
+You can write pretty much whatever in here, but it's generally a good idea to have some sort of structure. Even if it's something as simple as a single number that increases every time you update your mod.
+
+Example: @Mod(modid="examplemod", name="Mad Mod For Kool Kids" version="1.radical")
+
+`acceptableRemoteVersions` [Optional]
+This lets Forge know what Client-side versions your mod is ok with. The wildcard * (a star) means that your mod is fine with ANY version on the other end, even nothing at all. You can use this for Server-side only mods.
+[TODO: Someone add here how the versions can be structured. I THINK you can set minimum/maximum versions?]
+
+Example: [TODO]
+
+`canBeDeactivated` [Optional]
+This lets Forge know whether or not your mod can be safely turned off/on during gameplay. There's a menu option for enabling/disabling mods in the main menu, which uses this. Unlike most other annotation options this one takes a boolean instead of a string, so it's without quotes.
+
+Example: @Mod(canBeDeactivated=true)
+
+[More annotations to be added here]
+
 You can find an example mod in the [Forge src download](http://files.minecraftforge.net/).
 
 Keeping Your Code Clean Using Sub-packages
