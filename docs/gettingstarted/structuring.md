@@ -74,7 +74,7 @@ This defines what other mods yours depends on. Possibly also the reverse. Multip
 Example: @Mod(dependencies="required-after:Forge@[12.16.0.1859,);")
 
 `acceptedMinecraftVersions` [Optional]
-This tells Forge what versions of Minecraft your mod runs on. By default it's set to "whatever I'm currently editing it with in Eclipse". 
+This tells Forge what versions of Minecraft your mod runs on. By default it's set to "whatever I'm currently building my mod against in my editor of choice". Tends to be quite specific. Sub-versions are not naturally included, so keep an eye out there.
 
 [TODO: Multiple versions and constructs can be added here. Explain them. "[1.9,1.10)" seems to be a valid construct for 1.9.*, including the bracket/parantheses. What makes it work?]
 
