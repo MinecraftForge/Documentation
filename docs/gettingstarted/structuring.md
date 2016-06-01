@@ -30,7 +30,8 @@ All components of @Mod() are written inside the parantheses and chained together
 Components:
 
 `modid` [Required]
-This identifies your mod uniquely to Forge and should probably be the first thing you enter. It's only visible internally.
+This identifies your mod uniquely to Forge and should probably be the first thing you enter. It's only used internally, but can be seen by users who dig around. Other mods also require this ID if they want to find each other. (APIs for example.)
+If you want to know more about annotations in general you can check out [Oracle](https://docs.oracle.com/javase/tutorial/java/annotations/index.html)'s docs on it.
 
 Example: @Mod(modid="examplemod")
 
@@ -42,6 +43,7 @@ Example: @Mod(modid="examplemod", name="Mad Mod For Kool Kids")
 `version` [Required]
 This is the version of your mod and gets both publically displayed and internally used to detect version mismatches.
 You can write pretty much whatever in here, but it's generally a good idea to have some sort of structure. Even if it's something as simple as a single number that increases every time you update your mod.
+Some more info about that can be found on the [left-hand menu](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
 Example: @Mod(modid="examplemod", name="Mad Mod For Kool Kids" version="1.radical")
 
@@ -58,23 +60,37 @@ Beware: This should NEVER be true for mods that add things to the game, like ite
 Example: @Mod(canBeDeactivated=true)
 
 `clientSideOnly` [Optional]
-This prevents the mod from being loaded on the server at all, no matter what. If this is set together with the option below the universe will explode. Or the game crashes. One or the other.
+This prevents the mod from being loaded on the server at all, no matter what. 
+Beware: If this is set together with the option below the game will crash, no questions asked.
 
 Example: @Mod(clientSideOnly=true)
 
 `serverSideOnly` [Optional]
-The opposite of the option above. This prevents the mod from being loaded on client-side. Beware: This also includes the internal server in singleplayer.
+The opposite of the option above. This prevents the mod from being loaded on client-side. 
+Beware: This also includes the internal server in singleplayer.
+What sides are and what their deal is can be read up on via the [left-hand menu](https://mcforge.readthedocs.io/en/latest/concepts/sides/).
 
 Example: @Mod(serverSideOnly=true)
 
 `dependencies` [Optional]
-This defines what other mods yours depends on. Possibly also the reverse. Multiple entries can be made here, separated by a ; (What is this called?).
-[TODO: There seems to be some additional constructs and structures here that someone needs to expand on. Is there something other than "required-after"?]
+This defines what other mods yours depends on. Possibly also the reverse. Multiple entries can be made here, separated by a semicolon.
+
+There are four key words you can use for this:
+`before` - Loaded before the specified mod-
+`after` - Loaded after the specified mod-
+`required-after` - Loaded after the specified mod, which HAS to be there.
+`required-before` - Loaded before the specified mod, which HAS to be there.
+
+Using these keywords you can establish some basic ordering for your mod, in the grand scheme of things.
+
+
+[TODO: Version ranges seem to be a thing as well. How do?]
 
 Example: @Mod(dependencies="required-after:Forge@[12.16.0.1859,);")
 
 `acceptedMinecraftVersions` [Optional]
-This tells Forge what versions of Minecraft your mod runs on. By default it's set to "whatever I'm currently building my mod against in my editor of choice". Tends to be quite specific. Sub-versions are not naturally included, so keep an eye out there.
+This tells Forge what versions of Minecraft your mod runs on. By default it's set to "don't care", but ForgeGradle defaults to "whatever I'm currently building my mod against" when you compile your mod. 
+Beware: ForgeGradle is quite specific. Sub-versions are not naturally included, so keep an eye out there.
 
 [TODO: Multiple versions and constructs can be added here. Explain them. "[1.9,1.10)" seems to be a valid construct for 1.9.*, including the bracket/parantheses. What makes it work?]
 
