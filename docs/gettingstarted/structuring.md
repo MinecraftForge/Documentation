@@ -42,13 +42,13 @@ Example: `@Mod(modid="examplemod", name="Mad Mod For Kool Kids")`
 
 `version` [Required]
 This is the version of your mod and gets both publically displayed and internally used to detect version mismatches.
-You can write pretty much whatever in here, but it's generally a good idea to have some sort of structure. Even if it's something as simple as a single number that increases every time you update your mod.
+There is no formal standard to be upkept here, but it's generally a good idea to have some sort of structure. Even if it's something as simple as a single number that increases every time you update your mod.
 Some more info about that can be found in the article about [versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
 Example: `@Mod(modid="examplemod", name="Mad Mod For Kool Kids" version="1.radical")`
 
 `acceptableRemoteVersions` [Optional]
-This lets Forge know what Client-side versions your mod is ok with. The wildcard * (a star) means that your mod is fine with ANY version on the other end, even nothing at all. You can use this for Server-side only mods.
+This lets Forge know what Client-side versions your mod accepts when run on a server. The wildcard * (a star) means that your mod is fine with ANY version on the other end, even nothing at all. You can use this for Server-side only mods.
 [TODO: Someone add here how the versions can be structured. I THINK you can set minimum/maximum versions?]
 
 Example: [TODO]
@@ -56,12 +56,12 @@ Example: [TODO]
 `canBeDeactivated` [Optional]
 This lets Forge know whether or not your mod can be safely turned off/on during gameplay. There's a menu option for enabling/disabling mods in the main menu, which uses this. Unlike most other annotation options this one takes a boolean instead of a string, so it's without quotes.
 Beware: This should NEVER be true for mods that add things to the game, like items or blocks. Things will go sideways if that happens. Some things cannot be taken back.
+Of note: This does not appear to be functional at the moment. So you can safely ignore it for now.
 
 Example: `@Mod(canBeDeactivated=true)`
 
 `clientSideOnly` [Optional]
 This prevents the mod from being loaded on the server at all, no matter what. 
-Beware: If this is set together with the option below the game will crash, no questions asked.
 
 Example: `@Mod(clientSideOnly=true)`
 
@@ -71,6 +71,8 @@ Beware: This also includes the internal server in singleplayer.
 What sides are and what their deal is can be read up on via the article about [sides](https://mcforge.readthedocs.io/en/latest/concepts/sides/).
 
 Example: `@Mod(serverSideOnly=true)`
+
+Of special note: If clientSideOnly and serverSideOnly are both set the game will crash, no questions asked.
 
 `dependencies` [Optional]
 This defines what other mods yours depends on. Possibly also the reverse. Multiple entries can be made here, separated by a semicolon.
