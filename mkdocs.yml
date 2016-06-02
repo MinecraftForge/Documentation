@@ -10,7 +10,7 @@ pages:
     - Intro to Blockstate JSONs: 'blockstates/introduction.md'
     - Forge Blockstate JSON: 'blockstates/forgeBlockstates.md'
   - Events:
-    - Basic Usage: 'events.md'
+    - Basic Usage: 'events/events.md'
   - Networking:
     - Home: 'networking/index.md'
     - Overview: 'networking/overview.md'
