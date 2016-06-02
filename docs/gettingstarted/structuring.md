@@ -25,27 +25,27 @@ What is `@Mod`?
 
 This is an annotation indicating to the Forge Mod Loader that the class is a Mod entry point. It contains various metadata about the mod. It also designates the class that will receive `@EventHandler` events. More information can be found at... (Coming Soon)
 
-All components of @Mod() are written inside the parantheses and chained together. There's only ever a single @Mod in your entire mod, sitting on top of your entry class.
+All components of @Mod() are written inside the parantheses and chained together. There's typically only one @Mod in your mod as a whole, sitting on top of your entry class.
 
 Components:
 
 `modid` [Required]
-This identifies your mod uniquely to Forge and should probably be the first thing you enter. It's only used internally, but can be seen by users who dig around. Other mods also require this ID if they want to find each other. (APIs for example.)
-If you want to know more about annotations in general you can check out [Oracle](https://docs.oracle.com/javase/tutorial/java/annotations/index.html)'s docs on it.
+This identifies your mod uniquely to Forge and should probably be the first thing you enter. It's only used internally, but can be seen by users who dig around. Other mods also require this ID if they want to find each other (APIs for example).
+If you want to know more about annotations in general you can check out [Oracle's docs](https://docs.oracle.com/javase/tutorial/java/annotations/index.html) on it.
 
-Example: @Mod(modid="examplemod")
+Example: `@Mod(modid="examplemod")`
 
 `name` [Required]
 This is the public name of your mod, as the user sees it.
 
-Example: @Mod(modid="examplemod", name="Mad Mod For Kool Kids")
+Example: `@Mod(modid="examplemod", name="Mad Mod For Kool Kids")`
 
 `version` [Required]
 This is the version of your mod and gets both publically displayed and internally used to detect version mismatches.
 You can write pretty much whatever in here, but it's generally a good idea to have some sort of structure. Even if it's something as simple as a single number that increases every time you update your mod.
-Some more info about that can be found on the [left-hand menu](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
+Some more info about that can be found in the article about [versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/).
 
-Example: @Mod(modid="examplemod", name="Mad Mod For Kool Kids" version="1.radical")
+Example: `@Mod(modid="examplemod", name="Mad Mod For Kool Kids" version="1.radical")`
 
 `acceptableRemoteVersions` [Optional]
 This lets Forge know what Client-side versions your mod is ok with. The wildcard * (a star) means that your mod is fine with ANY version on the other end, even nothing at all. You can use this for Server-side only mods.
@@ -57,20 +57,20 @@ Example: [TODO]
 This lets Forge know whether or not your mod can be safely turned off/on during gameplay. There's a menu option for enabling/disabling mods in the main menu, which uses this. Unlike most other annotation options this one takes a boolean instead of a string, so it's without quotes.
 Beware: This should NEVER be true for mods that add things to the game, like items or blocks. Things will go sideways if that happens. Some things cannot be taken back.
 
-Example: @Mod(canBeDeactivated=true)
+Example: `@Mod(canBeDeactivated=true)`
 
 `clientSideOnly` [Optional]
 This prevents the mod from being loaded on the server at all, no matter what. 
 Beware: If this is set together with the option below the game will crash, no questions asked.
 
-Example: @Mod(clientSideOnly=true)
+Example: `@Mod(clientSideOnly=true)`
 
 `serverSideOnly` [Optional]
 The opposite of the option above. This prevents the mod from being loaded on client-side. 
 Beware: This also includes the internal server in singleplayer.
-What sides are and what their deal is can be read up on via the [left-hand menu](https://mcforge.readthedocs.io/en/latest/concepts/sides/).
+What sides are and what their deal is can be read up on via the article about [sides](https://mcforge.readthedocs.io/en/latest/concepts/sides/).
 
-Example: @Mod(serverSideOnly=true)
+Example: `@Mod(serverSideOnly=true)`
 
 `dependencies` [Optional]
 This defines what other mods yours depends on. Possibly also the reverse. Multiple entries can be made here, separated by a semicolon.
@@ -78,15 +78,14 @@ This defines what other mods yours depends on. Possibly also the reverse. Multip
 There are four key words you can use for this:
 `before` - Loaded before the specified mod-
 `after` - Loaded after the specified mod-
-`required-after` - Loaded after the specified mod, which HAS to be there.
-`required-before` - Loaded before the specified mod, which HAS to be there.
+`required-after` - Loaded after the specified mod, which **has** to be there.
+`required-before` - Loaded before the specified mod, which **has** to be there.
 
 Using these keywords you can establish some basic ordering for your mod, in the grand scheme of things.
 
-
 [TODO: Version ranges seem to be a thing as well. How do?]
 
-Example: @Mod(dependencies="required-after:Forge@[12.16.0.1859,);")
+Example: `@Mod(dependencies="required-after:Forge@[12.16.0.1859,);")`
 
 `acceptedMinecraftVersions` [Optional]
 This tells Forge what versions of Minecraft your mod runs on. By default it's set to "don't care", but ForgeGradle defaults to "whatever I'm currently building my mod against" when you compile your mod. 
@@ -94,7 +93,7 @@ Beware: ForgeGradle is quite specific. Sub-versions are not naturally included, 
 
 [TODO: Multiple versions and constructs can be added here. Explain them. "[1.9,1.10)" seems to be a valid construct for 1.9.*, including the bracket/parantheses. What makes it work?]
 
-Example: @Mod(acceptedMinecraftVersions="1.9, 1.9.1, 1.9.2")
+Example: `@Mod(acceptedMinecraftVersions="1.9, 1.9.1, 1.9.2")`
 
 `updateJSON` [Optional]
 This does... something. JSON-related, likely.
