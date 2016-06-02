@@ -27,6 +27,7 @@ pages:
     - Loading Stages: 'conventions/loadstages.md'
   - Concepts:
     - Sides: 'concepts/sides.md'
+    - Using sided proxies: 'concepts/proxies.md'
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
