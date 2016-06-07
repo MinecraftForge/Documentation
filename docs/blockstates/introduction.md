@@ -31,12 +31,12 @@ The log only has one property: axis. A blockstate always has to be defined for a
 
 And that is only one variant of 16. This can quickly lead to very big and verbose blockstate files, and is one of the main problems in Minecraft 1.8. Minecraft 1.9 will introduce a system that allows to get this under control. [Forge's Blockstate Json][forge] allows you to do so in 1.8.
 
-Customize StateMappers
+Customize state mappers
 --------------------------------
 
-In general, there is an one-to-one correspondence between a blockstate of a block and a variant string. However, in some cases, several properties should be ignored when considering block models, such as the growth of a cactus, and whether a leaves block is decayable. Besides, some blocks have blockstates related to various blockstate json files, such as dirt blocks (`dirt.json`, `coarse_dirt.json`, and `podzol.json`) and sandstones (`sandstone.json`, `chiseled_sandstone.json`, and `smooth_sandstone.json`). When we want to map blockstates to variant strings manually, we need to customize our own *StateMappers*. 
+In general, there are one-to-one relations between blockstates of a block and variant strings. However, in some cases, several properties should be ignored when considering block models, such as the growth of a cactus, and whether a block of leaves is decayable. Besides, some blocks have blockstates related to various blockstate json files, such as dirt blocks (`dirt.json`, `coarse_dirt.json`, and `podzol.json`) and sandstones (`sandstone.json`, `chiseled_sandstone.json`, and `smooth_sandstone.json`). When we want to map blockstates to variant strings manually, we need to customize our own state mappers. 
 
-All of the StateMappers are implementations of an interface, `IStateMapper`, a pre-defined implementation of which is an abstract class, `StateMapperBase`. we register our StateMappers on the Pre-Initialization stage like this: 
+All of the state mappers are implementations of an interface, `IStateMapper`, a pre-defined implementation of which is an abstract class, `StateMapperBase`. we register our state mappers on the pre-initialization stage like this: 
 
 ```java
 ModelLoader.setCustomStateMapper(yourBlock, new StateMapperBase()
@@ -60,7 +60,7 @@ In addition, a builder called `StateMap.Builder` is generally used instead of ou
                         .build();
 ```
 
-Method `withName` sets the property (`variant`) which decides the main part of file names (`oak`, `spruce`, `birch`, and `jungle`), method `withSuffix` sets the suffix of file names (`oak_leaves.json`, `spruce_leaves.json`, `birch_leaves.json`, and `jungle_leaves.json`) for the avoidance of conflicts, and method `ignore` sets the properties which should be ignored in the variant strings (`check_decay` and `decayable`). Below is part of a map reasoning from the StateMapper: 
+Method `withName` sets the property (`variant`) which decides the main part of file names (`oak`, `spruce`, `birch`, and `jungle`), method `withSuffix` sets the suffix of file names (`oak_leaves.json`, `spruce_leaves.json`, `birch_leaves.json`, and `jungle_leaves.json`) for the avoidance of conflicts, and method `ignore` sets the properties which should be ignored in the variant strings (`check_decay` and `decayable`). Below is part of a map reasoning from the state mapper: 
 
 | `IBlockState`                                                        | `ModelResourceLocation`          |
 |:---------------------------------------------------------------------|:---------------------------------|
