@@ -36,31 +36,56 @@ Customize state mappers
 
 In general, there are one-to-one relations between blockstates of a block and variant strings. However, in some cases, several properties should be ignored when considering block models, such as the growth of a cactus, and whether a block of leaves is decayable. Besides, some blocks have blockstates related to various blockstate json files, such as dirt blocks (`dirt.json`, `coarse_dirt.json`, and `podzol.json`) and sandstones (`sandstone.json`, `chiseled_sandstone.json`, and `smooth_sandstone.json`). When we want to map blockstates to variant strings manually, we need to customize our own state mappers. 
 
-All of the state mappers are implementations of an interface, `IStateMapper`, a pre-defined implementation of which is an abstract class, `StateMapperBase`. we register our state mappers on the pre-initialization stage like this: 
+we register our state mappers on the pre-initialization stage like this. Do not forget that it is client side only: 
 
 ```java
-ModelLoader.setCustomStateMapper(yourBlock, new StateMapperBase()
-{
+ModelLoader.setCustomStateMapper(yourBlock, yourStateMapper);
+```
+
+As the second parameter, all of the state mappers are implementations of an interface, `IStateMapper`, a pre-defined implementation of which is an abstract class, `StateMapperBase`. 
+
+The method to be implemented, `getModelResourceLocation`, provides a map from `IBlockState`, which means blockstates, to `ModelResourceLocation`, which provides file names (before '#') and variant strings (after '#'). Method `getPropertyString` should be used to serialize properties. 
+
+Here is an imitation of vanilla dirt blocks: 
+
+```java
+new StateMapperBase() {
   @Override
-  protected ModelResourceLocation getModelResourceLocation(IBlockState state)
-  {
-    // do something. 
+  protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+    // use LinkedHashMap to ensure that the names of keys (properties) are still
+    // dictionary ordered because method "getProperties" gives a dictionary ordered map
+    Map<IProperty, Comparable> map = Maps.newLinkedHashMap(state.getProperties());
+    // fetch and remove property "variant" in the variant strings
+    String s = BlockDirt.VARIANT.getName((BlockDirt.DirtType) map.remove(BlockDirt.VARIANT));
+    // values "dirt" and "coarse_dirt" ignore property "snowy"
+    // in their variant strings while "podzol" reserves it
+    if (BlockDirt.DirtType.PODZOL != state.getValue(BlockDirt.VARIANT)) {
+      map.remove(BlockDirt.SNOWY);
+    }
+    // serialize properties for variant strings, values of property "variant" gives the file name,
+    // and do not forget to add your own resource domain (modid) instead of default "minecraft"
+    return new ModelResourceLocation(String.format("%s:%s", "yourmodid", s), this.getPropertyString(map));
   }
 });
 ```
 
-The implemented method, `getModelResourceLocation`, provides a map from `IBlockState`, which means blockstates, to `ModelResourceLocation`, which provides file names and variant strings. Method `getPropertyString` should be used to serialize properties. 
-
 In addition, a builder called `StateMap.Builder` is generally used instead of our own implementation. an example of vanilla leaves is below: 
 
 ```java
+                        // sets the property (`variant`) which decides the main part
+                        // of file names (`oak`, `spruce`, `birch`, and `jungle`)
 (new StateMap.Builder()).withName(BlockOldLeaf.VARIANT)
+                        // sets the suffix of file names (`oak_leaves.json`, `spruce_leaves.json`,
+                        // `birch_leaves.json`, and `jungle_leaves.json`) to avoid conflicts
                         .withSuffix("_leaves")
+                        // sets the properties which should be ignored
+                        // in the variant strings (`check_decay` and `decayable`)
                         .ignore(new IProperty[] {BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE})
+                        // build
                         .build();
 ```
 
-Method `withName` sets the property (`variant`) which decides the main part of file names (`oak`, `spruce`, `birch`, and `jungle`), method `withSuffix` sets the suffix of file names (`oak_leaves.json`, `spruce_leaves.json`, `birch_leaves.json`, and `jungle_leaves.json`) for the avoidance of conflicts, and method `ignore` sets the properties which should be ignored in the variant strings (`check_decay` and `decayable`). Below is part of a map reasoning from the state mapper: 
+Below is part of a map reasoning from the state mapper: 
 
 | `IBlockState`                                                        | `ModelResourceLocation`          |
 |:---------------------------------------------------------------------|:---------------------------------|
