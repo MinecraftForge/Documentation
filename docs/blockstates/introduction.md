@@ -36,7 +36,7 @@ Customize state mappers
 
 In general, there are one-to-one relations between blockstates of a block and variant strings. However, in some cases, several properties should be ignored when considering block models, such as the growth of a cactus, and whether a block of leaves is decayable. Besides, some blocks have blockstates related to various blockstate json files, such as dirt blocks (`dirt.json`, `coarse_dirt.json`, and `podzol.json`) and sandstones (`sandstone.json`, `chiseled_sandstone.json`, and `smooth_sandstone.json`). When we want to map blockstates to variant strings manually, we need to customize our own state mappers. 
 
-we register our state mappers on the pre-initialization stage like this. Do not forget that it is client side only: 
+We register our state mappers on the pre-initialization stage like this. Do not forget that it is client side only: 
 
 ```java
 ModelLoader.setCustomStateMapper(yourBlock, yourStateMapper);
@@ -72,20 +72,20 @@ new StateMapperBase() {
 In addition, a builder called `StateMap.Builder` is generally used instead of our own implementation. an example of vanilla leaves is below: 
 
 ```java
-                        // sets the property (`variant`) which decides the main part
-                        // of file names (`oak`, `spruce`, `birch`, and `jungle`)
+                        // set the property ("variant") which decides the main part
+                        // of file names ("oak", "spruce", "birch", and "jungle")
 (new StateMap.Builder()).withName(BlockOldLeaf.VARIANT)
-                        // sets the suffix of file names (`oak_leaves.json`, `spruce_leaves.json`,
-                        // `birch_leaves.json`, and `jungle_leaves.json`) to avoid conflicts
+                        // set the suffix of file names ("oak_leaves.json", "spruce_leaves.json",
+                        // "birch_leaves.json", and "jungle_leaves.json") to avoid conflicts
                         .withSuffix("_leaves")
-                        // sets the properties which should be ignored
-                        // in the variant strings (`check_decay` and `decayable`)
+                        // set the properties which should be ignored
+                        // in the variant strings ("check_decay" and "decayable")
                         .ignore(new IProperty[] {BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE})
                         // build
                         .build();
 ```
 
-Below is part of a map reasoning from the state mapper: 
+Below is part of a map resulting from the state mapper: 
 
 | `IBlockState`                                                        | `ModelResourceLocation`          |
 |:---------------------------------------------------------------------|:---------------------------------|
