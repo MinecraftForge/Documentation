@@ -42,32 +42,9 @@ We register our state mappers on the pre-initialization stage like this. Do not 
 ModelLoader.setCustomStateMapper(yourBlock, yourStateMapper);
 ```
 
-As the second parameter, all of the state mappers are implementations of an interface, `IStateMapper`, a pre-defined implementation of which is an abstract class, `StateMapperBase`. 
+As the second parameter, all of the state mappers are implementations of an interface, `IStateMapper`. One of the solutions is a subclass of a pre-defined abstract class, `StateMapperBase`. 
 
-The method to be implemented, `getModelResourceLocation`, provides a map from `IBlockState`, which means blockstates, to `ModelResourceLocation`, which provides file names (before '#') and variant strings (after '#'). Method `getPropertyString` should be used to serialize properties. 
-
-Here is an imitation of vanilla dirt blocks: 
-
-```java
-new StateMapperBase() {
-  @Override
-  protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
-    // use LinkedHashMap to ensure that the names of keys (properties) are still
-    // dictionary ordered because method "getProperties" gives a dictionary ordered map
-    Map<IProperty, Comparable> map = Maps.newLinkedHashMap(state.getProperties());
-    // fetch and remove property "variant" in the variant strings
-    String s = BlockDirt.VARIANT.getName((BlockDirt.DirtType) map.remove(BlockDirt.VARIANT));
-    // values "dirt" and "coarse_dirt" ignore property "snowy"
-    // in their variant strings while "podzol" reserves it
-    if (BlockDirt.DirtType.PODZOL != state.getValue(BlockDirt.VARIANT)) {
-      map.remove(BlockDirt.SNOWY);
-    }
-    // serialize properties for variant strings, values of property "variant" gives the file name,
-    // and do not forget to add your own resource domain (modid) instead of default "minecraft"
-    return new ModelResourceLocation(String.format("%s:%s", "yourmodid", s), this.getPropertyString(map));
-  }
-});
-```
+The abstract method to be implemented in `StateMapperBase`, `getModelResourceLocation`, provides a map from `IBlockState`, which represents blockstates, to `ModelResourceLocation`, which provides file names (before '#') and variant strings (after '#'). Method `getPropertyString` should be used to serialize properties. 
 
 In addition, a builder called `StateMap.Builder` is generally used instead of our own implementation. an example of vanilla leaves is below: 
 
@@ -85,7 +62,7 @@ In addition, a builder called `StateMap.Builder` is generally used instead of ou
                         .build();
 ```
 
-Below is part of a map resulting from the state mapper: 
+Below is part of a map inferred from the state mapper: 
 
 | `IBlockState`                                                        | `ModelResourceLocation`          |
 |:---------------------------------------------------------------------|:---------------------------------|
