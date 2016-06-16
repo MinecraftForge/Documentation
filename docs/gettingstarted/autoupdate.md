@@ -17,13 +17,16 @@ The JSON itself has a relatively simple format, given as follows:
 {
   "homepage": "<homepage/download page for your mod>",
   "<mcversion>": {
-    "<modversion>": "<changelog for this version>",
+    "<modversion>": "<changelog for this version>", 
+    // List all versions of your mod for the given Minecraft version, along with their changelogs
     ...
   },
   ...
   "promos": {
     "<mcversion>-latest": "<modversion>",
+    // Declare the latest "bleeding-edge" version of your mod for the given Minecraft version
     "<mcversion>-recommended": "<modversion>",
+    // Declare the latest "stable" version of your mod for the given Minecraft version
     ...
   }
 }
@@ -35,3 +38,5 @@ This is fairly self-explanatory, but some notes:
 * Forge uses an internal algorithm to determine whether one version String of your mod is "newer" than another. Most versioning schemes should be compatible, but see the `ComparableVersion` class if you are concerned about whether your scheme is supported. Adherence to [semantic versioning](http://semver.org/) is highly recommended.
 * The changelog string can be separated into lines using `\n`. Some prefer to include a abbreviated changelog, then link to an external site that provides a full listing of changes.
 * Manually inputting data can be chore. You can configure your `build.gradle` to automatically update this file when building a release, as Groovy has native JSON parsing support. Doing this is left as an exercise to the reader.
+
+Two concrete examples can be seen here for [Charset](charset.asie.pl/update.json) and [Botania Unofficial](https://raw.githubusercontent.com/williewillus/Botania/HEAD/version/update.json).
