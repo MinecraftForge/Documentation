@@ -27,11 +27,11 @@ The log only has one property: axis. A blockstate always has to be defined for a
 ```
 
 !!! Note
-    The properties of a variant string of a blockstate should be dictionary ordered. For example, `"east=false,north=false,south=false,west=false"` is valid, while `"east=false,south=false,west=false,north=false"` is invalid. 
+    The properties of a variant string of a blockstate is dictionary ordered by default. For example, `"east=false,north=false,south=false,west=false"` is appropriate, while `"east=false,south=false,west=false,north=false"` is inappropriate if no custom state wrapper is set. 
 
 And that is only one variant of 16. This can quickly lead to very big and verbose blockstate files, and is one of the main problems in Minecraft 1.8. Minecraft 1.9 will introduce a system that allows to get this under control. [Forge's Blockstate Json][forge] allows you to do so in 1.8.
 
-Customize state mappers
+Custom state mappers
 --------------------------------
 
 In general, there are one-to-one relations between blockstates of a block and variant strings. However, in some cases, several properties should be ignored when considering block models, such as the growth of a cactus, and whether a block of leaves is decayable. Besides, some blocks have blockstates related to various blockstate json files, such as dirt blocks (`dirt.json`, `coarse_dirt.json`, and `podzol.json`) and sandstones (`sandstone.json`, `chiseled_sandstone.json`, and `smooth_sandstone.json`). When we want to map blockstates to variant strings manually, we need to customize our own state mappers. 
