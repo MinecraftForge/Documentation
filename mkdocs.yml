@@ -6,6 +6,9 @@ pages:
     - Home: 'gettingstarted/index.md'
     - Structuring Your Mod: 'gettingstarted/structuring.md'
     - Forge Update Checker: 'gettingstarted/autoupdate.md'
+  - Blocks:
+    - Home: 'blocks/blocks.md'
+    - Interaction: 'blocks/interaction.md'
   - Blockstates:
     - Intro to Blockstates: 'blockstates/states.md' 
     - Intro to Blockstate JSONs: 'blockstates/introduction.md'
