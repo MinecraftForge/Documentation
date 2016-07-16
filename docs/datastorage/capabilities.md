@@ -10,9 +10,11 @@ Forge adds capability support to TileEntities, Entities, and ItemStacks, which c
 Forge-provided Capabilities
 ---------------------------
 
-As of this writing, Forge provides just one capability: IItemHandler.
+As of this writing, Forge provides two capabilities: IItemHandler and IFluidHandler
 
-This capability exposes an interface for handling inventory slots. It can be applied to TileEntities (chests, machines, etc.), Entities (extra player slots, mob/creature inventories/bags), or ItemStacks (portable backpacks and such). It replaces the old `IInventory` and `ISidedInventory` with an automation-friendly system.
+IItemHandler exposes an interface for handling inventory slots. It can be applied to TileEntities (chests, machines, etc.), Entities (extra player slots, mob/creature inventories/bags), or ItemStacks (portable backpacks and such). It replaces the old `IInventory` and `ISidedInventory` with an automation-friendly system.
+
+IFluidHandler exposes an interface for handling fluid inventories. It can also be applied to TileEntities Entities, or ItemStacks. It replaces the old `IFluidHandler` with a more consistent and automation-friendly system.
 
 Using an Existing Capability
 ----------------------------
