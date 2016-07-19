@@ -11,18 +11,18 @@ The `mcmod.info` file is in the root directory.
 
 ### Blockstates
 
-Blockstate definition files are in the JSON format and are in the `./blockstates/` folder.
+Blockstate definition files are in the JSON format and are in the `./assets/<modid>/blockstates/` folder.
 
 ### Localizations
 
 Localizations are plain-text files with the file extension .lang and the name being their [language code](https://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx) such as `en_US`.
 
-They are located in the `./lang/` folder.
+They are located in the `./assets/<modid>/lang/` folder.
 
 ### Models
 
-Model files are in JSON format and are located in `./models/block/` or `./models/item/` depending on whether they are for a block or an item, respectively.
+Model files are in JSON format and are located in `./assets/<modid>/models/block/` or `./assets/<modid>/models/item/` depending on whether they are for a block or an item, respectively.
 
 ### Textures
 
-Textures are in the PNG format and are located in `./textures/blocks/` or `./textures/items/` depending on whether they are for a block or an item, respectively.
+Textures are in the PNG format and are located in `./assets/<modid>/textures/blocks/` or `./assets/<modid>/textures/items/` depending on whether they are for a block or an item, respectively.
