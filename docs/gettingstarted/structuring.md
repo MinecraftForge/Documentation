@@ -44,7 +44,7 @@ This example is a modified version of the one found in the MDK [here](https://gi
 What is `@Mod`?
 -------------
 
-`@Mod` is the annotation indicating that the class is a *Mod entry point* for Forge Mod Loader. It contains various bits of Metadata that the mod will use as well as modifiers that tell Forge how to handle your mod. For instance, Forge supports mods written in `Java` and `Scala`, so if you write your mod in `Scala`, you'll need to also set `modLanguage = "scala"` in the `@Mod` annotation so Forge know how to deal with your mod.
+`@Mod` is the annotation indicating that the class is a *Mod entry point* for Forge Mod Loader. It contains various bits of Metadata that the mod will use as well as modifiers that tell Forge how to handle your mod. For instance, Forge supports mods written in `Java` and `Scala`, so if you write your mod in `Scala`, you'll need to also set `modLanguage = "scala"` in the `@Mod` annotation so Forge uses the `Scala` compatibility behaviours instead of the default `Java` ones.
 
 Now, the `@Mod` annotation can take quite a few arguments, but the only three *required* ones are `modid`, `name`, and `version`.
 * `modid` is the unique identifier and *internal* name of the mod, and takes a `String`. Usually, this is the same name as the mod, but has some special requirements for the naming convention; namely, it has to be *less than* 64 characters long, and *all lowercase*. Having `modid = "SomeReallyLongAndCamelCasedNameForYourModIDWillNotWorkAndMakeForgeReallyReallyAngry"` is a no-no. It's used internally by Forge and by other Mod Developers that wish to find your mod through Forge (for instance, to use your APIs).
@@ -56,7 +56,7 @@ Simple, right? `@Mod` has a wide range of other things you can throw at it, like
 
 What is `@EventHandler`?
 -----------------------
-`@EventHandler` is an annotation used to mark whatever method it's attached to as a handler for a *Forge Lifecycle Event*. There are two main categories of Lifecycle Events: **Standard** and **Server**. **Standard Lifecycle Events** are always fired when the client and server first starts up, and **Server Lifecycle Events** are only fired when the server, either internal or dedicated, starts up. There are some specialized events as well, which are covered in more detail along with the rest of the loding stages [here](https://mcforge.readthedocs.io/en/latest/conventions/loadstages/).
+`@EventHandler` is an annotation used to mark whatever method it's attached to as a handler for a *Forge Lifecycle Event*. There are two main categories of Lifecycle Events: **Standard** and **Server**. **Standard Lifecycle Events** are always fired when the client and server first starts up, and **Server Lifecycle Events** are only fired when the server, either internal or dedicated, starts up. There are some specialized events as well, which are covered in more detail along with the rest of the loading stages [here](https://mcforge.readthedocs.io/en/latest/conventions/loadstages/).
 
 For a simple mod, *FMLPreInitializationEvent*, *FMLInitializationEvent*, and *FMLPostInitializationEvent* should be more than enough to set up everything you need.
 
