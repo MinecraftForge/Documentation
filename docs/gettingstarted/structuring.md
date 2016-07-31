@@ -18,7 +18,7 @@ After you pick a top level package, you should append a unique name to it for yo
 The Mod File
 ------------
 
-Generally, we'll start with a file named after your mod, and put into your package. This is the *entry point* to your mod and will contain some special annotations marking it as such. These annotations are `@Mod`, `@Instance`, and `@EventHandler`. Let's take a look at this example:
+Generally, we'll start with a file named after your mod, and put into your package. This is the *entry point* to your mod and will contain some special annotations marking it as such. These annotations are `@Mod`  and `@EventHandler`. Let's take a look at this example:
 
 !!! note
 This example is a modified version of the one found in the MDK [here](https://github.com/MinecraftForge/MinecraftForge/blob/1.10.x/mdk/src/main/java/com/example/examplemod/ExampleMod.java)
@@ -33,9 +33,6 @@ This example is a modified version of the one found in the MDK [here](https://gi
     @Mod(modid = "awesomesauce", name = "AwesomeSauce", version = "0.1")
     public class AwesomeSauceMod
     {
-        @Instance
-        public static AwesomeSauceMod instance = new AwesomeSauceMod();
-        
         @EventHandler
         public void init(FMLInitializationEvent event)
         {
@@ -56,10 +53,6 @@ Now, the `@Mod` annotation can take quite a few arguments, but the only three *r
 * `version` is the version of the mod, and takes a `String`. There is no set standard for how you version things, but it's recommended that you read the [versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/) article.
 
 Simple, right? `@Mod` has a wide range of other things you can throw at it, like the `modLanguage` example above, but those will be covered in the articles that use them.
-
-What is `@Instance`?
--------------------
-`@Instance` is actually a child annotation of `@Mod`. It basically just gives Forge and other Mod Developers a way to instance your mod if they need to.
 
 What is `@EventHandler`?
 -----------------------
