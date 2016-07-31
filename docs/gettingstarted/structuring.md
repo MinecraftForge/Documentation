@@ -20,6 +20,9 @@ The Mod File
 
 Generally, we'll start with a file named after your mod, and put into your package. This is the *entry point* to your mod and will contain some special annotations marking it as such. These annotations are `@Mod`, `@Instance`, and `@EventHandler`. Let's take a look at this example:
 
+!!! note
+This example is a modified version of the one found in the MDK [here](https://github.com/MinecraftForge/MinecraftForge/blob/1.10.x/mdk/src/main/java/com/example/examplemod/ExampleMod.java)
+
     package com.examplemod.awesomesauce;
         
     import net.minecraft.init.Blocks;
@@ -44,15 +47,15 @@ Generally, we'll start with a file named after your mod, and put into your packa
 What is `@Mod`?
 -------------
 
-`@Mod` is the annotation indicating that the class is a *Mod entry point* for Forge Mod Loader. It contains various bits of Metadata that the mod will use as well as modifiers that tell Forge how to handle your mod.
+`@Mod` is the annotation indicating that the class is a *Mod entry point* for Forge Mod Loader. It contains various bits of Metadata that the mod will use as well as modifiers that tell Forge how to handle your mod. For instance, Forge supports mods written in `Java` and `Scala`, so if you write your mod in `Scala`, you'll need to also set `modLanguage = "scala"` in the `@Mod` annotation so Forge know how to deal with your mod.
 
 Now, the `@Mod` annotation can take quite a few arguments, but the only three *required* ones are `modid`, `name`, and `version`.
-* `modid` is the unique identifier and *internal* name of the mod, and takes a `String`. Usually, this is the same name as the mod, but in all lowercase. It's used internally by Forge and by other Mod Developers that wish to find your mod through Forge (for instance, to use your APIs). 
+* `modid` is the unique identifier and *internal* name of the mod, and takes a `String`. Usually, this is the same name as the mod, but has some special requirements for the naming convention; namely, it has to be *less than* 64 characters long, and *all lowercase*. Having `modid = "SomeReallyLongAndCamelCasedNameForYourModIDWillNotWorkAndMakeForgeReallyReallyAngry"` is a no-no. It's used internally by Forge and by other Mod Developers that wish to find your mod through Forge (for instance, to use your APIs).
  * **ONCE YOU PICK THIS IDENTIFIER, YOU SHOULD NOT CHANGE IT DURING THE LIFE OF THE MOD. BAD THINGS HAPPEN IF YOU DO AND OTHER MODS DEPEND ON YOUR MOD.**
-* `name` is the *external* name of the mod, and takes a `String`.
+* `name` is the *external* name of the mod, and takes a `String`. This is literally just the name of your mod, in our case it would be `name = "AwesomeSauce`.
 * `version` is the version of the mod, and takes a `String`. There is no set standard for how you version things, but it's recommended that you read the [versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/) article.
 
-Simple, right? `@Mod` has a wide range of other things you can throw at it, but those will be covered in the articles that use them.
+Simple, right? `@Mod` has a wide range of other things you can throw at it, like the `modLanguage` example above, but those will be covered in the articles that use them.
 
 What is `@Instance`?
 -------------------
@@ -60,7 +63,7 @@ What is `@Instance`?
 
 What is `@EventHandler`?
 -----------------------
-`@EventHandler` is an annotation used to mark whatever method it's attached to as a handler for a *Forge Lifecycle Event*. There are two main categories of Lifecycle Events: **Standard** and **Server**. **Standard Lifecycle Events** are always fired when the client and server first starts up, and **Server Lifecycle Events** are only fired when the server, either internal or dedicated, starts up. There are some specialized events as well, but those will be covered in a different atricle.
+`@EventHandler` is an annotation used to mark whatever method it's attached to as a handler for a *Forge Lifecycle Event*. There are two main categories of Lifecycle Events: **Standard** and **Server**. **Standard Lifecycle Events** are always fired when the client and server first starts up, and **Server Lifecycle Events** are only fired when the server, either internal or dedicated, starts up. There are some specialized events as well, which are covered in more detail along with the rest of the loding stages [here](https://mcforge.readthedocs.io/en/latest/conventions/loadstages/).
 
 For a simple mod, *FMLPreInitializationEvent*, *FMLInitializationEvent*, and *FMLPostInitializationEvent* should be more than enough to set up everything you need.
 
