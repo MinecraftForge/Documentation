@@ -11,9 +11,9 @@ Your mod should have a unique package name to avoid conflicts with anything else
 **HOWEVER**
 
 If you do not own a domain, **do *NOT* use it for your top level package!**  
-It is perfectly acceptable to start your package with anything, such as your name/nickname, or the name of the mod. For example, `username.mods` would be a good top level package. 
+It is perfectly acceptable to start your package with anything, such as your name/nickname, or the name of the mod. For example, `com.emailservice.username` or `username.modname` would be good top level packages.
 
-After you pick a top level package, you should append a unique name to it for your mod. Some good examples would be `com.examplemod.awesomesauce` or `username.mods.awesomesauce`, where **AwesomeSauce** is the name of our mod.
+After you pick a top level package, you should append a unique name to it for your mod. Some good examples would be `com.examplemod.awesomesauce` or `com.emailservice.username.awesomesauce`, where **AwesomeSauce** is the name of our mod.
 
 The Mod File
 ------------
@@ -49,7 +49,7 @@ What is `@Mod`?
 Now, the `@Mod` annotation can take quite a few arguments, but the only three *required* ones are `modid`, `name`, and `version`.
 * `modid` is the unique identifier and *internal* name of the mod, and takes a `String`. Usually, this is the same name as the mod, but has some special requirements for the naming convention; namely, it has to be *less than* 64 characters long, and *all lowercase*. Having `modid = "SomeReallyLongAndCamelCasedNameForYourModIDWillNotWorkAndMakeForgeReallyReallyAngry"` is a no-no. It's used internally by Forge and by other Mod Developers that wish to find your mod through Forge (for instance, to use your APIs).
  * **ONCE YOU PICK THIS IDENTIFIER, YOU SHOULD NOT CHANGE IT DURING THE LIFE OF THE MOD. BAD THINGS HAPPEN IF YOU DO AND OTHER MODS DEPEND ON YOUR MOD.**
-* `name` is the *external* name of the mod, and takes a `String`. This is literally just the name of your mod, in our case it would be `name = "AwesomeSauce`.
+* `name` is the *external* name of the mod, and takes a `String`. This is literally just the name of your mod, in our case it would be `name = "AwesomeSauce"`.
 * `version` is the version of the mod, and takes a `String`. There is no set standard for how you version things, but it's recommended that you read the [versioning](https://mcforge.readthedocs.io/en/latest/conventions/versioning/) article.
 
 Simple, right? `@Mod` has a wide range of other things you can throw at it, like the `modLanguage` example above, but those will be covered in the articles that use them.
@@ -76,4 +76,4 @@ Organize it in a way that it makes it easy for you to follow your code, while al
 Class Naming Schemes
 --------------------
 
-Naming your classes, and being consistant, is important to knowing what those classes do. `BlockSauce` should be a Block, `ItemSpoon` should be an Item, et cetera. However, making sure those classes are in the right package will also help with the ability to find that class if you decide you need to look at it one day down the line. If you have `EntitySauceMonster` in the `com.examplemod.awesomesauce.client.gui` package, you might need to think about refactoring your code to better structure it.
+Naming your classes, and being consistant, is important to knowing what those classes do. `BlockSauce` should be a Block, `ItemSpoon` should be an Item, et cetera. This is not the *only way* to name your classes, but as long as it's Capitalized (or CamelCase), is descriptive enough to tell anyone glancing at the class what it should be or do, and organized well, you can do whatever you want.
