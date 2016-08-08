@@ -17,7 +17,7 @@ After the top level package (if you have one) you append a unique name for your 
 The `mcmod.info` file
 -------------------
 
-This file defines the metadata of your mod. This file lists information about your mod that users may view from the main screen of the game through the Mods button. A single info file can describe several modids. When a mod is annotated by the `@Mod` annotation, it may define the `useMetadata` property, which defaults to `false`. When `useMetadata` is `true`, the metadata within `mcmod.info` overrides whatever has been defined in the annotation.
+This file defines the metadata of your mod. Its information may be viewed by users from the main screen of the game through the Mods button. A single info file can describe several mods. When a mod is annotated by the `@Mod` annotation, it may define the `useMetadata` property, which defaults to `false`. When `useMetadata` is `true`, the metadata within `mcmod.info` overrides whatever has been defined in the annotation.
 
 The `mcmod.info` file is formatted as JSON, where the root element is a list of objects and each object describes one modid. It should be stored as `src/main/resources/mcmod.info`. A basic `mcmod.info`, describing one mod, may look like this:
 
@@ -30,7 +30,7 @@ The `mcmod.info` file is formatted as JSON, where the root element is a list of 
       "logoFile": "assets/examplemod/textures/logo.png",
       "url": "minecraftforge.net/",
       "updateJSON": "minecraftforge.net/versions.json",
-      "authorlist": ["Author"],
+      "authorList": ["Author"],
       "credits": "I'd like to thank my mother and father.",
     }]
 
@@ -50,8 +50,8 @@ The default Gradle configuration replaces `${version}` with the project version,
 |      credits |  string  |   `""`   | A string that contains any acknowledgements you want to mention. |
 |     logoFile |  string  |   `""`   | The path to the mod's logo. It is resolved on top of the classpath, so you should put it in a location where the name will not conflict, maybe under your own assets folder. |
 |  screenshots | [string] |   `[]`   | A list of images to be shown on the info page. Currently unimplemented. |
-|       parent |  string  |   `""`   | The modid of a parent mod, if applicable. Using this allows modules of another mod to be listed under it in the info page, like BuildCraft.
-| useDependencyInormation |  boolean |  `false` | If true and `Mod.useMetadata`, the below 3 lists of dependencies will be used. If not, they 3 do nothing. |
+|       parent |  string  |   `""`   | The modid of a parent mod, if applicable. Using this allows modules of another mod to be listed under it in the info page, like BuildCraft. |
+| useDependencyInormation |  boolean |  `false` | If true and `Mod.useMetadata`, the below 3 lists of dependencies will be used. If not, they do nothing. |
 | requiredMods | [string] |   `[]`   | A list of modids. If one is missing, the game will crash. This **does not affect the _ordering_ of mod loading!** To specify ordering as well as requirement, have a coupled entry in `dependencies`. |
 | dependencies | [string] |   `[]`   | A list of modids. All of the listed mods will load *before* this one. If one is not present, nothing happens. |
 |   dependants | [string] |   `[]`   | A list of modids. All of the listed mods will load *after* this one. If one is not present, nothing happens. |
