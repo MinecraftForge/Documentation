@@ -31,7 +31,12 @@ So now that you have this block you've created, it's time to actually put it in 
 
 As with most things, blocks can be registered using `GameRegistry.register(...)`. For this method your block must have a "registry name" which is just another way of saying "unique name". The preferred method to set your block's registry name is by calling `setRegistryName` on it inside the call to `register`. For instance, `GameRegistry.register(myBlock.setRegistryName("foo"))`.
 
+!!! important
+
+    When you register a block, you *only* register a block. The block does not automatically have an item form. In order to give your block an item form, you should construct an `ItemBlock` from it and register that as well. The simplest way to do this like this: `GameRegistry.register(new ItemBlock(myBlock).setRegistryName(myBlock.getRegistryName()))`. You might be tempted to use `GameRegistry.registerWithItem`, but that was created to ease the transition from earlier Minecraft versions to 1.9 and has been deprecated from day 1.
+
 !!! note
+
     When using a simple string, the currently active mod's ID will be added. So if I was doing this from "mymod", the real registry name would be "mymod:foo".
 
 It is also possible to pass a `ResourceLocation` directly into `register`, but this is just convenience for calling `setRegistryName` with the `ResourceLocation` beforehand.
