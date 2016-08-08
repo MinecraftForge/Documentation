@@ -14,6 +14,50 @@ Pick a unique package name. If you own a URL associated with your project, you c
 
 After the top level package (if you have one) you append a unique name for your mod, such as `examplemod`. In our case it will end up as `com.example.examplemod`.
 
+The `mcmod.info` file
+-------------------
+
+This file defines the metadata of your mod. This file lists information about your mod that users may view from the main screen of the game through the Mods button. A single info file can describe several modids. If the a mod has set `Mod.useMetadata = true`, the `mcmod.info` will override the corresponding metadata in the `@Mod` annotation. You should define every property (except `updateUrl`) so there is never an error when parsing.
+
+The `mcmod.info` file is formatted as JSON, where the root element is a list of objects and each object describes one modid. It should be stored as `src/main/resources/mcmod.info`. A basic `mcmod.info`, describing one mod, may look like this:
+
+    [{
+      "modid": "examplemod",
+      "name": "Example Mod",
+      "description": "Lets you craft dirt into diamonds. This is a traditional mod that has existed for eons. It is ancient. The holy Notch created it. Jeb rainbowfied it. Dinnerbone made it upside down. Etc.",
+      "version": "1.0.0.0",
+      "mcversion": "1.10.2",
+      "logoFile": "assets/examplemod/textures/logo.png",
+      "url": "minecraftforge.net/",
+      "updateJSON": "minecraftforge.net/versions.json",
+      "authorlist": ["Author"],
+      "credits": "I'd like to thank my mother and father.",
+    }]
+
+The default Gradle configuration replaces `${version}` with the project version, and `${mcversion}` with the Minecraft version, but *only* within `mcmod.info`, so you should use those instead of directly writing them out. Here is a table of attributes that may be given to a mod; a default of `required` means there is no default and the absence of the property causes problems:
+
+|     Property |   Type   | Default  | Description |
+|-------------:|:--------:|:--------:|:------------|
+|        modid |  string  | required | The modid this description is linked to. If the mod is not loaded, the description is ignored. |
+|         name |  string  | required | The user-friendly name of this mod. |
+|  description |  string  |   `""`   | A description of this mod in 1-2 paragraphs. |
+|      version |  string  |   `""`   | The version of the mod. |
+|    mcversion |  string  |   `""`   | The Minecraft version. |
+|          url |  string  |   `""`   | A link to the mod's homepage. |
+|    updateUrl |  string  |   `""`   | Defined but unused. Superseded by updateJSON. |
+|   updateJSON |  string  |   `""`   | The URL to a [version JSON](autoupdate#forge-update-checker). |
+|   authorList | [string] |   `[]`   | A list of authors to this mod. |
+|      credits |  string  |   `""`   | A string that contains any acknowledgements you want to mention. |
+|     logoFile |  string  |   `""`   | The path to the mod's logo. It is resolved on top of the classpath, so you should put it in a location where the name will not conflict, maybe under your own assets folder. |
+|  screenshots | [string] |   `[]`   | A list of images to be shown on the info page. Currently unimplemented. |
+|       parent |  string  |   `""`   | The modid of a parent mod, if applicable. Using this allows modules of another mod to be listed under it in the info page, like BuildCraft.
+| requiredMods | [string] |   `[]`   | A list of modids. If one is missing, the game will crash. This **does not affect the _ordering_ of mod loading!** To specify ordering as well as requirement, have a coupled entry in `dependencies`. |
+| dependencies | [string] |   `[]`   | A list of modids. All of the listed mods will load *before* this one. If it's not present, nothing happens. |
+|   dependants | [string] |   `[]`   | A list of modids. All of the listed mods will load *after* this one. If it's not present, nothing happens. |
+| useDependencyInormation |  boolean |  `false` | If true and (of course) `Mod.useMetadata == true`, the above 3 lists of dependencies will be used. If not, the above 3 do nothing. |
+
+A good example `mcmod.info` that uses many of these properties is [BuildCraft](http://github.com/BuildCraft/BuildCraft/blob/8.0.x/buildcraft_resources/mcmod.info).
+
 The Mod File
 ------------
 
