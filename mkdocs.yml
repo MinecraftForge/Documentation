@@ -6,6 +6,8 @@ pages:
     - Home: 'gettingstarted/index.md'
     - Structuring Your Mod: 'gettingstarted/structuring.md'
     - Forge Update Checker: 'gettingstarted/autoupdate.md'
+  - Concepts:
+    - Sides: 'concepts/sides.md'
   - Blocks:
     - Home: 'blocks/blocks.md'
     - Interaction: 'blocks/interaction.md'
@@ -29,8 +31,6 @@ pages:
     - Versioning: 'conventions/versioning.md'
     - Locations: 'conventions/locations.md'
     - Loading Stages: 'conventions/loadstages.md'
-  - Concepts:
-    - Sides: 'concepts/sides.md'
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
