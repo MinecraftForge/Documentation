@@ -11,6 +11,7 @@ pages:
     - Intro to Blockstates: 'blocks/states.md'
     - Interaction: 'blocks/interaction.md'
   - Models:
+    - Intro to Models: 'models/introduction.md'
     - Blockstates:
       - Intro to Blockstate JSONs: 'models/blockstates/introduction.md'
       - Forge Blockstate JSON: 'models/blockstates/forgeBlockstates.md'
