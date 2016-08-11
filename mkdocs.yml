@@ -8,11 +8,12 @@ pages:
     - Forge Update Checker: 'gettingstarted/autoupdate.md'
   - Blocks:
     - Home: 'blocks/blocks.md'
+    - Intro to Blockstates: 'blocks/states.md'
     - Interaction: 'blocks/interaction.md'
-  - Blockstates:
-    - Intro to Blockstates: 'blockstates/states.md' 
-    - Intro to Blockstate JSONs: 'blockstates/introduction.md'
-    - Forge Blockstate JSON: 'blockstates/forgeBlockstates.md'
+  - Models:
+    - Blockstates:
+      - Intro to Blockstate JSONs: 'models/blockstates/introduction.md'
+      - Forge Blockstate JSON: 'models/blockstates/forgeBlockstates.md'
   - Events:
     - Basic Usage: 'events/intro.md'
   - Networking:

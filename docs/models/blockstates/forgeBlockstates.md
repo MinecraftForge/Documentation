@@ -14,62 +14,62 @@ General Structure of the Format
 
 ```json
 {
-	"forge_marker": 1,
-	"defaults": {
-		"textures": {
-			"all": "blocks/dirt"
-		},
-		"model": "cube_all",
-		"uvlock": true
-	},
-	"variants": {
-		"normal": [{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "all": "blocks/dirt"
+    },
+    "model": "cube_all",
+    "uvlock": true
+  },
+  "variants": {
+    "normal": [{
 
-		}]
-	}
+    }]
+  }
 }
 ```
 
 This json declares a simple blockstate that has dirt on each side. Let's go through it step by step.
 
 ```json
-	"forge_marker": 1,
+  "forge_marker": 1,
 ```
 
 This tells the game that the blockstate json is the one from Forge, not from vanilla Minecraft.
 The 1 is the version of the format, which ensures that old blockstate JSONs can be supported should the format ever change. Currently there is only this one.
 
 ```json
-	"defaults": {
-		"textures": {
-			"all": "blocks/dirt"
-		},
-		"model": "cube_all",
-		"uvlock": true
-	}
+  "defaults": {
+    "textures": {
+      "all": "blocks/dirt"
+    },
+    "model": "cube_all",
+    "uvlock": true
+  }
 ```
 
 The defaults section contains the default values for all variants. They can be overwritten by the variants. The defaults section is **optional**! You do not need to define defaults, the block can be omitted altogether.
 
 ```json
-	"variants": {
-		"normal": [{
+  "variants": {
+    "normal": [{
 
-		}]
-	}
+    }]
+  }
 ```
 
 This defines all variants for the block. The simple dirt block only has its default, the *normal* variant. It does not contain any additional information in this case. Everything that is defined in defaults could also be defined here.
 For example:
 
 ```json
-	"normal": [{
-		"textures": {
-			"side": "blocks/cobblestone",
-			"end": "blocks/dirt"
-		},
-		"model": "cube_column"
-	}]
+  "normal": [{
+    "textures": {
+      "side": "blocks/cobblestone",
+      "end": "blocks/dirt"
+    },
+    "model": "cube_column"
+  }]
 ```
 
 This normal variant would use the *cube_column* model with cobblestone on the sides and dirt on top and bottom.
@@ -82,48 +82,48 @@ The model will be a pressure plate, and depending on its state it will have part
 
 ```json
 {
-	"forge_marker": 1,
-	"defaults": {
-		"textures": {
-			"texture": "blocks/planks_oak",
-			"wall": "blocks/planks_oak"
-		},
-		"model": "pressure_plate_up",
-		"uvlock": true
-	},
-	"variants": {
-		// mossy is a boolean property.
-		"mossy": {
-			"true": {
-				// if true it changes the pressure plate from oak planks to mossy cobble
-				"textures": {
-					"texture": "blocks/cobblestone_mossy"
-				}
-			},
-			"false": {
-				// change nothing. The entry has to be here to be generated for internal usage by minecraft
-			}
-		},
-		// pillarcount is a property that determines how many pillar submodels we have. Ranges from 0 to 2
-		"pillarcount": {
-			0: {
-				// no pillar. Remember, has to be there.
-			},
-			1: {
-				// if it is true, it will add the wall model and combine it with the pressure plate
-				"submodel": "wall_n"
-			},
-			2: {
-				"textures": {
-					"wall": "blocks/cobblestone"
-				},
-				"submodel": {
-					"pillar1": { "model": "wall_n" },
-					"pillar2": { "model": "wall_n", "y": 90 }
-				}
-			}
-		}
-	}
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "texture": "blocks/planks_oak",
+      "wall": "blocks/planks_oak"
+    },
+    "model": "pressure_plate_up",
+    "uvlock": true
+  },
+  "variants": {
+    // mossy is a boolean property.
+    "mossy": {
+      "true": {
+        // if true it changes the pressure plate from oak planks to mossy cobble
+        "textures": {
+          "texture": "blocks/cobblestone_mossy"
+        }
+      },
+      "false": {
+        // change nothing. The entry has to be here to be generated for internal usage by minecraft
+      }
+    },
+    // pillarcount is a property that determines how many pillar submodels we have. Ranges from 0 to 2
+    "pillarcount": {
+      0: {
+        // no pillar. Remember, has to be there.
+      },
+      1: {
+        // if it is true, it will add the wall model and combine it with the pressure plate
+        "submodel": "wall_n"
+      },
+      2: {
+        "textures": {
+          "wall": "blocks/cobblestone"
+        },
+        "submodel": {
+          "pillar1": { "model": "wall_n" },
+          "pillar2": { "model": "wall_n", "y": 90 }
+        }
+      }
+    }
+  }
 }
 ```
 

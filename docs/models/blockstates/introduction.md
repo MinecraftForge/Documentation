@@ -9,12 +9,12 @@ As an example, let's take a look at the vanilla `oak_log.json`:
 
 ```json
 {
-    "variants": {
-        "axis=y":    { "model": "oak_log" },
-        "axis=z":     { "model": "oak_log_side" },
-        "axis=x":     { "model": "oak_log_side", "y": 90 },
-        "axis=none":   { "model": "oak_bark" }
-    }
+  "variants": {
+    "axis=y":  { "model": "oak_log" },
+    "axis=z":   { "model": "oak_log_side" },
+    "axis=x":   { "model": "oak_log_side", "y": 90 },
+    "axis=none":   { "model": "oak_bark" }
+  }
 }
 ```
 
@@ -29,4 +29,4 @@ The log only has one property: axis. A blockstate always has to be defined for a
 And that is only one variant of 16. This can quickly lead to very big and verbose blockstate files, and is one of the main problems in Minecraft 1.8. Minecraft 1.9 will introduce a system that allows to get this under control. [Forge's Blockstate Json][forge] allows you to do so in 1.8.
 
 [forge]: forgeBlockstates.md "Forge's Blockstate JSON"
-[blockstate]: states.md "blockstate properties"
+[blockstate]: ../../blocks/states.md "blockstate properties"

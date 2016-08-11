@@ -49,4 +49,4 @@ Further Reading
 For information about block properties, such as those used for vanilla blocks like wood types, fences, walls, and many more, see the section on [blockstates].
 
 [sounds]: ../effects/sounds.md
-[blockstates]: ../blockstates/states.md
+[blockstates]: states.md
