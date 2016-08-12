@@ -1,9 +1,9 @@
 Model Files
 ===========
 
-A "model" is simply a shape. It can be a simple cube, it can be several cubes, it can be a truncated icosidodecahedron, or anything in between. Most models you'll see will be in [JSON] format. Models are loaded into `IModel`s by an `ICustomModelLoader` at runtime. As long as there is a corresponding model loader, all models in all formats are interchangeable.
+A "model" is simply a shape. It can be a simple cube, it can be several cubes, it can be a truncated icosidodecahedron, or anything in between. Most models you'll see will be in [JSON] format. Models in other formats are loaded into `IModel`s by an `ICustomModelLoader` at runtime. Forge provides default implementations for WaveFront OBJ files and Blitz3D files.
 
-Model files are referred to as `<domain>:<path>`, which means `assets/<domain>/models/block/<path>` or `assets/<domain>/models/item/<path>`. Block and item models differ in a few ways, the major one being [item property overrides][overrides].
+Model files are referred to as `<domain>:<path>`, which means `assets/<domain>/models/block/<path>` or `assets/<domain>/models/item/<path>`. Block and item models differ in a few ways, the major one being [item property overrides][overrides]. Most things do not care about what loaded the model or what format it's in. A [blockstate JSON], for example, doesn't care what format its models are in, as long as it can load them properly.
 
 When referring to textures in models, keep a few things in mind. First, you reference textures as `<domain>:<path>`, which normally means `assets/<domain>/textures/<path>.png`. (E.g. `examplemod:blocks/test`.) Second, when specifying UV coordinates, (0,0) is taken to mean the **top-left** corner. UVs are *always* from 0 to 16. If the texture is larger or smaller, it is scaled to fit. A texture must also be square, and its side must be a power of two (e.g. 1x1, 2x2, 4x4, 8x8, but not 4x8).
 
@@ -25,3 +25,4 @@ Forge adds a loader for the `.b3d` file format. To use these models, you must re
 [JSON]: http://www.json.org
 [wiki]: http://minecraft.gamepedia.com/Model#Block_models
 [overrides]: overrides.md
+[blockstate JSON]: blockstates/introduction.md
