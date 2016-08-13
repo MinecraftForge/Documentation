@@ -16,6 +16,7 @@ pages:
     - Blockstates:
       - Intro to Blockstate JSONs: 'models/blockstates/introduction.md'
       - Forge Blockstate JSON: 'models/blockstates/forgeBlockstates.md'
+    - Using Models: 'models/using.md'
     - Item Property Overrides: 'models/overrides.md'
   - Events:
     - Basic Usage: 'events/intro.md'
