@@ -15,8 +15,9 @@ Blocks are not directly linked to models, instead, block<em>states</em> are mapp
 5. Get the name of each value with `IProperty<T>#getName(T)`.
 6. Produce a comma delimited string `a=b,c=d,e=f`
 7. Set that as the variant part of the MRL.
+8. If the variant string is empty, set it to `normal`.
 
-By default, the properties will be ordered alphabetically, like so `foo=bar,qux=qux,spam=eggs`.
+By default, the properties will be ordered alphabetically, like so `foo=bar,qux=qux,spam=eggs`. Additionally, the variant string gets silently `toLowerCase`d, so if your statemapper returns `mod:model#VARIANT`, the game will query the JSON for the string "variant", not "VARIANT."
 
 ### Custom `IStateMapper`s
 

@@ -1,9 +1,7 @@
 Introduction to Blockstate JSONs
 ================================
 
-Blockstate JSONs tell the game which model it should use depending on the values of the block's [blockstate properties][blockstate].
-A simple block with no properties only has a "*normal*" blockstate which is its default.
-A more complex block that can be displayed in different ways has so called *variants*.
+Blockstate JSONs are Minecraft's way to map "variant strings" to models. A variant string can be absolutely anything, from "inventory" to "power=5" to "I am your father." When the game searches for a model corresponding to a block in the world, it takes the [blockstate] for that position, and then it uses an `IStateMapper` to find the corresponding blockstate JSON and the variant string within it. In code, a variant string within a a blockstate JSON is represented by a `ModelResourceLocation`, normally shortened to just "MRL". The default `IStateMapper` uses the block's registry name as the location of the blockstate JSON (block `examplemod:testblock` goes to JSON `examplemod:testblock` goes to filepath `assets/examplemod/blockstates/testblock.json`), and the variant string is pieced together from the blockstate's properties. More information can be found [here][statemapper].
 
 As an example, let's take a look at the vanilla `oak_log.json`:
 
@@ -18,9 +16,9 @@ As an example, let's take a look at the vanilla `oak_log.json`:
 }
 ```
 
-As you can see there is no normal state, only different variants depending on the value of "axis". Depending on which axis the log is aligned it will use either a model of the upright log, a model of the sideways log (rotated by 90° or not) or, should the block not have any axis set, it'll display the bark model which has the bark on all 6 sides.
+Here we define 4 variant strings, and for each we use a certain model, either the upright log, the sideways log (rotated or not), and the all bark model (this model is not seen normally in vanilla; you have to use `/setblock` to create it). Since logs use the default `IStateMapper`, these variants will define the look of a log depending on the property `axis`.
 
-The log only has one property: axis. A blockstate always has to be defined for all of its properties. In Minecraft 1.8's blockstate format, you have to specify the entire variant string, for each and every variant string. This leads to a very large number of variants, as each and every combination of properties must be defined. In order to keep this under control, Forge introduced its [own blockstate format][Forge blockstate], which is available in Minecraft 1.8 and up. Starting from Minecraft 1.9, Mojang also introduced the "multipart" format. You can find a definition of its format on the [wiki]. Forge's format and the multipart format are not better than each other, they each cover different use cases and it is your choice which one you want to use.
+A blockstate always has to be defined for all possible variant strings. When you have many properties, this results in lots of possible variants, as each and every combination of properties must be defined. In Minecraft 1.8's blockstate format, you have to define each and every string explicitly, which leads to long, complicated files. It also doesn't support the concept of submodels, or multiple models in the same blockstate. In order to allievate this, Forge introduced its [own blockstate format][Forge blockstate], which is available in Minecraft 1.8 and up. Starting from Minecraft 1.9, Mojang also introduced the "multipart" format. You can find a definition of its format on the [wiki]. Forge's format and the multipart format are not better than each other; they each cover different use cases and it is your choice which one you want to use. Both formats take care of calculating the set of all possible variants for you behind the scenes, so your files can be simpler.
 
 For reference, here's an excerpt from the 1.8 blockstate for fences, `fence.json`:
 
@@ -41,5 +39,6 @@ Here's an excerpt from the same file in 1.9, which uses the multipart format:
 This is one case of 5. You can read this as "when east=true, use the model oak_fence_side rotated 90 degrees". This allows the final model to be built up from 5 smaller parts, 4 of which (the connections) are conditional and the 5th being the unconditional central post. This uses only two models, one for the post, and one for the side connection.
 
 [blockstate]: ../../blocks/states.md
+[statemapper]: ../using.md#using-block-models
 [Forge blockstate]: forgeBlockstates.md
 [wiki]: http://minecraft.gamepedia.com/Model#Block_states
