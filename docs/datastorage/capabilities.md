@@ -75,6 +75,7 @@ As mentioned, attaching capabilities to entities and itemstacks can be done thro
 * `AttachCapabilityEvent.Entity`: Fires only for entities.
 * `AttachCapabilityEvent.TileEntity`: Fires only for tile entities.
 * `AttachCapabilityEvent.Item`: Fires only for item stacks.
+* `AttachCapabilityEvent.World`: Fires only for worlds.
 
 In all cases, the event has a method `addCapability`, which can be used to attach capabilities to the target object. Instead of adding capabilities themselves to the list, you add capability providers, which have the chance to return capabilities only from certain sides. While the provider only needs to implement `ICapabilityProvider`, if the capability needs to store data persistently it is possible to implement `ICapabilitySerializable<T extends NBTBase>` which, on top of returning the capabilities, will allow providing NBT save/load functions.
 
