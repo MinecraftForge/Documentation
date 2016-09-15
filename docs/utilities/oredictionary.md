@@ -1,70 +1,63 @@
 OreDictionary
-======
+=============
 
 The OreDictionary exists primarily for inter-mod compatibility. 
 
-By registering ores to the OreDictionary, mods make it possible to use the ores and ingots from another, similar mod in their recipes.
+Items that are registered to the OreDictionary become interchangeable with other items that have the same OreDictionary name. This allows recipes to use either item to produce the same result.
 
 Despite its name, the OreDictionary is used for much more than ores. Any item that is similar to another item (for example, dyes) can be registered to and used with the OreDictionary.
 
-## OreDictionary Name Convention
+OreDictionary Name Convention
+-----------------------------
 
 !!! note
-    Because OreDictionary names are meant to be shared between items from different mods, they should be fairly general. Use a name that other mods are likely to use, based on these conventions.
-	
-All OreDictionary names should be camelCase (compound words that begin with a lowercase letter, where each successive word begins with a capital letter). Avoid spaces or underscores.
+    Because OreDictionary names are meant to be shared between items from different mods, they should be fairly general. Use a name that other mods are likely to use.
+
+Forge does not require OreDictionary names to be in any particular format, but the following has become a popular standard for OreDictionary names:
+
+The entire OreDictionary name typically uses camelCase (compound words that begin with a lowercase letter, where each successive word begins with a capital letter) and avoids spaces or underscores.
 
 The first word in the OreDictionary name indicates the type of item. For unique items (such as `record`, `dirt`, `egg`, and `vine`), one word is specific enough.
 
-The last part of the name indicates the material of the item -- for example, `Wood` or `Iron`.
+The last part of the name indicates the material of the item. This differentiates between `ingotIron` and `ingotGold`, for example.
 
-When two words are not specific enough, a third word can be added. For instance, brick is registered as `ingotBrick` while nether brick is registered as `ingotBrickNether`.
+When two words are not specific enough, a third word can be added. For instance, granite is registered as `blockGranite` while polished granite is registered as `blockGranitePolished`.
 
 See [Common OreDictionary Names](#common-oredictionary-names) for a list of commonly used prefixes and suffixes.
 
-## WILDCARD_VALUE
+WILDCARD_VALUE
+--------------
 
-This value is used to indicate that the metadata of an `ItemStack` is not important. See below for an example of its use.
+This value is used to indicate that the metadata of an `ItemStack` is not important. See [below](#using-oredictionary-in-crafting-recipes) for an example of its use.
 
-## Using OreDictionary in Crafting Recipes
+Using OreDictionary in Crafting Recipes
+---------------------------------------
 
-Recipes that use the OreDictionary are created and registered much the same way as regular crafting recipes. The main difference is the use of an OreDictionary name instead of a specific `Item` or `ItemStack`. This allows any items with that OreDictionary name to be used in the recipe.
+Recipes that use the OreDictionary are created and registered in much the same way as regular crafting recipes. The main difference is the use of an OreDictionary name instead of a specific `Item` or `ItemStack`.
 
-For example, the following code will register a shapeless recipe that combines a glass bottle, diamond, and lime dye to make a Bottle O' Enchanting:
-
-```java
-GameRegistry.addShapelessRecipe(new ItemStack(Items.EXPERIENCE_BOTTLE), Items.DIAMOND, new ItemStack(Items.DYE, 1, 10));
-```
-
-Converting this recipe to accept any other diamonds or lime dye in the OreDictionary requires an instance of a `ShapelessOreRecipe` or `ShapedOreRecipe`:
-
-```java
-ShapelessOreRecipe recipe = new ShapelessOreRecipe(new ItemStack(Items.EXPERIENCE_BOTTLE), "gemDiamond", "dyeLime");
-GameRegistry.addRecipe(recipe);
-```
+To make a recipe that can use OreDictionary entries, create a `ShapelessOreRecipe` or `ShapedOreRecipe` instance and register it by calling `GameRegistry.addRecipe(IRecipe recipe)`.
 
 !!! note
     You can verify that an OreDictionary name will return a valid `ItemStack` by calling `OreDictionary.doesOreNameExist(String name)`.
 
 Another use of the OreDictionary in crafting is the [WILDCARD_VALUE](#wildcard_value). Use by passing `OreDictionary.WILDCARD_VALUE` in the constructor of an `ItemStack`.
 
-For example, the following code will use any damaged stone axe and a diamond to craft a non-damaged stone axe:
+!!! note
+    `OreDictionary.WILDCARD_VALUE` should only be used for the recipe input. Using `WILDCARD_VALUE` in the recipe output will only hardcode the damage of the output `ItemStack`.
 
-```java
-GameRegistry.addShapelessRecipe(new ItemStack(Items.STONE_AXE, 1, 0), new ItemStack(Items.STONE_AXE, 1, OreDictionary.WILDCARD_VALUE), Items.DIAMOND);
-```
-
-## Registering Items to the OreDictionary
+Registering Items to the OreDictionary
+--------------------------------------
 
 Add entries to the OreDictionary during the `FMLPreInitializationEvent` phase, after initializing the blocks and items that you will register.
 
 Simply call `OreDictionary.registerOre(ItemStack stack, String name)` with an `ItemStack` containing your item or block and its metadata value to register it to the OreDictionary.
 
-You can also call one of the overloads of `OreDictionary.registerOre` that takes a `Block` or `Item` to avoid creating the `ItemStack` yourself.
+You can also call one of the overloads of `OreDictionary.registerOre` that take a `Block` or `Item` to avoid creating the `ItemStack` yourself.
 
 See [OreDictionary Name Convention](#oredictionary-name-convention) for tips on formatting the OreDictionary name of the `ItemStack`.
 
-## Common OreDictionary Names
+Common OreDictionary Names
+--------------------------
 
 All OreDictionary names for Minecraft items and blocks can be found in `net.minecraftforge.oredict.OreDictionary`. A full list will not be included here.
 
