@@ -10,7 +10,7 @@ Despite its name, the OreDictionary is used for much more than ores. Any item th
 ## OreDictionary Name Convention
 
 !!! note
-    Unlike registry names, you do not want the OreDictionary name to be too unique. Follow these conventions for the most compatibility.
+    Because OreDictionary names are meant to be shared between items from different mods, they should be fairly general. Use a name that other mods are likely to use, based on these conventions.
 	
 All OreDictionary names should be camelCase (compound words that begin with a lowercase letter, where each successive word begins with a capital letter). Avoid spaces or underscores.
 
@@ -26,11 +26,12 @@ See [Common OreDictionary Names](#common-oredictionary-names) for a list of comm
 
 This value is used to indicate that the metadata of an `ItemStack` is not important. See below for an example of its use.
 
-As of MinecraftForge for 1.5, `WILDCARD_VALUE` is 32767. The javadoc encourages using `WILDCARD_VALUE` instead of hardcoding its expected value, in case it changes again.
-
 ## Using OreDictionary in Crafting Recipes
 
-Recipes that use the OreDictionary are created and registered much the same way as regular crafting recipes. The main difference is the use of a `String` to define the OreDictionary `ItemStack` to accept.
+Recipes that use the OreDictionary are created and registered much the same way as regular crafting recipes. The main difference is the use of an OreDictionary name instead of a specific `Item` or `ItemStack`. This allows any items with that OreDictionary name to be used in the recipe.
+
+!!! note
+    You can verify that an OreDictionary name will return a valid `ItemStack` by calling `OreDictionary.doesOreNameExist(String name)`.
 
 For example, the following code will register a shapeless recipe that combines a glass bottle, diamond, and lime dye to make a Bottle O' Enchanting:
 
@@ -45,7 +46,7 @@ ShapelessOreRecipe recipe = new ShapelessOreRecipe(new ItemStack(Items.EXPERIENC
 GameRegistry.addRecipe(recipe);
 ```
 
-Another use of the OreDictionary in crafting is the [WILDCARD_VALUE](#wildcard_value). Registering a crafting recipe with an `ItemStack` that has `OreDictionary.WILDCARD_VALUE` as the metadata value will cause it to be less strict about item damage.
+Another use of the OreDictionary in crafting is the [WILDCARD_VALUE](#wildcard_value). Use by passing `OreDictionary.WILDCARD_VALUE` in the constructor of an `ItemStack`.
 
 For example, the following code will use any damaged stone axe and a diamond to craft a non-damaged stone axe:
 
@@ -73,4 +74,4 @@ Common prefixes for modded items include `gear`, `rod`, `stick`, `plate`, `dustT
 
 Common suffixes in the OreDictionary include `Wood`, `Glass`, `Iron`, `Gold`, `Leaves`, and `Brick`. 
 
-Common suffixes for modded items include the names of metals (`Copper`, `Aluminum`, `Lead`, `Steel`, etc.) and subtypes of items.
+Common suffixes for modded items include the names of metals (`Copper`, `Aluminum`, `Lead`, `Steel`, etc.) and other modded materials.
