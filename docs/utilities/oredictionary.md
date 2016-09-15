@@ -13,7 +13,7 @@ OreDictionary Name Convention
 !!! note
     Because OreDictionary names are meant to be shared between items from different mods, they should be fairly general. Use a name that other mods are likely to use.
 
-Forge does not require OreDictionary names to be in any particular format, but the following has become a popular standard for OreDictionary names:
+Forge does not require names to be in any particular format, but the following has become a popular standard for OreDictionary names:
 
 The entire OreDictionary name typically uses camelCase (compound words that begin with a lowercase letter, where each successive word begins with a capital letter) and avoids spaces or underscores.
 
