@@ -25,6 +25,8 @@ pages:
     - Capabilities: 'datastorage/capabilities.md'
     - World Saved Data: 'datastorage/worldsaveddata.md'
     - Extended Entity Properties: 'datastorage/extendedentityproperties.md'
+  - Utilities:
+    - OreDictionary: 'utilities/oredictionary.md'
   - Effects:
     - Sounds: 'effects/sounds.md'
   - Conventions:
