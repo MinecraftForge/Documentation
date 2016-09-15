@@ -26,6 +26,8 @@ See [Common OreDictionary Names](#common-oredictionary-names) for a list of comm
 
 This value is used to indicate that the metadata of an `ItemStack` is not important. See below for an example of its use.
 
+As of MinecraftForge for 1.5, `WILDCARD_VALUE` is 32767. The javadoc encourages using `WILDCARD_VALUE` instead of hardcoding its expected value, in case it changes again.
+
 ## Using OreDictionary in Crafting Recipes
 
 Recipes that use the OreDictionary are created and registered much the same way as regular crafting recipes. The main difference is the use of a `String` to define the OreDictionary `ItemStack` to accept.
