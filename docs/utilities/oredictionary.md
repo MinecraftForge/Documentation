@@ -30,9 +30,6 @@ This value is used to indicate that the metadata of an `ItemStack` is not import
 
 Recipes that use the OreDictionary are created and registered much the same way as regular crafting recipes. The main difference is the use of an OreDictionary name instead of a specific `Item` or `ItemStack`. This allows any items with that OreDictionary name to be used in the recipe.
 
-!!! note
-    You can verify that an OreDictionary name will return a valid `ItemStack` by calling `OreDictionary.doesOreNameExist(String name)`.
-
 For example, the following code will register a shapeless recipe that combines a glass bottle, diamond, and lime dye to make a Bottle O' Enchanting:
 
 ```java
@@ -45,6 +42,9 @@ Converting this recipe to accept any other diamonds or lime dye in the OreDictio
 ShapelessOreRecipe recipe = new ShapelessOreRecipe(new ItemStack(Items.EXPERIENCE_BOTTLE), "gemDiamond", "dyeLime");
 GameRegistry.addRecipe(recipe);
 ```
+
+!!! note
+    You can verify that an OreDictionary name will return a valid `ItemStack` by calling `OreDictionary.doesOreNameExist(String name)`.
 
 Another use of the OreDictionary in crafting is the [WILDCARD_VALUE](#wildcard_value). Use by passing `OreDictionary.WILDCARD_VALUE` in the constructor of an `ItemStack`.
 
