@@ -1,5 +1,5 @@
 {% if not nav_item.children %}
-<li {% if nav_item.active %}class="elem-active{% if toc %} elem-toc{% endif %}"{% endif %}>
+<li {% if nav_item.active %}class="elem-active{% if toc %} elem-toc{% endif %}" {% endif %}>
     {% if nav_item.active %}
     <span class="elem-text">{{ nav_item.title }}</span>
     {% else %}
@@ -16,8 +16,33 @@
     </ul>
     {% endif %}
 </li>
+{% elif 'index' in (nav_item.children|first).input_path %}
+<li class="elem-parent elem-index {% if (nav_item.children|first).active %}elem-active{% if toc %} elem-toc{% endif %}{% endif %}">
+    {% if (nav_item.children|first).active %}
+    <span class="elem-text">{{ nav_item.title }}</span>
+    {% else %}
+    <a href="{{ (nav_item.children|first).url }}" class="elem-text">{{ nav_item.title }}</a>
+    {% endif %}
+    {% if (nav_item.children|first).active %}
+    <ul class="table-of-contents">
+        {% for toc_item in toc %}
+        <li class="toc-item"><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
+        {% for toc_item in toc_item.children %}
+        <li class="toc-subitem"><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
+        {% endfor %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <ul>
+        {% for nav_item in nav_item.children %}
+        {% if not 'index' in nav_item.input_path %}
+        {% include "nav.html" %}
+        {% endif %}
+        {% endfor %}
+    </ul>
+</li>
 {% else %}
-<li>
+<li class="elem-parent">
     <span class="elem-text">{{ nav_item.title }}</span>
     <ul>
         {% for nav_item in nav_item.children %}

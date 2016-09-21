@@ -3,7 +3,7 @@
 .block_code .hljs-title, .block_code .hljs-number { color: #800000; }
 .block_code .hljs-comment { color: #888888; }
 
-.docs-entry { background: #fff; box-shadow: 0 1px 2px #dbdbdb; border-radius: 3px; padding: 1rem; }
+.docs-entry { background: #fff; box-shadow: 0 1px 2px #dbdbdb; border-radius: 3px; padding: 1rem; overflow-x: auto; width: 100%; max-width: 100%; }
 .docs-entry h1, .docs-entry h2, .docs-entry h3, .docs-entry h4, .docs-entry h5, .docs-entry h6 { margin: 0 0 0.5rem; font-family: "Roboto Slab", serif; }
 .docs-entry h1 code, .docs-entry h2 code, .docs-entry h3 code, .docs-entry h4 code, .docs-entry h5 code, .docs-entry h6 code { background: none; border: none; padding: 0; font-size: inherit; font-weight: normal; color: inherit; }
 .docs-entry h1, .docs-entry h2 { border-bottom: 1px solid #dbdbdb; padding-bottom: 0.625rem; }
@@ -18,7 +18,7 @@
 .docs-entry-footer-buttons { margin-top: 1rem; }
 
 section.sidebar-nav > ul .elem-toc { background: rgba(0, 0, 0, 0.05); padding: 0 !important; }
-section.sidebar-nav > ul .elem-toc .elem-text { padding: 0.2rem 0.5rem; }
+section.sidebar-nav > ul .elem-toc > .elem-text { padding: 0.2rem 0.5rem; }
 section.sidebar-nav > ul .table-of-contents { background: none !important; font-size: 0.9rem !important; }
 section.sidebar-nav > ul .table-of-contents .toc-item, section.sidebar-nav > ul .table-of-contents .toc-subitem { padding-left: 1rem; }
 
