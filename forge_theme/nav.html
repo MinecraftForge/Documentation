@@ -50,7 +50,7 @@
     {% else %}
     <a href="#" class="elem-text toggle-collapsible"><span class="fa fa-plus collapsible-icon"></span> {{ nav_item.title }}</a>
     {% endif %}
-    <ul class="nav-collapsible">
+    <ul class="nav-collapsible {% if nav_item.active %}nav-collapsible-open{% endif %}">
         {% for nav_item in nav_item.children %}
         {% include "nav.html" %}
         {% endfor %}

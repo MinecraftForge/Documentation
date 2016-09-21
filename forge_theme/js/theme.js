@@ -23,7 +23,10 @@ $(document).ready(function () {
         $('body').removeClass('sidebar-active');
         e.preventDefault();
     });
-    $('.nav-collapsible').css('display', 'none');
+    $('.nav-collapsible:not(.nav-collapsible-open)').css('display', 'none');
+    var icons = $('.nav-collapsible-open').siblings('.toggle-collapsible').children('.collapsible-icon');
+    icons.removeClass('fa-plus');
+    icons.addClass('fa-minus');
     $('.toggle-collapsible').click(function (e) {
         var collapsible = $(this).siblings('.nav-collapsible');
         var icon = $(this).children('.collapsible-icon');
