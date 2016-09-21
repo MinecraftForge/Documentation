@@ -45,4 +45,5 @@ markdown_extensions:
 extra_css:
   - css/style_fixes.css
 
-theme: readthedocs
+theme: null
+theme_dir: 'forge_theme'

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+<script>var base_url = '{{ base_url }}';</script>
+<script data-main="{{ base_url }}/mkdocs/js/search.js" src="{{ base_url }}/mkdocs/js/require.js"></script>
+{% endblock %}
+
+{% block search_form %}
+<form class="search" id="content_search" action="search.html">
+    <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+    <input type="submit" value="&#xf002;">
+    <div class="search-field">
+        <input type="search" title="Search" name="q" id="mkdocs-search-query"
+               class="search_input search-query ui-autocomplete-input" autocomplete="off" placeholder="Search...">
+    </div>
+</form>
+{% endblock %}
+
+{% block content %}
+<h1 id="search">Search Results</h1>
+
+<div id="mkdocs-search-results">
+    Searching...
+</div>
+{% endblock %}
+
+{% block next_prev %}
+{% endblock %}
