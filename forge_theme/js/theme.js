@@ -23,5 +23,20 @@ $(document).ready(function () {
         $('body').removeClass('sidebar-active');
         e.preventDefault();
     });
+    $('.nav-collapsible').css('display', 'none');
+    $('.toggle-collapsible').click(function (e) {
+        var collapsible = $(this).siblings('.nav-collapsible');
+        var icon = $(this).children('.collapsible-icon');
+        if (collapsible.css('display') == 'none') {
+            collapsible.css('display', 'block');
+            icon.addClass('fa-minus');
+            icon.removeClass('fa-plus')
+        } else {
+            collapsible.css('display', 'none');
+            icon.addClass('fa-plus');
+            icon.removeClass('fa-minus')
+        }
+        e.preventDefault();
+    });
     hljs.initHighlightingOnLoad();
 });

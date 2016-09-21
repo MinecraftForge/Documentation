@@ -33,6 +33,7 @@
         {% endfor %}
     </ul>
     {% endif %}
+    {% if nav_item.active %}
     <ul>
         {% for nav_item in nav_item.children %}
         {% if not 'index' in nav_item.input_path %}
@@ -40,11 +41,16 @@
         {% endif %}
         {% endfor %}
     </ul>
+    {% endif %}
 </li>
 {% else %}
 <li class="elem-parent">
+    {% if nav_item.children.active %}
     <span class="elem-text">{{ nav_item.title }}</span>
-    <ul>
+    {% else %}
+    <a href="#" class="elem-text toggle-collapsible"><span class="fa fa-plus collapsible-icon"></span> {{ nav_item.title }}</a>
+    {% endif %}
+    <ul class="nav-collapsible">
         {% for nav_item in nav_item.children %}
         {% include "nav.html" %}
         {% endfor %}
