@@ -25,3 +25,14 @@ section.sidebar-nav > ul .table-of-contents .toc-item, section.sidebar-nav > ul 
 .float-right { float: right; }
 
 .float-left { float: left; }
+
+.admonition { border-radius: 3px; box-shadow: 0 1px 2px #dbdbdb; margin-bottom: 0.625rem; background: #c8e7fa; }
+.admonition p { padding: 0.5rem 1rem; }
+.admonition .admonition-title { background: #79c2f2; font-size: 1.2rem; color: #fbf9f9; margin: 0; border-radius: 3px 3px 0 0; font-weight: normal; border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+.admonition > *:last-child { margin-bottom: 0; }
+.admonition.note { background: #c8e7fa; }
+.admonition.note .admonition-title { background: #79c2f2; }
+.admonition.important { background: #c8fae1; }
+.admonition.important .admonition-title { background: #78f0b4; }
+.admonition.warning, .admonition.attention { background: #fae1c8; }
+.admonition.warning .admonition-title, .admonition.attention .admonition-title { background: #f0b478; }
