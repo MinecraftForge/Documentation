@@ -10,11 +10,13 @@ Forge adds capability support to TileEntities, Entities, and ItemStacks, which c
 Forge-provided Capabilities
 ---------------------------
 
-As of this writing, Forge provides two capabilities: IItemHandler and IFluidHandler
+As of this writing, Forge provides three capabilities: IItemHandler, IFluidHandler and IEnergyStorage
 
 IItemHandler exposes an interface for handling inventory slots. It can be applied to TileEntities (chests, machines, etc.), Entities (extra player slots, mob/creature inventories/bags), or ItemStacks (portable backpacks and such). It replaces the old `IInventory` and `ISidedInventory` with an automation-friendly system.
 
 IFluidHandler exposes an interface for handling fluid inventories. It can also be applied to TileEntities Entities, or ItemStacks. It replaces the old `IFluidHandler` with a more consistent and automation-friendly system.
+
+IEnergyStorage exposes an interface for handling energy containers. It can be applied to TileEntities, Entities or ItemStacks. It is based on the RF Api by TeamCoFH.
 
 Using an Existing Capability
 ----------------------------
@@ -70,12 +72,12 @@ It is strongly suggested that direct checks in code are used to test for capabil
 Attaching Capabilities
 ----------------------
 
-As mentioned, attaching capabilities to entities and itemstacks can be done through the `AttachCapabilityEvent`. This event has 3 sub-events, for extra granularity:
+As mentioned, attaching capabilities to entities and itemstacks can be done through the `AttachCapabilityEvent`. This event has 4 sub-events, for extra granularity:
 
-* `AttachCapabilityEvent.Entity`: Fires only for entities.
-* `AttachCapabilityEvent.TileEntity`: Fires only for tile entities.
-* `AttachCapabilityEvent.Item`: Fires only for item stacks.
-* `AttachCapabilityEvent.World`: Fires only for worlds.
+* `AttachCapabilityEvent<Entity>`: Fires only for entities.
+* `AttachCapabilityEvent<TileEntity`: Fires only for tile entities.
+* `AttachCapabilityEvent<Item>`: Fires only for item stacks.
+* `AttachCapabilityEvent<World>`: Fires only for worlds.
 
 In all cases, the event has a method `addCapability`, which can be used to attach capabilities to the target object. Instead of adding capabilities themselves to the list, you add capability providers, which have the chance to return capabilities only from certain sides. While the provider only needs to implement `ICapabilityProvider`, if the capability needs to store data persistently it is possible to implement `ICapabilitySerializable<T extends NBTBase>` which, on top of returning the capabilities, will allow providing NBT save/load functions.
 
@@ -152,7 +154,7 @@ Although the Capability system can do everything IEEPs (IExtendedEntityPropertie
 This is a quick list of IEEP concepts and their Capability equivalent:
 
 * Property name/id (`String`): Capability key (`ResourceLocation`)
-* Registration (`EntityConstructing`): Attaching (`AttachCapabilityEvent.Entity`), the real registration of the Capability happens during pre-init.
+* Registration (`EntityConstructing`): Attaching (`AttachCapabilityEvent<Entity>`), the real registration of the Capability happens during pre-init.
 * NBT read/write methods: Does not happen automatically. Attach an `ICapabilitySerializable` in the event, and run the read/write methods from the `serializeNBT`/`deserializeNBT`.
 
 Features you probably will not need (if the IEEP was for internal use only):
