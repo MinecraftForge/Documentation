@@ -11,7 +11,7 @@ In order to understand how this works, let's go through the internals of the mod
 1. A set of `ModelResourceLocation`s are marked as models to be loaded through `ModelBakery`.
     * For items, their models must be manually marked for loading with `ModelBakery.registerItemVariants`. (`ModelLoader.setCustomMRL` does this.)
     * For blocks, their statemappers produce a `Map<IBlockState, MRL>`. All blocks are iterated and then the values of this map are marked to be loaded.
-2. `IModel`s are loaded from each MRL and cached in a `Map<MRL, IModel>`.
+2. [`IModel`][IModel]s are loaded from each MRL and cached in a `Map<MRL, IModel>`.
     * An `IModel` is loaded from the only `ICustomModelLoader` that accepts it. (Multiple loaders attempting to load a model will cause a `LoaderException`.) If none is found and the RL is actually a `ModelResourceLocation` (that is, this is not a normal model; it's actually a blockstate variant), it goes to the blockstate loader (`VariantLoader`). Otherwise the model is a normal vanilla JSON model and is loaded the vanilla way (`VanillaLoader`).
     * A vanilla JSON model (`models/item/*.json` or `models/block/*.json`), when loaded, is a `ModelBlock` (yes, even for items). This is a vanilla class that is not related to `IModel` in any way. To rectify this, it gets wrapped into a `VanillaModelWrapper`, which *does* implement `IModel`.
     * A vanilla/Forge blockstate variant, when loaded, first loads the entire blockstate JSON it comes from. The JSON is deserialized into a `ModelBlockDefinition` that is then cached to the path of the JSON. A list of variant definitions is then extracted from the `ModelBlockDefinition` and placed into a `WeightedRandomModel`.
@@ -27,3 +27,4 @@ In order to understand how this works, let's go through the internals of the mod
     * Items in vanilla have properties and overrides. To facilitate this, `IBakedModel` defines `getOverrides`, which returns an `ItemOverrideList`. `ItemOverrideList` defines `handleItemState`, which takes the original model, the entity, world, and stack, to find the final model. Overrides are applied before all other operations on the model, including `getQuads`. As `IBlockState` is not applicable to items, `IBakedModel::getQuads` receives `null` as its state parameter when being rendered as an item.
     * Blocks have blockstates, and when a block's `IBakedModel` is being rendered, the `IBlockState` is passed directly into the `getQuads` method. In the context of models only, blockstates can have an extra set of properties, known as unlisted properties.
 
+[IModel]: imodel.md

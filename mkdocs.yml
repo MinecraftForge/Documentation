@@ -20,6 +20,7 @@ pages:
     - Item Property Overrides: 'models/overrides.md'
     - Advanced Models:
       - Intro to Advanced Models: 'models/advanced/introduction.md'
+      - IModel: 'models/advanced/imodel.md'
   - Events:
     - Basic Usage: 'events/intro.md'
   - Networking:
