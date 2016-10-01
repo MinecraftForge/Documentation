@@ -18,6 +18,8 @@ pages:
       - Forge Blockstate JSON: 'models/blockstates/forgeBlockstates.md'
     - Connecting Blocks and Items to Models: 'models/using.md'
     - Item Property Overrides: 'models/overrides.md'
+    - Advanced Models:
+      - Intro to Advanced Models: 'models/advanced/introduction.md'
   - Events:
     - Basic Usage: 'events/intro.md'
   - Networking:
