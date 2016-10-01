@@ -1,7 +1,7 @@
 Forge's Blockstates
 ===================
 
-Forge has its own blockstate json format to accommodate for modders needs. It introduces submodels, which allows you to build the final blockstate from different parts. You can build a models *normal* blockstate from multiple parts as well as create a complex variant depending on the blocks properties.
+Forge has its own blockstate json format to accommodate for modders needs. It introduces submodels, which allows you to build the final blockstate from different parts.
 
 !!! Attention
 
@@ -23,9 +23,7 @@ General Structure of the Format
     "uvlock": true
   },
   "variants": {
-    "normal": [{
-
-    }]
+    "normal": [{}]
   }
 }
 ```
@@ -53,9 +51,7 @@ The defaults section contains the default values for all variants. They can be o
 
 ```json
   "variants": {
-    "normal": [{
-
-    }]
+    "normal": [{}]
   }
 ```
 
@@ -92,28 +88,28 @@ The model will be a pressure plate, and depending on its state it will have part
     "uvlock": true
   },
   "variants": {
-    // mossy is a boolean property.
+    "__comment": "mossy is a boolean property.",
     "mossy": {
       "true": {
-        // if true it changes the pressure plate from oak planks to mossy cobble
+        "__comment": "If true it changes the pressure plate from oak planks to mossy cobble.",
         "textures": {
           "texture": "blocks/cobblestone_mossy"
         }
       },
       "false": {
-        // change nothing. The entry has to be here to be generated for internal usage by minecraft
+        "__comment": "Change nothing. The entry has to be here so the Forge blockstate loader knows to generate this variant."
       }
     },
-    // pillarcount is a property that determines how many pillar submodels we have. Ranges from 0 to 2
+    "__comment": "pillarcount is a property that determines how many pillar submodels we have. Ranges from 0 to 2.",
     "pillarcount": {
-      0: {
-        // no pillar. Remember, has to be there.
+      "0": {
+        "__comment": "No pillar. Remember, this empty definition has to be here."
       },
-      1: {
-        // if it is true, it will add the wall model and combine it with the pressure plate
+      "1": {
+        "__comment": "If it is true, it will add the wall model and combine it with the pressure plate.",
         "submodel": "wall_n"
       },
-      2: {
+      "2": {
         "textures": {
           "wall": "blocks/cobblestone"
         },
@@ -127,14 +123,17 @@ The model will be a pressure plate, and depending on its state it will have part
 }
 ```
 
-The comments already explain the details on the separate parts, but here's how it works overall: The block definition in code has two Properties. One boolean property named "mossy" and one integer property named "pillarCount". Notice here that the string used in the json is **lowercase**, however. It has to be lowercase or it wont be found.
+The comments already explain the details on the separate parts, but here's how it works overall: The block definition in code has two properties. One boolean property named `mossy` and one integer property named `pillarCount`.
+
+!!! note
+    Notice here that the string used in the json is **lowercase**. It has to be lowercase or it won't be found.
 
 Instead of defining "this combination of properties gives model X" we say "**this** value for this property has **that** impact on the model". In this example it's quite straight forward:
 
-* If mossy is true, the pressure plate uses the mossy cobblestone texture
-* If pillarCount is 1 it will add one wall with connection facing north. The default texture for the wall is oak-planks.
-* If pillarCount is 2 it will add two walls, both facing north. However the second wall will be rotated by 90 degree. This showcases that you do not need separate model with Forge's system. You only need once and rotate it around the Y axis. Additionally the texture of the walls is changed to cobblestone.
-* If pillarCount is 0 no walls will be added.
+* If `mossy` is `true`, the pressure plate uses the mossy cobblestone texture
+* If `pillarCount` is `1` it will add one wall with connection facing north. The default texture for the wall is oak-planks.
+* If `pillarCount` is `2` it will add two walls, both facing north. However the second wall will be rotated by 90 degree. This showcases that you do not need separate model with Forge's system. You only need once and rotate it around the Y axis. Additionally the texture of the walls is changed to cobblestone.
+* If `pillarCount` is `0` no walls will be added.
 
 And here is the result of our work:
 
