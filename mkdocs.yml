@@ -21,6 +21,7 @@ pages:
     - Advanced Models:
       - Intro to Advanced Models: 'models/advanced/introduction.md'
       - IModel: 'models/advanced/imodel.md'
+      - IModelState and IModelPart: 'models/advanced/imodelstate+part.md'
   - Events:
     - Basic Usage: 'events/intro.md'
   - Networking:
