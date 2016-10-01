@@ -23,6 +23,7 @@ pages:
       - IModel: 'models/advanced/imodel.md'
       - IModelState and IModelPart: 'models/advanced/imodelstate+part.md'
       - IBakedModel: 'models/advanced/ibakedmodel.md'
+      - Extended Blockstates: 'models/advanced/extended-blockstates.md'
   - Events:
     - Basic Usage: 'events/intro.md'
   - Networking:

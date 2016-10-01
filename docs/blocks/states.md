@@ -100,8 +100,9 @@ Instead, override `getActualState` in your Block class. Here you will receive th
 !!! Note
     Querying `world.getBlockState()` will give you the `IBlockState` representing only the metadata. Thus the returned `IBlockState` will not have data from `getActualState` filled in. If that matters to your code, make sure you call `getActualState`!
 
-Further Reading
----------------
+[Extended Blockstates][]
+------------------------
 
-  * Rendering in 1.8+: TODO
-  * Extended States: TODO
+Extended blockstates are a way to pass arbitrary data into `IBakedModel`s during the rendering of a block. They are mainly used in the context of rendering, and therefore are documented in the Models section.
+
+[Extended Blockstates]: ../models/advanced/extended-blockstates.md
