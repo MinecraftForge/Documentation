@@ -1,8 +1,8 @@
-Using Models
-============
+Connecting Blocks and Items to Models
+=====================================
 
-Using Block Models
-------------------
+Block Models
+------------
 
 Blocks are not directly linked to models, instead, block*states* are mapped to `ModelResourceLocation`s, which point to [blockstate JSONs][], which themselves define models. An `IBlockState` is mapped to a `ModelResourceLocation` by an `IStateMapper`. The default statemapper works as follows:
 
@@ -55,8 +55,8 @@ IStateMapper merged = new StateMap.Builder().ignore(PROP_OUT).ignore(PROP_IN).bu
 
 If we ask either `together` or `merged` to map the blockstate `examplemod:block1[in=north,out=south]`, they'll give the MRL `examplemod:block1#normal`. Given `examplemod:block2[in=north,out=south,color=blue]`, they'll produce `examplemod:block2#color=blue`. Finally, given `examplemod:block3[color=white,out=east]` (no `in`), they'll produce `examplemod:block3#color=white`.
 
-Using Item Models
------------------
+Item Models
+-----------
 
 Unlike blocks, which automatically have a default `IStateMapper` that works without any extra registration, items must be registered to their models manually. Thankfully, this is very easy. Simply call `ModelLoader.setCustomModelResourceLocation`. This method takes the item and metadata we're registering a model for, and an MRL that points to a model. The way the game searches for the corresponding file is as follows:
 
