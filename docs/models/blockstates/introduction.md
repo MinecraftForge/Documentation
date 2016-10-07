@@ -1,7 +1,9 @@
 Introduction to Blockstate JSONs
 ================================
 
-Blockstate JSONs are Minecraft's way to map "variant strings" to models. A variant string can be absolutely anything, from "inventory" to "power=5" to "I am your father." When the game searches for a model corresponding to a block in the world, it takes the [blockstate][] for that position, and then it uses an `IStateMapper` to find the corresponding blockstate JSON and the variant string within it. In code, a variant string within a a blockstate JSON is represented by a `ModelResourceLocation`, normally shortened to just "MRL". The default `IStateMapper` uses the block's registry name as the location of the blockstate JSON (block `examplemod:testblock` goes to JSON `examplemod:testblock` goes to filepath `assets/examplemod/blockstates/testblock.json`), and the variant string is pieced together from the blockstate's properties. More information can be found [here][statemapper].
+Blockstate JSONs are Minecraft's way to map "variant strings" to models. A variant string can be absolutely anything, from "inventory" to "power=5" to "I am your father." They represent an actual model, where the blockstate is just a container for them. In code, a variant string within a blockstate JSON is represented by a `ModelResourceLocation`, normally shortened to just "MRL".
+
+When the game searches for a model corresponding to a block in the world, it takes the [blockstate][] for that position, and then it uses an `IStateMapper` to find the corresponding MRL for it, which then refers to the actual model. The default `IStateMapper` uses the block's registry name as the location of the blockstate JSON. (E.g. block `examplemod:testblock` goes to the RL `examplemod:testblock`.) The variant string is pieced together from the blockstate's properties. More information can be found [here][statemapper].
 
 As an example, let's take a look at the vanilla `oak_log.json`:
 

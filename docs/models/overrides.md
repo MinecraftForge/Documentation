@@ -1,7 +1,9 @@
 Item Property Overrides
 =======================
 
-An item property assigns a certain `float` value to every ItemStack it is registered for, and vanilla item model definitions can use these values to define "overrides", where an item defaults to a certain model, but if an override matches, it overrides the model and uses another. The format of item models, including overrides, can be found on the [wiki][]. They are useful mainly because of the fact that they are continuous. For example, bows use item properties to define their pull animation. Since the value of the property is a `float`, it increases continuously from 0 to 1. This allows resource packs to add as many models as they want for the bow pulling animation along that spectrum, instead of being stuck with four "slots" for their models in the animation. The same is true of the compass and clock.
+Item properties are a way for the "properties" of items to be exposed to the model system. An example is the bow, where the most important property is how far the bow has been pulled. This information is then used to choose a model for the bow, creating an animation for pulling it. This is different from assigning MRLs directly to items through `ModelLoader.setCustomModelResourceLocation` or `ModelLoader.setCustomMeshDefinition`. These methods fix the possible set of models. Used on a bow, for example, these methods would permanently fix the number of frames in the pull animation to 4. However, properties are more flexible.
+
+Item properties assign a certain `float` value to every ItemStack it is registered for, and vanilla item model definitions can use these values to define "overrides", where an item defaults to a certain model, but if an override matches, it overrides the model and uses another. The format of item models, including overrides, can be found on the [wiki][]. They are useful mainly because of the fact that they are continuous. For example, bows use item properties to define their pull animation. Since the value of the property is a `float`, it increases continuously from 0 to 1. This allows resource packs to add as many models as they want for the bow pulling animation along that spectrum, instead of being stuck with four "slots" for their models in the animation. The same is true of the compass and clock.
 
 
 Adding Properties to Items
@@ -34,7 +36,7 @@ The format of an override can be seen on the [wiki][], and a good example can be
 }
 ```
 
-And here's a hypothetical snippet from the supporting code. (Note that this does not have to be client-only. It will work on a server too.)
+And here's a hypothetical snippet from the supporting code. (Note that this does not have to be client-only. It will work on a server too. In vanilla, properties are registered in the item's constructor.)
 
 ```java
 item.addPropertyOverride(new IItemPropertyGetter() {

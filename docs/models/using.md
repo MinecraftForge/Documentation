@@ -86,7 +86,7 @@ Note that *items* can use *block*state JSONs. This is possible by simply passing
 
 !!! important
     
-    There is one major caveat. Blockstate JSONs can only resolve paths to models under `models/block`; they cannot see models under `models/item` (even using `../item` causes an error). This means that you cannot directly use the `minecraft:item/generated` model (which sets the defualt transforms for items) in a blockstate JSON. As a workaround, use the `builtin/generated` model and set the transforms with the `transform` tag in the blockstate JSON. (Block models that inherit from `minecraft:block/block` already set transforms and therefore this isn't necessary for them.) Here's an example showing how to do so:
+    There is one major caveat. Blockstate JSONs can only resolve paths to models under `models/block`; they cannot see models under `models/item` (even using `../item` causes an error). This means that you cannot directly use the `minecraft:item/generated` model (which sets the default transforms for items) in a blockstate JSON. As a workaround, use the `builtin/generated` model and set the transforms with the `transform` tag in the blockstate JSON. (Block models that inherit from `minecraft:block/block` already set transforms and therefore this isn't necessary for them.) Here's an example showing how to do so:
     
     ```json
     "defaults": {
