@@ -24,7 +24,7 @@ Self-explanatory; whatever texture should be used for the particles. For blocks 
 
 ### <s>`getItemCameraTransforms`</s>
 
-Deprecated in favor of implementing `IPerspectiveAwareModel`. If a model implements that interface this method will not be called, in favor of an `instanceof` check and a call to `IPerspectiveAwareModel::handlePerspective`. Therefore, most `IBakedModel`s that also implement `IPerspectiveAwareModel` should `return ItemCamerTransforms.DEFAULT` here.
+Deprecated in favor of implementing `IPerspectiveAwareModel`. If a model implements that interface this method will not be called, in favor of an `instanceof` check and a call to `IPerspectiveAwareModel::handlePerspective`. Therefore, most `IBakedModel`s that also implement `IPerspectiveAwareModel` should `return ItemCamerTransforms.DEFAULT` here. See [Perspective][].
 
 ### `getOverrides`
 
@@ -37,4 +37,5 @@ This is the main method of `IBakedModel`. It returns `BakedQuad`s, which contain
 If the model is being rendered as an item, the `ItemOverrideList` returned from `getOverrides` is responsible for handling the state of the item, and the `IBlockState` parameter will be `null`.
 
 [IModel::bake]: imodel.md#bake
+[Perspective]: perspective.md
 [extended blockstates]: extended-blockstates.md

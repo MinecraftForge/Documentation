@@ -7,6 +7,8 @@ One of the uses of this is animation. An `IModelState` can represent a certain f
 
 Another, more common use case is Forge blockstate JSONs. The models within the blockstates can be transformed with `transform` tags, which translate into simple `IModelState`s that are passed into the contained models.
 
-Finally, another use case is perspective aware models.
+Finally, another use case is [perspective aware models][].
 
 Which `IModelPart`s a certain model will use is dependent on the model itself. If I had a `B3DState` that dealt with B3D `NodeJoint`s and tried to use it on a vanilla JSON model, it wouldn't work as vanilla models have no idea what a `NodeJoint` is and will not even ask about them.
+
+[perspective aware models]: perspective.md
