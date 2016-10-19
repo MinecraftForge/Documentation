@@ -28,7 +28,7 @@ Deprecated in favor of implementing `IPerspectiveAwareModel`. If a model impleme
 
 ### `getOverrides`
 
-Returns the `ItemOverrideList` to use for this model. This is only used if this model is being rendered as an item.
+Returns the [`ItemOverrideList`][ItemOverrideList] to use for this model. This is only used if this model is being rendered as an item.
 
 ### `getQuads`
 
@@ -38,4 +38,5 @@ If the model is being rendered as an item, the `ItemOverrideList` returned from 
 
 [IModel::bake]: imodel.md#bake
 [Perspective]: perspective.md
+[ItemOverrideList]: itemoverridelist.md
 [extended blockstates]: extended-blockstates.md

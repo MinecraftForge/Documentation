@@ -25,6 +25,7 @@ pages:
       - IBakedModel: 'models/advanced/ibakedmodel.md'
       - Extended Blockstates: 'models/advanced/extended-blockstates.md'
       - Perspective: 'models/advanced/perspective.md'
+      - ItemOverrideList: 'models/advanced/itemoverridelist.md'
   - Events:
     - Basic Usage: 'events/intro.md'
   - Networking:
