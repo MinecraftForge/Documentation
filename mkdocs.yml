@@ -26,6 +26,7 @@ pages:
       - Extended Blockstates: 'models/advanced/extended-blockstates.md'
       - Perspective: 'models/advanced/perspective.md'
       - ItemOverrideList: 'models/advanced/itemoverridelist.md'
+      - ICustomModelLoader: 'models/advanced/icustommodelloader.md'
   - Events:
     - Basic Usage: 'events/intro.md'
   - Networking:
