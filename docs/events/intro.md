@@ -42,6 +42,13 @@ public class MyStaticForgeEventHandler {
 
 which must be registered like this: `MinecraftForge.EVENT_BUS.register(MyStaticForgeEventHandler.class)`.
 
+### Automatically Registering Static Event Handlers
+
+A class may be annotated with the `@Mod.EventBusSubscriber` annotation. Such a class is automatically registered to `MinecraftForge.EVENT_BUS` when the `@Mod` class itself is constructed. This is essentially equivalent to adding `MinecraftForge.EVENT_BUS.register(AnnotatedClass.class);` at the end of the `@Mod` class's constructor.
+
+!!! note
+    This does not register an instance of the class; it registers the class itself (i.e. the event handling methods must be static).
+
 Canceling & Results
 -------------------
 
