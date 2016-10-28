@@ -27,6 +27,21 @@ To register this event handler, use `MinecraftForge.EVENT_BUS.register()` and pa
 !!! note
     In older forge versions, there were two separate event buses. One for forge, one for FML. This has long since been deprecated, so there is no need to use the FML event bus any longer.
 
+### Static Event Handlers
+
+An event handler may also be static. The handling method is still annotated with `@SubscribeEvent` and the only difference from an instance handler is that it is also marked `static`. In order to register a static event handler, an instance of the class won't do, the `Class` itself has to be passed in. An example:
+
+```java
+public class MyStaticForgeEventHandler {
+	@SubscribeEvent
+	public static void arrowNocked(ArrowNockEvent event) {
+		System.out.println("Arrow nocked!");
+	}
+}
+```
+
+which must be registered like this: `MinecraftForge.EVENT_BUS.register(MyStaticForgeEventHandler.class)`.
+
 Canceling & Results
 -------------------
 
