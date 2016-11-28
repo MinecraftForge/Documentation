@@ -27,6 +27,7 @@ pages:
     - Extended Entity Properties: 'datastorage/extendedentityproperties.md'
   - Utilities:
     - OreDictionary: 'utilities/oredictionary.md'
+    - Configuration Files: 'utilities/config.md'
   - Effects:
     - Sounds: 'effects/sounds.md'
   - Conventions:
