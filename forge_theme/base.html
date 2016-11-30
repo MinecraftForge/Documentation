@@ -18,10 +18,10 @@
     <meta name="theme-color" content="#ffffff">
 
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="http://forge.mineformers.de/css/normalize.css">
-    <link rel="stylesheet" href="http://forge.mineformers.de/css/reboot.css">
-    <link rel="stylesheet" href="http://forge.mineformers.de/css/styles.css">
-    <link rel="stylesheet" href="http://forge.mineformers.de/css/highlight.css">
+    <link rel="stylesheet" href="{{ base_url }}/css/normalize.css">
+    <link rel="stylesheet" href="{{ base_url }}/css/reboot.css">
+    <link rel="stylesheet" href="{{ base_url }}/css/styles.css">
+    <link rel="stylesheet" href="{{ base_url }}/css/highlight.css">
     <link rel="stylesheet" href="{{ base_url }}/css/docs.css">
 
     {% for path in extra_css %}
@@ -30,9 +30,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/a1f20be65b.js"></script>
-    <script type="text/javascript" src="http://forge.mineformers.de/js/highlight.js"></script>
-    <script type="text/javascript" src="http://forge.mineformers.de/js/jquery.mousewheel.js"></script>
-    <script type="text/javascript" src="http://forge.mineformers.de/js/jquery.jscrollpane.min.js"></script>
+    <script type="text/javascript" src="{{ base_url }}/js/highlight.js"></script>
+    <script type="text/javascript" src="{{ base_url }}/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="{{ base_url }}/js/jquery.jscrollpane.min.js"></script>
     <script type="text/javascript" src="{{ base_url }}/js/theme.js"></script>
     {% for path in extra_javascript %}
     <script src="{{ path }}"></script>
@@ -64,7 +64,7 @@
     <div class="wrapper">
         <div class="logo">
             <a href="#" class="open-sidebar"><i class="fa fa-bars"></i></a>
-            <img src="http://forge.mineformers.de/images/logo_docs.svg" width="244">
+            <a href="{{ base_url }}"><img src="{{ base_url }}/images/logo.svg" width="244"></a>
         </div>
         <nav>
             <ul class="links clearfix">

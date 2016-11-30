@@ -38,3 +38,5 @@ section.sidebar-nav > ul .table-of-contents .toc-item, section.sidebar-nav > ul 
 .admonition.important .admonition-title { background: #78f0b4; }
 .admonition.warning, .admonition.attention { background: #fae1c8; }
 .admonition.warning .admonition-title, .admonition.attention .admonition-title { background: #f0b478; }
+
+.injected { display: none; }
