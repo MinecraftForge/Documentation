@@ -6,16 +6,16 @@ If you've decided to contribute to Forge, you'll have to take some special steps
 Forking and Cloning the Repository
 ----------------------------------
 
-Like most major open source projects you'll find, Forge is hosted on [https://www.github.com](GitHub). If you've contributed to another project before, you'll know this process already and you can skip right ahead to the next section.
+Like most major open source projects you'll find, Forge is hosted on [GitHub](https://www.github.com). If you've contributed to another project before, you'll know this process already and you can skip right ahead to the next section.
 
 For those who are beginners when it comes to collaboration via Git, here are only two easy to steps to get you started.
 
 !!! Note
-    This guide assumes that you already have a GitHub account set up. If you don't, visit their [https://www.github.com/join](registration page) to create an account. Furthermore, this guide is not a tutorial for git's usage, please consult different sources first if you're struggling with getting it working.
+    This guide assumes that you already have a GitHub account set up. If you don't, visit their [registration page](https://www.github.com/join) to create an account. Furthermore, this guide is not a tutorial for git's usage, please consult different sources first if you're struggling with getting it working.
 
 ### Forking
 
-First of all, you have to "fork" the [https://www.github.com/MinecraftForge/MinecraftForge](MinecraftForge repository) by clicking the "Fork" button in the upper right hand corner. If you are in an organization, select the account you want your fork to be hosted on.
+First of all, you have to "fork" the [MinecraftForge repository](https://www.github.com/MinecraftForge/MinecraftForge) by clicking the "Fork" button in the upper right hand corner. If you are in an organization, select the account you want your fork to be hosted on.
 
 Forking the repository is necessary since not every GitHub user can have free access to every repository. Instead, you create a copy of the original repository to later contribute your changes via a so called Pull Request, which you will learn more about later.
 
@@ -42,9 +42,9 @@ Depending on your favourite IDE, there is a different set of recommended steps y
 
 ### IntelliJ IDEA
 
-JetBrains' flagship IDE comes with great integrated support for [https://www.gradle.org](Gradle), Forge's build system of choice. Due to some peculiarities of Minecraft mod development, however, there are some additional steps required to get everything to work properly.
+JetBrains' flagship IDE comes with great integrated support for [Gradle](https://www.gradle.org), Forge's build system of choice. Due to some peculiarities of Minecraft mod development, however, there are some additional steps required to get everything to work properly.
 
-If you're more of a visual person, our community's very own cpw has uploaded [https://www.youtube.com/watch?v=yanCpy8p2ZE](a video) explaining very similar steps which will also lead to a working setup.
+If you're more of a visual person, our community's very own cpw has uploaded [a video](https://www.youtube.com/watch?v=yanCpy8p2ZE) explaining very similar steps which will also lead to a working setup.
 
 !!! Note
     These steps will only work reliably from IDEA version 2016 onwards. Older versions didn't have the appropriate Gradle support and did not support Forge development workspaces.
@@ -85,7 +85,7 @@ To initiate the patch generation, simply run the `genPatches` Gradle task from y
 
 ### Pull Requests
 
-The last step before your contribution is added to Forge is a Pull Request (PR in short). This is a formal request to incorporate your fork's changes into the live code base. Creating a PR is easy, simply go to [https://github.com/MinecraftForge/MinecraftForge/compare](this GitHub page) and follow the proposed steps. It is now that a good setup with branches pays off, since you're able to select precisely the changes you want to submit.
+The last step before your contribution is added to Forge is a Pull Request (PR in short). This is a formal request to incorporate your fork's changes into the live code base. Creating a PR is easy, simply go to [this GitHub page](https://github.com/MinecraftForge/MinecraftForge/compare) and follow the proposed steps. It is now that a good setup with branches pays off, since you're able to select precisely the changes you want to submit.
 
 !!! Note
-    Pull Requests are bound to rules, not every request will blindly be accepted. Follow [https://github.com/MinecraftForge/MinecraftForge/blob/1.10.x/CONTRIBUTING.md](this document) to get further information and to ensure the best quality of your PR!
+    Pull Requests are bound to rules, not every request will blindly be accepted. Follow [this document](https://github.com/MinecraftForge/MinecraftForge/blob/1.10.x/CONTRIBUTING.md) to get further information and to ensure the best quality of your PR!
