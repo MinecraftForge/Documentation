@@ -35,7 +35,7 @@ It is recommended to create and check out a branch for each PR you plan to submi
 
 After completing this step, you're ready to go and set up your development environment.
 
-Setting up the environment
+Setting Up the Environment
 --------------------------
 
 Depending on your favourite IDE, there is a different set of recommended steps you have to follow to successfully set up a development environment.
@@ -88,4 +88,4 @@ To initiate the patch generation, simply run the `genPatches` Gradle task from y
 The last step before your contribution is added to Forge is a Pull Request (PR in short). This is a formal request to incorporate your fork's changes into the live code base. Creating a PR is easy, simply go to [this GitHub page](https://github.com/MinecraftForge/MinecraftForge/compare) and follow the proposed steps. It is now that a good setup with branches pays off, since you're able to select precisely the changes you want to submit.
 
 !!! Note
-    Pull Requests are bound to rules, not every request will blindly be accepted. Follow [this document](https://github.com/MinecraftForge/MinecraftForge/blob/1.10.x/CONTRIBUTING.md) to get further information and to ensure the best quality of your PR!
+    Pull Requests are bound to rules, not every request will blindly be accepted. Follow [this document](https://github.com/MinecraftForge/MinecraftForge/blob/1.10.x/CONTRIBUTING.md) to get further information and to ensure the best quality of your PR! If you want to maximize the chances of your PR getting accepted, follow these [PR guidelines](prguidelines.md)!
