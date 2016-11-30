@@ -26,7 +26,7 @@ The log only has one property: axis. A blockstate always has to be defined for a
 "east=false,north=false,south=false,west=false": { "model": "oak_fence_post" }
 ```
 
-It should also be noted that in vanilla blockstate JSONs, the property names must be in alphabetical order and lower case.
+It should also be noted that in vanilla blockstate JSONs, the property names must be in alphabetical order, keeping in mind that resource and property names must be lower case.
 
 And that is only one variant of 16. This can quickly lead to very big and verbose blockstate files, and is one of the main problems in Minecraft 1.8. Minecraft 1.9 will introduce a system that allows to get this under control. [Forge's Blockstate Json][forge] allows you to do so in 1.8.
 
