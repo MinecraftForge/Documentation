@@ -16,7 +16,7 @@ IItemHandler exposes an interface for handling inventory slots. It can be applie
 
 IFluidHandler exposes an interface for handling fluid inventories. It can also be applied to TileEntities Entities, or ItemStacks. It replaces the old `IFluidHandler` with a more consistent and automation-friendly system.
 
-IEnergyStorage exposes an interface for handling energy containers. It can be applied to TileEntities, Entities or ItemStacks. It is based on the RF Api by TeamCoFH.
+IEnergyStorage exposes an interface for handling energy containers. It can be applied to TileEntities, Entities or ItemStacks. It is based on the RedstoneFlux API by TeamCoFH.
 
 Using an Existing Capability
 ----------------------------
@@ -75,7 +75,7 @@ Attaching Capabilities
 As mentioned, attaching capabilities to entities and itemstacks can be done through the `AttachCapabilityEvent`. This event has 4 sub-events, for extra granularity:
 
 * `AttachCapabilityEvent<Entity>`: Fires only for entities.
-* `AttachCapabilityEvent<TileEntity`: Fires only for tile entities.
+* `AttachCapabilityEvent<TileEntity>`: Fires only for tile entities.
 * `AttachCapabilityEvent<Item>`: Fires only for item stacks.
 * `AttachCapabilityEvent<World>`: Fires only for worlds.
 
