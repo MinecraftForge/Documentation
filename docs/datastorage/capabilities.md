@@ -72,7 +72,7 @@ It is strongly suggested that direct checks in code are used to test for capabil
 Attaching Capabilities
 ----------------------
 
-As mentioned, attaching capabilities to entities and itemstacks can be done through the `AttachCapabilityEvent`. This event has 4 sub-events, for extra granularity:
+As mentioned, attaching capabilities to entities and itemstacks can be done through the `AttachCapabilityEvent`. This event has 4 generics that can be used, for extra granularity:
 
 * `AttachCapabilityEvent<Entity>`: Fires only for entities.
 * `AttachCapabilityEvent<TileEntity>`: Fires only for tile entities.
