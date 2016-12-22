@@ -72,12 +72,14 @@ It is strongly suggested that direct checks in code are used to test for capabil
 Attaching Capabilities
 ----------------------
 
-As mentioned, attaching capabilities to entities and itemstacks can be done through the `AttachCapabilityEvent`. This event has 4 generics that can be used, for extra granularity:
+As mentioned, attaching capabilities to entities and itemstacks can be done using `AttachCapabilityEvent`. The same event is used for all objects that can provide capabilities. `AttachCapabilityEvent` has 4 valid generic types providing the following events:
 
 * `AttachCapabilityEvent<Entity>`: Fires only for entities.
 * `AttachCapabilityEvent<TileEntity>`: Fires only for tile entities.
 * `AttachCapabilityEvent<Item>`: Fires only for item stacks.
 * `AttachCapabilityEvent<World>`: Fires only for worlds.
+
+The generic type can not be more specific than the above, meaning that if you want to attach capabilities to an object of a certain subclass, say `EntityPlayer`, you have to subscribe to `AttachCapabilityEvent<Entity>`, then determine if the object is an `EntityPlayer` and attach the capability respectively.
 
 In all cases, the event has a method `addCapability`, which can be used to attach capabilities to the target object. Instead of adding capabilities themselves to the list, you add capability providers, which have the chance to return capabilities only from certain sides. While the provider only needs to implement `ICapabilityProvider`, if the capability needs to store data persistently it is possible to implement `ICapabilitySerializable<T extends NBTBase>` which, on top of returning the capabilities, will allow providing NBT save/load functions.
 
