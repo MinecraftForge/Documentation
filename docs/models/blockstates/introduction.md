@@ -46,7 +46,7 @@ Here's an excerpt from the same file in 1.9, which uses the multipart format:
 This is one case of 5. You can read this as "when east=true, use the model oak_fence_side rotated 90 degrees". This allows the final model to be built up from 5 smaller parts, 4 of which (the connections) are conditional and the 5th being the unconditional central post. This uses only two models, one for the post, and one for the side connection.
 
 [blockstate]: ../../blocks/states.md
-[statemapper]: ../using.md#using-block-models
+[statemapper]: ../using.md#block-models
 [Forge blockstate]: forgeBlockstates.md
 [wiki]: http://minecraft.gamepedia.com/Model#Block_states
 [item blockstates]: ../using.md#blockstate-jsons-for-items
