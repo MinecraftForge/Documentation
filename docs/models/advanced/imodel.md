@@ -1,7 +1,7 @@
 `IModel`
 ========
 
-`IModel` is a type that represents a model in its raw state. This is how a model is represented right after it has been loaded. Usually this directly represents the source of the model (e.g. an object deserialized from JSON, or an OBJ container). It also defines some important methods.
+`IModel` is a type that represents a model in its raw state. This is how a model is represented right after it has been loaded. Usually this directly represents the source of the model (e.g. an object deserialized from JSON, or an OBJ container).
 
 If an `IModel` also implements certain subinterfaces of `IModel`, it can also process some extra information. External entities using the model can do this processing through the static helpers in `ModelProcessingHelper`.
 
@@ -20,12 +20,12 @@ This is a collection of the `ResourceLocation`s of all the textures this model d
 
 ### `bake`
 
-This is the main method of `IModel`. It takes an `IModelState`, a `VertexFormat`, and a function `ResourceLocation` → `TextureAtlasSprite`, to return an `IBakedModel`. `IBakedModel` is lower-level than `IModel`, and it is what interacts with blocks and items. The function RL → TAS is used to get textures from RLs (i.e. the RLs of textures are passed to this function and the returned TAS contains the texture).
+This is the main method of `IModel`. It takes an `IModelState`, a `VertexFormat`, and a function `ResourceLocation` → `TextureAtlasSprite`, to return an `IBakedModel`. `IBakedModel` is less abstract than `IModel`, and it is what interacts with blocks and items. The function RL → TAS is used to get textures from RLs (i.e. the RLs of textures are passed to this function and the returned TAS contains the texture).
 
 `IAnimatedModel`
 ----------------
 
-`IAnimatedModel` is part of the currently WIP animation API. Right now it does nothing.
+`IAnimatedModel` is part of the currently WIP animation API. Documentation Coming Soon™.
 
 `IModelCustomData`
 ------------------
@@ -50,18 +50,6 @@ This is the main method of `IModel`. It takes an `IModelState`, a `VertexFormat`
         "__comment": "Custom data is inherited. Therefore, here `meaningOfLife` is inherited but `showQuestion` is overriden. The model itself remains inherited.",
         "custom": {
           "showQuestion": true
-        }
-      },
-      "false": {}
-    },
-    "book": {
-      "true": {
-        "submodel": {
-          "custom": {
-            "__comment": "This works anywhere where a `model` property could be. This includes here, in a submodel.",
-            "title": "The Hitcherhiker's Guide to the Galaxy"
-          },
-          "model": "examplemod:book"
         }
       },
       "false": {}
@@ -157,3 +145,4 @@ In this example, the `textures` block will be deserialized as-is into an `Immuta
     }]
   }
 }
+```

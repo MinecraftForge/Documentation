@@ -20,7 +20,7 @@ The variant string is silently `toLowerCase`d, so if a statemapper returns `mod:
 
 ### Custom `IStateMapper`s
 
-It's very simple to use a custom `IStateMapper`. Once an instance is acquired, it may be registered with a call to `ModelLoader.setCustomStateMapper`. `IStateMapper`s are registered per block, so this method receives both the `IStateMapper` and the block it works on. There is also a builder `StateMap.Builder` for some common use cases.
+It's simple to use a custom `IStateMapper`. Once an instance is acquired, it may be registered with a call to `ModelLoader.setCustomStateMapper`. `IStateMapper`s are registered per block, so this method receives both the `IStateMapper` and the block it works on. There is also a builder `StateMap.Builder` for some common use cases.
 
 #### `StateMap.Builder`
 
@@ -69,14 +69,14 @@ Unlike blocks, which automatically have a default `IStateMapper` that works with
 JSON item models from `models/item` can also leverage [overrides][].
 
 !!! note
-    `ModelLoader.setCustomModelResourceLocation` also calls `ModelBakery.registerItemVariants` with the item and MRL given. This sets up the model for baking later.
+    `ModelLoader.setCustomModelResourceLocation` also calls `ModelLoader.registerItemVariants` with the item and MRL given. This sets up the model for baking later.
 
 ### `ItemMeshDefinition`
 
 An `ItemMeshDefinition` is a function that takes `ItemStack`s and maps them to `ModelResourceLocation`s. They are registered per item, and this can be done with `ModelLoader.setCustomMeshDefinition`, which takes an item and the `ItemMeshDefinition` to use for its `ItemStack`s.
 
 !!! important
-    `ModelLoader.setCustomMeshDefinition` **does not** call `ModelBakery.registerItemVariants`. Therefore, `ModelBakery.registerItemVariants` method must be passed every MRL the `ItemMeshDefinition` can return in order for it to work.
+    `ModelLoader.setCustomMeshDefinition` **does not** call `ModelLoader.registerItemVariants`. Therefore, `ModelLoader.registerItemVariants` method must be passed every MRL the `ItemMeshDefinition` can return in order for it to work.
 
 ### Blockstate JSONs for Items
 

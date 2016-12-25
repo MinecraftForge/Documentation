@@ -15,7 +15,7 @@ Textures, like models, are contained within resource packs and are referred to w
 JSON Models
 -----------
 
-Vanilla Minecraft's JSON model format isn't very complicated. It simply defines cuboid (cube/rectangular prism) elements, and assigns textures to their faces. On the [wiki][JSON model format], there is a definition of its format.
+Vanilla Minecraft's JSON model format is rather simple. It defines cuboid (cube/rectangular prism) elements, and assigns textures to their faces. On the [wiki][JSON model format], there is a definition of its format.
 
 !!! note
     JSON models only support cuboid elements; there is no way to express a triangular wedge or anything like it. To have more complicated models, another format must be used.
