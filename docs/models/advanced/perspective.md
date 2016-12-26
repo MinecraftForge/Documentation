@@ -1,7 +1,7 @@
 Perspective
 ===========
 
-When an `IBakedModel` is being rendered as an item, it can apply special handling depending on which perspective it is being rendered in. "Perspective" means in what context the model is being rendered. The possible perspectives are represented in code by the `ItemCameraTransforms.TransformType` enum.
+When an [`IBakedModel`][IBakedModel] is being rendered as an item, it can apply special handling depending on which perspective it is being rendered in. "Perspective" means in what context the model is being rendered. The possible perspectives are represented in code by the `ItemCameraTransforms.TransformType` enum.
 
 There are two systems for handling perspective: the deprecated vanilla system, constituted by `IBakedModel::getItemCameraTransforms`, `ItemCameraTranforms`, and `ItemTransformVec3f`, and the Forge system embodied by `IPerspectiveAwareModel`. The vanilla code is patched to favor using `IPerspectiveAwareModel` over the vanilla system whenever possible.
 
@@ -20,7 +20,7 @@ There are two systems for handling perspective: the deprecated vanilla system, c
 
 `FIXED` - Used for item frames.
 
-This enum is also patched to implement `IModelPart`. This allows `IModelState`s to alter the perspective handling of models. However, the model itself must implement this behavior. (See [below][state perspective].)
+This enum is also patched to implement [`IModelPart`][IModelState]. This allows `IModelState`s to alter the perspective handling of models. However, the model itself must implement this behavior. (See [below][state perspective].)
 
 The Vanilla Way
 ---------------
@@ -57,3 +57,5 @@ This is how models should support custom perspective transforms through `IModelS
 Given either a map of transforms or an `IModelState`, an `IBakedModel`, and a `TransformType`, this finds the `Matrix4f` for the transform from the map or the `IModelState`, and then pairs it with the given model. To extract the transform from an `IModelState`, the `TransformType` is passed to `apply`. This method is meant to be a simple implementation of `handlePerspective` in `IPerspectiveAwareModel`s.
 
 [state perspective]: #gettransforms
+[IBakedModel]: ibakedmodel.md
+[IModelState]: imodelstate+part.md

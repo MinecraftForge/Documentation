@@ -1,7 +1,7 @@
 `ItemOverrideList`
 ==================
 
-`ItemOverrideList` provides a way for an `IBakedModel` to process the state of an `ItemStack` and return a new `IBakedModel`; thereafter, the returned model replaces the old one. `ItemOverrideList` represents an arbitrary function `(IBakedModel, ItemStack, World, EntityLivingBase)` → `IBakedModel`, making it useful for dynamic models. In vanilla, it is used to implement item property overrides.
+`ItemOverrideList` provides a way for an [`IBakedModel`][IBakedModel] to process the state of an `ItemStack` and return a new `IBakedModel`; thereafter, the returned model replaces the old one. `ItemOverrideList` represents an arbitrary function `(IBakedModel, ItemStack, World, EntityLivingBase)` → `IBakedModel`, making it useful for dynamic models. In vanilla, it is used to implement item property overrides.
 
 ### `ItemOverrideList()`
 
@@ -19,7 +19,7 @@ This should not mutate the world.
 
 ### `getOverrides`
 
-Returns an immutable list containing all the `ItemOverride`s used by this `ItemOverrideList`. If none are applicable, this returns the empty list.
+Returns an immutable list containing all the [`ItemOverride`][ItemOverride]s used by this `ItemOverrideList`. If none are applicable, this returns the empty list.
 
 ## `ItemOverride`
 
@@ -48,3 +48,5 @@ This class represents a vanilla item override, which holds several predicates fo
   ]
 }
 ```
+
+[ItemOverride]: #itemoverride

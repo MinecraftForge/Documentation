@@ -7,14 +7,14 @@ Ordinary block state containers (`BlockStateContainer`) take a set of listed pro
 
 Extended block state containers take a set of listed properties, and also a set of *unlisted* properties. Unlisted properties' values can be anything that matches their type, and are not limited to a finite set. However, values are still required to satisfy the predicate `IUnlistedProperty::isValid`. The listed properties are again used to create the set of states, this time `IExtendedBlockState`s, but the unlisted properties remain unset. The unlisted properties are only set when `IExtendedBlockState::withProperty` is called to do so.
 
-One possible use case for this is to have advanced camouflaging blocks. The camouflaging block may have a tile entity that holds the `IBlockState` representative of the camouflagee, and an unlisted property to hold that state during rendering. This property can then be filled by `getExtendedState`. Finally, a custom `IBakedModel` can steal the model for that state and use it instead of using the uncamouflaged model.
+One possible use case for this is to have advanced camouflaging blocks. The camouflaging block may have a tile entity that holds the `IBlockState` representative of the camouflagee, and an unlisted property to hold that state during rendering. This property can then be filled by `getExtendedState`. Finally, a custom [`IBakedModel`][IBakedModel] can steal the model for that state and use it instead of using the uncamouflaged model.
 
 Most of the methods on `IExtendedBlockState` are self-explanatory, maybe with the exception of `getClean`. `getClean` returns the base `IBlockState` with none of the unlisted properties set.
 
 Why Extended Blockstates
 ------------------------
 
-Why use extended blockstates at all? Why not simply pass an `IBlockAccess` and `BlockPos` into the rendering system directly and have the `IBakedModel` itself deal with it? Indeed, extended blockstates allow this to happen anyway! Why have the system at all when we could just do that? The reason is twofold.
+Why use extended blockstates at all? Why not simply pass an `IBlockAccess` and `BlockPos` into the rendering system directly and have the [`IBakedModel`][IBakedModel] itself deal with it? Indeed, extended blockstates allow this to happen anyway! Why have the system at all when we could just do that? The reason is twofold.
 
 First, rendering is threaded, meaning that the world continues to chug along on the main thread while models are being rendered. However, in Minecraft, `World`s are simply not made for concurrent access. This makes the above solution downright *dangerous*, as it would entail multiple threads concurrently accessing the world. Therefore, extended states are used to collect all the data required for the model safely into the `IExtendedBlockState`. These objects can now be passed on to different threads.
 
@@ -58,3 +58,4 @@ public class ExampleBlock extends Block {
 }
 ```
 
+[IBakedModel]: ibakedmodel.md
