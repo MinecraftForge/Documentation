@@ -79,7 +79,7 @@ As mentioned, attaching capabilities to entities and itemstacks can be done usin
 * `AttachCapabilityEvent<Item>`: Fires only for item stacks.
 * `AttachCapabilityEvent<World>`: Fires only for worlds.
 
-The generic type cannot be more specific than the specified above types. For example: If you want to attach capabilities to `EntityPlayer`, you have to subscribe to the `AttachCapabilityEvent<Entity>`, and then determine that the provided object is an `EntityPlayer` before attaching the capability.
+The generic type cannot be more specific than the above types. For example: If you want to attach capabilities to `EntityPlayer`, you have to subscribe to the `AttachCapabilityEvent<Entity>`, and then determine that the provided object is an `EntityPlayer` before attaching the capability.
 
 In all cases, the event has a method `addCapability`, which can be used to attach capabilities to the target object. Instead of adding capabilities themselves to the list, you add capability providers, which have the chance to return capabilities only from certain sides. While the provider only needs to implement `ICapabilityProvider`, if the capability needs to store data persistently it is possible to implement `ICapabilitySerializable<T extends NBTBase>` which, on top of returning the capabilities, will allow providing NBT save/load functions.
 
