@@ -51,7 +51,7 @@ The default Gradle configuration replaces `${version}` with the project version,
 |     logoFile |  string  |   `""`   | The path to the mod's logo. It is resolved on top of the classpath, so you should put it in a location where the name will not conflict, maybe under your own assets folder. |
 |  screenshots | [string] |   `[]`   | A list of images to be shown on the info page. Currently unimplemented. |
 |       parent |  string  |   `""`   | The modid of a parent mod, if applicable. Using this allows modules of another mod to be listed under it in the info page, like BuildCraft. |
-| useDependencyInormation |  boolean |  `false` | If true and `Mod.useMetadata`, the below 3 lists of dependencies will be used. If not, they do nothing. |
+| useDependencyInformation |  boolean |  `false` | If true and `Mod.useMetadata`, the below 3 lists of dependencies will be used. If not, they do nothing. |
 | requiredMods | [string] |   `[]`   | A list of modids. If one is missing, the game will crash. This **does not affect the _ordering_ of mod loading!** To specify ordering as well as requirement, have a coupled entry in `dependencies`. |
 | dependencies | [string] |   `[]`   | A list of modids. All of the listed mods will load *before* this one. If one is not present, nothing happens. |
 |   dependants | [string] |   `[]`   | A list of modids. All of the listed mods will load *after* this one. If one is not present, nothing happens. |

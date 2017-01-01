@@ -28,7 +28,6 @@ Setting the properties of an item as above only works for simple items. If you w
 Registering an Item
 -------------------
 
-Now that you have created an item, it is time to register it. As with most things, they are registered by first setting the registry name with `setRegistryName`, and then registering them to the item registry in `RegistryEvent.Register<Item>`.
+Items must be [registered][registering] to function.
 
-!!! note
-    When you set the registry name with a simple string like `"myItem"`, the active modid is prefixed onto it. So if examplemod was registering this item, the actual name will be `"examplemod:myItem"`.
+[registering]: ../concepts/registries.md#registering-things

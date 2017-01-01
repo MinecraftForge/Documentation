@@ -41,13 +41,13 @@ There are two ways to attach the data: per dimension, or globally. Global data w
 
 In code, these storage locations are represented by two instances of `MapStorage` present in the World object. The global data is obtained from `World#getMapStorage()`, while the per-world map is obtained from `World#getPerWorldStorage()`.
 
-The existing data can be obtained using `MapStorage#loadData`, and new data can be attached using `MapStorage#setData`.
+The existing data can be obtained using `MapStorage#getOrLoadData`, and new data can be attached using `MapStorage#setData`.
 
 ```Java
 public static ExampleWorldSavedData get(World world) {
   // The IS_GLOBAL constant is there for clarity, and should be simplified into the right branch.
   MapStorage storage = IS_GLOBAL ? world.getMapStorage() : world.getPerWorldStorage();
-  ExampleWorldSavedData instance = (ExampleWorldSavedData) storage.loadData(ExampleWorldSavedData.class, DATA_NAME);
+  ExampleWorldSavedData instance = (ExampleWorldSavedData) storage.getOrLoadData(ExampleWorldSavedData.class, DATA_NAME);
 
   if (instance == null) {
     instance = new ExampleWorldSavedData();
