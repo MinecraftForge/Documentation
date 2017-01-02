@@ -97,6 +97,9 @@ You still declare them in `createBlockState` and set their value in `setDefaultS
 
 Instead, override `getActualState` in your Block class. Here you will receive the `IBlockState` corresponding with the metadata in the world, and you return another `IBlockState` with missing information such as fence connections, redstone connections , etc. filled in using `withProperty`. You can also use this to read Tile Entity data for a value (with appropriate safety checks of course!).
 
+!!! Warning
+    When you read tile entity data in `getActualState` you must perform additional safety checks. By default, `getTileEntity` attempts to create the tile entity if it is not already present. However, `getActualState` and `getExtendedState` can and will be called from different threads, which can cause the world's tile entity list to throw a `ConcurrentModificationException` if it tries to create a missing tile entity. Therefore, you must check if the `IBlockAccess` argument is a `ChunkCache` (the object passed to alternate threads), and if so, cast and use the non-writing variant of `getTileEntity`. An example of this safety check can be found in `BlockFlowerPot.getActualState()`.
+
 !!! Note
     Querying `world.getBlockState()` will give you the `IBlockState` representing only the metadata. Thus the returned `IBlockState` will not have data from `getActualState` filled in. If that matters to your code, make sure you call `getActualState`!
 
