@@ -8,6 +8,7 @@ pages:
     - Forge Update Checker: 'gettingstarted/autoupdate.md'
   - Concepts:
     - Sides: 'concepts/sides.md'
+    - Resources: 'concepts/resources.md'
     - Registries: 'concepts/registries.md'
   - Blocks:
     - Home: 'blocks/blocks.md'

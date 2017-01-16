@@ -13,7 +13,7 @@ Terminology
 `sounds.json`
 -------------
 
-This json should be located in the `assets` directory of a mod: `src/main/resources/assets/<modid>/sounds.json`. This file declares sound events and identifies which sound files they use.
+This JSON defines sound events, and defines which sound files they play, the subtitle, etc. Sound events are identified with [`ResourceLocation`][ResourceLocation]s. `sounds.json` should be located at the root of a resource domain (`assets/<domain>/sounds.json`), and it defines sound events in that domain (`assets/<domain>/sounds.json` defines sound events in the domain `domain`.).
 
 A full specification is available on the vanilla [wiki][], but this example highlights the important parts:
 
@@ -36,12 +36,9 @@ A full specification is available on the vanilla [wiki][], but this example high
 }
 ```
 
-!!! important
-    Like the rest of the resource system, everything_should_be_in_snake_case.
+Underneath the top-level object, each key corresponds to a sound event. Note that the domain is not given, as it is taken from the domain of the JSON itself. Each event specifies its category, and a localization key to be shown when subtitles are enabled. Finally, the actual sound files to be played are specified. Note that the value is an array; if multiple sound files are specified then the game will randomly choose one to play whenever the sound event is triggered.
 
-Underneath the top-level object, each key corresponds to a sound event. Note that they are written in the sounds.json without the modid. Each event specifies its category, and a localization key to be shown when subtitles are enabled. Finally, the actual sound files to be played are specified. Note that the value is an array; if multiple sound files are specified then the game will randomly choose one to play whenever the sound event is triggered.
-
-The two examples represent two different ways to specify a sound file. The [wiki][] has precise details, but generally, long sound files such as BGM or music discs should use the second form, because the "stream" argument tells Minecraft to not load the entire sound file into memory but instead to stream it from disk. The second form can also specify the volume, pitch, and random weight of that sound file.
+The two examples represent two different ways to specify a sound file. The [wiki][] has precise details, but generally, long sound files such as BGM or music discs should use the second form, because the "stream" argument tells Minecraft to not load the entire sound file into memory but to stream it from disk. The second form can also specify the volume, pitch, and random weight of a sound file.
 
 In all cases, the path to a sound file for domain `domain` and path `path` is `assets/<domain>/sounds/<path>.ogg`. Therefore `mymod:open_chest_sound_file` points to `assets/mymod/sounds/open_chest_sound_file.ogg`, and `mymod:music/epic_music` points to `assets/mymod/sounds/music/epic_music.ogg`.
 
@@ -116,4 +113,5 @@ Note that each takes a `SoundEvent`, the ones registered above. Additionally, th
 
 [wiki]: http://minecraft.gamepedia.com/Sounds.json
 [registration]: ../concepts/registries.md#registering-things
+[ResourceLocation]: ../concepts/resources.md#resourcelocation
 [sides]: ../concepts/sides.md
