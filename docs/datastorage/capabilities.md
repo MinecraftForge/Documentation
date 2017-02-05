@@ -69,7 +69,7 @@ public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 
 It is strongly suggested that direct checks in code are used to test for capabilities instead of attempting to rely on maps other other data structures, since capability tests can be done by many objects every tick, and they need to be as fast as possible in order to avoid slowing down the game.
 
-In the case of exposing a capability to an custom ItemStack of your mod, it is required that the `Item` class overrides `initCapabilities` to return a custom class implementing `ICapabilityProvider`. The custom `ICapabilityProvider`needs to override the above methods for exposing capabilities.
+In the case of exposing a capability to a custom ItemStack of your mod, it is required that the `Item` class overrides `initCapabilities` to return a custom class implementing `ICapabilityProvider`. The custom `ICapabilityProvider` needs to override the above methods for exposing capabilities.
 
 Attaching Capabilities
 ----------------------
