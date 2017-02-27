@@ -19,6 +19,7 @@ From Zero to Modding
 6. Load your project into your IDE.
     * For Eclipse, create a workspace anywhere (though the easiest location is one level above your project folder). Then simply import your project folder as a project, everything will be done automatically.
     * For IntelliJ, you only need to create run configs. You can run `gradlew genIntellijRuns` to do this.
+    * **Note:** If you are using IDEA 2016 or newer, you will have to fix the classpath module. Go to `Edit configurations` and in both `Minecraft Client` and `Minecraft Server`, change `Use classpath of module` to point to the task with a name like `<project>_main`.
 
 !!! note
 
