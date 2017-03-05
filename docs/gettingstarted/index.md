@@ -48,6 +48,16 @@ These instructions assume that you have created the project folder as described 
 
 If all the steps worked correctly, you should now be able to choose the Minecraft run tasks from the dropdown, and then click the Run/Debug buttons to test your setup.
 
+Using Forge with NetBeans 8.*
+-----------------------------
+1. Open terminal inside the folder where you extracted Forge MDK/SRC;
+2. Run `gradlew setupDecompWorkspace --refresh-dependencies` and wait for it to finish;
+3. Make sure gradle's task finished properly. If not - consult it's output to fix erors (common issues are firewall and the `JAVA_HOME` environment variable not pointing to a valid JDK);
+4. Make sure your NetBeans has the _Gradle Support_ plugin, available from NB's _Plugin Portal_. Install it and restart NB if needed (To install a NB plugin, open the IDE and select _Tools > Plugins_. In the _Settings_ tab make sure _Plugin Portal_ is selected);
+5. Inside NB, shoose _File > Open Project_ and select the Forge MDK/SRC extraction you made earlier. If everything is OK, it'll appear with gradle's circle icon;
+6. Right click on the Forge project inside the _Projects_ tab. Select _Tasks > run > runClient_. Minecraft will start with Forge enabled. Inside MC you can see the _Example Mod_ listed in the _Mods_ screen;
+7. Enjoy!
+
 Customizing Your Mod Information
 --------------------------------
 
