@@ -12,7 +12,13 @@ Only one TESR exists for a given tile entity. Therefore, values that are specifi
 
 ### `renderTileEntityAt`
 
-This method is called every frame in order to render the tile entity. It passes the instance of the tile entity being renderered, its coordinates as doubles at the origin of the block, partialTicks<!-- I'm not actually sure what this is used for. -->, and the destroy stage of the block if being destroyed.
+This method is called every frame in order to render the tile entity. 
+
+#### Parameters
+* `tileentity`: This is the instanceof the tile entity being rendered. It uses the generic argument, so, if the class is being inherited correctly, it will not need to be cast to your tile entity class.
+* `x`, `y`, `z`: The coordinates of the tile entity as doubles. They are at the origin of the block.
+* `partialTicks`: The amount of times, in fractions of a tick, that have passed since the last full tick.
+* `destroyStage`: The destroy stage for the block if it is being broken.
 
 Registering a TESR
 ------------------
