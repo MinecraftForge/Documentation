@@ -30,6 +30,6 @@ In order to register a TESR, call `ClientRegistry#bindTileEntitySpecialRenderer`
 `FastTESR`
 ----------
 
-A TESR can opt-in to being a FastTESR by extending the `FastTESR` class instead of `TileEntitySpecialRenderer`. Instead of implementing `renderTileEntityAt`, `renderTileEntityFast` must be implemented.
+A TESR can opt-in to being a FastTESR by extending the `FastTESR` class instead of `TileEntitySpecialRenderer` and returning true from `TileEntity#hasFastRenderer`. Instead of implementing `renderTileEntityAt`, `renderTileEntityFast` must be implemented.
 
 A FastTESR can offer performance improvements over a traditional TESR and should be used wherever possible. This is due to the fact that all FastTESR instances are batched together and only issue _one_ combined draw call for all FastTESRs per frame to the GPU. This advantage comes at the cost of making direct OpenGL access via `GlStateManager` or the `GLXX` classes impossible. Instead a FastTESR must only add vertices to the provided `VertexBuffer`, which represents the combined vertex data for all FastTESRs. This allows rendering `IBakedModel`s, an example can be found in Forge's `AnimationTESR`.
