@@ -84,7 +84,7 @@ If you declare any `IProperty`'s, you **must** override `getMetaFromState` and `
 Here you will read the values of your properties and return an appropriate integer between 0 and 15, or the other way around; the reader is left to check examples from vanilla blocks by themselves.
 
 !!! Warning
-    Your getMetaFromState and getStateFromMeta methods **must** be one to one! In other words, the same set of properties and values must map to the same meta value and back. Failing to do this, unfortunately, **won't** cause a crash. It'll just cause everything to behave extremely weirdly.
+    Your `getMetaFromState` and `getStateFromMeta` methods **must** be one to one! In other words, the same set of properties and values must map to the same meta value and back. Failing to do this, unfortunately, **won't** cause a crash. It'll just cause everything to behave extremely weirdly.
 
 
 "Actual" States
