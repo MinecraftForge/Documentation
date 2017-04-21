@@ -6,6 +6,7 @@ as security and shouldn't be used this way. Signatures are used as sanity checks
 are able to check if he is running his own un-edited code.
 
 !!! note
+
 	If someone really wants to get around this system, they can. This system is not one hundred percent effective. This system is event based, meaning that an invalid key will cause an event to be executed.
 	
 Creating a keystore
@@ -24,6 +25,7 @@ The `alias signFiles` indicates that the alias should be used in future to refer
 `-keystore examplestore.jks` means that the keystore will be saved to the file `examplestore.jks`.
 
 !!! note
+
 	A correct setup of the Java Development Kit is required!
 
 ### Get the public key
@@ -52,6 +54,7 @@ key mismatch is up the Modder.
 - `event.getFingerprints()` - Returns all public keys found.
 
 !!! note
+
 	The event is fired in mods that are already loaded and runs before any of the Mods code is executed.
 
 Buildscript setup
