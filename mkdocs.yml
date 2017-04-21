@@ -22,6 +22,7 @@ pages:
     - Home: 'items/items.md'
   - Events:
     - Basic Usage: 'events/intro.md'
+    - The Fingerprint Violation Event: 'events/jarsigning.md'
   - Networking:
     - Home: 'networking/index.md'
     - Overview: 'networking/overview.md'
