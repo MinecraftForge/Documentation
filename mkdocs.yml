@@ -9,6 +9,7 @@ pages:
   - Concepts:
     - Sides: 'concepts/sides.md'
     - Registries: 'concepts/registries.md'
+    - The Fingerprint Violation Event: 'events/jarsigning.md'
   - Blocks:
     - Home: 'blocks/blocks.md'
     - Interaction: 'blocks/interaction.md'
@@ -22,7 +23,6 @@ pages:
     - Home: 'items/items.md'
   - Events:
     - Basic Usage: 'events/intro.md'
-    - The Fingerprint Violation Event: 'events/jarsigning.md'
   - Networking:
     - Home: 'networking/index.md'
     - Overview: 'networking/overview.md'
