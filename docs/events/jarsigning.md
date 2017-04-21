@@ -61,13 +61,13 @@ buildscript `build.gradle` is required.
     build.dependsOn signJar
 ```
 
-- `dependsOn: reobfJar` - This line is important because Gradle has to sign the jar **after** ForgeGradle has reobfuscated the jar.
+- `dependsOn: reobfJar` - This snippet of the line is important because Gradle has to sign the jar **after** ForgeGradle has reobfuscated the jar.
 - `jar.archivePath` - The path where the archive (jar) is constructed.
 - `build.dependsOn signJar` - This line tells Gradle that this task is part of the build task started by `gradlew build`.
 
 The `signJar` task must define the following values to ensure that Gradle can find the keystore and actually sign the jar.
 
-- `keyStore` - The location of the keystore which was created at the beginning. 
-- `alias` - The alias defined by creating the keystore.
-- `storePass` - The password defined by creating the keystore.
-- `keyPass` - The password of the key itself defined by creating the keystore.
+- `keyStore` - This value tells Gradle where to search for the generated keystore.
+- `alias` - The alias which was defined in the above is required in order for Gradle to sign the jar.
+- `storePass` - The password which was defined by creating the keystore is required in order for Gradle to access the file.
+- `keyPass` - The password of the key itself which was defined by creating the keystore is required in order for Gradle to gain access to the key itself. This password may be the same as storePass, but can be different.
