@@ -1,13 +1,13 @@
 Signing a JAR
 =============
 
-Forge allows Mods to sign their jar files with a signature. However, these signatures are not used
-as security and shouldn't be used this way. Signatures are used as sanity checks, so that Modders
-are able to check if he is running his own un-edited code.
+Java allows developers to sign their jar files with a signature. However, these signatures are not designed 
+to be used as security and shouldn't be used this way. Signatures are used as sanity checks, so that developers
+are able to check if they are running their own un-edited code.
 
 !!! note
 
-	If someone really wants to get around this system, they can. This system is not one hundred percent effective. This system is event based, meaning that an invalid key will cause an event to be executed.
+	Once again keep in mind that this system is not a security measure. With enough malicious intend it can be circumvented.
 	
 Creating a keystore
 -------------------
@@ -17,20 +17,16 @@ jar is correctly signed.
 
 To generate a key, execute the following command and follow the instructions given by the keytool.
 The key should be **SHA-1 encoded**.
-```java
+```shell
 keytool -genkey -alias signFiles -keystore examplestore.jks
 ```
 The `keytool` is part of the Java Development Kit and can be found in the underlying `bin` directory.
 The `alias signFiles` indicates that the alias should be used in future to refer to the keystore entry and
 `-keystore examplestore.jks` means that the keystore will be saved to the file `examplestore.jks`.
 
-!!! note
-
-	A correct setup of the Java Development Kit is required!
-
 ### Get the public key
 To gather the public key required by Forge, execute the following command:
-```java
+```shell
 keytool -list -alias signFiles -keystore examplestore.jks
 ```
 Now copy the public key and remove all colons and change all uppercase letters to lowercase to ensure
@@ -39,30 +35,24 @@ that FML can work with the key.
 ### Checking at runtime
 To allow FML to compare the keys, add the public key to the `certificateFingerprint` argument in the `@Mod` annotation.
 
-```java
-    @Mod.EventHandler
-    public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
-        
-    }
-```
-When FML detects that the keys don't match it will automatically execute the following event. How to handle this
-key mismatch is up the Modder.
+When FML detects that the keys don't match it will fire the mod-lifecycle event `FMLFingerprintViolationEvent` How to 
+handle this key mismatch is up to the developer.
 
-- `event.isDirectory()` - Returns true when the Mod runs in development environment.
+- `event.isDirectory()` - Returns true when the mod runs in development environment.
 - `event.getSource()` - Returns the file with the key mismatch.
 - `event.getExpectedFingerprint()` - Returns the public key.
 - `event.getFingerprints()` - Returns all public keys found.
 
 !!! note
 
-	The event is fired in mods that are already loaded and runs before any of the Mods code is executed.
+	The event runs before any of the Mod's code is executed.
 
 Buildscript setup
 -----------------
 To finally let Gradle sign the jar file with the generated key pair, a new task in the
 buildscript `build.gradle` is required.
 
-```java
+```groovy
     task signJar(type: SignJar, dependsOn: reobfJar) {
         inputFile = jar.archivePath
         outputFile = jar.archivePath
@@ -75,7 +65,7 @@ buildscript `build.gradle` is required.
 - `jar.archivePath` - The path where the archive (jar) is constructed.
 - `build.dependsOn signJar` - This line tells Gradle that this task is part of the build task started by `gradlew build`.
 
-This task should define a few properties so Gradle knows everything required to sign the jar.
+The `signJar` task must define the following values to ensure that Gradle can find the keystore and actually sign the jar.
 
 - `keyStore` - The location of the keystore which was created at the beginning. 
 - `alias` - The alias defined by creating the keystore.
