@@ -43,10 +43,6 @@ handle this key mismatch is up to the developer.
 - `event.getExpectedFingerprint()` - Returns the public key.
 - `event.getFingerprints()` - Returns all public keys found.
 
-!!! note
-
-	The event runs before any of the Mod's code is executed.
-
 Buildscript setup
 -----------------
 To finally let Gradle sign the jar file with the generated key pair, a new task in the
