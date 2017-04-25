@@ -5,7 +5,7 @@ A resource is extra data used by the game, and is stored in a data file, instead
 
 When multiple resource packs are enabled, they are merged. Generally, files from resource packs at the top of the stack override those below; however, for certain files, such as localization files, data is actually merged contentwise. Mods actually define resource packs too, in their `resources` directories, but they are seen as subsets of the "Default" resource pack. Mod resource packs cannot be disabled, but they can be overriden by other resource packs.
 
-All resources should have snake case paths and filenames (lowercase using "_" for word boundaries), which is enforced in 1.11 and above.
+All resources should have snake case paths and filenames (lowercase, using "_" for word boundaries), which is enforced in 1.11 and above.
 
 `ResourceLocation`
 ------------------
