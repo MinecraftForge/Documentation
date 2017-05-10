@@ -16,6 +16,10 @@ pages:
     - Intro to Blockstates: 'blockstates/states.md' 
     - Intro to Blockstate JSONs: 'blockstates/introduction.md'
     - Forge Blockstate JSON: 'blockstates/forgeBlockstates.md'
+  - Animation API:
+    - Intro to the Animation API: 'animation/intro.md'
+    - Armatures: 'animation/armature.md'
+    - Animation State Machines: 'animation/asm.md'
   - Tile Entities:
     - Special Renderer: 'tileentities/tesr.md'
   - Items:
