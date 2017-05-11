@@ -91,7 +91,7 @@ public void lootLoad(LootTableLoadEvent evt) {
 }
 ```
 
-In this case, we are adding to the potential spawns, but don't want to interfere with the entry weights of the preexisting pools. The most flexible and simple solution is to add another pool with a single loot entry referencing your own loot table, because loot entries are able to recursively draw from a completely different table.
+In this case, we are adding to the potential spawns, but don't want to interfere with the entry weights of the preexisting pools. The most flexible and simple solution is to add another pool with a single loot entry referencing your own loot table JSON, because loot entries are able to recursively draw from a completely different table.
 
 For example, your mod might include `/assets/mymod/loot_tables/inject/simple_dungeon.json`:
 ```javascript
@@ -127,6 +127,8 @@ LootPool pool = new LootPool(new LootEntry[] {entry}, <conditions>, <rolls>, <bo
 
 evt.getTable().addPool(pool);
 ```
+
+Of course, if the loot you want to add cannot be determined ahead of time, you can freely construct and add `LootPool`s and implementations of `LootEntry` in your event handler similar to the calls shown above.
 
 A real-world example of this approach in action can be seen in Botania. The event handler is located [here](https://github.com/Vazkii/Botania/blob/e38556d265fcf43273c99ea1299a35400bf0c405/src/main/java/vazkii/botania/common/core/loot/LootHandler.java), and the injected tables are located [here](https://github.com/Vazkii/Botania/tree/e38556d265fcf43273c99ea1299a35400bf0c405/src/main/resources/assets/botania/loot_tables/inject).
 
