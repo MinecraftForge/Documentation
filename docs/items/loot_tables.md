@@ -121,7 +121,7 @@ For example, your mod might include `/assets/mymod/loot_tables/inject/simple_dun
 
 Then the loot entry and pool are created and added, resulting in a new loot pool for dungeon chests that has a 60% chance of nothing and 40% of a nether star.
 ```Java
-LootEntry entry = new LootEntry(new ResourceLocation("mymod:inject/simple_dungeon"), <weight>, <quality>, <conditions>, <entryName>); // weight doesn't matter since it's the only entry in the pool. Other params set as you wish.
+LootEntry entry = new LootEntryTable(new ResourceLocation("mymod:inject/simple_dungeon"), <weight>, <quality>, <conditions>, <entryName>); // weight doesn't matter since it's the only entry in the pool. Other params set as you wish.
 
 LootPool pool = new LootPool(new LootEntry[] {entry}, <conditions>, <rolls>, <bonusRolls>, <name>); // Other params set as you wish.
 
