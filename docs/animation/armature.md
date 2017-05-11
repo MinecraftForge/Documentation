@@ -174,7 +174,7 @@ and if PR #3875 is merged, there will be:
 Each clip can fire events, formatted like this:
 ```javascript
 <event> :: {
-    <event_time>: <event_text>
+    <event_time>: "event_text"
 }
 ```
 For more information about events and what `event_text` means, see the page on ASMs.
