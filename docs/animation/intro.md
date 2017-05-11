@@ -20,7 +20,9 @@ a transition.
 Location Conventions
 -----------------------
  
- ASM Files are normally stored in the `asms/block` for blocks or `asms/item` for items and so on.
+ ASM Files are normally stored in the `asms/block` for blocks or `asms/item` for items and so on. You specify where to load
+ them from, so where they are located is really up to you.
  
- Armature files must be stored in the `armatures` folder, and should be in the `blocks` subfolder for blocks and so on.
+ Armature files _must_ be stored in the `armatures` folder. They are looked up by taking the path to your model file, removing `models/` and taking whats left and prepending
+ `armatures/`, so a model in `models/block/test.json` becomes `armatures/block/test.json`.
 
