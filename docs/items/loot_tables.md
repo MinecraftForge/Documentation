@@ -5,15 +5,15 @@ Loot tables are an easy way to generate random loot given random distributions o
 
 The vanilla [wiki][] describes the loot table JSON format in great detail, so this article instead will focus on code that you might have to write to use and manipulate loot tables in your mod. To get the most out of this article, read the aforementioned [wiki][] page in its entirety before reading this article.
 
-Registering a modded loot table
+Registering a Modded Loot Table
 -------------------------------
 
 In order to make Minecraft load and be aware of your loot table, simply call `LootTableList.register(new ResourceLocation("modid", "loot_table_name"))`, which will resolve and load `/assets/modid/loot_tables/loot_table_name.json`. You may organize your tables into folders freely.
 
 !!! Note 
-    Loot pools in mod loot tables must include an additional `name` tag that uniquely identifies that pool within the table.
+    Loot pools in mod loot tables must include an additional `name` tag that uniquely identifies that pool within the table. A common strategy is to name the pool with the kinds of items that its entries contain.
     If you specify multiple loot entries with the same `name` tag (e.g. the same item but with different functions each time), then you must give each of those entries a `entryName` tag that uniquely identifies that entry within the pool. For `name` tags that do not clash, then `entryName` is automatically set to the value of `name`.
-    These additional requirements are imposed by Forge to facilitate modification of tables at load time using `LootTableEvent` (see below).
+    These additional requirements are imposed by Forge to facilitate modification of tables at load time using `LootTableLoadEvent` (see below).
 
 Registering Custom Objects
 --------------------------
@@ -76,10 +76,59 @@ Similar to the case for pools, entries need unique names for retrieval and remov
 !!! Note
     You must perform all of your desired changes to the table during that table's `LootTableLoadEvent`, any changes afterward are disallowed by safety checks or will cause undefined behavior if the safety checks are bypassed.
 
-Modifying Vanilla Loot Example - Adding Dungeon Loot
+Modifying Vanilla Loot - Adding Dungeon Loot
 ----------------------------------------------------
 
-TODO
+Here, we go over an example of one of the most common use cases for modifying vanilla loot: adding dungeon item spawns.
+
+First, we listen for the event for the table we want to modify:
+```Java
+@SubscribeEvent
+public void lootLoad(LootTableLoadEvent evt) {
+    if (evt.getName().toString().equals("minecraft:chests/simple_dungeon")) {
+        // do stuff with evt.getTable()
+    }
+}
+```
+
+In this case, we are adding to the potential spawns, but don't want to interfere with the entry weights of the preexisting pools. The most flexible and simple solution is to add another pool with a single loot entry referencing your own loot table, because loot entries are able to recursively draw from a completely different table.
+
+For example, your mod might include `/assets/mymod/loot_tables/inject/simple_dungeon.json`:
+```javascript
+{
+    "pools": [
+        {
+            "name": "main",
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "minecraft:nether_star",
+                    "weight": 40
+                },
+                {
+                    "type": "empty",
+                    "weight": 60
+                }
+            ]
+        }
+    ]
+}
+```
+
+!!! Note
+    You still need to register this table with `LootTableList.register()`!
+
+Then the loot entry and pool are created and added, resulting in a new loot pool for dungeon chests that has a 60% chance of nothing and 40% of a nether star.
+```Java
+LootEntry entry = new LootEntry(new ResourceLocation("mymod:inject/simple_dungeon"), <weight>, <quality>, <conditions>, <entryName>); // weight doesn't matter since it's the only entry in the pool. Other params set as you wish.
+
+LootPool pool = new LootPool(new LootEntry[] {entry}, <conditions>, <rolls>, <bonusRolls>, <name>); // Other params set as you wish.
+
+evt.getTable().addPool(pool);
+```
+
+A real-world example of this approach in action can be seen in Botania. The event handler is located [here](https://github.com/Vazkii/Botania/blob/e38556d265fcf43273c99ea1299a35400bf0c405/src/main/java/vazkii/botania/common/core/loot/LootHandler.java), and the injected tables are located [here](https://github.com/Vazkii/Botania/tree/e38556d265fcf43273c99ea1299a35400bf0c405/src/main/resources/assets/botania/loot_tables/inject).
 
 Changing mob drops
 ------------------
@@ -99,11 +148,11 @@ LootTable table = this.world.getLootTableManager().getLootTableFromLocation(new 
 Next, create a `LootContext` using the provided `LootContextBuilder`, which holds information about the context of the looting, such as the killer, luck of the looter, and finishing blow.
 ```Java
 LootContext ctx = new LootContext.Builder(world)
-.withLuck(...) // adjust luck, commonly EntityPlayer.getLuck()
-.withLootedEntity(...) // set looted entity
-.withPlayer(...) // set player as the killer
-.withDamageSource(...) // pass info about killing blow
-.build();
+    .withLuck(...) // adjust luck, commonly EntityPlayer.getLuck()
+    .withLootedEntity(...) // set looted entity
+    .withPlayer(...) // set player as killer
+    .withDamageSource(...) // pass killing blow and non-player killer
+    .build();
 ```
 
 Finally, to get a collection of `ItemStack`s:
@@ -111,7 +160,7 @@ Finally, to get a collection of `ItemStack`s:
 List<ItemStack> stacks = table.generateLootForPools(world.rand, ctx);
 ```
 
-Or to fill an inventory (only works for `IInventory` for now :/):
+Or to fill an inventory (only works with `IInventory` for now :/):
 ```Java
 table.fillInventory(iinventory, world.rand, ctx);
 ```
