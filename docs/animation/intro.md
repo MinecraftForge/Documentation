@@ -3,23 +3,19 @@ Intro to the Animation API
 
 The Forge Animation API lets you animate json (and B3D) models.
 Before you start reading this, you should know how vanilla JSON models are created, and should have 
-read the documentation on blockstates
+read the documentation on blockstates.
 
+!!! note
+    
+    Although you can use B3D models with the Animation API, most of this documentation will assume you
+    are using JSON files. (TODO) See the page on using B3D models for more information
 
-First, some terms:
-
-| Term | Description |
-| --- | --------- |
-| Model File | Your JSON file to be animated |
-| Armature File | The JSON file which defines the joints and clips of a model |
-| Clip | A collection of variables to apply to certain joints. Sort of an "animation group" |
-| Joint | A name for a json cube |
-| ASM File | Defines how to use the armature file to animate the model |
-| Parameter | Some value that is used to control what part of a clip we are on |
-| State | A state for the animation to be in, controls what clips are active |
-| Transitions | Controls which states go into what other states |
-| Event | An event caused by animation, readable by the thing being animated |
- 
+The Animation API is made up of two main components: armature files and animation state machine (ASM) files.
+Armature files define joints and clips for JSON files. Joints are names for cubes in the model file with weights, while
+clips are a set of transformations to apply to joints. ASM files define the various states an animation can be in, as well as what
+transitions exist between those states. They also define the parameters for an animation, generally used as inputs to clips, but can also
+trigger events. Events are essentially a way to recieve in-code notifications when the animation reaches a certain point, but can also trigger
+a transition.
  
 Location Conventions
 -----------------------

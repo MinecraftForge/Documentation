@@ -69,17 +69,37 @@ The file is organized in two sections, joints and clips.
 
 Joints
 --------
-Each joint defines a connection to the model file
+Each joint defines a connection to the model file. A joint can animate any number of elements in the model file, but they are all animated with the same input value and transforms
 
 The format is like this:
-```json
- "joints": {
-  "joint_name": {"index in model file": [1.0]}
- }
+```javascript
+ {
+    "joints": {
+        <joint>, ...
+    }
+}
+    
+---
+
+<joint> ::= {
+    <string>: {  // joint name
+        <joint_definition>, ...
+    }
+}
+
+<joint_definition> ::= {
+    <string>: [ <float> ] // index_model, joint_weight
+}
+
 ```
 
 - `joint_name` is the name of the joint
-- `index in model file` is a 0-indexed number denoting which model element this joint controls
+- `index_model` is a 0-indexed number denoting a model element this joint controls. Must be a string (see example)
+- `joint_weight` is a weight (0-1) of how much this element will animate. The transformation matrix caused by a clip animating this element will be multiplied by this number.
+
+!!! note
+    
+    In most cases, `joint_weight` should be set to 1.0, unless you really have a reason otherwise
 
 Not all elements need to have a joint, only the ones you are animating.
 
@@ -91,31 +111,47 @@ Clips are essentially instructions on how to use a value to animate some collect
 They also include events to fire at certain points.
 
 They are formatted like this:
-```json
-"clips": {
-  "clip_name": {
-    "loop": true/false,
-    "joint_clips": {
-      "joint_name": [
-       {
-        "variable": "some_variable",
-        "type": "uniform",
-        "interpolation": "interpolation_type",
-        "samples": ["animation", "keypoints"]
-       }
-      ]
-    },
-    "events": {
-      "event_time 0-1": "event_name"    
+```javascript
+
+{
+    "clips": {
+        "clip_name": {
+            "loop": <true/false>,
+            "joint_clips": {
+                <joint_clip_list>, ...
+            },
+            "events": {
+                <event> ...
+            }
+            
+        }
     }
-  }
 }
+
+-------
+
+<joint_clip_list> ::= {
+    "joint_name": [
+        <joint_clip>, ...
+    ]
+}
+
+<joint_clip> ::= {
+    "variable": <variable>,
+    "type": "uniform",
+    "interpolation": <interpolation>,
+    "samples": [ float, ... ]
+}
+
+
 ```
 
 - loop: whether or not the parameter value can continue increasing and the animation loops, or if it stops at the ending state
 
 ### Joint Clips
 Each `joint_clip` is a set of variables to change for a joint. The `type` attribute is currently ignored, but must be `"uniform"`.
+
+`samples` defines what value the animation will take on, and its interpretation depends on the value of `interpolation`.
 
 `interpolation` can be one of the following:
   - nearest - if value < 0.5 use the first sample, else the second sample. Useful for static variables if only given one value
@@ -129,17 +165,16 @@ Each `joint_clip` is a set of variables to change for a joint. The `type` attrib
 - axis_x, axis_y, axis_z - rotation axes
 - angle - rotation angle
 
-and if #3875 is merged, there will be:
+and if PR #3875 is merged, there will be:
 
 - origin_x, origin_y, origin_z - rotation origin
-
 
 ### Events
 
 Each clip can fire events, formatted like this:
-```json
-"events": {
-  "event_time": "event_text"
+```javascript
+<event> :: {
+    <event_time>: <event_text>
 }
 ```
 For more information about events and what `event_text` means, see the page on ASMs.
