@@ -20,6 +20,7 @@ pages:
     - Intro to the Animation API: 'animation/intro.md'
     - Armatures: 'animation/armature.md'
     - Animation State Machines: 'animation/asm.md'
+    - Using the API: 'animation/implementing.md'
   - Tile Entities:
     - Special Renderer: 'tileentities/tesr.md'
   - Items:
