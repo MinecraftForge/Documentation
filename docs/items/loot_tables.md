@@ -8,11 +8,11 @@ The vanilla [wiki][] describes the loot table JSON format in great detail, so th
 Registering a Modded Loot Table
 -------------------------------
 
-In order to make Minecraft load and be aware of your loot table, simply call `LootTableList.register(new ResourceLocation("modid", "loot_table_name"))`, which will resolve and load `/assets/modid/loot_tables/loot_table_name.json`. You may organize your tables into folders freely.
+In order to make Minecraft load and be aware of your loot table, simply call `LootTableList.register(new ResourceLocation("modid", "loot_table_name"))`, which will resolve and load `/assets/modid/loot_tables/loot_table_name.json`. This call can be made during any of preinit, init, or postinit. You may organize your tables into folders freely.
 
 !!! Note 
     Loot pools in mod loot tables must include an additional `name` tag that uniquely identifies that pool within the table. A common strategy is to name the pool with the kinds of items that its entries contain.
-    If you specify multiple loot entries with the same `name` tag (e.g. the same item but with different functions each time), then you must give each of those entries a `entryName` tag that uniquely identifies that entry within the pool. For `name` tags that do not clash, then `entryName` is automatically set to the value of `name`.
+    If you specify multiple loot entries with the same `name` tag (e.g. the same item but with different functions each time), then you must give each of those entries an `entryName` tag that uniquely identifies that entry within the pool. For `name` tags that do not clash, then `entryName` is automatically set to the value of `name`.
     These additional requirements are imposed by Forge to facilitate modification of tables at load time using `LootTableLoadEvent` (see below).
 
 Registering Custom Objects
@@ -57,8 +57,10 @@ Then, in order to use your conditions, functions, or properties, simply specify 
 }
 ```
 
-Modifying Vanilla Loot - Overview
----------------------------------
+Modifying Vanilla Loot
+----------------------
+
+### Overview
 
 Not only can you specify your own loot tables, conditions, functions, and entity properties, you can also modify others as they load.
 
@@ -76,12 +78,11 @@ Similar to the case for pools, entries need unique names for retrieval and remov
 !!! Note
     You must perform all of your desired changes to the table during that table's `LootTableLoadEvent`, any changes afterward are disallowed by safety checks or will cause undefined behavior if the safety checks are bypassed.
 
-Modifying Vanilla Loot - Adding Dungeon Loot
-----------------------------------------------------
+### Adding Dungeon Loot
 
-Here, we go over an example of one of the most common use cases for modifying vanilla loot: adding dungeon item spawns.
+Next, an example of one of the most common use cases for modifying vanilla loot: adding dungeon item spawns.
 
-First, we listen for the event for the table we want to modify:
+First, listen for the event for the table we want to modify:
 ```Java
 @SubscribeEvent
 public void lootLoad(LootTableLoadEvent evt) {
@@ -132,12 +133,12 @@ Of course, if the loot you want to add cannot be determined ahead of time, you c
 
 A real-world example of this approach in action can be seen in Botania. The event handler is located [here](https://github.com/Vazkii/Botania/blob/e38556d265fcf43273c99ea1299a35400bf0c405/src/main/java/vazkii/botania/common/core/loot/LootHandler.java), and the injected tables are located [here](https://github.com/Vazkii/Botania/tree/e38556d265fcf43273c99ea1299a35400bf0c405/src/main/resources/assets/botania/loot_tables/inject).
 
-Changing mob drops
+Changing Mob Drops
 ------------------
 
 Subclasses of `EntityLiving` automatically support drawing from a loot table upon death. This is done by overriding the `getLootTable` method to return a `ResourceLocation` to the desired table. This serves as the mob's default table; the tables of both your and other mods' mobs can be overridden for a single entity by setting the `deathLootTable` field of the entity. 
 
-Generating loot in-code
+Generating Loot In-Code
 -----------------------
 
 Occasionally, you may want to generate `ItemStack`s from a loot table from your own code.
@@ -162,9 +163,12 @@ Finally, to get a collection of `ItemStack`s:
 List<ItemStack> stacks = table.generateLootForPools(world.rand, ctx);
 ```
 
-Or to fill an inventory (only works with `IInventory` for now :/):
+Or to fill an inventory:
 ```Java
 table.fillInventory(iinventory, world.rand, ctx);
 ```
+
+!!! Note
+    This only works with `IInventory` for now.
 
 [wiki]: http://minecraft.gamepedia.com/Loot_table
