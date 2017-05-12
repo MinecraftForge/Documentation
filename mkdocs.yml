@@ -21,6 +21,7 @@ pages:
     - Special Renderer: 'tileentities/tesr.md'
   - Items:
     - Home: 'items/items.md'
+    - Loot Tables: 'items/loot_tables.md'
   - Events:
     - Basic Usage: 'events/intro.md'
   - Networking:
