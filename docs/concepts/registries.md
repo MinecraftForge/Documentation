@@ -12,7 +12,7 @@ There also exists the "registry registry", a registry that registers other regis
 Registering Things
 ------------------
 
-The recommended way to register things is through the `RegistryEvent`s. In `RegistryEvent.NewRegistry`, registries should be created. Later, `RegistryEvent.Register` is fired once for each registered registry. Because `Register` is a generic event, the event handler should set the type parameter to the type of the object being registered. The event will contain the registry to register things to (`getRegistry`), and things may be registered with `register`(`All`) on the registry. Here's an example of an event handler that registers blocks:
+The recommended way to register things is through the `RegistryEvent`s. In `RegistryEvent.NewRegistry`, registries should be created. Later, `RegistryEvent.Register` is fired once for each registered registry. Because `Register` is a generic event, the event handler should set the type parameter to the type of the object being registered. The event will contain the registry to register things to (`getRegistry`), and things may be registered with `register` (or `registerAll`) on the registry. Here's an example of an event handler that registers blocks:
 
 ```java
 @SubscribeEvent
