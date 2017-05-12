@@ -7,7 +7,7 @@ Most things that require registration in the game are handled by the Forge regis
 
 The default implementation of `IForgeRegistryEntry` (`IForgeRegistryEntry.Impl`) also provides two convenience implementations of `setRegistryName`: one where the parameter is a single string, and one where there are two string parameters. The overload that takes a single string checks whether the input contains a `:` (i.e. it checks whether the passed in stringified `ResourceLocation` has a domain), and if it doesn't it uses the current modid as the resource domain. The two argument overload simply constructs the registry name using the `modID` as the domain and `name` as the path.
 
-There also exists the "registry registry", a registry that registers other registries. This registry registers registries with `ResourceLocation` names and secondary `Class` keys. This allows one to look up the registry that registers a certain class (e.g. one can look up `Block.class` in the registry registry with `GameRegistry.findRegistry` to get the registry that registers blocks).
+There's also a global registry, which is where all the other registries are stored. By taking a `Class` that a registry is supposed to store or its `ResourceLocation` name, you can get out the registry for that type. For example, one can use `GameRegistry.findRegistry(Block.class)` to get the registry for blocks.
 
 Registering Things
 ------------------
