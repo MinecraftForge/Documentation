@@ -10,6 +10,7 @@ pages:
     - Sides: 'concepts/sides.md'
     - Resources: 'concepts/resources.md'
     - Registries: 'concepts/registries.md'
+    - The Fingerprint Violation Event: 'concepts/jarsigning.md'
   - Blocks:
     - Home: 'blocks/blocks.md'
     - Interaction: 'blocks/interaction.md'
