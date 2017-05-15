@@ -38,7 +38,7 @@ Blocks must be [registered][registering] to function.
 Coloring a Block
 ----------------
 
-For some blocks, Minecraft paints one texture with different color. Color of grass, vines, waterlilys and what not changes depending on the biome it's placed in.
+For some blocks, Minecraft paints one texture with different colors. Color of grass, vines, waterlilys and what not changes depending on the biome it's placed in.
 
 ### Block Color Handlers
 
