@@ -35,6 +35,37 @@ Blocks must be [registered][registering] to function.
 
     When a block is registered, *only* a block is registered. The block does not automatically have an `ItemBlock`. To create a basic `ItemBlock` for a block one should use `new ItemBlock(block).setRegistryName(block.getRegistryName())`. The unlocalized name is the same as the block's. Custom subclasses of `ItemBlock` may be used as well. Once an `ItemBlock` has been registered for a block, `Item.getItemFromBlock` can be used to retrieve it. `Item.getItemFromBlock` will return `null` if there is no ItemBlock for the Block, so if you are not certain that there is an ItemBlock for the Block you are using, check for null.
 
+Coloring a Block
+----------------
+
+For some blocks, Minecraft paints one texture with different color. Color of grass, vines, waterlilys and what not changes depending on the biome it's placed in.
+
+### Color Handlers
+
+Color handler is just an instance of `IBlockColor`. The interface itself contains only one method. Its full description follows.
+
+```java
+colorMultiplier(
+IBlockState state, 
+@Nullable IBlockAccess worldIn, 
+@Nullable BlockPos pos, 
+int tintIndex)
+```
+
+It provides some information about the block, making it possible to change color dynamically. And if three first parameters are frequently met and therefore easy to understand, the last one causes all the trouble.
+
+Tint index is specified in block's model json file and literally is a number you set yourself just for you. Set multiple tint indexes and return different colors based on them, if you need two or more colors in your block. Block's digging and hitting particles are hardcoded to have zeroth tint index.
+
+### Registering a Color Handler
+
+Color handlers are registered by calling `BlockColors.registerBlockColorHandler(colorHandler, block)` on an instance of `BlockColors`. Same can be done for muliple blocks.
+
+!!! importamt
+	This must be done during the initialization phase and only on the client side.
+
+!!! important
+	`BlockColors` class is obtained via `Minecraft.getMinecraft().getBlockColors()`. Do NOT create any own instances, since they will be absolutely useless.
+
 Further Reading
 ---------------
 
