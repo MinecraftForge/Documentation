@@ -30,4 +30,33 @@ Registering an Item
 
 Items must be [registered][registering] to function.
 
+Coloring an Item
+----------------
+
+There are items Minecraft prefers to render by coloring one single texture. Leather helmets, spawn eggs, potions and other.
+
+### Item Color Handler
+
+Item color handler is just an instance of `IItemColor`. The interface contains only one method:
+
+```java
+getColorFromItemstack(
+  ItemStack stack, 
+  int tintIndex)
+```
+
+It provides ItemStack of item that is being painted and the tint index. 
+
+When coloring an ItemBlock, the tint index is the same thing as it is with the blocks, but if an Item is being painted, the tint index value indicates which layer is being painted. Layers of item are specified in its model json file and are layers of its texture.
+
+### Registering a Item Color Handler
+
+Item color handlers are registered by calling `ItemColors.registerItemColorHandler(colorHandler, item)` on an instance of `ItemColors`. Same can be done for multiple items.
+
+!!! important
+    This must be done during the initialization phase and only on the client side.
+	
+!!! important
+    Instance of `ItemColors` is obtained via `Minecraft.getMinecraft().getItemColors()`. Do NOT create any own, since they will be absolutely useless.
+
 [registering]: ../concepts/registries.md#registering-things
