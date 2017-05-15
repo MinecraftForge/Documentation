@@ -33,30 +33,26 @@ Items must be [registered][registering] to function.
 Coloring an Item
 ----------------
 
-There are items Minecraft prefers to render by coloring one single texture. Leather helmets, spawn eggs, potions and other.
+There are items, textures of which are colored within the code, and in fact, there are a lot of such items. For example, leather helmets, spawn eggs, potions and other.
 
-### Item Color Handler
+### Item Color Handlers
 
-Item color handler is just an instance of `IItemColor`. The interface contains only one method:
+An item color handler is required to color an item and is an instance of `IItemColor`, and therefore implements the following method.
 
 ```java
-getColorFromItemstack(
+int getColorFromItemstack(
   ItemStack stack, 
   int tintIndex)
 ```
 
-It provides ItemStack of item that is being painted and the tint index. 
+This method returns a hex representation of a color in an integer.
 
-When coloring an ItemBlock, the tint index is the same thing as it is with blocks, but if an Item is being painted, the tint index value indicates which layer of an item is being painted. Layers of item are specified in its model JSON file and are layers of its texture.
+If the subject of coloring is a regular `Item`, the tint index will show an index of item's texture layer that is being drawn. Layers of item's texture are specified in its model JSON file.
+
+But if the subject of coloring is an `ItemBlock`, the tint index will work exactly the same [way as it works for blocks](../blocks/blocks.md#coloring-a-block).
 
 ### Registering an Item Color Handler
 
-Item color handlers are registered by calling `ItemColors.registerItemColorHandler(colorHandler, item)` on an instance of `ItemColors`. Same can be done for multiple items.
-
-!!! important
-    This must be done during the initialization phase and only on the client side.
-	
-!!! important
-    Instance of `ItemColors` is obtained via `Minecraft.getMinecraft().getItemColors()`. Do NOT create any own, since they will be absolutely useless.
+Item color handlers must be registered by calling `ItemColors#registerItemColorHandler(IItemColor, Item)` to function. Same can be done for multiple items. An instance of `ItemColors` can be obtained by calling `Minecraft#getItemColors()`. This must be done during the initialization phase and only on the client side.
 
 [registering]: ../concepts/registries.md#registering-things

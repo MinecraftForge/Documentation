@@ -38,37 +38,35 @@ Blocks must be [registered][registering] to function.
 Coloring a Block
 ----------------
 
-For some blocks, Minecraft paints one texture with different colors. Color of grass, vines, waterlilys and what not changes depending on the biome it's placed in.
+There can be blocks, textures of which are colored within the code, and in fact, there are a lot of such blocks. For instance, color of grass, vines, waterlilys and etc. changes depending on the biome it's placed in.
 
 ### Block Color Handlers
 
-Block color handler is just an instance of `IBlockColor`. The interface itself contains only one method. Its full description follows.
+A block color handler is required to color a block and is an instance of `IBlockColor`, and therefore implements the following method.
 
 ```java
-colorMultiplier(
+int colorMultiplier(
   IBlockState state, 
   @Nullable IBlockAccess worldIn, 
   @Nullable BlockPos pos, 
   int tintIndex)
 ```
 
-It provides some information about the block, making it possible to change color dynamically. And if three first parameters are frequently met and therefore easy to understand, the last one causes all the trouble.
+This method returns a hex representation of a color in an integer. 
 
-Tint index is specified in block's model JSON file and literally is a number you set yourself just for you. Set multiple tint indexes and return different colors based on them, if you need two or more colors in your block. Block's digging and hitting particles are hardcoded to have zeroth tint index.
+Objects passed to the method make it possible to change color multiplier dynamically. `BlockModelRenderer#renderModelBrightness(IBakedModel, IBlockState, float, boolean)` passes null `worldIn` and `pos` calling the method. 
+
+The tint indexes are specified in block's model JSON file and are used to identify the element, color for painting which is requested. Block's digging and hitting particles are hardcoded to have zeroth tint index.
 
 ### Registering a Block Color Handler
 
-Block color handlers are registered by calling `BlockColors.registerBlockColorHandler(colorHandler, block)` on an instance of `BlockColors`. Same can be done for muliple blocks.
+Block color handlers must be registered by calling `BlockColors#registerBlockColorHandler(IBlockColor, Block)` to function. Same can be done for muliple blocks. An instance of `BlockColors` can be obtained by calling `Minecraft#getBlockColors()`. 
 
-!!! importamt
-    This must be done during the initialization phase and only on the client side.
-
-!!! important
-    Instance of `BlockColors` is obtained via `Minecraft.getMinecraft().getBlockColors()`. Do NOT create any own instances, they will be absolutely useless.
+This must be done during the initialization phase and only on the client side.
 	
 ### Registering a Handler for `ItemBlock`
 
-Instances of `ItemBlock` are items, and so they must be [registered and painted][] as items are.
+Instances of `ItemBlock` are items, and so they must be [registered and painted](../items/items.md#coloring-an-item) as items are.
 
 Further Reading
 ---------------
@@ -78,4 +76,3 @@ For information about block properties, such as those used for vanilla blocks li
 [sounds]: ../effects/sounds.md
 [registering]: ../concepts/registries.md#registering-things
 [blockstates]: ../blockstates/states.md
-[registered and painted]: ../items/items.md#coloring-an-item
