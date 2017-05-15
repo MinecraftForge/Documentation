@@ -47,7 +47,7 @@ getColorFromItemstack(
 
 It provides ItemStack of item that is being painted and the tint index. 
 
-When coloring an ItemBlock, the tint index is the same thing as it is with blocks, but if an Item is being painted, the tint index value indicates which layer of an item is being painted. Layers of item are specified in its model json file and are layers of its texture.
+When coloring an ItemBlock, the tint index is the same thing as it is with blocks, but if an Item is being painted, the tint index value indicates which layer of an item is being painted. Layers of item are specified in its model JSON file and are layers of its texture.
 
 ### Registering an Item Color Handler
 

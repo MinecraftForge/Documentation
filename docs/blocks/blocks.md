@@ -54,7 +54,7 @@ colorMultiplier(
 
 It provides some information about the block, making it possible to change color dynamically. And if three first parameters are frequently met and therefore easy to understand, the last one causes all the trouble.
 
-Tint index is specified in block's model json file and literally is a number you set yourself just for you. Set multiple tint indexes and return different colors based on them, if you need two or more colors in your block. Block's digging and hitting particles are hardcoded to have zeroth tint index.
+Tint index is specified in block's model JSON file and literally is a number you set yourself just for you. Set multiple tint indexes and return different colors based on them, if you need two or more colors in your block. Block's digging and hitting particles are hardcoded to have zeroth tint index.
 
 ### Registering a Block Color Handler
 
