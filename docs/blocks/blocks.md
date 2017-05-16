@@ -56,7 +56,7 @@ This method returns a hex representation of a color in an integer.
 
 Objects passed to the method make it possible to change color multiplier dynamically. `BlockModelRenderer#renderModelBrightness(IBakedModel, IBlockState, float, boolean)` passes null `worldIn` and `pos` calling the method. 
 
-The tint indexes are specified in block's model JSON file and are used to identify the element, color for painting which is requested. Block's digging and hitting particles are hardcoded to have zeroth tint index.
+Tint indexes are specified for faces of an element in block's model JSON file. When a face with a tint index is being drawn, its tint index is passed to the method. A face without a tint index won't be colored. Block's digging and hitting particles are hardcoded to have zeroth tint index.
 
 ### Registering a Block Color Handler
 

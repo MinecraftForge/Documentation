@@ -47,9 +47,7 @@ int getColorFromItemstack(
 
 This method returns a hex representation of a color in an integer.
 
-If the subject of coloring is a regular `Item`, the tint index will show an index of item's texture layer that is being drawn. Layers of item's texture are specified in its model JSON file.
-
-But if the subject of coloring is an `ItemBlock`, the tint index will work exactly the same [way as it works for blocks](../blocks/blocks.md#coloring-a-block).
+Tint indexes are specified for faces of an element in item's model JSON file. When a face with a tint index is being drawn, its tint index is passed to the method. A face without a tint index won't be colored. 
 
 ### Registering an Item Color Handler
 
