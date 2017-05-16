@@ -47,7 +47,7 @@ int getColorFromItemstack(
 
 This method returns a hex representation of a color in an integer.
 
-Tint indexes are specified for faces of an element in item's model JSON file. When a face with a tint index is being drawn, its tint index is passed to the method. A face without a tint index won't be colored. 
+Tint indexes are specified for faces of an element in item's model JSON file. When a face with a tint index is being drawn, its tint index is passed to the method. A face without a tint index won't be colored. Layer indexes are used as tint indexes for items, models of which inherit `builtin/generted` model.
 
 ### Registering an Item Color Handler
 
