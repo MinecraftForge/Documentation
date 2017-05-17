@@ -58,7 +58,7 @@ This method returns a hex representation of a color in an integer.
 
 #### Parameters
 
-The `IBlockState`, `IBlockAccess` and `BlockPos` passed to the method make it possible to change color multiplier dynamically, but the method can be called with null `IBlockAccess` and `BlockPos` by `BlockModelRenderer`, when it renders model's brightness.
+The `IBlockState`, `IBlockAccess` and `BlockPos` passed to the method make it possible to change color multiplier dynamically. Note that `IBlockAccess` and `BlockPos` parameters are nullable.
 
 Tint indices are specified for faces of an element in block's model JSON file. A face without a tint index won't be colored, and therefore won't have its color handler called. Block digging and hitting particles are hardcoded to have zeroth tint index.
 
