@@ -38,11 +38,11 @@ Blocks must be [registered][registering] to function.
 Coloring a Block
 ----------------
 
-There can be blocks, textures of which are colored within the code, and in fact, there are a lot of such blocks. For instance, color of grass, vines, waterlilys and etc. changes depending on the biome it's placed in.
+Blocks' textures can be programmatically colored. Many Vanilla blocks utilize this functionality. For instance, color of grass, vines, waterlilys and etc. changes depending on the biome it's placed in.
 
 ### Block Color Handlers
 
-A block color handler is required to color a block and is an instance of `IBlockColor`, and therefore implements the following method.
+A block color handler is required to color a block and is an instance of `IBlockColor`, which adds the following method.
 
 ```java
 int colorMultiplier(
@@ -54,9 +54,9 @@ int colorMultiplier(
 
 This method returns a hex representation of a color in an integer. 
 
-Objects passed to the method make it possible to change color multiplier dynamically. `BlockModelRenderer#renderModelBrightness(IBakedModel, IBlockState, float, boolean)` passes null `worldIn` and `pos` calling the method. 
+The `IBlockState`, `IBlockAccess` and `BlockPos` passed to the method make it possible to change color multiplier dynamically. `BlockModelRenderer#renderModelBrightness(IBakedModel, IBlockState, float, boolean)` passes null `worldIn` and `pos` calling the method.
 
-Tint indexes are specified for faces of an element in block's model JSON file. When a face with a tint index is being drawn, its tint index is passed to the method. A face without a tint index won't be colored. Block's digging and hitting particles are hardcoded to have zeroth tint index.
+Tint indexes are specified for faces of an element in block's model JSON file. A face without a tint index won't be colored, and therefore won't have its color handler called. Block's digging and hitting particles are hardcoded to have zeroth tint index.
 
 ### Registering a Block Color Handler
 
@@ -66,7 +66,7 @@ This must be done during the initialization phase and only on the client side.
 	
 ### Registering a Handler for `ItemBlock`
 
-Instances of `ItemBlock` are items, and so they must be [registered and painted](../items/items.md#coloring-an-item) as items are.
+Instances of `ItemBlock` are items, and so they must be [registered and colored](../items/items.md#coloring-an-item) as items are.
 
 Further Reading
 ---------------
