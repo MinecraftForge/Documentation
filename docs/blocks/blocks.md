@@ -54,19 +54,19 @@ int colorMultiplier(
 
 This method returns a hex representation of a color in an integer. 
 
-The `IBlockState`, `IBlockAccess` and `BlockPos` passed to the method make it possible to change color multiplier dynamically. `BlockModelRenderer#renderModelBrightness(IBakedModel, IBlockState, float, boolean)` passes null `worldIn` and `pos` calling the method.
+The `IBlockState`, `IBlockAccess` and `BlockPos` passed to the method make it possible to change color multiplier dynamically, but the method can be called with null `IBlockAccess` and `BlockPos` by `BlockModelRenderer`, when it renders model's brightness.
 
 Tint indexes are specified for faces of an element in block's model JSON file. A face without a tint index won't be colored, and therefore won't have its color handler called. Block's digging and hitting particles are hardcoded to have zeroth tint index.
 
 ### Registering a Block Color Handler
 
-Block color handlers must be registered by calling `BlockColors#registerBlockColorHandler(IBlockColor, Block)` to function. Same can be done for muliple blocks. An instance of `BlockColors` can be obtained by calling `Minecraft#getBlockColors()`. 
+Block color handlers must be registered by calling `BlockColors#registerBlockColorHandler(IBlockColor, Block...)` to function. Same can be done for muliple blocks. An instance of `BlockColors` can be obtained by calling `Minecraft#getBlockColors()`. 
 
 This must be done during the initialization phase and only on the client side.
 	
 ### Registering a Handler for `ItemBlock`
 
-Instances of `ItemBlock` are items, and so they must be [registered and colored](../items/items.md#coloring-an-item) as items are.
+Instances of `ItemBlock` are items, and so they must be [registered and colored][] as items are.
 
 Further Reading
 ---------------
@@ -76,3 +76,4 @@ For information about block properties, such as those used for vanilla blocks li
 [sounds]: ../effects/sounds.md
 [registering]: ../concepts/registries.md#registering-things
 [blockstates]: ../blockstates/states.md
+[registered and colored]: ../items/items.md#coloring-an-item
