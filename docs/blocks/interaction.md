@@ -64,7 +64,25 @@ Another common use for activation is, well, activation. This can be something li
 
 Player Break/Destroy
 --------------------
-*Coming Soon*
+### `breakBlock`
+
+This method is called when the block is broken. It is called on the server only.
+
+It is called before the tile entity, if it has one, is updated (and therefore removed from the world), but after the block has been replaced by another in the chunk.
+
+Its full signature is as follows:
+```java
+public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+```
+
+A common usage for this method is to handle the dropping of a block's inventory items.
+
+#### Return Value
+
+It has no return value.
+
+#### Parameters
+The parameters are the current world (`World`), position (`BlockPos`), and state (`IBlockState`) of the block. These should all be obvious.
 
 Player Highlighting
 -------------------
@@ -72,6 +90,21 @@ Player Highlighting
 
 Entity Collision
 ----------------
-*Coming Soon*
+### `onEntityWalk`
+
+This method is called as entities travel over the top of the block.
+
+Its full signature is as follows:
+```java
+public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn)
+```
+
+#### Return Value
+
+It has no return value.
+
+#### Parameters
+
+The first parameters, the current world (`World`) and position (`BlockPos`), are the same as most other interaction methods. The last parameter (`Entity`), is the entity which is currently walking on top of the block.
 
 [sidedness]: ../concepts/sides.md
