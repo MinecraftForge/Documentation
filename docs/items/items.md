@@ -51,7 +51,7 @@ Tint indexes are specified for faces of an element in item's model JSON file. A 
 
 ### Registering an Item Color Handler
 
-Item color handlers must be registered by calling `ItemColors#registerItemColorHandler(IItemColor, Item)` to function. Same can be done for multiple items. An instance of `ItemColors` can be obtained by calling `Minecraft#getItemColors()`. 
+Item color handlers must be registered by calling `ItemColors#registerItemColorHandler(IItemColor, Item...)` to function. An instance of `ItemColors` can be obtained by calling `Minecraft#getItemColors()`. 
 
 This must be done during the initialization phase and only on the client side.
 
