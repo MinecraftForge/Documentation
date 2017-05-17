@@ -38,7 +38,7 @@ Blocks must be [registered][registering] to function.
 Coloring a Block
 ----------------
 
-Blocks' textures can be programmatically colored. Many Vanilla blocks utilize this functionality. For instance, color of grass, vines, waterlilys and etc. changes depending on the biome it's placed in.
+Block textures can be programmatically colored. Many Vanilla blocks utilize this functionality. For instance: grass, vines, waterlilys and etc. change color depending on the biome they are in.
 
 ### Block Color Handlers
 
@@ -60,7 +60,7 @@ This method returns a hex representation of a color in an integer.
 
 The `IBlockState`, `IBlockAccess` and `BlockPos` passed to the method make it possible to change color multiplier dynamically, but the method can be called with null `IBlockAccess` and `BlockPos` by `BlockModelRenderer`, when it renders model's brightness.
 
-Tint indexes are specified for faces of an element in block's model JSON file. A face without a tint index won't be colored, and therefore won't have its color handler called. Block's digging and hitting particles are hardcoded to have zeroth tint index.
+Tint indices are specified for faces of an element in block's model JSON file. A face without a tint index won't be colored, and therefore won't have its color handler called. Block digging and hitting particles are hardcoded to have zeroth tint index.
 
 ### Registering a Block Color Handler
 
