@@ -49,15 +49,21 @@ A class may be annotated with the `@Mod.EventBusSubscriber` annotation. Such a c
 !!! note
     This does not register an instance of the class; it registers the class itself (i.e. the event handling methods must be static).
 
-Canceling & Results
--------------------
+Canceling
+---------
 
-If an event can be canceled, it will be marked with the `@Cancelable`. Events can be canceled by calling `setCanceled` on them with a boolean indicated if the event is canceled or not. If the event cannot be canceled, an `IllegalArgumentException` is thrown.
+If an event can be canceled, it will be marked with the `@Cancelable` annotation, and the method `Event#isCancelable()` will return `false`. The cancel state of a cancelable event may be modified by calling `Event#setCanceled(boolean canceled)`, wherin passing the boolean value `true` is interpreted as canceling the event, and passing the boolean value `false` is interpreted as "un-canceling" the event. However, if the event cannot be canceled (as defined by `Event#isCancelable()`), an `UnsupportedOperationException` will be thrown regardless of the passed boolean value, since the cancel state of a non-cancelable event event is considered immutable.
+
+!!! important
+    Not all events can be canceled! Attempting to cancel an event that is not cancelable will result in an unchecked `UnsupportedOperationException` being thrown, which is expected to result in the game crashing! Always check that an event can be canceled using `Event#isCancelable()` before attempting to cancel it!
+
+Results
+-------
+
+Some events have an `Event.Result`, a result can be one of three things, `DENY` which stops the event, `DEFAULT` which uses the Vanilla behavior, and `ALLOW` which forces the action to take place, regardless if it would have originally. The result of an event can be set by calling `setResult` with an `Event.Result` on the event. Not all events have results, an event with a result will be annotated with `@HasResult`.
 
 !!! important
     Different events may use results in different ways, refer to the event's JavaDoc before using the result.
-
-Some events have an `Event.Result`, a result can be one of three things, `DENY` which stops the event, `DEFAULT` which uses the Vanilla behavior, and `ALLOW` which forces the action to take place, regardless if it would have originally. The result of an event can be set by calling `setResult` with an `Event.Result` on the event. Not all events have results, an event with a result will be annotated with `@HasResult`.
 
 Priority
 --------
