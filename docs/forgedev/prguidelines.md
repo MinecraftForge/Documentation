@@ -35,12 +35,12 @@ For more detailed information about creating patches, [see the GitHub wiki](http
 Forge Code
 ----------
 
-Aside from the patches, Forge code is just normal java code. It can be event code, compatibility features, or anything else that's not directly editing Minecraft code.
+Aside from the patches, Forge code is just normal Java code. It can be event code, compatibility features, or anything else that's not directly editing Minecraft code.
 When Minecraft updates, Forge code has to update just like everything else. However, it's much easier because it is not directly entangled in the Minecraft code.
 
 Because this code stands on its own, there is no size restriction like there is with the patches.
 
-In addition to making sure the code makes sense, reviews for this code will focus on making the code clean, with proper formatting and java documentation.
+In addition to making sure the code makes sense, reviews for this code will focus on making the code clean, with proper formatting and Java documentation.
 
 Explain Yourself
 ----------------
