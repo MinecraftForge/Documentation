@@ -3,7 +3,8 @@ $(document).ready(function () {
     var elementPosition = $('aside').offset();
     $(window).scroll(function () {
         var mq = window.matchMedia("(max-width: 1080px)");
-        if (!mq.matches && $(window).scrollTop() >= elementPosition.top - 16) {
+        var fontSize = parseInt($("html").css("font-size")); // 1rem = base font size
+        if (!mq.matches && $(window).scrollTop() >= elementPosition.top - fontSize) {
             $('.sidebar-sticky aside').css('position', 'fixed').css('top', '1rem');
         } else {
             $('.sidebar-sticky aside').css('position', 'relative').css('top', '0');
