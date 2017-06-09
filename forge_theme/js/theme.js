@@ -1,15 +1,6 @@
 $(document).ready(function () {
     // Sidebars always are in asides
-    var elementPosition = $('aside').offset();
-    $(window).scroll(function () {
-        var mq = window.matchMedia("(max-width: 1080px)");
-        var fontSize = parseInt($("html").css("font-size")); // 1rem = base font size
-        if (!mq.matches && $(window).scrollTop() >= elementPosition.top - fontSize) {
-            $('.sidebar-sticky aside').css('position', 'fixed').css('top', '1rem');
-        } else {
-            $('.sidebar-sticky aside').css('position', 'relative').css('top', '0');
-        }
-    });
+    $('.sidebar-sticky').Stickyfill();
     $('.scroll-pane').jScrollPane({
         autoReinitialise: true,
         verticalGutter: 0,
