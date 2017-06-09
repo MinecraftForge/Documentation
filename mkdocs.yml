@@ -43,8 +43,5 @@ markdown_extensions:
   - sane_lists
   - pymdownx.superfences
 
-extra_css:
-  - css/style_fixes.css
-
 theme: null
 theme_dir: 'forge_theme'
