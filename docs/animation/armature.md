@@ -154,8 +154,9 @@ Each `joint_clip` is a set of variables to change for a joint. The `type` attrib
 `samples` defines what value the animation will take on, and its interpretation depends on the value of `interpolation`.
 
 `interpolation` can be one of the following:
-  - nearest - if value < 0.5 use the first sample, else the second sample. Useful for static variables if only given one value
-  - linear - linearly interpolate between samples
+
+ - nearest - if value < 0.5 use the first sample, else the second sample. Useful for static variables if only given one value
+ - linear - linearly interpolate between samples
 
 `variable` can be one of the following:
 
