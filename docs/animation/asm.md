@@ -1,7 +1,7 @@
-ASM Files
+Animation State Machine Files
 ===========
 
-ASM Files are the meat of the animation API. These define how the animation is carried out and how to use the clips defined in the armature file.
+Animation State Machine (ASM) Files are the meat of the animation API. These define how the animation is carried out and how to use the clips defined in the armature file.
 
 Concepts
 ----------
@@ -85,7 +85,8 @@ set it from within our code.
 Using an ASM instance, you can get the current state with `.currentState()` and transition to another state with `.transition(nextState)`
  
 `VariableValue` parameters can have their value set by calling `.setValue`, but oddly you can not read this value back. There is no need
-to inform the ASM of this change, it happens automatically.
+to inform the ASM of this change, it happens automatically. All of the other clips can be used from code too if you so desire, but I will not
+go into their API here as they are mainly designed to be used in the JSON files.
 
 File Format
 -------------
@@ -122,7 +123,7 @@ All of these tags are required, even if they are empty.
 
 Different types of parameters have different formats for `<parameter_definition>`, and the simple ones are:
 
-- `IdentityValue`: the string `#identity`
+- `IdentityValue`: the string `#identity`,
 - `ParameterValue`: the parameter to reference, prefixed with `#`, e.g. `#my_awesome_parameter`
 - `ConstValue`: a number to use as the constant to return
 
@@ -227,4 +228,85 @@ a parameter instead of the current time.
 
 Format: `[ "trigger_positive", <clip_definition>, <parameter_definition>, "event_text"]`
 
-TODO
+##### Examples
+
+```json
+[ "trigger_positive", "#default", "#end_cycle", "!transition:moving" ]
+[ "trigger_positive", "mymod:block/animated_thing@moving", "#end_cycle", "boop" ] 
+```
+
+##### Explanation
+
+The `TriggerClip` visually acts as a `TimeClip`, but also fires the event in `event_text` when the `parameter_description` goes positive.
+At the same time, it applies the clip in `clip_definition` with the same `parameter_description`.
+
+##### Example explanations
+
+- apply the clip with name default given the input of parameter end_cycle, and when end_cycle is positive transition to the moving state
+- apply the armature-clip mymod:block/animated_thing@moving with parameter end_cylce, and when end_cycle is positive fire event "boop"
+
+#### `SlerpClip`
+
+Format: `[ "slerp", <clip_definition>, <clip_definition>, <parameter_definition>, <parameter_definition> ]`
+
+##### Examples
+
+```json
+[ "slerp", "#closed", "#open", "#identity", "#progress" ]
+[ "slerp", [ "apply", "#move", "#mover"], "#end", "#identity", "#progress" ]
+```
+
+##### Explanation
+
+The `SlerpClip` performs a spherical linear blend between two seperate clips. In other words, it will morph one clip into another smoothly
+The two `clip_definition`s are the clip to blend from and to respectively. The first `parameter_definition` is the "input". Both the from and to clips
+are passed the ouptut of this parameter with the current animation time. The second `parameter_definition` is the "progress", a value between 0 and 1 to denote
+how far into the blend we are. Combining this clip with trigger_positive and transition special events can allow for simple transitions between two solid states.
+
+###### Example explanations
+
+- blend the closed clip to the open clip, giving both clips the unaltered time as input and blend progress `#progress`.
+- blend the result of the move clip when given the input parameter `mover` to the end clip with the unaltered time as the input with blend progress `#progress`.
+
+### States
+
+The states section of the file is simply a list of all possible states.
+For example 
+```json
+"states": {
+  "open",
+  "closed",
+  "opening",
+  "closing",
+  "dancing"
+}
+```
+defines 5 states: open, closed, opening, closing and dancing.
+
+## Transitions
+
+The transitions section defines which states can go to what other states. A state can go to 0, 1, or many other states.
+To define a state as going to no other states, omit it from the section. To define a state as going to only one other state, create a key
+with the value of the state it can go to, for example `"open": "opening"`. To define a state as going to many other states, do the same as
+if it were going to only one other state but make the value a list of all possible recieving states instead, for example: `"open": ["closed", "opening"]`.
+
+A more full example:
+
+```json
+"transitions": {
+  "open": "closing",
+  "closed": [ "dancing", "opening" ],
+  "closing": "closed",
+  "opening": "open",
+  "dancing": "closed"
+}
+```
+
+This example means that:
+
+- the open state can go to the closing state
+- the closed state can go to either the dancing or opening state
+- the closing state can go to the closed state
+- the opening state can go to the open state
+- the dancing state can go to the closed state
+
