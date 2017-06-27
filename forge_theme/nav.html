@@ -1,0 +1,34 @@
+{% if not nav_item.children %}
+<li {% if nav_item.active %}class="elem-active{% if toc %} elem-toc{% endif %}" {% endif %}>
+    {% if nav_item.active %}
+    <a href="{{ (toc|first).url }}" class="elem-text">{{ nav_item.title }}</a>
+    {% else %}
+    <a href="{{ nav_item.url }}" class="elem-text">{{ nav_item.title }}</a>
+    {% endif %}
+    {% if nav_item.active %}
+    <ul class="table-of-contents">
+        {% for toc_item in toc %}
+        {% if toc_item != (toc|first) %}
+        <li class="toc-item"><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
+        {% endif %}
+        {% for toc_item in toc_item.children %}
+        <li class="toc-subitem"><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
+        {% endfor %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+</li>
+{% else %}
+<li class="elem-parent">
+    {% if nav_item.children.active %}
+    <a href="{{ (toc|first).url }}" class="elem-text">{{ nav_item.title }}</a>
+    {% else %}
+    <a href="#" class="elem-text toggle-collapsible"><span class="fa fa-plus collapsible-icon"></span> {{ nav_item.title }}</a>
+    {% endif %}
+    <ul class="nav-collapsible {% if nav_item.active %}nav-collapsible-open{% endif %}">
+        {% for nav_item in nav_item.children %}
+        {% include "nav.html" %}
+        {% endfor %}
+    </ul>
+</li>
+{% endif %}

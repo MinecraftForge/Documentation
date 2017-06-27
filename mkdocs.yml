@@ -49,8 +49,9 @@ markdown_extensions:
   - admonition
   - smarty
   - sane_lists
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      use_pygments: false
 
-extra_css:
-  - css/style_fixes.css
-
-theme: readthedocs
+theme: null
+theme_dir: 'forge_theme'
