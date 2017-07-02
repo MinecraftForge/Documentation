@@ -23,6 +23,8 @@ public void registerBlocks(RegistryEvent.Register<Block> event) {
 
 The order in which `RegistryEvent.Register` events fire is arbitrary, with the exception that `Block` will *always* fire first, and `Item` will *always* fire second, right after `Block`. After the `Register<Block>` event has fired, all [`ObjectHolder`][ObjectHolder] annotations are refreshed, and after `Register<Item>` has fired they are refreshed again. They are refreshed for a third time after *all* of the other `Register` events have fired.
 
+`RegistryEvent`s are currently supported for the following types: `Block`, `Item`, `Potion`, `Biome`, `SoundEvent`, `PotionType`, `Enchantment`, `IRecipe`, `VillagerProfession`, `Entity`
+
 There is another, older way of registering objects into registries, using `GameRegistry.register`. Anytime something suggests using this method, it should be replaced with an event handler for the appropriate registry event. This method simply finds the registry corresponding to an `IForgeRegistryEntry` with `IForgeRegistryEntry::getRegistryType`, and then registers the object to the registry. There is also a convenience overload that takes an `IForgeRegistryEntry` and a `ResourceLocation`, which is equivalent to calling `IForgeRegistryEntry::setRegistryName`, followed by a `GameRegistry.register` call.
 
 Creating Registries
