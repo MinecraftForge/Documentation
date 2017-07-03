@@ -12,7 +12,7 @@ Each of these stages occurs at a different point in the loading stage and thus w
 !!! important
 
     Many objects that were previously registered in loading stage event handlers (Blocks, Items, Recipes, etc.) should now be registered via [RegistryEvents][registering].
-    This is to pave the way to being able to reload mods dyanamically at runtime, which can't be done using loading stages (as they are fired once upon application startup).
+    This is to pave the way to being able to reload mods dynamically at runtime, which can't be done using loading stages (as they are fired once upon application startup).
     RegistryEvents are fired after Pre-Initialization.
 
 ## Pre-Initialization
