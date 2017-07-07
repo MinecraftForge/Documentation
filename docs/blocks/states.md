@@ -84,7 +84,7 @@ If you declare any `IProperty`'s, you **must** override `getMetaFromState` and `
 Here you will read the values of your properties and return an appropriate integer between 0 and 15, or the other way around; the reader is left to check examples from vanilla blocks by themselves.
 
 !!! Warning
-    Your getMetaFromState and getStateFromMeta methods **must** be one to one! In other words, the same set of properties and values must map to the same meta value and back. Failing to do this, unfortunately, **won't** cause a crash. It'll just cause everything to behave extremely weirdly.
+    Your `getMetaFromState` and `getStateFromMeta` methods **must** be one to one! In other words, the same set of properties and values must map to the same meta value and back. Failing to do this, unfortunately, **won't** cause a crash. It'll just cause everything to behave extremely weirdly.
 
 
 "Actual" States
@@ -96,6 +96,9 @@ Blocks can declare properties that are not saved to metadata. These are usually 
 You still declare them in `createBlockState` and set their value in `setDefaultState`. However, these properties you do **not** touch **at all** in `getMetaFromState` and `getStateFromMeta`.
 
 Instead, override `getActualState` in your Block class. Here you will receive the `IBlockState` corresponding with the metadata in the world, and you return another `IBlockState` with missing information such as fence connections, redstone connections , etc. filled in using `withProperty`. You can also use this to read Tile Entity data for a value (with appropriate safety checks of course!).
+
+!!! Warning
+    When you read tile entity data in `getActualState` you must perform additional safety checks. By default, `getTileEntity` attempts to create the tile entity if it is not already present. However, `getActualState` and `getExtendedState` can and will be called from different threads, which can cause the world's tile entity list to throw a `ConcurrentModificationException` if it tries to create a missing tile entity. Therefore, you must check if the `IBlockAccess` argument is a `ChunkCache` (the object passed to alternate threads), and if so, cast and use the non-writing variant of `getTileEntity`. An example of this safety check can be found in `BlockFlowerPot.getActualState()`.
 
 !!! Note
     Querying `world.getBlockState()` will give you the `IBlockState` representing only the metadata. Thus the returned `IBlockState` will not have data from `getActualState` filled in. If that matters to your code, make sure you call `getActualState`!
