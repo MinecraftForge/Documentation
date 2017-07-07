@@ -55,8 +55,7 @@ The defaults section contains the default values for all variants. They can be o
   }
 ```
 
-This defines all variants for the block. The simple dirt block only has its default, the *normal* variant. It does not contain any additional information in this case. Everything that is defined in defaults could also be defined here.
-For example:
+This defines all variants for the block. The simple dirt block only has its default, the *normal* variant. It does not contain any additional information in this case. Everything that is defined in defaults could also be defined here. For example:
 
 ```json
   "normal": [{
@@ -69,6 +68,68 @@ For example:
 ```
 
 This normal variant would use the *cube_column* model with cobblestone on the sides and dirt on top and bottom.
+
+An entry in the `variants` section either defines a [blockstate][] property or a plain variant. A property definition is of the form:
+
+```json
+    "variants": {
+      "property_name": {
+        "value0": {},
+        "value1": {},
+        "__comment": "Etc."
+      }
+   }
+```
+
+A given blockstate can have any number of these. When the blockstate is loaded, the values within each property are used to create all possible variants for the block. The above would create two variants, `property_name=value0` and `property_name=value1`. If there were two properties, it would create variants `prop1=value11,prop2=value21`, `prop1=value12,prop2=value21`, `prop1=value11,prop2=value22`, and so on (where the property names are sorted alphabetically). Each such variant is the union of all the variant definitions that went into it. For example, given:
+
+```json
+{
+  "forge_marker": 1,
+  "variants": {
+    "shiny": {
+      "true":  { "textures": { "all": "some:shiny_texture" } },
+      "false": { "textures": { "all": "some:flat_texture"  } }
+    },
+    "broken": {
+      "true":  { "model": "some:broken_model" },
+      "false": { "model": "some:intact_model" }
+    }
+ }
+}
+```
+
+The variant "broken=false,shiny=true" takes the "some:intact_model" from `variants.broken.true.model`, and the `some:shiny_texture` from `variants.shiny.true.textures`.
+
+An entry can also be a plain variant, like:
+
+```json
+    "variants": {
+      "normal": { "model": "some:model" }
+    }
+```
+
+This kind of definition does not interact with the property definitions. Instead, it defines a variant "normal" directly, without merging with the others. It still inherits from a "defaults" block, if present. If the variant is defined as a list, then each element is a variant definition, and the one that will be used is random:
+
+```json
+    "defaults": { "model": "some:model" }
+    "variants": {
+      "__comment": "When used, the model will have a 75% chance of being rotated.
+      "normal": [{ "y": 0 }, { "y": 90 }, { "y": 180 }, { "y": 270 }]
+    }
+```
+
+A property definition is disambiguated from a straight variant by the type of the first entry. If the first entry of `variants.<something>` is an object, then it is a property definition. If it is anything else, it is a straight variant. In order to avoid mixups, it is recommended to wrap straight variants in a list with one element:
+
+```json
+   "variants": {
+     "simple": [{
+       "custom": {},
+       "model": "some:model"
+       "__comment": "Without the list, the custom: {} would make Forge think this was a property definition."
+     }]
+   }
+```
 
 Sub-Models
 ----------
@@ -138,3 +199,5 @@ Instead of defining "this combination of properties gives model X" we say "**thi
 And here is the result of our work:
 
 ![The model in different variations](example.png)
+
+[blockstate]: ../../blocks/states.md
