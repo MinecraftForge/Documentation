@@ -3,12 +3,10 @@
 
 `IModel` is a type that represents a model in its raw state. This is how a model is represented right after it has been loaded. Usually this directly represents the source of the model (e.g. an object deserialized from JSON, or an OBJ container).
 
-If an `IModel` also implements certain subinterfaces of `IModel`, it can also process some extra information. External entities using the model can do this processing through the static helpers in `ModelProcessingHelper`.
-
 At this high level, a model has no concept of items, blocks, or anything of that sort; it purely represents a shape.
 
 !!! important
-    `IModel` is immutable. Methods such as `IModelCustomData::process` that alter the model should never modify the `IModel`, as they should construct new `IModel`s instead.
+    `IModel` is immutable. Methods such as `process` that alter the model should never mutate the `IModel`, as they should construct new `IModel`s instead.
 
 ### `getDependencies`
 
@@ -22,15 +20,9 @@ This is a collection of the `ResourceLocation`s of all the textures this model d
 
 This is the main method of `IModel`. It takes an [`IModelState`][IModelState], a `VertexFormat`, and a function `ResourceLocation` → `TextureAtlasSprite`, to return an [`IBakedModel`][IBakedModel]. `IBakedModel` is less abstract than `IModel`, and it is what interacts with blocks and items. The function RL → TAS is used to get textures from RLs (i.e. the RLs of textures are passed to this function and the returned TAS contains the texture).
 
-`IAnimatedModel`
-----------------
+### `process`
 
-`IAnimatedModel` is part of the currently WIP animation API. Documentation Coming Soon™.
-
-`IModelCustomData`
-------------------
-
-`IModelCustomData` allows a model to process extra data from external sources. The Forge blockstate variant format provides a way to define this data in the resource pack. Within the Forge blockstate format, the property that is used to pass this data is called `custom`. First, an example:
+This method allows a model to process extra data from external sources. The Forge blockstate variant format provides a way to define this data in the resource pack. Within the Forge blockstate format, the property that is used to pass this data is called `custom`. First, an example:
 
 ```json
 {
@@ -41,7 +33,6 @@ This is the main method of `IModel`. It takes an [`IModelState`][IModelState], a
       "meaningOfLife": 42,
       "showQuestion": false
     },
-    "__comment": "This model will receive the data in custom iff it is an `ICustomModelData`.",
     "model": "examplemod:life_meaning"
   },
   "variants": {
@@ -58,47 +49,19 @@ This is the main method of `IModel`. It takes an [`IModelState`][IModelState], a
 }
 ```
 
-This is fairly self-explanatory. In essence, custom data is just that, custom data that gets processed by the model itself. As seen above, custom data can be of any type. Additionally, it is inherited from the defaults into the variants. Finally, custom data will only be passed to the model if the model is a `IModelCustomData` and implementers of that interface should ignore data they don't understand.
+As seen above, custom data can be of any type. Additionally, it is inherited from the defaults into the variants. The custom data is passed in as an `ImmutableMap<String, String>`. This is a map where the keys are the property names (in the above example, "meaningOfLife", "showQuestion", and "title"). Astute observers may notice that numeric and boolean data were defined in within the blockstate but this method only receives `String`s. This is because all data is converted into strings before being processed. If a model does not understand what a property means, it should just ignore it.
 
-### `process`
+### `smoothLighting`
 
-This is the core of `IModelCustomData`. The custom data is passed in as an `ImmutableMap<String, String>`. This is a map where the keys are the property names (in the above example, "meaningOfLife", "showQuestion", and "title"). Astute observers may notice that numeric and boolean data were defined in within the blockstate but this method only receives `String`s. This is because all data is converted into strings before being processed. If a model does not understand what a property means, it should just ignore it.
+In vanilla, smooth lighting enables ambient occlusion. This flag can be controlled by the `smooth_lighting` property in a Forge blockstate (which can appear wherever a `model` property can and is inherited). The default implementation does nothing.
 
-This method returns an `IModel` with the changes contained in the custom data.
+### `gui3D`
 
-`IModelSimpleProperties`
-------------------------
+`gui3D` controls whether a model looks "flat" in certain positions (e.g. with `gui3d` set to `true`, `EntityItem` renders a stack with multiple items as several layers of the model. With `gui3d` set to `false`, the item is always one layer), and also controls lighting inside GUIs. This flag can be controlled by the `gui3d` property in a Forge blockstate. The default implementation does nothing.
 
-Models implementing `IModelSimpleProperties` support two simple properties, smooth lighting and gui3D. In vanilla, smooth lighting is called ambient occlusion. Gui3D controls whether a model looks "flat" in certain positions (e.g. with gui3d set to `true`, `EntityItem` renders a stack with multiple items as several layers of the model. With gui3d set to `false`, the item is always one layer), and also controls lighting inside GUIs. These flags can be controlled by the `smooth_lighting` and `gui3d` properties in a Forge blockstate variant. Here's an example:
+### `retexture`
 
-```json
-{
-  "forge_marker": 1,
-  "defaults": {
-    "__comment": "The lighting is smooth, but inside GUIs OpenGL lighting is disabled, and the item looks 'flat' in certain contexts.",
-    "smooth_lighting": true,
-    "gui3d": false,
-    "__comment": "The model receives these parameters iff it is an `IModelSimpleProperties`",
-    "model": "examplemod:book"
-  },
-  "variants": {
-    "magical": {
-      "true": {
-        "__comment": "This works anywhere where a `model` property could be.",
-        "gui3d": true
-      },
-      "false": {}
-    }
-  }
-}
-```
-
-This is fairly self-explanatory. The two parameters get passed into the `IModelSimpleProperties` by calling the respective methods.
-
-`IRetexturableModel`
---------------------
-
-`IRetextureableModel` represents a model whose textures can be changed. This is similar to how texture variables in vanilla JSON models work. A model can start out with certain faces with certain textures, and then by setting/overriding texture variables these faces can be changed. An example:
+This method is used to change the textures a model might use. This is similar to how texture variables in vanilla JSON models work. A model can start out with certain faces with certain textures, and then by setting/overriding texture variables these faces can be changed. An example:
 
 ```json
 {
@@ -110,18 +73,16 @@ This is fairly self-explanatory. The two parameters get passed into the `IModelS
       "varC": "#varA",
       "varZ": null
     },
-    "__comment": "The texture variables apply iff this is an `IRetextureableModel`.",
     "model": "examplemod:universe"
   }
 }
 ```
 
-In this example, the `textures` block will be deserialized as-is into an `ImmutableMap` with the exception that `null`s are turned into `""` (i.e. the final result is `"varA" → "examplemod:items/hgttg", "varB" → "examplemod:blocks/earth", "varC" → "#varA", "varZ" → ""`). Then, if the model is an `IRetexturableModel`, `retexture` is called to change the textures as needed. How this is done is up to the model. It may be advisable, however, to support resolving texture variables such as "#var" (like vanilla JSON models) instead of taking them literally.
+In this example, the `textures` block will be deserialized as-is into an `ImmutableMap` with the exception that `null`s are turned into `""` (i.e. the final result is `"varA" → "examplemod:items/hgttg", "varB" → "examplemod:blocks/earth", "varC" → "#varA", "varZ" → ""`). Then, `retexture` is called to change the textures as needed. How this is done is up to the model. It may be advisable, however, to support resolving texture variables such as "#var" (like vanilla JSON models) instead of taking them literally. The default implementation does nothing.
 
-`IModelUVLock`
---------------
+### `uvlock`
 
-`IModelUVLock` represents a model that can toggle UV lock through the `uvlock` method. UV lock means that when the model itself rotates, the textures applied to the model do not rotate with it. This can be controlled with the `uvlock` property in blockstate JSONs. An example:
+This method is used to toggle UV lock. UV lock means that when the model itself rotates, the textures applied to the model do not rotate with it. The default implementation does nothing. This can be controlled with the `uvlock` property in a Forge blockstate. An example:
 
 ```json
 {
