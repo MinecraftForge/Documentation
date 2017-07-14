@@ -40,6 +40,19 @@ Setting Up the Environment
 
 Depending on your favourite IDE, there is a different set of recommended steps you have to follow to successfully set up a development environment.
 
+### Eclipse
+
+Due to the way eclipse workspaces work, ForgeGradle can do most of the work involved in getting you started with a Forge workspace for you.
+
+ 1. Open a terminal/command prompt and navigate it to the directory of your cloned fork.
+ 2. Type `./gradlew setupForge` and hit enter. Wait until ForgeGradle is done.
+ 3. Open your eclipse workspace and go to `File -> Import -> General -> Existing Projects into workspace`.
+ 4. Browse to the `<repo>/projects/` directory for the root directory in the dialog that opens.
+ 5. Make sure both "Forge" and "Clean" are checked and adjust the other settings to your liking.
+ 6. Complete the import by clicking the "Finish" button.
+
+That's all it takes to get you up and running with Eclipse, there's no extra steps required to get test mods running. Simply hit Run like in any other project and select the appropriate run configuration.
+
 ### IntelliJ IDEA
 
 JetBrains' flagship IDE comes with great integrated support for [Gradle](https://www.gradle.org), Forge's build system of choice. Due to some peculiarities of Minecraft mod development, however, there are additional steps required to get everything to work properly.
