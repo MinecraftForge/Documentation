@@ -42,9 +42,9 @@ Depending on your favourite IDE, there is a different set of recommended steps y
 
 ### IntelliJ IDEA
 
-JetBrains' flagship IDE comes with great integrated support for [Gradle](https://www.gradle.org), Forge's build system of choice. Due to some peculiarities of Minecraft mod development, however, there are some additional steps required to get everything to work properly.
+JetBrains' flagship IDE comes with great integrated support for [Gradle](https://www.gradle.org), Forge's build system of choice. Due to some peculiarities of Minecraft mod development, however, there are additional steps required to get everything to work properly.
 
-If you're more of a visual person, our community's very own cpw has uploaded [a video](https://www.youtube.com/watch?v=yanCpy8p2ZE) explaining very similar steps which will also lead to a working setup.
+If you're more of a visual person, cpw has uploaded [a video](https://www.youtube.com/watch?v=yanCpy8p2ZE) explaining very similar steps which will also lead to a working setup.
 
 !!! Note
     These steps will only work reliably from IDEA version 2016 onwards. Older versions didn't have the appropriate Gradle support and did not support Forge development workspaces.
@@ -68,7 +68,35 @@ That's all there is to creating a Forge development environment in IntelliJ IDEA
 
 #### Enabling test mods
 
-TODO: This section xD
+To enable the test mods coming with Forge, you will need to add the compiler output to the classpath. Again, cpw has put up [a video](https://www.youtube.com/watch?v=pLWQk6ed56Q) explaining these steps.
+
+ 1. Open the "Project Structure" Window under `File -> Project Structure`.
+ 2. Head to the "Modules" section and expand the `Forge` module.
+ 3. Select the `Forge_test` submodule and head to the "Paths" tab.
+ 4. Remember the path listed under the "Test output path" label and select the `Forge_main` submodule from the tree.
+ 5. Open the "Dependencies" tab, hit the green plus button on the right-hand side and select "JARs or directories".
+ 6. Navigate to the path previously displayed as the `Forge_test` output path and confirm your selection.
+ 7. For the "Scope" of this newly added dependency (currently "Compile") choose "Runtime", since the main code doesn't rely on the test code for compilation.
+
+Now that you've added the test mods to the classpath, you need to rebuild them each time you make a change as they will not be built automatically. To do so, select the `src/main/test` directory in your project view and then run `Build -> Build module 'Forge_test'` from the menu bar. In case you make changes to a single test mod file and want them to get rebuild, simply hit `Build -> Rebuild project` or the corresponding keyboard shortcut (<kbd>CTRL</kbd>+<kbd>F9</kbd> by default).
+
+#### Testing with existing mods
+
+You might want to test changes in Forge with an existing project. The video by cpw linked in the test mods section also covers this. Getting the mod to run requires similar steps to the test mod, but getting your project added to the workspace requires some additional work.
+
+ 1. Open the "Project Structure" Window under `File -> Project Structure`.
+ 2. Head to the "Modules" section and press the green plus icon above the tree view.
+ 3. Select "Import Module", navigate to your project's `build.gradle` file and confirm your selection as well as the import settings.
+ 4. Close the "Project Structure" window by clicking the "OK" button.
+ 5. Reopen the window after IDEA is done importing the project and select your project's `_main` module from the tree.
+ 6. Open the "Dependencies" tab, click the green plus icon on the right-hand side and select "Module dependency".
+ 7. In the window that just opened, select the `Forge_main` module.
+ 8. From here on, reproduce the steps from the test mods section, just with your project's `_main` module instead of the `Forge_test` one.
+
+!!! Note
+    You might need to remove existing dependencies from a normal development environment (mainly references to a `forgeSrc` JAR) or move the Forge module higher up in the dependency list.
+
+You should now be able to work with your mod using the changes you introduce to the Forge and Vanilla codebase.
 
 Making Changes and Pull Requests
 --------------------------------
