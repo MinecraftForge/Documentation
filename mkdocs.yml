@@ -41,6 +41,9 @@ pages:
     - Versioning: 'conventions/versioning.md'
     - Locations: 'conventions/locations.md'
     - Loading Stages: 'conventions/loadstages.md'
+  - Contributing to Forge:
+    - Getting Started: 'forgedev/index.md'
+    - PR Guidlines: 'forgedev/prguidelines.md'
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
