@@ -47,7 +47,7 @@ the `SlerpClip`, which blends between two clips, useful for transitions, and the
 ### Events
 
 Various things can trigger events in the ASM, but these are _not_ forge events. ASM events are simply strings. Events can be of two types, normal events and special events.
-Special events' text is formatted like this: `!event_type:event_value`. Right now there is only one kind of `event_type`, `transition`. This tries to transition to whatever state
+Special events' text is formatted like this: `!event_type:event_value`. Right now there is only one kind of `event_type`: `transition`. This tries to transition to whatever state
 is defined in the `event_value`. Normal events can be _any other string_ and can be used from the `pastEvents` callback, but more information about that is on the implemting page, as
 that callback is in different places depending on what is being animated.
 
