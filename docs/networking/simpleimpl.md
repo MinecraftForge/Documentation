@@ -83,7 +83,9 @@ It is recommended (but not required) that for organization's sake, this class is
 
     Be defensive when handling packets on the server. A client could attempt to exploit the packet handling by sending unexpected data.
 
-    If the client is sending a block position, a general rule of thumb is to only access blocks and tile entities if `world.isBlockLoaded(pos)` is true. This will stop the client from generating arbitrary chunks by sending arbitrary block positions.
+    A common problem is vulnerability to **arbitrary chunk generation**. This typically happens when the server is trusting a block position sent by a client to access blocks and tile entities. When accessing blocks and tile entities in unloaded areas of the world, the server will either generate or load this area from disk, then promply write it to disk. This can be exploited to cause **catastrophic damage** to a server's performance and storage space without leaving a trace.
+
+    To avoid this problem, a general rule of thumb is to only access blocks and tile entities if `world.isBlockLoaded(pos)` is true.
 
 Registering Packets
 -------------------
