@@ -79,6 +79,12 @@ It is recommended (but not required) that for organization's sake, this class is
 
     The way to obtain an `IThreadListener` is using either the `Minecraft` instance (client side) or a `WorldServer` instance (server side).
 
+!!! warning
+
+    Be defensive when handling packets on the server. A client could attempt to exploit the packet handling by sending unexpected data.
+
+    If the client is sending a block position, a general rule of thumb is to only access blocks and tile entities if `world.isBlockLoaded(pos)` is true. This will stop the client from generating arbitrary chunks by sending arbitrary block positions.
+
 Registering Packets
 -------------------
 
