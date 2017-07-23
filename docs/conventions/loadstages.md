@@ -6,7 +6,14 @@ There are some other events that are important too, depending on what your mod d
 Each of these stages occurs at a different point in the loading stage and thus what can be safely done in each stage varies.
 
 !!! note
+
     Loading stage events can only be used in your `@Mod` class, in methods marked with the `@EventHandler` annotation.
+
+!!! important
+
+    Many objects that were previously registered in loading stage event handlers (Blocks, Items, Recipes, etc.) should now be registered via [RegistryEvents][registering].
+    This is to pave the way to being able to reload mods dynamically at runtime, which can't be done using loading stages (as they are fired once upon application startup).
+    RegistryEvents are fired after Pre-Initialization.
 
 ## Pre-Initialization
 
@@ -42,3 +49,5 @@ Common actions to preform in postInit are:
 
   * IMCEvent: Process received IMC Messages
   * FMLServerStartingEvent: Register Commands
+
+[registering]: ../concepts/registries.md#registering-things
