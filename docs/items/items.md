@@ -30,4 +30,33 @@ Registering an Item
 
 Items must be [registered][registering] to function.
 
+Coloring an Item
+----------------
+
+Item textures can be programmatically colored. Many Vanilla items utilize this functionality. For example: leather helmets, spawn eggs, potions and other.
+
+### Item Color Handlers
+
+An item color handler is required to color an item and is an instance of `IItemColor`, which adds the following method.
+
+```java
+int getColorFromItemstack(
+  ItemStack stack, 
+  int tintIndex)
+```
+
+#### Return Value
+
+This method returns a hex representation of a color in an integer.
+
+#### Parameters
+
+Tint indices are specified for faces of an element in item's model JSON file. A face without a tint index won't be colored, and therefore will not have its color handler called. Layer indices are used as tint indices for items whose models inherit from the `builtin/generted` model.
+
+### Registering an Item Color Handler
+
+Item color handlers must be registered by calling `ItemColors#registerItemColorHandler(IItemColor, Item...)` to function. An instance of `ItemColors` can be obtained by calling `Minecraft#getItemColors()`. 
+
+This must be done during the initialization phase and only on the client side.
+
 [registering]: ../concepts/registries.md#registering-things
