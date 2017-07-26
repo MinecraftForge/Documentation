@@ -109,12 +109,12 @@ An entry can also be a plain variant, like:
     }
 ```
 
-This kind of definition does not interact with the property definitions. Instead, it defines a variant "normal" directly, without merging with the others. It still inherits from a "defaults" block, if present. If the variant is defined as a list, then each element is a variant definition, and the one that will be used is random:
+This kind of definition defines a variant "normal" directly, without forming combinations with those listed in the property-value format. It still inherits from a "defaults" block, if present, and if the property-value formatted variants generate a variant with the same name, the directly defined variant combines with and overrides values from it. If the variant is defined as a list, then each element is a variant definition, and the one that will be used is random:
 
 ```json
     "defaults": { "model": "some:model" }
     "variants": {
-      "__comment": "When used, the model will have a 75% chance of being rotated.
+      "__comment": "When used, the model will have a 75% chance of being rotated.",
       "normal": [{ "y": 0 }, { "y": 90 }, { "y": 180 }, { "y": 270 }]
     }
 ```
@@ -125,7 +125,7 @@ A property definition is disambiguated from a straight variant by the type of th
    "variants": {
      "simple": [{
        "custom": {},
-       "model": "some:model"
+       "model": "some:model",
        "__comment": "Without the list, the custom: {} would make Forge think this was a property definition."
      }]
    }

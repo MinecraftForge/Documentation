@@ -1,9 +1,9 @@
 Item Property Overrides
 =======================
 
-Item properties are a way for the "properties" of items to be exposed to the model system. An example is the bow, where the most important property is how far the bow has been pulled. This information is then used to choose a model for the bow, creating an animation for pulling it. This is different from assigning MRLs directly to items through `ModelLoader.setCustomModelResourceLocation` or `ModelLoader.setCustomMeshDefinition`. These methods fix the possible set of models. Used on a bow, for example, these methods would permanently fix the number of frames in the pull animation to 4. However, properties are more flexible.
+Item properties are a way for the "properties" of items to be exposed to the model system. An example is the bow, where the most important property is how far the bow has been pulled. This information is then used to choose a model for the bow, creating an animation for pulling it. This is different from assigning `ModelResourceLocation`s directly to items through `ModelLoader.setCustomModelResourceLocation` or `ModelLoader.setCustomMeshDefinition`. These methods fix the possible set of models. Used on a bow, for example, these methods would permanently fix the number of frames in the pull animation to 4. However, properties are more flexible.
 
-Item properties assign a certain `float` value to every ItemStack it is registered for, and vanilla item model definitions can use these values to define "overrides", where an item defaults to a certain model, but if an override matches, it overrides the model and uses another. The format of item models, including overrides, can be found on the [wiki][]. They are useful mainly because of the fact that they are continuous. For example, bows use item properties to define their pull animation. Since the value of the property is a `float`, it increases continuously from 0 to 1. This allows resource packs to add as many models as they want for the bow pulling animation along that spectrum, instead of being stuck with four "slots" for their models in the animation. The same is true of the compass and clock.
+An item property assigns a certain `float` value to every `ItemStack` it is registered for, and vanilla item model definitions can use these values to define "overrides", where an item defaults to a certain model, but if an override matches, it overrides the model and uses another. The format of item models, including overrides, can be found on the [wiki][]. They are useful mainly because of the fact that they are continuous. For example, bows use item properties to define their pull animation. Since the value of the property is a `float`, it increases continuously from 0 to 1. This allows resource packs to add as many models as they want for the bow pulling animation along that spectrum, instead of being stuck with four "slots" for their models in the animation. The same is true of the compass and clock.
 
 Adding Properties to Items
 --------------------------
@@ -16,7 +16,7 @@ Using Overrides
 The format of an override can be seen on the [wiki][format], and a good example can be found in `model/item/bow.json`. For reference, here is a hypothetical example of an item with an `examplemod:power` property. If the values have no match, the default is the current model.
 
 !!! important
-    A predicate applies to all values *greater than or equal to* the given value. 
+    A predicate applies to all values *greater than or equal to* the given value.
 
 ```json
 {
@@ -28,7 +28,7 @@ The format of an override can be seen on the [wiki][format], and a good example 
   "overrides": [
     {
       "__comment": "power >= .75",
-      "predicate": { 
+      "predicate": {
         "examplemod:power": 0.75
       },
       "model": "examplemod:item/examplePowered"

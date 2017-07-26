@@ -5,6 +5,10 @@
 
 In a majority of cases, it is not really necessary to implement this interface manually. One can instead use one of the existing implementations.
 
+### `getOverrides`
+
+Returns the [`ItemOverrideList`][ItemOverrideList] to use for this model. This is only used if this model is being rendered as an item.
+
 ### `isAmbientOcclusion`
 
 If the model is being rendered as a block in the world, the block in question does not emit any light, and ambient occlusion is enabled, this causes the model to be rendered with ambient occlusion.
@@ -22,25 +26,25 @@ When rendering this as an item, returning `true` causes the model to not be rend
 
 ### `getParticleTexture`
 
-Self-explanatory; whatever texture should be used for the particles. For blocks this shows when an entity falls on it, when it breaks, etc. For items this shows when it breaks or when it's eaten.
+Whatever texture should be used for the particles. For blocks, this shows when an entity falls on it, when it breaks, etc. For items, this shows when it breaks or when it's eaten.
 
 ### <s>`getItemCameraTransforms`</s>
 
-Deprecated in favor of implementing `IPerspectiveAwareModel`. If a model implements that interface this method will not be called, in favor of an `instanceof` check and a call to `IPerspectiveAwareModel::handlePerspective`. Therefore, most `IBakedModel`s that also implement `IPerspectiveAwareModel` should `return ItemCamerTransforms.DEFAULT` here. See [Perspective][].
+Deprecated in favor of implementing `handlePerspective`. The default implementation is fine if `handlePerspective` is implmented. See [Perspective][].
 
-### `getOverrides`
+### `handlePerspective`
 
-Returns the [`ItemOverrideList`][ItemOverrideList] to use for this model. This is only used if this model is being rendered as an item.
+See [Perspective][].
 
 ### `getQuads`
 
-This is the main method of `IBakedModel`. It returns `BakedQuad`s, which contain the low-level vertex data that will be used to render the model. If the model is being rendered as a block, then the `IBlockState` passed in is non-null. Additionally, when applicable, [`Block::getExtendedState`][extended blockstates] is called to create the passed `IBlockState`, which allows for arbitrary data to be passed from the block to the model.
+This is the main method of `IBakedModel`. It returns `BakedQuad`s, which contain the low-level vertex data that will be used to render the model. If the model is being rendered as a block, then the `IBlockState` passed in is non-null. Additionally, [`Block::getExtendedState`][extended blockstates] is called to create the passed `IBlockState`, which allows for arbitrary data to be passed from the block to the model. If the model is being rendered as an item, the `ItemOverrideList` returned from `getOverrides` is responsible for handling the state of the item, and the `IBlockState` parameter will be `null`.
 
 The `EnumFacing` passed in is used for face culling. If the block against the given side of the block being rendered is opaque, then the faces associated with that side are not rendered. If that parameter is `null`, all faces not associated with a side are returned (that will never be culled).
 
-The `long` parameter is a random number.
+Note that this method is called very often: once for every combination of non-culled face and supported block render layer (anywhere between 0 to 28 times) *per block in world*. This method should be as fast as possible, and should probably cache heavily.
 
-If the model is being rendered as an item, the `ItemOverrideList` returned from `getOverrides` is responsible for handling the state of the item, and the `IBlockState` parameter will be `null`.
+The `long` parameter is a random number.
 
 [IModel::bake]: imodel.md#bake
 [Perspective]: perspective.md

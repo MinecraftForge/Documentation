@@ -18,7 +18,7 @@ This is a collection of the `ResourceLocation`s of all the textures this model d
 
 ### `bake`
 
-This is the main method of `IModel`. It takes an [`IModelState`][IModelState], a `VertexFormat`, and a function `ResourceLocation` → `TextureAtlasSprite`, to return an [`IBakedModel`][IBakedModel]. `IBakedModel` is less abstract than `IModel`, and it is what interacts with blocks and items. The function RL → TAS is used to get textures from RLs (i.e. the RLs of textures are passed to this function and the returned TAS contains the texture).
+This is the main method of `IModel`. It takes an [`IModelState`][IModelState], a `VertexFormat`, and a function `ResourceLocation` → `TextureAtlasSprite`, to return an [`IBakedModel`][IBakedModel]. `IBakedModel` is less abstract than `IModel`, and it is what interacts with blocks and items. The function `ResourceLocation → TextureAtlasSprite` is used to get textures from `ResourceLocation`s (i.e. the `ResourceLocation`s of textures are passed to this function and the returned `TextureAtlasSprite` contains the texture).
 
 ### `process`
 

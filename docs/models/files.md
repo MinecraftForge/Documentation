@@ -10,7 +10,7 @@ Block and item models differ in a few ways, the major one being [item property o
 Textures
 --------
 
-Textures, like models, are contained within resource packs and are referred to with RLs. When RLs refer to textures in models, the paths are taken to be relative to `textures/` (e.g. `examplemod:blocks/test` → `assets/examplemod/textures/blocks/test.png`). Additionally, in Minecraft, the [UV coordinates][UV] (0,0) are taken to mean the **top-left** corner. UVs are *always* from 0 to 16. If a texture is larger or smaller, the coordinates are scaled to fit. A texture must also be square, and the side length of a texture should be a power of two, as doing otherwise breaks mipmapping. (E.g. 1x1, 2x2, 8x8, 16x16, and 128x128 are good. 5x5 and 30x30 are not recommended because they are not powers of 2. 5x10 and 4x8 are completely broken as they are not square.) If there is an `mcmeta` file associated with the texture, and an animation is defined, the image can be rectangular and is interpreted as a vertical sequence of square regions from top to bottom, where each square is a frame of the animation.
+Textures, like models, are contained within resource packs and are referred to with `ResourceLocation`s. When `ResourceLocation`s refer to textures in models, the paths are taken to be relative to `textures/` (e.g. `examplemod:blocks/test` → `assets/examplemod/textures/blocks/test.png`). Additionally, in Minecraft, the [UV coordinates][UV] (0,0) are taken to mean the **top-left** corner. UVs are *always* from 0 to 16. If a texture is larger or smaller, the coordinates are scaled to fit. A texture must also be square, and the side length of a texture should be a power of two, as doing otherwise breaks mipmapping. (E.g. 1x1, 2x2, 8x8, 16x16, and 128x128 are good. 5x5 and 30x30 are not recommended because they are not powers of 2. 5x10 and 4x8 are completely broken as they are not square.) If there is an `mcmeta` file associated with the texture, and an animation is defined, the image can be rectangular and is interpreted as a vertical sequence of square regions from top to bottom, where each square is a frame of the animation.
 
 JSON Models
 -----------
@@ -20,12 +20,12 @@ Vanilla Minecraft's JSON model format is rather simple. It defines cuboid (cube/
 !!! note
     JSON models only support cuboid elements; there is no way to express a triangular wedge or anything like it. To have more complicated models, another format must be used.
 
-When an RL refers to the location of a JSON model, it is not suffixed with `.json`, unlike OBJ and B3D models (e.g. `minecraft:block/cube_all`, not `minecraft:block/cube_all.json`).
+When a `ResourceLocation` refers to the location of a JSON model, it is not suffixed with `.json`, unlike OBJ and B3D models (e.g. `minecraft:block/cube_all`, not `minecraft:block/cube_all.json`).
 
 WaveFront OBJ Models
 --------------------
 
-Forge adds a loader for the `.obj` file format. To use these models, the resource domain must be registered through `OBJLoader.addDomain`. This loader accepts any model location that is in a registered domain and whose path ends in `.obj`. The `.mtl` file should be placed next to the `.obj` and will automatically be used with the `.obj`. The `.mtl` file will probably have to be manually edited to change the paths pointing to textures into Minecraft RLs. Additinally, the V axis for textures may be flipped if an external program created the model (i.e. V = 0 may be the bottom edge, not the top). This may be rectified in the modelling program itself or done in a Forge blockstate JSON like so:
+Forge adds a loader for the `.obj` file format. To use these models, the resource domain must be registered through `OBJLoader.addDomain`. This loader accepts any model location that is in a registered domain and whose path ends in `.obj`. The `.mtl` file should be placed next to the `.obj` and will automatically be used with the `.obj`. The `.mtl` file will probably have to be manually edited to change the paths pointing to textures into Minecraft `ResourceLocation`s. Additinally, the V axis for textures may be flipped depending on the external program that created the model (i.e. V = 0 may be the bottom edge, not the top). This may be rectified in the modelling program itself or done in a Forge blockstate JSON like so:
 
 ```json
 {

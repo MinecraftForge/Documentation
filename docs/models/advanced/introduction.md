@@ -10,26 +10,26 @@ In order to understand how this works, let's go through the internals of the mod
 
 1. A set of `ModelResourceLocation`s are marked as models to be loaded through `ModelLoader`.
 
-    * For items, their models must be manually marked for loading with `ModelLoader.registerItemVariants`. (`ModelLoader.setCustomMRL` does this.)
+    * For items, their models must be manually marked for loading with `ModelLoader.registerItemVariants`. (`ModelLoader.setCustomModelResourceLocation` does this.)
 
-    * For blocks, their statemappers produce a `Map<IBlockState, MRL>`. All blocks are iterated and then the values of this map are marked to be loaded.
+    * For blocks, their statemappers produce a `Map<IBlockState, ModelResourceLocation>`. All blocks are iterated, and then the values of this map are marked to be loaded.
 
-2. [`IModel`][IModel]s are loaded from each MRL and cached in a `Map<MRL, IModel>`.
+2. [`IModel`][IModel]s are loaded from each `ModelResourceLocation` and cached in a `Map<ModelResourceLocation, IModel>`.
 
-    * An `IModel` is loaded from the only [`ICustomModelLoader`][ICustomModelLoader] that accepts it. (Multiple loaders attempting to load a model will cause a `LoaderException`.) If none is found and the RL is actually a `ModelResourceLocation` (that is, this is not a normal model; it's actually a blockstate variant), it goes to the blockstate loader (`VariantLoader`). Otherwise the model is a normal vanilla JSON model and is loaded the vanilla way (`VanillaLoader`).
+    * An `IModel` is loaded from the only [`ICustomModelLoader`][ICustomModelLoader] that accepts it. (Multiple loaders attempting to load a model will cause a `LoaderException`.) If none is found and the `ResourceLocation` is actually a `ModelResourceLocation` (that is, this is not a normal model; it's actually a blockstate variant), it goes to the blockstate loader (`VariantLoader`). Otherwise the model is a normal vanilla JSON model and is loaded the vanilla way (`VanillaLoader`).
 
     * A vanilla JSON model (`models/item/*.json` or `models/block/*.json`), when loaded, is a `ModelBlock` (yes, even for items). This is a vanilla class that is not related to `IModel` in any way. To rectify this, it gets wrapped into a `VanillaModelWrapper`, which *does* implement `IModel`.
 
     * A vanilla/Forge blockstate variant, when loaded, first loads the entire blockstate JSON it comes from. The JSON is deserialized into a `ModelBlockDefinition` that is then cached to the path of the JSON. A list of variant definitions is then extracted from the `ModelBlockDefinition` and placed into a `WeightedRandomModel`.
 
-    * When loading a vanilla JSON item model (`models/item/*.json`), the model is requested from an MRL with variant `inventory` (e.g. the dirt block item model is `minecraft:dirt#inventory`); thereby causing the model to be loaded by `VariantLoader` (as it is an MRL). When `VariantLoader` fails to load the model from the blockstate JSON, it falls back to `VanillaLoader`.
+    * When loading a vanilla JSON item model (`models/item/*.json`), the model is requested from a `ModelResourceLocation` with variant `inventory` (e.g. the dirt block item model is `minecraft:dirt#inventory`); thereby causing the model to be loaded by `VariantLoader` (as it is a `ModelResourceLocation`). When `VariantLoader` fails to load the model from the blockstate JSON, it falls back to `VanillaLoader`.
         * The most important side-effect of this is that if an error occurs in `VariantLoader`, it will try to also load the model via `VanillaLoader`. If this also fails, then the resulting exception produces *two* stacktraces. The first is the `VanillaLoader` stacktrace, and the second is from `VariantLoader`. When debugging model errors, it is important to ensure that the right stacktrace is being analyzed.
 
-    * An `IModel` can be loaded from an RL or retrieved from the cache by invoking `ModelLoaderRegistry.getModel` or one of the exception handling alternatives.
+    * An `IModel` can be loaded from a `ResourceLocation` or retrieved from the cache by invoking `ModelLoaderRegistry.getModel` or one of the exception handling alternatives.
 
 3. All texture dependencies of the loaded models are loaded and stitched into the atlas. The atlas is a giant texture that contains all the model textures pasted together. When a model refers to a texture, during rendering, an extra UV offset is applied to match the texture's position in the atlas.
 
-4. Every model is baked by calling `model.bake(model.getDefaultState(), ...)`. The resulting [`IBakedModel`][IBakedModel]s are cached in a `Map<MRL, IBakedModel>`.
+4. Every model is baked by calling `model.bake(model.getDefaultState(), ...)`. The resulting [`IBakedModel`][IBakedModel]s are cached in a `Map<ModelResourceLocation, IBakedModel>`.
 
 5. This map is then stored in the `ModelManager`. The `ModelManager` for an instance of the game is stored in `Minecraft::modelManager`, which is private with no getter.
 

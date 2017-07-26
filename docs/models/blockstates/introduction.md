@@ -1,9 +1,9 @@
 Introduction to Blockstate JSONs
 ================================
 
-Blockstate JSONs are Minecraft's way to map "variant strings" to models. A variant string can be absolutely anything, from "inventory" to "power=5" to "I am your father." They represent an actual model, where the blockstate is just a container for them. In code, a variant string within a blockstate JSON is represented by a `ModelResourceLocation`, normally shortened to just "MRL".
+Blockstate JSONs are Minecraft's way to map "variant strings" to models. A variant string can be absolutely anything, from "inventory" to "power=5" to "I am your father." They represent an actual model, where the blockstate is just a container for them. In code, a variant string within a blockstate JSON is represented by a `ModelResourceLocation`.
 
-When the game searches for a model corresponding to a block in the world, it takes the [blockstate][] for that position, and then it uses an `IStateMapper` to find the corresponding MRL for it, which then refers to the actual model. The default `IStateMapper` uses the block's registry name as the location of the blockstate JSON. (E.g. block `examplemod:testblock` goes to the RL `examplemod:testblock`.) The variant string is pieced together from the blockstate's properties. More information can be found [here][statemapper].
+When the game searches for a model corresponding to a block in the world, it takes the [blockstate][] for that position, and then it uses an `IStateMapper` to find the corresponding `ModelResourceLocation` for it, which then refers to the actual model. The default `IStateMapper` uses the block's registry name as the location of the blockstate JSON. (E.g. block `examplemod:testblock` goes to the `ResourceLocation` `examplemod:testblock`.) The variant string is pieced together from the blockstate's properties. More information can be found [here][statemapper].
 
 As an example, let's take a look at the vanilla `oak_log.json`:
 
@@ -25,7 +25,7 @@ A blockstate always has to be defined for all possible variant strings. When you
 Starting from Minecraft 1.9, Mojang also introduced the "multipart" format. You can find a definition of its format on the [wiki][]. Forge's format and the multipart format are not better than each other; they each cover different use cases and it is your choice which one you want to use.
 
 !!! note
-    The Forge format is really more like syntactic sugar for automatically calculating the set of all possible variants for you behind the scenes. This allows you to use the resulting MRLs for things other than blocks. ([Such as items][item blockstates]. This is also true of the 1.8 format, but there is almost no reason to use that format.) The 1.9 format is a more complicated system that depends on having an `IBlockState` to pick the model. It will not directly work in other contexts without some code around it.
+    The Forge format is really more like syntactic sugar for automatically calculating the set of all possible variants for you behind the scenes. This allows you to use the resulting `ModelResourceLocation`s for things other than blocks. ([Such as items][item blockstates]. This is also true of the 1.8 format, but there is almost no reason to use that format.) The 1.9 format is a more complicated system that depends on having an `IBlockState` to pick the model. It will not directly work in other contexts without some code around it.
 
 For reference, here's an excerpt from the 1.8 blockstate for fences, `fence.json`:
 
