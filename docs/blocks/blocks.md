@@ -33,44 +33,7 @@ Blocks must be [registered][registering] to function.
 
     A block in the world and a "block" in an inventory are very different things. A block in the world is represented by an `IBlockState`, and its behavior defined by an instance of `Block`. Meanwhile, an item in an inventory is an `ItemStack`, controlled by an `Item`. As a bridge between the different worlds of `Block` and `Item`, there exists the class `ItemBlock`. `ItemBlock` is a subclass of `Item` that has a field `block` that holds a reference to the `Block` it represents. `ItemBlock` defines some of the behavior of a "block" as an item, like how a right click places the block. It's possible to have a `Block` without an `ItemBlock`. (E.g. `minecraft:water` exists a block, but not an item. It is therefore impossible to hold it in an inventory as one.)
 
-    When a block is registered, *only* a block is registered. The block does not automatically have an `ItemBlock`. To create a basic `ItemBlock` for a block one should use `new ItemBlock(block).setRegistryName(block.getRegistryName())`. The unlocalized name is the same as the block's. Custom subclasses of `ItemBlock` may be used as well. Once an `ItemBlock` has been registered for a block, `Item.getItemFromBlock` can be used to retrieve it. `Item.getItemFromBlock` will return `null` if there is no ItemBlock for the Block, so if you are not certain that there is an ItemBlock for the Block you are using, check for null.
-
-Coloring a Block
-----------------
-
-Block textures can be programmatically colored. Many Vanilla blocks utilize this functionality. For instance: grass, vines, waterlilys and etc. change color depending on the biome they are in.
-
-### Block Color Handlers
-
-A block color handler is required to color a block and is an instance of `IBlockColor`, which adds the following method.
-
-```java
-int colorMultiplier(
-  IBlockState state,
-  @Nullable IBlockAccess worldIn,
-  @Nullable BlockPos pos,
-  int tintIndex)
-```
-
-#### Return Value
-
-This method returns a hex representation of a color in an integer.
-
-#### Parameters
-
-The `IBlockState`, `IBlockAccess` and `BlockPos` passed to the method make it possible to change color multiplier dynamically. Note that `IBlockAccess` and `BlockPos` parameters are nullable.
-
-Tint indices are specified for faces of an element in block's model JSON file. A face without a tint index won't be colored, and therefore won't have its color handler called. Block digging and hitting particles are hardcoded to have zeroth tint index.
-
-### Registering a Block Color Handler
-
-Block color handlers must be registered by calling `BlockColors#registerBlockColorHandler(IBlockColor, Block...)` to function. Same can be done for muliple blocks. An instance of `BlockColors` can be obtained by calling `Minecraft#getBlockColors()`.
-
-This must be done during the initialization phase and only on the client side.
-
-### Registering a Handler for `ItemBlock`
-
-Instances of `ItemBlock` are items, and so they must be [registered and colored][] as items are.
+    When a block is registered, *only* a block is registered. The block does not automatically have an `ItemBlock`. To create a basic `ItemBlock` for a block, one should use `new ItemBlock(block).setRegistryName(block.getRegistryName())`. The unlocalized name is the same as the block's. Custom subclasses of `ItemBlock` may be used as well. Once an `ItemBlock` has been registered for a block, `Item.getItemFromBlock` can be used to retrieve it. `Item.getItemFromBlock` will return `null` if there is no `ItemBlock` for the `Block`, so if you are not certain that there is an `ItemBlock` for the `Block` you are using, check for `null`.
 
 Further Reading
 ---------------
@@ -79,5 +42,4 @@ For information about block properties, such as those used for vanilla blocks li
 
 [sounds]: ../effects/sounds.md
 [registering]: ../concepts/registries.md#registering-things
-[registered and colored]: ../items/items.md#coloring-an-item
 [blockstates]: states.md
