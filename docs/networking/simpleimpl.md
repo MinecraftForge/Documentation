@@ -65,9 +65,9 @@ public class MyMessageHandler implements IMessageHandler<MyMessage, IMessage> {
     serverPlayer.getServerWorld().addScheduledTask(new Runnable() {
       @Override
         public void run() {
-            serverPlayer.inventory.addItemStackToInventory(new ItemStack(Items.diamond, amount));
+            serverPlayer.inventory.addItemStackToInventory(new ItemStack(Items.DIAMOND, amount));
         }
-    }
+    });
     // No response packet
     return null;
   }
