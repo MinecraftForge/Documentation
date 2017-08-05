@@ -61,12 +61,9 @@ public class MyMessageHandler implements IMessageHandler<MyMessage, IMessage> {
     EntityPlayerMP serverPlayer = ctx.getServerHandler().playerEntity;
     // The value that was sent
     int amount = message.toSend;
-    // Excecute the action on the main server thread by adding it as a scheduled task
-    serverPlayer.getServerWorld().addScheduledTask(new Runnable() {
-      @Override
-        public void run() {
-            serverPlayer.inventory.addItemStackToInventory(new ItemStack(Items.DIAMOND, amount));
-        }
+    // Execute the action on the main server thread by adding it as a scheduled task
+    serverPlayer.getServerWorld().addScheduledTask(() -> {
+      serverPlayer.inventory.addItemStackToInventory(new ItemStack(Items.DIAMOND, amount));
     });
     // No response packet
     return null;
