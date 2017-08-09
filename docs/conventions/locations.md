@@ -15,7 +15,7 @@ Blockstate definition files are in the JSON format and are in the `./assets/<mod
 
 ### Localizations
 
-Localizations are plain-text files with the file extension .lang and the name being their [language code](https://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx) such as `en_US`.
+Localizations are plain-text files with the file extension .lang and the name being their [language code](https://msdn.microsoft.com/en-us/library/ee825488(v=cs.20).aspx) such as `en_us`.
 
 They are located in the `./assets/<modid>/lang/` folder.
 
