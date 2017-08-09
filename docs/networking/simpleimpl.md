@@ -61,7 +61,10 @@ public class MyMessageHandler implements IMessageHandler<MyMessage, IMessage> {
     EntityPlayerMP serverPlayer = ctx.getServerHandler().playerEntity;
     // The value that was sent
     int amount = message.toSend;
-    serverPlayer.inventory.addItemStackToInventory(new ItemStack(Items.diamond, amount));
+    // Execute the action on the main server thread by adding it as a scheduled task
+    serverPlayer.getServerWorld().addScheduledTask(() -> {
+      serverPlayer.inventory.addItemStackToInventory(new ItemStack(Items.DIAMOND, amount));
+    });
     // No response packet
     return null;
   }
@@ -74,10 +77,10 @@ It is recommended (but not required) that for organization's sake, this class is
 
     As of Minecraft 1.8 packets are by default handled on the network thread.
 
-    That means that your `IMessageHandler` can _not_ interact with most game objects directly. The example above for example would not be correct.
+    That means that your `IMessageHandler` can _not_ interact with most game objects directly. 
     Minecraft provides a convenient way to make your code execute on the main thread instead using `IThreadListener.addScheduledTask`.
-
-    The way to obtain an `IThreadListener` is using either the `Minecraft` instance (client side) or a `WorldServer` instance (server side).
+    
+    The way to obtain an `IThreadListener` is using either the `Minecraft` instance (client side) or a `WorldServer` instance (server side). The code above shows an example of this by getting a `WorldServer` instance from an `EntityPlayerMP`.
 
 !!! warning
 
