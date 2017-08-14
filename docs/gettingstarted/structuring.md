@@ -31,7 +31,7 @@ The `mcmod.info` file is formatted as JSON, where the root element is a list of 
       "url": "minecraftforge.net/",
       "updateJSON": "minecraftforge.net/versions.json",
       "authorList": ["Author"],
-      "credits": "I'd like to thank my mother and father.",
+      "credits": "I'd like to thank my mother and father."
     }]
 
 The default Gradle configuration replaces `${version}` with the project version, and `${mcversion}` with the Minecraft version, but *only* within `mcmod.info`, so you should use those instead of directly writing them out. Here is a table of attributes that may be given to a mod, where `required` means there is no default and the absence of the property causes an error. In addition to the required properties, you should also define `description`, `version`, `mcversion`, `url`, and `authorList`.
