@@ -74,4 +74,41 @@ Entity Collision
 ----------------
 *Coming Soon*
 
+`onLanded`
+----------------
+
+```java
+public void onLanded(World worldIn, Entity entityIn)
+```
+
+Called on a block when an entity has landed on it.
+
+!!! Warning
+
+    This method is relied on to update the motionY value of the entity that triggered the interaction. 
+    The best way to ensure this is to always call `super.onLanded(worldIn, entityIn);`
+    Failure to do so will result in weird (and undesired) movement from the entity in question. 
+
+### Parameters:
+|    Type   |     Name     |                  Description                  |
+|:---------:|:------------:|:----------------------------------------------|
+|  `World`  |  `worldIn`   | The world that the entity was in when it landed on the block.|
+|  `Entity` |  `entityIn`  | The actual entity that landed on the block. |
+  
+
+### Usage example
+The main use of this method is to control how an entity reacts when it lands on a specific block.
+
+By default, the only reaction that occurs is that the entity's motionY is set to 0, causing them to cease moving.  
+
+The **Slime Block** is an example of how this default behaviour can be changed:
+
+
+When an entity lands on a slime block, a check is done to see if the entity is sneaking - If they are, then the default behavior is called.  
+Otherwise, if the entity is not sneaking, and the entity has a motionY greater than 0 (so: they're falling),
+then their motionY is set to the **inverse** of their current motionY, meaning that instead of falling, they rise. 
+As well as this, their motionY is also decreased by 20%.
+
+The end result is the bounce effect that you experience when you jump on a slime block.
+
 [sidedness]: ../concepts/sides.md
