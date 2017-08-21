@@ -101,7 +101,7 @@ By default this method does nothing.
 
 The **TNT Block** overrides this method to cause it's explosion when a player destroys it.  
 This method is used by extended pistons; since an extended piston is made up of two blocks (the extended head and the base), 
-this method is ued by the **PistonMoving Block** to destroy the base block when it's destroyed. 
+the **PistonMoving Block** makes use of this method to destroy the base block when the PistonMoving block is destroyed. 
 
 
 [sidedness]: ../concepts/sides.md
