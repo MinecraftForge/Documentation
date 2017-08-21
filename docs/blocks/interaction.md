@@ -90,10 +90,10 @@ Called on a block when an entity has landed on it.
     Failure to do so will result in weird (and undesired) movement from the entity in question. 
 
 ### Parameters:
-|    Type   |     Name     |                         Description                          |
-|:---------:|:------------:|:-------------------------------------------------------------|
-|  `World`  |  `worldIn`   | The world that the entity was in when it landed on the block.|
-|  `Entity` |  `entityIn`  | The actual entity that landed on the block.                  |
+|    Type   |     Name     |                          Description                          |
+|:---------:|:------------:|:--------------------------------------------------------------|
+|  `World`  |  `worldIn`   | The world that the entity was in when it landed on the block. |
+|  `Entity` |  `entityIn`  | The actual entity that landed on the block.                   |
 
 ### Usage example
 The main use of this method is to control how an entity reacts when it lands on a specific block.
