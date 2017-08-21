@@ -90,11 +90,10 @@ Called on a block when an entity has landed on it.
     Failure to do so will result in weird (and undesired) movement from the entity in question. 
 
 ### Parameters:
-|    Type   |     Name     |                  Description                  |
-|:---------:|:------------:|:----------------------------------------------|
+|    Type   |     Name     |                         Description                          |
+|:---------:|:------------:|:-------------------------------------------------------------|
 |  `World`  |  `worldIn`   | The world that the entity was in when it landed on the block.|
-|  `Entity` |  `entityIn`  | The actual entity that landed on the block. |
-  
+|  `Entity` |  `entityIn`  | The actual entity that landed on the block.                  |
 
 ### Usage example
 The main use of this method is to control how an entity reacts when it lands on a specific block.
@@ -102,7 +101,6 @@ The main use of this method is to control how an entity reacts when it lands on 
 By default, the only reaction that occurs is that the entity's motionY is set to 0, causing them to cease moving.  
 
 The **Slime Block** is an example of how this default behaviour can be changed:
-
 
 When an entity lands on a slime block, a check is done to see if the entity is sneaking - If they are, then the default behavior is called.  
 Otherwise, if the entity is not sneaking, and the entity has a motionY greater than 0 (so: they're falling),
