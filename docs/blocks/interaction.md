@@ -74,4 +74,34 @@ Entity Collision
 ----------------
 *Coming Soon*
 
+`onBlockDestroyedByPlayer`
+----------------
+
+```java
+public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
+```
+
+Called on a block after it's destroyed by a player
+
+### Parameters:
+|      Type       |    Name     |                 Description                  |
+|:---------------:|:-----------:|:---------------------------------------------|
+|     `World`     |  `worldIn`  | The world that the block was destroyed       |
+|   `BlockPos`    |    `pos`    | The position of the block that was destroyed |
+|  `IBlockState`  |   `state`   | The state of the block that was destroyed    |
+
+!!! Warning
+    
+    The `pos` parameter may not hold the state indicated
+
+### Usage example
+This method is perfect for adding custom events as a result of a player destroying a block
+
+By default this method does nothing.  
+
+The **TNT Block** overrides this method to cause it's explosion when a player destroys it.  
+This method is used by extended pistons; since an extended piston is made up of two blocks (the extended head and the base), 
+this method is ued by the **PistonMoving Block** to destroy the base block when it's destroyed. 
+
+
 [sidedness]: ../concepts/sides.md
