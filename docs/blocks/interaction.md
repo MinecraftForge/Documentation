@@ -74,4 +74,34 @@ Entity Collision
 ----------------
 *Coming Soon*
 
+`onBlockClicked`
+----------------
+
+```java
+public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn)
+```
+
+Called on a block when it is clicked by a player.
+
+!!! Note
+    
+    This method is for when the player *left-clicks* on a block.
+    Don't get this confused with `onBlockActivated`, which is called when the player *right-clicks*.
+
+### Parameters:
+|      Type       |     Name     |                  Description                  |
+|:---------------:|:------------:|:----------------------------------------------|
+|     `World`     |  `worldIn`   | The world that the block was clicked in       |
+|    `BlockPos`   |    `pos`     | The position of the block that was clicked    |
+|  `EntityPlayer` |  `playerIn`  | The player who did the clicking               |
+
+### Usage example
+This method is perfect for adding custom events when a player clicks on a block.
+
+By default this method does nothing.  
+Two blocks that override this method are the **Note Block** and the **RedstoneOre Block**.
+
+The Note block overrides this method so that when left-clicked, it plays a sound.  
+The RedstoneOre block overrides method so that when left-clicked, it gives off emits faint light for a few seconds.
+
 [sidedness]: ../concepts/sides.md
