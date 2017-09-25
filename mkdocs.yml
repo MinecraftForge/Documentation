@@ -15,7 +15,7 @@ pages:
     - Home: 'blocks/blocks.md'
     - Interaction: 'blocks/interaction.md'
   - Blockstates:
-    - Intro to Blockstates: 'blockstates/states.md' 
+    - Intro to Blockstates: 'blockstates/states.md'
     - Intro to Blockstate JSONs: 'blockstates/introduction.md'
     - Forge Blockstate JSON: 'blockstates/forgeBlockstates.md'
   - Tile Entities:
@@ -35,6 +35,7 @@ pages:
     - Extended Entity Properties: 'datastorage/extendedentityproperties.md'
   - Utilities:
     - OreDictionary: 'utilities/oredictionary.md'
+    - Configuration Annotations: 'utilities/config_annotations.md'
   - Effects:
     - Sounds: 'effects/sounds.md'
   - Conventions:
