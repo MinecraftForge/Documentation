@@ -5,7 +5,7 @@ Capabilities allow exposing features in a dynamic and flexible way, without havi
 
 In general terms, each capability provides a feature in the form of an interface, alongside with a default implementation which can be requested, and a storage handler for at least this default implementation. The storage handler can support other implementations, but this is up to the capability implementor, so look it up in their documentation before trying to use the default storage with non-default implementations.
 
-Forge adds capability support to TileEntities, Entities, and ItemStacks, which can be exposed either by attaching them through an event or by overriding the capability methods in your own implementations of the objects. This will be explained in more detail in the following sections.
+Forge adds capability support to TileEntities, Entities, ItemStacks, Worlds and Chunks, which can be exposed either by attaching them through an event or by overriding the capability methods in your own implementations of the objects. This will be explained in more detail in the following sections.
 
 Forge-provided Capabilities
 ---------------------------
@@ -72,12 +72,13 @@ It is strongly suggested that direct checks in code are used to test for capabil
 Attaching Capabilities
 ----------------------
 
-As mentioned, attaching capabilities to entities and itemstacks can be done using `AttachCapabilityEvent`. The same event is used for all objects that can provide capabilities. `AttachCapabilityEvent` has 4 valid generic types providing the following events:
+As mentioned, attaching capabilities to entities and itemstacks can be done using `AttachCapabilityEvent`. The same event is used for all objects that can provide capabilities. `AttachCapabilityEvent` has 5 valid generic types providing the following events:
 
 * `AttachCapabilityEvent<Entity>`: Fires only for entities.
 * `AttachCapabilityEvent<TileEntity>`: Fires only for tile entities.
 * `AttachCapabilityEvent<Item>`: Fires only for item stacks.
 * `AttachCapabilityEvent<World>`: Fires only for worlds.
+* `AttachCapabilityEvent<Chunk>`: Fires only for chunks.
 
 The generic type cannot be more specific than the above types. For example: If you want to attach capabilities to `EntityPlayer`, you have to subscribe to the `AttachCapabilityEvent<Entity>`, and then determine that the provided object is an `EntityPlayer` before attaching the capability.
 
@@ -127,6 +128,9 @@ private static class Factory implements Callable<IExampleCapability> {
 ```
 
 Finally, we will need the default implementation itself, to be able to instantiate it in the factory. Designing this class is up to you, but it should at least provide a basic skeleton that people can use to test the capability, if it's not a fully usable implementation on itself.
+
+!!! warning
+    Unlike other objects with capabilities, chunks are only written to disk if the chunk is marked as dirty. A capability implementation for a Chunk should therefore ensure that whenever its state changes, the chunk is marked as dirty.
 
 Synchronizing Data with Clients
 -------------------------------
