@@ -47,13 +47,8 @@ the `SlerpClip`, which blends between two clips, useful for transitions, and the
 ### Events
 
 Various things can trigger events in the ASM, but these are _not_ forge events. ASM events are simply strings. Events can be of two types, normal events and special events.
-<<<<<<< HEAD
-Special events' text is formatted like this: `!event_type:event_value`. Right now there is only one kind of `event_type`: `transition`. This tries to transition to whatever state
-=======
-Special events' text is formatted like this: `!event_type:event_value`. Right now there is only one kind of `event_type`, `transition`. This tries to transition to whatever state
->>>>>>> 38fbe97bcee280fd89fee3cab048448d66454df2
-is defined in the `event_value`. Normal events can be _any other string_ and can be used from the `pastEvents` callback, but more information about that is on the implemting page, as
-that callback is in different places depending on what is being animated.
+Special events' text is formatted like this: `!event_type:event_value`. Right now there is only one kind of `event_type`, `transition`. This tries to transition to whatever state is defined in the `event_value`. Normal events can be _any other string_ and can be used from the `pastEvents` callback, but more information about that is on the [implementing][] page, as
+that callback is in different places depending on what is being animated, although they are always client side, so using them to control server-side things will require some networking code.
 
 
 Code API
@@ -74,16 +69,11 @@ private final IAnimationStateMachine asm;
 private final VariableValue cycle = new VariableValue(4);
 
 public Spin() {
-    if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-        asm = ModelLoaderRegistry.loadASM(new ResourceLocation(MODID, "asms/block/rotatest.json"), ImmutableMap.of("cycle_length", cycle));
-    }
-    else {
-        asm = null;
-    }
+     asm = proxy.loadASM(new ResourceLocation(MODID, "asms/block/rotatest.json"), ImmutableMap.of("cycle_length", cycle));
 }
 ```
 
-Here, an asm is loaded with one extra parameter, named `cycle_length`. This parameter is of the type `VariableValue`, so we can
+Here, an asm is loaded (from a sidedproxy to avoid crashing on server) with one extra parameter, named `cycle_length`. This parameter is of the type `VariableValue`, so we can
 set it from within our code.
 
 Using an ASM instance, you can get the current state with `.currentState()` and transition to another state with `.transition(nextState)`
@@ -277,13 +267,13 @@ how far into the blend we are. Combining this clip with trigger_positive and tra
 The states section of the file is simply a list of all possible states.
 For example 
 ```json
-"states": {
+"states": [
   "open",
   "closed",
   "opening",
   "closing",
   "dancing"
-}
+]
 ```
 defines 5 states: open, closed, opening, closing and dancing.
 
@@ -314,3 +304,4 @@ This example means that:
 - the opening state can go to the open state
 - the dancing state can go to the closed state
 
+[implementing]: implementing.md

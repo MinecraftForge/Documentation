@@ -69,7 +69,7 @@ The file is organized in two sections, joints and clips.
 
 Joints
 --------
-Each joint defines a connection to the model file. A joint can animate any number of elements in the model file, but they are all animated with the same input value and transforms
+Each joint defines an object that animates together as a single unit in the animation together. For example, in the vanilla json model format, multiple elements can belong to the same joint.
 
 The format is like this:
 ```javascript
@@ -95,7 +95,7 @@ The format is like this:
 
 - `joint_name` is the name of the joint
 - `index_model` is a 0-indexed number denoting a model element this joint controls. Must be a string (see example)
-- `joint_weight` is a weight (0-1) of how much this element will animate. The transformation matrix caused by a clip animating this element will be multiplied by this number.
+- `joint_weight` is a weight (0-1) of how much this element will animate. The transformation matrix caused by a clip animating this element will be scalarly multiplied by this number.
 
 !!! note
     
@@ -146,17 +146,17 @@ They are formatted like this:
 
 ```
 
-- loop: whether or not the parameter value can continue increasing and the animation loops, or if it stops at the ending state
+- loop: if true, the animation will wrap around when the parameter value goes above 1, if not it'll just clamp at the final state.
 
 ### Joint Clips
 Each `joint_clip` is a set of variables to change for a joint. The `type` attribute is currently ignored, but must be `"uniform"`.
 
-`samples` defines what value the animation will take on, and its interpretation depends on the value of `interpolation`.
+`samples` defines what value the animation will take on (think of keyframes in traditional animation), and its interpretation depends on the value of `interpolation`.
 
 `interpolation` can be one of the following:
 
  - nearest - if value < 0.5 use the first sample, else the second sample. Useful for static variables if only given one value
- - linear - linearly interpolate between samples
+ - linear - linearly interpolate between samples. Time between samples is 1 / number of samples.
 
 `variable` can be one of the following:
 
@@ -165,9 +165,6 @@ Each `joint_clip` is a set of variables to change for a joint. The `type` attrib
 - scale_x, scale_y, scale_x - scaling on certain axes
 - axis_x, axis_y, axis_z - rotation axes
 - angle - rotation angle
-
-and if PR #3875 is merged, there will be:
-
 - origin_x, origin_y, origin_z - rotation origin
 
 ### Events
@@ -178,6 +175,8 @@ Each clip can fire events, formatted like this:
     <event_time>: "event_text"
 }
 ```
-For more information about events and what `event_text` means, see the page on ASMs.
+For more information about events and what `event_text` means, see the page on [ASMs][asm].
 
 `event_time` is a value denoting when to fire the event. When the parameter controlling this clip reaches a point equal to or greater than the `event_time`, the event is fired
+
+[asm]: asm.md
