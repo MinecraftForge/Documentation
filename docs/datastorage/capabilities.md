@@ -76,7 +76,7 @@ As mentioned, attaching capabilities to entities and itemstacks can be done usin
 
 * `AttachCapabilitiesEvent<Entity>`: Fires only for entities.
 * `AttachCapabilitiesEvent<TileEntity>`: Fires only for tile entities.
-* `AttachCapabilitiesEvent<Item>`: Fires only for item stacks.
+* `AttachCapabilitiesEvent<ItemStack>`: Fires only for item stacks.
 * `AttachCapabilitiesEvent<World>`: Fires only for worlds.
 * `AttachCapabilitiesEvent<Chunk>`: Fires only for chunks.
 
