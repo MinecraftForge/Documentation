@@ -28,7 +28,7 @@ ClientRegistry.bindTileEntitySpecialRenderer(Chest.class, new AnimationTESR<Ches
 ```
 
 In this example, we've overrided the `handleEvents()` callback when we registered the TESR because the implementation is simple, but you could easily subclass
-AnimationTESR to achieve the same effect.
+AnimationTESR to achieve the same effect. `handleEvents()` callback for blocks takes two arguments: the tile entity being rendered, and an iterable of the events
 
 Items
 -------
