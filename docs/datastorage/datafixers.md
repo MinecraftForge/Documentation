@@ -104,4 +104,4 @@ IDataWalker dollyWalker = new IDataWalker() {
 FMLCommonHandler.instance().getDataFixer().registerWalker(FixTypes.ITEM_INSTANCE, dollyWalker);
 ```
 
-[flattening]: http://minecraft.gamepedia.com/the_flattening
+[flattening]: https://minecraft.gamepedia.com/1.13/Flattening
