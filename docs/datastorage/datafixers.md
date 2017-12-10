@@ -31,7 +31,7 @@ Fixes are registered to and only run for one `IFixType`.
 
 The interface contains two methods:
 	* `int getVersion()`: This method returns the current save format version of your mod. When the system sees data that has an older version than the result of this method, it will run the fixer.
-	* `NBTTagCompound fixTagCompound(NBTTagCompound compound)`: Accepts the full NBT tag of the requested `IFixType` (i.e. the entire ItemStack, Chunk, or TileEntity), returns the fixed version. For ItemStacks, the top-level tag is passed, containing the Item ID, stack size, metadata, "tag" NBT tag, and capability NBT tag.
+	* `NBTTagCompound fixTagCompound(NBTTagCompound compound)`: Accepts the full NBT tag of the requested `IFixType` (i.e. the entire ItemStack, Chunk, or TileEntity). For ItemStacks, the top-level tag is passed, containing the Item ID, stack size, metadata, "tag" NBT tag, and capability NBT tag. The fixed tag should be returned, at the same hierarchy level as it was passed (i.e. return the top-level ItemStack tag).
 
 ### IDataWalker
 This interface is registered to and only run for one `IFixType`, and essentially represents the ability to discover other `IFixType`'s within the tag.
