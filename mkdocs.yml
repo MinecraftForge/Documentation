@@ -55,6 +55,8 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.highlight:
       use_pygments: false
+  - toc:
+      permalink: ' '
 
 theme: null
 theme_dir: 'forge_theme'

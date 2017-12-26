@@ -83,15 +83,16 @@ That's all there is to creating a Forge development environment in IntelliJ IDEA
 
 To enable the test mods coming with Forge, you will need to add the compiler output to the classpath. Again, cpw has put up [a video](https://www.youtube.com/watch?v=pLWQk6ed56Q) explaining these steps.
 
- 1. Open the "Project Structure" Window under `File -> Project Structure`.
- 2. Head to the "Modules" section and expand the `Forge` module.
- 3. Select the `Forge_test` submodule and head to the "Paths" tab.
- 4. Remember the path listed under the "Test output path" label and select the `Forge_main` submodule from the tree.
- 5. Open the "Dependencies" tab, hit the green plus button on the right-hand side and select "JARs or directories".
- 6. Navigate to the path previously displayed as the `Forge_test` output path and confirm your selection.
- 7. For the "Scope" of this newly added dependency (currently "Compile") choose "Runtime", since the main code doesn't rely on the test code for compilation.
+ 1. Build the test classes by selecting the `src/main/test` directory in your project view and then run `Build -> Build module 'Forge_test'` from the menu bar.
+ 2. Open the "Project Structure" Window under `File -> Project Structure`.
+ 3. Head to the "Modules" section and expand the `Forge` module.
+ 4. Select the `Forge_test` submodule and head to the "Paths" tab.
+ 5. Remember the path listed under the "Test output path" label and select the `Forge_main` submodule from the tree.
+ 6. Open the "Dependencies" tab, hit the green plus button on the right-hand side and select "JARs or directories".
+ 7. Navigate to the path previously displayed as the `Forge_test` output path and confirm your selection.
+ 8. For the "Scope" of this newly added dependency (currently "Compile") choose "Runtime", since the main code doesn't rely on the test code for compilation.
 
-Now that you've added the test mods to the classpath, you need to rebuild them each time you make a change as they will not be built automatically. To do so, select the `src/main/test` directory in your project view and then run `Build -> Build module 'Forge_test'` from the menu bar. In case you make changes to a single test mod file and want them to get rebuild, simply hit `Build -> Rebuild project` or the corresponding keyboard shortcut (<kbd>CTRL</kbd>+<kbd>F9</kbd> by default).
+Now that you've added the test mods to the classpath, you need to rebuild them each time you make a change as they will not be built automatically. To do so, repeat step 1 from the above list or, in case you make changes to a single test mod file and want them to get rebuild, simply hit `Build -> Rebuild project` or the corresponding keyboard shortcut (<kbd>CTRL</kbd>+<kbd>F9</kbd> by default).
 
 #### Testing with existing mods
 
