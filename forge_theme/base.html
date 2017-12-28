@@ -17,7 +17,7 @@
     <meta name="msapplication-config" content="http://www.minecraftforge.net/forum/uploads/set_resources_3/247441864ab051a2bd22c960e8e7b8b5_browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="{{ base_url }}/css/styles.css">
+    <link rel="stylesheet" href="{{ base_url }}/css/styles_light.css?version=1" data-type="themed">
 
     {% for path in extra_css %}
     <link href="{{ path }}" rel="stylesheet">
@@ -112,7 +112,16 @@
     </div>
 </main>
 <div class="wrapper">
-    <footer>Built with <a href="http://www.mkdocs.org">MkDocs</a> using a custom theme. Hosted by <a href="https://readthedocs.org">Read the Docs</a>.</footer>
+    <footer>
+        Built with <a href="http://www.mkdocs.org">MkDocs</a> using a custom theme. Hosted by <a href="https://readthedocs.org">Read the Docs</a>.
+        <div class="theme-switch-wrapper">
+            Enable Dark Theme
+            <label class="theme-switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </footer>
 </div>
 </body>
 </html>
