@@ -19,53 +19,65 @@ Table of Contents
 Basics
 ------
 
-A Config should contain static fields, one per config option. There are a few exceptions, such as [Nested Configs][nestedconfigs] and [Sub Categories][subcategories]. Note that you can use an enum as a config field. To add information to and control config values, you can use the plethora of annotations provided in the `@Config` class.
+A class annotated with `@Config` will have any fields turned into config options. Said fields can be annotated to add information, using the plethora of annotations provided in the `@Config` class.
+
+!!! note
+  Enum config values generate a comment that is as many lines long as the enum has values.
 
 A good example of this system is [`Forge's Test`][forgetest]
 
 @Config Use
 -----------
 
-This annotation is used to denote a class is the container for some configuration options. There are 4 properties:
+This annotation is used to denote a class is the container for some configuration options. 
+
+There are 4 properties:
 
 |     Property|Type     | Default Value | Comment 
 |           -:|:-       |     :-:       |:-
 |        modid|`String` |     N/A       | The mod id that this configuration is associated with. 
 |         name|`String` |     `""`      | A user friendly name for the config file, the default will be modid. 
 |         type|`Type`   |`Type.INSTANCE`| The type this is, right now the only value is `Type.INSTANCE`. This is intended to be expanded upon later for more Forge controlled configs. 
-|     category|`String` |  `"general"`  | Root element category, defaults to "general", if this is an empty string then the root category is disabled. Any primitive fields will cause an error, and you must specify sub-category objects. 
+|     category|`String` |  `"general"`  | Root element category. If this is an empty string then the root category is disabled. 
 
-### Example
-```java
-@Config(modid = "reallycoolmod")
-public class Configs {
-
-}
-```
+!!! important
+  If you disable the root category, this will cause issues unless you create [Sub Categories][subcategories].
 
 @Comment Use
 ------------
 
-Adding a `@Comment` annotation to a field will add a comment to the config in it's file. It has 1 property:
+Adding a `@Comment` annotation to a field will add a comment to the config in its file. 
+
+It has 1 property:
 
 | Property|Type       | Default Value |Comment 
 |       -:|:-         |       :-:     |:-
-|    value|`String[]` |       N/A     |This can be passed as a `String` or `String[]`, a `String[]` will form a multi-line comment where 1 element = 1 line.
+|    value|`String[]` |       N/A     |A `String[]` will form a multi-line comment where 1 element = 1 line.
+!!! note
+  The value in this annotation can be passed as a `String` because java is cool and turns it into a `String[]`.
 
 ### Example
 ```java
 @Comment({
   "You can add comments using this",
-  "and if you supply an array it will me multiline"
+  "and if you supply an array it will be multi-line"
 })
 public static boolean doTheThing = true;
 ```
+This would produce the following config:
+```
+# You can add comments using this
+# and if you supply an array it will me multiline
+B:doTheThing=true   
+``` 
 This will produce a `boolean` config value with name `doTheThing`, the defualt value `true` and the comment provided in the config file.
 
 @Name Use
 ---------
 
-You should use the `@Name` annotation to give a config a user friendly name in the config file. This has 1 property:
+You should use the `@Name` annotation to give a config a user friendly name in the config file.
+
+This has 1 property:
 | Property | Type    | Default Value |
 |        -:|:-       |      :-:      |
 |     value|`String` |      N/A      | 
@@ -75,56 +87,72 @@ You should use the `@Name` annotation to give a config a user friendly name in t
 @Name("FE/T for the thing")
 public static int thingFE = 50; 
 ```
-This will produce an `int` config value with the name `FE/T for the thing`, and the default value `50` in the config file.
+This will produce the following config:
+```
+I:"FE/T for the thing"=50
+```
 
 @RangeInt Use
 -------------
 
-You should use `@RangeInt` to limit an `int` config value. It has a couple of properties:
+You should use `@RangeInt` to limit an `int` or `Integer` config value. 
 
-| Property|Type |    Default Value    |
-|       -:|:-   |        :-:          |
-|      min|int  | `Integer.MIN_VALUE` |
-|      max|int  | `Integer.MAX_VALUE` |
+It has a couple of properties:
+
+| Property|Type   |    Default Value    |
+|       -:|:-     |        :-:          |
+|      min|`int`  | `Integer.MIN_VALUE` |
+|      max|`int`  | `Integer.MAX_VALUE` |
 
 ### Example
 ```java
 @RangeInt(min = 0) 
-public static int thingFE = 50;
+public static int thingFECapped = 50;
 ```
-This will produce an `int` config value with the name `thingFE`, and the default value `50` in the config file; it will ensure the value stays between the bounds of `0` and `Integer.MAX_VALUE`.
+This will produce the following config:
+
+```
+# Min: 0
+# Max: 2147483647
+I:thingFECapped=50
+```
 
 @RangeDouble Use
 ----------------
 
-You should use `@RangeDouble` to limit a `double` config value. It has a couple of properties:
+You should use `@RangeDouble` to limit a `double` or `Double` config value. 
 
-| Property|Type   |    Default Value   |
-|       -:|:-     |        :-:         |
-|      min|double | `Double.MIN_VALUE` |
-|      max|double | `Double.MAX_VALUE` |
+It has a couple of properties:
+
+| Property|Type     |    Default Value    
+|       -:|:-       |        :-:         |
+|      min|`double` | `Double.MIN_VALUE` |
+|      max|`double` | `Double.MAX_VALUE` |
 
 ### Example
 ```java
 @RangeDouble(min = 0, max = Math.PI) 
 public static double chanceToDrop = 2;
 ```
-This will produce a `double` config value with the name `chanceToDrop`, and the default value `Math.PI` in the config file; it will ensure the value stays between the bounds of `0` and `Math.PI`.
+This will produce the following config:
+```
+# Min: 0.0
+# Max: 3.141592653589793
+D:chanceToDrop=2.0
+```
+
+!!! note
+  There is not currenty (in 1.12.2) a `@RangedFloat` or `@RangedLong` or any other variant of the Ranged values. 
 
 @LangKey Use
 ------------
 
-You should use the `@LangKey` annotation to give a config a user friendly via .lang files in the mod options menu. NOTE: This does not affect anything in the config file itself. This has 1 property:
+If you want to add translations for your configs in the mod options menu, add to the config's field `@LangKey`.
+
+This has 1 property:
 | Property | Type    | Default Value |
 |        -:|:-       |      :-:      |
 |     value|`String` |      N/A      | 
-
-### Example
-```java
-@LangKey("modid.config.thingFE")
-public static int thingFE = 50; 
-```
-This will produce an `int` config value with the name `thingFE`, and the default value `50` in the config file. However in the mod options menu, it will have the translated name supplied from the lang file with the `@LangKey`.
 
 @RequiresMcRestart Use
 ----------------------
@@ -150,36 +178,34 @@ public static boolean someOtherworldlyThing = false;
 ```
 This will force the world to be restarted if the config is changed in the mod options menu.
 
-Nested Configs
+Sub Categories
 --------------
-A Nested config is possible like this:
+If you want Sub Categories, you must specify them. A good way to do this is to make a private inner class, and create a singleton instance in it's parent. 
+
+An example of how to setup a Sub Category:
 ```java
 @Config(modid = "modid")
 public class Configs {
-  public static NestedConfig nestedConfig = new NestedConfig();
-  
-  public static class NestedConfig {
-    public String message = "Don't go that way";
+  public static SubCategory subcat = new SubCategory(59);
+
+  private static class SubCategory {
+    @Config.RangeInt(min = 0, max = 1000)
+    @Config.Comment("This is the FE/t used by the thing")
+    public int feForTheThing; 
+
+    public SubCategory(int defaultFE) {
+      feForTheThing = defaultFE;
+    }
   }
 }
 ```
-
-Sub Categories
---------------
-A Sub Category can be setup like this:
-```java
-@Config(modid = "modid")
-public class Configs {
-    public static SubCategory subcat = new SubCategory(59);
-
-    public static class SubCategory {
-      @Config.RangeInt(min = 0, max = 1000)
-      @Config.Comment("This is the FE/t used by the thing")
-      public int feForTheThing; 
-
-      public SubCategory(int defaultFE) {
-        feForTheThing = defaultFE;
-    }
+In the config file, this will produce the following:
+```
+subcat {
+  # This is the FE/t used by the thing
+  # Min: 0
+  # Max: 1000
+  I:feForTheThing=59
 }
 ```
 
@@ -192,6 +218,5 @@ public class Configs {
 [langkeyuse]: #@LangKey-Use
 [requiresmcrestartuse]: #@RequiresMcRestart-Use
 [requiresworldrestartuse]: #@RequiresWorldRestart-Use
-[forgetest]: https://github.com/MinecraftForge/MinecraftForge/blob/1.12.x/src/test/java/net/minecraftforge/debug/ConfigTest.java
-[nestedconfigs]: #Nested-Configs
+[forgetest]: https://github.com/MinecraftForge/MinecraftForge/blob/603903db507a483fefd90445fd2b3bdafeb4b5e0/src/test/java/net/minecraftforge/debug/ConfigTest.java
 [subcategories]: #Sub-Categories
