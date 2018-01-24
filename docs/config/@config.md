@@ -192,14 +192,10 @@ An example of how to setup a Sub Category:
 ```java
 @Config(modid = "modid")
 public class Configs {
-  public static SubCategory subcat = new SubCategory(false);
+  public static SubCategory subcat = new SubCategory();
 
   private static class SubCategory {
     public boolean someBool; 
-
-    public SubCategory(int someBool) {
-      this.someBool = someBool;
-    }
   }
 }
 ```
