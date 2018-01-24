@@ -186,21 +186,19 @@ This will force the world to be restarted if the config is changed in the mod op
 
 Sub Categories
 --------------
-To make a Sub Category make an object, then add it as a static field in the parent categories class. The object's non-static fields will become configs in that Sub Category.
+To create a Sub Category make an object, then add it as a static field in the parent category's class. The object's member fields will become configs in that Sub Category.
 
 An example of how to setup a Sub Category:
 ```java
 @Config(modid = "modid")
 public class Configs {
-  public static SubCategory subcat = new SubCategory(59);
+  public static SubCategory subcat = new SubCategory(false);
 
   private static class SubCategory {
-    @Config.RangeInt(min = 0, max = 1000)
-    @Config.Comment("This is the FE/t used by the thing")
-    public int feForTheThing; 
+    public boolean someBool; 
 
-    public SubCategory(int defaultFE) {
-      feForTheThing = defaultFE;
+    public SubCategory(int someBool) {
+      this.someBool = someBool;
     }
   }
 }
@@ -208,10 +206,7 @@ public class Configs {
 In the config file, this will produce the following:
 ```
 subcat {
-  # This is the FE/t used by the thing
-  # Min: 0
-  # Max: 1000
-  I:feForTheThing=59
+  B:someBool=false
 }
 ```
 
