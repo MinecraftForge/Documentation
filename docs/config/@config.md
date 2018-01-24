@@ -22,7 +22,8 @@ Basics
 A class annotated with `@Config` will have any fields turned into config options. Said fields can be annotated to add information, using the plethora of annotations provided in the `@Config` class.
 
 !!! note
-  Enum config values generate a comment that is as many lines long as the enum has values.
+
+    Enum config values generate a comment that is as many lines long as the enum has values.
 
 A good example of this system is [`Forge's Test`][forgetest]
 
@@ -41,7 +42,8 @@ There are 4 properties:
 |     category|`String` |  `"general"`  | Root element category. If this is an empty string then the root category is disabled. 
 
 !!! important
-  If you disable the root category, this will cause issues unless you create [Sub Categories][subcategories].
+
+    If you disable the root category, this will cause issues unless you create [Sub Categories][subcategories].
 
 @Comment Use
 ------------
@@ -53,8 +55,10 @@ It has 1 property:
 | Property|Type       | Default Value |Comment 
 |       -:|:-         |       :-:     |:-
 |    value|`String[]` |       N/A     |A `String[]` will form a multi-line comment where 1 element = 1 line.
+
 !!! note
-  The value in this annotation can be passed as a `String` because java is cool and turns it into a `String[]`.
+
+    The value in this annotation can be passed as a `String` because java is cool and turns it into a `String[]`.
 
 ### Example
 ```java
@@ -70,7 +74,6 @@ This would produce the following config:
 # and if you supply an array it will me multiline
 B:doTheThing=true   
 ``` 
-This will produce a `boolean` config value with name `doTheThing`, the defualt value `true` and the comment provided in the config file.
 
 @Name Use
 ---------
@@ -78,6 +81,7 @@ This will produce a `boolean` config value with name `doTheThing`, the defualt v
 You should use the `@Name` annotation to give a config a user friendly name in the config file.
 
 This has 1 property:
+
 | Property | Type    | Default Value |
 |        -:|:-       |      :-:      |
 |     value|`String` |      N/A      | 
@@ -97,7 +101,7 @@ I:"FE/T for the thing"=50
 
 You should use `@RangeInt` to limit an `int` or `Integer` config value. 
 
-It has a couple of properties:
+It has 2 properties:
 
 | Property|Type   |    Default Value    |
 |       -:|:-     |        :-:          |
@@ -122,7 +126,7 @@ I:thingFECapped=50
 
 You should use `@RangeDouble` to limit a `double` or `Double` config value. 
 
-It has a couple of properties:
+It has 2 properties:
 
 | Property|Type     |    Default Value    
 |       -:|:-       |        :-:         |
@@ -142,7 +146,8 @@ D:chanceToDrop=2.0
 ```
 
 !!! note
-  There is not currenty (in 1.12.2) a `@RangedFloat` or `@RangedLong` or any other variant of the Ranged values. 
+  
+    There is not currently (in 1.12.2) a `@RangedFloat` or `@RangedLong` or any other variant of the Ranged values. 
 
 @LangKey Use
 ------------
@@ -150,6 +155,7 @@ D:chanceToDrop=2.0
 If you want to add translations for your configs in the mod options menu, add to the config's field `@LangKey`.
 
 This has 1 property:
+
 | Property | Type    | Default Value |
 |        -:|:-       |      :-:      |
 |     value|`String` |      N/A      | 
@@ -180,7 +186,7 @@ This will force the world to be restarted if the config is changed in the mod op
 
 Sub Categories
 --------------
-If you want Sub Categories, you must specify them. A good way to do this is to make a private inner class, and create a singleton instance in it's parent. 
+A good way to male a `Sub Category` is to make a private inner class, and create a singleton instance in it's parent. 
 
 An example of how to setup a Sub Category:
 ```java
