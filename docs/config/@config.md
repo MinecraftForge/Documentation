@@ -186,7 +186,7 @@ This will force the world to be restarted if the config is changed in the mod op
 
 Sub Categories
 --------------
-A good way to male a `Sub Category` is to make a private inner class, and create a singleton instance in it's parent. 
+To make a Sub Category make an object, then add it as a static field in the parent categories class. The object's non-static fields will become configs in that Sub Category.
 
 An example of how to setup a Sub Category:
 ```java
