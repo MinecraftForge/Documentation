@@ -182,7 +182,7 @@ This will force the world to be restarted if the config is changed in the mod op
 
 Sub Categories
 --------------
-To create a Sub Category make an object, then add it as a static field in the parent category's class. The object's member fields will become configs in that Sub Category.
+A Sub Category is a way to group certain (usually related) config options together, and should be used to help make navigating your config file easier. To create a Sub Category, you must make an object and add it as a static field in the parent category's class. The object's member fields will become configs in that Sub Category.
 
 An example of how to setup a Sub Category:
 ```java
@@ -192,6 +192,7 @@ public class Configs {
 
   private static class SubCategory {
     public boolean someBool; 
+    public int relatedInt;
   }
 }
 ```
@@ -199,6 +200,7 @@ In the config file, this will produce the following:
 ```
 subcat {
   B:someBool=false
+  I:relatedInt=0
 }
 ```
 
