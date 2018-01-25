@@ -52,13 +52,9 @@ Adding a `@Comment` annotation to a field will add a comment to the config in it
 
 It has 1 property:
 
-| Property|Type       | Default Value |Comment 
-|       -:|:-         |       :-:     |:-
-|    value|`String[]` |       N/A     |A `String[]` will form a multi-line comment where 1 element = 1 line.
-
-!!! note
-
-    The value in this annotation can be passed as a `String` because java is cool and turns it into a `String[]`.
+| Property|Type               | Default Value |Comment 
+|       -:|:-                 |       :-:     |:-
+|    value|`String[]`/`String`|       N/A     |The passed value will be converted to a `String[]` and for each element of the `String[]` a new line is added to the comment.
 
 ### Example
 ```java
@@ -71,7 +67,7 @@ public static boolean doTheThing = true;
 This would produce the following config:
 ```
 # You can add comments using this
-# and if you supply an array it will me multiline
+# and if you supply an array it will be multi-line
 B:doTheThing=true   
 ``` 
 
