@@ -35,6 +35,7 @@ pages:
     - Extended Entity Properties: 'datastorage/extendedentityproperties.md'
   - Utilities:
     - OreDictionary: 'utilities/oredictionary.md'
+    - PermissionAPI: 'utilities/permissionapi.md'
   - Effects:
     - Sounds: 'effects/sounds.md'
   - Conventions:
