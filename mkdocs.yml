@@ -16,6 +16,7 @@ pages:
     - Interaction: 'blocks/interaction.md'
   - Blockstates:
     - Intro to Blockstates: 'blockstates/states.md' 
+    - Extended States: 'blockstates/extendedStates.md'
     - Intro to Blockstate JSONs: 'blockstates/introduction.md'
     - Forge Blockstate JSON: 'blockstates/forgeBlockstates.md'
   - Tile Entities:
