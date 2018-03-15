@@ -2,7 +2,7 @@ Extended States
 ===================
 
 Prerequisites:
-* Understanding of [block states](../states.md). This article will assume you have read and understood the linked article.
+* Understanding of [block states](./states.md). This article will assume you have read and understood the linked article.
 * Limited understanding of custom baked models, as they are pretty much the only use case for extended states.
 
 Motivation
