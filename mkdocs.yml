@@ -48,7 +48,7 @@ pages:
     - Capabilities: 'datastorage/capabilities.md'
     - World Saved Data: 'datastorage/worldsaveddata.md'
     - Extended Entity Properties: 'datastorage/extendedentityproperties.md'
-    - @Config: 'config/@config.md'
+    - Config Annotations: 'config/annotations.md'
   - Utilities:
     - OreDictionary: 'utilities/oredictionary.md'
   - Effects:
