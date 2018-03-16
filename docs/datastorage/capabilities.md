@@ -142,6 +142,7 @@ public class MyTileEntity extends TileEntity {
   private final IItemHandler inventory = new ItemStackHandler(...) {
     @Override
     protected void onContentsChanged(int slot) {
+      super.onContentsChanged(slot);
       markDirty();
     }
   }
