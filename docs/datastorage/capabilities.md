@@ -129,8 +129,27 @@ private static class Factory implements Callable<IExampleCapability> {
 
 Finally, we will need the default implementation itself, to be able to instantiate it in the factory. Designing this class is up to you, but it should at least provide a basic skeleton that people can use to test the capability, if it's not a fully usable implementation on itself.
 
-!!! warning
-    Unlike other objects with capabilities, chunks are only written to disk if the chunk is marked as dirty. A capability implementation for a Chunk should therefore ensure that whenever its state changes, the chunk is marked as dirty.
+Persisting Chunk and TileEntity capabilities
+--------------------------------------------
+
+Unlike Worlds, Entities and ItemStacks, Chunks and TileEntities are only written to disk when they have been marked as dirty. A capability implementation with persistent state for a Chunk or a TileEntity should therefore ensure that whenever its state changes, its owner is marked as dirty.
+
+`ItemStackHandler`, commonly used for inventories in TileEntities, has an overridable method `void onContentsChanged(int slot)` designed to be used to mark the TileEntity as dirty.
+
+```Java
+public class MyTileEntity extends TileEntity {
+
+  private final IItemHandler inventory = new ItemStackHandler(...) {
+    @Override
+    protected void onContentsChanged(int slot) {
+      super.onContentsChanged(slot);
+      markDirty();
+    }
+  }
+
+  ...
+}
+```
 
 Synchronizing Data with Clients
 -------------------------------
