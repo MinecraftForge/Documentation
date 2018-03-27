@@ -1,7 +1,9 @@
 TileEntityItemStackRenderer
 =======================
+!!! note
+    The features used here only exist in forge versions >= 14.23.2.2638.
 
-With the release of Forge 14.23.2.2638, a proper way to render items with GL was implemented. Using this system is much simpler than the old system, which required a TileEntity, and does not allow access to the ItemStack.
+TileEntityItemStackRenderer is a method to use OpenGL to render on items.  This system is much simpler than the old TESRItemStack system, which required a TileEntity, and did not allow access to the ItemStack.
 
 Using TileEntityItemStackRenderer
 --------------------------
@@ -16,71 +18,4 @@ To set the TEISR for an Item, use `Item#setTileEntityItemStackRenderer`.  Each I
 
 That's it, no additional setup is necessary to use a TEISR.
 
-Example IBakedModel (ItemLayerWrapper.java)
----------------
-
-```java
-import java.util.List;
-
-import javax.vecmath.Matrix4f;
-
-import org.apache.commons.lang3.tuple.Pair;
-
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
-import net.minecraft.client.renderer.block.model.ItemOverrideList;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.EnumFacing;
-
-public class ItemLayerWrapper implements IBakedModel {
-
-  private final IBakedModel internal;
-
-  public ItemLayerWrapper(IBakedModel internal) {
-    this.internal = internal;
-  }
-
-  @Override
-  public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
-    return internal.getQuads(state, side, rand);
-  }
-
-  @Override
-  public boolean isAmbientOcclusion() {
-    return internal.isAmbientOcclusion();
-  }
-
-  @Override
-  public boolean isGui3d() {
-    return internal.isGui3d();
-  }
-
-  public IBakedModel getInternal() {
-    return internal;
-  }
-
-  @Override
-  public boolean isBuiltInRenderer() {
-    return true;
-  }
-
-  @Override
-  public TextureAtlasSprite getParticleTexture() {
-    return internal.getParticleTexture();
-  }
-
-  @Override
-  public ItemOverrideList getOverrides() {
-    return internal.getOverrides();
-  }
-
-  @Override
-  public Pair<? extends IBakedModel, Matrix4f> handlePerspective(TransformType cameraTransformType) {
-    //You can use a field on your TileEntityItemStackRenderer to store this TransformType for use in renderByItem, this method is always called before it.
-    return Pair.of(this, internal.handlePerspective(cameraTransformType).getRight());
-  }
-
-}
-```
+If you need to access the TransformType for rendering, you can store the one passed through `IBakedModel#handlePerspective`, and use it during rendering.  This method will always be called before `TileEntityItemStackRenderer#renderByItem`.
