@@ -8,18 +8,36 @@ pages:
     - Forge Update Checker: 'gettingstarted/autoupdate.md'
   - Concepts:
     - Sides: 'concepts/sides.md'
+    - Resources: 'concepts/resources.md'
     - Registries: 'concepts/registries.md'
+    - The Fingerprint Violation Event: 'concepts/jarsigning.md'
   - Blocks:
     - Home: 'blocks/blocks.md'
+    - Intro to Blockstates: 'blocks/states.md'
     - Interaction: 'blocks/interaction.md'
-  - Blockstates:
-    - Intro to Blockstates: 'blockstates/states.md' 
-    - Intro to Blockstate JSONs: 'blockstates/introduction.md'
-    - Forge Blockstate JSON: 'blockstates/forgeBlockstates.md'
   - Tile Entities:
     - Special Renderer: 'tileentities/tesr.md'
   - Items:
     - Home: 'items/items.md'
+    - Loot Tables: 'items/loot_tables.md'
+  - Models:
+    - Intro to Models: 'models/introduction.md'
+    - Model Files: 'models/files.md'
+    - Blockstates:
+      - Intro to Blockstate JSONs: 'models/blockstates/introduction.md'
+      - Forge Blockstate JSON: 'models/blockstates/forgeBlockstates.md'
+    - Connecting Blocks and Items to Models: 'models/using.md'
+    - Coloring Textures: 'models/color.md'
+    - Item Property Overrides: 'models/overrides.md'
+    - Advanced Models:
+      - Intro to Advanced Models: 'models/advanced/introduction.md'
+      - IModel: 'models/advanced/imodel.md'
+      - IModelState and IModelPart: 'models/advanced/imodelstate+part.md'
+      - IBakedModel: 'models/advanced/ibakedmodel.md'
+      - Extended Blockstates: 'models/advanced/extended-blockstates.md'
+      - Perspective: 'models/advanced/perspective.md'
+      - ItemOverrideList: 'models/advanced/itemoverridelist.md'
+      - ICustomModelLoader: 'models/advanced/icustommodelloader.md'
   - Events:
     - Basic Usage: 'events/intro.md'
   - Networking:
@@ -30,6 +48,7 @@ pages:
     - Capabilities: 'datastorage/capabilities.md'
     - World Saved Data: 'datastorage/worldsaveddata.md'
     - Extended Entity Properties: 'datastorage/extendedentityproperties.md'
+    - Config Annotations: 'config/annotations.md'
   - Utilities:
     - OreDictionary: 'utilities/oredictionary.md'
   - Effects:
@@ -38,6 +57,9 @@ pages:
     - Versioning: 'conventions/versioning.md'
     - Locations: 'conventions/locations.md'
     - Loading Stages: 'conventions/loadstages.md'
+  - Contributing to Forge:
+    - Getting Started: 'forgedev/index.md'
+    - PR Guidlines: 'forgedev/prguidelines.md'
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
@@ -46,8 +68,11 @@ markdown_extensions:
   - admonition
   - smarty
   - sane_lists
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      use_pygments: false
+  - toc:
+      permalink: ' '
 
-extra_css:
-  - css/style_fixes.css
-
-theme: readthedocs
+theme: null
+theme_dir: 'forge_theme'

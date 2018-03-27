@@ -61,7 +61,10 @@ public class MyMessageHandler implements IMessageHandler<MyMessage, IMessage> {
     EntityPlayerMP serverPlayer = ctx.getServerHandler().playerEntity;
     // The value that was sent
     int amount = message.toSend;
-    serverPlayer.inventory.addItemStackToInventory(new ItemStack(Items.diamond, amount));
+    // Execute the action on the main server thread by adding it as a scheduled task
+    serverPlayer.getServerWorld().addScheduledTask(() -> {
+      serverPlayer.inventory.addItemStackToInventory(new ItemStack(Items.DIAMOND, amount));
+    });
     // No response packet
     return null;
   }
@@ -74,10 +77,18 @@ It is recommended (but not required) that for organization's sake, this class is
 
     As of Minecraft 1.8 packets are by default handled on the network thread.
 
-    That means that your `IMessageHandler` can _not_ interact with most game objects directly. The example above for example would not be correct.
+    That means that your `IMessageHandler` can _not_ interact with most game objects directly. 
     Minecraft provides a convenient way to make your code execute on the main thread instead using `IThreadListener.addScheduledTask`.
+    
+    The way to obtain an `IThreadListener` is using either the `Minecraft` instance (client side) or a `WorldServer` instance (server side). The code above shows an example of this by getting a `WorldServer` instance from an `EntityPlayerMP`.
 
-    The way to obtain an `IThreadListener` is using either the `Minecraft` instance (client side) or a `WorldServer` instance (server side).
+!!! warning
+
+    Be defensive when handling packets on the server. A client could attempt to exploit the packet handling by sending unexpected data.
+
+    A common problem is vulnerability to **arbitrary chunk generation**. This typically happens when the server is trusting a block position sent by a client to access blocks and tile entities. When accessing blocks and tile entities in unloaded areas of the world, the server will either generate or load this area from disk, then promply write it to disk. This can be exploited to cause **catastrophic damage** to a server's performance and storage space without leaving a trace.
+
+    To avoid this problem, a general rule of thumb is to only access blocks and tile entities if `world.isBlockLoaded(pos)` is true.
 
 Registering Packets
 -------------------

@@ -74,4 +74,64 @@ Entity Collision
 ----------------
 *Coming Soon*
 
+`onBlockClicked`
+----------------
+
+```java
+public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn)
+```
+
+Called on a block when it is clicked by a player.
+
+!!! Note
+    
+    This method is for when the player *left-clicks* on a block.
+    Don't get this confused with `onBlockActivated`, which is called when the player *right-clicks*.
+
+### Parameters:
+|      Type       |     Name     |                  Description                  |
+|:---------------:|:------------:|:----------------------------------------------|
+|     `World`     |  `worldIn`   | The world that the block was clicked in       |
+|    `BlockPos`   |    `pos`     | The position of the block that was clicked    |
+|  `EntityPlayer` |  `playerIn`  | The player who did the clicking               |
+
+### Usage example
+This method is perfect for adding custom events when a player clicks on a block.
+
+By default this method does nothing.  
+Two blocks that override this method are the **Note Block** and the **RedstoneOre Block**.
+
+The Note block overrides this method so that when left-clicked, it plays a sound.  
+The RedstoneOre block overrides method so that when left-clicked, it gives off emits faint light for a few seconds.
+
+`onBlockDestroyedByPlayer`
+----------------
+
+```java
+public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
+```
+
+Called on a block after it's destroyed by a player
+
+### Parameters:
+|      Type       |    Name     |                 Description                  |
+|:---------------:|:-----------:|:---------------------------------------------|
+|     `World`     |  `worldIn`  | The world that the block was destroyed       |
+|   `BlockPos`    |    `pos`    | The position of the block that was destroyed |
+|  `IBlockState`  |   `state`   | The state of the block that was destroyed    |
+
+!!! Warning
+    
+    The `pos` parameter may not hold the state indicated
+
+### Usage example
+This method is perfect for adding custom events as a result of a player destroying a block
+
+By default this method does nothing.  
+
+The **TNT Block** overrides this method to cause it's explosion when a player destroys it.  
+This method is used by extended pistons; since an extended piston is made up of two blocks (the extended head and the base), 
+the **PistonMoving Block** makes use of this method to destroy the base block when the PistonMoving block is destroyed. 
+
+
 [sidedness]: ../concepts/sides.md

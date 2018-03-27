@@ -1,16 +1,14 @@
 Registries
 ==========
 
-Registration is the process of taking the objects of a mod (items, blocks, sounds, etc.) and making them known to the game. Registering things is important, as without registration the game will simply not know about these objects in a mod and will exhibit great amounts of unexplainable behavior (and probably crash).
+Registration is the process of taking the objects of a mod (items, blocks, sounds, etc.) and making them known to the game. Registering things is important, as without registration the game will simply not know about these objects in a mod and will exhibit great amounts of unexplainable behavior (and probably crash). Some examples of things that need to be registered are `Block`s, `Item`s, `Biome`s.
 
-Most things that require registration in the game are handled by the Forge registries. A registry is a simple object similar to a map that assigns values to keys. Additionally, they automatically assign integer IDs to values. Forge uses registries with `ResourceLocation` keys to register objects, which are of type `IForgeRegistryEntry`. This allows the `ResourceLocation` to act like a "registry name" for the object. The registry name for an object may be accessed with `get`/`setRegistryName`. The setter can only ever be called once, and calling it twice results in an exception. Every type of registrable object has its own registry, and names in two different registries will not collide. (E.g. there's a registry for `Block`s, and a registry for `Item`s, and a `Block` and an `Item` may be registered with the same name `mod:example` without colliding. However, if two blocks were registered with that name, an exception would be thrown.) The default implementation of `IForgeRegistryEntry` (`IForgeRegistryEntry.Impl`) also provides two convenience implementations of `setRegistryName`: one where the parameter is a single string, and one where there are two string parameters. The overload that takes a single string checks whether the input contains a `:` (i.e. it checks whether the passed in stringified `ResourceLocation` has a domain), and if it doesn't it uses the current modid as the resource domain. The two argument overload simply constructs the registry name using the `modID` as the domain and `name` as the path.
-
-There also exists the "registry registry", a registry that registers other registries. This registry registers registries with `ResourceLocation` names and secondary `Class` keys. This allows one to look up the registry that registers a certain class (e.g. one can look up `Block.class` in the registry registry with `GameRegistry.findRegistry` to get the registry that registers blocks).
+Most things that require registration in the game are handled by the Forge registries. A registry is a simple object similar to a map that assigns values to keys. Additionally, they automatically assign integer IDs to values. Forge uses registries with [`ResourceLocation`][ResourceLocation] keys to register objects. This allows the `ResourceLocation` to act like a "registry name" for the object. The registry name for an object may be accessed with `get`/`setRegistryName`. The setter can only ever be called once, and calling it twice results in an exception. Every type of registrable object has its own registry, and names in two different registries will not collide. (E.g. there's a registry for `Block`s, and a registry for `Item`s, and a `Block` and an `Item` may be registered with the same name `mod:example` without colliding. However, if two blocks were registered with that name, an exception would be thrown.)
 
 Registering Things
 ------------------
 
-The recommended way to register things is through the `RegistryEvent`s. In `RegistryEvent.NewRegistry`, registries should be created. Later, `RegistryEvent.Register` is fired once for each registered registry. Because `Register` is a generic event, the event handler should set the type parameter to the type of the object being registered. The event will contain the registry to register things to (`getRegistry`), and things may be registered with `register` (or `registerAll`) on the registry. Here's an example of an event handler that registers blocks:
+The recommended way to register things is through the `RegistryEvent`s. These [events][] are fired right after preinitialization, In `RegistryEvent.NewRegistry`, registries should be created. Later, `RegistryEvent.Register` is fired once for each registered registry. Because `Register` is a generic event, the event handler should set the type parameter to the type of the object being registered. The event will contain the registry to register things to (`getRegistry`), and things may be registered with `register` (or `registerAll`) on the registry. Here's an example of an event handler that registers blocks:
 
 ```java
 @SubscribeEvent
@@ -19,17 +17,18 @@ public void registerBlocks(RegistryEvent.Register<Block> event) {
 }
 ```
 
-The order in which `RegistryEvent.Register` events fire is arbitrary, with the exception that `Block` will *always* fire first, and `Item` will *always* fire second, right after `Block`. After the `Register<Block>` event has fired, all [`ObjectHolder`][ObjectHolder] annotations are refreshed, and after `Register<Item>` has fired they are refreshed again. They are refreshed for a third time after *all* of the other `Register` events have fired.
+The order in which `RegistryEvent.Register` events fire is alphabetically, with the exception that `Block` will *always* fire first, and `Item` will *always* fire second, right after `Block`. After the `Register<Block>` event has fired, all [`ObjectHolder`][ObjectHolder] annotations are refreshed, and after `Register<Item>` has fired they are refreshed again. They are refreshed for a third time after *all* of the other `Register` events have fired.
 
-!!! important
-    These events are fired *before* preinit. This means that `@Mod.EventBusSubscriber` (or `MinecraftForge.EVENT_BUS.register` in the `@Mod` class's constructor for e.g. Scala mods which do not support `static`) should be used to register the event handler before preinit.
+`RegistryEvent`s are currently supported for the following types: `Block`, `Item`, `Potion`, `Biome`, `SoundEvent`, `PotionType`, `Enchantment`, `IRecipe`, `VillagerProfession`, `EntityEntry`
 
-There is another, older way of registering objects into registries, using `GameRegistry.register`. Anytime something suggests using this method, it should be replaced with an event handler for the appropriate registry event. This method simply finds the registry corresponding to an `IForgeRegistryEntry` with `IForgeRegistryEntry::getRegistryType`, and then registers the object to the registry. There is also a convenience overload that takes an `IForgeRegistryEntry` (`ifre`) and an RL, which is equivalent to `GameRegistry.register(ifre.setRegistryName(rl))`.
+There is another, older way of registering objects into registries, using `GameRegistry.register`. Anytime something suggests using this method, it should be replaced with an event handler for the appropriate registry event. This method simply finds the registry corresponding to an `IForgeRegistryEntry` with `IForgeRegistryEntry::getRegistryType`, and then registers the object to the registry. There is also a convenience overload that takes an `IForgeRegistryEntry` and a `ResourceLocation`, which is equivalent to calling `IForgeRegistryEntry::setRegistryName`, followed by a `GameRegistry.register` call.
 
 Creating Registries
 -------------------
 
-Registries are not only for Forge. Any mod can create their own registries, and any mod can register things to registries from any other mod. Registries are created by using `RegistryBuilder`. This class takes certain parameters for the registry it will generate, such as the name. the `Class` of it's values, and various callbacks for when the registry is changed. Upon calling `RegistryBuilder::create`, the registry is built, registered to the registry registry, and returned to the caller.
+There's a global registry where all the other registries are stored. By taking a `Class` that a registry is supposed to store or its `ResourceLocation` name, one can retrieve a registry from this registry. For example, one can use `GameRegistry.findRegistry(Block.class)` to get the registry for blocks. Any mod can create their own registries, and any mod can register things to registries from any other mod. Registries are created by using `RegistryBuilder` inside a `RegistryEvent.NewRegistry` event handler. This class takes certain parameters for the registry it will generate, such as the name. the `Class` of it's values, and various callbacks for when the registry is changed. Upon calling `RegistryBuilder::create`, the registry is built, registered to the metaregistry, and returned to the caller.
+
+In order for a class to have a registry, it needs to implement `IForgeRegistryEntry`. This interface defines `getRegistryName(ResourceLocation)`, `setRegistryName(ResourceLocation)`, and `getRegistryType()`. `getRegistryType` is the base `Class` of the registry the object is to be registered to. It is recommended to extend the default `IForgeRegistryEntry.Impl` class instead of implementing `IForgeRegistryEntry` directly. This class also provides two convenience implementations of `setRegistryName`: one where the parameter is a single string, and one where there are two string parameters. The overload that takes a single string checks whether the input contains a `:` (i.e. it checks whether the passed in stringified `ResourceLocation` has a domain), and if it doesn't, it uses the current modid as the resource domain. The two argument overload simply constructs the registry name using the `modID` as the domain and `name` as the path.
 
 Injecting Registry Values Into Fields
 -------------------------------------
@@ -63,7 +62,7 @@ class AnnotatedHolder {
                                                     // Object to be injected: "neomagicae:coffeinum" from the ManaType registry.
 
     public static final Item ENDER_PEARL = null;    // Note that the actual name is "minecraft:ender_pearl", not "minecraft:ENDER_PEARL".
-                                                    // Therefore, THIS WILL FAIL. The field has to be lowercased or annotated.
+                                                    // However, since constructing a ResourceLocation lowercases the value, this will work.
 }
 
 class UnannotatedHolder { // Note lack of annotation on this class.
@@ -81,4 +80,6 @@ class UnannotatedHolder { // Note lack of annotation on this class.
 }
 ```
 
+[ResourceLocation]: resources.md#resourcelocation
+[events]: ../events/intro.md
 [ObjectHolder]: #injecting-registry-values-into-fields
