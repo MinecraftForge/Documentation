@@ -12,7 +12,7 @@ TileEntityItemStackRenderer allows you to render your item using `public void re
 There is an overload that takes partialTicks as a parameter, but it is never called in vanilla.
 
 In order to use a TEISR, the Item must first satisfy the condition that its model returns true for `IBakedModel#isBuiltInRenderer`.
-Once that returns true, the Item's TEISR will be accessed for rendering.  If it does not have one, it will use the default `TileEntityItemStackRenderer.instance`. For an example IBakedModel to use, see below.
+Once that returns true, the Item's TEISR will be accessed for rendering.  If it does not have one, it will use the default `TileEntityItemStackRenderer.instance`.
 
 To set the TEISR for an Item, use `Item#setTileEntityItemStackRenderer`.  Each Item can only ever provide one TEISR, and the getter is final so that mods do not return new instances each frame.
 
