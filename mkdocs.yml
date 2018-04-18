@@ -50,6 +50,7 @@ pages:
     - Extended Entity Properties: 'datastorage/extendedentityproperties.md'
     - Config Annotations: 'config/annotations.md'
   - Utilities:
+    - Recipes: 'utilities/recipes.md'
     - OreDictionary: 'utilities/oredictionary.md'
   - Effects:
     - Sounds: 'effects/sounds.md'
