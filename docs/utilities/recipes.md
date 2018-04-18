@@ -118,9 +118,6 @@ Patterns
 Keys
 ----
 
-Ingredients
------------
-
 Results
 -------
 TODO
