@@ -9,6 +9,7 @@ Forge will load all recipes which can be found within the `./assets/<modid>/mode
 
 The Recipe file
 ---------------
+Here is a small explanation of the properties used in the JSON file below. For a more in-depth explanation, please scroll down.
 |     Property | Description |
 |-------------:|------------|
 |     type |  Let's Forge know of what type the recipe is. This can either be `minecraft:crafting_shaped` or `minecraft:crafting_shapeless`. You can also register a type for yourself or use Forge specific types.
@@ -23,36 +24,36 @@ The basic structure of your recipe file should look like the following example f
 
 !!! note
 
-	This is a basic example and does not show every possibility you may have.
+    This is a basic example and does not show every possibility you may have.
 
 ```json
 {
     "type": "minecraft:crafting_shaped",
-	"pattern":
-	[
-		"xxa",
-		"x x",
-		"xxx"
-	],
-	"key":
-	{
-		"x":
-		{
-			"type": "forge:ore_dict",
-			"ore": "diamond"
-		},
-		"a":
-		{
-		    "item": "mymod:myfirstitem",
-		    "data": 1
-		}
-	},
-	"result":
-	{
-		"item": "mymod:myitem",
-		"count": 9
-		"data": 2
-	}
+    "pattern":
+    [
+        "xxa",
+        "x x",
+        "xxx"
+    ],
+    "key":
+    {
+        "x":
+        {
+            "type": "forge:ore_dict",
+            "ore": "diamond"
+        },
+        "a":
+        {
+            "item": "mymod:myfirstitem",
+            "data": 1
+        }
+    },
+    "result":
+    {
+        "item": "mymod:myitem",
+        "count": 9,
+        "data": 2
+    }
 }
 ```
 
@@ -64,7 +65,7 @@ a new `Advancement` for each of your ingredients.
 
 !!! note
 
-	The advancement has to exist. This doesn't mean it has to be visible in the advancement tree.
+    The advancement has to exist. This doesn't mean it has to be visible in the advancement tree.
 
 Item Objects
 ------------
@@ -72,7 +73,7 @@ Item Objects
 Type
 ----
 TODO
-	"type": "forge:oreshaped",
+    "type": "forge:oreshaped",
 	
 Groups
 ------
@@ -83,17 +84,17 @@ Within this section we will take a closer look on the differences between defini
 
 ### Shaped crafting
 Shaped recipes require the `pattern` and `key` keywords. A pattern defines the slot an item must appear in using placeholder characters. You can choose whatever character you want to be a placeholder for an item. Keys on the other hand define what items are to be used instead of the placeholders. A key is defined by a placeholder character and the item. 
-Additional the type `forge:ore_dict` may be added. This defines the item beeing part of the [`OreDictionary`][OreDictionary] and can for example be used when it doesn't matter which copper ore is used to produce a copper ingot. In this case the `ore` tag has to be used instead of the `item` tag to define the item.
+Additional the type `forge:ore_dict` may be added. This defines the item beeing part of the [`OreDictionary`][OreDictionary] and can for example be used when it doesn't matter which copper ore is used to produce a copper ingot. In this case the `ore` tag has to be used instead of the `item` tag to define the item. There are [many more][Wiki] of these types which can be used here and you can even register your own.
 The `data` tag is a optional and used to define the metadata of a block or item.
 
 ### Shapeless crafting
 A shapeless recipe doesn't make use of the `pattern` and `key` keywords. 
 
-To define a shapeless recipe, you have to use the `ingredients` list. It defines which items have to be used for the crafting process and can also make use of the additional type `forge:ore_dict` and it's functionality as described above. It is even possible to define multiply instances of the same item which means multiply of these items have to be in place for the crafting recipe to take place. 
+To define a shapeless recipe, you have to use the `ingredients` list. It defines which items have to be used for the crafting process and can also make use of the additional type `forge:ore_dict` and it's functionality as described above. There are [many more][Wiki] of these types which can be used here and you can even register your own. It is even possible to define multiply instances of the same item which means multiply of these items have to be in place for the crafting recipe to take place. 
 
 !!! note
 
-	While there is no limit on how many ingredients your recipe requires the vanilla crafting table does only allow 9 items to be placed for each crafting recipe.
+    While there is no limit on how many ingredients your recipe requires the vanilla crafting table does only allow 9 items to be placed for each crafting recipe.
 
 The following example shows how an ingredient list looks like within JSON.
 
@@ -110,7 +111,7 @@ The following example shows how an ingredient list looks like within JSON.
 ```
 
 ### Special behaviour of the `data` tag
-It is strongly adviced to use the `data` tag to define the metadata of your items and blocks. When it is not used within the ingredients or keys, it will mean any metadata of this item will be accepted, for example: Not defining the data of a sword means even a half broken sword will be accepted for the crafting recipe!
+It is strongly adviced to use the `data` tag to define the metadata of your items and blocks. Any item which uses `setHasSubtypes(true)` requires the use of the data field. When it is not used within the ingredients or keys, it will mean any metadata of this item will be accepted, for example: Not defining the data of a sword means even a half broken sword will be accepted for the crafting recipe!
 
 Patterns
 --------
@@ -123,8 +124,12 @@ Results
 TODO
 
 When crafting something, you can get out more than one item. This is achieved by defining the `count` number. If this is left out, meaning it doesn't exist within the result block, it defaults to 1. Negative values are not allowed here as an Itemstack cannot be smaller than 0. There is no option to use the `count` number anywhere else than for the result.
-The `data` tag is a optional and used to define the metadata of a block or item. It defaults to 0 when it doesn't exist.
+The `data` field is a optional and used to define the metadata of a block or item. It defaults to 0 when it doesn't exist.
 
+!!! note
+
+    Any item which uses `setHasSubtypes(true)` requires the data field. In this case, it is not optional!
+    
 Adding conditions to your recipe
 --------------------------------
 
@@ -133,3 +138,4 @@ Using the Recipe System for own blocks
 
 [OreDictionary]: ../utilities/oredictionary.md
 [Advancements]: #
+[Wiki]: https://minecraft.gamepedia.com/Recipe
