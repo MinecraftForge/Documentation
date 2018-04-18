@@ -33,6 +33,6 @@ Textures are in the PNG format and are located in `./assets/<modid>/textures/blo
 
 ### Recipes
 
-[Recipes][Recipes] are in JSON format and are located in `./assets/<modid>/models/recipes/`.
+[Recipes][Recipes] are in JSON format and are located in `./assets/<modid>/recipes/`.
 
 [Recipes]: ../utilities/recipes.md
