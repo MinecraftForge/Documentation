@@ -1,22 +1,19 @@
 Recipes
 =======
 
-With the update to Minecraft 1.12, Mojang introduced a new data-driven recipe system based on JSON files. Since then it has been adopted by Forge aswell and will be expanded with Minecraft 1.13.
+With the update to Minecraft 1.12, Mojang introduced a new data-driven recipe system based on JSON files. Since then it has been adopted by Forge as well and will be expanded with Minecraft 1.13.
 
 Loading Recipes
 ---------------
-Forge will load all recipes which can be found within the `./assets/<modid>/models/recipes/` folder.
-You can call these files whatever you want, thought the vanilla convention is to name them after the
-output item. This name is also used as the registration key, but does not affect the operation of the
-recipe.
+Forge will load all recipes which can be found within the `./assets/<modid>/models/recipes/` folder. You can call these files whatever you want, thought the vanilla convention is to name them after the output item. This name is also used as the registration key, but does not affect the operation of the recipe.
 
 The Recipe file
 ---------------
 |     Property | Description |
 |-------------:|------------|
-|     type |  Let's Forge now of what type the recipe is. This can either be `minecraft:crafting_shaped` or `minecraft:crafting_shapeless`. A shapeless crafting recipe is an crafting recipe where it doesn't matter where you place the items in your crafting grid while for a shaped crafting recipe it is important to place them at the defined position.
-|     pattern | A pattern list must be defined for a shaped recipe to define where which item has to be placed. |
-|     key | Each key defined within the key list must define a character from the `pattern` list and what item it should hold. |
+|     type |  Let's Forge know of what type the recipe is. This can either be `minecraft:crafting_shaped` or `minecraft:crafting_shapeless` or one you registered yourself.
+|     pattern | A pattern list must be defined for a shaped recipe to define where which item has to be placed. A blank space means there is no item to place at that position. |
+|     key | Each key defined within the key list must define a character from the `pattern` list and what item it should hold. Undefined keys are treated as a blank space. |
 |     data | The variant of the block or item to be used. |
 |     `"type": "forge:ore_dict"` | Here the input items are part of the Forge [`OreDictionary`][OreDictionary]. Thus, an "ore" will be defined instead of an item. Leave this out if you don't want to use the [`OreDictionary`][OreDictionary]. |
 |     result | Within the `result` keyword, the output item of the crafting recipe is defined. |
@@ -28,7 +25,7 @@ The basic structure of your recipe file should look like the following example f
 
 	This is a basic example and does not show every possibility you may have.
 
-```java
+```json
 {
     "type": "minecraft:crafting_shaped",
 	"pattern":
