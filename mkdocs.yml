@@ -38,6 +38,8 @@ pages:
       - Perspective: 'models/advanced/perspective.md'
       - ItemOverrideList: 'models/advanced/itemoverridelist.md'
       - ICustomModelLoader: 'models/advanced/icustommodelloader.md'
+  - Rendering:
+    - TileEntityItemStackRenderer: 'rendering/teisr.md'
   - Events:
     - Basic Usage: 'events/intro.md'
   - Networking:
