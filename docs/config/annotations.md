@@ -213,16 +213,16 @@ Adding the `@Ignore` annotation to a field in the config class will cause the `C
 
     This will only work on forge version 1.12.2-14.23.1.2602 and later, as the feature was added in [this update][ignoreupdate]
 
-[basics]: #Basics
-[configuse]: #@Config-Use
-[commentuse]: #@Comment-Use
-[nameuse]: #@Name-Use
-[rangeintuse]: #@RangeInt-Use
-[rangedoubleuse]: #@RangeDouble-Use
-[langkeyuse]: #@LangKey-Use
-[requiresmcrestartuse]: #@RequiresMcRestart-Use
-[requiresworldrestartuse]: #@RequiresWorldRestart-Use
-[ignoreuse]: #@Ignore-Use
+[basics]: #basics
+[configuse]: #config-use
+[commentuse]: #comment-use
+[nameuse]: #name-use
+[rangeintuse]: #rangeint-use
+[rangedoubleuse]: #rangedouble-use
+[langkeyuse]: #langkey-use
+[requiresmcrestartuse]: #requiresmcrestart-use
+[requiresworldrestartuse]: #requiresworldrestart-use
+[ignoreuse]: #ignore-use
 [forgetest]: https://github.com/MinecraftForge/MinecraftForge/blob/603903db507a483fefd90445fd2b3bdafeb4b5e0/src/test/java/net/minecraftforge/debug/ConfigTest.java
 [ignoreupdate]: https://github.com/MinecraftForge/MinecraftForge/commit/ca7a5eadc05c427a21fb7ae745e5fd9a5d906267
-[subcategories]: #Sub-Categories
+[subcategories]: #sub-categories
