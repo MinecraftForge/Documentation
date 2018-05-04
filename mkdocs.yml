@@ -12,6 +12,7 @@ pages:
     - Resources: 'concepts/resources.md'
     - Registries: 'concepts/registries.md'
     - The Fingerprint Violation Event: 'concepts/jarsigning.md'
+    - Internationalization and localization: 'contents/internationalization.md'
   - Blocks:
     - Home: 'blocks/blocks.md'
     - Intro to Blockstates: 'blocks/states.md'
