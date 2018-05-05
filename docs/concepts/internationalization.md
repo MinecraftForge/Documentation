@@ -25,6 +25,18 @@ commands.examplemod.examplecommand.usage=/example <value>
 
 A language file may contain escape sequences if the file starts with the comment `#PARSE_ESCAPES`.
 
+Unlocalized names
+-----------------
+
+Blocks, Items and other Minecraft constructs have unlocalized names. Unlocalized names are simply translation keys that are used when displaying their names.
+
+Unlike registry names, unlocalized names are not namespaced. It is therefore conventional to have unlocalized names prefixed with your modid (e.g. `examplemod.example_item`) to avoid conflicts. Otherwise, in the event of a conflict, the localization of one item will override the other.
+
+!!! note
+    The only purpose of unlocalized names is internationalization. Do not use them for logic. Use registry names instead.
+
+    A common pattern is using `getUnlocalizedName().subString(5)` to assign registry names. This is fragile and uses the unlocalized name for logic, which is considered bad practice. It could instead be reversed so that the registry name is set first, then the unlocalized name is set according to the registry name `MODID + "." + getRegistryName().getResourcePath()`.
+
 Localization methods
 --------------------
 
