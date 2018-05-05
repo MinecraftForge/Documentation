@@ -50,7 +50,7 @@ Localization methods
 
 `TextComponentTranslation` is an `ITextComponent` that is localized and formatted lazily. It is very useful when sending messages to players because it will be automatically localized in their own locale.
 
-The first parameter of the `TextComponentTranslation(String, Object...)` constructor is a language key, and the rest are used for formatting. The only supported format specifiers are `%s` or `%1$s`. Formatting arguments may be other `ITextComponent`s that will be inserted into the resulting formatted text with all their attributes preserved.
+The first parameter of the `TextComponentTranslation(String, Object...)` constructor is a language key, and the rest are used for formatting. The only supported format specifiers are `%s` and `%1$s`, `%2$s`, `%3$s` etc. Formatting arguments may be other `ITextComponent`s that will be inserted into the resulting formatted text with all their attributes preserved.
 
 ### `TextComponentHelper`
 
