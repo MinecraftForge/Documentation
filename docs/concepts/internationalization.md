@@ -35,7 +35,7 @@ Unlike registry names, unlocalized names are not namespaced. It is therefore con
 !!! note
     The only purpose of unlocalized names is internationalization. Do not use them for logic. Use registry names instead.
 
-    A common pattern is using `getUnlocalizedName().subString(5)` to assign registry names. This is fragile and uses the unlocalized name for logic, which is considered bad practice. It could instead be reversed so that the registry name is set first, then the unlocalized name is set according to the registry name `MODID + "." + getRegistryName().getResourcePath()`.
+    A common pattern is using `getUnlocalizedName().substring(5)` to assign registry names. This is fragile and uses the unlocalized name for logic, which is considered bad practice. It could instead be reversed so that the registry name is set first, then the unlocalized name is set according to the registry name `MODID + "." + getRegistryName().getResourcePath()`.
 
 Localization methods
 --------------------
