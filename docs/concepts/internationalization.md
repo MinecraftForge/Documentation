@@ -10,7 +10,7 @@ Localization will happen in the game's locale. In a Minecraft client the locale 
 Language files
 --------------
 
-Language files are located by `assets/domain/lang/locale.lang` (e.g. the US English translation for `examplemod` would be `assets/examplemod/lang/en_us.lang`). Resource pack format 3 requires the locale name to be lowercased. The file format is simply lines of key-value pairs. Lines starting with `#` are treated as comments.
+Language files are located by `assets/domain/lang/locale.lang` (e.g. the US English translation for `examplemod` would be `assets/examplemod/lang/en_us.lang`). Resource pack format 3 requires the locale name to be lowercased. The file format is simply lines of key-value pairs encoded in UTF-8. Lines starting with `#` are treated as comments.
 
 ```properties
 # items
@@ -23,7 +23,10 @@ tile.examplemod.example_block.name=Example Block Name
 commands.examplemod.examplecommand.usage=/example <value>
 ```
 
-A language file may contain escape sequences if the file starts with the comment `#PARSE_ESCAPES`.
+Including the comment `#PARSE_ESCAPES` anywhere in the file will enable the slightly different and more complex Java properties file format. This format is required to support multiline values.
+
+!!! note
+    Enabling `#PARSE_ESCAPES` enables changes various aspects of the parsing. Among other things, the `:` character will be treated as a key-value separator. It must either be excluded from translation keys or escaped using `\:`.
 
 Unlocalized names
 -----------------
