@@ -16,43 +16,72 @@ Why use extended blockstates at all? Why not simply pass an `IBlockAccess` and `
 
 One such use case is advanced camouflaging blocks. The camouflaging block may have a tile entity that holds the `IBlockState` representative of the camouflagee, and an unlisted property to hold that state during rendering. This property can then be filled by `getExtendedState`. Finally, a custom [`IBakedModel`][IBakedModel] can steal the model for that state and use it instead of using the uncamouflaged model.
 
-Using Extended Blockstates
+
+Declaring Unlisted Properties
+------------------------------------
+
+Unlisted properties are declared in `Block.createBlockState`, the same place as regular ("listed") properties. Instead of returning a `BlockStateContainer`, one must return an `ExtendedBlockState`. Forge provides a builder `BlockStateContainer.Builder`, which will automatically handle returning an `ExtendedBlockState` for you.
+
+Example:
+```Java
+@Override
+public BlockStateContainer createBlockState() {
+	return new BlockStateContainer.Builder(this).add(LISTED_PROP).add(UNLISTED_PROP).build();
+}
+```
+
+Note that you do not need to set default values for your unlisted properties. 
+
+
+Filling Extended States
+----------------------------
+
+Before an `IBlockState` is passed to an `IBakedModel`, it will always have `Block.getExtendedState` called on it first. In this method, you will give all your unlisted properties values. Assuming you registered at least one unlisted property in the previous section, the `IBlockState` parameter can be safely casted to `IExtendedBlockState`, which has a `withProperty` method for unlisted properties analogous to its listed property cousin. Here, you can query whatever you want from the World, the Tile Entity, etc. (with appropriate safety checks, of course) and insert it into the extended blockstate.
+
+!!! warning
+	It is highly recommended that your unlisted property values be immutable. Baked model implementations will use the extended state and unlisted values on multiple threads, so any value must be used in a threadsafe manner. The easiest way is to simply make that information an immutable snapshot. Anything you might possibly want to know in your custom `IBakedModel`, you should be passing an immutable snapshot of through `Block.getExtendedState`.
+
+Example:
+```Java
+@Override
+public IExtendedBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+	IExtendedBlockState ext = (IExtendedBlockState) state;
+	TileEntity te = world.getTileEntity(pos);
+	if (te instanceof MyTE) {
+		ext = ext.withProperty(UNLISTED_PROP, ((MyTE) te).getSomeImmutableData());
+	}
+	return ext;
+}
+```
+
+Using Extended States
 --------------------------
 
-```java
-public class ExampleBlock extends Block {
-  public static final IProperty<Boolean> LPROP_1 = ...;
-  public static final IProperty<Boolean> LPROP_2 = ...; // Some listed properties
-  public static final IUnlistedProperty<Float> ROTATION = new IUnlistedProperty<Float>() {
-    // Implementation
-  };
-  // Note that one can use Properties.PropertyAdapter/Properties.toUnlisted to wrap a IProperty in an IUnlistedProperty too.
+In a custom `IBakedModel`, the `IBlockState` parameter passed to you will be exactly the object you returned in `Block.getExtendedState`, and you can pull data out of it and use it to affect your rendering as you wish.
 
-  @Override
-  public BlockStateContainer createBlockState() {
-    return new ExtendedBlockState(this,
-                                  new IProperty<?>[] { LPROP_1, LPROP_2 }, // Listed properties
-                                  new IUnlistedProperty<?>[] { ROTATION }  // Unlisted properties
-    );
-  }
+Here is a basic example of using an unlisted property to determine which model to render, assuming `UNLISTED_PROP` is an `IUnlistedProperty<String>`:
+```Java
+// in custom IBakedModel
+private final Map<String, IBakedModel> submodels = new HashMap<>(); // populated in a custom manner out of the scope of this article
 
-  // Implement getState/MetaFromMeta/State and getActualState (if required) too
+@Override
+public List<BakedQuad> getQuads(@Nullable IBlockState state, EnumFacing facing, long rand) {
+	IBakedModel fallback = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel();
+	if (state == null)
+		return fallback.getQuads(state, facing, rand);
 
-  // Analogous to getActualState, in that it enriches an existing IBlockState with extra data. It is only called in the context of rendering
-  @Override
-  public IBlockState getExtendedState(IBlockState actualState, IBlockAccess world, BlockPos pos) { // result of getActualState is passed in
-    return ((IExtendedBlockState)actualState).withProperty(ROTATION, ...);
-  }
+	IExtendedBlockState ex = (IExtendedBlockState) state;
+	String id = ex.getValue(UNLISTED_PROP);
+	return submodels.getOrDefault(id, fallback).getQuads(state, facing, rand);
+}
+```
 
-  public ExampleBlock() {
-    // Other stuff...
-    // Remember to set defaults for unlisted properties.
-    setDefaultState(((IExtendedBlockState)getDefaultState()) // Cast required to set unlisted properties.
-                    .withProperty(LPROP_1, ...)
-                    .withProperty(LPROP_2, ...) // Set listed properties
-                    .withProperty(ROTATION, 0F) // Set unlisted ones too
-    );
-  }
+Since there are no longer a fixed set of `IExtendedBlockState` generated at startup, comparisons involving an extended state must use `getClean()`, which is a method on `IExtendedBlockState` that returns the vanilla state (i.e. the fixed set of `IBlockState` with only the listed properties).
+```Java
+IExtendedBlockState state = ...;
+IBlockState worldState = world.getBlockState(pos);
+if(state.getClean() == worldState) {
+	...
 }
 ```
 
