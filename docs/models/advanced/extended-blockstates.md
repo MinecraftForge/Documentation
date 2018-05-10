@@ -30,13 +30,7 @@ public BlockStateContainer createBlockState() {
 }
 ```
 
-Similarly to listed properties, you will also need to set a default value for your unlisted property.
-
-```Java
-setDefaultState(((IExtendedBlockState)getDefaultState())
-	.withProperty(UNLISTED_PROP, val)
-	.withProperty(LISTED_PROP, val)
-```
+Note that you do not need to set default values for your unlisted properties. 
 
 
 Filling Extended States
@@ -44,7 +38,7 @@ Filling Extended States
 
 Before an `IBlockState` is passed to an `IBakedModel`, it will always have `Block.getExtendedState` called on it first. In this method, you will give all your unlisted properties values. Assuming you registered at least one unlisted property in the previous section, the `IBlockState` parameter can be safely casted to `IExtendedBlockState`, which has a `withProperty` method for unlisted properties analogous to its listed property cousin. Here, you can query whatever you want from the World, the Tile Entity, etc. (with appropriate safety checks, of course) and insert it into the extended blockstate.
 
-!!! Warning
+!!! warning
 	It is highly recommended that your unlisted property values be immutable. Baked model implementations will use the extended state and unlisted values on multiple threads, so any value must be used in a threadsafe manner. The easiest way is to simply make that information an immutable snapshot. Anything you might possibly want to know in your custom `IBakedModel`, you should be passing an immutable snapshot of through `Block.getExtendedState`.
 
 Example:
