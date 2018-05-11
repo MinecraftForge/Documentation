@@ -5,12 +5,12 @@ Internationalization, i18n for short, is a way of designing code so that it requ
 
 I18n is implemented using _translation keys_. A translation key is a string that identifies a piece of displayable text in no specific language. For example, `tile.dirt.name` is the language key referring to the name of the Dirt block. This way, displayable text may be referenced with no concern for a specific language. The code requires no changes to be adapted in a new language.
 
-Localization will happen in the game's locale. In a Minecraft client the locale is specified by the language settings. On a dedicated server, the only supported locale is en_US.
+Localization will happen in the game's locale. In a Minecraft client the locale is specified by the language settings. On a dedicated server, the only supported locale is en_US. A list of available locales can be found on the [Minecraft Wiki](https://minecraft.gamepedia.com/Language#Available_languages).
 
 Language files
 --------------
 
-Language files are located by `assets/domain/lang/locale.lang` (e.g. the US English translation for `examplemod` would be `assets/examplemod/lang/en_us.lang`). Resource pack format 3 requires the locale name to be lowercased. The file format is simply lines of key-value pairs encoded in UTF-8. Lines starting with `#` are treated as comments.
+Language files are located by `assets/domain/lang/locale.lang` (e.g. the US English translation for `examplemod` would be `assets/examplemod/lang/en_us.lang`). Resource pack format 3 requires the locale name to be lowercased. The file format is simply lines of key-value pairs separated by `=`. Lines starting with `#` are ignored. Lines without a separator are ignored. The file must be encoded in UTF-8.
 
 ```properties
 # items
