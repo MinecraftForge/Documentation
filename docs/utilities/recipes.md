@@ -80,7 +80,7 @@ Groups
 
 Shaped and shapeless crafting
 -----------------------------
-Within this section we will take a closer look on the differences between defining a shaped and a shapeless crafting recipe. Please read both sections carefully as I won't explain the same keywords twice when they can be used within both recipe types!
+Within this section we will take a closer look on the differences between defining a shaped and a shapeless crafting recipe.
 
 ### Shaped crafting
 Shaped recipes require the `pattern` and `key` keywords. A pattern defines the slot an item must appear in using placeholder characters. You can choose whatever character you want to be a placeholder for an item. Keys on the other hand define what items are to be used instead of the placeholders. A key is defined by a placeholder character and the item. 
