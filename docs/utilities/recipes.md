@@ -125,11 +125,27 @@ A pattern will be defined with the `pattern` list. Each string represents one ro
 
 Keys
 ----
+A key set is used in combination with patterns and contains keys whose name is the same as the placeholder character in the pattern list which it represents. One key may be defined to represent multiply items as it is the case for the wooden button. This means that the player can use one of the defined items for the crafting recipe, for example different types of wood.
+
+```json
+  "key": {
+     "#": [
+      {
+        "item": "minecraft:planks",
+         "data": 0
+      },
+      {
+        "item": "minecraft:planks",
+        "data": 1
+      }
+    ]
+  }
+```
 
 
 Results
 -------
-TODO
+Every `recipe` has to have a result tag to define the output item.
 
 When crafting something, you can get out more than one item. This is achieved by defining the `count` number. If this is left out, meaning it doesn't exist within the result block, it defaults to 1. Negative values are not allowed here as an Itemstack cannot be smaller than 0. There is no option to use the `count` number anywhere else than for the result.
 The `data` field is a optional and used to define the metadata of a block or item. It defaults to 0 when it doesn't exist.
