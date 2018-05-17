@@ -113,14 +113,19 @@ The following example shows how an ingredient list looks like within JSON.
     ],
 ```
 
+### Smelting
+To define a recipe for the furnace, you have to define it with the type `minecraft:smelting`. This type of recipe takes in an ingredient and returns a result item. Optionally a `experience` modifier may be applied as a value between 0 and 1. The time in ticks it takes to smelt the item can be defined using `cookingtime` and will default to 200.
+
 ### Special behaviour of the `data` tag
 It is strongly adviced to use the `data` tag to define the metadata of your items and blocks. Any item which uses `setHasSubtypes(true)` requires the use of the data field. When it is not used within the ingredients or keys, it will mean any metadata of this item will be accepted, for example: Not defining the data of a sword means even a half broken sword will be accepted for the crafting recipe!
 
 Patterns
 --------
+A pattern will be defined with the `pattern` list. Each string represents one row in the crafting grid and each placeholder character within the String represents a column. As seen in the example above a space means that no item needs to be inserted at that position.
 
 Keys
 ----
+
 
 Results
 -------
