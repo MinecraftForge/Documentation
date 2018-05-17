@@ -54,6 +54,7 @@ pages:
     - Config Annotations: 'config/annotations.md'
   - Utilities:
     - OreDictionary: 'utilities/oredictionary.md'
+    - PermissionAPI: 'utilities/permissionapi.md'
   - Effects:
     - Sounds: 'effects/sounds.md'
   - Conventions:
