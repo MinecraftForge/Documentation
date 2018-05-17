@@ -36,7 +36,7 @@ It is recommended to use this naming scheme as other implementations may have st
 Making your own implementation of the `PermissionHandler`
 --------------------------------------
 
-By default the PermissionHandler is very basic, which is usually enough for most users. 
+By default the PermissionHandler is very basic, which is usually enough for most users, 
 but you might want more control over the permissions for things like a big server.
 This can be achieved  by creating a custom `PermissionHandler`.
 
@@ -44,7 +44,7 @@ How it works and what is capable of, is totally up to you, for example you could
 Or you could make it as advanced as PEX, having database support and many other functions.
 
 !!! note
-    Not every mod that want's to use the PermissionAPI should change the PermissionHandler as there can be just 1 at the same time!
+    Not every mod that wants to use the PermissionAPI should change the PermissionHandler as there can be only 1 at the same time!
 
 First off, how you implement your own PermissionHandler is completely up to you, you can use files, a database or whatever you want.
 All you need to do is create your own implementation of the interface `IPermissionHandler`.
