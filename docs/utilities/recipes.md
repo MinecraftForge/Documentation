@@ -2,6 +2,7 @@ Recipes
 =======
 
 With the update to Minecraft 1.12, Mojang introduced a new data-driven recipe system based on JSON files. Since then it has been adopted by Forge as well and will be expanded with Minecraft 1.13.
+All recipe json have to be saved with the UTF-8 encoding.
 
 Loading Recipes
 ---------------
@@ -72,11 +73,13 @@ Item Objects
 
 Type
 ----
-TODO
-    "type": "forge:oreshaped",
+Both Minecraft and Forge require you to specify the type of your recipe within the type tag. You can think of this as the definition of which crafting layout is to be used, for example `minecraft:crafting_shaped` or `minecraft:crafting_shapeless` or `minecraft:smelting` for the furnace. Forge has also specified `forge:oreshaped` in order to use the ore dictionary within a shaped recipe. The above tags are example tags only and not a complete list of all available options for the type!
+
+If you want, you can define your own types aswell.
 	
 Groups
 ------
+Optionally you can add a group to your recipes to be displayed within the recipe helper interface. It doesn't matter what you specify as all recipes with the same String will be shown in the same group. This can be used for example for having all door recipes shown in the recipe helper interface as there are different types of doors depending on the used wood.
 
 Shaped and shapeless crafting
 -----------------------------
