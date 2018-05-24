@@ -1,10 +1,14 @@
 # TileEntities
 
-A `TileEntity` is usually a way to store additional data within a Block.
-One example for this would be the Chest or the Furnace they booth store Items, and the furnace event a little bit more Data.
+This is often used by vanilla Minecraft to handle inventories on chests, smelting logic on furances, or area effects for beacons. 
+More advanced versions exist in mods such as quaries, sorting machines, pipes, and displays
+!!! note
+	`TileEntities` aren't a solution for everything, their loading distance is limited, and they can cause lag when used in large amounts.
+	When possible, try to avoid them.
 
 ## Creating a `TileEntity`
 In order to create a `TileEntity` you need to extend the `TileEntity` class.
+It is important that your `TileEntity` has a default constructor, so that Minecraft can proerply load it.
 After you've created your class, you need to register the `TileEntity`. For this you need to call 
 ```JAVA
 	GamerRegistry#registerTileEntity(Class<? extends TileEntity> tileEntityClass, ResourceLocation key)
@@ -14,6 +18,7 @@ Where the first parameter is simply your TileEntity class and the second the reg
 !!! note
 	The method to register a `TileEntity` is using a `String` instead of a `ResourceLocation` before Forge version `14.23.3.2694`
 	You should still use the `ResourceLocation` format `modid:tileentity` though.
+	Not using this format will result in your entitiy being called `minecraft:tileentity`
 
 ## Attaching a `TileEntity` to a `Block`
 To attach your new `TileEntity` to a `Block` you need to override 2 (two) methods within the Block class.
@@ -25,17 +30,18 @@ To attach your new `TileEntity` to a `Block` you need to override 2 (two) method
 Using the parameters you can choose if the block should have a `TileEntity` or not.
 But usually you will return `true` in the first method and a new instance of your `TileEntity` in the second method.
 
-## Storing Data within your `TileEntity`
-After the steps above are done, you might want to actually use your `TileEntity`, usually by storing some data within it.
+At this point the `TileEntity`can be used for Rendering.
 
-In case that the Data is not supposed to be stored all you need to do is to create a field within your `TileEntity` class.
-But in case you want to keep the data across world loads, you need to implement 2 (two) methods within your class.
+## Storing Data within your `TileEntity`
+In order to save data, create the following two methods
 ```JAVA
 	TileEntity#writeToNBT(NBTTagCompound nbt):NBTTagCompound
 
 	TileEntity#readFromNBT(NBTTagCompound nbt)
 ```
-Their names explain them pretty good. Though there is one more thing that you need to do, so the data is actually saved.
+This methods are called whenever the `TileEntity` gets (un-)loaded, you don't use them to access your data.
+All your data should be fields within you class, and be (de-)serialized trough this methods.
+
 Whenever your data changes you need to call ```TileEntity#markDirty()```, otherwise your `TileEntity` might be skipped while saving.
 
 !!! note
@@ -43,7 +49,8 @@ Whenever your data changes you need to call ```TileEntity#markDirty()```, otherw
 	Due to this following tag names are already occupied `id`,`x`,`y`,`z`,`ForgeData`,`ForgeCaps`.
 
 ## Keeping a `TileEntity` trough changing `BlockStates`
-There might be situations in which you need to change your `BlockState`, an example for this is the vanilla furnace.
+There might be situations in which you need to change your `BlockState`, an example for this is the vanilla furnace,
+which changes its state from `lit=false` to `lit=true` when fuel and something smetlable is inside.
 Achieving this is rather simple, by overriding following method
 ```JAVA
 	TileEntity#shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate)#boolean
