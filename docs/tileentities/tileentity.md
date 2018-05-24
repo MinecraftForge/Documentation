@@ -8,7 +8,7 @@ More advanced versions exist in mods such as quaries, sorting machines, pipes, a
 
 ## Creating a `TileEntity`
 In order to create a `TileEntity` you need to extend the `TileEntity` class.
-It is important that your `TileEntity` has a default constructor, so that Minecraft can proerply load it.
+It is important that your `TileEntity` has a default constructor, so that Minecraft can properly load it.
 After you've created your class, you need to register the `TileEntity`. For this you need to call 
 ```JAVA
 	GamerRegistry#registerTileEntity(Class<? extends TileEntity> tileEntityClass, ResourceLocation key)
@@ -40,7 +40,7 @@ In order to save data, create the following two methods
 	TileEntity#readFromNBT(NBTTagCompound nbt)
 ```
 This methods are called whenever the `TileEntity` gets (un-)loaded, you don't use them to access your data.
-All your data should be fields within you class, and be (de-)serialized trough this methods.
+All your data should be fields within you class, and be (de-)serialized through this methods.
 
 Whenever your data changes you need to call ```TileEntity#markDirty()```, otherwise your `TileEntity` might be skipped while saving.
 
@@ -48,7 +48,7 @@ Whenever your data changes you need to call ```TileEntity#markDirty()```, otherw
 	It is important that you call the super methods!
 	Due to this following tag names are already occupied `id`,`x`,`y`,`z`,`ForgeData`,`ForgeCaps`.
 
-## Keeping a `TileEntity` trough changing `BlockStates`
+## Keeping a `TileEntity` through changing `BlockStates`
 There might be situations in which you need to change your `BlockState`, an example for this is the vanilla furnace,
 which changes its state from `lit=false` to `lit=true` when fuel and something smetlable is inside.
 Achieving this is rather simple, by overriding following method
