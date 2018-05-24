@@ -104,4 +104,34 @@ Two blocks that override this method are the **Note Block** and the **RedstoneOr
 The Note block overrides this method so that when left-clicked, it plays a sound.  
 The RedstoneOre block overrides method so that when left-clicked, it gives off emits faint light for a few seconds.
 
+`onBlockDestroyedByPlayer`
+----------------
+
+```java
+public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
+```
+
+Called on a block after it's destroyed by a player
+
+### Parameters:
+|      Type       |    Name     |                 Description                  |
+|:---------------:|:-----------:|:---------------------------------------------|
+|     `World`     |  `worldIn`  | The world that the block was destroyed       |
+|   `BlockPos`    |    `pos`    | The position of the block that was destroyed |
+|  `IBlockState`  |   `state`   | The state of the block that was destroyed    |
+
+!!! Warning
+    
+    The `pos` parameter may not hold the state indicated
+
+### Usage example
+This method is perfect for adding custom events as a result of a player destroying a block
+
+By default this method does nothing.  
+
+The **TNT Block** overrides this method to cause it's explosion when a player destroys it.  
+This method is used by extended pistons; since an extended piston is made up of two blocks (the extended head and the base), 
+the **PistonMoving Block** makes use of this method to destroy the base block when the PistonMoving block is destroyed. 
+
+
 [sidedness]: ../concepts/sides.md

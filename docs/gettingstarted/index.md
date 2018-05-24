@@ -9,7 +9,7 @@ From Zero to Modding
 1. Obtain a source distribution from forge's [files][] site. (Look for the Mdk file type, or Src in older 1.8/1.7 versions).
 2. Extract the downloaded source distribution to an empty directory. You should see a bunch of files, and an example mod is placed in `src/main/java` for you to look at. Only a few of these files are strictly necessary for mod development, and you may reuse these files for all your projects These files are:
     * `build.gradle`
-    * `gradlew.bat`
+    * `gradlew.bat`
     * `gradlew`
     * the `gradle` folder
 3. Move the files listed above to a new folder, this will be your mod project folder.
