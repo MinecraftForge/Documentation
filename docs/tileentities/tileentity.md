@@ -58,6 +58,18 @@ Achieving this is rather simple, by overriding following method
 !!! note
 	You should actually check the `BlockStates` and not just return `false` in order to prevent unwanted behavior and bugs.
     
+## Ticking `TileEntities`
+If you need a ticking `TileEntity` for example to calculate progress on a smelting process.
+You need to add the `ITickable` interface to your `TileEntity`.
+Now you can implement all your calculations within
+```JAVA
+	ITickable#update()
+```
+!!! note
+	This method is called 20 (twenty) times a second you should avoid having complicated calculations in here.
+	And maybe try to do the calculations only each x ticks.
+	(The amount of ticks in a second may be lower then 20 (twenty) but won't be higher)
+    
 ## Syncing the Data to the Client
 There are 2 (two) ways of syncing data to the client.
 * Syncing on World Load
