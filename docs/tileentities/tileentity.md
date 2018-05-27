@@ -63,7 +63,7 @@ Achieving this is rather simple, by overriding following method
     
 ## Ticking `TileEntities`
 If you need a ticking `TileEntity` for example to keep track of the progress during a smelting process.
-You need to add the `ITickable` interface to your `TileEntity`.
+You need to add the `net.minecraft.util.ITickable` interface to your `TileEntity`.
 Now you can implement all your calculations within
 ```JAVA
     ITickable#update()
@@ -114,7 +114,7 @@ Additionally to this you now need to cause a "BlockUpdate" on the Client.
 ```JAVA
     World#notifyBlockUpdate(BlockPos pos, IBlockState oldState, IBlockState newState, int flags)
 ```
-The `pos` should be your TileEntitiy's position. For `oldState` and `newState` you can pass the current BlockState at that position. The `flags` should be 2, which will sync the changes to the clien
+The `pos` should be your TileEntitiy's position. For `oldState` and `newState` you can pass the current BlockState at that position. The `flags` should be 2, which will sync the changes to the client.
 
 ### Synchronizing using a custom network message
 This way of synchronizing is probably the most complicated one.
