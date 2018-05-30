@@ -68,9 +68,6 @@ a new `Advancement` for each of your ingredients.
 
     The advancement has to exist. This doesn't mean it has to be visible in the advancement tree.
 
-Item Objects
-------------
-
 Type
 ----
 Both Minecraft and Forge require you to specify the type of your recipe within the type tag. You can think of this as the definition of which the crafting layout is to be used, for example `minecraft:crafting_shaped` or `minecraft:crafting_shapeless` or `minecraft:smelting` for the furnace. Forge has also specified `forge:oreshaped` in order to use the ore dictionary within a shaped recipe, thought you may want to prefer using the ingredient oredict type instead. The ingredient oredict is a type of itself, only defined for each ingredient separately instead of the entire recipe. It looks like this: `"type": "forge:ore_dict"` and doesn't allow to specify the `data` tag. The above tags are example tags only and not a complete list of all available options for the type!
@@ -205,9 +202,6 @@ It is possible to define constant values for your recipes. These values have to 
 	}
 ]
 ```
-
-Using the Recipe System for own blocks
---------------------------------------
 
 [Wikipedia]: https://en.wikipedia.org/wiki/Factory_(object-oriented_programming)
 [OreDictionary]: ../utilities/oredictionary.md
