@@ -190,6 +190,22 @@ These conditions only apply to the recipe as a whole and not to ingredients. As 
     
 For ingredients, you have to specify a factory of the `ingredients` type and use `CraftingHelper.processConditions` to check if the conditions are met.
 
+Constants
+---------
+It is possible to define constant values for your recipes. These values have to be defined within a `_constants.json` and can be used within any recipe of your mod by just writing `#<name>`. For filled buckets, you should use `fluid` instead of `data`.
+
+```json
+[
+	{
+		"name": "<name>",
+		"ingredient": {
+			"item": "<modid:item>",
+			"data": <metadata>
+		}
+	}
+]
+```
+
 Using the Recipe System for own blocks
 --------------------------------------
 
