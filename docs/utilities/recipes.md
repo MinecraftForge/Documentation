@@ -114,10 +114,10 @@ The following example shows how an ingredient list looks like within JSON.
 ```
 
 ### Smelting
-To define a recipe for the furnace, you have to define it with the type `minecraft:smelting`. This type of recipe takes in an ingredient and returns a result item. Optionally a `experience` modifier may be applied as a value between 0 and 1. The time in ticks it takes to smelt the item can be defined using `cookingtime` and will default to 200.
+To define a recipe for the furnace, you have to use `GameRegistry.addSmelting(input, output, exp);` as the smelting recipes are currently not JSON based.
 
 ### Special behaviour of the `data` tag
-It is strongly adviced to use the `data` tag to define the metadata of your items and blocks. Any item which uses `setHasSubtypes(true)` requires the use of the data field. When it is not used within the ingredients or keys, it will mean any metadata of this item will be accepted, for example: Not defining the data of a sword means even a half broken sword will be accepted for the crafting recipe!
+It is strongly advised to use the `data` tag to define the metadata of your items and blocks. Any item which uses `setHasSubtypes(true)` requires the use of the data field. When it is not used within the ingredients or keys, it will mean any metadata of this item will be accepted, for example: Not defining the data of a sword means even a half broken sword will be accepted for the crafting recipe!
 
 Patterns
 --------
@@ -154,12 +154,46 @@ The `data` field is a optional and used to define the metadata of a block or ite
 
     Any item which uses `setHasSubtypes(true)` requires the data field. In this case, it is not optional!
     
-Adding conditions to your recipe
---------------------------------
+Factories
+---------
+When programing, we speak of a factory as beeing an object to create another object. For more information, you may want to check [Wikipedia][Wikipedia]. To create your own factory, you have to create a `_factories.json`. Within this file a type has to be defined, for example: `recipes`,  `ingredients` or `conditions`. The basic rule is that each type will point to a class reference for example `IRecipeFactory `, `IIngredientFactory` or `IConditionFactory` with a known constructor and input method. At last a `name` which can be later used in your recipes and the fully qualified classname have to be specified which is a class you have to create which implements for example `IRecipeFactory` for a factory of the type `recipes`.
+
+```json
+{
+    "<type>": {
+        "<name>": "<fully qualified classname for the specified type>
+    }
+}
+```
+
+!!! note
+
+    There is no need to create a new `_factories.json` for each type you want to specify.
+
+Conditional recipes
+-------------------
+Conditional recipes can be created by making use of the factory system described above. For this you use the `conditions` type with the `IConditionFactory` from above and can later add the `conditions` type to your recipes:
+
+```json
+{
+    "conditions": [
+        {
+            "type": "<modid>:<name>"
+        }
+    ]
+}
+```
+These conditions only apply to the recipe as a whole and not to ingredients. As an example, you might want to check if a mod is loaded using `forge:mod_loaded` and `"modid": "<mod to check>"`. 
+!!! note
+
+    Conditions will only be checked once at startup!
+    
+For ingredients, you have to specify a factory of the `ingredients` type and use `CraftingHelper.processConditions` to check if the conditions are met.
 
 Using the Recipe System for own blocks
 --------------------------------------
 
+[Wikipedia]: https://en.wikipedia.org/wiki/Factory_(object-oriented_programming)
 [OreDictionary]: ../utilities/oredictionary.md
 [Advancements]: #
 [Wiki]: https://minecraft.gamepedia.com/Recipe
