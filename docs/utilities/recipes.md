@@ -73,7 +73,7 @@ Item Objects
 
 Type
 ----
-Both Minecraft and Forge require you to specify the type of your recipe within the type tag. You can think of this as the definition of which crafting layout is to be used, for example `minecraft:crafting_shaped` or `minecraft:crafting_shapeless` or `minecraft:smelting` for the furnace. Forge has also specified `forge:oreshaped` in order to use the ore dictionary within a shaped recipe. The above tags are example tags only and not a complete list of all available options for the type!
+Both Minecraft and Forge require you to specify the type of your recipe within the type tag. You can think of this as the definition of which the crafting layout is to be used, for example `minecraft:crafting_shaped` or `minecraft:crafting_shapeless` or `minecraft:smelting` for the furnace. Forge has also specified `forge:oreshaped` in order to use the ore dictionary within a shaped recipe, thought you may want to prefer using the ingredient oredict type instead. The ingredient oredict is a type of itself, only defined for each ingredient separately instead of the entire recipe. It looks like this: `"type": "forge:ore_dict"` and doesn't allow to specify the `data` tag. The above tags are example tags only and not a complete list of all available options for the type!
 
 If you want, you can define your own types aswell which requires the use of a `_factories.json` file.
 	
