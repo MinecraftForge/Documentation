@@ -12,7 +12,7 @@ The recommended way to register things is through the `RegistryEvent`s. These [e
 
 ```java
 @SubscribeEvent
-public void registerBlocks(RegistryEvent.Register<Block> event) {
+public static void registerBlocks(RegistryEvent.Register<Block> event) {
     event.getRegistry().registerAll(block1, block2, ...);
 }
 ```
