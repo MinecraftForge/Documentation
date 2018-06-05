@@ -8,6 +8,10 @@ Loading Recipes
 ---------------
 Forge will load all recipes which can be found within the `./assets/<modid>/models/recipes/` folder. You can call these files whatever you want, thought the vanilla convention is to name them after the output item. This name is also used as the registration key, but does not affect the operation of the recipe.
 
+!!! note
+
+    While in theory it doesn't matter how the file is called Forge will ignore all recipe files which begin with an underscore or don't have the JSON file extension.
+
 The Recipe file
 ---------------
 Here is a small explanation of the properties used in the JSON file below. For a more in-depth explanation, please scroll down.
