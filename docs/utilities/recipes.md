@@ -162,7 +162,7 @@ When programing, we speak of a factory as beeing an object to create another obj
 ```json
 {
     "<type>": {
-        "<name>": "<fully qualified classname for the specified type>
+        "<name>": "<fully qualified classname for the specified type>"
     }
 }
 ```
