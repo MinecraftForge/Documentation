@@ -77,9 +77,9 @@ It is recommended (but not required) that for organization's sake, this class is
 
     As of Minecraft 1.8 packets are by default handled on the network thread.
 
-    That means that your `IMessageHandler` can _not_ interact with most game objects directly. 
+    That means that your `IMessageHandler` can _not_ interact with most game objects directly.
     Minecraft provides a convenient way to make your code execute on the main thread instead using `IThreadListener.addScheduledTask`.
-    
+
     The way to obtain an `IThreadListener` is using either the `Minecraft` instance (client side) or a `WorldServer` instance (server side). The code above shows an example of this by getting a `WorldServer` instance from an `EntityPlayerMP`.
 
 !!! warning
@@ -100,7 +100,7 @@ This is quite a complex method, so lets break it down a bit.
 - The first parameter is `messageHandler`, which is the class that handles your packet. This class must always have a default constructor, and should have type bound REQ that matches the next argument.
 - The second parameter is `requestMessageType` which is the actual packet class. This class must also have a default constructor and match the REQ type bound of the previous param.
 - The third parameter is the discriminator for the packet. This is a per-channel unique ID for the packet. We recommend you use a static variable to hold the ID, and then call registerMessage using `id++`. This will guarantee 100% unique IDs.
-- The fourth and final parameter is the side that your packet will be ***received*** on. If you are planning to send the packet to both sides, it must be registered twice with a ***different*** discriminator.
+- The fourth and final parameter is the side that your packet will be ***received*** on. If you are planning to send the packet to both sides, it must be registered twice, once to each side. Discriminators can be the same between sides, but are not required to be.
 
 
 Using Packets
