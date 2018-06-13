@@ -2,21 +2,23 @@
 
 Tile Entities are like simplified Entities, that are bound to a Block.
 They are used to store dynamic data, execute tick based tasks and for dynamic rendering.
-Some examples would be, vanilla Minecraft to handle inventories on chests, smelting logic on furnaces, or area effects for beacons. 
+Some examples from vanilla Minecraft would be: handling of inventories (chests), smelting logic on furnaces, or area effects for beacons.
 More advanced examples exist in mods, such as quarries, sorting machines, pipes, and displays.
 
 !!! note
-    `TileEntities` aren't a solution for everything and they can cause lag when used in large amounts.
+    `TileEntities` aren't a solution for everything and they can cause lag when used wrongly.
     When possible, try to avoid them.
 
 ## Creating a `TileEntity`
 In order to create a `TileEntity` you need to extend the `TileEntity` class.
 It is important that your `TileEntity` has a default constructor, so that Minecraft can properly load it.
-After you've created your class, you need to register the `TileEntity`. For this you need to call 
+After you've created your class, you need to register the `TileEntity`. For this you need to call
 ```JAVA
     GameRegistry#registerTileEntity(Class<? extends TileEntity> tileEntityClass, ResourceLocation key)
 ```
 Where the first parameter is simply your TileEntity class and the second the registry name of your TileEntity.
+At this point you can either choose to do it during the `FMLPreInitializationEvent` or during the `RegistryEvent.Register<Block>` event,
+as `TileEntities` don't have their own Registry Event yet.
 
 !!! note
     The method to register a `TileEntity` is using a `String` instead of a `ResourceLocation` before Forge version `14.23.3.2694`
@@ -32,8 +34,6 @@ To attach your new `TileEntity` to a `Block` you need to override 2 (two) method
 Using the parameters you can choose if the block should have a `TileEntity` or not.
 Usually you will return `true` in the first method and a new instance of your `TileEntity` in the second method.
 
-At this point the `TileEntity`can be used for Rendering.
-
 ## Storing Data within your `TileEntity`
 In order to save data, override the following two methods
 ```JAVA
@@ -41,29 +41,28 @@ In order to save data, override the following two methods
 
     TileEntity#readFromNBT(NBTTagCompound nbt)
 ```
-These methods are called whenever the `TileEntity` gets (un-)loaded.
+These methods are called whenever the `Chunk` containing the `TileEntity` gets loaded from/saved to NBT.
 Use them to read and write to the fields in your tile entity class.
 
 !!! warning
-    Whenever your data changes you need to call `TileEntity#markDirty()`, otherwise your `TileEntity` might be skipped while saving.
+    Whenever your data changes you need to call `TileEntity#markDirty()`, otherwise the `Chunk` containing your `TileEntity` might be skipped while the world is saved.
 
 !!! note
     It is important that you call the super methods!
-    The tag names `id`, `x`, `y`, `z`, `ForgeData` and `ForgeCaps`tug are reserved by the super methods.
+    The tag names `id`, `x`, `y`, `z`, `ForgeData` and `ForgeCaps` are reserved by the super methods.
 
 ## Keeping a `TileEntity` through changing `BlockStates`
-There might be situations in which you need to change your `BlockState`, an example for this is the vanilla furnace,
+There might be situations in which you need to change your `BlockState`, such as with the vanilla furnace,
 which changes its state from `lit=false` to `lit=true` when fuel and something smeltable is inside.
 Achieving this is rather simple, by overriding following method
 ```JAVA
     TileEntity#shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate)
 ```
 !!! note
-    You should actually check the `BlockStates` and not just return `false` in order to prevent unwanted behavior and bugs.
-    
+    You should actually check the `BlockStates` and not just return `false` in order to prevent unwanted behavior and bugs. Specially as this method is also called when your `Block(State)` is replaced by another one, `Air` for example.
+
 ## Ticking `TileEntities`
-If you need a ticking `TileEntity` for example to keep track of the progress during a smelting process.
-You need to add the `net.minecraft.util.ITickable` interface to your `TileEntity`.
+If you need a ticking `TileEntity`, for example to keep track of the progress during a smelting process, you need to add the `net.minecraft.util.ITickable` interface to your `TileEntity`.
 Now you can implement all your calculations within
 ```JAVA
     ITickable#update()
@@ -72,7 +71,7 @@ Now you can implement all your calculations within
     This method is called each tick, therefore you should avoid having complicated calculations in here.
     If possible, you should make more complex calculations just every X ticks.
     (The amount of ticks in a second may be lower then 20 (twenty) but won't be higher)
-    
+
 ## Synchronizing the Data to the Client
 There are 3 (three) ways of syncing data to the client.
 Synchronizing on chunk load, synchronizing on block updates and synchronizing with a custom network message.
@@ -91,7 +90,7 @@ while the second one processes that data. If your `TileEntity` doesn't contain m
 
 ### Synchronizing on block update
 This method is a bit more complicated, but again you just need to override 2 methods.
-Here is a tiny example implementation of it 
+Here is a tiny example implementation of it
 ```JAVA
     @Override
     public SPacketUpdateTileEntity getUpdatePacket(){
@@ -114,11 +113,13 @@ Additionally to this you now need to cause a "BlockUpdate" on the Client.
 ```JAVA
     World#notifyBlockUpdate(BlockPos pos, IBlockState oldState, IBlockState newState, int flags)
 ```
-The `pos` should be your TileEntitiy's position. For `oldState` and `newState` you can pass the current BlockState at that position. The `flags` should be 2, which will sync the changes to the client.
+The `pos` should be your TileEntitiy's position. For `oldState` and `newState` you can pass the current BlockState at that position.
+The `flags`are a bitmask and should contain 2, which will sync the changes to the client.
 
 ### Synchronizing using a custom network message
-This way of synchronizing is probably the most complicated one.
-You should first check out the `Networking` section and specially [`SimpleImpl`][SimpleImpl] before attempting this.
+This way of synchronizing is probably the most complicated one, but is usually also the most optimized one,
+as you can make sure that only the data you need to be synchronaized is actually synchronized.
+You should first check out the [`Networking`][networking] section and specially [`SimpleImpl`][simple_impl] before attempting this.
 Once you've created your custom network message, you can send it to all users that have the `TileEntity` loaded with:
 ```JAVA
     SimpleNetworkWrapper#sendToAllTracking(IMessage, NetworkRegistry.TargetPoint)
@@ -126,3 +127,6 @@ Once you've created your custom network message, you can send it to all users th
 !!! note
     It is important that you do safety checks, the TileEntity might already be destroyed/replaced when the message arrives at the player!
     You should also check if the chunk is loaded (`World#isBlockLoaded(BlockPos)`)
+
+[networking]: ../networking/index.md
+[simple_impl]: ../networking/simpleimpl.md
