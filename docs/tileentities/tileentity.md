@@ -124,7 +124,7 @@ Once you've created your custom network message, you can send it to all users th
 ```JAVA
     SimpleNetworkWrapper#sendToAllTracking(IMessage, NetworkRegistry.TargetPoint)
 ```
-!!! note
+!!! important
     It is important that you do safety checks, the TileEntity might already be destroyed/replaced when the message arrives at the player!
     You should also check if the chunk is loaded (`World#isBlockLoaded(BlockPos)`)
 
