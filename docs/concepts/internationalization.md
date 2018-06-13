@@ -10,7 +10,7 @@ Localization will happen in the game's locale. In a Minecraft client the locale 
 Language files
 --------------
 
-Language files are located by `assets/domain/lang/locale.lang` (e.g. the US English translation for `examplemod` would be `assets/examplemod/lang/en_us.lang`). Resource pack format 3 requires the locale name to be lowercased. The file format is simply lines of key-value pairs separated by `=`. Lines starting with `#` are ignored. Lines without a separator are ignored. The file must be encoded in UTF-8.
+Language files are located by `assets/domain/lang/[locale].lang` (e.g. the US English translation for `examplemod` would be `assets/examplemod/lang/en_us.lang`). Resource pack format 3 requires the locale name to be lowercased. The file format is simply lines of key-value pairs separated by `=`. Lines starting with `#` are ignored. Lines without a separator are ignored. The file must be encoded in UTF-8.
 
 ```properties
 # items
@@ -56,7 +56,7 @@ Localization methods
 
 ### `net.minecraft.util.text.translation.I18n` (deprecated)
 
-**This class is deprecated and should often be avoided.** It is intended to be used by code that runs on the logical server. Because localization should rarely happen on the server, other alternatives should be considered.
+**This class is deprecated and should always be avoided.** It is intended to be used by code that runs on the logical server. Because localization should rarely happen on the server, other alternatives should be considered.
 
 - `translateToLocal(String)` localizes in the game's locale without formatting. The parameter is a language key.
 - `translateToLocalFormatted(String, Object...)` localizes in the game's locale with formatting. The first parameter is a language key, and the rest are used for `String.format(String, Object...)`.
@@ -69,4 +69,4 @@ The first parameter of the `TextComponentTranslation(String, Object...)` constru
 
 ### `TextComponentHelper`
 
-- `createComponentTranslation(ICommandSender, String, Object...)` creates a localized and formatted `ITextComponent` depending on a command sender. The localization and formatting is done eagerly if the command sender is a vanilla client. If not, the localization and formatting is done lazily with a `TextComponentTranslation`. This is only useful if the server should allow vanilla clients to connect.
+- `createComponentTranslation(ICommandSender, String, Object...)` creates a localized and formatted `ITextComponent` depending on a receiver. The localization and formatting is done eagerly if the receiver is a vanilla client. If not, the localization and formatting is done lazily with a `TextComponentTranslation`. This is only useful if the server should allow vanilla clients to connect.
