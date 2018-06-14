@@ -44,10 +44,10 @@ In order to save data, override the following two methods
 These methods are called whenever the `Chunk` containing the `TileEntity` gets loaded from/saved to NBT.
 Use them to read and write to the fields in your tile entity class.
 
-!!! warning
+!!! note
     Whenever your data changes you need to call `TileEntity#markDirty()`, otherwise the `Chunk` containing your `TileEntity` might be skipped while the world is saved.
 
-!!! note
+!!! important
     It is important that you call the super methods!
     The tag names `id`, `x`, `y`, `z`, `ForgeData` and `ForgeCaps` are reserved by the super methods.
 
@@ -58,7 +58,7 @@ Achieving this is rather simple, by overriding following method
 ```JAVA
     TileEntity#shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate)
 ```
-!!! note
+!!! important
     You should actually check the `BlockStates` and not just return `false` in order to prevent unwanted behavior and bugs. Specially as this method is also called when your `Block(State)` is replaced by another one, `Air` for example.
 
 ## Ticking `TileEntities`
@@ -85,7 +85,7 @@ For this you need to override
 ```
 Again, this is pretty simple, the first method collects the data that should be send to the client,
 while the second one processes that data. If your `TileEntity` doesn't contain much data you might be able to use the methods out of the `Storing Data within your TileEntity` section.
-!!! note
+!!! important
     Synchronizing excessive/useless data for TileEntities can lead to network congestion. You should optimize your network usage by sending only the information the client needs when the client needs it. For instance, it is more often that not unnecessary to send the inventory of a tile entity in the update tag, as this can be synchronized via its GUI.
 
 ### Synchronizing on block update
@@ -124,7 +124,7 @@ Once you've created your custom network message, you can send it to all users th
 ```JAVA
     SimpleNetworkWrapper#sendToAllTracking(IMessage, NetworkRegistry.TargetPoint)
 ```
-!!! important
+!!! warning
     It is important that you do safety checks, the TileEntity might already be destroyed/replaced when the message arrives at the player!
     You should also check if the chunk is loaded (`World#isBlockLoaded(BlockPos)`)
 
