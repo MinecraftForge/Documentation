@@ -1,14 +1,14 @@
 {% if not nav_item.children %}
-<li {% if nav_item.active %}class="elem-active{% if toc %} elem-toc{% endif %}" {% endif %}>
+<li {% if nav_item.active %}class="elem-active{% if page.toc %} elem-toc{% endif %}" {% endif %}>
     {% if nav_item.active %}
-    <a href="{{ (toc|first).url }}" class="elem-text">{{ nav_item.title }}</a>
+    <a href="{{ (page.toc|first).url }}" class="elem-text">{{ nav_item.title }}</a>
     {% else %}
     <a href="{{ nav_item.url }}" class="elem-text">{{ nav_item.title }}</a>
     {% endif %}
     {% if nav_item.active %}
     <ul class="table-of-contents">
-        {% for toc_item in toc %}
-        {% if toc_item != (toc|first) %}
+        {% for toc_item in page.toc %}
+        {% if toc_item != (page.toc|first) %}
         <li class="toc-item"><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
         {% endif %}
         {% for toc_item in toc_item.children %}
@@ -21,7 +21,7 @@
 {% else %}
 <li class="elem-parent">
     {% if nav_item.children.active %}
-    <a href="{{ (toc|first).url }}" class="elem-text">{{ nav_item.title }}</a>
+    <a href="{{ (page.toc|first).url }}" class="elem-text">{{ nav_item.title }}</a>
     {% else %}
     <a href="#" class="elem-text toggle-collapsible"><span class="fa fa-plus collapsible-icon"></span> {{ nav_item.title }}</a>
     {% endif %}

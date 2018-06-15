@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% if page_title %}{{ page_title }} - {% endif %}{{ site_name }}</title>
+    <title>{% block title_prefix %}{% endblock %}{% if not page.is_homepage %}{{ page.title }} - {% endif %}{{ config.site_name }}</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="http://www.minecraftforge.net/forum/uploads/set_resources_3/247441864ab051a2bd22c960e8e7b8b5_apple-touch-icon.png">
     <link rel="icon" type="image/png" href="http://www.minecraftforge.net/forum/uploads/set_resources_3/247441864ab051a2bd22c960e8e7b8b5_favicon-32x32.png" sizes="32x32">
@@ -24,12 +24,15 @@
     {% endfor %}
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script type="text/javascript" src="https://use.fontawesome.com/a1f20be65b.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/regular.css" integrity="sha384-EWu6DiBz01XlR6XGsVuabDMbDN6RT8cwNoY+3tIH+6pUCfaNldJYJQfQlbEIWLyA" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/fontawesome.css" integrity="sha384-GVa9GOgVQgOk+TNYXu7S/InPTfSDTtBalSgkgqQ7sCik56N9ztlkoTr2f/T44oKV" crossorigin="anonymous">
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jScrollPane/2.0.23/script/jquery.jscrollpane.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/stickyfill/1.1.4/stickyfill.min.js"></script>
     <script type="text/javascript" src="{{ base_url }}/js/theme.js"></script>
+
+    <script>var base_url = '{{ base_url }}';</script>
     {% for path in extra_javascript %}
     <script src="{{ path }}"></script>
     {% endfor %}
@@ -51,9 +54,6 @@
         ga('send', 'pageview');
     </script>
     {% endif %}
-
-    {% block extrahead %}
-    {% endblock %}
 </head>
 <body>
 <header>
@@ -94,17 +94,17 @@
     <div class="sidebar-sticky-wrapper-content">
         <article class="docs-entry">
             {% block content %}
-            {{ content }}
+            {{ page.content }}
             {% endblock %}
         </article>
         {%- block next_prev %}
         {% if next_page or previous_page %}
         <div class="docs-entry-footer-buttons" role="navigation" aria-label="footer navigation">
             {% if previous_page %}
-            <a href="{{ previous_page.url }}" title="{{ previous_page.title }}" class="btn"><span class="fa fa-arrow-left"></span> Previous</a>
+            <a href="{{ page.previous_page.url }}" title="{{ page.previous_page.title }}" class="btn"><span class="fa fa-arrow-left"></span> Previous</a>
             {% endif %}
             {% if next_page %}
-            <a href="{{ next_page.url }}" title="{{ next_page.title }}" class="float-right btn">Next <span class="fa fa-arrow-right"></span></a>
+            <a href="{{ page.next_page.url }}" title="{{ page.next_page.title }}" class="float-right btn">Next <span class="fa fa-arrow-right"></span></a>
             {% endif %}
         </div>
         {% endif %}
