@@ -59,7 +59,7 @@ Achieving this is rather simple, by overriding following method
     TileEntity#shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate)
 ```
 !!! important
-    You should actually check the `BlockStates` and not just return `false` in order to prevent unwanted behavior and bugs. Specially as this method is also called when your `Block(State)` is replaced by another one, `Air` for example.
+    You should actually check the `BlockStates` and not just return `false` in order to prevent unwanted behavior and bugs. Especially as this method is also called when your `Block(State)` is replaced by another one, `Air` for example.
 
 ## Ticking `TileEntities`
 If you need a ticking `TileEntity`, for example to keep track of the progress during a smelting process, you need to add the `net.minecraft.util.ITickable` interface to your `TileEntity`.
@@ -118,8 +118,8 @@ The `flags`are a bitmask and should contain 2, which will sync the changes to th
 
 ### Synchronizing using a custom network message
 This way of synchronizing is probably the most complicated one, but is usually also the most optimized one,
-as you can make sure that only the data you need to be synchronaized is actually synchronized.
-You should first check out the [`Networking`][networking] section and specially [`SimpleImpl`][simple_impl] before attempting this.
+as you can make sure that only the data you need to be synchronized is actually synchronized.
+You should first check out the [`Networking`][networking] section and especially [`SimpleImpl`][simple_impl] before attempting this.
 Once you've created your custom network message, you can send it to all users that have the `TileEntity` loaded with:
 ```JAVA
     SimpleNetworkWrapper#sendToAllTracking(IMessage, NetworkRegistry.TargetPoint)
