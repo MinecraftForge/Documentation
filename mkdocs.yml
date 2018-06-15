@@ -17,6 +17,7 @@ pages:
     - Intro to Blockstates: 'blocks/states.md'
     - Interaction: 'blocks/interaction.md'
   - Tile Entities:
+    - Home: 'tileentities/tileentity.md'
     - Special Renderer: 'tileentities/tesr.md'
   - Items:
     - Home: 'items/items.md'
