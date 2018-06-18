@@ -123,9 +123,11 @@ public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt){
 }
 ```
 The Constructor of `SPacketUpdateTileEntity` takes:
+
 * The position of your `TileEntity`.
 * An ID, though it isn't really used besides by Vanilla, therefore you can just put a 1 in there.
 * An `NBTTagCompound` which should contain your data.
+
 Additionally to this you now need to cause a "BlockUpdate" on the Client.
 ```JAVA
 World#notifyBlockUpdate(BlockPos pos, IBlockState oldState, IBlockState newState, int flags)
