@@ -140,9 +140,11 @@ as you can make sure that only the data you need to be synchronized is actually 
 You should first check out the [`Networking`][networking] section and especially [`SimpleImpl`][simple_impl] before attempting this.
 Once you've created your custom network message, you can send it to all users that have the `TileEntity` loaded with:
 ```JAVA
-    SimpleNetworkWrapper#sendToAllTracking(IMessage, NetworkRegistry.TargetPoint)
+SimpleNetworkWrapper#sendToAllTracking(IMessage, NetworkRegistry.TargetPoint)
 ```
+
 !!! warning
+
     It is important that you do safety checks, the TileEntity might already be destroyed/replaced when the message arrives at the player!
     You should also check if the chunk is loaded (`World#isBlockLoaded(BlockPos)`)
 
