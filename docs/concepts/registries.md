@@ -24,7 +24,7 @@ The order in which `RegistryEvent.Register` events fire is alphabetically, with 
 There is another, older way of registering objects into registries, using `GameRegistry.register`. Anytime something suggests using this method, it should be replaced with an event handler for the appropriate registry event. This method simply finds the registry corresponding to an `IForgeRegistryEntry` with `IForgeRegistryEntry::getRegistryType`, and then registers the object to the registry. There is also a convenience overload that takes an `IForgeRegistryEntry` and a `ResourceLocation`, which is equivalent to calling `IForgeRegistryEntry::setRegistryName`, followed by a `GameRegistry.register` call.
 
 !!! information
-  Registering an Entity might be a little bit confusing at first as it doesn't use the `Entity` class, but an `EntityEntry`. These are created by making use of `EntityEntryBuilder`.
+  Registering an `Entity` might be a little bit confusing at first as it doesn't use the `Entity` class, but an `EntityEntry`. These are created by making use of `EntityEntryBuilder`.
   !!! note
     `EntityEntryBuilder#id()` is equivalent to the `setRegistryName()` method from `IForgeRegistryEntry`, with the difference that it also takes a mod internal int ID. A simple counter during registration is enough as this ID is only used for networking.
 
