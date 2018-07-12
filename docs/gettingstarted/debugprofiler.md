@@ -43,7 +43,7 @@ Here is a small explanation what each part means
 
 ## Advanced Support for the Debug Profiler
 
-The Debug Profiler has some basic Support for Entities and TileEntities,
+The Debug Profiler has some basic support for Entities and TileEntities,
 but in case you have something different like a lot of TickEvents,
 you might need to add support on your own.
 You can easily do this with this 2 lines of code, but you require access to a `World` object.
