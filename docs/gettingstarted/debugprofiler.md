@@ -1,6 +1,6 @@
 # Debug Profiler
 
-Minecraft provides a Debug Profiler, that can be used to find time consuming code. Specially considering things like `TickEvents` and Ticking `TileEntities` this can be very usefull for modders and server owners that want to find a lag source.
+Minecraft provides a Debug Profiler that can be used to find time consuming code. Specially considering things like `TickEvents` and Ticking `TileEntities` this can be very usefull for modders and server owners that want to find a lag source.
 
 ## Using the Debug Profiler
 
@@ -12,13 +12,12 @@ It is recommended to at least let it collect data for a minute.
 !!! note
   In case you want to test your `TileEntities` you need to place them into the world.
 
-After you've stopped the debugger it will create a new File, it can be found within a new `debug` folder in your run directory.
-The Name will look like `profile-results-YEAR-MONTH-DAY_HOUR.MINUTE.SECOND` it's a simple `.txt`
+After you've stopped the debugger it will create a new file, it can be found within a new directory called `debug` in your run directory.
+The name will look like `profile-results-YEAR-MONTH-DAY_HOUR.MINUTE.SECOND` it's a simple `.txt`
 
 ## Reading a Profiling result
 
-It may look confusing in the first moment, but it is easy to understand.
-At the top it first tells you how long in milliseconds it was running and how much ticks run in that time.
+At the top it first tells you how long in milliseconds it was running and how many ticks ran in that time.
 
 After that you will see something like this (this is just a snippet, yours will be longer):
 ```
@@ -32,7 +31,7 @@ After that you will see something like this (this is just a snippet, yours will 
 [05] |   |   |   |   |   minecraft:furnace - 33.35%/0.14%
 [05] |   |   |   |   |   minecraft:chest - 2.39%/0.01%
 ```
-Here is a small explanation whaat which part means
+Here is a small explanation what each part means
 
 | [00]                     | levels                  | 96.70%/96.70                                              |
 | :----------------------- | :---------------------- | :-------------------------------------------------------- |
@@ -40,7 +39,7 @@ Here is a small explanation whaat which part means
 
 !!! note
   For Layer 0 it's the percentage of the time a tick takes.
-  For Layer 1 it's the percentage of the time it's parent takes.
+  For Layer 1 it's the percentage of the time its parent takes.
 
 ## Advanced Support for the Debug Profiler
 
@@ -50,7 +49,7 @@ you might need to add support on your own.
 You can easily do this with this 2 lines of code, but you require access to a `World` object.
 ```JAVA
   World#profiler.startSection("yourSectionName");
-  //The code you want to profiler
+  //The code you want to profile
   World#profiler.endSection();
 ```
 In case you do it for a `TickEvent` the result might look like this:
