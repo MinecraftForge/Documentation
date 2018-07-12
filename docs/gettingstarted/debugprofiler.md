@@ -37,6 +37,7 @@ Here is a small explanation whaat which part means
 | [00]                     | levels                  | 96.70%/96.70                                              |
 | :----------------------- | :---------------------- | :-------------------------------------------------------- |
 | The Depth of the section | The Name of the Section | The percantage of time it took in relation to it's parent |
+
 !!! note
   For Layer 0 it's the percentage of the time a tick takes.
   For Layer 1 it's the percentage of the time it's parent takes.
