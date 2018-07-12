@@ -31,7 +31,7 @@ After that you will see something like this (this is just a snippet, yours will 
 [05] |   |   |   |   |   minecraft:furnace - 33.35%/0.14%
 [05] |   |   |   |   |   minecraft:chest - 2.39%/0.01%
 ```
-Here is a small explanation what each part means
+Here is a small explanation of what each part means
 
 | [00]                     | levels                  | 96.70%/96.70                                              |
 | :----------------------- | :---------------------- | :-------------------------------------------------------- |
