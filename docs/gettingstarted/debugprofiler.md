@@ -5,15 +5,16 @@ Minecraft provides a Debug Profiler that can be used to find time consuming code
 ## Using the Debug Profiler
 
 The Debug Profiler is very simple to use, it requires two commands `/debug start` and `/debug stop`
-They are booth pretty self explaining, but you run `/debug start` to start the profiling process and then run `/debug stop` to stop it again.
+They are both pretty self explanatory, but you run `/debug start` to start the profiling process and then run `/debug stop` to stop it again.
 The important part here is that the more time you give it to collect the data the better the results will be.
 It is recommended to at least let it collect data for a minute.
 
 !!! note
-  In case you want to test your `TileEntities` you need to place them into the world.
+  You'll want to add an instance of whatever you want to test into your world.
+  For example if you want to test an Entity you need to spawn it.
 
-After you've stopped the debugger it will create a new file, it can be found within a new directory called `debug` in your run directory.
-The name will look like `profile-results-YEAR-MONTH-DAY_HOUR.MINUTE.SECOND` it's a simple `.txt`
+After you've stopped the debugger it will create a new file, it can be found within the `debug` subdirectory in your run directory.
+The file name will be formatted with the date and time as profile-results-yyyy-mm-dd_hh.mi.ss.txt
 
 ## Reading a Profiling result
 
@@ -35,23 +36,21 @@ Here is a small explanation of what each part means
 
 | [00]                     | levels                  | 96.70%/96.70                                              |
 | :----------------------- | :---------------------- | :-------------------------------------------------------- |
-| The Depth of the section | The Name of the Section | The percantage of time it took in relation to it's parent |
+| The Depth of the section | The Name of the Section | The percentage of time it took in relation to it's parent. For Layer 0 it's the percentage of the time a tick takes, while for Layer 1 it's the percentage of the time its parent takes |
 
-!!! note
-  For Layer 0 it's the percentage of the time a tick takes.
-  For Layer 1 it's the percentage of the time its parent takes.
-
-## Advanced Support for the Debug Profiler
+## Profiling your own code
 
 The Debug Profiler has some basic support for Entities and TileEntities,
 but in case you have something different like a lot of TickEvents,
 you might need to add support on your own.
-You can easily do this with this 2 lines of code, but you require access to a `World` object.
+You can easily do this with this 2 lines of code:
 ```JAVA
-  World#profiler.startSection("yourSectionName");
+  Profiler#startSection("yourSectionName");
   //The code you want to profile
-  World#profiler.endSection();
+  Profiler#endSection();
 ```
+You can either obtain the Profiler from a `World` object, `MinecraftServer` or `Minecraft`
+
 In case you do it for a `TickEvent` the result might look like this:
 ```
 [00] levels - 96.70%/96.70%
