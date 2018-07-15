@@ -10,7 +10,7 @@ Localization will happen in the game's locale. In a Minecraft client the locale 
 Language files
 --------------
 
-Language files are located by `assets/domain/lang/[locale].lang` (e.g. the US English translation for `examplemod` would be `assets/examplemod/lang/en_us.lang`). Resource pack format 3 requires the locale name to be lowercased. The file format is simply lines of key-value pairs separated by `=`. Lines starting with `#` are ignored. Lines without a separator are ignored. The file must be encoded in UTF-8.
+Language files are located by `assets/[namespace]/lang/[locale].lang` (e.g. the US English translation for `examplemod` would be `assets/examplemod/lang/en_us.lang`). Resource pack format 3 requires the locale name to be lowercased. The file format is simply lines of key-value pairs separated by `=`. Lines starting with `#` are ignored. Lines without a separator are ignored. The file must be encoded in UTF-8.
 
 ```properties
 # items
@@ -55,20 +55,20 @@ Localization methods
 
 **This I18n class can only be found on a Minecraft client!** It is intended to be used by code that only runs on the client. Attempts to use this on a server will throw exceptions and crash.
 
-- `format(String, Object...)` localizes in the client's locale with formatting. The first parameter is a language key, and the rest are formatting arguments for `String.format(String, Object...)`.
+- `format(String, Object...)` localizes in the client's locale with formatting. The first parameter is a translation key, and the rest are formatting arguments for `String.format(String, Object...)`.
 
 ### `net.minecraft.util.text.translation.I18n` (deprecated)
 
 **This class is deprecated and should always be avoided.** It is intended to be used by code that runs on the logical server. Because localization should rarely happen on the server, other alternatives should be considered.
 
-- `translateToLocal(String)` localizes in the game's locale without formatting. The parameter is a language key.
-- `translateToLocalFormatted(String, Object...)` localizes in the game's locale with formatting. The first parameter is a language key, and the rest are used as formatting arguments for `String.format(String, Object...)`.
+- `translateToLocal(String)` localizes in the game's locale without formatting. The parameter is a translation key.
+- `translateToLocalFormatted(String, Object...)` localizes in the game's locale with formatting. The first parameter is a translation key, and the rest are used as formatting arguments for `String.format(String, Object...)`.
 
 ### `TextComponentTranslation`
 
 `TextComponentTranslation` is an `ITextComponent` that is localized and formatted lazily. It is very useful when sending messages to players because it will be automatically localized in their own locale.
 
-The first parameter of the `TextComponentTranslation(String, Object...)` constructor is a language key, and the rest are used for formatting. The only supported format specifiers are `%s` and `%1$s`, `%2$s`, `%3$s` etc. Formatting arguments may be other `ITextComponent`s that will be inserted into the resulting formatted text with all their attributes preserved.
+The first parameter of the `TextComponentTranslation(String, Object...)` constructor is a translation key, and the rest are used for formatting. The only supported format specifiers are `%s` and `%1$s`, `%2$s`, `%3$s` etc. Formatting arguments may be other `ITextComponent`s that will be inserted into the resulting formatted text with all their attributes preserved.
 
 ### `TextComponentHelper`
 
