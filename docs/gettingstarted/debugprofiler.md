@@ -1,6 +1,6 @@
 # Debug Profiler
 
-Minecraft provides a Debug Profiler that can be used to find time consuming code. Specially considering things like `TickEvents` and Ticking `TileEntities` this can be very usefull for modders and server owners that want to find a lag source.
+Minecraft provides a Debug Profiler that can be used to find time consuming code. Specially considering things like `TickEvents` and Ticking `TileEntities` this can be very useful for modders and server owners that want to find a lag source.
 
 ## Using the Debug Profiler
 
