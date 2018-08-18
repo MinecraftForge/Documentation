@@ -4,7 +4,7 @@ Minecraft provides a Debug Profiler that can be used to find time consuming code
 
 ## Using the Debug Profiler
 
-The Debug Profiler is very simple to use. It requires two commands /debug start, which starts the profiling process, and /debug stop, which ends it.
+The Debug Profiler is very simple to use. It requires two commands `/debug start`, which starts the profiling process, and `/debug stop`, which ends it.
 The important part here is that the more time you give it to collect the data the better the results will be.
 It is recommended to at least let it collect data for a minute.
 
