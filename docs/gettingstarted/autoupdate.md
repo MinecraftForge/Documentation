@@ -39,7 +39,7 @@ This is fairly self-explanatory, but some notes:
 * The changelog string can be separated into lines using `\n`. Some prefer to include a abbreviated changelog, then link to an external site that provides a full listing of changes.
 * Manually inputting data can be chore. You can configure your `build.gradle` to automatically update this file when building a release, as Groovy has native JSON parsing support. Doing this is left as an exercise to the reader.
 
-Two concrete examples can be seen here for [Charset](https://asie.pl/files/minecraft/update/charset.json) and [Botania Unofficial](https://raw.githubusercontent.com/williewillus/Botania/HEAD/version/update.json).
+Two concrete examples can be seen here for [Charset](https://asie.pl/files/minecraft/update/charset.json) and [Botania Unofficial](https://raw.githubusercontent.com/williewillus/Botania/master/version/update.json).
 
 Retrieving Update Check Results
 -------------------------------
