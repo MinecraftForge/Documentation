@@ -10,7 +10,7 @@ Localization will happen in the game's locale. In a Minecraft client the locale 
 Language files
 --------------
 
-Language files are located by `assets/[namespace]/lang/[locale].lang` (e.g. the US English translation for `examplemod` would be `assets/examplemod/lang/en_us.lang`). Resource pack format 3 requires the locale name to be lowercased. The file format is simply lines of key-value pairs separated by `=`. Lines starting with `#` are ignored. Lines without a separator are ignored. The file must be encoded in UTF-8.
+Language files are located by `assets/[namespace]/lang/[locale].lang` (e.g. the US English translation for `examplemod` would be `assets/examplemod/lang/en_us.lang`). Resource pack format 3 (as specified in pack.mcmeta) requires the locale name to be lowercased. The file format is simply lines of key-value pairs separated by `=`. Lines starting with `#` are ignored. Lines without a separator are ignored. The file must be encoded in UTF-8.
 
 ```properties
 # items
@@ -34,7 +34,13 @@ Usage with Blocks and Items
 !!! note
     As of July 14th 2018, the term "unlocalized name" has been replaced by "translation key" in MCP.
 
-Block, Item and a few other Minecraft classes have built-in translation keys used to display their names. They are set by calling the corresponding `setTranslationKey(String)` / `setUnlocalizedName(String)` method, or by overriding the corresponding `getTranslationKey` / `getUnlocalizedName` method.
+Block, Item and a few other Minecraft classes have built-in translation keys used to display their names. These translation keys are specified by calling `setTranslationKey(String)` or by overriding `getTranslationKey()`. Item also has `getTranslationKey(ItemStack)` which can be overridden to provide different translation keys depending on ItemStack damage or NBT.
+
+By default, `getTranslationKey()` will return `tile.` or `item.` prepended to whatever was set with `setTranslationKey(String)`, and ItemBlock will inherit the unlocalized name of its Block. Additionally, `.name` is always appended to the translation key before it is localized. For example `item.setTranslationKey("examplemod.example_item")` effectively requires the following line in a language file:
+
+```properties
+item.examplemod.example_item.name=Example Item Name
+```
 
 Unlike registry names, translation keys are not namespaced. It is therefore highly recommended to prefix your modid somewhere to the translation key (e.g. `examplemod.example_item`) to avoid naming conflicts. Otherwise, in the event of a conflict, the localization of one object will override the other.
 
