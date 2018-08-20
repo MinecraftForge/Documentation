@@ -61,7 +61,10 @@ public class MyMessageHandler implements IMessageHandler<MyMessage, IMessage> {
     EntityPlayerMP serverPlayer = ctx.getServerHandler().playerEntity;
     // The value that was sent
     int amount = message.toSend;
-    serverPlayer.inventory.addItemStackToInventory(new ItemStack(Items.diamond, amount));
+    // Execute the action on the main server thread by adding it as a scheduled task
+    serverPlayer.getServerWorld().addScheduledTask(() -> {
+      serverPlayer.inventory.addItemStackToInventory(new ItemStack(Items.DIAMOND, amount));
+    });
     // No response packet
     return null;
   }
@@ -74,10 +77,18 @@ It is recommended (but not required) that for organization's sake, this class is
 
     As of Minecraft 1.8 packets are by default handled on the network thread.
 
-    That means that your `IMessageHandler` can _not_ interact with most game objects directly. The example above for example would not be correct.
+    That means that your `IMessageHandler` can _not_ interact with most game objects directly.
     Minecraft provides a convenient way to make your code execute on the main thread instead using `IThreadListener.addScheduledTask`.
 
-    The way to obtain an `IThreadListener` is using either the `Minecraft` instance (client side) or a `WorldServer` instance (server side).
+    The way to obtain an `IThreadListener` is using either the `Minecraft` instance (client side) or a `WorldServer` instance (server side). The code above shows an example of this by getting a `WorldServer` instance from an `EntityPlayerMP`.
+
+!!! warning
+
+    Be defensive when handling packets on the server. A client could attempt to exploit the packet handling by sending unexpected data.
+
+    A common problem is vulnerability to **arbitrary chunk generation**. This typically happens when the server is trusting a block position sent by a client to access blocks and tile entities. When accessing blocks and tile entities in unloaded areas of the world, the server will either generate or load this area from disk, then promply write it to disk. This can be exploited to cause **catastrophic damage** to a server's performance and storage space without leaving a trace.
+
+    To avoid this problem, a general rule of thumb is to only access blocks and tile entities if `world.isBlockLoaded(pos)` is true.
 
 Registering Packets
 -------------------
@@ -89,7 +100,7 @@ This is quite a complex method, so lets break it down a bit.
 - The first parameter is `messageHandler`, which is the class that handles your packet. This class must always have a default constructor, and should have type bound REQ that matches the next argument.
 - The second parameter is `requestMessageType` which is the actual packet class. This class must also have a default constructor and match the REQ type bound of the previous param.
 - The third parameter is the discriminator for the packet. This is a per-channel unique ID for the packet. We recommend you use a static variable to hold the ID, and then call registerMessage using `id++`. This will guarantee 100% unique IDs.
-- The fourth and final parameter is the side that your packet will be ***received*** on. If you are planning to send the packet to both sides, it must be registered twice with a ***different*** discriminator.
+- The fourth and final parameter is the side that your packet will be ***received*** on. If you are planning to send the packet to both sides, it must be registered twice, once to each side. Discriminators can be the same between sides, but are not required to be.
 
 
 Using Packets

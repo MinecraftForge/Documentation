@@ -31,7 +31,7 @@ The `mcmod.info` file is formatted as JSON, where the root element is a list of 
       "url": "minecraftforge.net/",
       "updateJSON": "minecraftforge.net/versions.json",
       "authorList": ["Author"],
-      "credits": "I'd like to thank my mother and father.",
+      "credits": "I'd like to thank my mother and father."
     }]
 
 The default Gradle configuration replaces `${version}` with the project version, and `${mcversion}` with the Minecraft version, but *only* within `mcmod.info`, so you should use those instead of directly writing them out. Here is a table of attributes that may be given to a mod, where `required` means there is no default and the absence of the property causes an error. In addition to the required properties, you should also define `description`, `version`, `mcversion`, `url`, and `authorList`.
@@ -67,7 +67,29 @@ and will contain some special indicators marking it as such.
 What is `@Mod`?
 -------------
 
-This is an annotation indicating to the Forge Mod Loader that the class is a Mod entry point. It contains various metadata about the mod. It also designates the class that will receive `@EventHandler` events. More information can be found at... (Coming Soon)
+This is an annotation indicating to the Forge Mod Loader that the class is a Mod entry point. It contains various metadata about the mod. It also designates the class that will receive `@EventHandler` events.
+
+Here is a table of the properties of `@Mod`:
+
+|                         Property |        Type        |    Default     | Description |
+|---------------------------------:|:------------------:|:--------------:|:------------|
+|                            modid |       String       |    required    | A unique identifier for the mod. It must be lowercased, and will be truncated to 64 characters in length. |
+|                             name |       String       |       ""       | A user-friendly name for the mod. |
+|                          version |       String       |       ""       | The version of the mod. It should be just numbers seperated by dots, ideally conforming to [Semantic Versioning](https://semver.org/). Even if `useMetadata` is set to `true`, it's a good idea to put the version here anyways. |
+|                     dependencies |       String       |       ""       | Dependencies for the mod. The specification is described in the Forge `@Mod` javadoc:<br><blockquote><p>A dependency string can start with the following four prefixes: `"before"`, `"after"`, `"required-before"`, `"required-after"`; then `":"` and the `modid`.</p><p>Optionally, a version range can be specified for the mod by adding `"@"` and then the version range.[\*](#version-ranges)</p><p>If a "required" mod is missing, or a mod exists with a version outside the specified range, the game will not start and an error screen will tell the player which versions are required.</p>
+|                      useMetadata |       boolean      |      false     | If set to true, properties in `@Mod` will be overridden by `mcmod.info`. |
+| clientSideOnly<br>serverSideOnly | boolean<br>boolean | false<br>false | If either is set to `true`, the jar will be skipped on the other side, and the mod will not load. If both are true, the game crashes. |
+|        acceptedMinecraftVersions |       String       |       ""       | The version range of Minecraft the mod will run on.[\*](#version-ranges) An empty string will match all versions. |
+|         acceptableRemoteVersions |       String       |       ""       | Specifies a remote version range that this mod will accept as valid.[\*](#version-ranges) `""` Matches the current version, and `"*"` matches all versions. |
+|           acceptableSaveVersions |       String       |       ""       | A version range specifying compatible save version information.[\*](#version-ranges) If you follow an unusual version convention, use `SaveInspectionHandler` instead. |
+|           certificateFingerprint |       String       |       ""       | See the tutorial on [jar signing](../concepts/jarsigning.md). |
+|                      modLanguage |       String       |     "java"     | The programming language the mod is written in. Can be either `"java"` or `"scala"`. |
+|               modLanguageAdapter |       String       |       ""       | Path to a language adapter for the mod. The class must have a default constructor and must implement `ILanguageAdapter`. If it doesn't, Forge will crash. If set, overrides `modLanguage`. |
+|                 canBeDeactivated |       boolean      |      false     | This is not implemented, but if the mod could be deactivated (e.g. a minimap mod), this would be set to `true` and the mod would [receive](../events/intro.md#creating-an-event-handler) `FMLDeactivationEvent` to perform cleanup tasks. |
+|                       guiFactory |       String       |       ""       | Path to the mod's GUI factory, if one exists. GUI factories are used to make custom config screens, and must implement `IModGuiFactory`. For an example, look at `FMLConfigGuiFactory`. |
+|                       updateJSON |       String       |       ""       | URL to an update JSON file. See [Forge Update Checker](autoupdate.md) |
+
+<a name="version-ranges" style="color: inherit; text-decoration: inherit">\* All version ranges use the [Maven Version Range Specification](https://maven.apache.org/enforcer/enforcer-rules/versionRanges.html).</a>
 
 You can find an example mod in the [Forge src download](http://files.minecraftforge.net/).
 

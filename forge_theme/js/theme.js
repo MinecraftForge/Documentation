@@ -1,51 +1,5 @@
-$(document).ready(function () {
-    // Sidebars always are in asides
-    $('.sidebar-sticky').Stickyfill();
-    $('.scroll-pane').jScrollPane({
-        autoReinitialise: true,
-        verticalGutter: 0,
-        hideFocus: true
-    });
-    $('.open-sidebar').click(function (e) {
-        $('.sidebar-sticky').addClass('active-sidebar');
-        $('body').addClass('sidebar-active');
-        e.preventDefault();
-    });
-    $('.close-sidebar').click(function (e) {
-        $('.sidebar-sticky').removeClass('active-sidebar');
-        $('body').removeClass('sidebar-active');
-        e.preventDefault();
-    });
-    // Collapsible elements implementation
-    $('.nav-collapsible:not(.nav-collapsible-open)').css('display', 'none');
-    var icons = $('.nav-collapsible-open').siblings('.toggle-collapsible').children('.collapsible-icon');
-    var texts = $('.nav-collapsible-open').siblings('.toggle-collapsible').children('.collapsible-text');
-    icons.removeClass('fa-plus');
-    icons.addClass('fa-minus');
-    texts.html('Show');
-    $('.toggle-collapsible').click(function (e) {
-        var collapsible = $(this).siblings('.nav-collapsible');
-        var icon = $(this).children('.collapsible-icon');
-        var text= $(this).children('.collapsible-text');
-        if (collapsible.css('display') == 'none') {
-            collapsible.css('display', 'block');
-            icon.addClass('fa-minus');
-            icon.removeClass('fa-plus');
-            text.html('Hide');
-        } else {
-            collapsible.css('display', 'none');
-            icon.addClass('fa-plus');
-            icon.removeClass('fa-minus');
-            text.html('Show');
-        }
-        e.preventDefault();
-    });
-    $("pre.highlight code[class*='language-']").each(function() {
-        var className = this.className.match(/language-([A-Za-z0-9+-]+)/);
-        if (className) {
-            $(this).removeClass(className[0]);
-            $(this).addClass(className[1].toLowerCase());
-        }
-    });
-    hljs.initHighlighting();
-});
+$(document).ready(function(){$(".sidebar-sticky").Stickyfill();$(".scroll-pane").jScrollPane({autoReinitialise:!0,verticalGutter:0,hideFocus:!0});$(".open-sidebar").click(function(a){$(".sidebar-sticky").addClass("active-sidebar");$("body").addClass("sidebar-active");a.preventDefault()});$(".close-sidebar").click(function(a){$(".sidebar-sticky").removeClass("active-sidebar");$("body").removeClass("sidebar-active");a.preventDefault()});$(".collapsible,.nav-collapsible").each(function(){var a=$(this),
+    b=a.parent().find("\x3e .toggle-collapsible"),c=a.data("show-text")?a.data("show-text"):"Show",g=a.data("hide-text")?a.data("hide-text"):"Hide",h=a.data("toggle-style")?a.data("toggle-style"):"display",d=function(b){"class"==h?b?(a.removeClass("collapsed"),a.addClass("expanded")):(a.removeClass("expanded"),a.addClass("collapsed")):a.css("display",b?"block":"none")};if(a.hasClass("nav-collapsible-open")){d(!0);var e=b.find("\x3e .collapsible-icon"),l=b.find("\x3e .collapsible-text");e.removeClass("fa-plus");
+    e.addClass("fa-minus");l.html(c)}else d(!1);b.click(function(e){var f=b.find("\x3e .collapsible-icon"),k=b.find("\x3e .collapsible-text");("class"==h?a.hasClass("collapsed"):"none"==a.css("display"))?(d(!0),f.addClass("fa-minus"),f.removeClass("fa-plus"),k.html(g)):(d(!1),f.addClass("fa-plus"),f.removeClass("fa-minus"),k.html(c));e.preventDefault()})})});
+(function(){function a(a){var c="light"===a?"dark":"light";$("link[data-type\x3dthemed]").each(function(){var g=$(this).attr("href");$(this).attr("href",g.replace(c,a))})}localStorage.theme||(localStorage.theme="light");$(document).ready(function(){a(localStorage.theme);var b=$(".theme-switch input");b.prop("checked","dark"===localStorage.theme);b.change(function(){localStorage.theme=$(this).is(":checked")?"dark":"light";a(localStorage.theme)})})})();
+$(document).ready(function(){$("pre.highlight code[class*\x3d'language-']").each(function(){var a=this.className.match(/language-([A-Za-z0-9+-]+)/);a&&($(this).removeClass(a[0]),$(this).addClass(a[1].toLowerCase()))});hljs.initHighlighting()});

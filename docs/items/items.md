@@ -23,7 +23,7 @@ The above methods are chainable, unless otherwise stated, meaning they `return t
 
 ### Advanced Items
 
-Setting the properties of an item as above only works for simple items. If you want more complicated items, you should subclass Item and override its methods.
+Setting the properties of an item as above only works for simple items. If you want more complicated items, you should subclass `Item` and override its methods.
 
 Registering an Item
 -------------------
