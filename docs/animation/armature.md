@@ -6,7 +6,7 @@ Armature Files define joints and clips for animating a model.
 File Structure
 ----------------
 
-An example armature file, taken from the forge debug mod (requires #3875)
+An example armature file, taken from the forge debug mod
 ```json
 {
   "joints": {
