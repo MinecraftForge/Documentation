@@ -31,7 +31,8 @@ All parameters take an input, usually the current game time in seconds as a floa
 current progress of the animation.
 
 Each parameter can either be defined in the ASM or when you load the ASM in the code. Load-time parameters are usually of the type `VariableValue`, which returns a value changeable in-code, ignoring its input.
-Other kinds are `SimpleExprValue`, allowing you to do calculations on its input, `IdentityValue`, which just returns its input, `ConstValue` which returns a constant, `CompositionValue`, which chains parameters together and `ParameterValue`, which returns whatever another parameter _would_ return.
+Other types allow you to do math on the input (`SimpleExprValue`), return a constant (`ConstValue`), refer to other parameters (`ParameterValue`), return the 
+input unmodified (`IdentityValue`) and perform composition of two parameters (`CompositionValue`).
 
 ### Clips
 
@@ -40,11 +41,9 @@ Other kinds are `SimpleExprValue`, allowing you to do calculations on its input,
     Clips can either be ASM-clips, ones that are defined in the ASM, or armature-clips, ones that are defined in the armature file.
     For the rest of this page, "clips" will refer to ASM-clips unless otherwise stated.
 
-A clip takes in an input, usually the time, and does something to the model with it. Different types of clips do different things with the input, the easiest to use being the `TimeClip` and `ModelClip`. A `TimeClip` animates a given clip by a given parameter, usually that clip is a
-`ModelClip`, a reference to an armature-clip defined in an armature file.
-Other kinds include the `IdentityClip`, which does nothing, the `ClipReference`, which just does the same as another clip,
-the `SlerpClip`, which blends between two clips, useful for smooth transitions, and the `TriggerClip`, used to both animate a clip and fire an event when its parameter goes positive.
-Each clip implements a state, telling the ASM how to animate it.
+A clip takes in an input, usually the time, and does something to the model with it. Different types of clips do different things, the simplest being animating an
+armature-clip (`ModelClip`). You can also override the input to another ASM-clip (`TimeClip`), trigger an event while animating another clip if the input is positive (`TriggerClip`), 
+smoothly blend between two clips (`SlerpClip`), refer to another clip in the ASM (`ClipReference`) or do nothing (`IdentityClip`).
 
 ### Events
 
@@ -122,7 +121,7 @@ Different types of parameters have different formats for `<parameter_definition>
 - `ParameterValue`: the parameter to reference, prefixed with `#`, e.g. `#my_awesome_parameter`
 - `ConstValue`: a number to use as the constant to return
 
-#### `SimpleExprValue`
+#### Mathematical expression (`SimpleExprValue`)
 
 Format: `[ regex("[+\\-*/mMrRfF]+"), <parameter_definition>, ... ]`
 
@@ -136,7 +135,7 @@ Format: `[ regex("[+\\-*/mMrRfF]+"), <parameter_definition>, ... ]`
 
 ##### Explanation
 
-`SimpleExprValue` takes its input and applies operations to it.
+The `SimpleExprValue` takes its input and applies operations to it.
 The first parameter is the sequence of operations to apply, and the rest represent the operands to those operations. The
 input to each operation is either the input to this entire parameter (for the first operation) or the result of the previous operation.
 
@@ -158,10 +157,10 @@ input to each operation is either the input to this entire parameter (for the fi
 ##### Example explanations:
 - input + 4
 - (input / 5) + 1
-- input + 2 + value of parameter other
-- input + value of parameter other + value of parameter cycle given input 3
+- input + 2 + value of parameter `other`
+- input + value of parameter `other` + value of parameter `cycle` given input 3
 
-#### `CompositionValue`
+#### Function composition (`CompositionValue`)
 
 Format: `[ "compose", <parameter_definition>, <parameter_definition> ]`
 
@@ -178,10 +177,10 @@ Format: `[ "compose", <parameter_definition>, <parameter_definition> ]`
 the two inputs, calling the second one with the given input, and the first one with the output of the second one.
 
 ##### Example explanations:
-- value of parameter cycle when given input 3
-- value of parameter test when given the output of parameter other when called with the current input
-- 3 + the output of other with the current input
-- other2(other3(other(input))) because value1 = other2(other3(input)) and value2 = other(input)
+- value of parameter `cycle` when given input 3
+- value of parameter `test` when given the output of parameter other when called with the current input
+- 3 + the output of other with the current `input`
+- `other2(other3(other(input)))` because `value1` = `other2(other3(input))` and `value2` = `other(input)`
 
 ### Clips
 
@@ -197,7 +196,7 @@ As with parameters, different kinds of clips have different formats for `<clip_d
 - `ClipReference`: the clip name prefixed with `#`, e.g. `#my_amazing_clip`
 - `ModelClip`: a model resource location + `@` + the name of the armature-clip, e.g. `mymod:block/test@default` or `mymod:block/test#facing=east@moving`
 
-#### `TimeClip`
+#### Overriding input (`TimeClip`)
 
 Format: `[ "apply", <clip_definition>, <parameter_definition> ]`
 
@@ -214,12 +213,12 @@ a parameter instead of the current time.
 
 ##### Example explanations:
 
-- apply the armature-clip for model mymod:block/animated_thing named moving with the output of the parameter cycle_time
-- apply the armature-clip for model mymod:block/animated_thing named moving with 3 + the output of the parameter cycle
+- apply the armature-clip for model `mymod:block/animated_thing` named moving with the output of the parameter `cycle_time`
+- apply the armature-clip for model `mymod:block/animated_thing` named moving with 3 + the output of the parameter `cycle`
 
-#### `TriggerClip`
+#### Triggering an event (`TriggerClip`)
 
-Format: `[ "trigger_positive", <clip_definition>, <parameter_definition>, "event_text"]`
+Format: `[ "trigger_positive", <clip_definition>, <parameter_definition>, "<event_text>"]`
 
 ##### Examples
 
@@ -235,10 +234,10 @@ At the same time, it applies the clip in `clip_definition` with the same `parame
 
 ##### Example explanations
 
-- apply the clip with name default given the input of parameter end_cycle, and when end_cycle is positive transition to the moving state
-- apply the armature-clip mymod:block/animated_thing@moving with parameter end_cylce, and when end_cycle is positive fire event "boop"
+- apply the clip with name default given the input of parameter `end_cycle`, and when `end_cycle` is positive transition to the `moving` state
+- apply the armature-clip `mymod:block/animated_thing@moving` with parameter `end_cycle`, and when `end_cycle` is positive fire event `"boop"`
 
-#### `SlerpClip`
+#### Blend between two clips (`SlerpClip`)
 
 Format: `[ "slerp", <clip_definition>, <clip_definition>, <parameter_definition>, <parameter_definition> ]`
 
@@ -251,9 +250,9 @@ Format: `[ "slerp", <clip_definition>, <clip_definition>, <parameter_definition>
 
 ##### Explanation
 
-The `SlerpClip` performs a spherical linear blend between two seperate clips. In other words, it will morph one clip into another smoothly
-The two `clip_definition`s are the clip to blend from and to respectively. The first `parameter_definition` is the "input". Both the from and to clips
-are passed the ouptut of this parameter with the current animation time. The second `parameter_definition` is the "progress", a value between 0 and 1 to denote
+The `SlerpClip` performs a spherical linear blend between two separate clips. In other words, it will morph one clip into another smoothly.
+The two `clip_definition`s are the clips to blend from and to respectively. The first `parameter_definition` is the "input". Both the from and to clips
+are passed the output of this parameter with the current animation time. The second `parameter_definition` is the "progress", a value between 0 and 1 to denote
 how far into the blend we are. Combining this clip with trigger_positive and transition special events can allow for simple transitions between two solid states.
 
 ###### Example explanations
