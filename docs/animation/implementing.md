@@ -1,22 +1,23 @@
-Implementing the API
+Using the API
 ======================
 
 Depending on what you want to animate with the API, code-side implementation is a bit different.
-Documentation on the ASM api itself (for controlling the animation) is found on the [ASM][asm] page because it is independent of what
+Documentation on the ASM API itself (for controlling the animation) is found on the [ASM][asm] page because it is independent of what
 you are animating.
 
 Blocks
 --------
 
-Animations for blocks are done with the AnimationTESR, which is a FastTESR. Because of this, having a TileEntity for your block
-is necessary. Your TileEntity must provide the `ANIMATION_CAPABILITY`, which is recieved by calling its `.cast` method with your
+Animations for blocks are done with the `AnimationTESR`, which is a `FastTESR`. Because of this, having a `TileEntity` for your block
+is necessary. Your `TileEntity` must provide the `ANIMATION_CAPABILITY`, which is received by calling its `.cast` method with your
 ASM. Your block must also render in the `ENTITYBLOCK_ANIMATED` render layer if you do not provide a `StaticProperty` in the block's blockstate.
 
 The `StaticProperty` is a property you can add to your block's blockstate by adding `Properties.StaticProperty` to the list of your block's properties inside
-of `createBlockState()`. When rendering the block, the AnimationTESR checks if the property's value is true; if so, block rendering continues as normal. Otherwise
-the AnimationTESR animates the block model assigned to the `static=false` variant in the blockstate json.
+of `createBlockState()`. When rendering the block, the `AnimationTESR` checks if the property's value is true; if so, block rendering continues as normal. Otherwise
+the `AnimationTESR` animates the block model assigned to the `static=false` variant in the blockstate json. All parts of the model that can be static should probably
+be rendered in the static state, as that is its purpose.
 
-The `handleEvents()` callback is located _in_ the AnimationTESR, so you have to either subclass or overload it inline when you register the tileentity.
+The `handleEvents()` callback is located _in_ the `AnimationTESR`, so you have to either subclass or overload it inline when you register the tileentity.
 
 Here's an example of registering the TESR:
 
@@ -32,8 +33,8 @@ ClientRegistry.bindTileEntitySpecialRenderer(Chest.class, new AnimationTESR<Ches
 ```
 
 In this example, we've overridden the `handleEvents()` callback when we registered the TESR because the implementation is simple, but you could easily subclass
-AnimationTESR to achieve the same effect. `handleEvents()` callback for blocks takes two arguments: the tile entity being rendered, and an iterable of the events.
-The call to ``chest.handleEvents`` calls a method located in the fictional `Chest` TileEntity, as the ASM is not accessible inside of the handleEvents method. is not accessible inside of the handleEvents method.
+AnimationTESR to achieve the same effect. The `handleEvents()` callback for blocks takes two arguments: the tile entity being rendered, and an iterable of the events.
+The call to `chest.handleEvents()` calls a method located in the fictional `Chest` TileEntity, as the ASM is not accessible inside of the `handleEvents()` method.
 
 Items
 -------

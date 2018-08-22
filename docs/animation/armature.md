@@ -69,7 +69,7 @@ The file is organized in two sections, joints and clips.
 
 Joints
 --------
-Each joint defines an object that animates together as a single unit in the animation together. For example, in the vanilla json model format, multiple elements can belong to the same joint.
+Each joint defines an object that animates together as a single unit in the animation. With Vanilla JSON models, this means that multiple elements can belong to the same joint.
 
 The format is like this:
 ```javascript
@@ -88,21 +88,21 @@ The format is like this:
 }
 
 <joint_definition> ::= {
-    <string>: [ <float> ] // index_model, joint_weight
+    "<index_model>": [ <float> ] // index_model, joint_weight (only one value expected in array)
 }
 
 ```
 
 - `joint_name` is the name of the joint
-- `index_model` is a 0-indexed number denoting a model element this joint controls. Must be a string (see example)
-- `joint_weight` is a weight (0-1) of how much this element will animate. The transformation matrix caused by a clip animating this element will be scalarly multiplied by this number.
+- `index_model` is a 0-indexed number (where 0 is the first element defined in the model) denoting a model element this joint controls. Must be a string (see example)
+- `joint_weight` is a weight (0-1) of how much this joint will contribute to the element's final transformation if the element is used in multiple joints.
 
 !!! note
-    
-    In most cases, `joint_weight` should be set to 1.0, unless you really have a reason otherwise
+
+	For simpler animations, the weight can usually just be set to 1.0, but if you want multiple joints in a clip to animate differently, this is one way to accomplish that.
 
 Not all elements need to have a joint, only the ones you are animating.
-
+If an element occurs in multiple joint, the final transform is a weighted average of the transforms for each joint.
 
 Clips
 -------
@@ -153,19 +153,19 @@ Each `joint_clip` is a set of variables to change for a joint. The `type` attrib
 
 `samples` defines what value the animation will take on (think of keyframes in traditional animation), and its interpretation depends on the value of `interpolation`.
 
-`interpolation` can be one of the following:
+`interpolation`, which is how to convert the list of samples into a (possibly) continuous animation can be one of the following:
 
- - nearest - if value < 0.5 use the first sample, else the second sample. Useful for static variables if only given one value
- - linear - linearly interpolate between samples. Time between samples is 1 / number of samples.
+ - `nearest` - if value < 0.5 use the first sample, else the second sample. Useful for static variables if only given one value.
+ - `linear` - linearly interpolate between samples. Time between samples is 1 / number of samples.
 
 `variable` can be one of the following:
 
-- offset_x, offset_y, offset_z - translation
-- scale - uniform scaling
-- scale_x, scale_y, scale_x - scaling on certain axes
-- axis_x, axis_y, axis_z - rotation axes
-- angle - rotation angle
-- origin_x, origin_y, origin_z - rotation origin
+- `offset_x`, `offset_y`, `offset_z` - translation
+- `scale` - uniform scaling
+- `scale_x`, `scale_y`, `scale_x` - scaling on certain axes
+- `axis_x`, `axis_y`, `axis_z` - rotation axes
+- `angle` - rotation angle
+- `origin_x`, `origin_y`, `origin_z` - rotation origin
 
 ### Events
 
@@ -177,6 +177,6 @@ Each clip can fire events, formatted like this:
 ```
 For more information about events and what `event_text` means, see the page on [ASMs][asm].
 
-`event_time` is a value denoting when to fire the event. When the parameter controlling this clip reaches a point equal to or greater than the `event_time`, the event is fired
+`event_time` is a value (usually between 0 and 1 inclusive) denoting when to fire the event. When the parameter controlling this clip reaches a point equal to or greater than the `event_time`, the event is fired.
 
 [asm]: asm.md
