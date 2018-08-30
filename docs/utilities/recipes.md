@@ -91,32 +91,6 @@ Shaped recipes require the `pattern` and `key` keywords. A pattern defines the s
 Additional the type `forge:ore_dict` may be added. This defines the item beeing part of the [`OreDictionary`][OreDictionary] and can for example be used when it doesn't matter which copper ore is used to produce a copper ingot. In this case the `ore` tag has to be used instead of the `item` tag to define the item. There are [many more][Wiki] of these types which can be used here and you can even register your own.
 The `data` tag is a optional and used to define the metadata of a block or item.
 
-### Shapeless crafting
-A shapeless recipe doesn't make use of the `pattern` and `key` keywords. 
-
-To define a shapeless recipe, you have to use the `ingredients` list. It defines which items have to be used for the crafting process and can also make use of the additional type `forge:ore_dict` and it's functionality as described above. There are [many more][Wiki] of these types which can be used here and you can even register your own. It is even possible to define multiple instances of the same item which means multiple of these items have to be in place for the crafting recipe to take place. 
-
-!!! note
-
-    While there is no limit on how many ingredients your recipe requires the vanilla crafting table does only allow 9 items to be placed for each crafting recipe.
-
-The following example shows how an ingredient list looks like within JSON.
-
-```json
-    "ingredients": [
-        {
-            "type": "forge:ore_dict",
-            "ore": "minecraft:diamond"
-        },
-        {
-            "item": "minecraft:nether_star"
-        }
-    ],
-```
-
-### Smelting
-To define a recipe for the furnace, you have to use `GameRegistry.addSmelting(input, output, exp);` as the smelting recipes are currently not JSON based.
-
 ### Special behaviour of the `data` tag
 It is strongly advised to use the `data` tag to define the metadata of your items and blocks. Any item which uses `setHasSubtypes(true)` requires the use of the data field. When it is not used within the ingredients or keys, it will mean any metadata of this item will be accepted, for example: Not defining the data of a sword means even a half broken sword will be accepted for the crafting recipe!
 
@@ -143,6 +117,31 @@ A key set is used in combination with patterns and contains keys whose name is t
   }
 ```
 
+### Shapeless crafting
+A shapeless recipe doesn't make use of the `pattern` and `key` keywords. 
+
+To define a shapeless recipe, you have to use the `ingredients` list. It defines which items have to be used for the crafting process and can also make use of the additional type `forge:ore_dict` and it's functionality as described above. There are [many more][Wiki] of these types which can be used here and you can even register your own. It is even possible to define multiple instances of the same item which means multiple of these items have to be in place for the crafting recipe to take place. 
+
+!!! note
+
+    While there is no limit on how many ingredients your recipe requires the vanilla crafting table does only allow 9 items to be placed for each crafting recipe.
+
+The following example shows how an ingredient list looks like within JSON.
+
+```json
+    "ingredients": [
+        {
+            "type": "forge:ore_dict",
+            "ore": "minecraft:diamond"
+        },
+        {
+            "item": "minecraft:nether_star"
+        }
+    ],
+```
+
+### Smelting
+To define a recipe for the furnace, you have to use `GameRegistry.addSmelting(input, output, exp);` as the smelting recipes are currently not JSON based.
 
 Results
 -------
@@ -154,10 +153,10 @@ The `data` field is a optional and used to define the metadata of a block or ite
 !!! note
 
     Any item which uses `setHasSubtypes(true)` requires the data field. In this case, it is not optional!
-    
+
 Factories
 ---------
-When programing, we speak of a factory as beeing an object to create another object. For more information, you may want to check [Wikipedia][Wikipedia]. To create your own factory, you have to create a `_factories.json`. Within this file a type has to be defined, for example: `recipes`,  `ingredients` or `conditions`. The basic rule is that each type will point to a class reference for example `IRecipeFactory `, `IIngredientFactory` or `IConditionFactory` with a known constructor and input method. At last a `name` which can be later used in your recipes and the fully qualified classname have to be specified which is a class you have to create which implements for example `IRecipeFactory` for a factory of the type `recipes`.
+When programming, we speak of a factory as beeing an object to create another object. For more information, you may want to check [Wikipedia][Wikipedia]. To create your own factory, you have to create a `_factories.json`. Within this file a type has to be defined, for example: `recipes`,  `ingredients` or `conditions`. The basic rule is that each type will point to a class reference for example `IRecipeFactory `, `IIngredientFactory` or `IConditionFactory` with a known constructor and input method. At last a `name` which can be later used in your recipes and the fully qualified classname have to be specified which is a class you have to create which implements for example `IRecipeFactory` for a factory of the type `recipes`.
 
 ```json
 {
@@ -188,7 +187,7 @@ These conditions only apply to the recipe as a whole and not to ingredients. As 
 !!! note
 
     Conditions will only be checked once at startup!
-    
+
 For ingredients, you have to specify a factory of the `ingredients` type and use `CraftingHelper.processConditions` to check if the conditions are met.
 
 Constants
