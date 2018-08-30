@@ -10,7 +10,7 @@ Forge will load all recipes which can be found within the `./assets/<modid>/mode
 
 !!! note
 
-    While in theory it doesn't matter how the file is called Forge will ignore all recipe files which begin with an underscore or don't have the JSON file extension.
+    Recipe files cannot begin with an underscore as this is reserved for constants files. The JSON file extension is required.
 
 The Recipe file
 ---------------
@@ -76,11 +76,11 @@ Type
 ----
 Both Minecraft and Forge require you to specify the type of your recipe within the type tag. You can think of this as the definition of which the crafting layout is to be used, for example `minecraft:crafting_shaped` or `minecraft:crafting_shapeless`. Forge has also specified `forge:oreshaped` in order to use the ore dictionary within a shaped recipe, thought you may want to prefer using the ingredient oredict type instead. The ingredient oredict is a type of itself, only defined for each ingredient separately instead of the entire recipe. It looks like this: `"type": "forge:ore_dict"` and doesn't allow to specify the `data` tag. The above tags are example tags only and not a complete list of all available options for the type!
 
-If you want, you can define your own types aswell which requires the use of a `_factories.json` file.
+If you want, you can define your own types aswell which requires the use of a [`_factories.json`][Factories] file.
 	
 Groups
 ------
-Optionally you can add a group to your recipes to be displayed within the recipe helper interface. It doesn't matter what you specify as all recipes with the same String will be shown in the same group. This can be used for example for having all door recipes shown in the recipe helper interface as there are different types of doors depending on the used wood.
+Optionally you can add a group to your recipes to be displayed within the recipe helper interface. All recipes with the same group String will be shown in the same group. For example, this can be used to have all door recipes shown in the recipe helper interface as a single entry, even though there are different types of doors.
 
 Shaped and shapeless crafting
 -----------------------------
@@ -94,7 +94,7 @@ The `data` tag is a optional and used to define the metadata of a block or item.
 ### Shapeless crafting
 A shapeless recipe doesn't make use of the `pattern` and `key` keywords. 
 
-To define a shapeless recipe, you have to use the `ingredients` list. It defines which items have to be used for the crafting process and can also make use of the additional type `forge:ore_dict` and it's functionality as described above. There are [many more][Wiki] of these types which can be used here and you can even register your own. It is even possible to define multiply instances of the same item which means multiply of these items have to be in place for the crafting recipe to take place. 
+To define a shapeless recipe, you have to use the `ingredients` list. It defines which items have to be used for the crafting process and can also make use of the additional type `forge:ore_dict` and it's functionality as described above. There are [many more][Wiki] of these types which can be used here and you can even register your own. It is even possible to define multiple instances of the same item which means multiple of these items have to be in place for the crafting recipe to take place. 
 
 !!! note
 
@@ -211,3 +211,4 @@ It is possible to define constant values for your recipes. These values have to 
 [OreDictionary]: ../utilities/oredictionary.md
 [Advancements]: #
 [Wiki]: https://minecraft.gamepedia.com/Recipe
+[Factories]: #factories
