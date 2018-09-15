@@ -111,7 +111,7 @@ Note that each takes a `SoundEvent`, the ones registered above. Additionally, th
     - **Server Behavior**: Method is client-only.
     - **Usage**: Just like the ones in `World`, these two overrides in the player classes seem to be for code that runs together on both sides. The client handles playing the sound to the user, while the server handles everyone else hearing it without re-playing to the original user.
 
-[wiki]: http://minecraft.gamepedia.com/Sounds.json
+[wiki]: https://minecraft.gamepedia.com/Sounds.json
 [registration]: ../concepts/registries.md#registering-things
 [ResourceLocation]: ../concepts/resources.md#resourcelocation
 [sides]: ../concepts/sides.md

@@ -34,7 +34,7 @@ From Zero to Modding
 
 
 [home directory]: https://en.wikipedia.org/wiki/Home_directory#Default_home_directory_per_operating_system "Default user's home folder location for different operation systems"
-[files]: http://files.minecraftforge.net "Forge Files distribution site"
+[files]: https://files.minecraftforge.net "Forge Files distribution site"
 
 Terminal-free IntelliJ IDEA configuration
 ------------------------------------------

@@ -17,4 +17,4 @@ If an item inherits from the `builtin/generated` model, each layer ("layer0", "l
 
 This registration must be done client-side, in the initialization phase.
 
-[wiki]: http://minecraft.gamepedia.com/Model#Block_models
+[wiki]: https://minecraft.gamepedia.com/Model#Block_models

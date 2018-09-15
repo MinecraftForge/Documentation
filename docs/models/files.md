@@ -40,7 +40,7 @@ Blitz3D Models
 
 Forge adds a loader for the `.b3d` file format. To use these models, the resource domain must be registered through `B3DLoader.addDomain`. This loader accepts any model location that is in a registered domain and whose path ends in `.b3d`.
 
-[JSON model format]: http://minecraft.gamepedia.com/Model#Block_models
+[JSON model format]: https://minecraft.gamepedia.com/Model#Block_models
 [overrides]: overrides.md
 [blockstate JSON]: blockstates/introduction.md
 [UV]: https://en.wikipedia.org/wiki/UV_mapping

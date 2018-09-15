@@ -12,5 +12,5 @@ There are a variety of techniques provided by Forge to facilitate communication 
 The simplest, for a new mod, would be [SimpleImpl][], where most of the complexity of the netty system is
 abstracted away. It uses a message and handler style system.
 
-[netty]: http://netty.io "Netty website"
+[netty]: https://netty.io "Netty website"
 [SimpleImpl]: simpleimpl.md "SimpleImpl in detail"

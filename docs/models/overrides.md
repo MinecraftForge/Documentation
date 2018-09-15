@@ -49,4 +49,4 @@ item.addPropertyOverride(new IItemPropertyGetter() {
 }
 ```
 
-[format]: http://minecraft.gamepedia.com/Model#Item_models
+[format]: https://minecraft.gamepedia.com/Model#Item_models
