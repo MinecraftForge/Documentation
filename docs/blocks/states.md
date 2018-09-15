@@ -40,7 +40,7 @@ Imbuing your Blocks with these Magical Properties
 Now that I've successfully convinced you that properties and values are superior to arbitrary numbers, let's move on to the actual how-to-do part.
 
 In your Block class, create static final `IProperty<>` objects for every property that your Block has. Vanilla provides us several convenience implementations:
-  
+
   * `PropertyInteger`: Implements `IProperty<Integer>`. Created by calling PropertyInteger.create("<name>", <min>, <max>);
   * `PropertyBool`: Implements `IProperty<Boolean>`. Created by calling PropertyBool.create("<name>");
   * `PropertyEnum<E extends Enum<E>>`: Implements `IProperty<E>`, Defines a property that can take on the values of an Enum class. Created by calling PropertyEnum.create("name", <enum_class>);
@@ -51,7 +51,7 @@ In your Block class, create static final `IProperty<>` objects for every propert
 Note that you are free to make your own `IProperty<>` implementations, but the means to do that are not covered in this article.
 In addition, note that you can share the same `IProperty` object between different blocks if you wish. Vanilla generally has separate ones for every single block, but it is merely personal preference.
 
-!!! Note 
+!!! Note
     If your mod has an API or is meant to be interacted with from other mods, it is **very highly** recommended that you instead place your `IProperty`'s (and any classes used as values) in your API. That way, people can use properties and values to set your blocks in the world instead of having to suffer with arbitrary numbers like you used to.
 
 After you've created your `IProperty<>` objects, override `createBlockState` in your Block class. In that method, simply write `return new BlockState()`. Pass the `BlockState` constructor first your Block, `this`, then follow it with every `IProperty` you want to declare. Note that in 1.9 and above, the `BlockState` class has been renamed to `BlockStateContainer`, more in line with what this class actually does.

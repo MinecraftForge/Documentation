@@ -43,7 +43,7 @@ These instructions assume that you have created the project folder as described 
 
 4. Launch IDEA and choose to open/import the `build.gradle` file, using the default gradle wrapper choice. While you wait for this process to finish, you can open the gradle panel, which will get filled with the gradle tasks once importing is completed.
 5. Run the `setupDecompWorkspace` task (inside the `forgegradle` task group). It will take a few minutes, and use quite a bit of RAM. If it fails, you can add `-Xmx3G` to the `Gradle VM options` in IDEA's gradle settings window, or edit your global gradle properties.
-6. Once the setup task is done, you will want to run the `genIntellijRuns` task, which will configure the project's run/debug targets. 
+6. Once the setup task is done, you will want to run the `genIntellijRuns` task, which will configure the project's run/debug targets.
 7. After it's done, you should click the blue refresh icon **on the gradle panel** (there's another refresh icon on the main toolbar, but that's not it). This will re-synchronize the IDEA project with the Gradle data, making sure that all the dependencies and settings are up to date.
 8. Finally, assuming you use IDEA 2016 or newer, you will have to fix the classpath module. Go to `Edit configurations` and in both `Minecraft Client` and `Minecraft Server`, change `Use classpath of module` to point to the task with a name like `<project>_main`.
 

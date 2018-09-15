@@ -14,7 +14,7 @@ Only one TESR exists for a given tile entity. Therefore, values that are specifi
 
 ### `renderTileEntityAt`
 
-This method is called every frame in order to render the tile entity. 
+This method is called every frame in order to render the tile entity.
 
 #### Parameters
 * `tileentity`: This is the instance of the tile entity being rendered.

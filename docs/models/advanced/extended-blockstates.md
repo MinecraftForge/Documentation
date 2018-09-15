@@ -30,7 +30,7 @@ public BlockStateContainer createBlockState() {
 }
 ```
 
-Note that you do not need to set default values for your unlisted properties. 
+Note that you do not need to set default values for your unlisted properties.
 
 
 Filling Extended States

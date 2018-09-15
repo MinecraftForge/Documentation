@@ -2,7 +2,7 @@ PermissionAPI
 =============
 
 The PermissionAPI is a very basic implementation of a permission system.
-Its default implementation doesn't add an advanced permission handling (like we know it for example from PEX), 
+Its default implementation doesn't add an advanced permission handling (like we know it for example from PEX),
 but instead it has 3 permission levels, (ALL = all players, OP = operators, NONE = neither normal players nor operators).
 This behaviour can be changed by mods which implement their own PermissionHandler.
 
@@ -12,7 +12,7 @@ How to use the PermissionAPI
 For basic support you just need to call `PermissionAPI.hasPermission(EntityPlayer player, String  node)`,
 though by default this is going to return always false, as the default implementation uses the permission level `NONE`
 So if we want that all players, or just OP's to be able to use this  we also need to register our permission node.
-Achieving this is as simple as checking for permissions: `PermissionAPI.registerNode(String node, DefaultPermissionLevel level, String description)`, 
+Achieving this is as simple as checking for permissions: `PermissionAPI.registerNode(String node, DefaultPermissionLevel level, String description)`,
 though this has to be done in Init or Later.
 
 !!! note
@@ -36,7 +36,7 @@ It is recommended to use this naming scheme as other implementations may have st
 Making your own implementation of the `PermissionHandler`
 --------------------------------------
 
-By default the PermissionHandler is very basic, which is usually enough for most users, 
+By default the PermissionHandler is very basic, which is usually enough for most users,
 but you might want more control over the permissions for things like a big server.
 This can be achieved  by creating a custom `PermissionHandler`.
 

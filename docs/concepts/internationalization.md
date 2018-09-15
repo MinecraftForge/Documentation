@@ -54,7 +54,7 @@ Localization methods
 
 !!! warning
     A common issue is having the server localize for clients. The server can only localize in its own locale, which does not necessarily match the locale of connected clients.
-    
+
     To respect the language settings of clients, the server should have clients localize text in their own locale using `TextComponentTranslation` or other methods preserving the language neutral translation keys.
 
 ### `net.minecraft.client.resources.I18n` (client only)

@@ -10,7 +10,7 @@ Registering a Modded Loot Table
 
 In order to make Minecraft load and be aware of your loot table, simply call `LootTableList.register(new ResourceLocation("modid", "loot_table_name"))`, which will resolve and load `/assets/modid/loot_tables/loot_table_name.json`. This call can be made during any of preinit, init, or postinit. You may organize your tables into folders freely.
 
-!!! Note 
+!!! Note
     Loot pools in mod loot tables must include an additional `name` tag that uniquely identifies that pool within the table. A common strategy is to name the pool with the kinds of items that its entries contain.
     If you specify multiple loot entries with the same `name` tag (e.g. the same item but with different functions each time), then you must give each of those entries an `entryName` tag that uniquely identifies that entry within the pool. For `name` tags that do not clash, then `entryName` is automatically set to the value of `name`.
     These additional requirements are imposed by Forge to facilitate modification of tables at load time using `LootTableLoadEvent` (see below).
@@ -136,7 +136,7 @@ A real-world example of this approach in action can be seen in Botania. The even
 Changing Mob Drops
 ------------------
 
-Subclasses of `EntityLiving` automatically support drawing from a loot table upon death. This is done by overriding the `getLootTable` method to return a `ResourceLocation` to the desired table. This serves as the mob's default table; the tables of both your and other mods' mobs can be overridden for a single entity by setting the `deathLootTable` field of the entity. 
+Subclasses of `EntityLiving` automatically support drawing from a loot table upon death. This is done by overriding the `getLootTable` method to return a `ResourceLocation` to the desired table. This serves as the mob's default table; the tables of both your and other mods' mobs can be overridden for a single entity by setting the `deathLootTable` field of the entity.
 
 Generating Loot In-Code
 -----------------------

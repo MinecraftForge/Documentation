@@ -1,7 +1,7 @@
 OreDictionary
 =============
 
-The OreDictionary exists primarily for inter-mod compatibility. 
+The OreDictionary exists primarily for inter-mod compatibility.
 
 Items that are registered to the OreDictionary become interchangeable with other items that have the same OreDictionary name. This allows recipes to use either item to produce the same result.
 
@@ -63,8 +63,8 @@ All OreDictionary names for Minecraft items and blocks can be found in `net.mine
 
 Common prefixes already used in the OreDictionary include `ore`, `ingot`, `nugget`, `dust`, `gem`, `dye`, `block`, `stone`, `crop`, `slab`, `stair`, and `pane`.
 
-Common prefixes for modded items include `gear`, `rod`, `stick`, `plate`, `dustTiny`, and `cover`. 
+Common prefixes for modded items include `gear`, `rod`, `stick`, `plate`, `dustTiny`, and `cover`.
 
-Common suffixes in the OreDictionary include `Wood`, `Glass`, `Iron`, `Gold`, `Leaves`, and `Brick`. 
+Common suffixes in the OreDictionary include `Wood`, `Glass`, `Iron`, `Gold`, `Leaves`, and `Brick`.
 
 Common suffixes for modded items include the names of metals (`Copper`, `Aluminum`, `Lead`, `Steel`, etc.) and other modded materials.

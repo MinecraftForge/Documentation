@@ -84,7 +84,7 @@ public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn)
 Called on a block when it is clicked by a player.
 
 !!! Note
-    
+
     This method is for when the player *left-clicks* on a block.
     Don't get this confused with `onBlockActivated`, which is called when the player *right-clicks*.
 
@@ -121,7 +121,7 @@ Called on a block after it's destroyed by a player
 |  `IBlockState`  |   `state`   | The state of the block that was destroyed    |
 
 !!! Warning
-    
+
     The `pos` parameter may not hold the state indicated
 
 ### Usage example
@@ -130,8 +130,8 @@ This method is perfect for adding custom events as a result of a player destroyi
 By default this method does nothing.  
 
 The **TNT Block** overrides this method to cause it's explosion when a player destroys it.  
-This method is used by extended pistons; since an extended piston is made up of two blocks (the extended head and the base), 
-the **PistonMoving Block** makes use of this method to destroy the base block when the PistonMoving block is destroyed. 
+This method is used by extended pistons; since an extended piston is made up of two blocks (the extended head and the base),
+the **PistonMoving Block** makes use of this method to destroy the base block when the PistonMoving block is destroyed.
 
 
 [sidedness]: ../concepts/sides.md

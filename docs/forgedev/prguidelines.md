@@ -79,7 +79,7 @@ Be Patient, Civil, and Empathetic
 --------------------------------
 
 When submitting Pull Requests you will often have to survive code review and make several changes before it is the best Pull Request possible.  
-Keep in mind that code review is not judgement against you. Bugs in your code are not personal. Nobody is perfect, and that's why we're working together. 
+Keep in mind that code review is not judgement against you. Bugs in your code are not personal. Nobody is perfect, and that's why we're working together.
 
 Negativity will not help, threatening to give up on your Pull Request and write a coremod instead will just make people upset and make the modded ecosystem worse.  
 It's important that while working together you assume the best intentions of the people who are reviewing your Pull Request and not take things personally.

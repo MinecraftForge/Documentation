@@ -1,7 +1,7 @@
 `@Config`
 =======
 
-The `@Config` annotation is an alternative to `Configuration`. 
+The `@Config` annotation is an alternative to `Configuration`.
 
 Table of Contents
 -------------
@@ -31,16 +31,16 @@ A good example of this system is [`Forge's Test`][forgetest]
 @Config Use
 -----------
 
-This annotation is used to denote a class is the container for some configuration options. 
+This annotation is used to denote a class is the container for some configuration options.
 
 There are 4 properties:
 
-|     Property|Type     | Default Value | Comment 
+|     Property|Type     | Default Value | Comment
 |           -:|:-       |     :-:       |:-
-|        modid|`String` |     N/A       | The mod id that this configuration is associated with. 
-|         name|`String` |     `""`      | A user friendly name for the config file, the default will be modid. 
-|         type|`Type`   |`Type.INSTANCE`| The type this is, right now the only value is `Type.INSTANCE`. This is intended to be expanded upon later for more Forge controlled configs. 
-|     category|`String` |  `"general"`  | Root element category. If this is an empty string then the root category is disabled. 
+|        modid|`String` |     N/A       | The mod id that this configuration is associated with.
+|         name|`String` |     `""`      | A user friendly name for the config file, the default will be modid.
+|         type|`Type`   |`Type.INSTANCE`| The type this is, right now the only value is `Type.INSTANCE`. This is intended to be expanded upon later for more Forge controlled configs.
+|     category|`String` |  `"general"`  | Root element category. If this is an empty string then the root category is disabled.
 
 !!! important
 
@@ -49,11 +49,11 @@ There are 4 properties:
 @Comment Use
 ------------
 
-Adding a `@Comment` annotation to a field will add a comment to the config in its file. 
+Adding a `@Comment` annotation to a field will add a comment to the config in its file.
 
 It has 1 property:
 
-| Property|Type               | Default Value |Comment 
+| Property|Type               | Default Value |Comment
 |       -:|:-                 |       :-:     |:-
 |    value|`String[]`/`String`|       N/A     |The passed value will be converted to a `String[]` and for each element of the `String[]` a new line is added to the comment.
 
@@ -70,7 +70,7 @@ This would produce the following config:
 # You can add comments using this
 # and if you supply an array it will be multi-line
 B:doTheThing=true   
-``` 
+```
 
 @Name Use
 ---------
@@ -81,12 +81,12 @@ This has 1 property:
 
 | Property | Type    | Default Value |
 |        -:|:-       |      :-:      |
-|     value|`String` |      N/A      | 
+|     value|`String` |      N/A      |
 
 ### Example
 ```java
 @Name("FE/T for the thing")
-public static int thingFE = 50; 
+public static int thingFE = 50;
 ```
 This will produce the following config:
 ```
@@ -96,7 +96,7 @@ I:"FE/T for the thing"=50
 @RangeInt Use
 -------------
 
-You should use `@RangeInt` to limit an `int` or `Integer` config value. 
+You should use `@RangeInt` to limit an `int` or `Integer` config value.
 
 It has 2 properties:
 
@@ -107,7 +107,7 @@ It has 2 properties:
 
 ### Example
 ```java
-@RangeInt(min = 0) 
+@RangeInt(min = 0)
 public static int thingFECapped = 50;
 ```
 This will produce the following config:
@@ -121,7 +121,7 @@ I:thingFECapped=50
 @RangeDouble Use
 ----------------
 
-You should use `@RangeDouble` to limit a `double` or `Double` config value. 
+You should use `@RangeDouble` to limit a `double` or `Double` config value.
 
 It has 2 properties:
 
@@ -132,7 +132,7 @@ It has 2 properties:
 
 ### Example
 ```java
-@RangeDouble(min = 0, max = Math.PI) 
+@RangeDouble(min = 0, max = Math.PI)
 public static double chanceToDrop = 2;
 ```
 This will produce the following config:
@@ -143,8 +143,8 @@ D:chanceToDrop=2.0
 ```
 
 !!! note
-  
-    There is not currently (in 1.12.2) a `@RangedFloat` or `@RangedLong` or any other variant of the Ranged values. 
+
+    There is not currently (in 1.12.2) a `@RangedFloat` or `@RangedLong` or any other variant of the Ranged values.
 
 @LangKey Use
 ------------
@@ -155,7 +155,7 @@ This has 1 property:
 
 | Property | Type    | Default Value |
 |        -:|:-       |      :-:      |
-|     value|`String` |      N/A      | 
+|     value|`String` |      N/A      |
 
 @RequiresMcRestart Use
 ----------------------
@@ -192,7 +192,7 @@ public class Configs {
   public static SubCategory subcat = new SubCategory();
 
   private static class SubCategory {
-    public boolean someBool; 
+    public boolean someBool;
     public int relatedInt;
   }
 }
@@ -207,7 +207,7 @@ subcat {
 
 @Ignore Use
 -----------
-Adding the `@Ignore` annotation to a field in the config class will cause the `ConfigManager` to skip over it when processing your config file. 
+Adding the `@Ignore` annotation to a field in the config class will cause the `ConfigManager` to skip over it when processing your config file.
 
 !!! note
 

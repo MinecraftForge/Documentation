@@ -1,14 +1,14 @@
 Signing a JAR
 =============
 
-Java allows developers to sign their jar files with a signature. However, these signatures are not designed 
+Java allows developers to sign their jar files with a signature. However, these signatures are not designed
 to be used as security and shouldn't be used this way. Signatures are used as sanity checks, so that developers
 are able to check if they are running their own un-edited code.
 
 !!! note
 
 	Once again keep in mind that this system is not intended to be a security measure. With enough malicious intend it can be circumvented.
-	
+
 Creating a keystore
 -------------------
 A **keystore** is a private database file which holds the required information to successfully sign the jar.
@@ -35,7 +35,7 @@ that FML can work with the key.
 ### Checking at runtime
 To allow FML to compare the keys, add the public key to the `certificateFingerprint` argument in the `@Mod` annotation.
 
-When FML detects that the keys don't match it will fire the mod-lifecycle event `FMLFingerprintViolationEvent` How to 
+When FML detects that the keys don't match it will fire the mod-lifecycle event `FMLFingerprintViolationEvent` How to
 handle this key mismatch is up to the developer.
 
 - `event.isDirectory()` - Returns true when the mod runs in development environment.
@@ -53,7 +53,7 @@ buildscript `build.gradle` is required.
         inputFile = jar.archivePath
         outputFile = jar.archivePath
     }
-    
+
     build.dependsOn signJar
 ```
 
