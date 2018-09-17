@@ -48,5 +48,5 @@ This is one case of 5. You can read this as "when east=true, use the model oak_f
 [blockstate]: ../../blocks/states.md
 [statemapper]: ../using.md#block-models
 [Forge blockstate]: forgeBlockstates.md
-[wiki]: http://minecraft.gamepedia.com/Model#Block_states
+[wiki]: https://minecraft.gamepedia.com/Model#Block_states
 [item blockstates]: ../using.md#blockstate-jsons-for-items

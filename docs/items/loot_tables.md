@@ -171,4 +171,4 @@ table.fillInventory(iinventory, world.rand, ctx);
 !!! Note
     This only works with `IInventory` for now.
 
-[wiki]: http://minecraft.gamepedia.com/Loot_table
+[wiki]: https://minecraft.gamepedia.com/Loot_table

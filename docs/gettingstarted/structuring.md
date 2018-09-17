@@ -56,7 +56,7 @@ The default Gradle configuration replaces `${version}` with the project version,
 | dependencies | [string] |   `[]`   | A list of modids. All of the listed mods will load *before* this one. If one is not present, nothing happens. |
 |   dependants | [string] |   `[]`   | A list of modids. All of the listed mods will load *after* this one. If one is not present, nothing happens. |
 
-A good example `mcmod.info` that uses many of these properties is [BuildCraft](http://gist.github.com/anonymous/05ad9a1e0220bbdc25caed89ef0a22d2).
+A good example `mcmod.info` that uses many of these properties is [BuildCraft](https://gist.github.com/anonymous/05ad9a1e0220bbdc25caed89ef0a22d2).
 
 The Mod File
 ------------
@@ -91,7 +91,7 @@ Here is a table of the properties of `@Mod`:
 
 <a name="version-ranges" style="color: inherit; text-decoration: inherit">\* All version ranges use the [Maven Version Range Specification](https://maven.apache.org/enforcer/enforcer-rules/versionRanges.html).</a>
 
-You can find an example mod in the [Forge src download](http://files.minecraftforge.net/).
+You can find an example mod in the [Forge src download](https://files.minecraftforge.net/).
 
 Keeping Your Code Clean Using Sub-packages
 ------------------------------------------
