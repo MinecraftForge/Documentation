@@ -82,7 +82,7 @@ The `data` tag is a optional and used to define the metadata of a block or item.
 
 A shapeless recipe doesn't make use of the `pattern` and `key` keywords.
 
-To define a shapeless recipe, you have to use the `ingredients` list. It defines which items have to be used for the crafting process and can also make use of the additional type `forge:ore_dict` and it's functionality as described above. There are [many more][Wiki] of these types which can be used here and you can even register your own. It is even possible to define multiple instances of the same item which means multiple of these items have to be in place for the crafting recipe to take place. 
+To define a shapeless recipe, you have to use the `ingredients` list. It defines which items have to be used for the crafting process and can also make use of the additional type `forge:ore_dict` and it's functionality as described above. There are [many more][Wiki] of these types which can be used here and you can even register your own. It is even possible to define multiple instances of the same item which means multiple of these items have to be in place for the crafting recipe to take place.
 
 !!! note
 
@@ -197,4 +197,3 @@ It is possible to define constant values for your recipes. These values have to 
 [Advancements]: #
 [Wiki]: https://minecraft.gamepedia.com/Recipe
 [Factories]: #factories
-[Ingredients]: #ingredients
