@@ -30,3 +30,9 @@ Model files are in JSON format and are located in `./assets/<modid>/models/block
 ### Textures
 
 Textures are in the PNG format and are located in `./assets/<modid>/textures/blocks/` or `./assets/<modid>/textures/items/` depending on whether they are for a block or an item, respectively.
+
+### Recipes
+
+[Recipes][Recipes] are in JSON format and are located in `./assets/<modid>/recipes/`.
+
+[Recipes]: ../utilities/recipes.md

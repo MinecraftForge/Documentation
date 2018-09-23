@@ -56,6 +56,7 @@ pages:
     - Extended Entity Properties: 'datastorage/extendedentityproperties.md'
     - Config Annotations: 'config/annotations.md'
   - Utilities:
+    - Recipes: 'utilities/recipes.md'
     - OreDictionary: 'utilities/oredictionary.md'
     - PermissionAPI: 'utilities/permissionapi.md'
   - Effects:
