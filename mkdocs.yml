@@ -18,6 +18,11 @@ pages:
     - Home: 'blocks/blocks.md'
     - Intro to Blockstates: 'blocks/states.md'
     - Interaction: 'blocks/interaction.md'
+  - Animation API:
+    - Intro to the Animation API: 'animation/intro.md'
+    - Armatures: 'animation/armature.md'
+    - Animation State Machines: 'animation/asm.md'
+    - Using the API: 'animation/implementing.md'
   - Tile Entities:
     - Home: 'tileentities/tileentity.md'
     - Special Renderer: 'tileentities/tesr.md'
