@@ -85,7 +85,7 @@ Next, an example of one of the most common use cases for modifying vanilla loot:
 First, listen for the event for the table we want to modify:
 ```Java
 @SubscribeEvent
-public void lootLoad(LootTableLoadEvent evt) {
+public static void lootLoad(LootTableLoadEvent evt) {
     if (evt.getName().toString().equals("minecraft:chests/simple_dungeon")) {
         // do stuff with evt.getTable()
     }
