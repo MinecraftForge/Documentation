@@ -172,7 +172,7 @@ This will make the game require a restart if the value is changed in the configs
 @RequiresWorldRestart Use
 -------------------------
 
-This will force the game to be restarted if the config is changed in the mod options menu.
+This will force the world to be restarted if the config is changed in the mod options menu.
 
 ### Example
 ```java
