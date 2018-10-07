@@ -1,4 +1,4 @@
-`IBakedModel`
+ `IBakedModel`
 =============
 
 `IBakedModel` is the result of calling [`IModel::bake`][IModel::bake]. Unlike `IModel`, which purely represents a shape without any concept of items or blocks, `IBakedModel` is not as abstract; it represents geometry that has been optimized and reduced to a form where it is (almost) ready to go to the GPU. It can also process the state of an item or block to change the model.
@@ -22,7 +22,7 @@ If the model is being rendered as an item in an inventory, on the ground as an e
 !!! important
     Unless you know what you're doing and are OK with using deprecated features, just `return false` from this and continue on.
 
-When rendering this as an item, returning `true` causes the model to not be rendered, instead falling back to `TileEntityItemStackRenderer::renderItem`. For certain vanilla items such as chests and banners, this method is hardcoded to copy data from the item into a `TileEntity`, before using a `TileEntitySpecialRenderer` to render that TE in place of the item. For all other items, this queries a registry to find the `Class<? extends TileEntity>` corresponding to the item, finds the `TileEntitySpecialRenderer<T>` for that, and renders that in place of the model itself. `ForgeHooksClient::registerTESRItemStack` is used to register this kind of mapping. When a TESR is called like this, it receives `null` as it's `TileEntity` parameter.
+When rendering this as an item, returning `true` causes the model to not be rendered, instead falling back to `TileEntityItemStackRenderer::renderItem`. For certain vanilla items such as chests and banners, this method is hardcoded to copy data from the item into a `TileEntity`, before using a `TileEntitySpecialRenderer` to render that TE in place of the item. For all other items, it will use the `TileEntityItemStackRenderer` instance provided by `Item#setTileEntityItemStackRenderer`; refer to [TileEntityItemStackRenderer][teisr] page for more information.
 
 ### `getParticleTexture`
 
@@ -50,3 +50,4 @@ The `long` parameter is a random number.
 [Perspective]: perspective.md
 [ItemOverrideList]: itemoverridelist.md
 [extended blockstates]: extended-blockstates.md
+[teisr]: ../../rendering/teisr.md

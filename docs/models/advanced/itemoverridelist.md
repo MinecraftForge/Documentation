@@ -49,5 +49,5 @@ This class represents a vanilla item override, which holds several predicates fo
 }
 ```
 
-[IBlockState]: iblockstate.md
+[IBakedModel]: ibakedmodel.md
 [ItemOverride]: #itemoverride
