@@ -23,6 +23,8 @@ Localizations are plain-text files with the file extension `.lang` and the name 
 
 They are located in the `./assets/<modid>/lang/` folder.
 
+Please note that if you use `pack_format: 3` in `src/main/resources/pack.mcmeta`, all resources including language files should be lowercase (eg: `en_us.lang`)
+
 ### Models
 
 Model files are in JSON format and are located in `./assets/<modid>/models/block/` or `./assets/<modid>/models/item/` depending on whether they are for a block or an item, respectively.
