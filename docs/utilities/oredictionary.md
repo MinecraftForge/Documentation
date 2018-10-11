@@ -1,7 +1,7 @@
 OreDictionary
 =============
 
-The OreDictionary exists primarily for inter-mod compatibility. 
+The OreDictionary exists primarily for inter-mod compatibility.
 
 Items that are registered to the OreDictionary become interchangeable with other items that have the same OreDictionary name. This allows recipes to use either item to produce the same result.
 
@@ -35,15 +35,28 @@ Using OreDictionary in Crafting Recipes
 
 Recipes that use the OreDictionary are created and registered in much the same way as regular crafting recipes. The main difference is the use of an OreDictionary name instead of a specific `Item` or `ItemStack`.
 
-To make a recipe that can use OreDictionary entries, create a `ShapelessOreRecipe` or `ShapedOreRecipe` instance and register it by calling `GameRegistry.addRecipe(IRecipe recipe)`.
+To make a recipe that can use OreDictionary entries, create an ingredient with `type` of `forge:ore_dict` in your recipe json, and specify the ore dictionary entry name in `ore` field:
+
+```json
+{
+    "type": "forge:ore_dict",
+    "ore": "ingotIron"
+}
+```
+
+More information about recipe json may be found [here](recipes.md).
+
+Another use of the OreDictionary in crafting is the [WILDCARD_VALUE](#wildcard_value). Use by passing `32767` into `data` field of a regular item ingredient:
+
+```json
+{
+    "item": "minecraft:wool",
+    "data": 32767
+}
+```
 
 !!! note
-    You can verify that an OreDictionary name will return a valid `ItemStack` by calling `OreDictionary.doesOreNameExist(String name)`.
-
-Another use of the OreDictionary in crafting is the [WILDCARD_VALUE](#wildcard_value). Use by passing `OreDictionary.WILDCARD_VALUE` in the constructor of an `ItemStack`.
-
-!!! note
-    `OreDictionary.WILDCARD_VALUE` should only be used for the recipe input. Using `WILDCARD_VALUE` in the recipe output will only hardcode the damage of the output `ItemStack`.
+    The constant `OreDictionary.WILDCARD_VALUE` (`32767`) should only be used for the recipe input. Using `WILDCARD_VALUE` in the recipe output will only hardcode the damage of the output `ItemStack`.
 
 Registering Items to the OreDictionary
 --------------------------------------
@@ -63,8 +76,8 @@ All OreDictionary names for Minecraft items and blocks can be found in `net.mine
 
 Common prefixes already used in the OreDictionary include `ore`, `ingot`, `nugget`, `dust`, `gem`, `dye`, `block`, `stone`, `crop`, `slab`, `stair`, and `pane`.
 
-Common prefixes for modded items include `gear`, `rod`, `stick`, `plate`, `dustTiny`, and `cover`. 
+Common prefixes for modded items include `gear`, `rod`, `stick`, `plate`, `dustTiny`, and `cover`.
 
-Common suffixes in the OreDictionary include `Wood`, `Glass`, `Iron`, `Gold`, `Leaves`, and `Brick`. 
+Common suffixes in the OreDictionary include `Wood`, `Glass`, `Iron`, `Gold`, `Leaves`, and `Brick`.
 
 Common suffixes for modded items include the names of metals (`Copper`, `Aluminum`, `Lead`, `Steel`, etc.) and other modded materials.
