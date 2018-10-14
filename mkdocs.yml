@@ -63,6 +63,7 @@ pages:
   - Utilities:
     - Recipes: 'utilities/recipes.md'
     - OreDictionary: 'utilities/oredictionary.md'
+    - Inter-Mod Communication: 'utilities/intermodcomms.md'
     - PermissionAPI: 'utilities/permissionapi.md'
   - Effects:
     - Sounds: 'effects/sounds.md'
