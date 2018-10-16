@@ -23,7 +23,7 @@ From Zero to Modding
 
 !!! note
 
-    In case you will receive an error while running the task `:decompileMC` ( the fourth step )
+    In case you receive an error while running the task `:decompileMC` ( the fourth step )
 
     ```
     Execution failed for task ':decompileMc'.
