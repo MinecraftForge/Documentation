@@ -42,4 +42,8 @@ You can change the behaviour of an advancement when it completes. You can do thi
 2. Choose whether it shows an announcement in chat
 3. Choose whether it is visible before it is completed
 
-To do each of those you need to change the value `show_toast`, `announce_to_chat`, and `hidden` in your advancement's `.json`
+To do each of those you need to change the value `show_toast`, `announce_to_chat`, and `hidden` in your advancement's `.json`.
+
+Advancement Background
+----------------------
+You can change the background texture of your advancement tab. To do this, open the `root.json` advancement for said tab, then change add `"background": "modid:path/to/background/image.png"`
