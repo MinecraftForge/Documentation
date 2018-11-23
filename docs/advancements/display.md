@@ -33,3 +33,13 @@ In your advancement `.json`, you can change the `frame` to be different from the
 |       task |    ![Task Regular Icon](https://i.imgur.com/ZUvJ4jc.png)   |    ![Task Completed Icon](https://i.imgur.com/3gfBrNb.png)   |
 |       goal |    ![Goal Regular Icon](https://i.imgur.com/6coVFqT.png)   |    ![Goal Completed Icon](https://i.imgur.com/gFfJLYO.png)   |
 |  challenge | ![Challenge Regular Icon](https://i.imgur.com/feUoc2M.png) | ![Challenge Completed Icon](https://i.imgur.com/IDsuroK.png) |
+
+Advancement Behaviour
+---------------------
+You can change the behaviour of an advancement when it completes. You can do this is 3 ways:
+
+1. Choose whether it shows a toast notification
+2. Choose whether it shows an announcement in chat
+3. Choose whether it is visible before it is completed
+
+To do each of those you need to change the value `show_toast`, `announce_to_chat`, and `hidden` in your advancement's `.json`
