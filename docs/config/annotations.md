@@ -15,6 +15,7 @@ Table of Contents
 * [@LangKey Use][langkeyuse]
 * [@RequiresMcRestart Use][requiresmcrestartuse]
 * [@RequiresWorldRestart Use][requiresworldrestartuse]
+* [Sub Categories][subcategories]
 * [@Ignore][ignoreuse]
 
 Basics
