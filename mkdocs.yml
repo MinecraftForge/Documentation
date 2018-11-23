@@ -66,6 +66,9 @@ pages:
     - PermissionAPI: 'utilities/permissionapi.md'
   - Effects:
     - Sounds: 'effects/sounds.md'
+  - Advancements:
+    - Bascis: 'advancements/basics.md'
+    - Display: 'advancements/display.md'
   - Conventions:
     - Versioning: 'conventions/versioning.md'
     - Locations: 'conventions/locations.md'
