@@ -60,11 +60,11 @@ Item Models
 
 Unlike blocks, which automatically have a default `IStateMapper` that works without any extra registration, items must be registered to their models manually. This is done through `ModelLoader.setCustomModelResourceLocation`. This method takes the item, a metadata value, and a `ModelResourceLocation`, and registers a mapping so that all `ItemStack`s with the item and metadata given use the given `ModelResourceLocation` for their model. The way the game searches for the model is as follows:
 
-1. For a `ModelResourceLocation` `<domain>:<path>#<varstr>`
+1. For a `ModelResourceLocation` `<namespace>:<path>#<varstr>`
 2. Attempt to find a custom model loader that volunteers to load this model.
    1. If that succeeds, load the model with the found loader and break out of these instructions.
 3. If that fails, attempt to load it from the blockstate JSON loader.
-4. If that fails, attempt to load it from the vanilla JSON loader (which loads the model `assets/<domain>/models/item/<path>.json`).
+4. If that fails, attempt to load it from the vanilla JSON loader (which loads the model `assets/<namespace>/models/item/<path>.json`).
 
 JSON item models from `models/item` can also leverage [overrides][].
 

@@ -8,7 +8,7 @@ An item property assigns a certain `float` value to every `ItemStack` it is regi
 Adding Properties to Items
 --------------------------
 
-`Item::addPropertyOverride` is used to add a property to an item. The `ResourceLocation` parameter is the name given to the property (e.g. `new ResourceLocation("pull")`). The `IItemPropertyGetter` is a function that takes the `ItemStack`, the `World` it's in, and the `EntityLivingBase` that holds it, returning the `float` value for the property. Some examples are the `"pulling"` and "`pull`" properties in `ItemBow`, and the several `static final` ones in `Item`. For modded item properties, it is recommended that the modid of the mod is used as the domain (e.g. `examplemod:property` and not just `property`, as that really means `minecraft:property`).
+`Item::addPropertyOverride` is used to add a property to an item. The `ResourceLocation` parameter is the name given to the property (e.g. `new ResourceLocation("pull")`). The `IItemPropertyGetter` is a function that takes the `ItemStack`, the `World` it's in, and the `EntityLivingBase` that holds it, returning the `float` value for the property. Some examples are the `"pulling"` and "`pull`" properties in `ItemBow`, and the several `static final` ones in `Item`. For modded item properties, it is recommended that the modid of the mod is used as the namespace (e.g. `examplemod:property` and not just `property`, as that really means `minecraft:property`).
 
 Using Overrides
 ---------------
