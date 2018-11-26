@@ -191,7 +191,7 @@ The following steps assume you have read the rest of the document, and you under
 
 Quick conversion guide:
 
-1. Convert the IEEP key/id string into a `ResourceLocation` (which will use your MODID as a domain).
+1. Convert the IEEP key/id string into a `ResourceLocation` (which will use your MODID as a namespace).
 2. In your handler class (not the class that implements your capability interface), create a field that will hold the Capability instance.
 3. Change the `EntityConstructing` event to `AttachCapabilitiesEvent`, and instead of querying the IEEP, you will want to attach an `ICapabilityProvider` (probably `ICapabilitySerializable`, which allows saving/loading from NBT).
 4. Create a registration method if you don't have one (you may have one where you registered your IEEP's event handlers) and in it, run the capability registration function.
