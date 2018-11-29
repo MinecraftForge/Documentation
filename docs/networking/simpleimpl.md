@@ -127,6 +127,3 @@ There are four different methods of sending packets to clients:
 
     The two variants of `sendToAllTracking` are not interchangeable - for the version that accepts `TargetPoint`, `TargetPoint.range` field is ignored; for the version that accepts `Entity`, the tracking range of said `Entity` is respected, and the actual values vary on different `Entity`. As such, one cannot use one of them to emulate the effect of the other. You should choose the one that fits your actual situation best.
 
-!!! note
-
-    `sendToAllTracking` is introduced and thus only available since Forge 1.12.2-14.23.2.2650. See the corresponding [Pull Request](https://github.com/MinecraftForge/MinecraftForge/pull/4631) for more information.
