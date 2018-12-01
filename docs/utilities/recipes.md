@@ -30,7 +30,7 @@ A basic recipe file might look like the following example:
         "x":
         {
             "type": "forge:ore_dict",
-            "ore": "diamond"
+            "ore": "gemDiamond"
         },
         "a":
         {
@@ -94,7 +94,7 @@ The following example shows how an ingredient list looks like within JSON.
     "ingredients": [
         {
             "type": "forge:ore_dict",
-            "ore": "minecraft:diamond"
+            "ore": "gemDiamond"
         },
         {
             "item": "minecraft:nether_star"
