@@ -15,7 +15,7 @@ You can add extra data to the spawn packet Forge sends by implementing the follo
 
 ### IEntityAdditionalSpawnData
 
-If your entity has data that is needed on the client, but doesn't change over time, then it can be added to the entity spawn packet using this interface. `writeSpawnData` and `readSpawnData` control how the data should be en/decoded to/from the network buffer, in a similar fashion to the `toBytes`/`fromBytes` methods in `IMessage`.
+If your entity has data that is needed on the client, but doesn't change over time, then it can be added to the entity spawn packet using this interface. `writeSpawnData()` and `readSpawnData()` control how the data should be en/decoded to/from the network buffer, in a similar fashion to the `toBytes()`/`fromBytes()` methods in `IMessage`.
 
 ### IThrowableEntity
 
