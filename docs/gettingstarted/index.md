@@ -9,9 +9,18 @@ From Zero to Modding
 1. Obtain a source distribution from forge's [files][] site. (Look for the Mdk file type, or Src in older 1.8/1.7 versions).
 2. Extract the downloaded source distribution to an empty directory. You should see a bunch of files, and an example mod is placed in `src/main/java` for you to look at. Only a few of these files are strictly necessary for mod development, and you may reuse these files for all your projects These files are:
     * `build.gradle`
-    * `gradlew.bat`
-    * `gradlew`
-    * the `gradle` folder
+    * `gradlew.bat`(only on Windows)
+    * `gradlew` (only on Windows)
+    * the `gradle` folder (only on Windows)
+    
+!!! important
+
+    On Linux you need to install gradle from your package manager (for example `dnf` for fedora)
+    And then in all commands use `gradle` instead of `gradlew`
+    Most of other info in the docs is correct for all platforms
+    For more info on how to install gradle on your system (other than Windows) refer to gradle docs: https://gradle.org/install/
+
+
 3. Move the files listed above to a new folder, this will be your mod project folder.
 4. Open up a command prompt in the folder you created in step (3), then run `gradlew setupDecompWorkspace`. This will download a bunch of artifacts from the internet needed to decompile and build Minecraft and forge. This might take some time, as it will download stuff and then decompile Minecraft. Note that, in general, these things will only need to be downloaded and decompiled once, unless you delete the gradle artifact cache.
 5. Choose your IDE: Forge explicitly supports developing with Eclipse or IntelliJ environments, but any environment, from Netbeans to vi/emacs, can be made to work.
