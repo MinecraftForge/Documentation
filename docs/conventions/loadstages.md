@@ -1,50 +1,51 @@
 Loading Stages
 ==============
 
-Forge loads your mod in 3 main stages: Pre-Initialization, Initialization, and Post-Initialization, commonly referred to as preInit, init, and postInit.
-There are some other events that are important too, depending on what your mod does.
-Each of these stages occurs at a different point in the loading stage and thus what can be safely done in each stage varies.
+The Forge loading process has four main phases. All of these events shown are fired on the mod-specific eventbus, *not* the global Forge event bus `MinecraftForge.EVENT_BUS`
+Handlers should be registered either using `@EventBusSubscriber(bus = Bus.MOD)` or in the mod object constructor as follows:
 
-!!! note
-
-    Loading stage events can only be used in your `@Mod` class, in methods marked with the `@EventHandler` annotation.
+```Java
+@Mod("mymod")
+public class MyMod {
+  public MyMod() {
+    FMLModLoadingContext.get().getModEventBus().registerListener(this::commonSetup);
+  } 
+  
+  private void commonSetup(FMLCommonSetupEvent evt) { ... }
+}
+```
 
 !!! warning
+    All four of the below events are called for all mods in parallel. That is, all mods will concurrently receive common setup, FML will wait for 
+    them all to finish, then all mods will concurrently receive sided setup, and so forth.
+    Mods *must* take care to be thread safe, especially when calling other mods' API's and accessing Vanilla systems, which are not thread safe in general.
 
-    Many objects (e.g. Blocks, Items, Recipes, etc.) that were previously registered in Pre-Initialization, or other stage event handlers, should now be registered via [registry events][registering].
-    This is to pave the way to being able to reload mods dynamically at runtime, which can't be done using loading stages (as they are fired once upon application startup).
-    RegistryEvents are fired after Pre-Initialization.
 
-## Pre-Initialization
+## Setup
 
-Pre Init is the place set anything up that is required by your own or other mods.
-This stage's event is the `FMLPreInitializationEvent`.
-Common actions to preform in preInit are:
+`FMLCommonSetupEvent` is the first to fire, and is fired early in the Minecraft starting process.
+[Registry events][registering] are fired before this event, so you can expect all registry objects to be valid by the time this runs.
+Common actions to perform in common setup are:
 
-  * Creating and reading the config file
+  * Creating and reading the config files
   * Registering [Capabilities][capabilities]
 
-## Initialization
+## Sided Setup
 
-Init is where to accomplish any game related tasks that rely upon the items and blocks set up in preInit.
-This stage's event is the `FMLInitializationEvent`.
-Common actions to preform in init are:
+`FMLClientSetupEvent` and `FMLDedicatedServerSetupEvent` are fired after common setup, and are where physical side-specific initialization should occur.
+Common actions to perform here are registering client-side only things such as key bindings.
 
-  * Registering world generators
-  * Registering event handlers
-  * Sending IMC messages
+## IMC Enqueue
 
-## Post-Initialization
+Here, mods should send messages to all other mods they are interested in integrating with, using the `InterModComms.sendTo()` method.
 
-Post Init is where your mod usually does things which rely upon other mods.
-This stage's event is the `FMLPostInitializationEvent`.
-Common actions to preform in postInit are:
+## IMC Process
 
-  * Mod compatibility, or anything which depends on other mods' init phases being finished.
+Here, mods should process all the messages they have received from other mods and set up integrations appropriately. A mod may retrieve the messages
+that have been sent to it using the `InterModComms.getMessages()` method.
 
 ##Other Important Events
 
-  * IMCEvent: Process received IMC Messages
   * FMLServerStartingEvent: Register Commands
 
 [registering]: ../concepts/registries.md#registering-things

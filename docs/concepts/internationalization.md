@@ -3,51 +3,39 @@ Internationalization and localization
 
 Internationalization, i18n for short, is a way of designing code so that it requires no changes to be adapted for various languages. Localization is the process of adapting displayed text to the user's language.
 
-I18n is implemented using _translation keys_. A translation key is a string that identifies a piece of displayable text in no specific language. For example, `tile.dirt.name` is the translation key referring to the name of the Dirt block. This way, displayable text may be referenced with no concern for a specific language. The code requires no changes to be adapted in a new language.
+I18n is implemented using _translation keys_. A translation key is a string that identifies a piece of displayable text in no specific language. For example, `block.minecraft.dirt` is the translation key referring to the name of the Dirt block. This way, displayable text may be referenced with no concern for a specific language. The code requires no changes to be adapted in a new language.
 
 Localization will happen in the game's locale. In a Minecraft client the locale is specified by the language settings. On a dedicated server, the only supported locale is en_US. A list of available locales can be found on the [Minecraft Wiki](https://minecraft.gamepedia.com/Language#Available_languages).
 
 Language files
 --------------
 
-Language files are located by `assets/[namespace]/lang/[locale].lang` (e.g. the US English translation for `examplemod` would be `assets/examplemod/lang/en_us.lang`). Resource pack format 3 (as specified in pack.mcmeta) requires the locale name to be lowercased. The file format is simply lines of key-value pairs separated by `=`. Lines starting with `#` are ignored. Lines without a separator are ignored. The file must be encoded in UTF-8.
+Language files are located by `assets/[namespace]/lang/[locale].json` (e.g. the US English translation for `examplemod` would be `assets/examplemod/lang/en_us.json`). The file format is simply a json map from translation keys to values. The file must be encoded in UTF-8.
 
-```properties
-# items
-item.examplemod.example_item.name=Example Item Name
-
-# blocks
-tile.examplemod.example_block.name=Example Block Name
-
-# commands
-commands.examplemod.examplecommand.usage=/example <value>
+```json
+{
+  "item.examplemod.example_item": "Example Item Name",
+  "block.examplemod.example_block": "Example Block Name",
+  "commands.examplemod.examplecommand.error": "examplecommand errored!"
+}
 ```
-
-Including the comment `#PARSE_ESCAPES` anywhere in the file will enable the slightly different and more complex Java properties file format. This format is required to support multiline values.
-
-!!! note
-    Enabling `#PARSE_ESCAPES` changes various aspects of the parsing. Among other things, the `:` character will be treated as a key-value separator. It must either be excluded from translation keys or escaped using `\:`.
 
 Usage with Blocks and Items
 ---------------------------
 
-!!! note
-    As of July 14th 2018, the term "unlocalized name" has been replaced by "translation key" in MCP.
+Block, Item and a few other Minecraft classes have built-in translation keys used to display their names. These translation keys are specified by calling `setTranslationKey(String)` or by overriding `getTranslationKey()`. Item also has `getTranslationKey(ItemStack)` which can be overridden to provide different translation keys depending on ItemStack NBT.
 
-Block, Item and a few other Minecraft classes have built-in translation keys used to display their names. These translation keys are specified by calling `setTranslationKey(String)` or by overriding `getTranslationKey()`. Item also has `getTranslationKey(ItemStack)` which can be overridden to provide different translation keys depending on ItemStack damage or NBT.
+By default, `getTranslationKey()` will return `block.` or `item.` prepended to the registry name of the block or item, with the colon replaced by a dot. ItemBlocks will take their corresponding Block's translation key by default. For example, an item with ID `examplemode:example_item` effectively requires the following line in a language file:
 
-By default, `getTranslationKey()` will return `tile.` or `item.` prepended to whatever was set with `setTranslationKey(String)`, and ItemBlock will inherit the unlocalized name of its Block. Additionally, `.name` is always appended to the translation key before it is localized. For example `item.setTranslationKey("examplemod.example_item")` effectively requires the following line in a language file:
-
-```properties
-item.examplemod.example_item.name=Example Item Name
+```json
+{
+  "item.examplemod.example_item": "Example Item Name"
+}
 ```
-
-Unlike registry names, translation keys are not namespaced. It is therefore highly recommended to prefix your modid somewhere to the translation key (e.g. `examplemod.example_item`) to avoid naming conflicts. Otherwise, in the event of a conflict, the localization of one object will override the other.
 
 !!! note
     The only purpose of a translation key is internationalization. Do not use them for logic. Use registry names instead.
 
-    A common pattern is using `getUnlocalizedName().substring(5)` to assign registry names. This is fragile and uses the translation key for logic, which is considered bad practice. Consider setting the registry name first, then setting the translation key according to the registry name using `MODID + "." + getRegistryName().getResourcePath()`.
 
 Localization methods
 --------------------

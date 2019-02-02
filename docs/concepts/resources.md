@@ -1,9 +1,13 @@
 Resources
 =========
 
-A resource is extra data used by the game, and is stored in a data file, instead of being in the code. Resources are contained in the `assets` directory on the classpath. In the default mod development kit, this directory is under the `src/main/resources` directory of the project. It includes things such as models, textures, and localization files.
+A resource is extra data used by the game, and is stored in a data file, instead of being in the code. 
+Minecraft has two primary resource systems active: one on the client used for visuals such as models, textures, and localization called `assets`, the other used for gameplay such as recipes and loot tables called `data`.
+[Resource packs](https://minecraft.gamepedia.com/Resource_pack) control the former, while [data packs](https://minecraft.gamepedia.com/Data_pack) control the latter.
 
-When multiple resource packs are enabled, they are merged. Generally, files from resource packs at the top of the stack override those below; however, for certain files, such as localization files, data is actually merged contentwise. Mods actually define resource packs too, in their `resources` directories, but they are seen as subsets of the "Default" resource pack. Mod resource packs cannot be disabled, but they can be overriden by other resource packs.
+In the default mod development kit, assets and data directories are located under the `src/main/resources` directory of the project. 
+
+When multiple resource packs or data packs are enabled, they are merged. Generally, files from packs at the top of the stack override those below; however, for certain files, such as localization files and tags, data is actually merged contentwise. Mods actually define resource and data packs too, in their `resources` directories, but they are seen as subsets of the "Default" pack. Mod resource packs cannot be disabled, but they can be overriden by other resource packs. Mod datapacks can be disabled with the vanilla `/datapack` command.
 
 All resources should have snake case paths and filenames (lowercase, using "_" for word boundaries), which is enforced in 1.11 and above.
 

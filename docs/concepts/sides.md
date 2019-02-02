@@ -15,6 +15,8 @@ As it turns out, there can be some ambiguity even with two such terms. Here we d
 * Logical server - The *logical server* is what runs game logic: mob spawning, weather, updating inventories, health, AI, and all other game mechanics. The logical server is present within the physical server, but is also can run inside a physical client together with a logical client, as a single player world. The logical server always runs in a thread named the `Server Thread`.
 * Logical client - The *logical client* is what accepts input from the player and relays it to the logical server. In addition, it also receives information from the logical server and makes it available graphically to the player. The logical client runs in the `Client Thread`, though often several other threads are spawned to handle things like audio and chunk render batching.
 
+In the Minecraft codebase, the physical side is represented by an enum called `Dist`, while the logical side is represented by an enum called `LogicalSide`.
+
 Performing Side-Specific Operations
 -----------------------------------
 
@@ -24,31 +26,27 @@ This boolean check will be your most used way to check sides. Querying this fiel
 
 Use this check whenever you need to determine if game logic and other mechanics should be run. For example, if you want to damage the player every time they click your block, or have your machine process dirt into diamonds, you should only do so after ensuring `world.isRemote` is `false`. Applying game logic to the logical client can cause desynchronization (ghost entities, desynchronized stats, etc.) in the lightest case, and crashes in the worst case.
 
-This check should be used as your go-to default. Aside from proxies, rarely will you need the other ways of determining side and adjusting behavior.
+This check should be used as your go-to default. Aside from `DistExecutor`, rarely will you need the other ways of determining side and adjusting behavior.
 
-### `@SidedProxy`
+### `DistExecutor`
 
 Considering the use of a single "universal" jar for client and server mods, and the separation of the physical sides into two jars, an important question comes to mind: How do we use code that is only present on one physical side? All code in `net.minecraft.client` is only present on the physical client, and all code in `net.minecraft.server.dedicated` is only present on the physical server. If any class you write references those names in any way, they will crash the game when that respective class is loaded in an environment where those names do not exist. A very common mistake in beginners is to call `Minecraft.getMinecraft().<doStuff>()` in block or tile entity classes, which will crash any physical server as soon as the class is loaded.
 
-How do we resolve this? Luckily, FML provides us with a `@SidedProxy` annotation. We supply it the names of two classes (one for `serverSide`, one for `clientSide`), and decorate a field with this annotation. When the mod starts, FML will instantiate one of the two classes based on the **physical** side.
+How do we resolve this? Luckily, FML has `DistExecutor`, which provides various methods to run different methods on different physical sides, or a single method only on one side.
 
 !!! note
 
-    It is important to understand that FML picks the proxy to instantiate based on the **physical** side. A single player world (logical server + logical client within a physical client) will still have a proxy of the type you specify in `clientSide`!
+    It is important to understand that FML checks based on the **physical** side. A single player world (logical server + logical client within a physical client) will always use `Dist.CLIENT`!
 
-A common use case is to register renderers and models, something which must be called from the main initialization methods `preInit`, `init`, or `postInit`. However, many rendering related classes and registries are not present on the physical server and may crash it. Therefore, we put these actions into the client proxy, ensuring that they will always execute for the physical client.
+### Thread Groups
 
-Remember that both of your specified proxies must have a type that is assignable into the field you annotate with `@SidedProxy`. A common pattern, but by no means the only strategy, is to have an interface `IProxy` as the field type, and then have two implementations, `ClientProxy` and `ServerProxy` for the two corresponding physical sides.
+If `Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER` is true, it is likely the current thread is on the logical server. Otherwise, it is likely on the logical client. This is useful to retrieve the **logical** side when you do not have access to a `World` object to check `isRemote`. It *guesses* which logical side you are on by looking at the group of the currently running thread. Because it is a guess, this method should only be used when other options have been exhausted. In nearly every case, you should prefer checking `world.isRemote` to this check.
 
-### `getEffectiveSide`
+### `FMLEnvironment.dist` and `@OnlyIn`
 
-`FMLCommonHandler.getEffectiveSide()` can be called in order to retrieve the **logical** side when you do not have access to a `World` object to check `isRemote`. It *guesses* which logical side you are on by looking at the name of the currently running thread. Because it is a guess, this method should only be used when other options have been exhausted. In nearly every case, you should prefer checking `world.isRemote` to this method call.
+`FMLEnvironment.dist` holds the **physical** side your code is running on. Since it is determined at startup, it does not rely on guessing to return its result. The number of use cases for this is limited, however.
 
-### `getSide` and `@SideOnly`
-
-`FMLCommonHandler.getSide()` can be called in order to retrieve the **physical** side your code is running on. Since it is determined at startup, it does not rely on guessing to return its result. The number of use cases for this method is limited, however.
-
-Annotating a method or field with the `@SideOnly` annotation indicates to the loader that the respective member should be completely stripped out of the definition not on the specified **physical** side. Usually, these are only seen when browsing through the decompiled Minecraft code, indicating methods that the Mojang obfuscator stripped out. There is little to no reason for using this annotation directly. Only use it if you are overriding a vanilla method that already has `@SideOnly` defined. In most other cases where you need to dispatch behavior based on physical sides, use `@SidedProxy` or a check on `getSide()` instead.
+Annotating a method or field with the `@OnlyIn(Dist)` annotation indicates to the loader that the respective member should be completely stripped out of the definition not on the specified **physical** side. Usually, these are only seen when browsing through the decompiled Minecraft code, indicating methods that the Mojang obfuscator stripped out. There is little to no reason for using this annotation directly. Only use it if you are overriding a vanilla method that already has `@OnlyIn` defined. In most other cases where you need to dispatch behavior based on physical sides, use `DistExecutor` or a check on `FMLEnvironment.dist` instead.
 
 Common Mistakes
 ---------------

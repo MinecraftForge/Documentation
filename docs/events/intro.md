@@ -5,7 +5,7 @@ Forge uses an event bus that allows mods to intercept events from various vanill
 
 Example: An event can be used to perform an action when a Vanilla stick is right clicked.
 
-The main event bus used for most events is located at `MinecraftForge.EVENT_BUS`. There are also a few other buses used for specific types of events (like terrain generation) located in the same class.
+The main event bus used for most events is located at `MinecraftForge.EVENT_BUS`. 
 
 An event handler is a class that contains one or more `public void` member methods that are marked with the `@SubscribeEvent` annotation.
 
@@ -23,9 +23,6 @@ public class MyForgeEventHandler {
 This event handler listens for the `EntityItemPickupEvent`, which is, as the name states, posted to the event bus whenever an `Entity` picks up an item.
 
 To register this event handler, use `MinecraftForge.EVENT_BUS.register()` and pass it an instance of your event handler class.
-
-!!! note
-    In older forge versions, there were two separate event buses. One for forge, one for FML. This has long since been deprecated, so there is no need to use the FML event bus any longer.
 
 ### Static Event Handlers
 
