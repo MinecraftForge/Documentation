@@ -23,7 +23,7 @@ Language files are located by `assets/[namespace]/lang/[locale].json` (e.g. the 
 Usage with Blocks and Items
 ---------------------------
 
-Block, Item and a few other Minecraft classes have built-in translation keys used to display their names. These translation keys are specified by calling `setTranslationKey(String)` or by overriding `getTranslationKey()`. Item also has `getTranslationKey(ItemStack)` which can be overridden to provide different translation keys depending on ItemStack NBT.
+Block, Item and a few other Minecraft classes have built-in translation keys used to display their names. These translation keys are specified by overriding `getTranslationKey()`. Item also has `getTranslationKey(ItemStack)` which can be overridden to provide different translation keys depending on ItemStack NBT.
 
 By default, `getTranslationKey()` will return `block.` or `item.` prepended to the registry name of the block or item, with the colon replaced by a dot. ItemBlocks will take their corresponding Block's translation key by default. For example, an item with ID `examplemode:example_item` effectively requires the following line in a language file:
 
