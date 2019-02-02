@@ -62,7 +62,7 @@ pages:
     - Config Annotations: 'config/annotations.md'
   - Utilities:
     - Recipes: 'utilities/recipes.md'
-    - OreDictionary: 'utilities/oredictionary.md'
+    - Tags: 'utilities/tags.md'
     - PermissionAPI: 'utilities/permissionapi.md'
   - Effects:
     - Sounds: 'effects/sounds.md'
