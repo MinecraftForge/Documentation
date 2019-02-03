@@ -18,10 +18,10 @@ See `Block.registerBlocks` for more examples on how to create simple blocks.
 
 !!! Note
 
-    Blocks have no setter for Item Group (formerly Creative Tab). This has been moved to the ItemBlock, and is now it's responsibility. Furthermore, there is no setter for translation key (this is generated based on registry name now).
+    Blocks have no setter for Item Group (formerly Creative Tab). This has been moved to the ItemBlock, and is now its responsibility. Furthermore, there is no setter for translation key (this is generated based on registry name now).
 
 ### `Block.Builder`
-To set the properties of the block, you need to use a `Block.Builder`. There are a couple of options when creating a one. You can use `Block.Builder::from` to copy the properties of an existing block or `Block.Builder::create` to create a new one.
+To set the properties of the block, you need to use a `Block.Builder`. There are a couple of options when creating a one. You can use `Block.Builder.from` to copy the properties of an existing block or `Block.Builder.create` to create a new one.
 
 The `Block.Builder` has the following setters:
 
@@ -31,7 +31,7 @@ The `Block.Builder` has the following setters:
   - `lightValue` - The amount of light emitted by the block. Example Usage: Glowstone. **Note:** this method takes a value from 1 to 15.
   - `hardnessAndResistance` - Hardness is how long it takes to mine a block (set to -1 for unbreakable). Resistance is explosion resistance.
   - `needsRandomTick` - makes the block recieve random ticks. Example Usage: Plants.
-  - `variableOpacity` - if set to true, the game will cache whether your block is a full cube in each state, and do stuff accordingly. Example Usage: Shulker Boxes
+  - `variableOpacity` - if set to true, the game will work out the opacity of your block everytime either `IBlockstate.getOpacity`, `IBlockState.propagatesSkylightDown` or `IBlockState.getLightOpacity` is called. Example Usage: Shulker Boxes.
 
 ### Advanced Blocks
 
