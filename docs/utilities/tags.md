@@ -7,8 +7,9 @@ Declaring Your Own Groupings
 ----------------------------
 Tags are declared in your mod's datapack. For example, `/data/modid/tags/blocks/foo/tagname.json` will declare a `Tag<Block>` with ID `modid:foo/tagname`.
 Similarly, you may append to or override tags declared in other domains, such as Vanilla, by declaring your own JSONs.
-For example, to add your own mod's saplings to the Vanilla sapling tag, you would specify it in `/data/minecraft/tags/blocks/saplings.json`, and Vanilla will merge everything into one tag at reload.
-See the [Vanilla wiki](https://minecraft.gamepedia.com/Tag#JSON_format) for a description of the base syntax.
+For example, to add your own mod's saplings to the Vanilla sapling tag, you would specify it in `/data/minecraft/tags/blocks/saplings.json`, and Vanilla will merge everything into one tag at reload, if the `replace` option is false.
+If `replace` is true, then all entries before the json specifying `replace` will be removed.
+See the [Vanilla wiki][tags] for a description of the base syntax.
 
 Forge provides two extensions on the Vanilla syntax:
 * You may declare an `optional` array of the same format as the `values` array, but any values listed here that are not present will not cause the tag loading to error.
@@ -34,6 +35,7 @@ boolean isInGroup = ItemTags.getCollection().getOrCreateTag(myTagId).contains(un
 !!! note:
     The `TagCollection` returned by `getCollection()` (and the `Tag`s within it) may expire if a reload happens, so you should always query the collection anew every time you need it.
     The static `Tag` fields in `BlockTags` and `ItemTags` avoid this by introducing a wrapper that handles this expiring.
+    Alternatively, a resource reload listener can be used to refresh any cached tags.
 
 
 Conventions
@@ -60,5 +62,8 @@ Migration from OreDictionary
 Using Tags in Recipes and Advancements
 --------------------------------------
 
-Tags are directly supported by Vanilla, see the respective Vanilla wiki pages for [recipes](https://minecraft.gamepedia.com/Recipe#JSON_format) and [advancements](https://minecraft.gamepedia.com/Advancements) for usage details.
+Tags are directly supported by Vanilla, see the respective Vanilla wiki pages for [recipes][] and [advancements][] for usage details.
 
+[tags]: https://minecraft.gamepedia.com/Tag#JSON_format
+[recipes]: https://minecraft.gamepedia.com/Recipe#JSON_format
+[advancements]: https://minecraft.gamepedia.com/Advancements
