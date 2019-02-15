@@ -55,6 +55,7 @@ pages:
     - Home: 'networking/index.md'
     - Overview: 'networking/overview.md'
     - SimpleImpl: 'networking/simpleimpl.md'
+    - Entities: 'networking/entities.md'
   - Data Storage:
     - Capabilities: 'datastorage/capabilities.md'
     - World Saved Data: 'datastorage/worldsaveddata.md'
