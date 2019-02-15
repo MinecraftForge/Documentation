@@ -61,7 +61,7 @@ Another use of the OreDictionary in crafting is the [WILDCARD_VALUE](#wildcard_v
 Registering Items to the OreDictionary
 --------------------------------------
 
-Add entries to the OreDictionary during the `FMLPreInitializationEvent` phase, after initializing the blocks and items that you will register.
+Add entries to the OreDictionary during [registry events](../concepts/registries/#registering-things), after registering your items.
 
 Simply call `OreDictionary.registerOre(ItemStack stack, String name)` with an `ItemStack` containing your item or block and its metadata value to register it to the OreDictionary.
 
