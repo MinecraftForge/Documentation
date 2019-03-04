@@ -15,8 +15,8 @@ In order to create a `TileEntity` you need to extend the `TileEntity` class.
 To register it, listen for the appropriate registry event and create a `TileEntityType`:
 ```Java
 @SubscribeEvent
-public static void registerTE(RegistryEvent.Register<TileEntityType> evt) {
-  TileEntityType type = TileEntityType.Builder.create(<factory>).build(null)
+public static void registerTE(RegistryEvent.Register<TileEntityType<?>> evt) {
+  TileEntityType<?> type = TileEntityType.Builder.create(<factory>).build(null)
   type.setRegistryName("mymod", "myte");
   evt.getRegistry().register(type);
 }
@@ -84,7 +84,7 @@ while the second one processes that data. If your `TileEntity` doesn't contain m
 
 !!! important
 
-    Synchronizing excessive/useless data for TileEntities can lead to network congestion. You should optimize your network usage by sending only the information the client needs when the client needs it. For instance, it is more often that not unnecessary to send the inventory of a tile entity in the update tag, as this can be synchronized via its GUI.
+    Synchronizing excessive/useless data for TileEntities can lead to network congestion. You should optimize your network usage by sending only the information the client needs when the client needs it. For instance, it is more often than not unnecessary to send the inventory of a tile entity in the update tag, as this can be synchronized via its GUI.
 
 ### Synchronizing on block update
 
@@ -107,10 +107,10 @@ public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt){
 The Constructor of `SPacketUpdateTileEntity` takes:
 
 * The position of your `TileEntity`.
-* An ID, though it isn't really used besides by Vanilla, therefore you can just put a 1 in there.
+* An ID, though it isn't really used besides by Vanilla, therefore you can just put a -1 in there.
 * An `NBTTagCompound` which should contain your data.
 
-Additionally to this you now need to cause a "BlockUpdate" on the Client.
+Now, to send the packet, an update notification must be given on the server.
 ```JAVA
 World#notifyBlockUpdate(BlockPos pos, IBlockState oldState, IBlockState newState, int flags)
 ```

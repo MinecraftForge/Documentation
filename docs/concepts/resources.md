@@ -3,7 +3,7 @@ Resources
 
 A resource is extra data used by the game, and is stored in a data file, instead of being in the code. 
 Minecraft has two primary resource systems active: one on the client used for visuals such as models, textures, and localization called `assets`, the other used for gameplay such as recipes and loot tables called `data`.
-[Resource packs](https://minecraft.gamepedia.com/Resource_pack) control the former, while [data packs](https://minecraft.gamepedia.com/Data_pack) control the latter.
+[Resource packs][respack] control the former, while [data packs][datapack] control the latter.
 
 In the default mod development kit, assets and data directories are located under the `src/main/resources` directory of the project. 
 
@@ -17,3 +17,5 @@ All resources should have snake case paths and filenames (lowercase, using "_" f
 Minecraft identifies resources using `ResourceLocation`s. A `ResourceLocation` contains two parts: a namespace and a path. It generally points to the resource at `assets/<namespace>/<ctx>/<path>`, where `ctx` is a context-specific path fragment that depends on how the `ResourceLocation` is being used. When a `ResourceLocation` is written/read as/from a string, it is seen as `<namespace>:<path>`. If the namespace and the colon are left out, then when the string is read into an `ResourceLocation` the namespace will almost always default to `"minecraft"`. A mod should put its resources into a namespace with the same name as its modid (E.g. a mod with id `examplemod` should place its resources in `assets/examplemod`, and `ResourceLocation`s pointing to those files would look like `examplemod:<path>`.). This is not a requirement, and in some cases it can be desirable to use a different (or even more than one) namespace. `ResourceLocation`s are used outside the resource system, too, as they happen to be a great way to uniquely identify objects (e.g. [registries][]).
 
 [registries]: registries.md
+[datapack]: https://minecraft.gamepedia.com/Data_pack
+[respack]: https://minecraft.gamepedia.com/Resource_pack

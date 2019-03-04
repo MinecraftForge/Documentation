@@ -18,7 +18,7 @@ public class MyMod {
 !!! warning
     All four of the below events are called for all mods in parallel. That is, all mods will concurrently receive common setup, FML will wait for 
     them all to finish, then all mods will concurrently receive sided setup, and so forth.
-    Mods *must* take care to be thread safe, especially when calling other mods' API's and accessing Vanilla systems, which are not thread safe in general.
+    Mods *must* take care to be thread safe, especially when calling other mods' API's and accessing Vanilla systems, which are not thread safe in general. This can be done using the `DeferredWorkQueue` class.
 
 
 ## Setup
@@ -41,8 +41,7 @@ Here, mods should send messages to all other mods they are interested in integra
 
 ## IMC Process
 
-Here, mods should process all the messages they have received from other mods and set up integrations appropriately. A mod may retrieve the messages
-that have been sent to it using the `InterModComms.getMessages()` method.
+Here, mods should process all the messages they have received from other mods and set up integrations appropriately. A mod may retrieve the messages that have been sent to it using the `InterModComms.getMessages()` method.
 
 ##Other Important Events
 

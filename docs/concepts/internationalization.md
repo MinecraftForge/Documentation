@@ -10,7 +10,7 @@ Localization will happen in the game's locale. In a Minecraft client the locale 
 Language files
 --------------
 
-Language files are located by `assets/[namespace]/lang/[locale].json` (e.g. the US English translation for `examplemod` would be `assets/examplemod/lang/en_us.json`). The file format is simply a json map from translation keys to values. The file must be encoded in UTF-8.
+Language files are located by `assets/[namespace]/lang/[locale].json` (e.g. the US English translation for `examplemod` would be `assets/examplemod/lang/en_us.json`). The file format is simply a json map from translation keys to values. The file must be encoded in UTF-8. Old .lang files can be converted to json using a [converter][converter].
 
 ```json
 {
@@ -25,7 +25,7 @@ Usage with Blocks and Items
 
 Block, Item and a few other Minecraft classes have built-in translation keys used to display their names. These translation keys are specified by overriding `getTranslationKey()`. Item also has `getTranslationKey(ItemStack)` which can be overridden to provide different translation keys depending on ItemStack NBT.
 
-By default, `getTranslationKey()` will return `block.` or `item.` prepended to the registry name of the block or item, with the colon replaced by a dot. ItemBlocks will take their corresponding Block's translation key by default. For example, an item with ID `examplemod:example_item` effectively requires the following line in a language file:
+By default, `getTranslationKey()` will return `block.` or `item.` prepended to the registry name of the block or item, with the colon replaced by a dot. `ItemBlock`s will take their corresponding `Block`'s translation key by default. For example, an item with ID `examplemode:example_item` effectively requires the following line in a language file:
 
 ```json
 {
@@ -67,3 +67,5 @@ The first parameter of the `TextComponentTranslation(String, Object...)` constru
 ### `TextComponentHelper`
 
 - `createComponentTranslation(ICommandSender, String, Object...)` creates a localized and formatted `ITextComponent` depending on a receiver. The localization and formatting is done eagerly if the receiver is a vanilla client. If not, the localization and formatting is done lazily with a `TextComponentTranslation`. This is only useful if the server should allow vanilla clients to connect.
+
+[converter]: https://tterrag.com/lang2json/
