@@ -51,13 +51,6 @@ Localization methods
 
 - `format(String, Object...)` localizes in the client's locale with formatting. The first parameter is a translation key, and the rest are formatting arguments for `String.format(String, Object...)`.
 
-### `net.minecraft.util.text.translation.I18n` (deprecated)
-
-**This class is deprecated and should always be avoided.** It is intended to be used by code that runs on the logical server. Because localization should rarely happen on the server, other alternatives should be considered.
-
-- `translateToLocal(String)` localizes in the game's locale without formatting. The parameter is a translation key.
-- `translateToLocalFormatted(String, Object...)` localizes in the game's locale with formatting. The first parameter is a translation key, and the rest are used as formatting arguments for `String.format(String, Object...)`.
-
 ### `TextComponentTranslation`
 
 `TextComponentTranslation` is an `ITextComponent` that is localized and formatted lazily. It is very useful when sending messages to players because it will be automatically localized in their own locale.
