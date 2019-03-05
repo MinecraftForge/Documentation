@@ -25,7 +25,7 @@ pages:
     - Using the API: 'animation/implementing.md'
   - Tile Entities:
     - Home: 'tileentities/tileentity.md'
-    - Special Renderer: 'tileentities/tesr.md'
+    - Renderer: 'tileentities/tesr.md'
   - Items:
     - Home: 'items/items.md'
     - Loot Tables: 'items/loot_tables.md'
