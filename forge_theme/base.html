@@ -18,8 +18,8 @@
     <meta name="theme-color" content="#ffffff">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/a1f20be65b.css">
-    <link rel="stylesheet" href="{{ base_url }}/css/styles_dark.css?version=1" data-theme="dark">
-    <link rel="stylesheet" href="{{ base_url }}/css/styles_light.css?version=1" data-theme="light">
+    <link rel="stylesheet" href="{{ base_url }}/css/styles_dark.css?version=2" data-theme="dark">
+    <link rel="stylesheet" href="{{ base_url }}/css/styles_light.css?version=2" data-theme="light">
 
     {% for path in extra_css %}
     <link href="{{ path }}" rel="stylesheet">
@@ -82,7 +82,17 @@
     <div class="sidebar-left sidebar-sticky">
         <aside>
             <section class="sidebar-nav">
-                <h2><a href="#" class="close-sidebar"><i class="fa fa-bars"></i></a> Navigation</h2>
+                <h2 class="sidebar-heading">
+                    <a href="#" class="close-sidebar"><i class="fa fa-bars"></i></a> Navigation
+                    <form class="version-selection">
+                        <label for="version-selection-dropdown">Version:</label>
+                        <select id="version-selection-dropdown" class="version-selection-dropdown" onchange="location = this.value;">
+                            {% for slug, url in versions %}
+                            <option value="{{ url }}">{{ slug }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </h2>
                 <ul class="section-content scroll-pane">
                     {% for nav_item in nav %}
                     {% include "nav.html" %}
