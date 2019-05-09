@@ -87,9 +87,8 @@
                     <form class="version-selection">
                         <label for="version-selection-dropdown">Version:</label>
                         <select id="version-selection-dropdown" class="version-selection-dropdown" onchange="location = this.value;">
-                            {% for slug, url in versions %}
-                            <option value="{{ url }}">{{ slug }}</option>
-                            {% endfor %}
+                            <option value="https://mcforge.readthedocs.io/en/latest">1.12.x</option>
+                            <option value="https://mcforge.readthedocs.io/en/1.13.x">1.13.x</option>
                         </select>
                     </form>
                 </h2>
