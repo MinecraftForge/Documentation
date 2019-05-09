@@ -94,3 +94,9 @@ theme:
 # Technically deprecated, but RTD overrides theme.custom_dir with their default style
 # They still seem to respect the old option, though
 theme_dir: forge_theme
+
+extra:
+  current_version: 1.12.x
+  versions:
+    1.12.x: latest
+    1.13.x: 1.13.x

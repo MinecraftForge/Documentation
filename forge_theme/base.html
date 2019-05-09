@@ -6,20 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title_prefix %}{% endblock %}{% if not page.is_homepage %}{{ page.title }} - {% endif %}{{ config.site_name }}</title>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="http://www.minecraftforge.net/forum/uploads/set_resources_3/247441864ab051a2bd22c960e8e7b8b5_apple-touch-icon.png">
-    <link rel="icon" type="image/png" href="http://www.minecraftforge.net/forum/uploads/set_resources_3/247441864ab051a2bd22c960e8e7b8b5_favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="http://www.minecraftforge.net/forum/uploads/set_resources_3/247441864ab051a2bd22c960e8e7b8b5_favicon-16x16.png" sizes="16x16">
-    <link rel="manifest" href="http://www.minecraftforge.net/forum/uploads/set_resources_3/247441864ab051a2bd22c960e8e7b8b5_manifest.json">
-    <link rel="mask-icon" href="http://www.minecraftforge.net/forum/uploads/set_resources_3/247441864ab051a2bd22c960e8e7b8b5_safari-pinned-tab.svg" color="#5bbad5">
-    <link rel="shortcut icon" href="http://www.minecraftforge.net/forum/uploads/set_resources_3/247441864ab051a2bd22c960e8e7b8b5_favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://www.minecraftforge.net/forum/uploads/set_resources_3/247441864ab051a2bd22c960e8e7b8b5_apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="https://www.minecraftforge.net/forum/uploads/set_resources_3/247441864ab051a2bd22c960e8e7b8b5_favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://www.minecraftforge.net/forum/uploads/set_resources_3/247441864ab051a2bd22c960e8e7b8b5_favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="https://www.minecraftforge.net/forum/uploads/set_resources_3/247441864ab051a2bd22c960e8e7b8b5_manifest.json">
+    <link rel="mask-icon" href="https://www.minecraftforge.net/forum/uploads/set_resources_3/247441864ab051a2bd22c960e8e7b8b5_safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="https://www.minecraftforge.net/forum/uploads/set_resources_3/247441864ab051a2bd22c960e8e7b8b5_favicon.ico">
     <meta name="apple-mobile-web-app-title" content="Forge Docs">
     <meta name="application-name" content="Forge Docs">
-    <meta name="msapplication-config" content="http://www.minecraftforge.net/forum/uploads/set_resources_3/247441864ab051a2bd22c960e8e7b8b5_browserconfig.xml">
+    <meta name="msapplication-config" content="https://www.minecraftforge.net/forum/uploads/set_resources_3/247441864ab051a2bd22c960e8e7b8b5_browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/a1f20be65b.css">
-    <link rel="stylesheet" href="{{ base_url }}/css/styles_dark.css?version=1" data-theme="dark">
-    <link rel="stylesheet" href="{{ base_url }}/css/styles_light.css?version=1" data-theme="light">
+    <link rel="stylesheet" href="{{ base_url }}/css/styles_dark.css?version=2" data-theme="dark">
+    <link rel="stylesheet" href="{{ base_url }}/css/styles_light.css?version=2" data-theme="light">
 
     {% for path in extra_css %}
     <link href="{{ path }}" rel="stylesheet">
@@ -65,7 +65,7 @@
         </div>
         <nav>
             <ul class="links clearfix">
-                <li><a href="http://minecraftforge.net/">Forums</a></li>
+                <li><a href="https://minecraftforge.net/">Forums</a></li>
             </ul>
         </nav>
         {% block search_form %}
@@ -82,7 +82,17 @@
     <div class="sidebar-left sidebar-sticky">
         <aside>
             <section class="sidebar-nav">
-                <h2><a href="#" class="close-sidebar"><i class="fa fa-bars"></i></a> Navigation</h2>
+                <h2 class="sidebar-heading">
+                    <a href="#" class="close-sidebar"><i class="fa fa-bars"></i></a> Navigation
+                    <form class="version-selection">
+                        <label for="version-selection-dropdown">Version:</label>
+                        <select id="version-selection-dropdown" class="version-selection-dropdown" onchange="location = this.value;">
+                            {% for name, url in config.extra.versions.items() %}
+                            <option value="https://mcforge.readthedocs.io/en/{{ url }}" {% if name == config.extra.current_version %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </h2>
                 <ul class="section-content scroll-pane">
                     {% for nav_item in nav %}
                     {% include "nav.html" %}
