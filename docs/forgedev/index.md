@@ -45,7 +45,7 @@ Depending on your favourite IDE, there is a different set of recommended steps y
 Due to the way eclipse workspaces work, ForgeGradle can do most of the work involved in getting you started with a Forge workspace for you.
 
  1. Open a terminal/command prompt and navigate it to the directory of your cloned fork.
- 2. Type `./gradlew setupForge` and hit enter. Wait until ForgeGradle is done.
+ 2. Type `./gradlew setup` and hit enter. Wait until ForgeGradle is done.
  3. Open your eclipse workspace and go to `File -> Import -> General -> Existing Projects into workspace`.
  4. Browse to the `<repo>/projects/` directory for the root directory in the dialog that opens.
  5. Make sure both "Forge" and "Clean" are checked and adjust the other settings to your liking.
