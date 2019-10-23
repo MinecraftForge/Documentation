@@ -21,9 +21,14 @@ This file defines the metadata of your mod. Its information may be viewed by use
 
 The `mods.toml` file is formatted as TOML, the example mods.toml file in the MDK provides comments explaining the contents of the file. It should be stored as `src/main/resources/META-INF/mods.toml`. A basic `mods.toml`, describing one mod, may look like this:
 
+    # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
     modLoader="javafml"
+    # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
     loaderVersion="[28,)]"
+    # A URL to refer people to when problems occur with this mod
     issueTrackerURL="github.com/MinecraftForge/MinecraftForge/issues"
+    # If the mods defined in this file should show as seperate resource packs
+    showAsResourcePack=false
     
     [[mods]]
       modId="examplemod"
