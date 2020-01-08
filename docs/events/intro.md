@@ -5,7 +5,7 @@ Forge uses an event bus that allows mods to intercept events from various vanill
 
 Example: An event can be used to perform an action when a Vanilla stick is right clicked.
 
-The main event bus used for most events is located at `MinecraftForge.EVENT_BUS`. 
+The main event bus used for most events is located at `MinecraftForge.EVENT_BUS`. There is another event bus for mod specific events located at `FMLJavaModLoadingContext.get().getModEventBus()`.
 
 An event handler is a class that contains one or more `public void` member methods that are marked with the `@SubscribeEvent` annotation.
 
@@ -43,8 +43,21 @@ which must be registered like this: `MinecraftForge.EVENT_BUS.register(MyStaticF
 
 A class may be annotated with the `@Mod.EventBusSubscriber` annotation. Such a class is automatically registered to `MinecraftForge.EVENT_BUS` when the `@Mod` class itself is constructed. This is essentially equivalent to adding `MinecraftForge.EVENT_BUS.register(AnnotatedClass.class);` at the end of the `@Mod` class's constructor.
 
+You can pass the bus you want to listen to to the `@Mod.EventBusSubscriber` annotation. You can also specify the `Dist`s to load this event subscriber on. This can be used to not load Client specific event subscribers on the dedicated server.
+
+An example for a static event listener listening to `RenderWorldLastEvent` which will only be called on the Client:
+```java
+@Mod.EventBusSubscriber(Dist.CLIENT)
+public class MyStaticClientOnlyEventHandler {
+	@SubscribeEvent
+	public static void drawLast(RenderWorldLastEvent event) {
+		System.out.println("Drawing!");
+	}
+}
+```
+
 !!! note
-    This does not register an instance of the class; it registers the class itself (i.e. the event handling methods must be static).
+    This does not register an instance of the class; it registers the class itself (i.e. the event handling methods must be static.
 
 Canceling
 ---------
