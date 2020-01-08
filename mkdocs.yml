@@ -96,7 +96,7 @@ theme:
 theme_dir: forge_theme
 
 extra:
-  current_version: 1.13.x
+  current_version: 1.14.x
   versions:
-    1.12.x: latest
-    1.13.x: 1.13.x
+    1.14.x: lts
+    1.15.x: latest
