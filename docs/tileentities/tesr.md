@@ -26,10 +26,3 @@ Registering a TER
 -----------------
 
 In order to register a TESR, call `ClientRegistry#bindTileEntitySpecialRenderer` passing the tile entity class to be renderer with this TER and the instance of the TER to use to render all TEs of this class.
-
-`TileEntityRendererFast`
-------------------------
-
-A TER can opt-in to being a "fast" renderer by extending the `TileEntityRendererFast` class instead of `TileEntityRenderer` and returning true from `IForgeTileEntity#hasFastRenderer`. Instead of implementing `render`, `renderTileEntityFast` must be implemented.
-
-A fast TER can offer performance improvements over a traditional TER and should be used wherever possible. This is due to the fact that all fast TER instances are batched together and only issue _one_ combined draw call for all fast TERs per frame to the GPU. This advantage comes at the cost of making direct OpenGL access via `GlStateManager` or the `GLXX` classes impossible. Instead a fast TER must only add vertices to the provided `VertexBuffer`, which represents the combined vertex data for all fast TERs. This allows rendering `IBakedModel`s. An example can be found in Forge's `TileEntityRendererAnimation`.
