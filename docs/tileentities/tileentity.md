@@ -16,7 +16,7 @@ To register it, listen for the appropriate registry event and create a `TileEnti
 ```Java
 @SubscribeEvent
 public static void registerTE(RegistryEvent.Register<TileEntityType<?>> evt) {
-  TileEntityType<?> type = TileEntityType.Builder.create(<factory>).build(null)
+  TileEntityType<?> type = TileEntityType.Builder.create(<factory>, <block...>).build(null);
   type.setRegistryName("mymod", "myte");
   evt.getRegistry().register(type);
 }
@@ -26,9 +26,9 @@ public static void registerTE(RegistryEvent.Register<TileEntityType<?>> evt) {
 
 To attach your new `TileEntity` to a `Block` you need to override 2 (two) methods within the Block class.
 ```JAVA
-IForgeBlock#hasTileEntity(IBlockstate state)
+IForgeBlock#hasTileEntity(Blockstate state)
 
-IForgeBlock#createTileEntity(World world, IBlockState state)
+IForgeBlock#createTileEntity(BlockState state, IBlockReader world)
 ```
 Using the parameters you can choose if the block should have a `TileEntity` or not.
 Usually you will return `true` in the first method and a new instance of your `TileEntity` in the second method.
@@ -37,9 +37,9 @@ Usually you will return `true` in the first method and a new instance of your `T
 
 In order to save data, override the following two methods
 ```JAVA
-TileEntity#write(NBTTagCompound nbt)
+TileEntity#write(CompoundNBT nbt)
 
-TileEntity#read(NBTTagCompound nbt)
+TileEntity#read(CompoundNBT nbt)
 ```
 These methods are called whenever the `Chunk` containing the `TileEntity` gets loaded from/saved to NBT.
 Use them to read and write to the fields in your tile entity class.
@@ -55,10 +55,10 @@ Use them to read and write to the fields in your tile entity class.
 
 ## Ticking `TileEntities`
 
-If you need a ticking `TileEntity`, for example to keep track of the progress during a smelting process, you need to add the `net.minecraft.util.ITickable` interface to your `TileEntity`.
+If you need a ticking `TileEntity`, for example to keep track of the progress during a smelting process, you need to add the `net.minecraft.tileentity.ITickableTileEntity` interface to your `TileEntity`.
 Now you can implement all your calculations within
 ```JAVA
-ITickable#update()
+ITickableTileEntity#update()
 ```
 
 !!! note
@@ -77,7 +77,7 @@ For this you need to override
 ```JAVA
 TileEntity#getUpdateTag()
 
-IForgeTileEntity#handleUpdateTag(NBTTagCompound nbt)
+IForgeTileEntity#handleUpdateTag(CompoundNBT nbt)
 ```
 Again, this is pretty simple, the first method collects the data that should be send to the client,
 while the second one processes that data. If your `TileEntity` doesn't contain much data you might be able to use the methods out of the `Storing Data within your TileEntity` section.
@@ -92,30 +92,30 @@ This method is a bit more complicated, but again you just need to override 2 met
 Here is a tiny example implementation of it
 ```JAVA
 @Override
-public SPacketUpdateTileEntity getUpdatePacket(){
-    NBTTagCompound nbtTag = new NBTTagCompound();
+public SUpdateTileEntityPacket getUpdatePacket(){
+    CompoundNBT nbtTag = new CompoundNBT();
     //Write your data into the nbtTag
-    return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
+    return new SUpdateTileEntityPacket(getPos(), -1, nbtTag);
 }
 
 @Override
-public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt){
-    NBTTagCompound tag = pkt.getNbtCompound();
+public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt){
+    CompoundNBT tag = pkt.getNbtCompound();
     //Handle your Data
 }
 ```
-The Constructor of `SPacketUpdateTileEntity` takes:
+The Constructor of `SUpdateTileEntityPacket` takes:
 
 * The position of your `TileEntity`.
 * An ID, though it isn't really used besides by Vanilla, therefore you can just put a -1 in there.
-* An `NBTTagCompound` which should contain your data.
+* An `CompoundNBT` which should contain your data.
 
 Now, to send the packet, an update notification must be given on the server.
 ```JAVA
-World#notifyBlockUpdate(BlockPos pos, IBlockState oldState, IBlockState newState, int flags)
+World#notifyBlockUpdate(BlockPos pos, BlockState oldState, BlockState newState, int flags)
 ```
 The `pos` should be your TileEntitiy's position. For `oldState` and `newState` you can pass the current BlockState at that position.
-The `flags`are a bitmask and should contain 2, which will sync the changes to the client.
+The `flags` are a bitmask and should contain 2, which will sync the changes to the client.
 
 ### Synchronizing using a custom network message
 
