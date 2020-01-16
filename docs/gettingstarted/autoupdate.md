@@ -44,7 +44,7 @@ This is fairly self-explanatory, but some notes:
 Retrieving Update Check Results
 -------------------------------
 
-You can retrieve the results of the Forge Update Checker using `ForgeVersion.getResult(ModContainer)`. The returned object has a field `status` which indicates the status of the version check.
+You can retrieve the results of the Forge Update Checker using `VersionChecker.getResult(ModInfo)`. The returned object has a field `status` which indicates the status of the version check.
 Example values: `FAILED` (the version checker couldn't connect to the URL provided), `UP_TO_DATE` (the current version is equal to or newer than the latest stable version), `OUTDATED` (there is a new stable version), `BETA_OUTDATED` (there is a new unstable version), or `BETA` (the current version is equal to or newer than the latest unstable version). The status will be `PENDING` if the result requested has not finished yet; in that case, you should try again in a little bit. 
 Otherwise, the returned object will also have the target version and any changelog lines, as specified in `update.json`.
-You can obtain your own `ModContainer` to pass to this method using `Loader.instance().activeModContainer()`, or any other mod's `ModContainer` using `Loader.instance().getIndexedModList().get(<modid>)`.
+You can obtain your own `ModContainer` to get the `ModInfo` of (with `ModContainer#getModInfo()`) to pass to this method using `ModLoadingContext.get().getActiveContainer()` inside your constructor, `ModList.get().getModContainerById(<your modId>)` or `ModList.get().getModContainerByObject(<your mod instance>)`; or any other mod's `ModContainer` using `ModList.get().getModContainerById(<modId>)`.
