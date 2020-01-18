@@ -11,20 +11,29 @@ public class MyConfig {
   public static final MyConfig INSTANCE;
   public static final ForgeConfigSpec SPEC;
 
-  // There are other value types
+  // This is a config term
+  // There are other value types such as IntValue, EnumValue
   public final ForgeConfigSpec.BooleanValue setting;
     
   public MyConfig(ForgeConfigSpec.Builder builder) {
     setting = builder
       .comment("This is comment")
       .define("setting", false);
-    }
-    
+    //use defineEnum() to define enum type setting
+    //use defineInRange() to limit number range
+    //use translation() to specify translation key
+    //use worldRestart() to specify that world should reload when config changes
+    //You can also register nested config. Check the code of ForgeConfigSpec.Builder for more information
+  }
+  
+  // Read the config value
+  // Don't read it too early
   public static boolean getSetting() {
       return INSTANCE.setting.get();
   }
   
   static {
+    //convention
     Pair<MyConfig, ForgeConfigSpec> pair = new ForgeConfigSpec.Builder().configure(MyConfig::new);
       INSTANCE = pair.getKey();
       SPEC = pair.getValue();
@@ -37,12 +46,10 @@ public class ExampleMod {
   public ExampleMod() {
     //...
     
-    // You can also register client only config or server only config
+    // Register the config here
+    // You can also register client only config or server only config by specifying ModConfig.Type.CLIENT or ModConfig.Type.SERVER
     ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MyConfig.SPEC);
   }
   //...
 }
 ```
-Don't read config value too early.
-Client side config will not be ready until main menu shows up.
-Server side config will not be ready until world loads.
