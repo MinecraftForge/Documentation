@@ -19,8 +19,8 @@ The `mods.toml` file
 
 This file defines the metadata of your mod. Its information may be viewed by users from the main screen of the game through the Mods button. A single info file can describe several mods.
 
-The `mods.toml` file is formatted as TOML, the example mods.toml file in the MDK provides comments explaining the contents of the file. It should be stored as `src/main/resources/META-INF/mods.toml`. A basic `mods.toml`, describing one mod, may look like this:
-
+The `mods.toml` file is formatted as [TOML](https://github.com/toml-lang/toml), the example mods.toml file in the MDK provides comments explaining the contents of the file. It should be stored as `src/main/resources/META-INF/mods.toml`. A basic `mods.toml`, describing one mod, may look like this:
+```toml
     # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
     modLoader="javafml"
     # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
@@ -29,7 +29,7 @@ The `mods.toml` file is formatted as TOML, the example mods.toml file in the MDK
     issueTrackerURL="github.com/MinecraftForge/MinecraftForge/issues"
     # If the mods defined in this file should show as seperate resource packs
     showAsResourcePack=false
-    
+
     [[mods]]
       modId="examplemod"
       version="1.0.0.0"
@@ -42,20 +42,21 @@ The `mods.toml` file is formatted as TOML, the example mods.toml file in the MDK
       description='''
       Lets you craft dirt into diamonds. This is a traditional mod that has existed for eons. It is ancient. The holy Notch created it. Jeb rainbowfied it. Dinnerbone made it upside down. Etc.
       '''
-      
+
       [[dependencies.examplemod]]
         modId="forge"
         mandatory=true
         versionRange="[28,)"
         ordering="NONE"
         side="BOTH"
-        
+
       [[dependencies.examplemod]]
         modId="minecraft"
         mandatory=true
         versionRange="[1.14.4]"
         ordering="NONE"
         side="BOTH"
+```
 
 The default Gradle configuration replaces `${file.jarVersion}` with the project version, but *only* within `mods.toml`, so you should use those instead of directly writing them out. Here is a table of attributes that may be given to a mod, where `mandatory` means there is no default and the absence of the property causes an error.
 
