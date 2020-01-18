@@ -39,6 +39,8 @@ This is fairly self-explanatory, but some notes:
 * The changelog string can be separated into lines using `\n`. Some prefer to include a abbreviated changelog, then link to an external site that provides a full listing of changes.
 * Manually inputting data can be chore. You can configure your `build.gradle` to automatically update this file when building a release, as Groovy has native JSON parsing support. Doing this is left as an exercise to the reader.
 
+- Some examples can be found here for [nocubes](https://cadiboo.github.io/projects/nocubes/update.json), [Corail Tombstone](https://github.com/Corail31/tombstone_lite/blob/master/update.json) and [Chisels & Bits 2](https://github.com/Aeltumn/Chisels-and-Bits-2/blob/master/update.json).
+
 Retrieving Update Check Results
 -------------------------------
 
