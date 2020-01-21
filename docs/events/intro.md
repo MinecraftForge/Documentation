@@ -90,7 +90,7 @@ Many events have different variations of themselves, these can be different but 
 Mod Event Bus
 -------------
 
-The mod event bus is primarily meant for listening to lifecycle events in which mods should initialize. Many of these events are also ran in parallel so mods can be initialized at the same time. This does mean you can't directly execute code from other mods in these events, use the `InterModEnqueueEvent` and `InterModProcessEvent` events for that.
+The mod event bus is primarily meant for listening to lifecycle events in which mods should initialize. Many of these events are also ran in parallel so mods can be initialized at the same time. This does mean you can't directly execute code from other mods in these events, use the `InterModComms` system for that.
 
 These are the four most commonly used events that are called during mod initialization on the mod event bus:
 * FMLCommonSetupEvent
