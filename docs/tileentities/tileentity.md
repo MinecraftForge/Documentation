@@ -16,17 +16,18 @@ To register it, listen for the appropriate registry event and create a `TileEnti
 ```Java
 @SubscribeEvent
 public static void registerTE(RegistryEvent.Register<TileEntityType<?>> evt) {
-  TileEntityType<?> type = TileEntityType.Builder.create(<factory>, <block...>).build(null);
+  TileEntityType<?> type = TileEntityType.Builder.create(factory, validBlocks).build(null);
   type.setRegistryName("mymod", "myte");
   evt.getRegistry().register(type);
 }
 ```
+In this example, `factory` is a function that creates a new instance of your TileEntity. A method reference or a lamda is commonly used. The variable `validBlocks` is one or more blocks (`TileEntityType.Builder#create` is varargs) that the tile entity can exist for.
 
 ## Attaching a `TileEntity` to a `Block`
 
 To attach your new `TileEntity` to a `Block` you need to override 2 (two) methods within the Block class.
 ```JAVA
-IForgeBlock#hasTileEntity(Blockstate state)
+IForgeBlock#hasTileEntity(BlockState state)
 
 IForgeBlock#createTileEntity(BlockState state, IBlockReader world)
 ```
@@ -115,7 +116,7 @@ Now, to send the packet, an update notification must be given on the server.
 World#notifyBlockUpdate(BlockPos pos, BlockState oldState, BlockState newState, int flags)
 ```
 The `pos` should be your TileEntitiy's position. For `oldState` and `newState` you can pass the current BlockState at that position.
-The `flags` are a bitmask and should contain 2, which will sync the changes to the client.
+The `flags` are a bitmask and should contain `2`, which will sync the changes to the client. See `Constants.BlockFlags` for more info as well as the rest of the flags. The flag `2` is equivalent to `Constants.BlockFlags.BLOCK_UPDATE`.
 
 ### Synchronizing using a custom network message
 
