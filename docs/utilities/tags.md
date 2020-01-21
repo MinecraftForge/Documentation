@@ -43,7 +43,7 @@ Conventions
 
 There are several conventions that will help facilitate compatibility in the ecosystem:
 * If there is a Vanilla tag that fits your block or item, add it to that tag. See the [list of Vanilla tags](https://minecraft.gamepedia.com/Tag#List_of_tags).
-* If there is a Forge tag that fits your block or item, add it to that tag. The list of tags declared by Forge can be seen on GitHub.
+* If there is a Forge tag that fits your block or item, add it to that tag. The list of tags declared by Forge can be seen on [GitHub](https://github.com/MinecraftForge/MinecraftForge/tree/1.14.x/src/generated/resources/data/forge/tags).
 * If there is a group of something you feel should be shared by the community, consider PR-ing it to Forge instead of making your own tag
 * Tag naming conventions should follow Vanilla conventions. In particular, item and block groupings are plural instead of singular. E.g. `minecraft:logs`, `minecraft:saplings`.
 * Item tags should be sorted into subdirectories according to the type of item, e.g. `forge:ingots/iron`, `forge:nuggets/brass`, etc.
