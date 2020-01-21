@@ -7,7 +7,9 @@ Forge has existed for years and you can still easily access builds of Forge for 
 
     These old documentation sites are for reference purposes only. Do not ask for help with old versions on the Forge discord or the Forge forums. **You will not receive support when you are using older versions.**
 
+
 ### List of Previously Documented versions
+
 Unfortunately not all versions were used for a significant amount of time and the documentation for that version may be incomplete. Whenever a new version is released the documentation from the previous version is copied and adjusted over time to include new and updated information. When a version wasn't supported for long the information was never updated, the accuracy percentages represent how much of the information that should have been updated was actually updated.
 
 |    Version    |  Accuracy  |                  Link                     |
