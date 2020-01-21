@@ -5,7 +5,9 @@ Forge uses an event bus that allows mods to intercept events from various vanill
 
 Example: An event can be used to perform an action when a Vanilla stick is right clicked.
 
-The main event bus used for most events is located at `MinecraftForge.EVENT_BUS`. There is another event bus for mod specific events located at `FMLJavaModLoadingContext.get().getModEventBus()`.
+The main event bus used for most events is located at `MinecraftForge.EVENT_BUS`. There is another event bus for mod specific events located at `FMLJavaModLoadingContext.get().getModEventBus()` that you should only use in specific cases, more information about this bus can be found below.
+
+Every event is fired on one of these busses, most events are fired on the main event bus but some are fired on the mod specfic events bus.
 
 An event handler is a class that contains one or more `public void` member methods that are marked with the `@SubscribeEvent` annotation.
 
@@ -22,7 +24,7 @@ public class MyForgeEventHandler {
 ```
 This event handler listens for the `EntityItemPickupEvent`, which is, as the name states, posted to the event bus whenever an `Entity` picks up an item.
 
-To register this event handler, use `MinecraftForge.EVENT_BUS.register()` and pass it an instance of your event handler class.
+To register this event handler, use `MinecraftForge.EVENT_BUS.register()` and pass it an instance of your event handler class. If you want to register this handler to the mod specific event bus you should use `FMLJavaModLoadingContext.get().getModEventBus().register()` instead.
 
 ### Static Event Handlers
 
@@ -57,7 +59,7 @@ public class MyStaticClientOnlyEventHandler {
 ```
 
 !!! note
-    This does not register an instance of the class; it registers the class itself (i.e. the event handling methods must be static.
+    This does not register an instance of the class; it registers the class itself (i.e. the event handling methods must be static).
 
 Canceling
 ---------
@@ -84,3 +86,17 @@ Sub Events
 ----------
 
 Many events have different variations of themselves, these can be different but all based around one common factor (e.g. `PlayerEvent`) or can be an event that has multiple phases (e.g. `PotionBrewEvent`). Take note that if you listen to the parent event class, you will receive calls to your method for *all* subclasses.
+
+Mod Event Bus
+-------------
+
+The mod event bus is primarily meant for listening to lifecycle events in which mods should initialize. Many of these events are also ran in parallel so mods can be initialized at the same time. This does mean you can't directly execute code from other mods in these events, use the `InterModEnqueueEvent` and `InterModProcessEvent` events for that.
+
+These are the four most commonly used events that are called during mod initialization on the mod event bus:
+* FMLCommonSetupEvent
+* FMLClientSetupEvent & FMLDedicatedServerSetupEvent
+* InterModEnqueueEvent
+* InterModProcessEvent
+
+!!! note
+    The `FMLClientSetupEvent` and `FMLDedicatedServerSetupEvent` are only called on their respective distribution.
