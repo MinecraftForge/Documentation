@@ -21,7 +21,7 @@ public static void registerTE(RegistryEvent.Register<TileEntityType<?>> evt) {
   evt.getRegistry().register(type);
 }
 ```
-In this example, `factory` is a function that creates a new instance of your TileEntity. A method reference or a lamda is commonly used. The variable `validBlocks` is one or more blocks (`TileEntityType.Builder#create` is varargs) that the tile entity can exist for.
+In this example, `factory` is a function that creates a new instance of your TileEntity. A method reference or a lambda is commonly used. The variable `validBlocks` is one or more blocks (`TileEntityType.Builder#create` is varargs) that the tile entity can exist for.
 
 ## Attaching a `TileEntity` to a `Block`
 
