@@ -76,5 +76,7 @@ Flattening
 ----------
 As of Minecraft 1.13 metadata values have also been removed, instead of creating blocks with many blockstates to set its properties it is now preferred to simply make more blocks. Do you have a new wooden object that should have a variant for every wood type? In the past you'd have used blockstates for this, but now it is preferred to create separate blocks for each wood type.
 
+A good rule of thumb is: if it has a different name, it should be a different block/item.
+
 So consider whether or not you actually need to use blockstates or whether it's better to have separate blocks.
 Take flower pots as an example: you might think the plant in the flower pot would be stored in a blockstate, but it's not! Each plant has its own flower pot block.

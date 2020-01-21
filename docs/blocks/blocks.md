@@ -19,7 +19,7 @@ All these methods are *chainable* which means you can call them in series. See t
 
 !!! Note
 
-    Blocks have no setter for their `ItemGroup`. (formerly Creative Tab) This has been moved to the `BlockItem` and is now its responsibility. Furthermore, there is no setter for translation key. (this is generated based on registry name now)
+    Blocks have no setter for their `ItemGroup`. (formerly Creative Tab) This has been moved to the `BlockItem` and is now its responsibility. Furthermore, there is no setter for translation key as it is now generated from the registry name.
 
 ### Advanced Blocks
 
