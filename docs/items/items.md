@@ -8,18 +8,18 @@ Creating an Item
 
 ### Basic Items
 
-Basic items that need no special functionality (think sticks or sugar) don't need custom classes. You can simply instantiate `Item` and call its various setters to set some simple properties.
+Basic items that need no special functionality (think sticks or sugar) don't need custom classes. You can create an item by instantiate the `Item` class with an `Item.Properties` object. This `Item.Properties` object can be made calling the constructor and it can be customised by calling its methods. For instance:
 
 |         Method         |                  Description                  |
 |:----------------------:|:----------------------------------------------|
-|    `setCreativeTab`    | Sets which creative tab this item is under. Must be called if this item is meant to be shown on the creative menu. Vanilla tabs can be found in the class `CreativeTabs`. |
-|     `setMaxDamage`     | Sets the maximum damage value for this item. If it's over `0`, 2 item properties "damaged" and "damage" are added. |
-|    `setMaxStackSize`   | Sets the maximum stack size.                  |
+|         `group`        | Sets which ItemGroup (previously called creative tab) this item is under. Must be called if this item is meant to be shown on the creative menu. Vanilla groups can be found in the class `ItemGroup`. |
+|       `maxDamage`      | Sets the maximum damage value for this item. If it's over `0`, 2 item properties "damaged" and "damage" are added. |
+|     `maxStackSize`     | Sets the maximum stack size. You cannot have an item that is both damagable and stackable. |
 |      `setNoRepair`     | Makes this item impossible to repair, even if it is damageable. |
-|  `setUnlocalizedName`  | Sets this item's unlocalized name, with "item." prepended. |
-|    `setHarvestLevel`   | Adds or removes a pair of harvest class (`"shovel"`, `"axe"`) and harvest level. This method is not chainable. |
+|     `containerItem`    | Sets this item's container item, the way that lava buckets give you back the empty bucket when they are used. |
+|      `addToolType`     | Adds a pair of `ToolType` (`SHOVEL`, `AXE`) and harvest level (`0` for Wood/Gold, `1` for Stone, `2` for Iron, `3` for Gold). |
 
-The above methods are chainable, unless otherwise stated, meaning they `return this` to facilitate calling them in series.
+The above methods are chainable meaning they `return this` to facilitate calling them in series.
 
 ### Advanced Items
 
