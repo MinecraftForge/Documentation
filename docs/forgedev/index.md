@@ -62,11 +62,22 @@ If you're more of a visual person, cpw has uploaded [a video](https://www.youtub
 !!! Note
     These steps will only work reliably from IDEA version 2016 onwards. Older versions didn't have the appropriate Gradle support and did not support Forge development workspaces.
 
+#### IDEA 2019
+
+ 1. Import Forge's `build.gradle` as an IDEA project. For this, simply click `Import Project` from the `Welcome to IntelliJ IDEA` splash screen, then select the `build.gradle` file.
+1. After IDEA is done importing the project and indexing the files, run the Gradle setup task.  Either:
+   1. open the Gradle sidebar on the right hand side of your screen, then open the `forge` project tree, select `Tasks`, then `other` and double-click the `setup` task (may also appear as `MinecraftForge[Setup]`.  Or alternatively:
+   1. tap the CTRL key twice, and type `gradle setup` in the `Run` command window that pops up.
+
+You can then run Forge using the `forge_client` gradle task (`Tasks -> fg_runs -> forge_client`): right-click the task and select either `Run` or `Debug` as desired.
+
+#### IDEA older versions
+
  1. Import Forge's `build.gradle` as an IDEA project. For this, simply click `File -> Open`, then navigate to your fork's clone and select the `build.gradle` file.
     If a dialog pops up, select "Open as Project".
  2. In the wizard that follows, make sure that "Create separate module per source set" is checked and that the "Use default gradle wrapper" option is active. Confirm the dialog.
  3. After IDEA is done importing the project and indexing the files, open the Gradle sidebar on the right hand side of your screen
- 4. Open the "forge" project tree, select "Tasks", then "forgegradle" and right click the "Create Forge [setup]" option
+ 4. Open the `forge` project tree, select `Tasks`, then `other`.  Right click the `setup` task (may also appear as `MinecraftForge[setup]`) and `edit`.
  5. Once the configuration dialog shows up, edit the "tasks" field to contain `clean setup` and add `-Xmx3G -Xms3G` to "VM Options". The latter option ensures that the resource intensive decompilation process has enough memory.
  6. Click "Okay" and run your newly created run configuration. This may take a while.
  7. After the setup task has completed, go once again to the Gradle sidebar and click the "Attach Gradle project" button (the plus icon) at the top
