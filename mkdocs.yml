@@ -1,5 +1,5 @@
 # If you add a page, you must add it to the index here
-pages:
+nav:
   - Home: 'index.md'
   - Style Guide: 'styleguide.md'
   - Getting Started:
@@ -89,11 +89,8 @@ markdown_extensions:
       permalink: ' '
 
 theme:
-  name: null
+  name: readthedocs
   custom_dir: forge_theme
-# Technically deprecated, but RTD overrides theme.custom_dir with their default style
-# They still seem to respect the old option, though
-theme_dir: forge_theme
 
 extra:
   current_version: 1.14.x
