@@ -1,9 +1,9 @@
 {% if not nav_item.children %}
 <li {% if nav_item.active %}class="elem-active{% if page.toc %} elem-toc{% endif %}" {% endif %}>
     {% if nav_item.active %}
-    <a href="{{ (page.toc|first).url }}" class="elem-text">{{ nav_item.title }}</a>
+    <a href="{{ (page.toc|first).url|url }}" class="elem-text">{{ nav_item.title }}</a>
     {% else %}
-    <a href="{{ nav_item.url }}" class="elem-text">{{ nav_item.title }}</a>
+    <a href="{{ nav_item.url|url }}" class="elem-text">{{ nav_item.title }}</a>
     {% endif %}
     {% if nav_item.active %}
     <ul class="table-of-contents">
@@ -21,7 +21,7 @@
 {% else %}
 <li class="elem-parent">
     {% if nav_item.children.active %}
-    <a href="{{ (page.toc|first).url }}" class="elem-text">{{ nav_item.title }}</a>
+    <a href="{{ (page.toc|first).url|url }}" class="elem-text">{{ nav_item.title }}</a>
     {% else %}
     <a href="#" class="elem-text toggle-collapsible"><span class="fa fa-plus collapsible-icon"></span> {{ nav_item.title }}</a>
     {% endif %}

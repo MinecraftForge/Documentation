@@ -89,7 +89,7 @@ markdown_extensions:
       permalink: ' '
 
 theme:
-  name: null
+  name: readthedocs
   custom_dir: forge_theme
 
 extra:
