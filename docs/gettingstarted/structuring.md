@@ -14,49 +14,48 @@ Pick a unique package name. If you own a URL associated with your project, you c
 
 After the top level package (if you have one) you append a unique name for your mod, such as `examplemod`. In our case it will end up as `com.example.examplemod`.
 
-The `mcmod.info` file
+The `mods.toml` file
 -------------------
 
-This file defines the metadata of your mod. Its information may be viewed by users from the main screen of the game through the Mods button. A single info file can describe several mods. When a mod is annotated by the `@Mod` annotation, it may define the `useMetadata` property, which defaults to `false`. When `useMetadata` is `true`, the metadata within `mcmod.info` overrides whatever has been defined in the annotation.
+The `mods.toml` file defines the metadata of your mod. Its information may be viewed by users from the main screen of the game through the Mods button. A single info file can describe several mods.
 
-The `mcmod.info` file is formatted as JSON, where the root element is a list of objects and each object describes one modid. It should be stored as `src/main/resources/mcmod.info`. A basic `mcmod.info`, describing one mod, may look like this:
+The `mods.toml` file should be stored as `src/main/resources/mcmod.info`. A basic `mcmod.info`, describing one mod, may look like this:
+```java
+modLoader="javafml" #mandatory
+loaderVersion="[31,)" #mandatory. 26 for 1.14.2, 27 for 1.14.3, 28 for 1.14.4. 29,30,31 for 1.15, 1.15.2/3
 
-    [{
-      "modid": "examplemod",
-      "name": "Example Mod",
-      "description": "Lets you craft dirt into diamonds. This is a traditional mod that has existed for eons. It is ancient. The holy Notch created it. Jeb rainbowfied it. Dinnerbone made it upside down. Etc.",
-      "version": "1.0.0.0",
-      "mcversion": "1.10.2",
-      "logoFile": "assets/examplemod/textures/logo.png",
-      "url": "minecraftforge.net/",
-      "updateJSON": "minecraftforge.net/versions.json",
-      "authorList": ["Author"],
-      "credits": "I'd like to thank my mother and father."
-    }]
-
-The default Gradle configuration replaces `${version}` with the project version, and `${mcversion}` with the Minecraft version, but *only* within `mcmod.info`, so you should use those instead of directly writing them out. Here is a table of attributes that may be given to a mod, where `required` means there is no default and the absence of the property causes an error. In addition to the required properties, you should also define `description`, `version`, `mcversion`, `url`, and `authorList`.
+modLoader="javafml"
+issueTrackerURL="http://my.issue.tracker/"
+[[mods]]
+modId="examplemod"
+version="${file.jarVersion}"
+displayName="Example Mod"
+updateJSONURL="http://myurl.me/"
+displayURL="http://example.com/"
+logoFile="examplemod.png"
+credits="Thanks for this example mod goes to Java"
+authors="Love, Cheese and small house plants"
+description='Very useful description here.'
+[[dependencies.examplemod]] #optional
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[28,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
+```
+The default Gradle configuration replaces `${file.jarVersion}` with the project .jar version, so you should use that instead of directly writing it out. Here is a table of attributes that may be given to a mod, where `required` means there is no default and the absence of the property causes an error. In addition to the required properties, you should also define `description`, `version`, `mcversion`, `url`, and `authorList`.
 
 |     Property |   Type   | Default  | Description |
 |-------------:|:--------:|:--------:|:------------|
-|        modid |  string  | required | The modid this description is linked to. If the mod is not loaded, the description is ignored. |
-|         name |  string  | required | The user-friendly name of this mod. |
+|     modLoader|  string  | required | The modid this description is linked to. If the mod is not loaded, the description is ignored. |
+|  displayName |  string  | required | The user-friendly name of this mod. |
 |  description |  string  |   `""`   | A description of this mod in 1-2 paragraphs. |
 |      version |  string  |   `""`   | The version of the mod. |
-|    mcversion |  string  |   `""`   | The Minecraft version. |
-|          url |  string  |   `""`   | A link to the mod's homepage. |
-|    updateUrl |  string  |   `""`   | Defined but unused. Superseded by updateJSON. |
-|   updateJSON |  string  |   `""`   | The URL to a [version JSON](autoupdate#forge-update-checker). |
-|   authorList | [string] |   `[]`   | A list of authors to this mod. |
+|   displayURL |  string  |   `""`   | A link to the mod's homepage. |
+|updateJSONURL |  string  |   `""`   | The URL to a [version JSON](autoupdate#forge-update-checker). |
+|      authors | [string] |   `[]`   | A list of authors to this mod. |
 |      credits |  string  |   `""`   | A string that contains any acknowledgements you want to mention. |
 |     logoFile |  string  |   `""`   | The path to the mod's logo. It is resolved on top of the classpath, so you should put it in a location where the name will not conflict, maybe under your own assets folder. |
-|  screenshots | [string] |   `[]`   | A list of images to be shown on the info page. Currently unimplemented. |
-|       parent |  string  |   `""`   | The modid of a parent mod, if applicable. Using this allows modules of another mod to be listed under it in the info page, like BuildCraft. |
-| useDependencyInformation |  boolean |  `false` | If true and `Mod.useMetadata`, the below 3 lists of dependencies will be used. If not, they do nothing. |
-| requiredMods | [string] |   `[]`   | A list of modids. If one is missing, the game will crash. This **does not affect the _ordering_ of mod loading!** To specify ordering as well as requirement, have a coupled entry in `dependencies`. |
-| dependencies | [string] |   `[]`   | A list of modids. All of the listed mods will load *before* this one. If one is not present, nothing happens. |
-|   dependants | [string] |   `[]`   | A list of modids. All of the listed mods will load *after* this one. If one is not present, nothing happens. |
-
-A good example `mcmod.info` that uses many of these properties is [BuildCraft](https://gist.github.com/anonymous/05ad9a1e0220bbdc25caed89ef0a22d2).
 
 The Mod File
 ------------
@@ -77,7 +76,7 @@ Here is a table of the properties of `@Mod`:
 |                             name |       String       |       ""       | A user-friendly name for the mod. |
 |                          version |       String       |       ""       | The version of the mod. It should be just numbers seperated by dots, ideally conforming to [Semantic Versioning](https://semver.org/). Even if `useMetadata` is set to `true`, it's a good idea to put the version here anyways. |
 |                     dependencies |       String       |       ""       | Dependencies for the mod. The specification is described in the Forge `@Mod` javadoc:<br><blockquote><p>A dependency string can start with the following four prefixes: `"before"`, `"after"`, `"required-before"`, `"required-after"`; then `":"` and the `modid`.</p><p>Optionally, a version range can be specified for the mod by adding `"@"` and then the version range.[\*](#version-ranges)</p><p>If a "required" mod is missing, or a mod exists with a version outside the specified range, the game will not start and an error screen will tell the player which versions are required.</p>
-|                      useMetadata |       boolean      |      false     | If set to true, properties in `@Mod` will be overridden by `mcmod.info`. |
+|                      useMetadata |       boolean      |      false     | If set to true, properties in `@Mod` will be overridden by `mods.toml`. |
 | clientSideOnly<br>serverSideOnly | boolean<br>boolean | false<br>false | If either is set to `true`, the jar will be skipped on the other side, and the mod will not load. If both are true, the game crashes. |
 |        acceptedMinecraftVersions |       String       |       ""       | The version range of Minecraft the mod will run on.[\*](#version-ranges) An empty string will match all versions. |
 |         acceptableRemoteVersions |       String       |       ""       | Specifies a remote version range that this mod will accept as valid.[\*](#version-ranges) `""` Matches the current version, and `"*"` matches all versions. Note that `"*"` matches even when the mod is not present on the remote side at all. |
