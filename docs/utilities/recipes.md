@@ -1,7 +1,7 @@
 Recipes
 =======
 
-With the update to Minecraft 1.12, Mojang introduced a new data-driven recipe system based on JSON files. Since then it has been adopted by Forge as well and will be expanded in Minecraft 1.13 into datapacks.
+With the update to Minecraft 1.12, Mojang introduced a new data-driven recipe system based on JSON files. Since then it has been adopted by Forge as well as vanilla datapacks in Minecraft 1.13.
 
 Loading Recipes
 ---------------
@@ -29,20 +29,17 @@ A basic recipe file might look like the following example:
     {
         "x":
         {
-            "type": "forge:ore_dict",
-            "ore": "gemDiamond"
+            "tag": "forge:gems/diamond"
         },
         "a":
         {
-            "item": "mymod:myfirstitem",
-            "data": 1
+            "item": "mymod:myfirstitem"
         }
     },
     "result":
     {
         "item": "mymod:myitem",
-        "count": 9,
-        "data": 2
+        "count": 9
     }
 }
 ```
@@ -69,20 +66,13 @@ Within this section we will take a closer look on the differences between defini
 
 ### Shaped crafting
 
-Shaped recipes require the `pattern` and `key` keywords. A pattern defines the slot an item must appear in using placeholder characters. You can choose whatever character you want to be a placeholder for an item. Keys on the other hand define what items are to be used instead of the placeholders. A key is defined by a placeholder character and the item.
-Additional the type `forge:ore_dict` may be added. This defines the item beeing part of the [`OreDictionary`][OreDictionary] and can for example be used when it doesn't matter which copper ore is used to produce a copper ingot. In this case the `ore` tag has to be used instead of the `item` tag to define the item. There are [many more][Wiki] of these types which can be used here and you can even register your own.
-The `data` tag is a optional and used to define the metadata of a block or item.
-
-!!! important  
-
-    Any item which uses `setHasSubtypes(true)` requires the use of the `data` field. When it is not used within the ingredients or keys, it will mean any metadata of this item will be accepted, for example: Not defining the data of a sword means even a half broken sword will be accepted for the crafting recipe!
-
+Shaped recipes require the `pattern` and `key` keywords. A pattern defines the slot an item must appear in using placeholder characters. You can choose whatever character you want to be a placeholder for an item. Keys on the other hand define what items are to be used instead of the placeholders. A key is defined by a placeholder character and some combination of items and tags. `item` requires a specific item; `tag` will accept any item with the given tag. Generally, tags are preferred as they will integrate with other mods more nicely.
 
 ### Shapeless crafting
 
 A shapeless recipe doesn't make use of the `pattern` and `key` keywords.
 
-To define a shapeless recipe, you have to use the `ingredients` list. It defines which items have to be used for the crafting process and can also make use of the additional type `forge:ore_dict` and it's functionality as described above. There are [many more][Wiki] of these types which can be used here and you can even register your own. It is even possible to define multiple instances of the same item which means multiple of these items have to be in place for the crafting recipe to take place.
+To define a shapeless recipe, you have to use the `ingredients` list. It defines which items have to be used for the crafting process. It is even possible to define multiple instances of the same item which means multiple of these items have to be in place for the crafting recipe to take place.
 
 !!! note
 
@@ -93,8 +83,7 @@ The following example shows how an ingredient list looks like within JSON.
 ```json
     "ingredients": [
         {
-            "type": "forge:ore_dict",
-            "ore": "gemDiamond"
+            "tag": "forge:gems/diamond",
         },
         {
             "item": "minecraft:nether_star"
@@ -102,8 +91,27 @@ The following example shows how an ingredient list looks like within JSON.
     ],
 ```
 
-### Smelting
-To define a recipe for the furnace, you have to use `GameRegistry.addSmelting(input, output, exp);` as the smelting recipes are currently not JSON based.
+### Cooking
+There are several different types of cooking recipes, including `minecraft:smelting`, `minecraft:blasting`, `minecraft:smoking`, and `minecraft:campfire_cooking`. (Note that adding a blasting or smoking recipe does not add a smelting recipe.) All cooking recipes share the same format. While vanilla only allows an output stack size of 1, Forge allows recipes to output any stack size.
+
+The following example shows a blasting recipe.
+
+```json
+{
+  "type": "minecraft:blasting",
+  "ingredient": [
+    {
+      "tag": "forge:ores/copper"
+    }
+  ],
+  "result": {
+    "item": "mymod:copper_ingot",
+    "count": 1
+  },
+  "experience": 0.7,
+  "cookingtime": 100
+}
+```
 
 Recipe Elements
 ---------------
@@ -114,18 +122,16 @@ A pattern will be defined with the `pattern` list. Each string represents one ro
 
 ### Keys
 
-A key set is used in combination with patterns and contains keys whose name is the same as the placeholder character in the pattern list which it represents. One key may be defined to represent multiply items as it is the case for the wooden button. This means that the player can use one of the defined items for the crafting recipe, for example different types of wood.
+A key set is used in combination with patterns and contains keys whose name is the same as the placeholder character in the pattern list which it represents. One key may be defined to represent multipe items. This means that the player can use one of the defined items for the crafting recipe. However, there will usually be an already defined tag that contains the items needed, and as tags can be extended by other mods they are almost always preferable.
 
 ```json
   "key": {
      "#": [
       {
-        "item": "minecraft:planks",
-         "data": 0
+        "item": "minecraft:potato",
       },
       {
-        "item": "minecraft:planks",
-        "data": 1
+        "item": "minecraft:poisonous_potato",
       }
     ]
   }
@@ -136,11 +142,7 @@ A key set is used in combination with patterns and contains keys whose name is t
 Every `recipe` has to have a result tag to define the output item.
 
 When crafting something, you can get out more than one item. This is achieved by defining the `count` number. If this is left out, meaning it doesn't exist within the result block, it defaults to 1. Negative values are not allowed here as an Itemstack cannot be smaller than 0. There is no option to use the `count` number anywhere else than for the result.
-The `data` field is a optional and used to define the metadata of a block or item. It defaults to 0 when it doesn't exist.
 
-!!! note
-
-    Any item which uses `setHasSubtypes(true)` requires the data field. In this case, it is not optional!
 
 Factories
 ---------
@@ -185,15 +187,13 @@ It is possible to define constant values for your recipes. These values have to 
 	{
 		"name": "SADDLE",
 		"ingredient": {
-			"item": "minecraft:saddle",
-			"data": 0
+			"item": "minecraft:saddle"
 		}
 	}
 ]
 ```
 
 [Wikipedia]: https://en.wikipedia.org/wiki/Factory_(object-oriented_programming)
-[OreDictionary]: ../utilities/oredictionary.md
 [Advancements]: #
 [Wiki]: https://minecraft.gamepedia.com/Recipe
 [Factories]: #factories
