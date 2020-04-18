@@ -5,7 +5,7 @@ With the update to Minecraft 1.12, Mojang introduced a new data-driven recipe sy
 
 Loading Recipes
 ---------------
-Forge will load all recipes which can be found within the `./assets/<modid>/recipes/` folder. You can call these files whatever you want, thought the vanilla convention is to name them after the output item. This name is also used as the registration key, but does not affect the operation of the recipe.
+Forge will load all recipes which can be found within the `./resources/data/<modid>/recipes/` folder. You can call these files whatever you want, thought the vanilla convention is to name them after the output item. This name is also used as the registration key, but does not affect the operation of the recipe.
 
 !!! note
 
