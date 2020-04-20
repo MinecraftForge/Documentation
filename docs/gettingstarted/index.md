@@ -31,6 +31,7 @@ Almost anything underneath `apply project: forge` and the `// EDITS GO BELOW HER
 There is a whole site dedicated to customizing the forge `build.gradle` files - the [ForgeGradle cookbook][]. Once you're comfortable with your mod setup, you'll find many useful recipes there.
 
 [forgegradle cookbook]: https://forgegradle.readthedocs.org/en/latest/cookbook/ "The ForgeGradle cookbook"
+[files]: https://files.minecraftforge.net "Forge Files distribution site"
 
 ### Simple `build.gradle` Customizations
 
