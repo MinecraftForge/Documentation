@@ -14,8 +14,12 @@ From Zero to Modding
     * the `gradle` folder
 3. Move the files listed above to a new folder, this will be your mod project folder.
 4. Choose your IDE:
+* Forge explicitly supports developing with Eclipse or IntelliJ environments, but any environment, from Netbeans to vi/emacs, can be made to work.
 * For both Intellij IDEA and Eclipse their Gradle integration will handle the rest of the initial workspace setup, this includes downloading packages from Mojang, MinecraftForge, and a few other software sharing sites.
-    * For most, if not all, changes to the build.gradle file to take effect Gradle will need to be invoked to re-evaluate the project, this can be done through Refresh buttons in the Gradle panels of both the previously mentioned IDEs.
+* For most, if not all, changes to the build.gradle file to take effect Gradle will need to be invoked to re-evaluate the project, this can be done through Refresh buttons in the Gradle panels of both the previously mentioned IDEs.
+5. Generating IDE Launch/Run Configurations:
+* For Eclipse, run the `genEclipseRuns` gradle task (`gradlew genEclipseRuns`). This will generate the Launch Configurations and download any required assets for the game to run. After this has finished refresh your project.
+* For IntelliJ, run the `genIntellijRuns` gradle task (`gradlew genIntellijRuns`). This will generate the Run Configurations and download any required assets for the game to run. After this has finished edit your Configurations to fix the "module not specified" error by changing selecting your "main" module.
 
 Customizing Your Mod Information
 --------------------------------
@@ -26,7 +30,7 @@ Edit the `build.gradle` file to customize how your mod is built (the file names,
 
     **Do not** edit the `buildscript {}` section of the build.gradle file, its default text is necessary for ForgeGradle to function.
 
-Almost anything underneath `apply project: forge` and the `// EDITS GO BELOW HERE` marker can be changed, many things can be removed and customized there as well.
+Almost anything underneath the `// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.` marker can be changed, many things can be removed and customized there as well.
 
 There is a whole site dedicated to customizing the forge `build.gradle` files - the [ForgeGradle cookbook][]. Once you're comfortable with your mod setup, you'll find many useful recipes there.
 
