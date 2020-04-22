@@ -1,1 +1,4 @@
 pymdown-extensions
+# ReadTheDocs defaults to mkdocs version 0.17.0 for backwards compatibility reasons
+# It is incompatible with Python 3.7, however, which is why we need to force a newer version
+mkdocs>=1.0

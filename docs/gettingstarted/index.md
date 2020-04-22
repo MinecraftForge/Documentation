@@ -31,6 +31,7 @@ Almost anything underneath `apply project: forge` and the `// EDITS GO BELOW HER
 There is a whole site dedicated to customizing the forge `build.gradle` files - the [ForgeGradle cookbook][]. Once you're comfortable with your mod setup, you'll find many useful recipes there.
 
 [forgegradle cookbook]: https://forgegradle.readthedocs.org/en/latest/cookbook/ "The ForgeGradle cookbook"
+[files]: https://files.minecraftforge.net "Forge Files distribution site"
 
 ### Simple `build.gradle` Customizations
 
@@ -39,6 +40,7 @@ These customizations are highly recommended for all projects.
 * To change the name of the file you build - edit the value of `archivesBaseName` to suit.
 * To change your "maven coordinates" - edit the value of `group` as well.
 * To change the version number - edit the value of `version`.
+* To update the run configurations - replace all occurrences of `examplemod` to the mod id of your mod.
 
 Building and Testing Your Mod
 -----------------------------

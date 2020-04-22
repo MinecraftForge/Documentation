@@ -9,35 +9,24 @@ Player Right Click
 ------------------
 Since left clicking, or "punching", a block does not generally result in any unique behavior, it is probably fair to say right clicking, or "activation", is *the* most common method of interaction. And thankfully, it is also one of the simplest to handle.
 
-### `onBlockActivated`
-
-This is the method that controls right click behavior, and it is a rather complicated one. Here is its full signature:
+`onBlockActivated`
+----------------
 
 ```java
-public boolean onBlockActivated(World worldIn,
-                                BlockPos pos,
-                                IBlockState state,
-                                EntityPlayer playerIn,
-                                EnumHand hand,
-                                @Nullable ItemStack heldItem,
-                                EnumFacing side,
-                                float hitX,
-                                float hitY,
-                                float hitZ)
+public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
 ```
 
-There's quite a bit to discuss here.
+This is the method that controls right click behavior.
 
-#### Parameters
-
-The first few parameters are obvious, they are the current world, position, and state of the block. Next is the player that is activating the block, and the hand with which they are activating.
-
-The next parameter, `heldItem`, is the `ItemStack` which the player activated the block with. Note that this parameter is `@Nullable` meaning it can be passed as null (i.e. no item was in the hand).
-
-!!! important
-    The ItemStack passed to this method is the one you should use for checking what was in the player's hand. Grabbing the currently held stack from the player is unreliable as it may have changed since activation.
-
-The last four parameters are all related. `side` is obviously the side which was activated, however `hitX`, `hitY`, and `hitZ` are a bit less obvious. These are the coordinates of the activation on the block's bounds. They are on the range 0 to 1, and represent where exactly "on" the block the player clicked.
+### Parameters
+|         Type          |     Name     |                  Description                  |
+|:---------------------:|:------------:|:----------------------------------------------|
+|      `BlockState`     |   `state`    | The state of the block that was clicked       |
+|        `World`        |  `worldIn`   | The world that the block was clicked in       |
+|       `BlockPos`      |    `pos`     | The position of the block that was clicked    |
+|     `PlayerEntity`    |   `player`   | The player who did the clicking               |
+|         `Hand`        |   `handIn`   | The hand with which the player clicked        |
+| `BlockRayTraceResult` |    `hit`     | Where on the block's bounds it was hit        |
 
 #### Return Value
 
@@ -47,7 +36,7 @@ What is this magic boolean which must be returned? Simply put this, is whether o
 !!! important
     Returning `false` from this method on the client will prevent it being called on the server. It is common practice to just check `worldIn.isRemote` and return `true`, and otherwise go on to normal activation logic. Vanilla has many examples of this, such as the chest.
 
-### Uses
+### Usage examples
 
 The uses for activation are literally endless. However, there are some common ones which deserve their own section.
 
@@ -62,23 +51,36 @@ Another common use for activation is, well, activation. This can be something li
 !!! important
     `onBlockActivated` is called on both the client and the server, so be sure to keep the [sidedness] of your code in mind. Many things, like opening GUIs and modifying the world, should only be done on the server-side.
 
+Block Placement
+--------------------
+
+`onBlockPlacedBy`
+----------------
+
+```java
+public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
+```
+
+Called by ItemBlocks after a block is set in the world, to allow post-place logic.
+
+
+### Parameters:
+|      Type       |     Name     |                  Description                  |
+|:---------------:|:------------:|:----------------------------------------------|
+|     `World`     |  `worldIn`   | The world that the block was placed in        |
+|    `BlockPos`   |    `pos`     | The position where the block was placed       |
+|   `BlockState`  |   `state`    | The state of the block that was placed        |
+|  `LivingEntity` |   `placer`   | The entity who placed the block               |
+|   `ItemStack`   |   `stack`    | The item block that was placed                |
+
 Player Break/Destroy
 --------------------
-*Coming Soon*
-
-Player Highlighting
--------------------
-*Coming Soon*
-
-Entity Collision
-----------------
-*Coming Soon*
 
 `onBlockClicked`
 ----------------
 
 ```java
-public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn)
+public void onBlockClicked(BlockState state, World worldIn, BlockPos pos, PlayerEntity player)
 ```
 
 Called on a block when it is clicked by a player.
@@ -91,9 +93,10 @@ Called on a block when it is clicked by a player.
 ### Parameters:
 |      Type       |     Name     |                  Description                  |
 |:---------------:|:------------:|:----------------------------------------------|
+|   `BlockState`  |   `state`    | The state of the block that was clicked       |
 |     `World`     |  `worldIn`   | The world that the block was clicked in       |
 |    `BlockPos`   |    `pos`     | The position of the block that was clicked    |
-|  `EntityPlayer` |  `playerIn`  | The player who did the clicking               |
+|  `PlayerEntity` |   `player`   | The player who did the clicking               |
 
 ### Usage example
 This method is perfect for adding custom events when a player clicks on a block.
@@ -104,34 +107,60 @@ Two blocks that override this method are the **Note Block** and the **RedstoneOr
 The Note block overrides this method so that when left-clicked, it plays a sound.  
 The RedstoneOre block overrides method so that when left-clicked, it gives off emits faint light for a few seconds.
 
-`onBlockDestroyedByPlayer`
+`onBlockHarvested`
 ----------------
 
 ```java
-public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
+public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
 ```
 
-Called on a block after it's destroyed by a player
+Called before the Block is set to air in the world. Called regardless of if the player's tool can actually collect this block.
 
 ### Parameters:
 |      Type       |    Name     |                 Description                  |
 |:---------------:|:-----------:|:---------------------------------------------|
 |     `World`     |  `worldIn`  | The world that the block was destroyed       |
 |   `BlockPos`    |    `pos`    | The position of the block that was destroyed |
-|  `IBlockState`  |   `state`   | The state of the block that was destroyed    |
-
-!!! Warning
-    
-    The `pos` parameter may not hold the state indicated
+|   `BlockState`  |   `state`   | The state of the block that was destroyed    |
+|  `PlayerEntity` |   `player`  | The player who harvested the block           |
 
 ### Usage example
 This method is perfect for adding custom events as a result of a player destroying a block
 
-By default this method does nothing.  
+This method has important behavior in the `Block` class so be sure to call the super method.
+```java
+super.onBlockHarvested(worldIn, pos, state, player);
+```
 
 The **TNT Block** overrides this method to cause it's explosion when a player destroys it.  
-This method is used by extended pistons; since an extended piston is made up of two blocks (the extended head and the base), 
-the **PistonMoving Block** makes use of this method to destroy the base block when the PistonMoving block is destroyed. 
+This method is used by extended pistons; since an extended piston is made up of two blocks. (the extended head and the base)
+The **PistonMoving Block** makes use of this method to destroy the base block when the PistonMoving block is destroyed. 
+
+
+Entity Collision
+----------------
+
+`onEntityCollision`
+----------------
+
+```java
+public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn)
+```
+
+This method is called whenever an entity collides with the block.
+
+
+### Parameters:
+|      Type       |    Name     |                    Description                   |
+|:---------------:|:-----------:|:-------------------------------------------------|
+|   `BlockState`  |   `state`   | The state of the block that was collided with    |
+|     `World`     |  `worldIn`  | The world where the collided block is located    |
+|   `BlockPos`    |    `pos`    | The position of the block that was collided with |
+|    `Entity`     |  `entityIn` | The entity who collided with the block           |
+
+### Usage examples
+
+An example use of this method is by the `CampfireBlock` which uses this method to light those on fire that collide with the campfire.
 
 
 [sidedness]: ../concepts/sides.md

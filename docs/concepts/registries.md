@@ -8,7 +8,7 @@ Most things that require registration in the game are handled by the Forge regis
 Registering Things
 ------------------
 
-The recommended way to register things is through the `RegistryEvent`s. These [events][] are fired right after preinitialization, In `RegistryEvent.NewRegistry`, registries should be created. Later, `RegistryEvent.Register` is fired once for each registered registry. Because `Register` is a generic event, the event handler should set the type parameter to the type of the object being registered. The event will contain the registry to register things to (`getRegistry`), and things may be registered with `register` (or `registerAll`) on the registry. Here's an example of an event handler that registers blocks:
+The recommended way to register things is through the `RegistryEvent`s. These [events][] are fired after mod constructors are called and before configs are loaded. In `RegistryEvent.NewRegistry`, registries should be created. Later, `RegistryEvent.Register` is fired once for each registered registry. Because `Register` is a generic event, the event handler should set the type parameter to the type of the object being registered. The event will contain the registry to register things to (`getRegistry`), and things may be registered with `register` (or `registerAll`) on the registry. Here's an example of an event handler that registers blocks:
 
 ```java
 @SubscribeEvent
@@ -24,8 +24,21 @@ The order in which `RegistryEvent.Register` events fire is alphabetically, with 
 There is another, older way of registering objects into registries, using `GameRegistry.register`. Anytime something suggests using this method, it should be replaced with an event handler for the appropriate registry event. This method simply finds the registry corresponding to an `IForgeRegistryEntry` with `IForgeRegistryEntry::getRegistryType`, and then registers the object to the registry. There is also a convenience overload that takes an `IForgeRegistryEntry` and a `ResourceLocation`, which is equivalent to calling `IForgeRegistryEntry::setRegistryName`, followed by a `GameRegistry.register` call.
 
 !!! information
-	Registering an `Entity` might be a little bit confusing at first as it doesn't use the `Entity` class, but an `EntityEntry`. These are created by making use of `EntityEntryBuilder`.
-	`EntityEntryBuilder#id()` is equivalent to the `setRegistryName()` method from `IForgeRegistryEntry`, with the difference that it also takes a mod internal int ID. A simple counter during registration is enough as this ID is only used for networking.
+	Registering an `Entity` or `TileEntity` might be a little bit confusing at first as it doesn't use the `Entity` or `TileEntity` classes, but an `EntityType` or `TileEntityType`. These are created by making use of `EntityType.Builder` or `TileEntityType.Builder`.
+	The `String` parameter of the builder's `build` method is a data-fixer id. Data fixers do not work with mods (yet) so you should pass `null` in.
+
+### DeferredRegister
+`DeferredRegister` is a new way of registering objects that replicates the simplicity of static initialisers while supporting registry overrides and avoiding the issues caused by static initialisation. `DeferredRegister` is well documented (check it's javadocs). It simply maintains a list of suppliers for entries and registers the objects from those suppliers them during the proper Register event. These suppliers should return **new** instances every time. Here's an example of a mod that uses `DeferredRegister` to register blocks:
+
+```java
+private static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, MODID);
+
+public static final RegistryObject<Block> ROCK_BLOCK = BLOCKS.register("rock", () -> new Block(Block.Properties.create(Material.ROCK)));
+
+public ExampleMod() {
+	BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+}
+```
 
 Creating Registries
 -------------------

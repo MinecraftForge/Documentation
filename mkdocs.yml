@@ -1,18 +1,16 @@
 # If you add a page, you must add it to the index here
-pages:
+nav:
   - Home: 'index.md'
   - Style Guide: 'styleguide.md'
   - Getting Started:
     - Home: 'gettingstarted/index.md'
     - Structuring Your Mod: 'gettingstarted/structuring.md'
     - Forge Update Checker: 'gettingstarted/autoupdate.md'
-    - Dependency Management: 'gettingstarted/dependencymanagement.md'
     - Debug Profiler: 'gettingstarted/debugprofiler.md'
   - Concepts:
     - Sides: 'concepts/sides.md'
     - Resources: 'concepts/resources.md'
     - Registries: 'concepts/registries.md'
-    - The Fingerprint Violation Event: 'concepts/jarsigning.md'
     - Internationalization and localization: 'concepts/internationalization.md'
   - Blocks:
     - Home: 'blocks/blocks.md'
@@ -28,27 +26,20 @@ pages:
     - Renderer: 'tileentities/tesr.md'
   - Items:
     - Home: 'items/items.md'
-    - Loot Tables: 'items/loot_tables.md'
   - Models:
     - Intro to Models: 'models/introduction.md'
     - Model Files: 'models/files.md'
     - Blockstates:
       - Intro to Blockstate JSONs: 'models/blockstates/introduction.md'
       - Forge Blockstate JSON: 'models/blockstates/forgeBlockstates.md'
-    - Connecting Blocks and Items to Models: 'models/using.md'
     - Coloring Textures: 'models/color.md'
     - Item Property Overrides: 'models/overrides.md'
     - Advanced Models:
-      - Intro to Advanced Models: 'models/advanced/introduction.md'
-      - IModel: 'models/advanced/imodel.md'
-      - IModelState and IModelPart: 'models/advanced/imodelstate+part.md'
       - IBakedModel: 'models/advanced/ibakedmodel.md'
-      - Extended Blockstates: 'models/advanced/extended-blockstates.md'
       - Perspective: 'models/advanced/perspective.md'
       - ItemOverrideList: 'models/advanced/itemoverridelist.md'
-      - ICustomModelLoader: 'models/advanced/icustommodelloader.md'
   - Rendering:
-    - TileEntityItemStackRenderer: 'rendering/teisr.md'
+    - ItemStackTileEntityRenderer: 'rendering/ister.md'
   - Events:
     - Basic Usage: 'events/intro.md'
   - Networking:
@@ -59,12 +50,9 @@ pages:
   - Data Storage:
     - Capabilities: 'datastorage/capabilities.md'
     - World Saved Data: 'datastorage/worldsaveddata.md'
-    - Extended Entity Properties: 'datastorage/extendedentityproperties.md'
-    - Config Annotations: 'config/annotations.md'
   - Utilities:
     - Recipes: 'utilities/recipes.md'
     - Tags: 'utilities/tags.md'
-    - PermissionAPI: 'utilities/permissionapi.md'
   - Effects:
     - Sounds: 'effects/sounds.md'
   - Conventions:
@@ -89,11 +77,8 @@ markdown_extensions:
       permalink: ' '
 
 theme:
-  name: null
+  name: readthedocs
   custom_dir: forge_theme
-# Technically deprecated, but RTD overrides theme.custom_dir with their default style
-# They still seem to respect the old option, though
-theme_dir: forge_theme
 
 extra:
   current_version: 1.15.x

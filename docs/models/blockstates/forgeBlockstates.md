@@ -1,3 +1,7 @@
+!!! Warning
+
+    This feature is deprecated and has been removed from Forge in 1.15+.
+
 Forge's Blockstates
 ===================
 

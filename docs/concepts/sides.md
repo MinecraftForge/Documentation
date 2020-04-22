@@ -58,3 +58,16 @@ Whenever you want to send information from one logical side to another, you must
 This is actually very commonly inadvertently done through static fields. Since the logical client and logical server share the same JVM in a single player scenario, both threads writing to and reading from static fields will cause all sorts of race conditions and the classical issues associated with threading.
 
 This mistake can also be made explicitly by accessing physical client-only classes such as `Minecraft` from common code that runs or can run on the logical server. This mistake is easy to miss for beginners, who debug in a physical client. The code will work there, but will immediately crash on a physical server.
+
+
+Writing One-Sided Mods
+----------------------
+
+In recent versions, Minecraft Forge has removed a "sidedness" attribute from the mods.toml. This means that your mods are expected to work whether they are loaded on the Client or on the Server. So for one-sided mods, you would typically register your event handlers inside a `DistExecutor.runWhenOn`, instead of directly calling the relevant registration methods in the constructor. Basically, if your mod is loaded on the wrong side, it should simply do nothing, listen to no events, and so on. A one-sided mod by nature should not register blocks, items, ... since they would need to be available on the other side, too.
+
+Additionally, if your mod is one-sided, it typically does not forbid the user from joining a server that is lacking that mod. Therefore, you should override the `DISPLAYTEST` extension point to make sure that Forge does not think your mod is required on the server, which would lead to the server being shown as incompatible. For that, put something similar to this into your main mod class constructor:
+```
+//Make sure the mod being absent on the other network side does not cause the client to display the server as incompatible
+ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
+```
+This tells the client that it should ignore the server version being absent, and the server that it should not tell the client this mod should be present. So this snipped works both for client- and server-only-sided mods.
