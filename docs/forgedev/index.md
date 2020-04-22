@@ -60,22 +60,14 @@ JetBrains' flagship IDE comes with great integrated support for [Gradle](https:/
 If you're more of a visual person, cpw has uploaded [a video](https://www.youtube.com/watch?v=yanCpy8p2ZE) explaining very similar steps which will also lead to a working setup.
 
 !!! Note
-    These steps will only work reliably from IDEA version 2016 onwards. Older versions didn't have the appropriate Gradle support and did not support Forge development workspaces.
+    These steps will only work reliably from IDEA version 2019 onwards. Older versions didn't have the appropriate Gradle support and did not support Forge development workspaces.
 
- 1. Import Forge's `build.gradle` as an IDEA project. For this, simply click `File -> Open`, then navigate to your fork's clone and select the `build.gradle` file.
-    If a dialog pops up, select "Open as Project".
- 2. In the wizard that follows, make sure that "Create separate module per source set" is checked and that the "Use default gradle wrapper" option is active. Confirm the dialog.
- 3. After IDEA is done importing the project and indexing the files, open the Gradle sidebar on the right hand side of your screen
- 4. Open the "forge" project tree, select "Tasks", then "forgegradle" and right click the "Create Forge [setup]" option
- 5. Once the configuration dialog shows up, edit the "tasks" field to contain `clean setup` and add `-Xmx3G -Xms3G` to "VM Options". The latter option ensures that the resource intensive decompilation process has enough memory.
- 6. Click "Okay" and run your newly created run configuration. This may take a while.
- 7. After the setup task has completed, go once again to the Gradle sidebar and click the "Attach Gradle project" button (the plus icon) at the top
- 8. Navigate to your clone's directory, then open the `projects` directory and double click the `build.gradle` file in there. Select "Use gradle wrapper task configuration" in the following dialog and confirm it.
- 9. Import all modules IDEA suggests
- 10. To get access to the project's run configurations, open the `projects` directory in your file explorer and navigate to the `.idea` directory (might be hidden depending on your system). Copy the `runConfigurations` directory into `.idea` under your fork's root directory
- 11. Once IDEA recognizes the added configurations, complete the following steps for each one
-     * Change the configuration's module to `<Config>_main` where `<Config>` is the first part of the configuration's name
-     * Change the run directory to `<clone>/projects/run`
+ 1. Import Forge's `build.gradle` as an IDEA project. For this, simply click `Import Project` from the `Welcome to IntelliJ IDEA` splash screen, then select the `build.gradle` file.
+ 2. After IDEA is done importing the project and indexing the files, run the Gradle setup task.  Either:
+   * tap the CTRL key twice, and type `gradle setup` in the `Run` command window that pops up.
+   * open the Gradle sidebar on the right hand side of your screen, then open the `forge` project tree, select `Tasks`, then `other` and double-click the `setup` task (may also appear as `MinecraftForge[Setup]`.
+  
+You can then run Forge using the `forge_client` gradle task (`Tasks -> fg_runs -> forge_client`): right-click the task and select either `Run` or `Debug` as desired.
 
 That's all there is to creating a Forge development environment in IntelliJ IDEA. However, you won't be able to run the tests and debug mods included in Forge straight away. This takes some extra effort.
 
