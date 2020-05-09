@@ -18,7 +18,7 @@ switch (meta) {
 }
 ```
 
-Because the numbers carry no meaning by themselves, no one could not know what they represent unless they had access to the source code and comments.
+Because the numbers carry no meaning by themselves, no one could know what they represent unless they had access to the source code and comments.
 
 Introduction of States
 ---------------------------------------
