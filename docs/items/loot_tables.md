@@ -62,7 +62,9 @@ Modifying Vanilla Loot
 
 ### Overview
 
-Not only can you specify your own loot tables, conditions, functions, and entity properties, you can also modify others as they load.
+Not only can you specify your own loot tables, conditions, functions, and entity properties, you can also modify others as they load. Additionally, should you need more comprehensive effects (anything that would previously have required listening for the HarvestDropsEvent), see [Global Loot Modifiers][globallootmodifiers].
+
+[globallootmodifiers]: ./globallootmodifiers.md
 
 !!! Note
     Users are allowed by vanilla to place their own loot tables in the world save directory to override the game's (and mods') own tables. These are considered config files and thus cannot be modified by the methods described below, **by design**.
