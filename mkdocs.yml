@@ -10,6 +10,7 @@ nav:
   - Concepts:
     - Sides: 'concepts/sides.md'
     - Resources: 'concepts/resources.md'
+    - Datapacks: 'concepts/datapacks.md'
     - Registries: 'concepts/registries.md'
     - Internationalization and localization: 'concepts/internationalization.md'
   - Blocks:
