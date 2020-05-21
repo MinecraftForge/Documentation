@@ -1,6 +1,6 @@
 Datapacks
 =========
-In 1.13, Mojang [added datapacks](https://minecraft.gamepedia.com/Data_pack) to the base game. They allow for the modification of the files placed under resources/data.
+In 1.13, Mojang [added datapacks][datapack] to the base game. They allow for the modification of the files placed under resources/data.
 This includes advancements, loot_tables, structures, recipes and tags. 
 Forge, and your mod , are also in a way datapacks. Any user can therefore modify all the recipes and loot tables (and other stuff) of a mod.
 
@@ -17,3 +17,4 @@ These can be found after launching the mod (F3+h), but providing it for users in
 You can then follow the steps found [here](https://minecraft.gamepedia.com/Tutorials/Creating_a_data_pack) to create any datapack.
 
 [resloc]: resource.md
+[datapack]: https://minecraft.gamepedia.com/Data_pack
