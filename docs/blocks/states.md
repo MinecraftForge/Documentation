@@ -34,7 +34,7 @@ The previous system of meaningless metadata values were replaced by a system of 
 Proper Usage of Block States
 ---------------------------------------
 
-The `BlockState` system is a flexible and powerful system, but it also has limitations. `BlockState`s are immutable, and all permutations are generated on startup of the game. This means that having a `BlockState` with many properties and possible values will slow down the loading of the game, and befuddle anyone trying to make sense of your block logic.
+The `BlockState` system is a flexible and powerful system, but it also has limitations. `BlockState`s are immutable, and all combinations of their properties are generated on startup of the game. This means that having a `BlockState` with many properties and possible values will slow down the loading of the game, and befuddle anyone trying to make sense of your block logic.
 
 Not all blocks and situations require the usage of `BlockState`; only the most basic properties of a block should be put into a `BlockState`, and any other situation is better off with having a `TileEntity` or being a separate `Block`. Always consider if you actually need to use blockstates for your purposes.
 
@@ -47,7 +47,7 @@ An "Oak Chair" facing east (`oak_chair[facing=east]`) is different from a "Spruc
 Implementing Block States
 ---------------------------------------
 
-In your Block class, create `static final` `IProperty<?>` objects for every property that your Block has. You are free to make your own `IProperty<?>` implementations, but the means to do that are not covered in this article. The vanilla code provides several convenience implementations:
+In your Block class, create or reference `static final` `IProperty<?>` objects for every property that your Block has. You are free to make your own `IProperty<?>` implementations, but the means to do that are not covered in this article. The vanilla code provides several convenience implementations:
 
   * `IntegerProperty`
     * Implements `IProperty<Integer>`. Defines a property that holds an integer value.
@@ -63,12 +63,9 @@ In your Block class, create `static final` `IProperty<?>` objects for every prop
     * This is a convenience implementation of `EnumProperty<Direction>`
     * Several convenience predicates are also provided. For example, to get a property that represents the cardinal directions, call `DirectionProperty.create("<name>", Direction.Plane.HORIZONTAL)`; to get the X directions, `DirectionProperty.create("<name>", Direction.Axis.X)`
 
-Different blocks may share the same `IProperty<?>` object. Vanilla generally has separate ones for every single block, but it is merely personal preference.
+The class `BlockStateProperties` contains shared vanilla properties which should be used or referenced whenever possible, in place of creating your own properties.
 
-!!! Note 
-    If your mod has an API or is meant to be interacted with from other mods, it is **highly** recommended that you instead place your `IProperty<?>`'s (and any classes used as values) in your API. That way, people can use your properties to interact with your blocks.
-
-After you've created your `IProperty<>` objects, override `Block#fillStateContainer(StateContainer.Builder)` in your Block class. In that method, call `StateContainer.Builder#add(...);`  with the parameters as every `IProperty<?>` you wish the block to have.
+When you have your desired `IProperty<>` objects, override `Block#fillStateContainer(StateContainer.Builder)` in your Block class. In that method, call `StateContainer.Builder#add(...);`  with the parameters as every `IProperty<?>` you wish the block to have.
 
 Every block will also have a "default" state that is automatically chosen for you. You can change this "default" state by calling the `Block#setDefaultState(BlockState)` method from your constructor. When your block is placed it will become this "default" state. An example from `DoorBlock`:
 
@@ -76,16 +73,16 @@ Every block will also have a "default" state that is automatically chosen for yo
 this.setDefaultState(
     this.stateContainer.getBaseState()
         .with(FACING, Direction.NORTH)
-        .with(OPEN, Boolean.valueOf(false))
+        .with(OPEN, false)
         .with(HINGE, DoorHingeSide.LEFT)
-        .with(POWERED, Boolean.valueOf(false))
+        .with(POWERED, false)
         .with(HALF, DoubleBlockHalf.LOWER)
 );
 ```
 
-If you wish to change what `BlockState` is used when placing your block, you can overwrite `Block#getStateForPlacement(BlockItemUseContext)`. This can be used to -- for example -- set the direction of your block depending on where the player is standing when they place it.
+If you wish to change what `BlockState` is used when placing your block, you can overwrite `Block#getStateForPlacement(BlockItemUseContext)`. This can be used to, for example, set the direction of your block depending on where the player is standing when they place it.
 
-Because `BlockState`s are immutable, and all permutations are generated on startup of the game, calling `BlockState#with(IProperty<T>, T)` will simply go to the `Block`'s `StateContainer` and request the `BlockState` with the set of values you want.
+Because `BlockState`s are immutable, and all combinations of their properties are generated on startup of the game, calling `BlockState#with(IProperty<T>, T)` will simply go to the `Block`'s `StateContainer` and request the `BlockState` with the set of values you want.
 
 Because all possible `BlockState`s are generated at startup, you are free and encouraged to use the reference equality operator (`==`) to check if two `BlockState`s are equal.
 
