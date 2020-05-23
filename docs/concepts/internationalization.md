@@ -43,7 +43,7 @@ Localization methods
 !!! warning
     A common issue is having the server localize for clients. The server can only localize in its own locale, which does not necessarily match the locale of connected clients.
     
-    To respect the language settings of clients, the server should have clients localize text in their own locale using `TextComponentTranslation` or other methods preserving the language neutral translation keys.
+    To respect the language settings of clients, the server should have clients localize text in their own locale using `TranslationTextComponent` or other methods preserving the language neutral translation keys.
 
 ### `net.minecraft.client.resources.I18n` (client only)
 
@@ -51,14 +51,14 @@ Localization methods
 
 - `format(String, Object...)` localizes in the client's locale with formatting. The first parameter is a translation key, and the rest are formatting arguments for `String.format(String, Object...)`.
 
-### `TextComponentTranslation`
+### `TranslationTextComponent`
 
-`TextComponentTranslation` is an `ITextComponent` that is localized and formatted lazily. It is very useful when sending messages to players because it will be automatically localized in their own locale.
+`TranslationTextComponent` is an `ITextComponent` that is localized and formatted lazily. It is very useful when sending messages to players because it will be automatically localized in their own locale.
 
-The first parameter of the `TextComponentTranslation(String, Object...)` constructor is a translation key, and the rest are used for formatting. The only supported format specifiers are `%s` and `%1$s`, `%2$s`, `%3$s` etc. Formatting arguments may be other `ITextComponent`s that will be inserted into the resulting formatted text with all their attributes preserved.
+The first parameter of the `TranslationTextComponent(String, Object...)` constructor is a translation key, and the rest are used for formatting. The only supported format specifiers are `%s` and `%1$s`, `%2$s`, `%3$s` etc. Formatting arguments may be other `ITextComponent`s that will be inserted into the resulting formatted text with all their attributes preserved.
 
 ### `TextComponentHelper`
 
-- `createComponentTranslation(ICommandSender, String, Object...)` creates a localized and formatted `ITextComponent` depending on a receiver. The localization and formatting is done eagerly if the receiver is a vanilla client. If not, the localization and formatting is done lazily with a `TextComponentTranslation`. This is only useful if the server should allow vanilla clients to connect.
+- `createComponentTranslation(ICommandSender, String, Object...)` creates a localized and formatted `ITextComponent` depending on a receiver. The localization and formatting is done eagerly if the receiver is a vanilla client. If not, the localization and formatting is done lazily with a `TranslationTextComponent`. This is only useful if the server should allow vanilla clients to connect.
 
 [converter]: https://tterrag.com/lang2json/
