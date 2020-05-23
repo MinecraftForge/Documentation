@@ -1,34 +1,22 @@
 Registries
 ==========
 
-Registration is the process of taking the objects of a mod (items, blocks, sounds, etc.) and making them known to the game. Registering things is important, as without registration the game will simply not know about these objects in a mod and will exhibit great amounts of unexplainable behavior (and probably crash). Some examples of things that need to be registered are `Block`s, `Item`s, `Biome`s.
+Registration is the process of taking the objects of a mod (such as items, blocks, sounds, etc.) and making them known to the game. Registering things is important, as without registration the game will simply not know about these objects in a mod and will cause unexplainable behavior and crashes. 
 
-Most things that require registration in the game are handled by the Forge registries. A registry is a simple object similar to a map that assigns values to keys. Additionally, they automatically assign integer IDs to values. Forge uses registries with [`ResourceLocation`][ResourceLocation] keys to register objects. This allows the `ResourceLocation` to act like a "registry name" for the object. The registry name for an object may be accessed with `get`/`setRegistryName`. The setter can only ever be called once, and calling it twice results in an exception. Every type of registrable object has its own registry, and names in two different registries will not collide. (E.g. there's a registry for `Block`s, and a registry for `Item`s, and a `Block` and an `Item` may be registered with the same name `mod:example` without colliding. However, if two blocks were registered with that name, an exception would be thrown.)
+Most things that require registration in the game are handled by the Forge registries. A registry is a object similar to a map that assigns values to keys. Forge uses registries with [`ResourceLocation`][ResourceLocation] keys to register objects. This allows the `ResourceLocation` to act as the "registry name" for objects. The registry name for an object may be accessed with `#getRegistryName`/`#setRegistryName`. The setter can only be called once; calling it twice results in an exception. 
 
-Registering Things
+Every type of registrable object has its own registry. To see all registries supported by Forge, see the `ForgeRegistries` class. All registry names within a registry must be unique. However, names in different registries will not collide. For example, there's a `Block` registry, and an `Item` registry. A `Block` and an `Item` may be registered with the same name `example:thing` without colliding; however, if two `Block`s or two `Item`s were registered with the same exact name, an exception will occur.
+
+Methods for Registering
 ------------------
 
-The recommended way to register things is through the `RegistryEvent`s. These [events][] are fired after mod constructors are called and before configs are loaded. In `RegistryEvent.NewRegistry`, registries should be created. Later, `RegistryEvent.Register` is fired once for each registered registry. Because `Register` is a generic event, the event handler should set the type parameter to the type of the object being registered. The event will contain the registry to register things to (`getRegistry`), and things may be registered with `register` (or `registerAll`) on the registry. Here's an example of an event handler that registers blocks:
-
-```java
-@SubscribeEvent
-public void registerBlocks(RegistryEvent.Register<Block> event) {
-    event.getRegistry().registerAll(block1, block2, ...);
-}
-```
-
-The order in which `RegistryEvent.Register` events fire is alphabetically, with the exception that `Block` will *always* fire first, and `Item` will *always* fire second, right after `Block`. After the `Register<Block>` event has fired, all [`ObjectHolder`][ObjectHolder] annotations are refreshed, and after `Register<Item>` has fired they are refreshed again. They are refreshed for a third time after *all* of the other `Register` events have fired.
-
-`RegistryEvent`s are currently supported for the following types: `Block`, `Item`, `Potion`, `Biome`, `SoundEvent`, `PotionType`, `Enchantment`, `IRecipe`, `VillagerProfession`, `EntityEntry`
-
-There is another, older way of registering objects into registries, using `GameRegistry.register`. Anytime something suggests using this method, it should be replaced with an event handler for the appropriate registry event. This method simply finds the registry corresponding to an `IForgeRegistryEntry` with `IForgeRegistryEntry::getRegistryType`, and then registers the object to the registry. There is also a convenience overload that takes an `IForgeRegistryEntry` and a `ResourceLocation`, which is equivalent to calling `IForgeRegistryEntry::setRegistryName`, followed by a `GameRegistry.register` call.
-
-!!! information
-	Registering an `Entity` or `TileEntity` might be a little bit confusing at first as it doesn't use the `Entity` or `TileEntity` classes, but an `EntityType` or `TileEntityType`. These are created by making use of `EntityType.Builder` or `TileEntityType.Builder`.
-	The `String` parameter of the builder's `build` method is a data-fixer id. Data fixers do not work with mods (yet) so you should pass `null` in.
+There are two proper ways to register objects: the `DeferredRegister` class, and the `RegistryEvent.Register` lifecycle event.
 
 ### DeferredRegister
-`DeferredRegister` is a new way of registering objects that replicates the simplicity of static initialisers while supporting registry overrides and avoiding the issues caused by static initialisation. `DeferredRegister` is well documented (check it's javadocs). It simply maintains a list of suppliers for entries and registers the objects from those suppliers them during the proper Register event. These suppliers should return **new** instances every time. Here's an example of a mod that uses `DeferredRegister` to register blocks:
+
+`DeferredRegister` is the newer, documented, and recommeded way to register objects. It allows the use and convenience of static initialisers while avoiding the issues associated with it. It simply maintains a list of suppliers for entries and registers the objects from those suppliers during the proper `Register` event.
+
+An example of a mod registering a custom block:
 
 ```java
 private static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, MODID);
@@ -40,63 +28,133 @@ public ExampleMod() {
 }
 ```
 
-Creating Registries
--------------------
+### `Register` events
 
-There's a global registry where all the other registries are stored. By taking a `Class` that a registry is supposed to store or its `ResourceLocation` name, one can retrieve a registry from this registry. For example, one can use `GameRegistry.findRegistry(Block.class)` to get the registry for blocks. Any mod can create their own registries, and any mod can register things to registries from any other mod. Registries are created by using `RegistryBuilder` inside a `RegistryEvent.NewRegistry` event handler. This class takes certain parameters for the registry it will generate, such as the name, the `Class` of it's values, and various callbacks for when the registry is changed. Upon calling `RegistryBuilder::create`, the registry is built, registered to the metaregistry, and returned to the caller.
+The `RegistryEvent`s are the second and more flexible way to register objects. These [events][] are fired after the mod constructors and before the loading of configs.
 
-In order for a class to have a registry, it needs to implement `IForgeRegistryEntry`. This interface defines `getRegistryName(ResourceLocation)`, `setRegistryName(ResourceLocation)`, and `getRegistryType()`. `getRegistryType` is the base `Class` of the registry the object is to be registered to. It is recommended to extend the default `IForgeRegistryEntry.Impl` class instead of implementing `IForgeRegistryEntry` directly. This class also provides two convenience implementations of `setRegistryName`: one where the parameter is a single string, and one where there are two string parameters. The overload that takes a single string checks whether the input contains a `:` (i.e. it checks whether the passed in stringified `ResourceLocation` has a namespace), and if it doesn't, it uses the current modid as the resource namespace. The two argument overload simply constructs the registry name using the `modID` as the namespace and `name` as the path.
+The event used in registering objects is the `RegistryEvent.Register<T>`. The type parameter `T` should be set to the type of the object being registered. Calling `#getRegistry` will return the registry, upon which objects are registered with `#register` or `#registerAll`. 
 
-Injecting Registry Values Into Fields
--------------------------------------
+`RegistryEvent.Register<?>` events are fired in this order: first, the `Block` registry, then the `Item` registry, and then all other registries in alphabetical order. 
 
-It is possible to have Forge inject values from registries into `public static final` fields of classes. This is done by annotating classes and fields with `@ObjectHolder`. If a class has this annotation, all the `public static final` fields within are taken to be object holders too, and the value of the annotation is the namespace of the holder (i.e. every field uses it as the default namespace for the registry name of the object to inject). If a field has this annotation, and the value does not contain a namespace, the namespace is chosen from the surrounding class's `@ObjectHolder` annotation. If the class is not annotated in this situation, the field is ignored with a warning. If it does contain a namespace, then the object to inject into the field is the object with that name. If the class has the annotation and one of the `public static final` fields does not, then the resource path of the object's name is taken to be the field's name. The type of the registry is taken from the type of the field.
-
-!!! note
-    If an object is not found, either because the object itself hasn't been registered or because the registry does not exist, a debug message is logged and the field is left unchanged.
-
-As these rules are rather complicated, here are some examples:
+Here is an example: (note that the event handler must be registered on the *mod event bus* in the mod constructor)
 
 ```java
-@ObjectHolder("minecraft") // Resource namespace "minecraft"
+@SubscribeEvent
+public void registerBlocks(RegistryEvent.Register<Block> event) {
+    event.getRegistry().registerAll(block1, block2, ...);
+}
+```
+
+!!! note
+    `TileEntity` and `Entity` cannot be registered; instead, `TileEntityType` and `EntityType` are registered, and used in `TileEntity`/`Entity` constructors. These are created through the use of `TileEntityType.Builder` and `EntityType.Builder`, respectively. An example: (`REGISTER` refers to a `DeferredRegister<TileEntityType>`)
+    ```java
+    public static final RegistryObject<TileEntityType<ExampleTile>> EXAMPLE_TILE = REGISTER.register(
+        "example_tile", () -> TileEntityType.Builder.create(ExampleTile::new, EXAMPLE_BLOCK.get()).build(null)
+    );
+    ```
+
+Creating Custom Registries
+-------------------
+
+Custom registries are created by using `RegistryBuilder` during the `RegistryEvent.NewRegistry` event. The class `RegistryBuilder` takes certain parameters (such as the name, the `Class` of its values, and various callbacks for different events happening on the registry). Calling `RegistryBuilder#create` will result in the registry being built, registered to the `RegistryManager`, and returned to the caller for additional processing.
+
+The `Class` of the value of the registry must implement `IForgeRegistryEntry`, which defines that `#setRegistryName` and `#getRegistryName` can be called on the objects of that class. It is recommended to extend `ForgeRegistryEntity`, the default implementation instead of implementing the interface directly. When `#setRegistryName(String)` is called with a string, and that string does not have an explicit namespace, its namespace will be set to the current modid.
+
+The Forge registries can be accessed through the `ForgeRegistries` class. All registries, Forge-provided or custom, can be retrieved by calling `GameRegistry.findRegistry(Class)` with the appropriate class for the registry. For example, the registry for `Block`s can be retrieved by calling `GameRegistry.findRegistry(Block.class)`.
+
+Injecting Values Using @ObjectHolder
+-------------------------------------
+
+It is possible to have Forge inject registered object from registries into the `public static` fields of classes. This is done by annotating classes or fields with `@ObjectHolder` and supplying enough information to construct a `ResourceLocation` that identifies a specific object in a specific registry.
+
+The rules for `@ObjectHolder` are as follows:
+
+  * If the class is annotated with `@ObjectHolder`, its value will be the default namespace for all fields within if not explicitly defined
+  * If the class is annotated with `@Mod`, the modid will be the default namespace for all annotated fields within if not explicitly defined
+  * A field is considered for injection if:
+    * it has at least the modifiers `public static`;
+    * the field type corresponds to a valid registry (e.g. `Item` for the `Item` registry);
+    * *An exception is thrown if the field type does not correspond to a valid registry*
+    * the **field** is annotated with `@ObjectHolder`, then:
+        * the name value is explicitly defined; and
+        * the namespace value is either explicitly defined or the enclosing class's namespace
+    * the **enclosing class** has an `@ObjectHolder` annotation, and the field is `final`, then:
+        * the name value is the field's name; and
+        * the namespace value is the enclosing class's namespace
+        * *An exception is thrown if the namespace value cannot be found and inherited*
+  * *An exception is thrown if the resulting `ResourceLocation` is invalid (non-valid characters in path)*
+  * If no other errors or exceptions occur, the field will be injected
+  * If all of the above rules do not apply, no action will be taken (and a message may be logged)
+
+`@ObjectHolder` annotations are refreshed and their fields are injected with their values three times: after the `Block` registry event, after the `Item` registry event, and once after all other registries. 
+
+!!! note
+    If the object does not exist in the registry when it is to be injected, a debug message will be logged and no futher action taken.
+
+As these rules are rather complicated, here are some examples:
+```java
+@ObjectHolder("minecraft") // Inheritable resource namespace: "minecraft"
 class AnnotatedHolder {
-    public static final Block diamond_block = null; // public static final is required.
-                                                    // Type Block means that the Block registry will be queried.
-                                                    // diamond_block is the field name, and as the field is not annotated it is taken to be the resource path.
-                                                    // As there is no explicit namespace, "minecraft" is inherited from the class.
-                                                    // Object to be injected: "minecraft:diamond_block" from the Block registry.
+    public static final Block diamond_block = null; // No annotation. [public static final] is required.
+    												// Registry to be queried is [Block].
+    												// Name path is the name of the field: "diamond_block"
+    												// Namespace is not explicitly defined.
+    												// So, namespace is inherited from class annotation: "minecraft"
+    												// To inject: "minecraft:diamond_block" from the [Block] registry  
 
-    @ObjectHolder("ender_eye")
-    public static final Item eye_of_ender = null;   // Type Item means that the Item registry will be queried.
-                                                    // As the annotation has the value "ender_eye", that overrides the field's name.
-                                                    // As the namespace is not explicit, "minecraft" is inherited from the class.
-                                                    // Object to be injected: "minecraft:ender_eye" from the Item registry.
+	@ObjectHolder("ambient.cave")
+    public static SoundEvent ambient_sound = null;  // Annotation present. [public static] is required.
+    												// Registry to be queried is [SoundEvent].
+    												// Name path is the value of the annotation: "ambient.cave"
+    												// Namespace is not explicitly defined.
+    												// So, namespace is inherited from class annotation: "minecraft"
+    												// To inject: "minecraft:ambient.cave" from the [SoundEvent] registry
 
+	// Assume for the next entry that [ManaType] is a valid registry.  		
     @ObjectHolder("neomagicae:coffeinum")
-    public static final ManaType coffeinum = null;  // Type ManaType means that the ManaType registry will be queried. This is obviously a registry made by a mod.
-                                                    // As the annotation has the value "neomagicae:coffeinum", that overrides the field's name.
-                                                    // The namespace is explicit, and is "neomagicae", overriding the class's "minecraft" default.
-                                                    // Object to be injected: "neomagicae:coffeinum" from the ManaType registry.
+    public static final ManaType coffeinum = null;  // Annotation present. [public static] is required. [final] is optional.
+    												// Registry to be queried is [ManaType] (custom registry).
+    												// Resource location is explicitly defined: "neomagicae:coffeinum"
+    												// To inject: "neomagicae:coffeinum" from the [ManaType] registry 
 
-    public static final Item ENDER_PEARL = null;    // Note that the actual name is "minecraft:ender_pearl", not "minecraft:ENDER_PEARL".
-                                                    // However, since constructing a ResourceLocation lowercases the value, this will work.
+    public static final Item ENDER_PEARL = null;    // No annotation. [public static final] is required.
+    												// Registry to be queried is [Item].
+    												// Name path is the name of the field: "ENDER_PEARL" -> "ender_pearl"
+    												// !! ^ Field name is valid, because ResourceLocations
+    												//      lowercase their values automatically.
+    												// Namespace is not explicitly defined.
+    												// So, namespace is inherited from class annotation: "minecraft"
+    												// To inject: "minecraft:ender_pearl" from the [Item] registry 
+    												
+    public static Block bedrock = null;             // No annotation, so [public static final] is required.
+    												// Therefore, the field is ignored.
 }
 
-class UnannotatedHolder { // Note lack of annotation on this class.
+class UnannotatedHolder { // Note the lack of an @ObjectHolder annotation on this class.
     @ObjectHolder("minecraft:flame")
-    public static final Enchantment flame = null;   // No annotation on the class means that there is no preset namespace to inherit.
-                                                    // Field annotation supplies all the information for the object.
-                                                    // Object to be injected: "minecraft:flame" from the Enchantment registry.
+    public static final Enchantment flame = null;   // Annotation present. [public static] is required. [final] is optional.
+    												// Registry to be queried is [Enchantment].
+    												// Resource location is explicitly defined: "minecraft:flame"
+    												// To inject: "minecraft:flame" from the [Enchantment] registry  
 
-    public static final Biome ice_flat = null;      // No annotation on the class or the field.
-                                                    // Therefore this just gets ignored.
+    public static final Biome ice_flat = null;      // No annotation, so [public static final] is required.
+    												// No annotation on the enclosing class.
+    												// Therefore, the field is ignored.
+
+	@ObjectHolder("minecraft:creeper")
+    public static Entity creeper = null; 		    // Annotation present. [public static] is required.
+    												// No valid registry exists for [Entity].
+    												// Therefore, THIS WILL PRODUCE AN EXCEPTION.
 
     @ObjectHolder("levitation")
-    public static final Potion levitation = null;   // No resource namespace in annotation, and no default specified by class annotation.
-                                                    // Therefore, THIS WILL FAIL. The field annotation needs a namespace, or the class needs an annotation.
+    public static final Potion levitation = null;   // Annotation present. [public static] is required. [final] is optional.
+    												// Registry to be queried is [Potion].
+    												// Name path is the value of the annotation: "levitation"
+    												// Namespace is not explicitly defined.
+    												// No annotation in enclosing class.
+    												// Therefore, THIS WILL PRODUCE AN EXCEPTION.
 }
 ```
 
 [ResourceLocation]: resources.md#resourcelocation
 [events]: ../events/intro.md
-[ObjectHolder]: #injecting-registry-values-into-fields
