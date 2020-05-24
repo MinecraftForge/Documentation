@@ -3,9 +3,9 @@ Registries
 
 Registration is the process of taking the objects of a mod (such as items, blocks, sounds, etc.) and making them known to the game. Registering things is important, as without registration the game will simply not know about these objects in a mod and will cause unexplainable behavior and crashes. 
 
-Most things that require registration in the game are handled by the Forge registries. A registry is a object similar to a map that assigns values to keys. Forge uses registries with [`ResourceLocation`][ResourceLocation] keys to register objects. This allows the `ResourceLocation` to act as the "registry name" for objects. The registry name for an object may be accessed with `#getRegistryName`/`#setRegistryName`. The setter can only be called once; calling it twice results in an exception. 
+Most things that require registration in the game are handled by the Forge registries. A registry is an object similar to a map that assigns values to keys. Forge uses registries with [`ResourceLocation`][ResourceLocation] keys to register objects. This allows the `ResourceLocation` to act as the "registry name" for objects. The registry name for an object may be accessed with `#getRegistryName`/`#setRegistryName`. The setter can only be called once; calling it twice results in an exception. 
 
-Every type of registrable object has its own registry. To see all registries supported by Forge, see the `ForgeRegistries` class. All registry names within a registry must be unique. However, names in different registries will not collide. For example, there's a `Block` registry, and an `Item` registry. A `Block` and an `Item` may be registered with the same name `example:thing` without colliding; however, if two `Block`s or two `Item`s were registered with the same exact name, an exception will occur.
+Every type of registrable object has its own registry. To see all registries supported by Forge, see the `ForgeRegistries` class. All registry names within a registry must be unique. However, names in different registries will not collide. For example, there's a `Block` registry, and an `Item` registry. A `Block` and an `Item` may be registered with the same name `example:thing` without colliding; however, if two different `Block`s or `Item`s were registered with the same exact name, the second object will override the first.
 
 Methods for Registering
 ------------------
@@ -14,7 +14,7 @@ There are two proper ways to register objects: the `DeferredRegister` class, and
 
 ### DeferredRegister
 
-`DeferredRegister` is the newer, documented, and recommeded way to register objects. It allows the use and convenience of static initialisers while avoiding the issues associated with it. It simply maintains a list of suppliers for entries and registers the objects from those suppliers during the proper `Register` event.
+`DeferredRegister` is the newer and documented way to register objects. It allows the use and convenience of static initialisers while avoiding the issues associated with it. It simply maintains a list of suppliers for entries and registers the objects from those suppliers during the proper `Register` event.
 
 An example of a mod registering a custom block:
 
@@ -36,7 +36,7 @@ The event used in registering objects is the `RegistryEvent.Register<T>`. The ty
 
 `RegistryEvent.Register<?>` events are fired in this order: first, the `Block` registry, then the `Item` registry, and then all other registries in alphabetical order. 
 
-Here is an example: (note that the event handler must be registered on the *mod event bus* in the mod constructor)
+Here is an example: (the event handler is registered on the *mod event bus*)
 
 ```java
 @SubscribeEvent
@@ -46,21 +46,14 @@ public void registerBlocks(RegistryEvent.Register<Block> event) {
 ```
 
 !!! note
-    `TileEntity` and `Entity` cannot be registered; instead, `TileEntityType` and `EntityType` are registered, and used in `TileEntity`/`Entity` constructors. These are created through the use of `TileEntityType.Builder` and `EntityType.Builder`, respectively. An example: (`REGISTER` refers to a `DeferredRegister<TileEntityType>`)
+    [`TileEntity`][tileentity], `Entity`, and `Container` cannot be registered; instead, `TileEntityType`, `EntityType`, and `ContainerType` respectively are registered, and used in the formers' constructors. These `*Type` classes are factories that simply create the containing type on demand. 
+    
+    These factories are created through the use of their `*Type.Builder` classes. An example: (`REGISTER` refers to a `DeferredRegister<TileEntityType>`)
     ```java
     public static final RegistryObject<TileEntityType<ExampleTile>> EXAMPLE_TILE = REGISTER.register(
         "example_tile", () -> TileEntityType.Builder.create(ExampleTile::new, EXAMPLE_BLOCK.get()).build(null)
     );
     ```
-
-Creating Custom Registries
--------------------
-
-Custom registries are created by using `RegistryBuilder` during the `RegistryEvent.NewRegistry` event. The class `RegistryBuilder` takes certain parameters (such as the name, the `Class` of its values, and various callbacks for different events happening on the registry). Calling `RegistryBuilder#create` will result in the registry being built, registered to the `RegistryManager`, and returned to the caller for additional processing.
-
-The `Class` of the value of the registry must implement `IForgeRegistryEntry`, which defines that `#setRegistryName` and `#getRegistryName` can be called on the objects of that class. It is recommended to extend `ForgeRegistryEntity`, the default implementation instead of implementing the interface directly. When `#setRegistryName(String)` is called with a string, and that string does not have an explicit namespace, its namespace will be set to the current modid.
-
-The Forge registries can be accessed through the `ForgeRegistries` class. All registries, Forge-provided or custom, can be retrieved by calling `GameRegistry.findRegistry(Class)` with the appropriate class for the registry. For example, the registry for `Block`s can be retrieved by calling `GameRegistry.findRegistry(Block.class)`.
 
 Injecting Values Using @ObjectHolder
 -------------------------------------
@@ -156,5 +149,15 @@ class UnannotatedHolder { // Note the lack of an @ObjectHolder annotation on thi
 }
 ```
 
+Creating Custom Registries
+-------------------
+
+Custom registries are created by using `RegistryBuilder` during the `RegistryEvent.NewRegistry` event. The class `RegistryBuilder` takes certain parameters (such as the name, the `Class` of its values, and various callbacks for different events happening on the registry). Calling `RegistryBuilder#create` will result in the registry being built, registered to the `RegistryManager`, and returned to the caller for additional processing.
+
+The `Class` of the value of the registry must implement `IForgeRegistryEntry`, which defines that `#setRegistryName` and `#getRegistryName` can be called on the objects of that class. It is recommended to extend `ForgeRegistryEntry`, the default implementation instead of implementing the interface directly. When `#setRegistryName(String)` is called with a string, and that string does not have an explicit namespace, its namespace will be set to the current modid.
+
+The Forge registries can be accessed through the `ForgeRegistries` class. All registries, Forge-provided or custom, can be retrieved by calling `GameRegistry.findRegistry(Class)` with the appropriate class for the registry. For example, the registry for `Block`s can be retrieved by calling `GameRegistry.findRegistry(Block.class)`.
+
 [ResourceLocation]: resources.md#resourcelocation
 [events]: ../events/intro.md
+[tileentity]: ../tileentities/tileentity.md
