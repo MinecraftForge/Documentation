@@ -68,7 +68,7 @@ The default Gradle configuration replaces `${file.jarVersion}` with the project 
 |  displayName |  string  | mandatory | The user-friendly name of this mod. |
 | updateJSONURL |  string  |   `""`   | The URL to a [version JSON](autoupdate#forge-update-checker). |
 |   displayURL |  string  |   `""`   | A link to the mod's homepage. |
-|     logoFile |  string  |   `""`   | The path to the mod's logo. It is resolved on top of the classpath, so you should put it in a location where the name will not conflict, maybe under your own assets folder. |
+|     logoFile |  string  |   `""`   | The filename of to the mod's logo. The image need to be placed in the resource folder. It's not allowed to put the image in a subfolder. |
 |      credits |  string  |   `""`   | A string that contains any acknowledgements you want to mention. |
 |      authors |  string  |   `""`   | The authors to this mod. |
 |  description |  string  | mandatory | A description of this mod. |
