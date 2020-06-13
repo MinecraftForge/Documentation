@@ -47,7 +47,7 @@ Once you have your own instance of the capability interface, you will want to no
 
 ```Java
 @Override
-public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+public boolean hasCapability(Capability<?> capability, Direction facing) {
   if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
     return true;
   }
@@ -59,11 +59,27 @@ Similarly, you will want to provide the interface reference to your capability i
 
 ```Java
 @Override
-public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+public <T> T getCapability(Capability<T> capability, Direction facing) {
   if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
     return (T) inventory;
   }
   return super.getCapability(capability, facing);
+}
+```
+
+Capabilities can be exposed in itemstacks using the `initCapabilities` method.
+
+```Java
+@Override
+public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT nbt) {
+  return new ICapabilityProvider() {
+
+    @Override
+    public<T> getCapability(Capability<T> capability, Direction facing) {
+      return super.getCapability(capability, facing);
+    }
+  
+  }
 }
 ```
 
