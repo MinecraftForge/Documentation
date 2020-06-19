@@ -21,8 +21,6 @@ The order in which `RegistryEvent.Register` events fire is alphabetically, with 
 
 `RegistryEvent`s are currently supported for the following types: `Block`, `Item`, `Potion`, `Biome`, `SoundEvent`, `PotionType`, `Enchantment`, `IRecipe`, `VillagerProfession`, `EntityEntry`
 
-There is another, older way of registering objects into registries, using `GameRegistry.register`. Anytime something suggests using this method, it should be replaced with an event handler for the appropriate registry event. This method simply finds the registry corresponding to an `IForgeRegistryEntry` with `IForgeRegistryEntry::getRegistryType`, and then registers the object to the registry. There is also a convenience overload that takes an `IForgeRegistryEntry` and a `ResourceLocation`, which is equivalent to calling `IForgeRegistryEntry::setRegistryName`, followed by a `GameRegistry.register` call.
-
 !!! information
 	Registering an `Entity` or `TileEntity` might be a little bit confusing at first as it doesn't use the `Entity` or `TileEntity` classes, but an `EntityType` or `TileEntityType`. These are created by making use of `EntityType.Builder` or `TileEntityType.Builder`.
 	The `String` parameter of the builder's `build` method is a data-fixer id. Data fixers do not work with mods (yet) so you should pass `null` in.
