@@ -46,7 +46,7 @@ public void registerBlocks(RegistryEvent.Register<Block> event) {
 ```
 
 !!! note
-    Some classes cannot by themself be registered; instead, `*Type` classes are registered, and used in the formers' constructors. For example, [`TileEntity`][tileentity] has `TileEntityType`, and `Entity` has `EntityType`. These `*Type` classes are factories that simply create the containing type on demand. 
+    Some classes cannot by themselves be registered; instead, `*Type` classes are registered, and used in the formers' constructors. For example, [`TileEntity`][tileentity] has `TileEntityType`, and `Entity` has `EntityType`. These `*Type` classes are factories that simply create the containing type on demand. 
     
     These factories are created through the use of their `*Type.Builder` classes. An example: (`REGISTER` refers to a `DeferredRegister<TileEntityType>`)
     ```java
