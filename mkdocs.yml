@@ -35,6 +35,7 @@ nav:
     - Coloring Textures: 'models/color.md'
     - Item Property Overrides: 'models/overrides.md'
     - Advanced Models:
+      - Model Data: 'models/advanced/modeldata.md'
       - IBakedModel: 'models/advanced/ibakedmodel.md'
       - Perspective: 'models/advanced/perspective.md'
       - ItemOverrideList: 'models/advanced/itemoverridelist.md'
