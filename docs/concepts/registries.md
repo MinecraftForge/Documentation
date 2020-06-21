@@ -34,8 +34,6 @@ The `RegistryEvent`s are the second and more flexible way to register objects. T
 
 The event used in registering objects is the `RegistryEvent.Register<T>`. The type parameter `T` should be set to the type of the object being registered. Calling `#getRegistry` will return the registry, upon which objects are registered with `#register` or `#registerAll`. 
 
-`RegistryEvent.Register<?>` events are fired in this order: first, the `Block` registry, then the `Item` registry, and then all other registries in alphabetical order. 
-
 Here is an example: (the event handler is registered on the *mod event bus*)
 
 ```java
