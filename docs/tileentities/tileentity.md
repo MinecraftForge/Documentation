@@ -59,7 +59,7 @@ Use them to read and write to the fields in your tile entity class.
 If you need a ticking `TileEntity`, for example to keep track of the progress during a smelting process, you need to add the `net.minecraft.tileentity.ITickableTileEntity` interface to your `TileEntity`.
 Now you can implement all your calculations within
 ```JAVA
-ITickableTileEntity#update()
+ITickableTileEntity#tick()
 ```
 
 !!! note
