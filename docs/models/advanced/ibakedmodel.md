@@ -38,16 +38,20 @@ See [Perspective][].
 
 ### `getQuads`
 
-This is the main method of `IBakedModel`. It returns `BakedQuad`s, which contain the low-level vertex data that will be used to render the model. If the model is being rendered as a block, then the `IBlockState` passed in is non-null. Additionally, [`Block::getExtendedState`][extended blockstates] is called to create the passed `IBlockState`, which allows for arbitrary data to be passed from the block to the model. If the model is being rendered as an item, the `ItemOverrideList` returned from `getOverrides` is responsible for handling the state of the item, and the `IBlockState` parameter will be `null`.
+This is the main method of `IBakedModel`. It returns `BakedQuad`s, which contain the low-level vertex data that will be used to render the model. If the model is being rendered as a block, then the `IBlockState` passed in is non-null. Additionally, there is a [`IModelData`][modeldata] parameter which contains the data which is passed from the `TileEntity` allowing arbitrary data to be passed from the block to the model. If the model is being rendered as an item, the `ItemOverrideList` returned from `getOverrides` is responsible for handling the state of the item, and the `IBlockState` parameter will be `null`.
 
-The `EnumFacing` passed in is used for face culling. If the block against the given side of the block being rendered is opaque, then the faces associated with that side are not rendered. If that parameter is `null`, all faces not associated with a side are returned (that will never be culled).
+The `Direction` passed in is used for face culling. If the block against the given side of the block being rendered is opaque, then the faces associated with that side are not rendered. If that parameter is `null`, all faces not associated with a side are returned (that will never be culled).
 
 Note that this method is called very often: once for every combination of non-culled face and supported block render layer (anywhere between 0 to 28 times) *per block in world*. This method should be as fast as possible, and should probably cache heavily.
 
-The `long` parameter is a random number.
+The `Random` parameter is used for randomised models.
+
+### `getModelData`
+
+This method provides the [`IModelData`][modeldata] instance to the `getQuads` method and has access to the `ILightReader` world, `BlockPos` for the block which is being rendered and the [`IModelData`][modeldata] instance as passed from the `TileEntity`. By default this will pass the [`IModelData`][modeldata] parameter straight to the `getQuads` method but can be used to modify `ModelProperty`'s (see [Model Data][modeldata]). An example use case of this method is to provide the `BlockState` to render for a camouflage block from the neighbouring blocks.
 
 [IModel::bake]: imodel.md#bake
 [Perspective]: perspective.md
 [ItemOverrideList]: itemoverridelist.md
-[extended blockstates]: extended-blockstates.md
+[modeldata]: modeldata.md
 [teisr]: ../../rendering/teisr.md
