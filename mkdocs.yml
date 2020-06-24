@@ -42,6 +42,7 @@ nav:
     - ItemStackTileEntityRenderer: 'rendering/ister.md'
   - Events:
     - Basic Usage: 'events/intro.md'
+    - Jigsaw Event: 'events/jigsawevent.md'
   - Networking:
     - Home: 'networking/index.md'
     - Overview: 'networking/overview.md'
