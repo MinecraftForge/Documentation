@@ -9,12 +9,13 @@ Therefore, there is little sense in having configurable recipes or mob drops. An
 ### Dev Environment
 In your project, you have a folder "resources" that has to contain a folder "data". This folder will be your datapacks. 
 Your mod can have multiple, since you can add or modify already existing datapacks, like vanilla's, forge's and another mod's. 
-After that, [Resource Locations][resloc] come in for the path. 
+After that, [Resource Locations][resourcelocation] come in for the path. 
 
 ### Overriding Files
 To modify a datapack (be it the end user or in dev), you need to know the mod id and the registry name of the item/mob/advancement that you want to override. 
 These can be found after launching the mod (F3+h), but providing it for users in a simpler way can be helpful (using Github will allow users to navigate the datapack you provide with the mod).
-You can then follow the steps found [here](https://minecraft.gamepedia.com/Tutorials/Creating_a_data_pack) to create any datapack.
+You can then follow the steps found [here][createdatapack] to create any datapack.
 
-[resloc]: resource.md
+[resourcelocation]: resources.md
 [datapack]: https://minecraft.gamepedia.com/Data_pack
+[createdatapack]: https://minecraft.gamepedia.com/Tutorials/Creating_a_data_pack
