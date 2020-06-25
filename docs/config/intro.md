@@ -6,23 +6,41 @@ Forge has built in support for creating and managing mod configuration files. Th
 Creating
 --------
 
-Create a dedicated class. Use the builder instance to define the configuration structure and data.
+Create a dedicated class. Use the builder instance to define the configuration structure and data. Comments are 100% optional. 
 
 ```java
-private BooleanValue mySetting;
+private BooleanValue myBool;
+public IntValue<THING> myInt;
+public EnumValue<THING> myEnum;
 
 public ServerConfig(ForgeConfigSpec.Builder builder) {
   builder.comment("examplemod settings"); // Comment at the start of the file
-  
-  builder.push("Example Category"); // 'Enter' the Category
-  
-  mySetting = builder
-    .comment("Set this to true to enable something") // Comment on the setting
-    .translation("examplemod.exampleboolserver") // Language translation key
-    .define("exampleboolserver", false); // Setting key and default value
 
+  myBool = builder
+    .comment("Set this to true to enable something") // Comment on the setting
+    .translation("examplemod.examplebool") // Language translation key
+    .define("examplebool", false); // Setting key and default value
+  
+  builder.push("Example Category 1"); // 'Enter' the Category  
+  myInt = builder
+    .translation("examplemod.exampleint")
+    .defineEnum("exampleint", THING.ONE); // Valid settings for enums are all values in the enum set
+  builder.pop(); // 'Exit' the category
+  
+  builder.push("Example Category 2"); // 'Enter' the Category
+  myEnum = builder
+    .comment("Choose which thing")
+    .translation("examplemod.exampleenum")
+    .defineInRange("exampleenum", 5, 0, 30); // For integers, you can specify allowed value range
   builder.pop(); // 'Exit' the category
 }
+```
+
+Default Values
+--------------
+
+```java
+
 ```
 
 Registration
@@ -45,7 +63,7 @@ Simply call the setting's get method.
 
 ```java
 protected final static Config serverConfig = serverConfigPair.getLeft();
-serverConfig.mySetting.get()
+serverConfig.myBool.get()
 ```
 
 Changing Values
