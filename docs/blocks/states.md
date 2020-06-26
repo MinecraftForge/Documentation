@@ -60,7 +60,7 @@ Every block will also have a "default" state that is automatically chosen for yo
 
 `BlockState`'s are immutable and pregenerated, this means that calling `BlockState.with(IProperty<T>, T)` will simply go to the `BlockState`/`StateContainer` and request the BlockState with the set of values you want, instead of constructing a new `BlockState`.
 
-It follows very easily from this that since basic `BlockState`'s are generated into a fixed set at startup, you are able and encouraged to use reference comparison (==) to check if they are equal.
+It follows very easily from this that since basic `BlockState`s are generated into a fixed set at startup, you are able and encouraged to use reference comparison (==) to check if they are equal.
 
 
 Using `BlockState`'s
