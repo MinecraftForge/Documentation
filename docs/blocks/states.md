@@ -41,26 +41,26 @@ Now that I've successfully convinced you that properties and values are superior
 
 In your Block class, create static final `IProperty<>` objects for every property that your Block has. Vanilla provides us several convenience implementations:
   
-  * `PropertyInteger`: Implements `IProperty<Integer>`. Created by calling PropertyInteger.create("<name>", <min>, <max>);
-  * `PropertyBool`: Implements `IProperty<Boolean>`. Created by calling PropertyBool.create("<name>");
-  * `PropertyEnum<E extends Enum<E>>`: Implements `IProperty<E>`, Defines a property that can take on the values of an Enum class. Created by calling PropertyEnum.create("name", <enum_class>);
+  * `IntegerProperty`: Implements `IProperty<Integer>`. Created by calling IntegerProperty.create("<name>", <min>, <max>);
+  * `BooleanProperty`: Implements `IProperty<Boolean>`. Created by calling BooleanProperty.create("<name>");
+  * `EnumProperty<E extends Enum<E>>`: Implements `IProperty<E>`, Defines a property that can take on the values of an Enum class. Created by calling EnumProperty.create("name", <enum_class>);
     * You can also use only a subset of the Enum values (for example, you can use only 4 of the 16 `DyeColor`'s. Take a look at the other overloads of `PropertyEnum.create`)
-  * `PropertyDirection`: This is a convenience implementation of `PropertyEnum<Direction>`
-    * Several convenience predicates are also provided. For example, to get a property that represents the cardinal directions, you would call `PropertyDirection.create("<name>", Direction.Plane.HORIZONTAL)`. Or to get the X directions, `PropertyDirection.create("<name>", Direction.Axis.X)`
+  * `DirectionProperty`: This is a convenience implementation of `PropertyEnum<Direction>`
+    * Several convenience predicates are also provided. For example, to get a property that represents the cardinal directions, you would call `DirectionProperty.create("<name>", Direction.Plane.HORIZONTAL)`. Or to get the X directions, `DirectionProperty.create("<name>", Direction.Axis.X)`
 
 Note that you are free to make your own `IProperty<>` implementations, but the means to do that are not covered in this article.
 In addition, note that you can share the same `IProperty` object between different blocks if you wish. Vanilla generally has separate ones for every single block, but it is merely personal preference.
 
 !!! Note 
-    If your mod has an API or is meant to be interacted with from other mods, it is **very highly** recommended that you instead place your `IProperty`'s (and any classes used as values) in your API. That way, people can use properties and values to set your blocks in the world instead of having to suffer with arbitrary numbers like you used to.
+    If your mod has an API or is meant to be interacted with from other mods, it is recommended that you instead place your `IProperty` impementations (and any classes used as values) in your API. That way, people can use properties and values to set your blocks in the world.
 
-After you've created your `IProperty<>` objects, override `fillStateContainer` in your Block class. In that method, simply write `builder.add(...);`. Pass every `IProperty` you want the block to have.
+After you've created your `IProperty<?>` objects, override `protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)` in your Block class. In that method, you need to pass each of your Properties to `builder.add(IProperty<?>);`.
 
 Every block will also have a "default" state that is automatically chosen for you. You can overwrite this "default" by overwriting the `getDefaultState()` method. More importantly, when your block is placed it will become this "default" state. However if you wish to customise which `BlockState` is placed when you your block is placed you can overwrite `getStateForPlacement()`. This can be used to for example set the direction of your block depending on where the player is standing when they place it.
 
-`BlockState`'s are immutable and pregenerated, this means calling `BlockState.with(<PROPERTY>, <NEW_VALUE>)` will simply go to the `BlockState`/`StateContainer` and request the BlockState with the set of values you want, instead of constructing a new `BlockState`.
+`BlockState`'s are immutable and pregenerated, this means that calling `BlockState.with(IProperty<T>, T)` will simply go to the `BlockState`/`StateContainer` and request the BlockState with the set of values you want, instead of constructing a new `BlockState`.
 
-It follows very easily from this that since basic `BlockState`'s are generated into a fixed set at startup, you are able and encouraged to use reference comparison (==) to check if they are equal!
+It follows very easily from this that since basic `BlockState`'s are generated into a fixed set at startup, you are able and encouraged to use reference comparison (==) to check if they are equal.
 
 
 Using `BlockState`'s
