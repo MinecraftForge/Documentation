@@ -41,6 +41,8 @@ nav:
       - ItemOverrideList: 'models/advanced/itemoverridelist.md'
   - Rendering:
     - ItemStackTileEntityRenderer: 'rendering/ister.md'
+  - Data Generation:
+    - Introduction: 'datagen/intro.md'
   - Events:
     - Basic Usage: 'events/intro.md'
   - Networking:
