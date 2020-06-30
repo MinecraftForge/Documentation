@@ -78,10 +78,10 @@ The rules for `@ObjectHolder` are as follows:
 * If no other errors or exceptions occur, the field will be injected
 * If all of the above rules do not apply, no action will be taken (and a message may be logged)
 
-`@ObjectHolder` annotations are refreshed and their fields are injected with their values three times: after the `Block` registry event, after the `Item` registry event, and once after all other registries. 
+`@ObjectHolder`-annotated fields are injected with their values after their corresponding registry's `RegistryEvent.Register` event is fired.
 
 !!! note
-    If the object does not exist in the registry when it is to be injected, a debug message will be logged and no futher action taken.
+    If the object does not exist in the registry when it is to be injected, a debug message will be logged and no value will be injected.
 
 As these rules are rather complicated, here are some examples:
 ```java
