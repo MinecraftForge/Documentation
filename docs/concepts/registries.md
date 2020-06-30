@@ -64,16 +64,17 @@ The rules for `@ObjectHolder` are as follows:
 * If the class is annotated with `@Mod`, the modid will be the default namespace for all annotated fields within if not explicitly defined
 * A field is considered for injection if:
     * it has at least the modifiers `public static`;
-    * the field type corresponds to a valid registry (e.g. `Item` for the `Item` registry);
-    * *An exception is thrown if the field type does not correspond to a valid registry*
-    * the **field** is annotated with `@ObjectHolder`, then:
-        * the name value is explicitly defined; and
-        * the namespace value is either explicitly defined or the enclosing class's namespace
-    * the **enclosing class** has an `@ObjectHolder` annotation, and the field is `final`, then:
-        * the name value is the field's name; and
-        * the namespace value is the enclosing class's namespace
-        * *An exception is thrown if the namespace value cannot be found and inherited*
-* *An exception is thrown if the resulting `ResourceLocation` is invalid (non-valid characters in path)*
+    * one of the following conditions are true:
+        * the **enclosing class** has an `@ObjectHolder` annotation, and the field is `final`, and:
+            * the name value is the field's name; and
+            * the namespace value is the enclosing class's namespace
+            * _An exception is thrown if the namespace value cannot be found and inherited_
+        * the **field** is annotated with `@ObjectHolder`, and:
+            * the name value is explicitly defined; and
+            * the namespace value is either explicitly defined or the enclosing class's namespace
+    * the field type or one of its supertypes corresponds to a valid registry (e.g. `Item` or `ArrowItem` for the `Item` registry);
+    * _An exception is thrown if a field does not have a corresponding registry._
+* _An exception is thrown if the resulting `ResourceLocation` is incomplete or invalid (non-valid characters in path)_
 * If no other errors or exceptions occur, the field will be injected
 * If all of the above rules do not apply, no action will be taken (and a message may be logged)
 
@@ -87,7 +88,7 @@ As these rules are rather complicated, here are some examples:
 @ObjectHolder("minecraft") // Inheritable resource namespace: "minecraft"
 class AnnotatedHolder {
     public static final Block diamond_block = null; // No annotation. [public static final] is required.
-                                                    // Registry to be queried is [Block].
+                                                    // Block has a corresponding registry: [Block]
                                                     // Name path is the name of the field: "diamond_block"
                                                     // Namespace is not explicitly defined.
                                                     // So, namespace is inherited from class annotation: "minecraft"
@@ -95,7 +96,7 @@ class AnnotatedHolder {
 
     @ObjectHolder("ambient.cave")
     public static SoundEvent ambient_sound = null;  // Annotation present. [public static] is required.
-                                                    // Registry to be queried is [SoundEvent].
+                                                    // SoundEvent has a corresponding registry: [SoundEvent]
                                                     // Name path is the value of the annotation: "ambient.cave"
                                                     // Namespace is not explicitly defined.
                                                     // So, namespace is inherited from class annotation: "minecraft"
@@ -104,12 +105,12 @@ class AnnotatedHolder {
     // Assume for the next entry that [ManaType] is a valid registry.          
     @ObjectHolder("neomagicae:coffeinum")
     public static final ManaType coffeinum = null;  // Annotation present. [public static] is required. [final] is optional.
-                                                    // Registry to be queried is [ManaType] (custom registry).
+                                                    // ManaType has a corresponding registry: [ManaType] (custom registry)
                                                     // Resource location is explicitly defined: "neomagicae:coffeinum"
                                                     // To inject: "neomagicae:coffeinum" from the [ManaType] registry
 
     public static final Item ENDER_PEARL = null;    // No annotation. [public static final] is required.
-                                                    // Registry to be queried is [Item].
+                                                    // Item has a corresponding registry: [Item].
                                                     // Name path is the name of the field: "ENDER_PEARL" -> "ender_pearl"
                                                     // !! ^ Field name is valid, because ResourceLocations
                                                     //      lowercase their values automatically.
@@ -117,29 +118,41 @@ class AnnotatedHolder {
                                                     // So, namespace is inherited from class annotation: "minecraft"
                                                     // To inject: "minecraft:ender_pearl" from the [Item] registry
 
+    @ObjectHolder("minecraft:arrow")
+    public static final ArrowItem arrow = null;     // Annotation present. [public static] is required. [final] is optional.
+                                                    // ArrowItem does not have a corresponding registry.
+                                                    // ArrowItem's supertype of Item has a corresponding registry: [Item]
+                                                    // Resource location is explicitly defined: "minecraft:arrow"
+                                                    // To inject: "minecraft:arrow" from the [Item] registry                                                    
+
     public static Block bedrock = null;             // No annotation, so [public static final] is required.
                                                     // Therefore, the field is ignored.
+    
+    public static final ItemGroup group = null;     // No annotation. [public static final] is required.
+                                                    // ItemGroup does not have a corresponding registry.
+                                                    // No supertypes of ItemGroup has a corresponding registry.
+                                                    // Therefore, THIS WILL PRODUCE AN EXCEPTION.
 }
 
 class UnannotatedHolder { // Note the lack of an @ObjectHolder annotation on this class.
     @ObjectHolder("minecraft:flame")
     public static final Enchantment flame = null;   // Annotation present. [public static] is required. [final] is optional.
-                                                    // Registry to be queried is [Enchantment].
+                                                    // Enchantment has corresponding registry: [Enchantment].
                                                     // Resource location is explicitly defined: "minecraft:flame"
                                                     // To inject: "minecraft:flame" from the [Enchantment] registry
 
-    public static final Biome ice_flat = null;      // No annotation, so [public static final] is required.
-                                                    // No annotation on the enclosing class.
+    public static final Biome ice_flat = null;      // No annotation on the enclosing class.
                                                     // Therefore, the field is ignored.
 
     @ObjectHolder("minecraft:creeper")
     public static Entity creeper = null;            // Annotation present. [public static] is required.
-                                                    // No valid registry exists for [Entity].
+                                                    // Entity does not have a corresponding registry.
+                                                    // No supertypes of Entity has a corresponding registry.
                                                     // Therefore, THIS WILL PRODUCE AN EXCEPTION.
 
     @ObjectHolder("levitation")
     public static final Potion levitation = null;   // Annotation present. [public static] is required. [final] is optional.
-                                                    // Registry to be queried is [Potion].
+                                                    // Potion has a corresponding registry: [Potion].
                                                     // Name path is the value of the annotation: "levitation"
                                                     // Namespace is not explicitly defined.
                                                     // No annotation in enclosing class.
