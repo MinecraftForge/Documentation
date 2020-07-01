@@ -135,4 +135,4 @@ SimpleChannel#send(PacketDistributor.PacketTarget, MSG)
 
 [networking]: ../networking/index.md
 [simple_impl]: ../networking/simpleimpl.md
-[storing-data]: tileentity.md#storing-data-within-your-tileentity
+[storing-data]: #storing-data-within-your-tileentity

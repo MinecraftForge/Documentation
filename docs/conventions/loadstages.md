@@ -45,7 +45,7 @@ Here, mods should process all the messages they have received from other mods an
 
 ##Other Important Events
 
-  * FMLServerStartingEvent: Register Commands
+  * `FMLServerStartingEvent`: Register Commands
 
 [registering]: ../concepts/registries.md#registering-things
 [capabilities]: ../datastorage/capabilities.md
