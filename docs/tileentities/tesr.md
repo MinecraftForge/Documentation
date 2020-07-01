@@ -20,7 +20,7 @@ This method is called every frame in order to render the tile entity.
 * `matrixStackIn`: A stack holding four-dimensional matrix entries offset to the current position of the tile entity.
 * `bufferIn`: A rendering buffer able to access a vertex builder.
 * `combinedLightIn`: An integer of the current light value on the tile entity.
-* `combinedOverlayIn`: An integer set to the current overlay of the tile entity, usually OverlayTexture#NO_OVERLAY or 655,360.
+* `combinedOverlayIn`: An integer set to the current overlay of the tile entity, usually `OverlayTexture#NO_OVERLAY` or 655,360.
 
 Registering a TER
 -----------------
