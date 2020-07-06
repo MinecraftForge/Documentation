@@ -21,7 +21,7 @@ IEnergyStorage exposes an interface for handling energy containers. It can be ap
 Using an Existing Capability
 ----------------------------
 
-As mentioned earlier, TileEntities, Entities, and ItemStacks implement the capability provider feature, through the `ICapabilityProvider` interface. This interface adds two methods, `hasCapability` and `getCapability`, which can be used to query the capabilities present in the objects.
+As mentioned earlier, TileEntities, Entities, and ItemStacks implement the capability provider feature, through the `ICapabilityProvider` interface. This interface adds the method `getCapability`, which can be used to query the capabilities present in the objects.
 
 In order to obtain a capability, you will need to refer it by its unique instance. In the case of the Item Handler, this capability is primarily stored in `CapabilityItemHandler.ITEM_HANDLER_CAPABILITY`, but it is possible to get other instance references by using the `@CapabilityInject` annotation.
 
@@ -32,7 +32,7 @@ static Capability<IItemHandler> ITEM_HANDLER_CAPABILITY = null;
 
 This annotation can be applied to fields and methods. When applied to a field, it will assign the instance of the capability (the same one gets assigned to all fields) upon registration of the capability, and left to the existing value (`null`), if the capability was never registered. Because local static field accesses are fast, it is a good idea to keep your own local copy of the reference for objects that work with capabilities. This annotation can also be used on a method, in order to get notified when a capability is registered, so that certain features can be enabled conditionally.
 
-Both the `hasCapability` and `getCapability` methods have a second parameter, of type EnumFacing, which can be used in the to request the specific instance for that one face. If passed `null`, it can be assumed that the request comes either from within the block, or from some place where the side has no meaning, such as a different dimension. In this case a general capability instance that does not care about sides will be requested instead. The return type of `getCapability` will correspond to the type declared in the capability passed to the method. For the Item Handler capability, this is indeed `IItemHandler`.
+The `getCapability` method has a second parameter, of type `Direction`, which can be used in the to request the specific instance for that one face. If passed `null`, it can be assumed that the request comes either from within the block, or from some place where the side has no meaning, such as a different dimension. In this case a general capability instance that does not care about sides will be requested instead. The return type of `getCapability` will be a `LazyOptional<T>` with `T` being the type declared in the capability passed to the method. For the Item Handler capability, this is indeed `LazyOptional<IItemHandler>`.
 
 Exposing a Capability
 ---------------------
@@ -43,25 +43,15 @@ There's two ways to obtain such an instance, through the Capability itself, or b
 
 The second method can be used to provide custom implementations. In the case of `IItemHandler`, the default implementation uses the `ItemStackHandler` class, which has an optional argument in the constructor, to specify a number of slots. However, relying on the existence of these default implementations should be avoided, as the purpose of the capability system is to prevent loading errors in contexts where the capability is not present, so instantiation should be protected behind a check testing if the capability has been registered (see the remarks about `@CapabilityInject` in the previous section).
 
-Once you have your own instance of the capability interface, you will want to notify users of the capability system that you expose this capability. This is done by overriding the `hasCapability` method, and comparing the instance with the capability you are exposing. If your machine has different slots based on which side is being queried, you can test this with the `facing` parameter. For Entities and ItemStacks, this parameter can be ignored, but it is still possible to have side as a context, such as different armor slots on a player (top side => head slot?), or about the surrounding blocks in the inventory (west => slot on the left?). Don't forget to fall back to `super`, otherwise the attached capabilities will stop working.
+Once you have your own instance of the capability interface, you will want to notify users of the capability system that you expose this capability. This used to be done by overriding the `hasCapability` method, and comparing the instance with the capability you are exposing. However, now only `getCapability` is used, and checking if an object has a capability is done by checking if `someObj.getCapability(testCap, testSide) != null`. If your machine has different slots based on which side is being queried, you can test this with the `side` parameter. For Entities and ItemStacks, this parameter can be ignored, but it is still possible to have side as a context, such as different armor slots on a player (top side => head slot?), or about the surrounding blocks in the inventory (west => slot on the left?). Don't forget to fall back to `super`, otherwise the attached capabilities will stop working.
+
+ Again, don't forget to fall back to `super`.
 
 ```Java
 @Override
-public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-  if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-    return true;
-  }
-  return super.hasCapability(capability, facing);
-}
-```
-
-Similarly, you will want to provide the interface reference to your capability instance, when requested. Again, don't forget to fall back to `super`.
-
-```Java
-@Override
-public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-  if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-    return (T) inventory;
+public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
+  if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+    return LazyOptional.of(myItemStackHandler);
   }
   return super.getCapability(capability, facing);
 }
