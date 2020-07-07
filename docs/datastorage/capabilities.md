@@ -46,10 +46,16 @@ The second method can be used to provide custom implementations. In the case of 
 Once you have your own instance of the capability interface, you will want to notify users of the capability system that you expose this capability and provide an optional of the interface reference. This is done by overriding the `getCapability` method, and comparing the instance with the capability you are exposing. If your machine has different slots based on which side is being queried, you can test this with the `side` parameter. For Entities and ItemStacks, this parameter can be ignored, but it is still possible to have side as a context, such as different armor slots on a player (top side => head slot?), or about the surrounding blocks in the inventory (west => slot on the left?). Don't forget to fall back to `super`, otherwise the attached capabilities will stop working.
 
 ```Java
+// Somewhere in your TileEntity subclass
+LazyOptional<IItemHandler> inventoryHandlerLazyOptional;
+
+// After initializing inventoryHandler
+inventoryHandlerLazyOptional = LazyOptional.of(() -> inventoryHandler);
+
 @Override
 public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
   if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-    return (T) inventoryHandler.cast();
+    return inventoryHandlerLazyOptional.cast();
   }
   return super.getCapability(cap, side);
 }
