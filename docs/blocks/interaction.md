@@ -32,11 +32,12 @@ This is the method that controls right click behavior.
 
 `ActionResultType` is the result right clicking, see example usages below. `ActionResultType.SUCCESS` means the right click action was successful. `ActionResultType.CONSUME` means that the right click action was consumed. `ActionResultType.PASS` is the default behavior, for when the block has no right click behavior, and allows something else to handle the right click. `ActionResultType.FAIL` means that the action failed.
 
-Examples of `ActionResultType` usage:
-`SUCCESS`: Eating a slice of cake.
-`CONSUME`: Tuning a noteblock.
-`PASS`: When right-clicking dirt. Or any other basic block.
-`FAIL`: When attempting to place a minecart on a block other than rails.
+| Enum Value |                           Example Usage                          |
+|:----------:|:----------------------------------------------------------------:|
+|  `SUCCESS` | Eating a slice of cake.                                          |
+|  `CONSUME` | Tuning a noteblock.                                              |
+|   `PASS`   | When right-clicking dirt. Or any other basic block.              |
+|   `FAIL`   | When attempting to place a minecart on a block other than rails. |
 
 !!! important
     Returning `ActionResultType.CONSUME` from this method on the client will prevent it being called on the server. It is common practice to just check `worldIn.isRemote` and return `ActionResultType.SUCCESS`, and otherwise go on to normal activation logic. Vanilla has many examples of this, such as the chest.
