@@ -13,7 +13,21 @@ If an item inherits from the `builtin/generated` model, each layer ("layer0", "l
 
 `IBlockColors` need to be registered to the `BlockColors` instance of the game. `BlockColors` can be acquired through `ColorHandlerEvent.Block`, and an `IBlockColor` can be registered by `BlockColors::register`. Note that this does not cause the `BlockItem` for the given block to be colored. `BlockItem`s are items and need to colored with an `IItemColor`.
 
+`
+@SubscribeEvent
+public void registerBlockColors(ColorHandlerEvent.Block event){
+    event.getBlockColors().register(myIBlockColor, coloredBlock1, coloredBlock2, ...);
+}
+`
+
 `IItemColors` need to be registered to the `ItemColors` instance of the game. `ItemColors` can be acquired through `ColorHandlerEvent.Item`, and an `IItemColor` can be registered by `ItemColors::register`. This method is overloaded to also take `Block`s, which simply registers the color handler for the item `block.asItem()` (i.e. the block's `BlockItem`).
+
+`
+@SubscribeEvent
+public void registerItemColors(ColorHandlerEvent.Item event){
+    event.getItemColors().register(myIItemColor, coloredItem1, coloredItem2, ...);
+}
+`
 
 This registration must be done client-side, in the initialization phase.
 
