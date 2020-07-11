@@ -13,7 +13,7 @@ Since left clicking, or "punching", a block does not generally result in any uni
 ----------------
 
 ```java
-public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
+public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
 ```
 
 This is the method that controls right click behavior.
@@ -30,11 +30,17 @@ This is the method that controls right click behavior.
 
 #### Return Value
 
-What is this magic boolean which must be returned? Simply put this, is whether or not the method "did" something. Return true if some action was performed, this will prevent further things from happening, such as item activation.
+`ActionResultType` is the result right clicking, see example usages below. `ActionResultType.SUCCESS` means the right click action was successful. `ActionResultType.CONSUME` means that the right click action was consumed. `ActionResultType.PASS` is the default behavior, for when the block has no right click behavior, and allows something else to handle the right click. `ActionResultType.FAIL` means that the action failed.
 
+| Enum Value |                           Example Usage                          |
+|:----------:|:----------------------------------------------------------------:|
+|  `SUCCESS` | Eating a slice of cake.                                          |
+|  `CONSUME` | Tuning a noteblock.                                              |
+|   `PASS`   | When right-clicking dirt. Or any other basic block.              |
+|   `FAIL`   | When attempting to place a minecart on a block other than rails. |
 
 !!! important
-    Returning `false` from this method on the client will prevent it being called on the server. It is common practice to just check `worldIn.isRemote` and return `true`, and otherwise go on to normal activation logic. Vanilla has many examples of this, such as the chest.
+    Returning `ActionResultType.CONSUME` from this method on the client will prevent it being called on the server. It is common practice to just check `worldIn.isRemote` and return `ActionResultType.SUCCESS`, and otherwise go on to normal activation logic. Vanilla has many examples of this, such as the chest.
 
 ### Usage examples
 
