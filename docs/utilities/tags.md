@@ -52,7 +52,7 @@ Item unknownItem = stack.getItem();
 // exists in the set of Items that belong to this Tag
 boolean isInGroup = ItemTags.getCollection().getOrCreate(myTagId).contains(unknownItem);
 // Alternatively, you can use the getTag and perform a null check to see if the tag exists and do it that way
-Tag retrievedTag = ItemTags.getCollection.get(myTagId);
+Tag retrievedTag = ItemTags.getCollection().get(myTagId);
 if(retrievedTag != null){
     //do something if retrievedTag.contains(unknownItem) or whatever else you'd like to do with that tag
 }
