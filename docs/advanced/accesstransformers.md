@@ -1,12 +1,9 @@
 Access Transformers
 ===================
 
-Access Transformers (ATs for short) allows for changing the visibility and `final` flags of classes and their methods and fields. They allow modders to access and modify otherwise `private` members in classes outside their control.
+Access Transformers (ATs for short) allow for widening the visibility and modifying the `final` flags of classes, methods, and fields. They allow modders to access and modify otherwise inaccessible members in classes outside their control.
 
 The [specification document][specs] can be viewed on the Minecraft Forge GitHub.
-
-!!! note
-    An access transformer preprocessor is required to compile against access-transformed code. ForgeGradle fulfills this purpose for Forge development.
 
 Adding ATs
 ----------
@@ -30,7 +27,7 @@ All text after a `#` until the end of the line will be treated as a comment and 
 Access Modifiers
 ----------------
 
-Access modifiers specify which member visibility the given target will be transformed to. In decreasing order of visibility:
+Access modifiers specify to what new member visibility the given target will be transformed to. In decreasing order of visibility:
 
   * `public` - visible to all classes inside and outside its package
   * `protected` - visible only to classes inside the package and subclasses
@@ -40,12 +37,12 @@ Access modifiers specify which member visibility the given target will be transf
 A special modifier `+f` and `-f` can be appended to the aforementioned modifiers to either add or remove respectively the `final` modifier, which prevents subclassing, method overriding, or field modification when applied.
 
 !!! warning
-    Access transformers can **_never_** make a member less visible; they can only widen visibility. The JVM will throw an `IllegalAccessError` if any compiled code references a method or field which cannot be accessed due to restrictive transformations.
+    Directives only modify the method they directly reference; any overriding methods will not be access-transformed. It is advised to ensure transformed methods do not have non-transformed overrides that restrict the visibility, which will result in the JVM throwing an error.
     
-    Directives only modify the method they directly reference; any overriding methods will _not_ be access-transformed. Therefore, **never** transform any non-`public` or non-`static` method, because any overriding methods might still use the restrictive visibility, which will result in the JVM throwing a `VerifyError`. 
+    Examples of methods that can be safely transformed are `private` methods, `final` methods (or methods in `final` classes), and `static` methods.
 
 Targets and Directives
-------------------
+----------------------
 
 !!! Information
     When using Access Transformers on Minecraft classes, the SRG name must be used for fields and methods.
@@ -77,7 +74,7 @@ If the return type is void, or the method has no parameters, then it does not ne
 
   * `B` - `byte`, a signed byte
   * `C` - `char`, a Unicode character code point in UTF-16
-  * `D` - 'double', a double-precision floating-point value
+  * `D` - `double`, a double-precision floating-point value
   * `F` - `float`, a single-precision floating-point value
   * `I` - `integer`, a 32-bit integer
   * `J` - `long`, a 64-bit integer
@@ -86,7 +83,7 @@ If the return type is void, or the method has no parameters, then it does not ne
   * `[` - references one dimension of an array
     * Example: `[[S` refers to `short[][]`
   * `L<class name>;` - references a reference type
-    * Example: `Ljava/lang/String;` refers to `java.lang.String` reference type _(note the use of parentheses)_
+    * Example: `Ljava/lang/String;` refers to `java.lang.String` reference type _(note the use of slashes instead of periods)_
 
 Examples
 --------
