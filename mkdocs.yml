@@ -43,6 +43,7 @@ nav:
     - ItemStackTileEntityRenderer: 'rendering/ister.md'
   - Data Generation:
     - Introduction: 'datagen/intro.md'
+    - Model Providers: 'datagen/modelproviders.md'
   - Events:
     - Basic Usage: 'events/intro.md'
   - Networking:
