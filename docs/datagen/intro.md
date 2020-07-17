@@ -5,7 +5,7 @@ Data generators are a way to programmatically generate the assets and data of yo
 
 The data generator system is loaded by the main class `net.minecraft.data.Main`. Different arguments can be passed to it, to customize which mods' data are gathered, what existing files are considered, etc. The class responsible for data generation is `net.minecraft.data.DataGenerator`.
 
-ForgeGradle provides the `runData` task to run the data generators. The IDE-specific runs generation tasks (`gen***Tasks`) also create run configurations for running the data generator.
+ForgeGradle provides the `runData` task to run the data generators. The IDE-specific runs generation tasks (`genEclipseRuns`, `genIntellijRuns`, `genVSCodeRuns`) also create run configurations for running the data generator.
 
 Generator Modes
 ---------------
