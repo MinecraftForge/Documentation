@@ -31,6 +31,8 @@ Data Providers
 Data providers are the classes that actually define what data will be generated and provided. All data providers implement `IDataProvider`.
 Minecraft has abstract implementations for most assets and data, so modders need only to extend and override the abstract method.
 
+The `GatherDataEvent` is fired on the mod event bus when the data generator is being created, and the `DataGenerator` can be obtained from the event. Create and register your providers to the `DataGenerator` using `addProvider()`.
+
 ### Client Assets
   * `LanguageProvider` - for language strings
   * `ModelProvider` - base class for all model providers
@@ -47,5 +49,3 @@ Minecraft has abstract implementations for most assets and data, so modders need
 	An `AdvancementProvider` class does exists, however it is hardcoded for only the vanilla advancements.
 	
 	`LootTableProvider` does not provide an abstract method to override, you must override `act()`. 
-
-The `GatherDataEvent` is fired on the mod event bus when the data generator is being created, and the `DataGenerator` can be obtained from the event. Create and register your providers to the `DataGenerator` using `addProvider()`.
