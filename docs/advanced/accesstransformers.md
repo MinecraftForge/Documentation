@@ -17,6 +17,8 @@ minecraft {
 }
 ```
 
+After adding or modifying the Access Transformer, the gradle project must be refreshed for the transformations to take effect.
+
 During development, the AT file can be anywhere specified by the line above. However, when loading in a non-development environment, Forge will only search for the exact path of `META-INF/accesstransformer.cfg` in your JAR file.
 
 Comments
