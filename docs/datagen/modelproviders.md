@@ -14,11 +14,11 @@ The `--existing <folderpath>` argument allows the specified folder and its subfo
 
 Implementation
 --------------
-There are three main abstract implementations of `ModelProvider`: `ItemModelProvder`, `BlockModelProvider`, and `BlockStateProvider`.
+There are three main abstract implementations of `ModelProvider`: `ItemModelProvider`, `BlockModelProvider`, and `BlockStateProvider`.
 
-`ItemModelProvider` is for defining models for items, `BlockModelProvider` is for defining models for blocks.
-To use these, override `#generateModels()` and use the various helper methods to define your models. 
+For items, use `ItemModelProvider` to define their models: override `#generateModels` and use the helper methods.
 
-`BlockStateProvider` is for defining blockstates, block models, and their item models. It contains an instance of both `BlockModelProvider` and `ItemModelProvider`, which can be accessed through `#models()` and `#itemModels()`.
+For blocks, it is recommended to use `BlockStateProvider` to define the blockstates, models, and their item models in a single class. It contains an instance of both `BlockModelProvider` and `ItemModelProvider`, which can be accessed through `#models()` and `#itemModels()`.
+`BlockModelProvider` is used to define only block models. 
 
-Call `#getVariantBuilder(Block)` to get a `VariantBlockStateBuilder` for building a blockstate with different variants. Call `#getMultipartBuilder(Block)` to get a `MultiPartBlockStateBuilder` for building a blockstate using multiparts.
+Call `#getVariantBuilder(Block)` to get a `VariantBlockStateBuilder` for building a blockstate with different variants, or `#getMultipartBuilder(Block)` to get a `MultiPartBlockStateBuilder` for building a blockstate using multiparts.
