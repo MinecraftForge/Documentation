@@ -2,7 +2,7 @@ Model Providers
 ===============
 The model providers are a specific type of data generators for defining models. All model providers are a subclass of `ModelProvider`.
 
-`ModelProvider` provides methods to define models for blocks and items alike: cubes, single textures, doors, slabs, and even your own custom non-data-generated models as parent models.
+`ModelProvider` provides methods to define models for blocks and items alike: cubes, single textures, doors, slabs, and even custom non-data-generated models as parent models.
 
 Existing Files
 --------------

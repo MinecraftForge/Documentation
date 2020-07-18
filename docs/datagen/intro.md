@@ -1,7 +1,7 @@
 Data Generators
 ===============
 
-Data generators are a way to programmatically generate the assets and data of your mods. It allows the definition of the contents of these files in your code and their automatic generation, without worrying about the specifics.
+Data generators are a way to programmatically generate the assets and data of mods. It allows the definition of the contents of these files in the code and their automatic generation, without worrying about the specifics.
 
 The data generator system is loaded by the main class `net.minecraft.data.Main`. Different command-line arguments can be passed to customize which mods' data are gathered, what existing files are considered, etc. The class responsible for data generation is `net.minecraft.data.DataGenerator`.
 
@@ -31,7 +31,7 @@ Data Providers
 Data providers are the classes that actually define what data will be generated and provided. All data providers implement `IDataProvider`.
 Minecraft has abstract implementations for most assets and data, so modders need only to extend and override the specified method.
 
-The `GatherDataEvent` is fired on the mod event bus when the data generator is being created, and the `DataGenerator` can be obtained from the event. Create and register your providers using `DataGenerator#addProvider`.
+The `GatherDataEvent` is fired on the mod event bus when the data generator is being created, and the `DataGenerator` can be obtained from the event. Create and register data providers using `DataGenerator#addProvider`.
 
 ### Client Assets
   * `net.minecraftforge.common.data.LanguageProvider` - for language strings; override `#addTranslations`
