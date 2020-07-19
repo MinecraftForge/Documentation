@@ -30,4 +30,4 @@ Registering an Item
 
 Items must be [registered][registering] to function.
 
-[registering]: ../concepts/registries.md#registering-things
+[registering]: ../concepts/registries.md#methods-for-registering
