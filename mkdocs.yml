@@ -33,7 +33,6 @@ nav:
     - Model Files: 'models/files.md'
     - Blockstates:
       - Intro to Blockstate JSONs: 'models/blockstates/introduction.md'
-      - Forge Blockstate JSON: 'models/blockstates/forgeBlockstates.md'
     - Coloring Textures: 'models/color.md'
     - Item Property Overrides: 'models/overrides.md'
     - Advanced Models:
@@ -86,7 +85,7 @@ theme:
   custom_dir: forge_theme
 
 extra:
-  current_version: 1.14.x
+  current_version: 1.15.x
   versions:
     1.14.x: 1.14.x
     1.15.x: 1.15.x
