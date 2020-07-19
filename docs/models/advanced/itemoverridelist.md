@@ -11,7 +11,7 @@ Given a list of `ItemOverride`s, the constructor copies that list and stores the
 
 This is a deprecated vanilla method. It is only called in the vanilla `handleItemState`, and in almost all cases can be safely ignored.
 
-### `func_239290_a_`
+### `handleItemState`
 
 This takes an `IBakedModel`, an `ItemStack`, a `ClientWorld`, and an `EntityLivingBase` to produce another `IBakedModel` to use for rendering. This is where models can handle the state of their items.
 
