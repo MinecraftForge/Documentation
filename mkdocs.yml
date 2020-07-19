@@ -15,7 +15,7 @@ nav:
     - Internationalization and localization: 'concepts/internationalization.md'
   - Blocks:
     - Home: 'blocks/blocks.md'
-    - Intro to Blockstates: 'blocks/states.md'
+    - Blockstates: 'blocks/states.md'
     - Interaction: 'blocks/interaction.md'
   - Animation API:
     - Intro to the Animation API: 'animation/intro.md'
