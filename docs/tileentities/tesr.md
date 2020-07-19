@@ -25,4 +25,4 @@ This method is called every frame in order to render the tile entity.
 Registering a TER
 -----------------
 
-In order to register a TESR, call `ClientRegistry#bindTileEntitySpecialRenderer` passing the tile entity class to be renderer with this TER and the instance of the TER to use to render all TEs of this class.
+In order to register a TER, call `ClientRegistry#bindTileEntitySpecialRenderer` passing the tile entity class to be renderer with this TER and the instance of the TER to use to render all TEs of this class.

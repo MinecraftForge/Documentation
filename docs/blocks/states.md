@@ -25,7 +25,7 @@ Introduction of States
 
 In Minecraft 1.8 and above, the metadata system, along with the block ID system, was deprecated and eventually replaced with the **block state system**. The block state system abstracts out the details of the block's properties from the other behaviors of the block.
 
-Each *property* of a block is described by an instance of `IProperty<?>`. Examples of block properties include color (`IProperty<DyeColor>`), facing (`IProperty<Direction`), poweredness (`IProperty<Boolean>`), etc. Each property has the value of the type `T` parametrized by `IProperty<T>`.
+Each *property* of a block is described by an instance of `IProperty<?>`. Examples of block properties include instruments (`IProperty<NoteBlockInstrument>`), facing (`IProperty<Direction>`), poweredness (`IProperty<Boolean>`), etc. Each property has the value of the type `T` parametrized by `IProperty<T>`.
 
 A unique triple can be constructed from the `Block`, the set of `IProperty<?>`, and the set of values for those properties. This unique triple is called a `BlockState`. 
 
@@ -61,7 +61,7 @@ In your Block class, create or reference `static final` `IProperty<?>` objects f
     * It is also possible to use only a subset of the Enum values (e.g. 4 out of 16 `DyeColor`s). See the overloads of `EnumProperty.create`.
   * `DirectionProperty`
     * This is a convenience implementation of `EnumProperty<Direction>`
-    * Several convenience predicates are also provided. For example, to get a property that represents the cardinal directions, call `DirectionProperty.create("<name>", Direction.Plane.HORIZONTAL)`; to get the X directions, `DirectionProperty.create("<name>", Direction.Axis.X)`
+    * Several convenience predicates are also provided. For example, to get a property that represents the cardinal directions, call `DirectionProperty.create("<name>", Direction.Plane.HORIZONTAL)` to get the X directions, `DirectionProperty.create("<name>", Direction.Axis.X)`
 
 The class `BlockStateProperties` contains shared vanilla properties which should be used or referenced whenever possible, in place of creating your own properties.
 
