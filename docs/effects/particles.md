@@ -70,6 +70,6 @@ The interest in doing this is to avoid having to deal with `IParticleData` and n
 
   `IParticleFactory` is [**client only**][sides], like the `Particle` class. A way of dealing with this is using a handler class and the `EventBusSubscriber` annotation with a dist value.
 
-[registration]: registries.md#registering-things
-[sides]: sides.md
+[registration]: ../concepts/registries.md#registering-things
+[sides]: ../concepts/sides.md
 [servdat]: #does-your-particle-need-server-data
