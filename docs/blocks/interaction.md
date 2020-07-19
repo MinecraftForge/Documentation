@@ -61,7 +61,7 @@ Block Placement
 public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
 ```
 
-Called by ItemBlocks after a block is set in the world, to allow post-place logic.
+Called by `BlockItem`s after a block is set in the world, to allow post-place logic.
 
 
 ### Parameters:
@@ -102,7 +102,7 @@ Called on a block when it is clicked by a player.
 This method is perfect for adding custom events when a player clicks on a block.
 
 By default this method does nothing.  
-Two blocks that override this method are the **Note Block** and the **RedstoneOre Block**.
+Two blocks that override this method are the `NoteBlock` and the `RedstoneOreBlock`.
 
 The Note block overrides this method so that when left-clicked, it plays a sound.  
 The RedstoneOre block overrides method so that when left-clicked, it gives off emits faint light for a few seconds.
@@ -132,9 +132,9 @@ This method has important behavior in the `Block` class so be sure to call the s
 super.onBlockHarvested(worldIn, pos, state, player);
 ```
 
-The **TNT Block** overrides this method to cause it's explosion when a player destroys it.  
+The `TNTBlock` overrides this method to cause it's explosion when a player destroys it.  
 This method is used by extended pistons; since an extended piston is made up of two blocks. (the extended head and the base)
-The **PistonMoving Block** makes use of this method to destroy the base block when the PistonMoving block is destroyed. 
+The `PistonHeadBlock` makes use of this method to destroy the base block when the `PistonHeadBlock` is destroyed. 
 
 
 Entity Collision

@@ -28,7 +28,7 @@ A New Way of Thinking
 ---------------------
 
 How about, instead of having to munge around with numbers everywhere, we instead use some system that abstracts out the details of saving from the semantics of the block itself?
-This is where `IProperty<?>` comes in. Each Block has a set of zero or more of these objects, that describe, unsurprisingly, *properties* that the block have. Examples of this include color (`IProperty<DyeColor>`), facing (`IProperty<Direction>`), integer and boolean values, etc. Each property can have a *value* of the type parametrized by `IProperty`. For example, for the respective example properties, we can have values `DyeColor.WHITE`, `Direction.EAST`, `1`, or `false`.
+This is where `IProperty<?>` comes in. Each Block has a set of zero or more of these objects, that describe, unsurprisingly, *properties* that the block have. Examples of this include color (`IProperty<NoteBlockInstrument>`), facing (`IProperty<Direction>`), integer and boolean values, etc. Each property can have a *value* of the type parametrized by `IProperty`. For example, for the respective example properties, we can have values `NoteBlockInstrument.HARP`, `Direction.EAST`, `1`, or `false`.
 
 Then, following from this, we see that every unique triple (Block, set of properties, set of values for those properties) is a suitable abstracted replacement for Block and metadata. Now, instead of "minecraft:stone_button meta 9" we have "minecraft:stone_button[facing=east,powered=true]". Guess which is more meaningful?
 
@@ -41,12 +41,12 @@ Now that I've successfully convinced you that properties and values are superior
 
 In your Block class, create static final `IProperty<>` objects for every property that your Block has. Vanilla provides us several convenience implementations:
   
-  * `PropertyInteger`: Implements `IProperty<Integer>`. Created by calling PropertyInteger.create("<name>", <min>, <max>);
-  * `PropertyBool`: Implements `IProperty<Boolean>`. Created by calling PropertyBool.create("<name>");
-  * `PropertyEnum<E extends Enum<E>>`: Implements `IProperty<E>`, Defines a property that can take on the values of an Enum class. Created by calling PropertyEnum.create("name", <enum_class>);
-    * You can also use only a subset of the Enum values (for example, you can use only 4 of the 16 `DyeColor`'s. Take a look at the other overloads of `PropertyEnum.create`)
-  * `PropertyDirection`: This is a convenience implementation of `PropertyEnum<Direction>`
-    * Several convenience predicates are also provided. For example, to get a property that represents the cardinal directions, you would call `PropertyDirection.create("<name>", Direction.Plane.HORIZONTAL)`. Or to get the X directions, `PropertyDirection.create("<name>", Direction.Axis.X)`
+  * `IntegerProperty`: Implements `IProperty<Integer>`. Created by calling `IntegerProperty.create("<name>", <min>, <max>);`
+  * `BooleanProperty`: Implements `IProperty<Boolean>`. Created by calling `BooleanProperty.create("<name>");`
+  * `EnumProperty<E extends Enum<E>>`: Implements `IProperty<E>`, Defines a property that can take on the values of an Enum class. Created by calling `EnumProperty.create("<name>", <enum_class>);`
+    * You can also use only a subset of the Enum values (for example, you can use only 4 of the 16 `DyeColor`'s. Take a look at the other overloads of `EnumProperty.create`)
+  * `DirectionProperty`: This is a convenience implementation of `EnumProperty<Direction>`
+    * Several convenience predicates are also provided. For example, to get a property that represents the cardinal directions, you would call `DirectionProperty.create("<name>", Direction.Plane.HORIZONTAL);`. Or to get the X directions, `DirectionProperty.create("<name>", Direction.Axis.X);`
 
 Note that you are free to make your own `IProperty<>` implementations, but the means to do that are not covered in this article.
 In addition, note that you can share the same `IProperty` object between different blocks if you wish. Vanilla generally has separate ones for every single block, but it is merely personal preference.
