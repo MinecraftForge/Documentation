@@ -14,7 +14,7 @@ There are two proper ways to register objects: the `DeferredRegister` class, and
 
 ### DeferredRegister
 
-`DeferredRegister` is the newer and documented way to register objects. It allows the use and convenience of static initialisers while avoiding the issues associated with it. It simply maintains a list of suppliers for entries and registers the objects from those suppliers during the proper `Register` event.
+`DeferredRegister` is the newer and documented way to register objects. It allows the use and convenience of static initialisers while avoiding the issues associated with it. It simply maintains a list of suppliers for entries and registers the objects from those suppliers during the proper `RegistryEvent.Register` event.
 
 An example of a mod registering a custom block:
 
