@@ -23,7 +23,7 @@ To make a particle appear, use either `ClientWorld#addParticle` or
 `ServerWorld#spawnParticle`. `ServerWorld#addParticle` will simply do nothing, without throwing any errors.
 
 ### Does your particle need server data?
-Taking as an example a mod which adds some spells to the game. f there was 8 type of spells added with each one specific color, no need for server information. Each spell will have a distinct registered `ParticleType`. 
+Taking as an example a mod which adds some spells to the game: If there's 8 type of spells added with each one specific color, there is no need for server information. Each spell will have a distinct registered `ParticleType`. 
 However, if these spells can have modifiers that can affect the color in multiple ways (add/subtract red/green/blue data) then having a registry object for each combination will be tedious. In that case, server information will be required when spawning the particle, to calculate the color to use.
 
 ParticleTypes
