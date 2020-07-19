@@ -61,7 +61,7 @@ In your Block class, create or reference `static final` `IProperty<?>` objects f
     * It is also possible to use only a subset of the Enum values (e.g. 4 out of 16 `DyeColor`s). See the overloads of `EnumProperty.create`.
   * `DirectionProperty`
     * This is a convenience implementation of `EnumProperty<Direction>`
-    * Several convenience predicates are also provided. For example, to get a property that represents the cardinal directions, call `DirectionProperty.create("<name>", Direction.Plane.HORIZONTAL)` to get the X directions, `DirectionProperty.create("<name>", Direction.Axis.X)`
+    * Several convenience predicates are also provided. For example, to get a property that represents the cardinal directions, call `DirectionProperty.create("<name>", Direction.Plane.HORIZONTAL)`; to get the X directions, `DirectionProperty.create("<name>", Direction.Axis.X)`
 
 The class `BlockStateProperties` contains shared vanilla properties which should be used or referenced whenever possible, in place of creating your own properties.
 
