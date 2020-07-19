@@ -61,6 +61,8 @@ nav:
     - Versioning: 'conventions/versioning.md'
     - Locations: 'conventions/locations.md'
     - Loading Stages: 'conventions/loadstages.md'
+  - Advanced Topics:
+    - Access Transformers: 'advanced/accesstransformers.md'
   - Contributing to Forge:
     - Getting Started: 'forgedev/index.md'
     - PR Guidelines: 'forgedev/prguidelines.md'
