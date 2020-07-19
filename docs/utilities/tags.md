@@ -1,7 +1,8 @@
 Tags
 ====
 Tags are generalized sets of objects in the game, used for grouping related things together and providing fast membership checks.
-Note: Tags have replaced the OreDictionary-- from now on you should (and can only) use tags for all that OreDictionary did. Please see the extra notice at the bottom of this page for more information for transferring from OreDictionary to Tags.
+!!! note:
+    Tags have replaced the OreDictionary-- from now on you should (and can only) use tags for all that OreDictionary did. Please see the extra notice at the bottom of this page for more information for transferring from OreDictionary to Tags.
 
 Declaring Your Own Groupings
 ----------------------------
@@ -21,7 +22,7 @@ Using Tags In Code
 ------------------
 Block, Item, and Fluid tags are automatically sent from the server to any remote clients on login and reload. Function tags are not synced.
 
-Tags can be accessed in code through the `Tags.Items` and `Tags.Blocks` classes for all the Vanilla Minecraft tags, and through `ResourceLocation`s for ForgeTags.
+Tags can be accessed in code through the `Tags.Items` and `Tags.Blocks` classes for all the Forge tags, and `ItemTags` or `BlockTags`s for ForgeTags.
 See the examples below for how to use each.
 
 `BlockTags.getCollection()` and `ItemTags.getCollection()` will retrieve the current `TagCollection`, from which you can retrieve a `Tag` object by its ID.
@@ -31,14 +32,12 @@ A reminder that `Tag`s contain `Item`s not `ItemStack`s. You can get the `Item` 
 
 An example of checking if an Item belongs to a Vanilla `Tag`:
 ```Java
-//Retrieve whatever tag you want (using Tags.Blocks or Tags.Items)
-Tag<Item> tag = Tags.Items.DUSTS_REDSTONE;
 boolean inTag;
 // There's two methods to do this, doesn't really matter which you choose:
 // Method 1: from the Item's perspective
-inTag = someItemStack.getItem().isIn(tag);
+inTag = someItemStack.getItem().isIn(Tags.Items.DUSTS_REDSTONE);
 // Method 2: from the Tag's perspective
-inTag = tag.contains(someItemStack.getItem());
+inTag = Tags.Items.DUSTS_REDSTONE.contains(someItemStack.getItem());
 ```
 
 An example of checking if an Item is contained in a certain Forge `Tag`:
