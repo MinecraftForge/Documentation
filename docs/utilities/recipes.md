@@ -1,7 +1,7 @@
 Recipes
 =======
 
-With the update to Minecraft 1.12, Mojang introduced a new data-driven recipe system based on JSON files. Since then it has been adopted by Forge as well and will be expanded in Minecraft 1.13 into datapacks.
+With the update to Minecraft 1.12, Mojang introduced a new data-driven recipe system based on JSON files. Since then it has been adopted by Forge as well and was expanded in Minecraft 1.13 into [datapacks][datapack].
 
 Loading Recipes
 ---------------
@@ -120,3 +120,4 @@ When crafting something, you can get out more than one item. This is achieved by
 [Advancements]: #
 [Wiki]: https://minecraft.gamepedia.com/Recipe
 [Factories]: #factories
+[datapack]: datapacks.md
