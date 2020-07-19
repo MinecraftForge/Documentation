@@ -22,7 +22,7 @@ If the model is being rendered as an item in an inventory, on the ground as an e
 !!! important
     Unless you know what you're doing and are OK with using deprecated features, just `return false` from this and continue on.
 
-When rendering this as an item, returning `true` causes the model to not be rendered, instead falling back to `TileEntityItemStackRenderer#renderItem`. For certain vanilla items such as chests and banners, this method is hardcoded to copy data from the item into a `TileEntity`, before using a `TileEntitySpecialRenderer` to render that TE in place of the item. For all other items, it will use the `TileEntityItemStackRenderer` instance provided by `Item#setTileEntityItemStackRenderer`; refer to [TileEntityItemStackRenderer][teisr] page for more information.
+When rendering this as an item, returning `true` causes the model to not be rendered, instead falling back to `ItemStackTileEntityRenderer#renderItem`. For certain vanilla items such as chests and banners, this method is hardcoded to copy data from the item into a `TileEntity`, before using a `TileEntitySpecialRenderer` to render that TE in place of the item. For all other items, it will use the `ItemStackTileEntityRenderer` instance provided by `Item#setTileEntityItemStackRenderer`; refer to [ItemStackTileEntityRenderer][teisr] page for more information.
 
 ### `getParticleTexture`
 
@@ -49,6 +49,47 @@ The `Random` parameter is used for randomised models.
 ### `getModelData`
 
 This method provides the [`IModelData`][modeldata] instance to the `getQuads` method and has access to the `ILightReader` world, `BlockPos` for the block which is being rendered and the [`IModelData`][modeldata] instance as passed from the `TileEntity`. By default this will pass the [`IModelData`][modeldata] parameter straight to the `getQuads` method but can be used to modify `ModelProperty`'s (see [Model Data][modeldata]). An example use case of this method is to provide the `BlockState` to render for a camouflage block from the neighbouring blocks.
+
+`BakedQuad`s
+============
+
+The `getQuads` method requires a list of quads to be drawn. These quads can either be generated algorithmically or can be copies of other block models using the `ModelManager`.
+
+!!! note
+When using the quads from another block model, if you are going to manipulate the quads, be sure to copy the quads to not override the quads from the original model.
+
+When constructing the `BakedQuad`s algorithmically, there are several parameters which need to be provided to construct a `BakedQuad` manually however it is often easier to use the `FaceBakery` to generate quads.
+
+### `vertexData`
+
+The vertex data is a structured `int` array providing information about the position of the vertices in the model, the shade color for each vertex and the vertex UV (see `FaceBakery#storeVertexData`). For blocks, each vertex in the quad has **7** float values which are converted into raw integer bits using `Float#floatToRawIntBits` and are as follows (also see `DefaultVertexFormats`):
+1. The x position of the vertex as a float (for a regular JSON model, this is the x position of the vertex divided by 16)
+2. The y position of the vertex formatted the same as with the x position
+3. The z position as above
+4. The shade colour - this uses the hard coded face brightness to apply the correct shading to the side of the quad
+5. The texture U position as a float - this is the position of the texture as a proportion of the width of the `AtlasTexture`
+6. The texture V position as a float - this is the position of the texture as a proportion of the height of the `AtlasTexture`
+7. The vertex normal as an integer (see `ForgeHooksClient#fillNormal`)
+
+### `tintIndex`
+
+The tint index refers to which index to use with `IBlockColor` used to tint this quad. If this quad does not need a tint index, use the tint index `-1`
+
+### `face`
+
+The `Direction` that this quad is normal to. This should be the same face as from the `getQuads` method if the face is not null.
+
+### `sprite`
+
+The `TextureAtlasSprite` that is the texture for this quad
+
+### `applyDiffuseLighting`
+
+Whether to use lighting which depends on the side this quad is facing.
+
+### `format`
+
+The `VertexFormat` object which determines the structure of the `vertexData` parameter. See `DefaultVertexFormats` for all of the vertex format types.
 
 [IModel#bake]: imodel.md#bake
 [Perspective]: perspective.md

@@ -1,18 +1,18 @@
 Model Data
 ==========
 
-Model data is the successor of "extended blockstates" allowing modders to pass in extra data to be used in [`IBakedModel#getQuads`][getquads] when rendering blocks. This is particularly useful in complex models such as for camouflage blocks which use other block's models as an example. This is not to be confused with a [`TileEntityRenderer`][ter] which is used for dynamic rendering such as for animated blocks like a chest or any blocks which cannot be defined by a list of `BakedQuad`s.
+Model data is the successor of "extended blockstates" allowing modders to pass in extra data to be used in [`IBakedModel#getQuads`][getquads] when rendering blocks. This is particularly useful in complex models such as for camouflage blocks which use other block's models as an example. This is not to be confused with a [`TileEntityRenderer`][ter] which is used for dynamic rendering such as for animated blocks like a chest or any blocks which cannot be defined by a list of `BakedQuad`s. The [`IBakedModel#getQuads`][getquads] allows modders to algorithmically generate quads or use quads of already defined models.
 
 IBakedModels vs TERs
 ------------------
 
 An [`IBakedModel`][bakedmodel] simply provides a list of `BakedQuad`s to the `BlockModelRenderer` which are then drawn to the screen. There are other properties available which define aspects which effect rendering such as whether the model supports ambient occlusion (a rendering effect). Most [`IBakedModel`][bakedmodel]s come from when a model file is loaded and then "baked" so that the model does not need to be loaded again.
 
-A [`TileEntityRenderer`][ter] or [`TER`][ter] (previously [`TileEntitySpecialRenderer`] or [`TESR`]) is used to render blocks in a way that cannot be represented with a static baked model (JSON, OBJ, B3D, others).
+A [`TileEntityRenderer`][ter] or [`TER`][ter] is used to render blocks in a way that cannot be represented with a static baked model (JSON, OBJ, B3D, others).
 
 A [`TER`][ter] has direct access to the `TileEntity` that the renderer is used for whereas an [`IBakedModel`][bakedmodel] only has access to the `BlockState` the model represents, the `Direction` which represents the side which is being rendered (or null), an instance of `Random` for randomised textures and the `IModelData` parameter. The [`IBakedModel#getQuads`][getquads] is unaware of where the block is in the world hence where the `IModelData` parameter steps in to provide extra information from the `TileEntity` using `TileEntity#getModelData`, and from the world using `IBakedModel#getModelData`.
 
-Unlike a [`TER`][ter] which renders every frame, an [`IBakedModel`][bakedmodel] only provides the quads for drawing upon request (which occurs when `World#markBlockRangeForRenderUpdate` is called).
+Unlike a [`TER`][ter] which renders every frame, an [`IBakedModel`][bakedmodel] only provides the quads for drawing upon request (which occurs when `World#markBlockRangeForRenderUpdate` is called, when the damage block overlay is shown and other cases).
 
 Model Data flow
 ------------------------
@@ -54,6 +54,9 @@ public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction 
 
 !!! note
     The data returned from `IModelData#getData` can be null if the property is defined but not initialised / set even if `IModelData#hasProperty` returns `true`.
+
+!!! warning
+    When [`IBakedModel#getQuads`][getquads] is called for the damage block overlay, the `extraData` parameter is **always** `EmptyModelData.INSTANCE`. The [`IBakedModel#getQuads`][getquads] method is used to get the shape of the model that will be used for the breaking animation and not the texture so in the case where the `extraData` does not contain your `ModelProperty`'s, you should retain the same shape as the model with the `ModelProperty`.
 
 [bakedmodel]: ibakedmodel.md
 [getquads]: ibakedmodel.md#getquads
