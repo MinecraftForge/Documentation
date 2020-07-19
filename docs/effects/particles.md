@@ -9,15 +9,15 @@ Terminology
 | `Particle` | What is responsible for the rendering logic. |
 | `ParticleType<?>` | What is registered using a unique name. |
 | `IParticleData` | What contains server data that needs to be transferred to the client. |
-| `IParticleFactory` | The factory takes in an `IParticleData` and returns a Particle. It will be registered using a unique `ParticleType<?>`. |
+| `IParticleFactory` | The factory takes in an `IParticleData` and returns a `Particle`. It will be registered using a unique `ParticleType<?>`. |
 
 Different Particles
 -------------------
 
-You will need to have your own implementation of the `Particle` class, which will handle the rendering of the particle. Vanilla examples will help you on how to handle rendering, this guide will not get into that and only discuss the logic part of Particles.
+You will need to have your own implementation of the `Particle` class, which will handle the rendering of the particle. Vanilla examples will help you on how to handle rendering, this guide will not get into that and only discuss the logic part of particles.
 
 ### Sidedness
-The `Particle` class is [**client only**][sides], it does not exist on the server. This means that creating a fixed parameter particle (no context information needed) is somewhat simpler, more on that later. However, if the particle has a parameter with dynamic values, server information is required. For example, breaking blocks create a particle effect based on the broken block's texture. This information obviously depends on the BlockState of the block, which is taken from the server.
+The `Particle` class is [**client only**][sides], it does not exist on the server. This means that creating a fixed parameter particle (no context information needed) is somewhat simpler, more on that later. However, if the particle has a parameter with dynamic values, server information is required. For example, breaking blocks create a particle effect based on the broken block's texture. This information obviously depends on the `Blockstate` of the block, which is taken from the server.
 
 To make a particle appear, use either `ClientWorld#addParticle` or
 `ServerWorld#spawnParticle`. `ServerWorld#addParticle` will simply do nothing, without throwing any errors.
@@ -30,12 +30,12 @@ ParticleTypes
 -------------
 
 #### Vanilla Implementation
-While there are a lot of different Particles in vanilla, in almost all cases vanilla uses BasicParticleType, a basic implementation of ParticleType and IParticleData. This implementation is used for anything that does not require [server data][servdat]. The only vanilla particles that do not use BasicParticleType are redstone dust and block/item texture dependent particles. When requiring server data, a direct implementation of IParticleData is needed. 
+While there are a lot of different particles in vanilla, in almost all cases vanilla uses `BasicParticleType`, a basic implementation of `ParticleType` and `IParticleData`. This implementation is used for anything that does not require [server data][servdat]. The only vanilla particles that do not use `BasicParticleType` are redstone dust and block/item texture dependent particles. When requiring server data, a direct implementation of `IParticleData` is needed. 
 
 The `ParticleTypes` class is very helpful to check out vanilla implementations. Seeing how vanilla implemented each particle will help better evaluate what you need.
 
 #### Registering
-ParticleType<?> is a ForgeRegistryEntry, so it is [registered normally][registration]. A `ParticleType` needs to be registered for each distinct `Particle`. When using server information, only one `ParticleType` needs to be registered, since it will cover all cases. When opting for covering all discrete cases, multiple ParticleType are registered all using `BasicParticleType`. The difference will come in registering the `IParticleFactory`.
+`ParticleType<?>` is a `ForgeRegistryEntry`, so it is [registered normally][registration]. A `ParticleType` needs to be registered for each distinct `Particle`. When using server information, only one `ParticleType` needs to be registered, since it will cover all cases. When opting for covering all discrete cases, multiple `ParticleType`s are registered all using `BasicParticleType`. The difference will come in registering the `IParticleFactory`.
 
 IParticleFactory
 ----------------
@@ -64,11 +64,11 @@ Factories need to be added to the `ParticleManager`. The `ParticleFactoryRegiste
 Minecraft.getInstance().particles.registerFactory(DeferredRegistration.HEART_CRYSTAL_PARTICLE.get(), new SHParticle.Factory(Color.FIREBRICK));
 Minecraft.getInstance().particles.registerFactory(DeferredRegistration.POWER_CRYSTAL_PARTICLE.get(), new SHParticle.Factory(Color.ROYALBLUE));
 ```
-The interest in doing this is to avoid having to deal with IParticleData and not create multiple Particle implementations for each color.
+The interest in doing this is to avoid having to deal with `IParticleData` and not create multiple `Particle` implementations for each color.
 
 !!! important
 
-  IParticleFactory is [**client only**][sides], like the Particle class. A way of dealing with this is using a handler class and the EventBusSubscriber annotation with a dist value.
+  `IParticleFactory` is [**client only**][sides], like the `Particle` class. A way of dealing with this is using a handler class and the `EventBusSubscriber` annotation with a dist value.
 
 [registration]: registries.md#registering-things
 [sides]: sides.md
