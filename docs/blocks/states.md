@@ -28,7 +28,7 @@ A New Way of Thinking
 ---------------------
 
 How about, instead of having to munge around with numbers everywhere, we instead use some system that abstracts out the details of saving from the semantics of the block itself?
-This is where `IProperty<?>` comes in. Each Block has a set of zero or more of these objects, that describe, unsurprisingly, *properties* that the block have. Examples of this include color (`IProperty<NoteBlockInstrument>`), facing (`IProperty<Direction>`), integer and boolean values, etc. Each property can have a *value* of the type parametrized by `IProperty`. For example, for the respective example properties, we can have values `NoteBlockInstrument.HARP`, `Direction.EAST`, `1`, or `false`.
+This is where `IProperty<?>` comes in. Each Block has a set of zero or more of these objects, that describe, unsurprisingly, *properties* that the block have. Examples of this include instruments (`IProperty<NoteBlockInstrument>`), facing (`IProperty<Direction>`), integer and boolean values, etc. Each property can have a *value* of the type parametrized by `IProperty`. For example, for the respective example properties, we can have values `NoteBlockInstrument.HARP`, `Direction.EAST`, `1`, or `false`.
 
 Then, following from this, we see that every unique triple (Block, set of properties, set of values for those properties) is a suitable abstracted replacement for Block and metadata. Now, instead of "minecraft:stone_button meta 9" we have "minecraft:stone_button[facing=east,powered=true]". Guess which is more meaningful?
 
