@@ -56,6 +56,7 @@ nav:
     - Recipes: 'utilities/recipes.md'
     - Tags: 'utilities/tags.md'
   - Effects:
+    - Particles: 'effects/particles.md'
     - Sounds: 'effects/sounds.md'
   - Conventions:
     - Versioning: 'conventions/versioning.md'
