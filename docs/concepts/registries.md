@@ -39,7 +39,7 @@ Here is an example: (the event handler is registered on the *mod event bus*)
 ```java
 @SubscribeEvent
 public void registerBlocks(RegistryEvent.Register<Block> event) {
-    event.getRegistry().registerAll(block1, block2, ...);
+    event.getRegistry().registerAll(new Block(...), new Block(...), ...);
 }
 ```
 
