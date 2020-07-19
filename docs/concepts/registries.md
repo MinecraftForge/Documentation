@@ -53,10 +53,31 @@ public void registerBlocks(RegistryEvent.Register<Block> event) {
     );
     ```
 
-Injecting Values Using @ObjectHolder
--------------------------------------
+Referencing Registered Objects
+------------------------------
 
-It is possible to have Forge inject registered object from registries into the `public static` fields of classes. This is done by annotating classes or fields with `@ObjectHolder` and supplying enough information to construct a `ResourceLocation` that identifies a specific object in a specific registry.
+Registered objects should not be stored in fields when they are created and registered. They are to be always newly created and registered whenever their respective `RegistryEvent.Register` event is fired. This is to allow dynamic loading and unloading of mods in a future version of Forge.
+
+Registered objects must always be referenced through a `RegistryObject` or a field with `@ObjectHolder`.
+
+### Using RegistryObjects
+
+`RegistryObject`s can be used to retrieve references to registered objects once they are available. These are used by `DeferredRegister` to return a reference to registered objects. Their references are updated after their corresponding registry's `RegistryEvent.Register` event is fired, along with the `@ObjectHolder` annotations.
+
+To get a `RegistryObject`, call `RegistryObject.of` with a `ResourceLocation` and the `IForgeRegistry` of the registrable object. Custom registries can also be used through giving a supplier of the object's class. Store the `RegistryObject` in a `public static final` field, and call `#get` whenever you need the registered object.
+
+An example of using `RegistryObject`:
+
+```java
+public static final RegistryObject<Item> BOW = RegistryObject.of(new ResourceLocation("minecraft:bow"), ForgeRegistries.ITEMS);
+
+// assume that ManaType is a valid registry, and 'neomagicae:coffeinum' is a valid object within that registry
+public static final RegistryObject<ManaType> COFFEINUM = RegistryObject.of(new ResourceLocation("neomagicae", "coffeinum"), () -> ManaType.class); 
+```
+
+### Using @ObjectHolder
+
+Registered objects from registries can be injected into the `public static` fields by annotating classes or fields with `@ObjectHolder` and supplying enough information to construct a `ResourceLocation` to identify a specific object in a specific registry.
 
 The rules for `@ObjectHolder` are as follows:
 
@@ -78,7 +99,7 @@ The rules for `@ObjectHolder` are as follows:
 * If no other errors or exceptions occur, the field will be injected
 * If all of the above rules do not apply, no action will be taken (and a message may be logged)
 
-`@ObjectHolder`-annotated fields are injected with their values after their corresponding registry's `RegistryEvent.Register` event is fired.
+`@ObjectHolder`-annotated fields are injected with their values after their corresponding registry's `RegistryEvent.Register` event is fired, along with the `RegistryObject`s.
 
 !!! note
     If the object does not exist in the registry when it is to be injected, a debug message will be logged and no value will be injected.
