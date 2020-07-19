@@ -112,8 +112,8 @@ class AnnotatedHolder {
     public static final Item ENDER_PEARL = null;    // No annotation. [public static final] is required.
                                                     // Item has a corresponding registry: [Item].
                                                     // Name path is the name of the field: "ENDER_PEARL" -> "ender_pearl"
-                                                    // !! ^ Field name is valid, because ResourceLocations
-                                                    //      lowercase their values automatically.
+                                                    // !! ^ Field name is valid, because they are
+                                                    //      converted to lowercase automatically.
                                                     // Namespace is not explicitly defined.
                                                     // So, namespace is inherited from class annotation: "minecraft"
                                                     // To inject: "minecraft:ender_pearl" from the [Item] registry
