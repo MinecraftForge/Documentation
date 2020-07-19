@@ -31,7 +31,7 @@ There is another, older way of registering objects into registries, using `GameR
 `DeferredRegister` is a new way of registering objects that replicates the simplicity of static initialisers while supporting registry overrides and avoiding the issues caused by static initialisation. `DeferredRegister` is well documented (check it's javadocs). It simply maintains a list of suppliers for entries and registers the objects from those suppliers them during the proper Register event. These suppliers should return **new** instances every time. Here's an example of a mod that uses `DeferredRegister` to register blocks:
 
 ```java
-private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
+private static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, MODID);
 
 public static final RegistryObject<Block> ROCK_BLOCK = BLOCKS.register("rock", () -> new Block(Block.Properties.create(Material.ROCK)));
 

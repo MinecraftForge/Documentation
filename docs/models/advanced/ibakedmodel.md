@@ -1,7 +1,7 @@
 `IBakedModel`
 =============
 
-`IBakedModel` is the result of calling `IUnbakedModel::bakeModel`. Unlike `IUnbakedModel`, which purely represents a shape without any concept of items or blocks, `IBakedModel` is not as abstract; it represents geometry that has been optimized and reduced to a form where it is (almost) ready to go to the GPU. It can also process the state of an item or block to change the model.
+`IBakedModel` is the result of calling [`IModel::bake`][IModel::bake]. Unlike `IModel`, which purely represents a shape without any concept of items or blocks, `IBakedModel` is not as abstract; it represents geometry that has been optimized and reduced to a form where it is (almost) ready to go to the GPU. It can also process the state of an item or block to change the model.
 
 In a majority of cases, it is not really necessary to implement this interface manually. One can instead use one of the existing implementations.
 
@@ -22,7 +22,7 @@ If the model is being rendered as an item in an inventory, on the ground as an e
 !!! important
     Unless you know what you're doing and are OK with using deprecated features, just `return false` from this and continue on.
 
-When rendering this as an item, returning `true` causes the model to not be rendered, instead falling back to `ItemStackTileEntityRenderer::render`. For certain vanilla items such as chests and banners, this method is hardcoded to copy data from the item into a `TileEntity`, before using a `TileEntitySpecialRenderer` to render that TE in place of the item. For all other items, it will use the `TileEntityItemStackRenderer` instance provided by `Item$Properties#setISTER`; refer to [TileEntityItemStackRenderer][teisr] page for more information.
+When rendering this as an item, returning `true` causes the model to not be rendered, instead falling back to `TileEntityItemStackRenderer::renderItem`. For certain vanilla items such as chests and banners, this method is hardcoded to copy data from the item into a `TileEntity`, before using a `TileEntitySpecialRenderer` to render that TE in place of the item. For all other items, it will use the `TileEntityItemStackRenderer` instance provided by `Item#setTileEntityItemStackRenderer`; refer to [TileEntityItemStackRenderer][teisr] page for more information.
 
 ### `getParticleTexture`
 

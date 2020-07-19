@@ -3,6 +3,8 @@ TileEntityRenderer
 
 A `TileEntityRenderer` or `TER` (previously `TileEntitySpecialRenderer` or `TESR`) is used to render blocks in a way that cannot be represented with a static baked model (JSON, OBJ, B3D, others). A tile entity renderer requires the block to have a TileEntity.
 
+By default OpenGL (via `GlStateManager`) is used to handle rendering in a TER. See the OpenGL documentation to learn more. It is recommended to use a `TileEntityRendererFast` instead whenever possible.
+
 Creating a TER
 --------------
 
@@ -15,12 +17,10 @@ Only one TER exists for a given tile entity. Therefore, values that are specific
 This method is called every frame in order to render the tile entity. 
 
 #### Parameters
-* `tileentityIn`: This is the instance of the tile entity being rendered.
+* `tileentity`: This is the instance of the tile entity being rendered.
+* `x`, `y`, `z`: The position at which the tile entity should be rendered.
 * `partialTicks`: The amount of time, in fractions of a tick, that has passed since the last full tick.
-* `matrixStackIn`: A stack holding four-dimensional matrix entries offset to the current position of the tile entity.
-* `bufferIn`: A rendering buffer able to access a vertex builder.
-* `combinedLightIn`: An integer of the current light value on the tile entity.
-* `combinedOverlayIn`: An integer set to the current overlay of the tile entity, usually `OverlayTexture#NO_OVERLAY` or 655,360.
+* `destroyStage`: The destroy stage for the block if it is being broken.
 
 Registering a TER
 -----------------
