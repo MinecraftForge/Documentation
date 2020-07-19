@@ -24,8 +24,8 @@ The `mods.toml` file is formatted as [TOML](https://github.com/toml-lang/toml), 
     # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
     modLoader="javafml"
     # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-    # Forge for 1.14.4 is version 28
-    loaderVersion="[28,)"
+    # Forge for 1.16.1 is version 32
+    loaderVersion="[32,)"
     # A URL to refer people to when problems occur with this mod
     issueTrackerURL="github.com/MinecraftForge/MinecraftForge/issues"
     # If the mods defined in this file should show as seperate resource packs
@@ -47,14 +47,14 @@ The `mods.toml` file is formatted as [TOML](https://github.com/toml-lang/toml), 
       [[dependencies.examplemod]]
         modId="forge"
         mandatory=true
-        versionRange="[28,)"
+        versionRange="[32,)"
         ordering="NONE"
         side="BOTH"
 
       [[dependencies.examplemod]]
         modId="minecraft"
         mandatory=true
-        versionRange="[1.14.4]"
+        versionRange="[1.16.1]"
         ordering="NONE"
         side="BOTH"
 ```

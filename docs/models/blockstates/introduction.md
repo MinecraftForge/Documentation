@@ -9,11 +9,18 @@ As an example, let's take a look at the vanilla `oak_log.json`:
 
 ```json
 {
-  "variants": {
-    "axis=y":  { "model": "oak_log" },
-    "axis=z":   { "model": "oak_log_side" },
-    "axis=x":   { "model": "oak_log_side", "y": 90 },
-    "axis=none":   { "model": "oak_bark" }
+  "axis=x": {
+      "model": "minecraft:block/oak_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "minecraft:block/oak_log"
+    },
+    "axis=z": {
+      "model": "minecraft:block/oak_log_horizontal",
+      "x": 90
+    }
   }
 }
 ```

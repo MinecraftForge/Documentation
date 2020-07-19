@@ -63,7 +63,7 @@ nav:
     - PR Guidelines: 'forgedev/prguidelines.md'
   - Legacy Versions:
     - Home: 'legacy/index.md'
-    - Porting from 1.12 to 1.13/1.14: 'legacy/porting1214.md'
+#    - Porting from 1.12 to 1.13/1.14: 'legacy/porting1214.md'
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
@@ -85,5 +85,5 @@ theme:
 extra:
   current_version: 1.15.x
   versions:
-    1.14.x: 1.14.x
     1.15.x: 1.15.x
+    1.16.x: 1.16.x

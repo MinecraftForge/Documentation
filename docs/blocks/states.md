@@ -28,7 +28,7 @@ A New Way of Thinking
 ---------------------
 
 How about, instead of having to munge around with numbers everywhere, we instead use some system that abstracts out the details of saving from the semantics of the block itself?
-This is where `IProperty<?>` comes in. Each Block has a set of zero or more of these objects, that describe, unsurprisingly, *properties* that the block have. Examples of this include color (`IProperty<DyeColor>`), facing (`IProperty<Direction>`), integer and boolean values, etc. Each property can have a *value* of the type parametrized by `IProperty`. For example, for the respective example properties, we can have values `DyeColor.WHITE`, `Direction.EAST`, `1`, or `false`.
+This is where `Property<?>` comes in. Each Block has a set of zero or more of these objects, that describe, unsurprisingly, *properties* that the block have. Examples of this include color (`Property<NoteBlockInstrument>`), facing (`Property<Direction>`), integer and boolean values, etc. Each property can have a *value* of the type parametrized by `Property`. For example, for the respective example properties, we can have values `DyeColor.WHITE`, `Direction.EAST`, `1`, or `false`.
 
 Then, following from this, we see that every unique triple (Block, set of properties, set of values for those properties) is a suitable abstracted replacement for Block and metadata. Now, instead of "minecraft:stone_button meta 9" we have "minecraft:stone_button[facing=east,powered=true]". Guess which is more meaningful?
 
@@ -39,22 +39,22 @@ Imbuing your Blocks with these Magical Properties
 
 Now that I've successfully convinced you that properties and values are superior to arbitrary numbers, let's move on to the actual how-to-do part.
 
-In your Block class, create static final `IProperty<>` objects for every property that your Block has. Vanilla provides us several convenience implementations:
+In your Block class, create static final `Property<>` objects for every property that your Block has. Vanilla provides us several convenience implementations:
   
-  * `PropertyInteger`: Implements `IProperty<Integer>`. Created by calling PropertyInteger.create("<name>", <min>, <max>);
-  * `PropertyBool`: Implements `IProperty<Boolean>`. Created by calling PropertyBool.create("<name>");
-  * `PropertyEnum<E extends Enum<E>>`: Implements `IProperty<E>`, Defines a property that can take on the values of an Enum class. Created by calling PropertyEnum.create("name", <enum_class>);
+  * `PropertyInteger`: Implements `Property<Integer>`. Created by calling PropertyInteger.create("<name>", <min>, <max>);
+  * `PropertyBool`: Implements `Property<Boolean>`. Created by calling PropertyBool.create("<name>");
+  * `PropertyEnum<E extends Enum<E>>`: Implements `Property<E>`, Defines a property that can take on the values of an Enum class. Created by calling PropertyEnum.create("name", <enum_class>);
     * You can also use only a subset of the Enum values (for example, you can use only 4 of the 16 `DyeColor`'s. Take a look at the other overloads of `PropertyEnum.create`)
   * `PropertyDirection`: This is a convenience implementation of `PropertyEnum<Direction>`
     * Several convenience predicates are also provided. For example, to get a property that represents the cardinal directions, you would call `PropertyDirection.create("<name>", Direction.Plane.HORIZONTAL)`. Or to get the X directions, `PropertyDirection.create("<name>", Direction.Axis.X)`
 
-Note that you are free to make your own `IProperty<>` implementations, but the means to do that are not covered in this article.
-In addition, note that you can share the same `IProperty` object between different blocks if you wish. Vanilla generally has separate ones for every single block, but it is merely personal preference.
+Note that you are free to make your own `Property<>` implementations, but the means to do that are not covered in this article.
+In addition, note that you can share the same `Property` object between different blocks if you wish. Vanilla generally has separate ones for every single block, but it is merely personal preference.
 
 !!! Note 
-    If your mod has an API or is meant to be interacted with from other mods, it is **very highly** recommended that you instead place your `IProperty`'s (and any classes used as values) in your API. That way, people can use properties and values to set your blocks in the world instead of having to suffer with arbitrary numbers like you used to.
+    If your mod has an API or is meant to be interacted with from other mods, it is **very highly** recommended that you instead place your `Property`'s (and any classes used as values) in your API. That way, people can use properties and values to set your blocks in the world instead of having to suffer with arbitrary numbers like you used to.
 
-After you've created your `IProperty<>` objects, override `fillStateContainer` in your Block class. In that method, simply write `builder.add(...);`. Pass every `IProperty` you want the block to have.
+After you've created your `Property<>` objects, override `fillStateContainer` in your Block class. In that method, simply write `builder.add(...);`. Pass every `Property` you want the block to have.
 
 Every block will also have a "default" state that is automatically chosen for you. You can overwrite this "default" by overwriting the `getDefaultState()` method. More importantly, when your block is placed it will become this "default" state. However if you wish to customise which `BlockState` is placed when you your block is placed you can overwrite `getStateForPlacement()`. This can be used to for example set the direction of your block depending on where the player is standing when they place it.
 
@@ -66,7 +66,7 @@ It follows very easily from this that since basic `BlockState`'s are generated i
 Using `BlockState`'s
 ---------------------
 
-`BlockState`, as we know now, is a powerful object. You can get the value of a property by calling `get(<PROPERTY>)`, passing it the `IProperty<>` you want to test.
+`BlockState`, as we know now, is a powerful object. You can get the value of a property by calling `get(<PROPERTY>)`, passing it the `Property<>` you want to test.
 If you want to get an `BlockState` with a different set of values, simply call `with(<PROPERTY>, <NEW_VALUE>)` as mentioned above. This will return another of the pregenerated `BlockState`'s with the values you requested.
 
 You can get and put `BlockState`'s in the world using `setBlockState()` and `getBlockState()`.

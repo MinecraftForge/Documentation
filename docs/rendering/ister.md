@@ -5,7 +5,7 @@ ItemStackTileEntityRenderer is a method to use OpenGL to render on items. This s
 Using ItemStackTileEntityRenderer
 --------------------------
 
-ItemStackTileEntityRenderer allows you to render your item using `public void renderByItem(ItemStack itemStackIn)`.
+ItemStackTileEntityRenderer allows you to render your item using `public void func_239207_a_(ItemStack itemStackIn, TransformType transformTypeIn, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn)`.
 There is an overload that takes partialTicks as a parameter, but it is never called in vanilla.
 
 In order to use a ISTER, the Item must first satisfy the condition that its model returns true for `IBakedModel#isBuiltInRenderer`.
@@ -15,4 +15,4 @@ To set the ISTER for an Item, use `Item.Properties#setTEISR`. Each Item can only
 
 That's it, no additional setup is necessary to use a ISTER.
 
-If you need to access the TransformType for rendering, you can store the one passed through `IBakedModel#handlePerspective`, and use it during rendering. This method will always be called before `ItemStackTileEntityRenderer#renderByItem`.
+If you need to access the TransformType for rendering, you can store the one passed through `IBakedModel#handlePerspective`, and use it during rendering. This method will always be called before `ItemStackTileEntityRenderer#func_239207_a_`.

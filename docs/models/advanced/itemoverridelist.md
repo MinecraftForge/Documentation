@@ -1,7 +1,7 @@
 `ItemOverrideList`
 ==================
 
-`ItemOverrideList` provides a way for an [`IBakedModel`][IBakedModel] to process the state of an `ItemStack` and return a new `IBakedModel`; thereafter, the returned model replaces the old one. `ItemOverrideList` represents an arbitrary function `(IBakedModel, ItemStack, World, EntityLivingBase)` → `IBakedModel`, making it useful for dynamic models. In vanilla, it is used to implement item property overrides.
+`ItemOverrideList` provides a way for an [`IBakedModel`][IBakedModel] to process the state of an `ItemStack` and return a new `IBakedModel`; thereafter, the returned model replaces the old one. `ItemOverrideList` represents an arbitrary function `(IBakedModel, ItemStack, ClientWorld, EntityLivingBase)` → `IBakedModel`, making it useful for dynamic models. In vanilla, it is used to implement item property overrides.
 
 ### `ItemOverrideList()`
 
@@ -11,9 +11,9 @@ Given a list of `ItemOverride`s, the constructor copies that list and stores the
 
 This is a deprecated vanilla method. It is only called in the vanilla `handleItemState`, and in almost all cases can be safely ignored.
 
-### `handleItemState`
+### `func_239290_a_`
 
-This takes an `IBakedModel`, an `ItemStack`, a `World`, and an `EntityLivingBase` to produce another `IBakedModel` to use for rendering. This is where models can handle the state of their items.
+This takes an `IBakedModel`, an `ItemStack`, a `ClientWorld`, and an `EntityLivingBase` to produce another `IBakedModel` to use for rendering. This is where models can handle the state of their items.
 
 This should not mutate the world.
 
