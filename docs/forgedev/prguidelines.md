@@ -84,6 +84,11 @@ Keep in mind that code review is not judgement against you. Bugs in your code ar
 Negativity will not help, threatening to give up on your Pull Request and write a coremod instead will just make people upset and make the modded ecosystem worse.  
 It's important that while working together you assume the best intentions of the people who are reviewing your Pull Request and not take things personally.
 
+License Headers
+---------------
+
+All Forge source files should be prefixed with the appropiate license header. Fortunately, this has been automated into two gradle tasks. When you build, forge will run the `checkLicense` task which verifies that all files have the correct license header and emit errors if this is not the case. In order to fix any potential license problems, run `gradlew updateLicenses` before you submit your Pull Request.
+
 Review
 ------
 
