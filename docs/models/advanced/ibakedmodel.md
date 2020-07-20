@@ -56,7 +56,7 @@ This method provides the [`IModelData`][modeldata] instance to the `getQuads` me
 The `getQuads` method requires a list of quads to be drawn. These quads can either be generated algorithmically or can be copies of other block models using the `ModelManager`.
 
 !!! note
-When using the quads from another block model, if you are going to manipulate the quads, be sure to copy the quads to not override the quads from the original model.
+    When using the quads from another block model, if you are going to manipulate the quads, be sure to copy the quads to not override the quads from the original model.
 
 When constructing the `BakedQuad`s algorithmically, there are several parameters which need to be provided to construct a `BakedQuad` manually however it is often easier to use the `FaceBakery` to generate quads.
 
