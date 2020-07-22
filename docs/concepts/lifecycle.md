@@ -36,6 +36,11 @@ The `RegistryEvent.NewRegistry` event allows modders to register their own custo
 
 The `RegistryEvent.Register<?>` event is for [registering objects][registering] into the registries. A `Register` event is fired for each registry. 
 
+Data Generation
+---------------
+
+If the game is setup to run the [data generators][datagen], then the `GatherDataEvent` will be the last event to fire. This event is for registering mods' data providers to the data generators.
+
 Common Setup
 ------------
 
@@ -45,11 +50,6 @@ Sided Setup
 -----------
 
 The sided-setup events are fired on their respective phyiscal sides: `FMLClientSetupEvent` on the physical client, and `FMLDedicatedServerSetupEvent` for the dedicated server. This is where physical side-specific initialization should occur, such as registering client-side key bindings.
-
-Data Generation
----------------
-
-If the game is setup to run the [data generators][datagen], then the `GatherDataEvent` will be the last event to fire. This event is for registering mods' data providers to the data generators.
 
 InterModComms
 -------------
