@@ -13,6 +13,9 @@ nav:
     - Data: 'concepts/data.md'
     - Registries: 'concepts/registries.md'
     - Internationalization and localization: 'concepts/internationalization.md'
+  - Biomes:
+      - Home: 'biomes/biomes.md'
+      - Biome Properties: 'biomes/properties.md'
   - Blocks:
     - Home: 'blocks/blocks.md'
     - Blockstates: 'blocks/states.md'
