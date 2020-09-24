@@ -91,7 +91,7 @@ theme:
   custom_dir: forge_theme
 
 extra:
-  current_version: 1.15.x
+  current_version: 1.16.x
   versions:
     1.15.x: 1.15.x
     1.16.x: 1.16.x
