@@ -27,6 +27,25 @@ Registering a TER
 
 In order to register a TESR, call `ClientRegistry#bindTileEntitySpecialRenderer` passing the tile entity class to be renderer with this TER and the instance of the TER to use to render all TEs of this class.
 
+IRenderTypeBuffer - Vertex Builders
+-----------------------------------
+This class gives you access to `IRenderTypeBuffer`, which in turn provides a series of `IVertexBuilder` instances via the `IRenderTypeBuffer#getBuffer` method.
+
+To get an example vertex builder (VB), see the `RenderTypes` class for a set of prebuilt builders.
+
+There are various vertex builders that Minecraft provides by default; here is a small overview of the main VB instances:
+
+| Render Type |  Example Purpose
+| :---------- | :--------------
+| SOLID | Rendering block faces
+| CUTOUT_MIPPED | Rendering parts of a block, or additional, dynamic models
+| CUTOUT | See above, difference is texture sheet usage
+| LINES | Directional lines
+
+The best way to get started with these is to look at the `RenderType` class and inspect the various definitions at the top.
+
+If you need a custom VB implementation, the easiest way is to subclass `RenderType` and declare custom instances of `RenderType` in the same manner as defined above. Look at the various builder properties to get a feel for how Minecraft natively sets up a GL state; each method effectively has a setup and teardown function defined.
+
 Increasing render distance
 --------------------------
 
