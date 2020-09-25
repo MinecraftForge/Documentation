@@ -26,3 +26,10 @@ Registering a TER
 -----------------
 
 In order to register a TESR, call `ClientRegistry#bindTileEntitySpecialRenderer` passing the tile entity class to be renderer with this TER and the instance of the TER to use to render all TEs of this class.
+
+Increasing render distance
+--------------------------
+
+For large TESR renderings (multiblock renders, for example) will stop rendering if the primary tile entity goes outside of the player's view (view frustum culling).
+
+In order to address this, change the `AxisAlignedBB` that is returned from `TileEntity#getRenderBoundingBox`. This value should contain your main tile entity bounds, as well as any additional bounds needed to render the full structure.
