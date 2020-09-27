@@ -49,7 +49,7 @@ Common Setup
 Sided Setup
 -----------
 
-The sided-setup events are fired on their respective phyiscal sides: `FMLClientSetupEvent` on the physical client, and `FMLDedicatedServerSetupEvent` for the dedicated server. This is where physical side-specific initialization should occur, such as registering client-side key bindings.
+The sided-setup events are fired on their respective [phyiscal sides][sides]: `FMLClientSetupEvent` on the physical client, and `FMLDedicatedServerSetupEvent` for the dedicated server. This is where physical side-specific initialization should occur, such as registering client-side key bindings.
 
 InterModComms
 -------------
@@ -67,3 +67,4 @@ During the `InterModEnqueueEvent`, use `InterModComms.sendTo` to send messages t
 [capabilities]: ../datastorage/capabilities.md
 [datagen]: ../datagen/intro.md
 [imc]: lifecycle.md#intermodcomms
+[sides]: sides.md
