@@ -57,7 +57,7 @@ nav:
   - Utilities:
     - Recipes: 'utilities/recipes.md'
     - Tags: 'utilities/tags.md'
-	- Recipe Conditions: 'utilities/recipeconditions.md'
+    - Recipe Conditions: 'utilities/recipeconditions.md'
   - Effects:
     - Particles: 'effects/particles.md'
     - Sounds: 'effects/sounds.md'
