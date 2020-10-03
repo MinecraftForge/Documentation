@@ -8,9 +8,9 @@ An item property assigns a certain `float` value to every `ItemStack` it is regi
 Adding Properties to Items
 --------------------------
 
-`ItemModelsProperties::func_239420_a_` is used to add a property to all items, it does not take `Item` as it's parameter. `ItemModelsProperties::func_239418_a_` is used to add a property to certain item. The `Item` parameter is the item the property is attaching to (e.g. ExampleItems.APPLE). The `ResourceLocation` parameter is the name given to the property (e.g. `new ResourceLocation("pull")`). The `IItemPropertyGetter` is a function that takes the `ItemStack`, the `ClientWorld` it's in (may be null), and the `LivingEntity` that holds it (may be null), returning the `float` value for the property. For modded item properties, it is recommended that the modid of the mod is used as the namespace (e.g. `examplemod:property` and not just `property`, as that really means `minecraft:property`). These can be done in FMLClientSetupEvent.
+`ItemModelsProperties::func_239420_a_` is used to add a property to all items, it does not take `Item` as it's parameter. `ItemModelsProperties::func_239418_a_` is used to add a property to a certain item. The `Item` parameter is the item the property is attaching to (e.g. ExampleItems.APPLE). The `ResourceLocation` parameter is the name given to the property (e.g. `new ResourceLocation("pull")`). The `IItemPropertyGetter` is a function that takes the `ItemStack`, the `ClientWorld` it's in (may be null), and the `LivingEntity` that holds it (may be null), returning the `float` value for the property. For modded item properties, it is recommended that the modid of the mod is used as the namespace (e.g. `examplemod:property` and not just `property`, as that really means `minecraft:property`). These should be done in FMLClientSetupEvent.
 !!! important
-    Use DeferredWorkQueue, since the data structures in ItemModelsProperties are not threadsafe.
+    Use DeferredWorkQueue to proceed the task, since the data structures in ItemModelsProperties are not threadsafe.
 
 Using Overrides
 ---------------
