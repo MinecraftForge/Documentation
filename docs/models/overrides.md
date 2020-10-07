@@ -42,7 +42,7 @@ The format of an override can be seen on the [wiki][format], and a good example 
 And here's a hypothetical snippet from the supporting code. Unlike the older versions (lower than 1.16.x), this needs to be done on client side only because ItemModelsProperties does not exist on server.
 
 ```java
-private void setup(final FMLCommonSetupEvent event)
+private void setup(final FMLClientSetupEvent event)
 {
   DeferredWorkQueue.runLater(() ->
   {
