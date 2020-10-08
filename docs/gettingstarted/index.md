@@ -32,9 +32,7 @@ Edit the `build.gradle` file to customize how your mod is built (the file names,
 
 Almost anything underneath the `// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.` marker can be changed, many things can be removed and customized there as well.
 
-There is a whole site dedicated to customizing the forge `build.gradle` files - the [ForgeGradle cookbook][]. Once you're comfortable with your mod setup, you'll find many useful recipes there.
 
-[forgegradle cookbook]: https://forgegradle.readthedocs.org/en/latest/cookbook/ "The ForgeGradle cookbook"
 [files]: https://files.minecraftforge.net "Forge Files distribution site"
 
 ### Simple `build.gradle` Customizations
