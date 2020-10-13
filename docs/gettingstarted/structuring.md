@@ -24,8 +24,8 @@ The `mods.toml` file is formatted as [TOML](https://github.com/toml-lang/toml), 
     # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
     modLoader="javafml"
     # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-    # Forge for 1.16.1 is version 32
-    loaderVersion="[32,)"
+    # Forge for 1.16.3 is version 34
+    loaderVersion="[34,)"
     # A URL to refer people to when problems occur with this mod
     issueTrackerURL="github.com/MinecraftForge/MinecraftForge/issues"
     # If the mods defined in this file should show as seperate resource packs
@@ -47,14 +47,14 @@ The `mods.toml` file is formatted as [TOML](https://github.com/toml-lang/toml), 
       [[dependencies.examplemod]]
         modId="forge"
         mandatory=true
-        versionRange="[32,)"
+        versionRange="[34,)"
         ordering="NONE"
         side="BOTH"
 
       [[dependencies.examplemod]]
         modId="minecraft"
         mandatory=true
-        versionRange="[1.16.1]"
+        versionRange="[1.16.3]"
         ordering="NONE"
         side="BOTH"
 ```
@@ -68,7 +68,7 @@ The default Gradle configuration replaces `${file.jarVersion}` with the project 
 |  displayName |  string  | mandatory | The user-friendly name of this mod. |
 | updateJSONURL |  string  |   `""`   | The URL to a [version JSON](autoupdate#forge-update-checker). |
 |   displayURL |  string  |   `""`   | A link to the mod's homepage. |
-|     logoFile |  string  |   `""`   | The path to the mod's logo. It is resolved on top of the classpath, so you should put it in a location where the name will not conflict, maybe under your own assets folder. |
+|     logoFile |  string  |   `""`   | The filename of the mod's logo. It must be placed in the root resource folder, not in a subfolder. |
 |      credits |  string  |   `""`   | A string that contains any acknowledgements you want to mention. |
 |      authors |  string  |   `""`   | The authors to this mod. |
 |  description |  string  | mandatory | A description of this mod. |

@@ -1,82 +1,95 @@
 Block States
 ============
 
-Please read **all** of this guide before starting to code. Your understanding will be more comprehensive and correct than if you just picked parts out.
-This guide is designed for an entry level introduction to Block States. You might notice some simplifying assumptions I've made below. They are intentional and are meant to avoid overloading beginners with information they may not immediately need.
+Legacy Behavior
+---------------------------------------
 
-Motivation
-----------
+In Minecraft 1.7 and previous versions, blocks which need to store placement or state data that did not have TileEntities used **metadata**. Metadata was an extra number stored with the block, allowing different rotations, facings, or even completely separate behaviors within a block.
 
-In Minecraft 1.8 and above, direct manipulation of blocks and metadata values have been abstracted away into what is known as blockstates.
-The premise of the system is to remove the usage and manipulation of raw metadata numbers, which are nondescript and carry no meaning.
-
-For example, consider this switch statement for some arbitrary block that can face a direction and be on either half of the block space:
+However, the metadata system was confusing and limited, since it was stored as only a number alongside the block ID, and had no meaning except what was commented in the code. For example, to implement a block that can face a direction and be on either the upper or lower half of a block space (such as a stair): 
 
 ```Java
-switch(meta) {
-  case 0: // it's south and on the lower half of the block
-  case 1: // it's south on the upper side of the block
-  case 2: // it's north and on the lower half of the block
-  case 3: // it's north and on the upper half of the block
-  ... etc.
+switch (meta) {
+    case 0: { ... } // south and on the lower half of the block
+    case 1: { ... } // south on the upper side of the block
+    case 2: { ... } // north and on the lower half of the block
+    case 3: { ... } // north and on the upper half of the block
+    ... etc. ...
 }
 ```
 
-The numbers themselves carry no meaning whatsoever! If the comments weren't there we would have no idea what the meaning of each number is.
+Because the numbers carry no meaning by themselves, no one could know what they represent unless they had access to the source code and comments.
 
-A New Way of Thinking
----------------------
+Introduction of States
+---------------------------------------
 
-How about, instead of having to munge around with numbers everywhere, we instead use some system that abstracts out the details of saving from the semantics of the block itself?
-This is where `Property<?>` comes in. Each Block has a set of zero or more of these objects, that describe, unsurprisingly, *properties* that the block have. Examples of this include color (`Property<NoteBlockInstrument>`), facing (`Property<Direction>`), integer and boolean values, etc. Each property can have a *value* of the type parametrized by `Property`. For example, for the respective example properties, we can have values `DyeColor.WHITE`, `Direction.EAST`, `1`, or `false`.
+In Minecraft 1.8 and above, the metadata system, along with the block ID system, was deprecated and eventually replaced with the **block state system**. The block state system abstracts out the details of the block's properties from the other behaviors of the block.
 
-Then, following from this, we see that every unique triple (Block, set of properties, set of values for those properties) is a suitable abstracted replacement for Block and metadata. Now, instead of "minecraft:stone_button meta 9" we have "minecraft:stone_button[facing=east,powered=true]". Guess which is more meaningful?
+Each *property* of a block is described by an instance of `IProperty<?>`. Examples of block properties include instruments (`Property<NoteBlockInstrument>`), facing (`Property<Direction`), poweredness (`Property<Boolean>`), etc. Each property has the value of the type `T` parametrized by `Property<T>`.
 
-We have a very special name for these triples - they're called `BlockState`'s.
+A unique triple can be constructed from the `Block`, the set of `Property<?>`, and the set of values for those properties. This unique triple is called a `BlockState`. 
 
-Imbuing your Blocks with these Magical Properties
--------------------------------------------------
+The previous system of meaningless metadata values were replaced by a system of block properties, which are easier to interpret and deal with. Previously, a stone button which is facing east and is powered or held down is represented by "`minecraft:stone_button` with metadata `9`. Now, this is represented by "`minecraft:stone_button[facing=east,powered=true]`" 
 
-Now that I've successfully convinced you that properties and values are superior to arbitrary numbers, let's move on to the actual how-to-do part.
+Proper Usage of Block States
+---------------------------------------
 
-In your Block class, create static final `Property<>` objects for every property that your Block has. Vanilla provides us several convenience implementations:
-  
-  * `PropertyInteger`: Implements `Property<Integer>`. Created by calling PropertyInteger.create("<name>", <min>, <max>);
-  * `PropertyBool`: Implements `Property<Boolean>`. Created by calling PropertyBool.create("<name>");
-  * `PropertyEnum<E extends Enum<E>>`: Implements `Property<E>`, Defines a property that can take on the values of an Enum class. Created by calling PropertyEnum.create("name", <enum_class>);
-    * You can also use only a subset of the Enum values (for example, you can use only 4 of the 16 `DyeColor`'s. Take a look at the other overloads of `PropertyEnum.create`)
-  * `PropertyDirection`: This is a convenience implementation of `PropertyEnum<Direction>`
-    * Several convenience predicates are also provided. For example, to get a property that represents the cardinal directions, you would call `PropertyDirection.create("<name>", Direction.Plane.HORIZONTAL)`. Or to get the X directions, `PropertyDirection.create("<name>", Direction.Axis.X)`
+The `BlockState` system is a flexible and powerful system, but it also has limitations. `BlockState`s are immutable, and all combinations of their properties are generated on startup of the game. This means that having a `BlockState` with many properties and possible values will slow down the loading of the game, and befuddle anyone trying to make sense of your block logic.
 
-Note that you are free to make your own `Property<>` implementations, but the means to do that are not covered in this article.
-In addition, note that you can share the same `Property` object between different blocks if you wish. Vanilla generally has separate ones for every single block, but it is merely personal preference.
+Not all blocks and situations require the usage of `BlockState`; only the most basic properties of a block should be put into a `BlockState`, and any other situation is better off with having a `TileEntity` or being a separate `Block`. Always consider if you actually need to use blockstates for your purposes.
 
-!!! Note 
-    If your mod has an API or is meant to be interacted with from other mods, it is **very highly** recommended that you instead place your `Property`'s (and any classes used as values) in your API. That way, people can use properties and values to set your blocks in the world instead of having to suffer with arbitrary numbers like you used to.
+!!! Note
+    A good rule of thumb is: **if it has a different name, it should be a separate block**.
 
-After you've created your `Property<>` objects, override `fillStateContainer` in your Block class. In that method, simply write `builder.add(...);`. Pass every `Property` you want the block to have.
+An example is making chair blocks: the *direction* of the chair should be a *property*, while the different *types of wood* should be separated into different blocks.
+An "Oak Chair" facing east (`oak_chair[facing=east]`) is different from a "Spruce Chair" facing west (`spruce_chair[facing=west]`).
 
-Every block will also have a "default" state that is automatically chosen for you. You can overwrite this "default" by overwriting the `getDefaultState()` method. More importantly, when your block is placed it will become this "default" state. However if you wish to customise which `BlockState` is placed when you your block is placed you can overwrite `getStateForPlacement()`. This can be used to for example set the direction of your block depending on where the player is standing when they place it.
+Implementing Block States
+---------------------------------------
 
-`BlockState`'s are immutable and pregenerated, this means calling `BlockState.with(<PROPERTY>, <NEW_VALUE>)` will simply go to the `BlockState`/`StateContainer` and request the BlockState with the set of values you want, instead of constructing a new `BlockState`.
+In your Block class, create or reference `static final` `Property<?>` objects for every property that your Block has. You are free to make your own `Property<?>` implementations, but the means to do that are not covered in this article. The vanilla code provides several convenience implementations:
 
-It follows very easily from this that since basic `BlockState`'s are generated into a fixed set at startup, you are able and encouraged to use reference comparison (==) to check if they are equal!
+  * `IntegerProperty`
+    * Implements `Property<Integer>`. Defines a property that holds an integer value.
+    * Created by calling `IntegerProperty.create(String propertyName, int minimum, int maximum)`.
+  * `BooleanProperty`
+    * Implements `Property<Boolean>`. Defines a property that holds a `true` or `false` value.
+    * Created by calling `BooleanProperty.create(String propertyName)`.
+  * `EnumProperty<E extends Enum<E>>`
+    * Implements `Property<E>`. Defines a property that can take on the values of an Enum class.
+    * Created by calling `EnumProperty.create(String propertyName, Class<E> enumClass)`.
+    * It is also possible to use only a subset of the Enum values (e.g. 4 out of 16 `DyeColor`s). See the overloads of `EnumProperty.create`.
+  * `DirectionProperty`
+    * This is a convenience implementation of `EnumProperty<Direction>`
+    * Several convenience predicates are also provided. For example, to get a property that represents the cardinal directions, call `DirectionProperty.create("<name>", Direction.Plane.HORIZONTAL)`; to get the X directions, `DirectionProperty.create("<name>", Direction.Axis.X)`
 
+The class `BlockStateProperties` contains shared vanilla properties which should be used or referenced whenever possible, in place of creating your own properties.
+
+When you have your desired `Property<>` objects, override `Block#fillStateContainer(StateContainer$Builder)` in your Block class. In that method, call `StateContainer$Builder#add(...);`  with the parameters as every `Property<?>` you wish the block to have.
+
+Every block will also have a "default" state that is automatically chosen for you. You can change this "default" state by calling the `Block#setDefaultState(BlockState)` method from your constructor. When your block is placed it will become this "default" state. An example from `DoorBlock`:
+
+```Java
+this.setDefaultState(
+    this.stateContainer.getBaseState()
+        .with(FACING, Direction.NORTH)
+        .with(OPEN, false)
+        .with(HINGE, DoorHingeSide.LEFT)
+        .with(POWERED, false)
+        .with(HALF, DoubleBlockHalf.LOWER)
+);
+```
+
+If you wish to change what `BlockState` is used when placing your block, you can overwrite `Block#getStateForPlacement(BlockItemUseContext)`. This can be used to, for example, set the direction of your block depending on where the player is standing when they place it.
+
+Because `BlockState`s are immutable, and all combinations of their properties are generated on startup of the game, calling `BlockState#with(Property<T>, T)` will simply go to the `Block`'s `StateContainer` and request the `BlockState` with the set of values you want.
+
+Because all possible `BlockState`s are generated at startup, you are free and encouraged to use the reference equality operator (`==`) to check if two `BlockState`s are equal.
 
 Using `BlockState`'s
 ---------------------
 
-`BlockState`, as we know now, is a powerful object. You can get the value of a property by calling `get(<PROPERTY>)`, passing it the `Property<>` you want to test.
-If you want to get an `BlockState` with a different set of values, simply call `with(<PROPERTY>, <NEW_VALUE>)` as mentioned above. This will return another of the pregenerated `BlockState`'s with the values you requested.
+You can get the value of a property by calling `BlockState#get(Property<?>)`, passing it the property you want to get the value of.
+If you want to get a `BlockState` with a different set of values, simply call `BlockState#with(Property<T>, T)` with the property and its value.
 
-You can get and put `BlockState`'s in the world using `setBlockState()` and `getBlockState()`.
-
-
-Flattening
-----------
-As of Minecraft 1.13 metadata values have also been removed, instead of creating blocks with many blockstates to set its properties it is now preferred to simply make more blocks. Do you have a new wooden object that should have a variant for every wood type? In the past you'd have used blockstates for this, but now it is preferred to create separate blocks for each wood type.
-
-A good rule of thumb is: if it has a different name, it should be a different block/item.
-
-So consider whether or not you actually need to use blockstates or whether it's better to have separate blocks.
-Take flower pots as an example: you might think the plant in the flower pot would be stored in a blockstate, but it's not! Each plant has its own flower pot block.
+You can get and place `BlockState`'s in the world using `World#setBlockState(BlockPos, BlockState)` and `World#getBlockState(BlockState)`. If you are placing a `Block`, call `Block#getDefaultState()` to get the "default" state, and use subsequent calls to `BlockState#with(Property<T>, T)` as stated above to achieve the desired state.

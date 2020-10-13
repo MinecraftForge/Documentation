@@ -10,11 +10,12 @@ nav:
   - Concepts:
     - Sides: 'concepts/sides.md'
     - Resources: 'concepts/resources.md'
+    - Data: 'concepts/data.md'
     - Registries: 'concepts/registries.md'
     - Internationalization and localization: 'concepts/internationalization.md'
   - Blocks:
     - Home: 'blocks/blocks.md'
-    - Intro to Blockstates: 'blocks/states.md'
+    - Blockstates: 'blocks/states.md'
     - Interaction: 'blocks/interaction.md'
   - Animation API:
     - Intro to the Animation API: 'animation/intro.md'
@@ -26,6 +27,7 @@ nav:
     - Renderer: 'tileentities/tesr.md'
   - Items:
     - Home: 'items/items.md'
+    - Loot Modification: 'items/globallootmodifiers.md'
   - Models:
     - Intro to Models: 'models/introduction.md'
     - Model Files: 'models/files.md'
@@ -39,6 +41,9 @@ nav:
       - ItemOverrideList: 'models/advanced/itemoverridelist.md'
   - Rendering:
     - ItemStackTileEntityRenderer: 'rendering/ister.md'
+  - Data Generation:
+    - Introduction: 'datagen/intro.md'
+    - Model Providers: 'datagen/modelproviders.md'
   - Events:
     - Basic Usage: 'events/intro.md'
   - Networking:
@@ -53,17 +58,20 @@ nav:
     - Recipes: 'utilities/recipes.md'
     - Tags: 'utilities/tags.md'
   - Effects:
+    - Particles: 'effects/particles.md'
     - Sounds: 'effects/sounds.md'
   - Conventions:
     - Versioning: 'conventions/versioning.md'
     - Locations: 'conventions/locations.md'
     - Loading Stages: 'conventions/loadstages.md'
+  - Advanced Topics:
+    - Access Transformers: 'advanced/accesstransformers.md'
   - Contributing to Forge:
     - Getting Started: 'forgedev/index.md'
     - PR Guidelines: 'forgedev/prguidelines.md'
   - Legacy Versions:
     - Home: 'legacy/index.md'
-#    - Porting from 1.12 to 1.13/1.14: 'legacy/porting1214.md'
+    - Porting from 1.13/1.14 to 1.15: 'legacy/porting1415.md'
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
@@ -83,7 +91,7 @@ theme:
   custom_dir: forge_theme
 
 extra:
-  current_version: 1.15.x
+  current_version: 1.16.x
   versions:
     1.15.x: 1.15.x
     1.16.x: 1.16.x
