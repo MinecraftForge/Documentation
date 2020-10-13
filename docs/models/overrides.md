@@ -8,7 +8,7 @@ An item property assigns a certain `float` value to every `ItemStack` it is regi
 Adding Properties to Items
 --------------------------
 
-`ItemModelProperties::func_239418_a_` is used to add a property to an item. The `Item` parameter is the item the property will be applied to. The `ResourceLocation` parameter is the name given to the property (e.g. `new ResourceLocation("pull")`). The `IItemPropertyGetter` is a function that takes the `ItemStack`, the `ClientWorld` it's in, and the `LivingEntity` that holds it, returning the `float` value for the property. Some examples are the `"pulling"` and "`pull`" properties for `Items.BOW`, and the several default ones in `ItemModelProperties`. For modded item properties, it is recommended that the modid of the mod is used as the namespace (e.g. `examplemod:property` and not just `property`, as that really means `minecraft:property`).
+`ItemModelProperties::registerProperty` is used to add a property to an item. The `Item` parameter is the item the property will be applied to. The `ResourceLocation` parameter is the name given to the property (e.g. `new ResourceLocation("pull")`). The `IItemPropertyGetter` is a function that takes the `ItemStack`, the `ClientWorld` it's in, and the `LivingEntity` that holds it, returning the `float` value for the property. Some examples are the `"pulling"` and "`pull`" properties for `Items.BOW`, and the several default ones in `ItemModelProperties`. For modded item properties, it is recommended that the modid of the mod is used as the namespace (e.g. `examplemod:property` and not just `property`, as that really means `minecraft:property`).
 
 Using Overrides
 ---------------
@@ -41,7 +41,7 @@ And here's a hypothetical snippet from the supporting code. (This does not have 
 
 ```java
 public void clientSetup(final FMLCLientSetupEvent event) {
-  ItemModelProperties.func_239418_a_(item, new ResourceLocation("examplemod:power"), new IItemPropertyGetter() {
+  ItemModelProperties.registerProperty(item, new ResourceLocation("examplemod:power"), new IItemPropertyGetter() {
     @Override
     public float call(ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
       return (float)getPowerLevel(stack) / (float)getMaxPower(stack); // Some external methods
