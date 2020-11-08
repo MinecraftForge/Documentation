@@ -24,8 +24,8 @@ The `mods.toml` file is formatted as [TOML](https://github.com/toml-lang/toml), 
     # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
     modLoader="javafml"
     # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-    # Forge for 1.15.2 is version 31
-    loaderVersion="[31,)"
+    # Forge for 1.16.3 is version 34*. It is recommended to leave a comma at the end to support future versions
+    loaderVersion="[34,)"
     # A URL to refer people to when problems occur with this mod
     issueTrackerURL="github.com/MinecraftForge/MinecraftForge/issues"
     # If the mods defined in this file should show as seperate resource packs
@@ -47,17 +47,19 @@ The `mods.toml` file is formatted as [TOML](https://github.com/toml-lang/toml), 
       [[dependencies.examplemod]]
         modId="forge"
         mandatory=true
-        versionRange="[31,)"
+        versionRange="[34,)"
         ordering="NONE"
         side="BOTH"
 
       [[dependencies.examplemod]]
         modId="minecraft"
         mandatory=true
-        versionRange="[1.15.2]"
+        versionRange="[1.16.3,]"
         ordering="NONE"
         side="BOTH"
 ```
+
+<a name="version-ranges" style="color: inherit; text-decoration: inherit">\* All version ranges use the [Maven Version Range Specification](https://maven.apache.org/enforcer/enforcer-rules/versionRanges.html).</a>
 
 The default Gradle configuration replaces `${file.jarVersion}` with the project version, but *only* within `mods.toml`, so you should use those instead of directly writing them out. Here is a table of attributes that may be given to a mod, where `mandatory` means there is no default and the absence of the property causes an error.
 
@@ -73,8 +75,6 @@ The default Gradle configuration replaces `${file.jarVersion}` with the project 
 |      authors |  string  |   `""`   | The authors to this mod. |
 |  description |  string  | mandatory | A description of this mod. |
 | dependencies | [list] |   `[]`   | A list of dependencies of this mod. |
-
-<a name="version-ranges" style="color: inherit; text-decoration: inherit">\* All version ranges use the [Maven Version Range Specification](https://maven.apache.org/enforcer/enforcer-rules/versionRanges.html).</a>
 
 The Mod File
 ------------
