@@ -108,10 +108,7 @@ Called on a block when it is clicked by a player.
 This method is perfect for adding custom events when a player clicks on a block.
 
 By default this method does nothing.  
-Two blocks that override this method are the `NoteBlock` and the `RedstoneOreBlock`.
-
-The Note block overrides this method so that when left-clicked, it plays a sound.  
-The RedstoneOre block overrides method so that when left-clicked, it gives off emits faint light for a few seconds.
+`NoteBlock` overrides this method so when left-clicked, it plays a sound. `RedstoneOreBlock` on left-click emits a faint light and spawns particles around itself.
 
 `onBlockHarvested`
 ----------------
@@ -138,7 +135,7 @@ This method has important behavior in the `Block` class so be sure to call the s
 super.onBlockHarvested(worldIn, pos, state, player);
 ```
 
-The `TNTBlock` overrides this method to cause it's explosion when a player destroys it.  
+The `TNTBlock` overrides this method to cause it's explosion when a player destroys it if its `unstable` property is `true`.  
 This method is used by extended pistons; since an extended piston is made up of two blocks. (the extended head and the base)
 The `PistonHeadBlock` makes use of this method to destroy the base block when the `PistonHeadBlock` is destroyed. 
 

@@ -123,10 +123,8 @@ The `flags` are a bitmask and should contain `2`, which will sync the changes to
 This way of synchronizing is probably the most complicated one, but is usually also the most optimized one,
 as you can make sure that only the data you need to be synchronized is actually synchronized.
 You should first check out the [`Networking`][networking] section and especially [`SimpleImpl`][simple_impl] before attempting this.
-Once you've created your custom network message, you can send it to all users that have the `TileEntity` loaded with:
-```JAVA
-SimpleChannel#send(PacketDistributor.PacketTarget, MSG)
-```
+Once you've created your custom network message, you can send it to all users that have the `TileEntity` loaded with `SimpleChannel#send(PacketDistributor.PacketTarget, MSG)`.
+
 
 !!! warning
 

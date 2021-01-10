@@ -8,7 +8,7 @@ you are animating.
 Blocks
 --------
 
-Animations for blocks are done with the `TileEntityRendererAnimation`, which is a `TileEntityRendererFast`. Because of this, having a `TileEntity` for your block
+Animations for blocks are done with the `TileEntityRendererAnimation`, which is a `TileEntityRenderer`. Because of this, having a `TileEntity` for your block
 is necessary. Your `TileEntity` must provide the `ANIMATION_CAPABILITY`, which is received by calling its `.cast` method with your
 ASM. Your block must also render in the `ENTITYBLOCK_ANIMATED` render layer if you do not provide a `StaticProperty` in the block's blockstate.
 
