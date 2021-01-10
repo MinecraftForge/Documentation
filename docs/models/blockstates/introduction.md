@@ -25,7 +25,7 @@ A blockstate always has to be defined for all possible variant strings. When you
 Starting from Minecraft 1.9, Mojang also introduced the "multipart" format. You can find a definition of its format on the [wiki][]. Forge's format and the multipart format are not better than each other; they each cover different use cases and it is your choice which one you want to use.
 
 !!! note
-    The Forge format is really more like syntactic sugar for automatically calculating the set of all possible variants for you behind the scenes. This allows you to use the resulting `ModelResourceLocation`s for things other than blocks. ([Such as items][item blockstates]. This is also true of the 1.8 format, but there is almost no reason to use that format.) The 1.9 format is a more complicated system that depends on having an `IBlockState` to pick the model. It will not directly work in other contexts without some code around it.
+    The Forge format is really more like syntactic sugar for automatically calculating the set of all possible variants for you behind the scenes. This allows you to use the resulting `ModelResourceLocation`s for things other than blocks, such as items. This is also true of the 1.8 format, but there is almost no reason to use that format.) The 1.9 format is a more complicated system that depends on having an `IBlockState` to pick the model. It will not directly work in other contexts without some code around it.
 
 For reference, here's an excerpt from the 1.8 blockstate for fences, `fence.json`:
 
@@ -48,4 +48,3 @@ This is one case of 5. You can read this as "when east=true, use the model oak_f
 [blockstate]: ../../blocks/states.md
 [statemapper]: ../using.md#block-models
 [wiki]: https://minecraft.gamepedia.com/Model#Block_states
-[item blockstates]: ../using.md#blockstate-jsons-for-items
