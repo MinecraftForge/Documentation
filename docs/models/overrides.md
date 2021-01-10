@@ -3,12 +3,13 @@ Item Property Overrides
 
 Item properties are a way for the "properties" of items to be exposed to the model system. An example is the bow, where the most important property is how far the bow has been pulled. This information is then used to choose a model for the bow, creating an animation for pulling it.
 
-An item property assigns a certain `float` value to every `ItemStack` it is registered for, and vanilla item model definitions can use these values to define "overrides", where an item defaults to a certain model, but if an override matches, it overrides the model and uses another. They are useful mainly because they are continuous. For example, bows use item properties to define their pull animation. Since the value of the property is a `float`, it increases continuously from 0 to 1. This allows resource packs to add as many models as they want for the bow pulling animation along that spectrum, instead of being stuck with four "slots" for their models in the animation. The same is true of the compass and clock.
+An item property assigns a certain `float` value to every `ItemStack` it is registered for, and vanilla item model definitions can use these values to define "overrides", where an item defaults to a certain model, but if an override matches, it overrides the model and uses another. They are useful mainly because they are continuous. For example, bows use item properties to define their pull animation. The item models are decided by the 'float' number predicates, it is not limited but in this case we use values between 0.0F and 1.0F as the example. This allows resource packs to add as many models as they want for the bow pulling animation along that spectrum, instead of being stuck with four "slots" for their models in the animation. The same is true of the compass and clock.
 
 Adding Properties to Items
 --------------------------
 
-`ItemModelsProperties::registerGlobalProperty` is used to add a property to all items, it does not take `Item` as it's parameter. `ItemModelsProperties::registerProperty` is used to add a property to a certain item. The `Item` parameter is the item the property is attaching to (e.g. ExampleItems.APPLE). The `ResourceLocation` parameter is the name given to the property (e.g. `new ResourceLocation("pull")`). The `IItemPropertyGetter` is a function that takes the `ItemStack`, the `ClientWorld` it's in (may be null), and the `LivingEntity` that holds it (may be null), returning the `float` value for the property. For modded item properties, it is recommended that the modid of the mod is used as the namespace (e.g. `examplemod:property` and not just `property`, as that really means `minecraft:property`). These should be done in FMLClientSetupEvent.
+`ItemModelsProperties::registerProperty` is used to add a property to a certain item. The `Item` parameter is the item the property is attaching to (e.g. ExampleItems.APPLE). The `ResourceLocation` parameter is the name given to the property (e.g. `new ResourceLocation("pull")`). The `IItemPropertyGetter` is a functional interface that takes the `ItemStack`, the `ClientWorld` it's in (may be null), and the `LivingEntity` that holds it (may be null), returning the `float` value for the property. For modded item properties. It is recommended that the modid of the mod is used as the namespace (e.g. `examplemod:property` and not just `property`, as that really means `minecraft:property`). These should be done in FMLClientSetupEvent.
+There's also another private method `ItemModelsProperties::registerGlobalProperty` that is used to add properties to all items, and it does not take `Item` as it's parameter since all items will apply this property.
 !!! important
     Use FMLClientSetupEvent::enqueueWork to proceed with the tasks, since the data structures in ItemModelsProperties are not threadsafe.
 
@@ -47,7 +48,7 @@ private void setup(final FMLClientSetupEvent event)
   event.enqueueWork(() ->
   {
     ItemModelsProperties.registerProperty(ExampleItems.APPLE, 
-      new ResourceLocation(ExampleMod.MODID, pulling"), (stack, world, living) -> {
+      new ResourceLocation(ExampleMod.MODID, "pulling"), (stack, world, living) -> {
         return living != null && living.isHandActive() && living.getActiveItemStack() == stack ? 1.0F : 0.0F;
       });
   });
