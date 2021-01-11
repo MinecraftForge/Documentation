@@ -38,7 +38,7 @@ See [Perspective][].
 
 ### `getQuads`
 
-This is the main method of `IBakedModel`. It returns `BakedQuad`s, which contain the low-level vertex data that will be used to render the model. If the model is being rendered as a block, then the `IBlockState` passed in is non-null. Additionally, [`Block::getExtendedState`][extended blockstates] is called to create the passed `IBlockState`, which allows for arbitrary data to be passed from the block to the model. If the model is being rendered as an item, the `ItemOverrideList` returned from `getOverrides` is responsible for handling the state of the item, and the `IBlockState` parameter will be `null`.
+This is the main method of `IBakedModel`. It returns `BakedQuad`s, which contain the low-level vertex data that will be used to render the model. If the model is being rendered as a block, then the `IBlockState` passed in is non-null. Additionally, `Block::getExtendedState` is called to create the passed `IBlockState`, which allows for arbitrary data to be passed from the block to the model. If the model is being rendered as an item, the `ItemOverrideList` returned from `getOverrides` is responsible for handling the state of the item, and the `IBlockState` parameter will be `null`.
 
 The `EnumFacing` passed in is used for face culling. If the block against the given side of the block being rendered is opaque, then the faces associated with that side are not rendered. If that parameter is `null`, all faces not associated with a side are returned (that will never be culled).
 
@@ -49,5 +49,4 @@ The `long` parameter is a random number.
 [IModel::bake]: imodel.md#bake
 [Perspective]: perspective.md
 [ItemOverrideList]: itemoverridelist.md
-[extended blockstates]: extended-blockstates.md
 [ister]: /rendering/ister.md
