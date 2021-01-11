@@ -120,4 +120,4 @@ When crafting something, you can get out more than one item. This is achieved by
 [Advancements]: #
 [Wiki]: https://minecraft.gamepedia.com/Recipe
 [Factories]: #factories
-[datapack]: datapacks.md
+[datapack]: /concepts/data.md
