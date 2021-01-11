@@ -22,7 +22,7 @@ If the model is being rendered as an item in an inventory, on the ground as an e
 !!! important
     Unless you know what you're doing and are OK with using deprecated features, just `return false` from this and continue on.
 
-When rendering this as an item, returning `true` causes the model to not be rendered, instead falling back to `ItemStackTileEntityRenderer::render`. For certain vanilla items such as chests and banners, this method is hardcoded to copy data from the item into a `TileEntity`, before using a `TileEntitySpecialRenderer` to render that TE in place of the item. For all other items, it will use the `TileEntityItemStackRenderer` instance provided by `Item$Properties#setISTER`; refer to [TileEntityItemStackRenderer][teisr] page for more information.
+When rendering this as an item, returning `true` causes the model to not be rendered, instead falling back to `ItemStackTileEntityRenderer::render`. For certain vanilla items such as chests and banners, this method is hardcoded to copy data from the item into a `TileEntity`, before using a `TileEntitySpecialRenderer` to render that TE in place of the item. For all other items, it will use the `ItemStackTileEntityRenderer` instance provided by `Item$Properties#setISTER`; refer to [ItemStackTileEntityRenderer][ister] page for more information.
 
 ### `getParticleTexture`
 
@@ -50,4 +50,4 @@ The `long` parameter is a random number.
 [Perspective]: perspective.md
 [ItemOverrideList]: itemoverridelist.md
 [extended blockstates]: extended-blockstates.md
-[teisr]: ../../rendering/teisr.md
+[ister]: /rendering/ister.md
