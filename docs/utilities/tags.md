@@ -67,4 +67,4 @@ Tags are directly supported by Vanilla, see the respective Vanilla wiki pages fo
 [tags]: https://minecraft.gamepedia.com/Tag#JSON_format
 [recipes]: https://minecraft.gamepedia.com/Recipe#JSON_format
 [advancements]: https://minecraft.gamepedia.com/Advancements
-[datapack]: datapacks.md
+[datapack]: /concepts/data.md
