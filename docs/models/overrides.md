@@ -16,7 +16,7 @@ There's also another private method `ItemModelsProperties::registerGlobalPropert
 Using Overrides
 ---------------
 
-The format of an override can be seen on the [wiki][format], and a good example can be found in `model/item/bow.json`. For reference, here is a hypothetical example of an item with an `examplemod:power` property. If the values have no match, the default is the current model, but if there are multiple matches the predicate that is nearest to the end of the list will be used.
+The format of an override can be seen on the [wiki][format], and a good example can be found in `model/item/bow.json`. For reference, here is a hypothetical example of an item with an `examplemod:power` property. If the values have no match, the default is the current model, but if there are multiple matches last match in the list will be selected.
 
 !!! important
     A predicate applies to all values *greater than or equal to* the given value.
