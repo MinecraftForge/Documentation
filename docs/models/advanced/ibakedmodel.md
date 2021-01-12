@@ -42,6 +42,8 @@ This is the main method of `IBakedModel`. It returns `BakedQuad`s, which contain
 
 The `Direction` passed in is used for face culling. If the block against the given side of the block being rendered is opaque, then the faces associated with that side are not rendered. If that parameter is `null`, all faces not associated with a side are returned (that will never be culled).
 
+It also takes in a non null `IModelData` instance. This can be used to define extra data when rendering the specific model via `ModelProperty`. For example, one such property is `CompositeModelData`, which is used to store any additional submodel data for a model using the `forge:composite` model loader.
+
 Note that this method is called very often: once for every combination of non-culled face and supported block render layer (anywhere between 0 to 28 times) *per block in world*. This method should be as fast as possible, and should probably cache heavily.
 
 The `rand` parameter is an instance of Random.

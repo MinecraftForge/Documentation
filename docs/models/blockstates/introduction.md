@@ -19,20 +19,19 @@ As an example, let's take a look at the vanilla `oak_log.json`:
 
 Here we define 3 variant strings, and for each we use a certain model, either the upright log and the sideways log (rotated in the y direction or not). These variants will define the look of a log depending on the property `axis`.
 
-A blockstate always has to be defined for all possible variant strings. When you have many properties, this results in lots of possible variants, as every combination of properties must be defined. In Minecraft 1.8's blockstate format, you have to define every string explicitly, which leads to long, complicated files. Starting from Minecraft 1.9, Mojang also introduced the "multipart" format. You can find a definition of its format on the [wiki][].
+A blockstate must be defined for all possible variants that invoke a change in the current model. Any property not specified in the JSON will not have any bearing to determine the current model (e.g. `waterlogged` has no effect on how a model might look). As each property adds a factor of two to the amount of states, there can be a number of possible variants needing a defined model.
 
-!!! note
-    The Forge format is really more like syntactic sugar for automatically calculating the set of all possible variants for you behind the scenes. This allows you to use the resulting `ModelResourceLocation`s for things other than blocks. The 1.9 format is a more complicated system that depends on having an `IBlockState` to pick the model. It will not directly work in other contexts without some code around it.
+Each blockstate can be specified using one of two methods: variants and multiparts. A variant defines an associated array of states which point to the associated model to render. Note that every single property that changes the model must be defined (e.g. If 4 properties defines how the model looks, then 2 ^ 4 = 16 variants must be defined). Multiparts, on the other hand, use conditions to display a certain model when true (e.g. If a model is only shown when `north` was true, then when that case occurs, the model will display along with any other models whose conditions are met).
 
-For reference, here's an excerpt from the 1.8 blockstate for fences, `fence.json`:
+For a better understanding of multiparts, let's look at a variant built fence connection:
 
 ```json
 "east=true,north=false,south=false,west=false": { "model": "oak_fence_n", "y": 90, "uvlock": true }
 ```
 
-This is just one variant out of 16. Even worse, there are 6 models for fences, one each for no connections, one connection, two connections in a straight line, two perpendicular connections, three connections, and one for all four connections.
+This represents one variant out of 16 possible states. Even worse, there must be models that can uniquely define unique states (a state that can be rotated to become another state is not unique for this purpose). For fences, there are 6 models: one for no connections, one connection, two connections in a straight line, two perpendicular connections, three connections, and one for all four connections.
 
-Here's an excerpt from the same file in 1.9, which uses the multipart format:
+Now let's view a modern day multipart built fence connection:
 
 ```json
 { "when": { "east": "true" },
@@ -40,7 +39,9 @@ Here's an excerpt from the same file in 1.9, which uses the multipart format:
 }
 ```
 
-This is one case of 5. You can read this as "when east is true, use the model oak_fence_side rotated 90 degrees". This allows the final model to be built up from 5 smaller parts, 4 of which (the connections) are conditional and the 5th being the unconditional central post. This uses only two models, one for the post, and one for the side connection.
+In this case, the JSON defines that if the east connector is true, then show the model `oak_fence_side` rotated 90 degrees. This allows the model to be broken up in only two files: the base post and the connection. It can also be represented as 5 statements, one that checks for each of the states is true and one that applies the base post unconditionally.
+
+You can find more explanations and examples of these formats on the [wiki][].
 
 [blockstate]: ../../blocks/states.md
 [Forge blockstate]: forgeBlockstates.md

@@ -51,8 +51,9 @@ Capabilities must be invalidated at the end of the provider's lifecycle via `Laz
 // Somewhere in your TileEntity subclass
 LazyOptional<IItemHandler> inventoryHandlerLazyOptional;
 
-// After initializing inventoryHandler
-inventoryHandlerLazyOptional = LazyOptional.of(() -> inventoryHandler);
+// Supplied instance (e.g. () -> inventoryHandler)
+// Ensure laziness as initialization should only happen when needed
+inventoryHandlerLazyOptional = LazyOptional.of(inventoryHandlerSupplier);
 
 @Override
 public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
@@ -64,8 +65,8 @@ public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
 
 @Override
 public void remove() {
-	super.remove();
-	inventoryHandlerLazyOptional.invalidate();
+  super.remove();
+  inventoryHandlerLazyOptional.invalidate();
 }
 ```
 

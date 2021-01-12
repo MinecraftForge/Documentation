@@ -81,7 +81,7 @@ TileEntity#getUpdateTag()
 IForgeTileEntity#handleUpdateTag(CompoundNBT nbt)
 ```
 Again, this is pretty simple, the first method collects the data that should be send to the client,
-while the second one processes that data. If your `TileEntity` doesn't contain much data you might be able to use the methods out of the [Storing Data within your TileEntity][storing-data] section.
+while the second one processes that data. If your `TileEntity` doesn't contain much data you might be able to use the methods out of the [Storing Data within your `TileEntity`][storing-data] section.
 
 !!! important
 
