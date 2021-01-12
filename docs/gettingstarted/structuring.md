@@ -66,7 +66,7 @@ The default Gradle configuration replaces `${file.jarVersion}` with the project 
 |        modid |  string  | mandatory | The modid this file is linked to. |
 |      version |  string  | mandatory | The version of the mod. It should be just numbers seperated by dots, ideally conforming to [Semantic Versioning](https://semver.org/). |
 |  displayName |  string  | mandatory | The user-friendly name of this mod. |
-| updateJSONURL |  string  |   `""`   | The URL to a [version JSON](autoupdate#forge-update-checker). |
+| updateJSONURL |  string  |   `""`   | The URL to a [version JSON](autoupdate). |
 |   displayURL |  string  |   `""`   | A link to the mod's homepage. |
 |     logoFile |  string  |   `""`   | The filename of the mod's logo. It must be placed in the root resource folder, not in a subfolder. |
 |      credits |  string  |   `""`   | A string that contains any acknowledgements you want to mention. |

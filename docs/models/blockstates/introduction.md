@@ -44,5 +44,4 @@ In this case, the JSON defines that if the east connector is true, then show the
 You can find more explanations and examples of these formats on the [wiki][].
 
 [blockstate]: ../../blocks/states.md
-[Forge blockstate]: forgeBlockstates.md
 [wiki]: https://minecraft.gamepedia.com/Model#Block_states
