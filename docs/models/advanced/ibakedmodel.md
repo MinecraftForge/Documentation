@@ -22,7 +22,7 @@ If the model is being rendered as an item in an inventory, on the ground as an e
 !!! important
     Unless you know what you're doing and are OK with using deprecated features, just `return false` from this and continue on.
 
-When rendering this as an item, returning `true` causes the model to not be rendered, instead falling back to `ItemStackTileEntityRenderer::render`. For certain vanilla items such as chests and banners, this method is hardcoded to copy data from the item into a `TileEntity`, before using a `TileEntitySpecialRenderer` to render that TE in place of the item. For all other items, it will use the `TileEntityItemStackRenderer` instance provided by `Item$Properties#setISTER`; refer to [TileEntityItemStackRenderer][teisr] page for more information.
+When rendering this as an item, returning `true` causes the model to not be rendered, instead falling back to `ItemStackTileEntityRenderer::render`. For certain vanilla items such as chests and banners, this method is hardcoded to copy data from the item into a `TileEntity`, before using a `TileEntitySpecialRenderer` to render that TE in place of the item. For all other items, it will use the `ItemStackTileEntityRenderer` instance provided by `Item$Properties#setISTER`; refer to [ItemStackTileEntityRenderer][ister] page for more information.
 
 ### `getParticleTexture`
 
@@ -38,7 +38,7 @@ See [Perspective][].
 
 ### `getQuads`
 
-This is the main method of `IBakedModel`. It returns `BakedQuad`s, which contain the low-level vertex data that will be used to render the model. If the model is being rendered as a block, then the `IBlockState` passed in is non-null. Additionally, [`Block::getExtendedState`][extended blockstates] is called to create the passed `IBlockState`, which allows for arbitrary data to be passed from the block to the model. If the model is being rendered as an item, the `ItemOverrideList` returned from `getOverrides` is responsible for handling the state of the item, and the `IBlockState` parameter will be `null`.
+This is the main method of `IBakedModel`. It returns `BakedQuad`s, which contain the low-level vertex data that will be used to render the model. If the model is being rendered as a block, then the `IBlockState` passed in is non-null. Additionally, `Block::getExtendedState` is called to create the passed `IBlockState`, which allows for arbitrary data to be passed from the block to the model. If the model is being rendered as an item, the `ItemOverrideList` returned from `getOverrides` is responsible for handling the state of the item, and the `IBlockState` parameter will be `null`.
 
 The `EnumFacing` passed in is used for face culling. If the block against the given side of the block being rendered is opaque, then the faces associated with that side are not rendered. If that parameter is `null`, all faces not associated with a side are returned (that will never be culled).
 
@@ -49,5 +49,4 @@ The `long` parameter is a random number.
 [IModel::bake]: imodel.md#bake
 [Perspective]: perspective.md
 [ItemOverrideList]: itemoverridelist.md
-[extended blockstates]: extended-blockstates.md
-[teisr]: ../../rendering/teisr.md
+[ister]: /rendering/ister.md

@@ -16,7 +16,7 @@ You will need 3 things:
 
 Finally, the serializer for your operational class is [registered] as any other `ForgeRegistryEntry`.
 
-[tags]: ../utilities/tags/tags.md
+[tags]: ../utilities/tags.md
 [registered]: ../concepts/registries.md#registering-things
 
 The global_loot_modifiers.json
