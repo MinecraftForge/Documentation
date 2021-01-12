@@ -5,7 +5,8 @@ ItemStackTileEntityRenderer is a method to use MatrixStack and IRenderTypeBuffer
 Using ItemStackTileEntityRenderer
 --------------------------
 
-ItemStackTileEntityRenderer allows you to render your item using `public void render(ItemStack itemStackIn, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn)`.
+ItemStackTileEntityRenderer allows you to render your item using `public void render(ItemStack itemStackIn, TransformType transformTypeIn, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn)`.
+
 There is an overload that takes partialTicks as a parameter, but it is never called in vanilla.
 
 In order to use a ISTER, the Item must first satisfy the condition that its model returns true for `IBakedModel#isBuiltInRenderer`.

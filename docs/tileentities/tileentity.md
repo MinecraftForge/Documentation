@@ -40,7 +40,7 @@ In order to save data, override the following two methods
 ```JAVA
 TileEntity#write(CompoundNBT nbt)
 
-TileEntity#read(CompoundNBT nbt)
+TileEntity#read(BlockState state, CompoundNBT nbt)
 ```
 These methods are called whenever the `Chunk` containing the `TileEntity` gets loaded from/saved to NBT.
 Use them to read and write to the fields in your tile entity class.
@@ -78,7 +78,7 @@ For this you need to override
 ```JAVA
 TileEntity#getUpdateTag()
 
-IForgeTileEntity#handleUpdateTag(CompoundNBT nbt)
+IForgeTileEntity#handleUpdateTag(BlockState state, CompoundNBT nbt)
 ```
 Again, this is pretty simple, the first method collects the data that should be send to the client,
 while the second one processes that data. If your `TileEntity` doesn't contain much data you might be able to use the methods out of the `Storing Data within your TileEntity` section.

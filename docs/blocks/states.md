@@ -25,9 +25,9 @@ Introduction of States
 
 In Minecraft 1.8 and above, the metadata system, along with the block ID system, was deprecated and eventually replaced with the **block state system**. The block state system abstracts out the details of the block's properties from the other behaviors of the block.
 
-Each *property* of a block is described by an instance of `IProperty<?>`. Examples of block properties include color (`IProperty<DyeColor>`), facing (`IProperty<Direction`), poweredness (`IProperty<Boolean>`), etc. Each property has the value of the type `T` parametrized by `IProperty<T>`.
+Each *property* of a block is described by an instance of `IProperty<?>`. Examples of block properties include instruments (`Property<NoteBlockInstrument>`), facing (`Property<Direction`), poweredness (`Property<Boolean>`), etc. Each property has the value of the type `T` parametrized by `Property<T>`.
 
-A unique triple can be constructed from the `Block`, the set of `IProperty<?>`, and the set of values for those properties. This unique triple is called a `BlockState`. 
+A unique triple can be constructed from the `Block`, the set of `Property<?>`, and the set of values for those properties. This unique triple is called a `BlockState`. 
 
 The previous system of meaningless metadata values were replaced by a system of block properties, which are easier to interpret and deal with. Previously, a stone button which is facing east and is powered or held down is represented by "`minecraft:stone_button` with metadata `9`. Now, this is represented by "`minecraft:stone_button[facing=east,powered=true]`" 
 
@@ -47,16 +47,16 @@ An "Oak Chair" facing east (`oak_chair[facing=east]`) is different from a "Spruc
 Implementing Block States
 ---------------------------------------
 
-In your Block class, create or reference `static final` `IProperty<?>` objects for every property that your Block has. You are free to make your own `IProperty<?>` implementations, but the means to do that are not covered in this article. The vanilla code provides several convenience implementations:
+In your Block class, create or reference `static final` `Property<?>` objects for every property that your Block has. You are free to make your own `Property<?>` implementations, but the means to do that are not covered in this article. The vanilla code provides several convenience implementations:
 
   * `IntegerProperty`
-    * Implements `IProperty<Integer>`. Defines a property that holds an integer value.
+    * Implements `Property<Integer>`. Defines a property that holds an integer value.
     * Created by calling `IntegerProperty.create(String propertyName, int minimum, int maximum)`.
   * `BooleanProperty`
-    * Implements `IProperty<Boolean>`. Defines a property that holds a `true` or `false` value.
+    * Implements `Property<Boolean>`. Defines a property that holds a `true` or `false` value.
     * Created by calling `BooleanProperty.create(String propertyName)`.
   * `EnumProperty<E extends Enum<E>>`
-    * Implements `IProperty<E>`. Defines a property that can take on the values of an Enum class.
+    * Implements `Property<E>`. Defines a property that can take on the values of an Enum class.
     * Created by calling `EnumProperty.create(String propertyName, Class<E> enumClass)`.
     * It is also possible to use only a subset of the Enum values (e.g. 4 out of 16 `DyeColor`s). See the overloads of `EnumProperty.create`.
   * `DirectionProperty`
@@ -65,7 +65,7 @@ In your Block class, create or reference `static final` `IProperty<?>` objects f
 
 The class `BlockStateProperties` contains shared vanilla properties which should be used or referenced whenever possible, in place of creating your own properties.
 
-When you have your desired `IProperty<>` objects, override `Block#fillStateContainer(StateContainer.Builder)` in your Block class. In that method, call `StateContainer.Builder#add(...);`  with the parameters as every `IProperty<?>` you wish the block to have.
+When you have your desired `Property<>` objects, override `Block#fillStateContainer(StateContainer$Builder)` in your Block class. In that method, call `StateContainer$Builder#add(...);`  with the parameters as every `Property<?>` you wish the block to have.
 
 Every block will also have a "default" state that is automatically chosen for you. You can change this "default" state by calling the `Block#setDefaultState(BlockState)` method from your constructor. When your block is placed it will become this "default" state. An example from `DoorBlock`:
 
@@ -82,14 +82,14 @@ this.setDefaultState(
 
 If you wish to change what `BlockState` is used when placing your block, you can overwrite `Block#getStateForPlacement(BlockItemUseContext)`. This can be used to, for example, set the direction of your block depending on where the player is standing when they place it.
 
-Because `BlockState`s are immutable, and all combinations of their properties are generated on startup of the game, calling `BlockState#with(IProperty<T>, T)` will simply go to the `Block`'s `StateContainer` and request the `BlockState` with the set of values you want.
+Because `BlockState`s are immutable, and all combinations of their properties are generated on startup of the game, calling `BlockState#with(Property<T>, T)` will simply go to the `Block`'s `StateContainer` and request the `BlockState` with the set of values you want.
 
 Because all possible `BlockState`s are generated at startup, you are free and encouraged to use the reference equality operator (`==`) to check if two `BlockState`s are equal.
 
 Using `BlockState`'s
 ---------------------
 
-You can get the value of a property by calling `BlockState#get(IProperty<?>)`, passing it the property you want to get the value of.
-If you want to get a `BlockState` with a different set of values, simply call `BlockState#with(IProperty<T>, T)` with the property and its value.
+You can get the value of a property by calling `BlockState#get(Property<?>)`, passing it the property you want to get the value of.
+If you want to get a `BlockState` with a different set of values, simply call `BlockState#with(Property<T>, T)` with the property and its value.
 
-You can get and place `BlockState`'s in the world using `World#setBlockState(BlockPos, BlockState)` and `World#getBlockState(BlockState)`. If you are placing a `Block`, call `Block#getDefaultState()` to get the "default" state, and use subsequent calls to `BlockState#with(IProperty<T>, T)` as stated above to achieve the desired state.
+You can get and place `BlockState`'s in the world using `World#setBlockState(BlockPos, BlockState)` and `World#getBlockState(BlockState)`. If you are placing a `Block`, call `Block#getDefaultState()` to get the "default" state, and use subsequent calls to `BlockState#with(Property<T>, T)` as stated above to achieve the desired state.
