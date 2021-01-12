@@ -19,7 +19,7 @@ As an example, let's take a look at the vanilla `oak_log.json`:
 
 Here we define 3 variant strings, and for each we use a certain model, either the upright log and the sideways log (rotated in the y direction or not). These variants will define the look of a log depending on the property `axis`.
 
-A blockstate must be defined for all possible variants that invoke a change in the current model. Any property not specified in the JSON will not have any bearing to determine the current model (e.g. `waterlogged` has no effect on how a model might look). As each property adds a factor of two to the amount of states, there can be a number of possible variants needing a defined model.
+A variant should be defined for every property that invokes a change in the model displayed. Any property not specified in the JSON will not have any bearing to determine the current model (e.g. `waterlogged` has no effect on how a model might look).
 
 Each blockstate can be specified using one of two methods: variants and multiparts. A variant defines an associated array of states which point to the associated model to render. Note that every single property that changes the model must be defined (e.g. If 4 properties defines how the model looks, then 2 ^ 4 = 16 variants must be defined). Multiparts, on the other hand, use conditions to display a certain model when true (e.g. If a model is only shown when `north` was true, then when that case occurs, the model will display along with any other models whose conditions are met).
 
