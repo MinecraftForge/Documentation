@@ -20,12 +20,12 @@ As an example, let's take a look at the vanilla `oak_log.json`:
 
 Here we define 4 variant strings, and for each we use a certain model, either the upright log, the sideways log (rotated or not), and the all bark model (this model is not seen normally in vanilla; you have to use `/setblock` to create it). Since logs use the default `IStateMapper`, these variants will define the look of a log depending on the property `axis`.
 
-A blockstate always has to be defined for all possible variant strings. When you have many properties, this results in lots of possible variants, as every combination of properties must be defined. In Minecraft 1.8's blockstate format, you have to define every string explicitly, which leads to long, complicated files. It also doesn't support the concept of submodels, or multiple models in the same blockstate. In order to allievate this, Forge introduced its [own blockstate format][Forge blockstate], which is available in Minecraft 1.8 and up.
+A blockstate always has to be defined for all possible variant strings. When you have many properties, this results in lots of possible variants, as every combination of properties must be defined. In Minecraft 1.8's blockstate format, you have to define every string explicitly, which leads to long, complicated files. It also doesn't support the concept of submodels, or multiple models in the same blockstate. In order to allievate this, Forge introduced its own blockstate format, which is available in Minecraft 1.8 and up.
 
 Starting from Minecraft 1.9, Mojang also introduced the "multipart" format. You can find a definition of its format on the [wiki][]. Forge's format and the multipart format are not better than each other; they each cover different use cases and it is your choice which one you want to use.
 
 !!! note
-    The Forge format is really more like syntactic sugar for automatically calculating the set of all possible variants for you behind the scenes. This allows you to use the resulting `ModelResourceLocation`s for things other than blocks. ([Such as items][item blockstates]. This is also true of the 1.8 format, but there is almost no reason to use that format.) The 1.9 format is a more complicated system that depends on having an `IBlockState` to pick the model. It will not directly work in other contexts without some code around it.
+    The Forge format is really more like syntactic sugar for automatically calculating the set of all possible variants for you behind the scenes. This allows you to use the resulting `ModelResourceLocation`s for things other than blocks, such as items. This is also true of the 1.8 format, but there is almost no reason to use that format.) The 1.9 format is a more complicated system that depends on having an `IBlockState` to pick the model. It will not directly work in other contexts without some code around it.
 
 For reference, here's an excerpt from the 1.8 blockstate for fences, `fence.json`:
 
@@ -47,6 +47,4 @@ This is one case of 5. You can read this as "when east=true, use the model oak_f
 
 [blockstate]: ../../blocks/states.md
 [statemapper]: ../using.md#block-models
-[Forge blockstate]: forgeBlockstates.md
 [wiki]: https://minecraft.gamepedia.com/Model#Block_states
-[item blockstates]: ../using.md#blockstate-jsons-for-items

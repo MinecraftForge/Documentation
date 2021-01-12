@@ -12,6 +12,7 @@ nav:
     - Resources: 'concepts/resources.md'
     - Data: 'concepts/data.md'
     - Registries: 'concepts/registries.md'
+    - Mod Lifecycle: 'concepts/lifecycle.md'
     - Internationalization and localization: 'concepts/internationalization.md'
   - Blocks:
     - Home: 'blocks/blocks.md'
@@ -63,7 +64,6 @@ nav:
   - Conventions:
     - Versioning: 'conventions/versioning.md'
     - Locations: 'conventions/locations.md'
-    - Loading Stages: 'conventions/loadstages.md'
   - Advanced Topics:
     - Access Transformers: 'advanced/accesstransformers.md'
   - Contributing to Forge:
