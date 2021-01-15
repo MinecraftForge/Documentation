@@ -8,10 +8,10 @@ Creating a Block
 
 ### Basic Blocks
 
-If the block you are creating has no special functionality (think cobblestone, wooden planks), it is not necessary to create a new class for your block. You can simply instantiate the `Block` class. When doing this you will need a `Block.Builder` to pass to the constructor. This is how we set properties the properties of a block in 1.13+. Here's an exmaple:
+If the block you are creating has no special functionality (think cobblestone, wooden planks), it is not necessary to create a new class for your block. You can simply instantiate the `Block` class. When doing this you will need a `Block.Properties` to pass to the constructor. This is how we set the properties of a block in 1.15+. Here's an exmaple:
 
 ```java
-new Block(Block.Builder.from(Blocks.COBBLESTONE).lightValue(15)).setRegistryName("mymod:myblock");
+new Block(Block.Properties.from(Blocks.COBBLESTONE).lightValue(15)).setRegistryName("mymod:myblock");
 ```
 
 See `Block.registerBlocks` for more examples on how to create simple blocks.
@@ -20,18 +20,18 @@ See `Block.registerBlocks` for more examples on how to create simple blocks.
 
     Blocks have no setter for Item Group (formerly Creative Tab). This has been moved to the ItemBlock, and is now its responsibility. Furthermore, there is no setter for translation key (this is generated based on registry name now).
 
-### `Block.Builder`
-To set the properties of the block, you need to use a `Block.Builder`. There are a couple of options when creating a one. You can use `Block.Builder.from` to copy the properties of an existing block or `Block.Builder.create` to create a new one.
+### `Block.Properties`
+To set the properties of the block, you need to use a `Block.Properties`. There are a couple of options when creating a one. You can use `Block.Properties.from` to copy the properties of an existing block or `Block.Properties.create` to create a new one.
 
-The `Block.Builder` has the following setters:
+The `Block.Properties` has the following setters:
 
-  - `doesNotBlockMovement` - makes it so the block does not block movement, Example Usage: plants.
-  - `slipperiness` - defaults to `0.6F` high values make it more slippery. Example Usage: Ice. **Note:** Vanilla minecraft does not exceed `1.0F` in their blocks slipperiness.
+  - `doesNotBlockMovement` - Makes it so the block does not block movement. Example Usage: plants.
+  - `slipperiness` - Defaults to `0.6F` high values make it more slippery. Example Usage: Ice. **Note:** Vanilla minecraft does not exceed `1.0F` in their blocks slipperiness.
   - `sound` - Defaults to `SoundType.STONE` see [sounds][] for more information.
-  - `lightValue` - The amount of light emitted by the block. Example Usage: Glowstone. **Note:** this method takes a value from 1 to 15.
+  - `lightValue` - The amount of light emitted by the block. Example Usage: Glowstone. **Note:** this method takes a value from 0 to 15.
   - `hardnessAndResistance` - Hardness is how long it takes to mine a block (set to -1 for unbreakable). Resistance is explosion resistance.
-  - `needsRandomTick` - makes the block recieve random ticks. Example Usage: Plants.
-  - `variableOpacity` - if set to true, the game will work out the opacity of your block everytime either `IBlockstate.getOpacity`, `IBlockState.propagatesSkylightDown` or `IBlockState.getLightOpacity` is called. Example Usage: Shulker Boxes.
+  - `needsRandomTick` - Makes the block recieve random ticks. Example Usage: Plants.
+  - `variableOpacity` - If set to true, the game will work out the opacity of your block everytime either `IBlockstate.getOpacity`, `IBlockState.propagatesSkylightDown` or `IBlockState.getLightOpacity` is called. Example Usage: Shulker Boxes.
 
 ### Advanced Blocks
 
