@@ -37,7 +37,7 @@ The `mods.toml` file is formatted as [TOML](https://github.com/toml-lang/toml), 
       displayName="Example Mod"
       updateJSONURL="minecraftforge.net/versions.json"
       displayURL="minecraftforge.net"
-      logoFile="assets/examplemod/textures/logo.png"
+      logoFile="logo.png"
       credits="I'd like to thank my mother and father."
       authors="Author"
       description='''
