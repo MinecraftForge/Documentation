@@ -6,6 +6,8 @@ This is a simple guide to get you from nothing to a basic mod. The rest of this 
 From Zero to Modding
 --------------------
 
+Make sure you are using a 64-bit JVM.  Run "java -d64 -version" from a command prompt to confirm.  You will encounter problems running the gradle tasks if you are using a 32-bit VM.
+
 1. Obtain a source distribution from forge's [files][] site. (Look for the MDK file type)
 2. Extract the downloaded source distribution to an empty directory. You should see a bunch of files, and an example mod is placed in `src/main/java` for you to look at. Only a few of these files are strictly necessary for mod development, and you may reuse these files for all your projects These files are:
     * `build.gradle`
