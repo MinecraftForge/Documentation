@@ -22,7 +22,7 @@ nav:
     - Intro to the Animation API: 'animation/intro.md'
     - Armatures: 'animation/armature.md'
     - Animation State Machines: 'animation/asm.md'
-    - Using the API: 'animation/implementing.md'
+#    - Using the API: 'animation/implementing.md'
   - Tile Entities:
     - Home: 'tileentities/tileentity.md'
     - Renderer: 'tileentities/tesr.md'
@@ -54,7 +54,7 @@ nav:
     - Entities: 'networking/entities.md'
   - Data Storage:
     - Capabilities: 'datastorage/capabilities.md'
-    - World Saved Data: 'datastorage/worldsaveddata.md'
+#    - World Saved Data: 'datastorage/worldsaveddata.md'
   - Utilities:
     - Recipes: 'utilities/recipes.md'
     - Tags: 'utilities/tags.md'

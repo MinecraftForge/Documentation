@@ -93,10 +93,10 @@ Mod Event Bus
 The mod event bus is primarily used for listening to lifecycle events in which mods should initialize. Many of these events are also ran in parallel so mods can be initialized at the same time. This does mean you can't directly execute code from other mods in these events, use the `InterModComms` system for that.
 
 These are the four most commonly used lifecycle events that are called during mod initialization on the mod event bus:
-* FMLCommonSetupEvent
-* FMLClientSetupEvent & FMLDedicatedServerSetupEvent
-* InterModEnqueueEvent
-* InterModProcessEvent
+* `FMLCommonSetupEvent`
+* `FMLClientSetupEvent` & `FMLDedicatedServerSetupEvent`
+* `InterModEnqueueEvent`
+* `InterModProcessEvent`
 
 !!! note
     The `FMLClientSetupEvent` and `FMLDedicatedServerSetupEvent` are only called on their respective distribution.
@@ -104,9 +104,9 @@ These are the four most commonly used lifecycle events that are called during mo
 These four lifecycle events are all ran in parallel. If you want to run code on the main thread during these events you can use the `DeferredWorkQueue` to do so.
 
 Next to the lifecycle events there are a few miscellaneous events that are fired on the mod event bus where you can register, set up or initialize various things. Most of these events are not ran in parallel in contrast to the lifecycle events. A few examples:
-* ColorHandlerEvent
-* ModelBakeEvent
-* TextureStitchEvent
-* RegistryEvent
+* `ColorHandlerEvent`
+* `ModelBakeEvent`
+* `TextureStitchEvent`
+* `RegistryEvent`
 
 A good rule of thumb: events are fired on the mod event bus when they should be handled during initialization of a mod.
