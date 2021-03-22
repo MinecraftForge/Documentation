@@ -59,7 +59,7 @@ Use them to read and write to the fields in your tile entity class.
 If you need a ticking `TileEntity`, for example to keep track of the progress during a smelting process, you need to add the `net.minecraft.tileentity.ITickableTileEntity` interface to your `TileEntity`.
 Now you can implement all your calculations within
 ```JAVA
-ITickableTileEntity#update()
+ITickableTileEntity#tick()
 ```
 
 !!! note
@@ -81,7 +81,7 @@ TileEntity#getUpdateTag()
 IForgeTileEntity#handleUpdateTag(CompoundNBT nbt)
 ```
 Again, this is pretty simple, the first method collects the data that should be send to the client,
-while the second one processes that data. If your `TileEntity` doesn't contain much data you might be able to use the methods out of the `Storing Data within your TileEntity` section.
+while the second one processes that data. If your `TileEntity` doesn't contain much data you might be able to use the methods out of the [Storing Data within your `TileEntity`][storing-data] section.
 
 !!! important
 
@@ -123,10 +123,8 @@ The `flags` are a bitmask and should contain `2`, which will sync the changes to
 This way of synchronizing is probably the most complicated one, but is usually also the most optimized one,
 as you can make sure that only the data you need to be synchronized is actually synchronized.
 You should first check out the [`Networking`][networking] section and especially [`SimpleImpl`][simple_impl] before attempting this.
-Once you've created your custom network message, you can send it to all users that have the `TileEntity` loaded with:
-```JAVA
-SimpleNetworkWrapper#sendToAllTracking(IMessage, NetworkRegistry.TargetPoint)
-```
+Once you've created your custom network message, you can send it to all users that have the `TileEntity` loaded with `SimpleChannel#send(PacketDistributor.PacketTarget, MSG)`.
+
 
 !!! warning
 
@@ -135,3 +133,4 @@ SimpleNetworkWrapper#sendToAllTracking(IMessage, NetworkRegistry.TargetPoint)
 
 [networking]: ../networking/index.md
 [simple_impl]: ../networking/simpleimpl.md
+[storing-data]: #storing-data-within-your-tileentity

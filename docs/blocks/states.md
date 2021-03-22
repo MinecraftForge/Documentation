@@ -25,7 +25,7 @@ Introduction of States
 
 In Minecraft 1.8 and above, the metadata system, along with the block ID system, was deprecated and eventually replaced with the **block state system**. The block state system abstracts out the details of the block's properties from the other behaviors of the block.
 
-Each *property* of a block is described by an instance of `IProperty<?>`. Examples of block properties include color (`IProperty<DyeColor>`), facing (`IProperty<Direction`), poweredness (`IProperty<Boolean>`), etc. Each property has the value of the type `T` parametrized by `IProperty<T>`.
+Each *property* of a block is described by an instance of `IProperty<?>`. Examples of block properties include instruments (`IProperty<NoteBlockInstrument>`), facing (`IProperty<Direction>`), poweredness (`IProperty<Boolean>`), etc. Each property has the value of the type `T` parametrized by `IProperty<T>`.
 
 A unique triple can be constructed from the `Block`, the set of `IProperty<?>`, and the set of values for those properties. This unique triple is called a `BlockState`. 
 
