@@ -13,7 +13,7 @@ Returns the [`ItemOverrideList`][ItemOverrideList] to use for this model. This i
 
 If the model is being rendered as a block in the world, the block in question does not emit any light, and ambient occlusion is enabled, this causes the model to be rendered with ambient occlusion.
 
-### `isGui3D`
+### `isGui3d`
 
 If the model is being rendered as an item in an inventory, on the ground as an entity, on an item frame, etc. this makes it look "flat." In GUIs this also disables the lighting.
 
@@ -38,15 +38,16 @@ See [Perspective][].
 
 ### `getQuads`
 
-This is the main method of `IBakedModel`. It returns `BakedQuad`s, which contain the low-level vertex data that will be used to render the model. If the model is being rendered as a block, then the `IBlockState` passed in is non-null. Additionally, `Block::getExtendedState` is called to create the passed `IBlockState`, which allows for arbitrary data to be passed from the block to the model. If the model is being rendered as an item, the `ItemOverrideList` returned from `getOverrides` is responsible for handling the state of the item, and the `IBlockState` parameter will be `null`.
+This is the main method of `IBakedModel`. It returns `BakedQuad`s, which contain the low-level vertex data that will be used to render the model. If the model is being rendered as a block, then the `BlockState` passed in is non-null. If the model is being rendered as an item, the `ItemOverrideList` returned from `getOverrides` is responsible for handling the state of the item, and the `BlockState` parameter will be `null`.
 
-The `EnumFacing` passed in is used for face culling. If the block against the given side of the block being rendered is opaque, then the faces associated with that side are not rendered. If that parameter is `null`, all faces not associated with a side are returned (that will never be culled).
+The `Direction` passed in is used for face culling. If the block against the given side of the block being rendered is opaque, then the faces associated with that side are not rendered. If that parameter is `null`, all faces not associated with a side are returned (that will never be culled).
+
+It also takes in a non null `IModelData` instance. This can be used to define extra data when rendering the specific model via `ModelProperty`. For example, one such property is `CompositeModelData`, which is used to store any additional submodel data for a model using the `forge:composite` model loader.
 
 Note that this method is called very often: once for every combination of non-culled face and supported block render layer (anywhere between 0 to 28 times) *per block in world*. This method should be as fast as possible, and should probably cache heavily.
 
-The `long` parameter is a random number.
+The `rand` parameter is an instance of Random.
 
-[IModel::bake]: imodel.md#bake
 [Perspective]: perspective.md
 [ItemOverrideList]: itemoverridelist.md
-[ister]: /rendering/ister.md
+[ister]: ../../rendering/ister.md

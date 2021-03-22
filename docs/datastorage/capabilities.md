@@ -10,20 +10,20 @@ Forge adds capability support to TileEntities, Entities, ItemStacks, Worlds and 
 Forge-provided Capabilities
 ---------------------------
 
-Forge provides three capabilities: IItemHandler, IFluidHandler and IEnergyStorage
+Forge provides three capabilities: `IItemHandler`, `IFluidHandler` and `IEnergyStorage`
 
-IItemHandler exposes an interface for handling inventory slots. It can be applied to TileEntities (chests, machines, etc.), Entities (extra player slots, mob/creature inventories/bags), or ItemStacks (portable backpacks and such). It replaces the old `IInventory` and `ISidedInventory` with an automation-friendly system.
+`IItemHandler` exposes an interface for handling inventory slots. It can be applied to TileEntities (chests, machines, etc.), Entities (extra player slots, mob/creature inventories/bags), or ItemStacks (portable backpacks and such). It replaces the old `IInventory` and `ISidedInventory` with an automation-friendly system.
 
-IFluidHandler exposes an interface for handling fluid inventories. It can also be applied to TileEntities Entities, or ItemStacks. It replaces the old `IFluidHandler` with a more consistent and automation-friendly system.
+`IFluidHandler` exposes an interface for handling fluid inventories. It can also be applied to TileEntities Entities, or ItemStacks. It replaces the old `IFluidHandler` with a more consistent and automation-friendly system.
 
-IEnergyStorage exposes an interface for handling energy containers. It can be applied to TileEntities, Entities or ItemStacks. It is based on the RedstoneFlux API by TeamCoFH.
+`IEnergyStorage` exposes an interface for handling energy containers. It can be applied to TileEntities, Entities or ItemStacks. It is based on the RedstoneFlux API by TeamCoFH.
 
 Using an Existing Capability
 ----------------------------
 
-As mentioned earlier, TileEntities, Entities, and ItemStacks implement the capability provider feature, through the `ICapabilityProvider` interface. This interface adds two methods, `hasCapability` and `getCapability`, which can be used to query the capabilities present in the objects.
+As mentioned earlier, TileEntities, Entities, and ItemStacks implement the capability provider feature, through the `ICapabilityProvider` interface. This interface adds the method `getCapability`, which can be used to query the capabilities present in the objects.
 
-In order to obtain a capability, you will need to refer it by its unique instance. In the case of the Item Handler, this capability is primarily stored in `CapabilityItemHandler.ITEM_HANDLER_CAPABILITY`, but it is possible to get other instance references by using the `@CapabilityInject` annotation.
+In order to obtain a capability, you will need to refer it by its unique instance. In the case of the `IItemHandler`, this capability is primarily stored in `CapabilityItemHandler.ITEM_HANDLER_CAPABILITY`, but it is possible to get other instance references by using the `@CapabilityInject` annotation.
 
 ```Java
 @CapabilityInject(IItemHandler.class)
@@ -32,47 +32,52 @@ static Capability<IItemHandler> ITEM_HANDLER_CAPABILITY = null;
 
 This annotation can be applied to fields and methods. When applied to a field, it will assign the instance of the capability (the same one gets assigned to all fields) upon registration of the capability, and left to the existing value (`null`), if the capability was never registered. Because local static field accesses are fast, it is a good idea to keep your own local copy of the reference for objects that work with capabilities. This annotation can also be used on a method, in order to get notified when a capability is registered, so that certain features can be enabled conditionally.
 
-Both the `hasCapability` and `getCapability` methods have a second parameter, of type EnumFacing, which can be used in the to request the specific instance for that one face. If passed `null`, it can be assumed that the request comes either from within the block, or from some place where the side has no meaning, such as a different dimension. In this case a general capability instance that does not care about sides will be requested instead. The return type of `getCapability` will correspond to the type declared in the capability passed to the method. For the Item Handler capability, this is indeed `IItemHandler`.
+The `getCapability` method has a second parameter, of type Direction, which can be used in the to request the specific instance for that one face. If passed `null`, it can be assumed that the request comes either from within the block, or from some place where the side has no meaning, such as a different dimension. In this case a general capability instance that does not care about sides will be requested instead. The return type of `getCapability` will correspond to the type declared in the capability passed to the method. For the Item Handler capability, this is indeed `IItemHandler`.
 
 Exposing a Capability
 ---------------------
 
 In order to expose a capability, you will first need an instance of the underlying capability type. Note that you should assign a separate instance to each object that keeps the capability, since the capability will most probably be tied to the containing object.
 
-There's two ways to obtain such an instance, through the Capability itself, or by explicitly instantiating an implementation of it. The first method is designed to use a default implementation, if those default values are useful for you. In the case of the Item Handler capability, the default implementation will expose a single slot inventory, which is most probably not what you want.
+There's two ways to obtain such an instance, through the Capability itself, or by explicitly instantiating an implementation of it. The first method is designed to use a default implementation via `Capability#getDefaultInstance`, if those default values are useful for you. In the case of the Item Handler capability, the default implementation will expose a single slot inventory, which is most probably not what you want.
 
 The second method can be used to provide custom implementations. In the case of `IItemHandler`, the default implementation uses the `ItemStackHandler` class, which has an optional argument in the constructor, to specify a number of slots. However, relying on the existence of these default implementations should be avoided, as the purpose of the capability system is to prevent loading errors in contexts where the capability is not present, so instantiation should be protected behind a check testing if the capability has been registered (see the remarks about `@CapabilityInject` in the previous section).
 
-Once you have your own instance of the capability interface, you will want to notify users of the capability system that you expose this capability. This is done by overriding the `hasCapability` method, and comparing the instance with the capability you are exposing. If your machine has different slots based on which side is being queried, you can test this with the `facing` parameter. For Entities and ItemStacks, this parameter can be ignored, but it is still possible to have side as a context, such as different armor slots on a player (top side => head slot?), or about the surrounding blocks in the inventory (west => slot on the left?). Don't forget to fall back to `super`, otherwise the attached capabilities will stop working.
+Once you have your own instance of the capability interface, you will want to notify users of the capability system that you expose this capability and provide an optional of the interface reference. This is done by overriding the `getCapability` method, and comparing the instance with the capability you are exposing. If your machine has different slots based on which side is being queried, you can test this with the `side` parameter. For Entities and ItemStacks, this parameter can be ignored, but it is still possible to have side as a context, such as different armor slots on a player (Direction#UP exposing the player's helmet slot), or about the surrounding blocks in the inventory (Direction#WEST exposing the input slot of a furnace). Don't forget to fall back to `super`, otherwise existing attached capabilities will stop working.
+
+Capabilities must be invalidated at the end of the provider's lifecycle via `LazyOptional#invalidate`. For owned TileEntities and Entities, the `LazyOptional` can be invalidated within `#remove()`. For non-owned providers, a runnable supplying the invalidation should be passed into `AttachCapabilitiesEvent#addListener`.
 
 ```Java
+// Somewhere in your TileEntity subclass
+LazyOptional<IItemHandler> inventoryHandlerLazyOptional;
+
+// Supplied instance (e.g. () -> inventoryHandler)
+// Ensure laziness as initialization should only happen when needed
+inventoryHandlerLazyOptional = LazyOptional.of(inventoryHandlerSupplier);
+
 @Override
-public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-  if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-    return true;
+public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
+  if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+    return inventoryHandlerLazyOptional.cast();
   }
-  return super.hasCapability(capability, facing);
+  return super.getCapability(cap, side);
+}
+
+@Override
+public void remove() {
+  super.remove();
+  inventoryHandlerLazyOptional.invalidate();
 }
 ```
 
-Similarly, you will want to provide the interface reference to your capability instance, when requested. Again, don't forget to fall back to `super`.
-
-```Java
-@Override
-public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-  if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-    return (T) inventory;
-  }
-  return super.getCapability(capability, facing);
-}
-```
+`Item`s are a special case since their capability providers are stored on an `ItemStack`. Instead, a provider should be attached through `Item#initCapabilities`. This should hold your capabilities for the lifecycle of the stack.
 
 It is strongly suggested that direct checks in code are used to test for capabilities instead of attempting to rely on maps or other data structures, since capability tests can be done by many objects every tick, and they need to be as fast as possible in order to avoid slowing down the game.
 
 Attaching Capabilities
 ----------------------
 
-As mentioned, attaching capabilities to entities and itemstacks can be done using `AttachCapabilitiesEvent`. The same event is used for all objects that can provide capabilities. `AttachCapabilitiesEvent` has 5 valid generic types providing the following events:
+As mentioned, attaching capabilities to existing providers, `World`s, and `Chunk`s can be done using `AttachCapabilitiesEvent`. The same event is used for all objects that can provide capabilities. `AttachCapabilitiesEvent` has 5 valid generic types providing the following events:
 
 * `AttachCapabilitiesEvent<Entity>`: Fires only for entities.
 * `AttachCapabilitiesEvent<TileEntity>`: Fires only for tile entities.
@@ -80,9 +85,9 @@ As mentioned, attaching capabilities to entities and itemstacks can be done usin
 * `AttachCapabilitiesEvent<World>`: Fires only for worlds.
 * `AttachCapabilitiesEvent<Chunk>`: Fires only for chunks.
 
-The generic type cannot be more specific than the above types. For example: If you want to attach capabilities to `EntityPlayer`, you have to subscribe to the `AttachCapabilitiesEvent<Entity>`, and then determine that the provided object is an `EntityPlayer` before attaching the capability.
+The generic type cannot be more specific than the above types. For example: If you want to attach capabilities to `PlayerEntity`, you have to subscribe to the `AttachCapabilitiesEvent<Entity>`, and then determine that the provided object is an `PlayerEntity` before attaching the capability.
 
-In all cases, the event has a method `addCapability`, which can be used to attach capabilities to the target object. Instead of adding capabilities themselves to the list, you add capability providers, which have the chance to return capabilities only from certain sides. While the provider only needs to implement `ICapabilityProvider`, if the capability needs to store data persistently it is possible to implement `ICapabilitySerializable<T extends NBTBase>` which, on top of returning the capabilities, will allow providing NBT save/load functions.
+In all cases, the event has a method `addCapability`, which can be used to attach capabilities to the target object. Instead of adding capabilities themselves to the list, you add capability providers, which have the chance to return capabilities only from certain sides. While the provider only needs to implement `ICapabilityProvider`, if the capability needs to store data persistently it is possible to implement `ICapabilitySerializable<T extends INBT>` which, on top of returning the capabilities, will allow providing NBT save/load functions.
 
 For information on how to implement `ICapabilityProvider`, refer to the [Exposing a Capability](#exposing-a-capability) section.
 
@@ -104,12 +109,12 @@ private static class Storage
     implements Capability.IStorage<IExampleCapability> {
 
   @Override
-  public NBTBase writeNBT(Capability<IExampleCapability> capability, IExampleCapability instance, EnumFacing side) {
+  public INBT writeNBT(Capability<IExampleCapability> capability, IExampleCapability instance, Direction side) {
     // return an NBT tag
   }
 
   @Override
-  public void readNBT(Capability<IExampleCapability> capability, IExampleCapability instance, EnumFacing side, NBTBase nbt) {
+  public void readNBT(Capability<IExampleCapability> capability, IExampleCapability instance, Direction side, INBT nbt) {
     // load from the NBT tag
   }
 }

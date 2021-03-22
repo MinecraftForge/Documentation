@@ -68,10 +68,10 @@ Note that each takes a `SoundEvent`, the ones registered above. Additionally, th
 
 ### `World`
 
-1. <a name="world-playsound-pbecvp"></a> `playSound(EntityPlayer, BlockPos, SoundEvent, SoundCategory, volume, pitch)`
+1. <a name="world-playsound-pbecvp"></a> `playSound(PlayerEntity, BlockPos, SoundEvent, SoundCategory, volume, pitch)`
     - Simply forwards to [overload (2)](#world-playsound-pxyzecvp), adding 0.5 to each coordinate of the `BlockPos` given.
 
-2. <a name="world-playsound-pxyzecvp"></a> `playSound(EntityPlayer, double x, double y, double z, SoundEvent, SoundCategory, volume, pitch)`
+2. <a name="world-playsound-pxyzecvp"></a> `playSound(PlayerEntity, double x, double y, double z, SoundEvent, SoundCategory, volume, pitch)`
     - **Client Behavior**: If the passed in player is *the* client player, plays the sound event to the client player.
     - **Server Behavior**: Plays the sound event to everyone nearby **except** the passed in player. Player can be `null`.
     - **Usage**: The correspondence between the behaviors implies that these two methods are to be called from some player-initiated code that will be run on both logical sides at the same time - the logical client handles playing it to the user and the logical server handles everyone else hearing it without re-playing it to the original user.
@@ -82,9 +82,9 @@ Note that each takes a `SoundEvent`, the ones registered above. Additionally, th
     - **Server Behavior**: Does nothing.
     - **Usage**: This method only works client-side, and thus is useful for sounds sent in custom packets, or other client-only effect-type sounds. Used for thunder.
 
-### `WorldClient`
+### `ClientWorld`
 
-1. <a name="worldclient-playsound-becvpd"></a> `playSound(BlockPos, SoundEvent, SoundCategory, volume, pitch, distanceDelay)`
+1. <a name="clientworld-playsound-becvpd"></a> `playSound(BlockPos, SoundEvent, SoundCategory, volume, pitch, distanceDelay)`
     - Simply forwards to `World`'s [overload (3)](#world-playsound-xyzecvpd), adding 0.5 to each coordinate of the `BlockPos` given.
 
 ### `Entity`
@@ -95,17 +95,17 @@ Note that each takes a `SoundEvent`, the ones registered above. Additionally, th
     - **Server Behavior**: Plays the sound event to everyone at this entity's position.
     - **Usage**: Emitting any sound from any non-player entity server-side.
 
-### `EntityPlayer`
+### `PlayerEntity`
 
-1. <a name="entityplayer-playsound-evp"></a> `playSound(SoundEvent, volume, pitch)` (overriding the one in [`Entity`](#entity-playsound-evp))
+1. <a name="playerentity-playsound-evp"></a> `playSound(SoundEvent, volume, pitch)` (overriding the one in [`Entity`](#entity-playsound-evp))
     - Forwards to `World`'s [overload (2)](#world-playsound-pxyzecvp), passing in `this` as the player.
-    - **Client Behavior**: Does nothing, see override in [`EntityPlayerSP`](#entityplayersp-playsound-evp).
+    - **Client Behavior**: Does nothing, see override in [`ClientPlayerEntity`](#clientplayerentity-playsound-evp).
     - **Server Behavior**: Plays the sound to everyone nearby *except* this player.
-    - **Usage**: See [`EntityPlayerSP`](#entityplayersp-playsound-evp).
+    - **Usage**: See [`ClientPlayerEntity`](#clientplayerentity-playsound-evp).
 
-### `EntityPlayerSP`
+### `ClientPlayerEntity`
 
-1. <a name="entityplayersp-playsound-evp"></a> `playSound(SoundEvent, volume, pitch)` (overriding the one in [`EntityPlayer`](#entityplayer-playsound-evp))
+1. <a name="clientplayerentity-playsound-evp"></a> `playSound(SoundEvent, volume, pitch)` (overriding the one in [`PlayerEntity`](#playerentity-playsound-evp))
     - Forwards to `World`'s [overload (2)](#world-playsound-pxyzecvp), passing in `this` as the player.
     - **Client Behavior**: Just plays the Sound Event.
     - **Server Behavior**: Method is client-only.

@@ -1,7 +1,7 @@
 Perspective
 ===========
 
-When an [`IBakedModel`][IBakedModel] is being rendered as an item, it can apply special handling depending on which perspective it is being rendered in. "Perspective" means in what context the model is being rendered. The possible perspectives are represented in code by the `ItemCameraTransforms.TransformType` enum. There are two systems for handling perspective: the deprecated vanilla system, constituted by `IBakedModel::getItemCameraTransforms`, `ItemCameraTranforms`, and `ItemTransformVec3f`, and the Forge system, embodied by the method `IBakedModel::handlePerspective`. The vanilla code is patched to favor using `handlePerspective` over the vanilla system whenever possible.
+When an [`IBakedModel`][IBakedModel] is being rendered as an item, it can apply special handling depending on which perspective it is being rendered in. "Perspective" means in what context the model is being rendered. The possible perspectives are represented in code by the `ItemCameraTransforms.TransformType` enum. There are two systems for handling perspective: the deprecated vanilla system, constituted by `IBakedModel::getItemCameraTransforms`, `ItemCameraTranforms`, and `ItemTransformVec3f`, and the Forge system, embodied by the method `IForgeBakedModel::handlePerspective`. The vanilla code is patched to favor using `handlePerspective` over the vanilla system whenever possible.
 
 `TransformType`
 ---------------
@@ -49,4 +49,3 @@ This is how models should support custom perspective transforms through `IModelT
 Given either a map of transforms or an `IModelTransform`, an `IBakedModel`, a `TransformType`, and a `MatrixStack`, this finds the `IBakedModel` for the transform from the map or the `IModelTransform`, and then pairs it with the given model. To extract the transform from an `IModelTransform`, the `TransformType` is passed to `getPartTransformation`. This method is meant to be a simple implementation of `IBakedModel::handlePerspective`.
 
 [IBakedModel]: ibakedmodel.md
-[IModelState]: imodelstate+part.md
