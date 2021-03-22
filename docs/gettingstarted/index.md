@@ -7,7 +7,7 @@ From Zero to Modding
 --------------------
 
 1. Obtain the Mod Development Kit (MDK) from forge's [files][] site. (Look for the MDK file type)
-2. Extract the downloaded MDK an empty directory. You should see a bunch of files, and an example mod is placed in `src/main/java` for you to look at. Only a few of these files are strictly necessary for mod development, and you may reuse these files for all your projects These files are:
+2. Extract the downloaded MDK to an empty directory. You should see a bunch of files, and an example mod is placed in `src/main/java` for you to look at. Only a few of these files are strictly necessary for mod development, and you may reuse these files for all your projects These files are:
     * `build.gradle`
     * `gradlew.bat`
     * `gradlew`
