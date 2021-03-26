@@ -48,7 +48,7 @@ The uses for activation are literally endless. However, there are some common on
 
 #### GUIs
 
-One of the most common things to do on block activation is opening a GUI. Many blocks in vanilla behave this way, such as chests, hoppers, furnaces, and many more. More about GUIs can be found on [their page](GUIs).
+One of the most common things to do on block activation is opening a GUI. Many blocks in vanilla behave this way, such as chests, hoppers, furnaces, and many more.
 
 #### Activation
 
