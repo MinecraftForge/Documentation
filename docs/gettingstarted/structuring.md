@@ -24,8 +24,11 @@ The `mods.toml` file is formatted as [TOML](https://github.com/toml-lang/toml), 
     # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
     modLoader="javafml"
     # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-    # Forge for 1.16.3 is version 34
-    loaderVersion="[34,)"
+    # Forge for 1.16.5 is version 36
+    loaderVersion="[36,)"
+    # The license for your mod. This is optional metadata and allows for easier comprehension of your redistributive properties.
+    # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
+    license="MIT"
     # A URL to refer people to when problems occur with this mod
     issueTrackerURL="github.com/MinecraftForge/MinecraftForge/issues"
     # If the mods defined in this file should show as seperate resource packs
@@ -37,7 +40,7 @@ The `mods.toml` file is formatted as [TOML](https://github.com/toml-lang/toml), 
       displayName="Example Mod"
       updateJSONURL="minecraftforge.net/versions.json"
       displayURL="minecraftforge.net"
-      logoFile="assets/examplemod/textures/logo.png"
+      logoFile="logo.png"
       credits="I'd like to thank my mother and father."
       authors="Author"
       description='''

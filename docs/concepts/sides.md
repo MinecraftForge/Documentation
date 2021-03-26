@@ -70,4 +70,4 @@ Additionally, if your mod is one-sided, it typically does not forbid the user fr
 //Make sure the mod being absent on the other network side does not cause the client to display the server as incompatible
 ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
 ```
-This tells the client that it should ignore the server version being absent, and the server that it should not tell the client this mod should be present. So this snipped works both for client- and server-only-sided mods.
+This tells the client that it should ignore the server version being absent, and the server that it should not tell the client this mod should be present. So this snippet works both for client- and server-only-sided mods.
