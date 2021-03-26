@@ -14,12 +14,13 @@ From Zero to Modding
     * the `gradle` folder
 3. Move the files listed above to a new folder, this will be your mod project folder.
 4. Choose your IDE:
-    * Forge explicitly supports developing with Eclipse or IntelliJ environments, but any environment, from Netbeans to vi/emacs, can be made to work.
-    * For both Intellij IDEA and Eclipse their Gradle integration will handle the rest of the initial workspace setup, this includes downloading packages from Mojang, MinecraftForge, and a few other software sharing sites.
+    * Forge only explicitly supports developing with Eclipse, but there are additional run tasks for IntelliJ or Visual Studio Code environments. However, any environment, from Netbeans to vim/emacs, can be made to work.
+    * For both Intellij IDEA and Eclipse, their Gradle integration will handle the rest of the initial workspace setup. This includes downloading packages from Mojang, MinecraftForge, and a few other software sharing sites. For VSCode, the 'Gradle Tasks' plugin can be used to handle the initial workspace setup.
     * For most, if not all, changes to the build.gradle file to take effect Gradle will need to be invoked to re-evaluate the project, this can be done through Refresh buttons in the Gradle panels of both the previously mentioned IDEs.
 5. Generating IDE Launch/Run Configurations:
     * For Eclipse, run the `genEclipseRuns` gradle task (`gradlew genEclipseRuns`). This will generate the Launch Configurations and download any required assets for the game to run. After this has finished refresh your project.
     * For IntelliJ, run the `genIntellijRuns` gradle task (`gradlew genIntellijRuns`). This will generate the Run Configurations and download any required assets for the game to run. After this has finished edit your Configurations to fix the "module not specified" error by changing selecting your "main" module.
+    * For VSCode, run the `genVSCodeRuns` gradle task (`gradlew genVSCodeRuns`). The will generate the Launch Configurations and download any required assets for the game to run.
 
 Customizing Your Mod Information
 --------------------------------
@@ -48,8 +49,8 @@ Building and Testing Your Mod
 -----------------------------
 
 1. To build your mod, run `gradlew build`. This will output a file in `build/libs` with the name `[archivesBaseName]-[version].jar`. This file can be placed in the `mods` folder of a forge enabled Minecraft setup, and distributed.
-2. To test run with your mod, the easiest way is to use the run configs that were generated when you set up your project. Otherwise, you can run `gradlew runClient`. This will launch Minecraft from the `<runDir>` location, including your mod code. There are various customizations to this command. Consult the [ForgeGradle cookbook][] for more information.
-3. You can also run a dedicated server using the server run config, or `gradlew runServer`. This will launch the Minecraft server with its GUI.
+2. To test run with your mod, the easiest way is to use the run configs that were generated when you set up your project. Otherwise, you can run `gradlew runClient`. This will launch Minecraft from the `<runDir>` location, including your mod code.
+3. You can also run a dedicated server using the server run config, or `gradlew runServer`. This will launch the Minecraft server with its GUI. After the first run, the server will shut down immediately until the Minecraft EULA is accepted by editing `run/eula.txt`. Once accepted, the server will load and can be accessed via a direct connect to `localhost`.
 
 !!! note
 
