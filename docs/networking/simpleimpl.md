@@ -58,6 +58,24 @@ public static void handle(MyMessage msg, Supplier<NetworkEvent.Context> ctx) {
 }
 ```
 
+Packets sent from the server to the client should be handled in another class and wrapped via `DistExecutor#unsafeRunWhenOn`.
+
+```java
+// In Packet class
+public static void handle(MyMessage msg, Supplier<NetworkEvent.Context> ctx) {
+    ctx.get().enqueueWork(() ->
+        // Make sure it's only executed on the physical client
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientPacketHandlerClass.handlePacket(msg, ctx))
+    );
+    ctx.get().setPacketHandled(true);
+}
+
+// In ClientPacketHandlerClass
+public static void handlePacket(MyMessage msg, Supplier<NetworkEvent.Context> ctx) {
+    // do stuff
+}
+```
+
 Note the presence of `setPacketHandled`, which used to tell the network system that the packet has successfully completed handling.
 
 !!! warning
@@ -72,7 +90,7 @@ Note the presence of `setPacketHandled`, which used to tell the network system t
 
     Be defensive when handling packets on the server. A client could attempt to exploit the packet handling by sending unexpected data.
 
-    A common problem is vulnerability to **arbitrary chunk generation**. This typically happens when the server is trusting a block position sent by a client to access blocks and tile entities. When accessing blocks and tile entities in unloaded areas of the world, the server will either generate or load this area from disk, then promply write it to disk. This can be exploited to cause **catastrophic damage** to a server's performance and storage space without leaving a trace.
+    A common problem is vulnerability to **arbitrary chunk generation**. This typically happens when the server is trusting a block position sent by a client to access blocks and tile entities. When accessing blocks and tile entities in unloaded areas of the world, the server will either generate or load this area from disk, then promptly write it to disk. This can be exploited to cause **catastrophic damage** to a server's performance and storage space without leaving a trace.
 
     To avoid this problem, a general rule of thumb is to only access blocks and tile entities if `world.isBlockLoaded(pos)` is true.
 
