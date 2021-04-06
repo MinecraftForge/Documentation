@@ -6,20 +6,21 @@ This is a simple guide to get you from nothing to a basic mod. The rest of this 
 From Zero to Modding
 --------------------
 
-1. Obtain the Mod Development Kit (MDK) from forge's [files][] site. (Look for the MDK file type)
-2. Extract the downloaded MDK to an empty directory. You should see a bunch of files, and an example mod is placed in `src/main/java` for you to look at. Only a few of these files are strictly necessary for mod development, and you may reuse these files for all your projects These files are:
+1. Obtain a Java 8 Development Kit (JDK) and a 64-bit Java Virtual Machine (JVM). Minecraft and MinecraftForge both compile against Java 8 and as such should be used for development. Using a 32-bit JVM will result in some problems when running the below gradle tasks. You can obtain one from [AdoptOpenJDK][jdk].
+2. Obtain the Mod Development Kit (MDK) from Forge's [files][] site.
+3. Extract the downloaded MDK to an empty directory. You should see a bunch of files, and an example mod is placed in `src/main/java` for you to look at. Only a few of these files are strictly necessary for mod development, and you may reuse these files for all your projects. These files are:
     * `build.gradle`
     * `gradlew.bat`
     * `gradlew`
     * the `gradle` folder
-3. Move the files listed above to a new folder, this will be your mod project folder.
-4. Choose your IDE:
+4. Move the files listed above to a new folder, this will be your mod project folder.
+5. Choose your IDE:
     * Forge only explicitly supports developing with Eclipse, but there are additional run tasks for IntelliJ or Visual Studio Code environments. However, any environment, from Netbeans to vim/emacs, can be made to work.
     * For both Intellij IDEA and Eclipse, their Gradle integration will handle the rest of the initial workspace setup. This includes downloading packages from Mojang, MinecraftForge, and a few other software sharing sites. For VSCode, the 'Gradle Tasks' plugin can be used to handle the initial workspace setup.
     * For most, if not all, changes to the build.gradle file to take effect Gradle will need to be invoked to re-evaluate the project, this can be done through Refresh buttons in the Gradle panels of both the previously mentioned IDEs.
-5. Generating IDE Launch/Run Configurations:
-    * For Eclipse, run the `genEclipseRuns` gradle task (`gradlew genEclipseRuns`). This will generate the Launch Configurations and download any required assets for the game to run. After this has finished refresh your project.
-    * For IntelliJ, run the `genIntellijRuns` gradle task (`gradlew genIntellijRuns`). This will generate the Run Configurations and download any required assets for the game to run. After this has finished edit your Configurations to fix the "module not specified" error by changing selecting your "main" module.
+6. Generating IDE Launch/Run Configurations:
+    * For Eclipse, run the `genEclipseRuns` gradle task (`gradlew genEclipseRuns`). This will generate the Launch Configurations and download any required assets for the game to run. After this has finished, refresh your project.
+    * For IntelliJ, run the `genIntellijRuns` gradle task (`gradlew genIntellijRuns`). This will generate the Run Configurations and download any required assets for the game to run. If you encounter an error saying "module not specified", you can either edit the configuration to select your "main" module or specify it through the `ideaModule` property.
     * For VSCode, run the `genVSCodeRuns` gradle task (`gradlew genVSCodeRuns`). The will generate the Launch Configurations and download any required assets for the game to run.
 
 Customizing Your Mod Information
@@ -32,9 +33,6 @@ Edit the `build.gradle` file to customize how your mod is built (the file names,
     **Do not** edit the `buildscript {}` section of the build.gradle file, its default text is necessary for ForgeGradle to function.
 
 Almost anything underneath the `// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.` marker can be changed, many things can be removed and customized there as well.
-
-
-[files]: https://files.minecraftforge.net "Forge Files distribution site"
 
 ### Simple `build.gradle` Customizations
 
@@ -56,3 +54,5 @@ Building and Testing Your Mod
 
     It is always advisable to test your mod in a dedicated server environment if it is intended to run there.
     
+[files]: https://files.minecraftforge.net "Forge Files distribution site"
+[jdk]: https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot "AdoptOpenJdk 8 Prebuilt Binaries"
