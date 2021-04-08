@@ -29,7 +29,7 @@ A basic recipe file might look like the following example:
         },
         "a":
         {
-            "item": "mymod:myfirstitem",
+            "item": "mymod:myfirstitem"
         }
     },
     "result":
