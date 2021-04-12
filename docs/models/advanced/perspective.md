@@ -1,7 +1,7 @@
 Perspective
 ===========
 
-When an [`IBakedModel`][IBakedModel] is being rendered as an item, it can apply special handling depending on which perspective it is being rendered in. "Perspective" means in what context the model is being rendered. The possible perspectives are represented in code by the `ItemCameraTransforms.TransformType` enum. There are two systems for handling perspective: the deprecated vanilla system, constituted by `IBakedModel::getItemCameraTransforms`, `ItemCameraTranforms`, and `ItemTransformVec3f`, and the Forge system, embodied by the method `IForgeBakedModel::handlePerspective`. The vanilla code is patched to favor using `handlePerspective` over the vanilla system whenever possible.
+When an [`IBakedModel`][IBakedModel] is being rendered as an item, it can apply special handling depending on which perspective it is being rendered in. "Perspective" means in what context the model is being rendered. The possible perspectives are represented in code by the `ItemCameraTransforms.TransformType` enum. There are two systems for handling perspective: the deprecated vanilla system, constituted by `IBakedModel::getItemCameraTransforms`, `ItemCameraTransforms`, and `ItemTransformVec3f`, and the Forge system, embodied by the method `IForgeBakedModel::handlePerspective`. The vanilla code is patched to favor using `handlePerspective` over the vanilla system whenever possible.
 
 `TransformType`
 ---------------

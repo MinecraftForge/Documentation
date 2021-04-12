@@ -45,12 +45,12 @@ The last three parameters can be method references to either static or instance 
 Handling Packets
 ----------------
 
-There are a couple things to highlight in a packet handler. A packet handler has both the message object and the network context available to it. The context allows access to the player that sent the packet (if on the server), and a way to enqueue threadsafe work.
+There are a couple things to highlight in a packet handler. A packet handler has both the message object and the network context available to it. The context allows access to the player that sent the packet (if on the server), and a way to enqueue thread-safe work.
 
 ```Java
 public static void handle(MyMessage msg, Supplier<NetworkEvent.Context> ctx) {
     ctx.get().enqueueWork(() -> {
-        // Work that needs to be threadsafe (most work)
+        // Work that needs to be thread-safe (most work)
         EntityPlayerMP sender = ctx.get().getSender(); // the client that sent this packet
         // do stuff
     });

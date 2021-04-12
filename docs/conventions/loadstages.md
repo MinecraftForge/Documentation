@@ -18,7 +18,7 @@ public class MyMod {
 !!! warning
     All four of the below events are called for all mods in parallel. That is, all mods will concurrently receive common setup, FML will wait for 
     them all to finish, then all mods will concurrently receive sided setup, and so forth.
-    Mods *must* take care to be thread safe, especially when calling other mods' API's and accessing Vanilla systems, which are not thread safe in general. This can be done using the `DeferredWorkQueue` class.
+    Mods *must* take care to be thread safe, especially when calling other mods' APIs and accessing Vanilla systems, which are not thread safe in general. This can be done using the `DeferredWorkQueue` class.
 
 
 ## Setup

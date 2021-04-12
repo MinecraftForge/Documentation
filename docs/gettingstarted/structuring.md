@@ -31,7 +31,7 @@ The `mods.toml` file is formatted as [TOML](https://github.com/toml-lang/toml), 
     license="MIT"
     # A URL to refer people to when problems occur with this mod
     issueTrackerURL="github.com/MinecraftForge/MinecraftForge/issues"
-    # If the mods defined in this file should show as seperate resource packs
+    # If the mods defined in this file should show as separate resource packs
     showAsResourcePack=false
 
     [[mods]]
@@ -67,7 +67,7 @@ The default Gradle configuration replaces `${file.jarVersion}` with the project 
 |     Property |   Type   | Default  | Description |
 |-------------:|:--------:|:--------:|:------------|
 |        modid |  string  | mandatory | The modid this file is linked to. |
-|      version |  string  | mandatory | The version of the mod. It should be just numbers seperated by dots, ideally conforming to [Semantic Versioning](https://semver.org/). |
+|      version |  string  | mandatory | The version of the mod. It should be just numbers separated by dots, ideally conforming to [Semantic Versioning](https://semver.org/). |
 |  displayName |  string  | mandatory | The user-friendly name of this mod. |
 | updateJSONURL |  string  |   `""`   | The URL to a [version JSON](autoupdate). |
 |   displayURL |  string  |   `""`   | A link to the mod's homepage. |

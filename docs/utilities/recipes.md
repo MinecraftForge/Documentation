@@ -113,11 +113,8 @@ A key set is used in combination with patterns and contains keys whose name is t
 
 Every `recipe` has to have a result tag to define the output item.
 
-When crafting something, you can get out more than one item. This is achieved by defining the `count` number. If this is left out, meaning it doesn't exist within the result block, it defaults to 1. Negative values are not allowed here as an Itemstack cannot be smaller than 0. There is no option to use the `count` number anywhere else than for the result.
+When crafting something, you can get out more than one item. This is achieved by defining the `count` number. If this is left out, meaning it doesn't exist within the result block, it defaults to 1. Negative values are not allowed here as an ItemStack cannot be smaller than 0. There is no option to use the `count` number anywhere else than for the result.
 
-[Wikipedia]: https://en.wikipedia.org/wiki/Factory_(object-oriented_programming)
-[OreDictionary]: ../utilities/oredictionary.md
-[Advancements]: #
+[Advancements]: https://minecraft.fandom.com/wiki/Advancement
 [Wiki]: https://minecraft.gamepedia.com/Recipe
-[Factories]: #factories
 [datapack]: /concepts/data.md

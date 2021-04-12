@@ -30,7 +30,7 @@ Whatever texture should be used for the particles. For blocks, this shows when a
 
 ### <s>`getItemCameraTransforms`</s>
 
-Deprecated in favor of implementing `handlePerspective`. The default implementation is fine if `handlePerspective` is implmented. See [Perspective][].
+Deprecated in favor of implementing `handlePerspective`. The default implementation is fine if `handlePerspective` is implemented. See [Perspective][].
 
 ### `handlePerspective`
 

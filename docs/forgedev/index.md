@@ -23,7 +23,7 @@ Forking the repository is necessary since not every GitHub user can have free ac
 
 After forking the repository, it is time to get local access to it and to actually make some changes. For this, you need to clone the repository onto your local machine.
 
-Using your favourite git client, simply clone your fork into a directory of your choice. As general example, here is a command line snippet that should work on all correctly configured systems and clones the repository into a directory called "Forge" under the current directory (note that you have to replace `<User>` with your username):
+Using your favorite git client, simply clone your fork into a directory of your choice. As general example, here is a command line snippet that should work on all correctly configured systems and clones the repository into a directory called "Forge" under the current directory (note that you have to replace `<User>` with your username):
 
 ```git clone https://github.com/<User>/MinecraftForge Forge```
 
@@ -38,7 +38,7 @@ After completing this step, you're ready to go and set up your development envir
 Setting Up the Environment
 --------------------------
 
-Depending on your favourite IDE, there is a different set of recommended steps you have to follow to successfully set up a development environment.
+Depending on your favorite IDE, there is a different set of recommended steps you have to follow to successfully set up a development environment.
 
 ### Eclipse
 
@@ -69,7 +69,7 @@ If you're more of a visual person, cpw has uploaded [a video](https://www.youtub
 You can then run Forge using the `forge_client` gradle task (`Tasks -> fg_runs -> forge_client`): right-click the task and select either `Run` or `Debug` as desired.
 
 #### IDEA older versions
-Versions older than 2016 will not work because they didn't have the appropriate Gradle support and did not support Forge development multiproject workspaces.
+Versions older than 2016 will not work because they didn't have the appropriate Gradle support and did not support Forge development multi-project workspaces.
 IDEA 2016 - 2018 will work with extra manual steps required, but it is strongly recommended to update to IntelliJ 2019+ instead.
 
 That's all there is to creating a Forge development environment in IntelliJ IDEA. However, you won't be able to run the tests and debug mods included in Forge straight away. This takes some extra effort.
@@ -116,7 +116,7 @@ The most important thing to note is that if you wish to edit Minecraft source co
 
 ### Generating Patches
 
-After you've made changes to the code base and once you've tested them thoroughly, you may go ahead and generate patches. This is only necessary if you work on the Minecraft code base (i.e. in the "Forge" project), but this step is vital for your changes to work elsewhere. Forge works by injecting only changed things into Vanilla Minecraft and hence needs those changes available in an appopriate format. Thankfully, ForgeGradle is capable of generating the changeset for you and all you have to do is commit it.
+After you've made changes to the code base and once you've tested them thoroughly, you may go ahead and generate patches. This is only necessary if you work on the Minecraft code base (i.e. in the "Forge" project), but this step is vital for your changes to work elsewhere. Forge works by injecting only changed things into Vanilla Minecraft and hence needs those changes available in an appropriate format. Thankfully, ForgeGradle is capable of generating the changeset for you and all you have to do is commit it.
 
 To initiate the patch generation, simply run the `genPatches` Gradle task from your IDE or the command line. After its completion, you can commit all your changes (make sure you do not add any unnecessary files) and submit your Pull Request!
 

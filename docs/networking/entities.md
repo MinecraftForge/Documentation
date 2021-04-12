@@ -6,10 +6,10 @@ In addition to regular network messages, there are various other systems provide
 Spawn Data
 ----------
 
-In general, the spawning of modded entities is handled seperately, by Forge.
+In general, the spawning of modded entities is handled separately, by Forge.
 
 !!! note
-    This means that simply extending a vanilla entity class may not inherit all its behaviour here. You may need to implement certain vanilla behaviours yourself.
+    This means that simply extending a vanilla entity class may not inherit all its behavior here. You may need to implement certain vanilla behaviors yourself.
 
 You can add extra data to the spawn packet Forge sends by implementing the following interface.
 

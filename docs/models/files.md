@@ -25,7 +25,7 @@ When a `ResourceLocation` refers to the location of a JSON model, it is not suff
 WaveFront OBJ Models
 --------------------
 
-Forge adds a loader for the `.obj` file format. To use these models, the resource namespace must be registered through `OBJLoader.addDomain`. This loader accepts any model location that is in a registered namespace and whose path ends in `.obj`. The `.mtl` file should be placed next to the `.obj` and will automatically be used with the `.obj`. The `.mtl` file will probably have to be manually edited to change the paths pointing to textures into Minecraft `ResourceLocation`s. Additinally, the V axis for textures may be flipped depending on the external program that created the model (i.e. V = 0 may be the bottom edge, not the top). This may be rectified in the modelling program itself or done in a Forge blockstate JSON like so:
+Forge adds a loader for the `.obj` file format. To use these models, the resource namespace must be registered through `OBJLoader.addDomain`. This loader accepts any model location that is in a registered namespace and whose path ends in `.obj`. The `.mtl` file should be placed next to the `.obj` and will automatically be used with the `.obj`. The `.mtl` file will probably have to be manually edited to change the paths pointing to textures into Minecraft `ResourceLocation`s. Additionally, the V axis for textures may be flipped depending on the external program that created the model (i.e. V = 0 may be the bottom edge, not the top). This may be rectified in the modelling program itself or done in a Forge blockstate JSON like so:
 
 ```json
 {

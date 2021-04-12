@@ -7,7 +7,7 @@ Example: An event can be used to perform an action when a Vanilla stick is right
 
 The main event bus used for most events is located at `MinecraftForge.EVENT_BUS`. There is another event bus for mod specific events located at `FMLJavaModLoadingContext.get().getModEventBus()` that you should only use in specific cases, more information about this bus can be found below.
 
-Every event is fired on one of these busses, most events are fired on the main event bus but some are fired on the mod specfic events bus.
+Every event is fired on one of these busses, most events are fired on the main event bus but some are fired on the mod specific events bus.
 
 An event handler is a class that contains one or more `public void` member methods that are marked with the `@SubscribeEvent` annotation.
 
@@ -64,7 +64,7 @@ public class MyStaticClientOnlyEventHandler {
 Canceling
 ---------
 
-If an event can be canceled, it will be marked with the `@Cancelable` annotation, and the method `Event#isCancelable()` will return `true`. The cancel state of a cancelable event may be modified by calling `Event#setCanceled(boolean canceled)`, wherin passing the boolean value `true` is interpreted as canceling the event, and passing the boolean value `false` is interpreted as "un-canceling" the event. However, if the event cannot be canceled (as defined by `Event#isCancelable()`), an `UnsupportedOperationException` will be thrown regardless of the passed boolean value, since the cancel state of a non-cancelable event event is considered immutable.
+If an event can be canceled, it will be marked with the `@Cancelable` annotation, and the method `Event#isCancelable()` will return `true`. The cancel state of a cancelable event may be modified by calling `Event#setCanceled(boolean canceled)`, wherein passing the boolean value `true` is interpreted as canceling the event, and passing the boolean value `false` is interpreted as "un-canceling" the event. However, if the event cannot be canceled (as defined by `Event#isCancelable()`), an `UnsupportedOperationException` will be thrown regardless of the passed boolean value, since the cancel state of a non-cancelable event event is considered immutable.
 
 !!! important
     Not all events can be canceled! Attempting to cancel an event that is not cancelable will result in an unchecked `UnsupportedOperationException` being thrown, which is expected to result in the game crashing! Always check that an event can be canceled using `Event#isCancelable()` before attempting to cancel it!

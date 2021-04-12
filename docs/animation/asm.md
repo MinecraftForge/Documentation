@@ -73,7 +73,7 @@ public Spin() {
 }
 ```
 
-Here, an ASM is loaded (from a sidedproxy to avoid crashing on server) with one extra parameter, named `cycle_length`. This parameter is of the type `VariableValue`, so we can
+Here, an ASM is loaded (from a sided proxy to avoid crashing on server) with one extra parameter, named `cycle_length`. This parameter is of the type `VariableValue`, so we can
 set it from within our code.
 
 Using an ASM instance, you can get the current state with `.currentState()` and transition to another state with `.transition(nextState)`
@@ -280,7 +280,7 @@ defines 5 states: open, closed, opening, closing and dancing.
 The transitions section defines which states can go to what other states. A state can go to 0, 1, or many other states.
 To define a state as going to no other states, omit it from the section. To define a state as going to only one other state, create a key
 with the value of the state it can go to, for example `"open": "opening"`. To define a state as going to many other states, do the same as
-if it were going to only one other state but make the value a list of all possible recieving states instead, for example: `"open": ["closed", "opening"]`.
+if it were going to only one other state but make the value a list of all possible receiving states instead, for example: `"open": ["closed", "opening"]`.
 
 A more full example:
 
