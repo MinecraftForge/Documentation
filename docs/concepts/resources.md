@@ -7,7 +7,7 @@ Minecraft has two primary resource systems active: one on the client used for vi
 
 In the default mod development kit, assets and data directories are located under the `src/main/resources` directory of the project. 
 
-When multiple resource packs or data packs are enabled, they are merged. Generally, files from packs at the top of the stack override those below; however, for certain files, such as localization files and tags, data is actually merged contentwise. Mods actually define resource and data packs too, in their `resources` directories, but they are seen as subsets of the "Default" pack. Mod resource packs cannot be disabled, but they can be overriden by other resource packs. Mod datapacks can be disabled with the vanilla `/datapack` command.
+When multiple resource packs or data packs are enabled, they are merged. Generally, files from packs at the top of the stack override those below; however, for certain files, such as localization files and tags, data is actually merged contentwise. Mods actually define resource and data packs too, in their `resources` directories, but they are seen as subsets of the "Default" pack. Mod resource packs cannot be disabled, but they can be overridden by other resource packs. Mod datapacks can be disabled with the vanilla `/datapack` command.
 
 All resources should have snake case paths and filenames (lowercase, using "_" for word boundaries), which is enforced in 1.11 and above.
 

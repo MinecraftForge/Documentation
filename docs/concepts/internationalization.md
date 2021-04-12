@@ -16,7 +16,7 @@ Language files are located by `assets/[namespace]/lang/[locale].json` (e.g. the 
 {
   "item.examplemod.example_item": "Example Item Name",
   "block.examplemod.example_block": "Example Block Name",
-  "commands.examplemod.examplecommand.error": "examplecommand errored!"
+  "commands.examplemod.examplecommand.error": "Example Command Errored!"
 }
 ```
 

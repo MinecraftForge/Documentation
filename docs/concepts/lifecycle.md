@@ -25,7 +25,7 @@ public class MyMod {
 !!! warning
     The lifecycle events are fired in parallel: All mods will concurrently receive the same event.
     
-    Mods *must* take care to be thread-safe, like when calling other mods' API's or accessing vanilla systems. Defer code for later execution using the `DeferredWorkQueue` class.
+    Mods *must* take care to be thread-safe, like when calling other mods' APIs or accessing vanilla systems. Defer code for later execution using the `DeferredWorkQueue` class.
 
 Registry Events
 ---------------
@@ -49,7 +49,7 @@ Common Setup
 Sided Setup
 -----------
 
-The sided-setup events are fired on their respective [phyiscal sides][sides]: `FMLClientSetupEvent` on the physical client, and `FMLDedicatedServerSetupEvent` for the dedicated server. This is where physical side-specific initialization should occur, such as registering client-side key bindings.
+The sided-setup events are fired on their respective [physical sides][sides]: `FMLClientSetupEvent` on the physical client, and `FMLDedicatedServerSetupEvent` for the dedicated server. This is where physical side-specific initialization should occur, such as registering client-side key bindings.
 
 InterModComms
 -------------
