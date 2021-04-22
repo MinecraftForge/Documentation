@@ -42,6 +42,7 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
     * `BlockModelProvider` - for block models; override `#registerModels`
 
 ### Server Data
+  * `net.minecraftforge.common.data.GlobalLootModifierProvider` - for [global loot modifiers][glm]; override `#start`
   * _These classes are under the `net.minecraft.data` package_
   * `LootTableProvider` - for loot tables; override `#getTables`
   * `RecipeProvider` - for recipes and their unlocking advancements; override `#registerRecipes`
@@ -49,3 +50,5 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
 
 !!! notes
 	An `AdvancementProvider` class does exists, however it is hardcoded for only the vanilla advancements.
+
+[glm]: ../items/globallootmodifiers.md
