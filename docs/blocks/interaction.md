@@ -30,7 +30,7 @@ This is the method that controls right click behavior.
 
 #### Return Value
 
-`ActionResultType` is the result right clicking, see example usages below. `ActionResultType.SUCCESS` means the right click action was successful. `ActionResultType.CONSUME` means that the right click action was consumed. `ActionResultType.PASS` is the default behavior, for when the block has no right click behavior, and allows something else to handle the right click. `ActionResultType.FAIL` means that the action failed.
+`ActionResultType` is the result right clicking, see example usages below. `ActionResultType#SUCCESS` means the right click action was successful. `ActionResultType#CONSUME` means that the right click action was consumed. `ActionResultType#PASS` is the default behavior, for when the block has no right click behavior, and allows something else to handle the right click. `ActionResultType#FAIL` means that the action failed.
 
 | Enum Value |                           Example Usage                          |
 |:----------:|:----------------------------------------------------------------:|
@@ -40,7 +40,7 @@ This is the method that controls right click behavior.
 |   `FAIL`   | When attempting to place a minecart on a block other than rails. |
 
 !!! important
-    Returning `ActionResultType.CONSUME` from this method on the client will prevent it being called on the server. It is common practice to just check `worldIn.isRemote` and return `ActionResultType.SUCCESS`, and otherwise go on to normal activation logic. Vanilla has many examples of this, such as the chest.
+    Returning `ActionResultType#CONSUME` from this method on the client will prevent it being called on the server. It is common practice to just check `worldIn#isRemote` and return `ActionResultType#SUCCESS`, and otherwise go on to normal activation logic. Vanilla has many examples of this, such as the chest.
 
 ### Usage examples
 
@@ -55,7 +55,7 @@ One of the most common things to do on block activation is opening a GUI. Many b
 Another common use for activation is, well, activation. This can be something like "turning on" a block, or triggering it to perform some action. For instance, a block could light up when activated. A vanilla example would be buttons or levers.
 
 !!! important
-    `onBlockActivated` is called on both the client and the server, so be sure to keep the [sidedness] of your code in mind. Many things, like opening GUIs and modifying the world, should only be done on the server-side.
+    `onBlockActivated` is called on both the client and the server, so be sure to keep the [sidedness][] of your code in mind. Many things, like opening GUIs and modifying the world, should only be done on the server-side.
 
 Block Placement
 --------------------
@@ -107,7 +107,7 @@ Called on a block when it is clicked by a player.
 ### Usage example
 This method is perfect for adding custom events when a player clicks on a block.
 
-By default this method does nothing.  
+By default, this method does nothing.  
 `NoteBlock` overrides this method so when left-clicked, it plays a sound. `RedstoneOreBlock` on left-click emits a faint light and spawns particles around itself.
 
 `onBlockHarvested`
