@@ -10,11 +10,11 @@ Every type of registrable object has its own registry. To see all registries sup
 Methods for Registering
 ------------------
 
-There are two proper ways to register objects: the `DeferredRegister` class, and the `RegistryEvent.Register` lifecycle event.
+There are two proper ways to register objects: the `DeferredRegister` class, and the `RegistryEvent$Register` lifecycle event.
 
 ### DeferredRegister
 
-`DeferredRegister` is the newer and documented way to register objects. It allows the use and convenience of static initializers while avoiding the issues associated with it. It simply maintains a list of suppliers for entries and registers the objects from those suppliers during the proper `RegistryEvent.Register` event.
+`DeferredRegister` is the newer and documented way to register objects. It allows the use and convenience of static initializers while avoiding the issues associated with it. It simply maintains a list of suppliers for entries and registers the objects from those suppliers during the proper `RegistryEvent$Register` event.
 
 An example of a mod registering a custom block:
 
@@ -32,7 +32,7 @@ public ExampleMod() {
 
 The `RegistryEvent`s are the second and more flexible way to register objects. These [events][] are fired after the mod constructors and before the loading of configs.
 
-The event used in registering objects is the `RegistryEvent.Register<T>`. The type parameter `T` should be set to the type of the object being registered. Calling `#getRegistry` will return the registry, upon which objects are registered with `#register` or `#registerAll`. 
+The event used to register objects is `RegistryEvent$Register<T>`. The type parameter `T` should be set to the type of the object being registered. Calling `#getRegistry` will return the registry, upon which objects are registered with `#register` or `#registerAll`. 
 
 Here is an example: (the event handler is registered on the *mod event bus*)
 
@@ -44,9 +44,9 @@ public void registerBlocks(RegistryEvent.Register<Block> event) {
 ```
 
 !!! note
-    Some classes cannot by themselves be registered; instead, `*Type` classes are registered, and used in the formers' constructors. For example, [`TileEntity`][tileentity] has `TileEntityType`, and `Entity` has `EntityType`. These `*Type` classes are factories that simply create the containing type on demand. 
+    Some classes cannot by themselves be registered. Instead, `*Type` classes are registered, and used in the formers' constructors. For example, [`TileEntity`][tileentity] has `TileEntityType`, and `Entity` has `EntityType`. These `*Type` classes are factories that simply create the containing type on demand. 
     
-    These factories are created through the use of their `*Type.Builder` classes. An example: (`REGISTER` refers to a `DeferredRegister<TileEntityType>`)
+    These factories are created through the use of their `*Type$Builder` classes. An example: (`REGISTER` refers to a `DeferredRegister<TileEntityType>`)
     ```java
     public static final RegistryObject<TileEntityType<ExampleTile>> EXAMPLE_TILE = REGISTER.register(
         "example_tile", () -> TileEntityType.Builder.create(ExampleTile::new, EXAMPLE_BLOCK.get()).build(null)
@@ -56,15 +56,15 @@ public void registerBlocks(RegistryEvent.Register<Block> event) {
 Referencing Registered Objects
 ------------------------------
 
-Registered objects should not be stored in fields when they are created and registered. They are to be always newly created and registered whenever their respective `RegistryEvent.Register` event is fired. This is to allow dynamic loading and unloading of mods in a future version of Forge.
+Registered objects should not be stored in fields when they are created and registered. They are to be always newly created and registered whenever their respective `RegistryEvent$Register` event is fired. This is to allow dynamic loading and unloading of mods in a future version of Forge.
 
 Registered objects must always be referenced through a `RegistryObject` or a field with `@ObjectHolder`.
 
 ### Using RegistryObjects
 
-`RegistryObject`s can be used to retrieve references to registered objects once they are available. These are used by `DeferredRegister` to return a reference to registered objects. Their references are updated after their corresponding registry's `RegistryEvent.Register` event is fired, along with the `@ObjectHolder` annotations.
+`RegistryObject`s can be used to retrieve references to registered objects once they are available. These are used by `DeferredRegister` to return a reference to the registered objects. Their references are updated after their corresponding registry's `RegistryEvent$Register` event is fired, along with the `@ObjectHolder` annotations.
 
-To get a `RegistryObject`, call `RegistryObject.of` with a `ResourceLocation` and the `IForgeRegistry` of the registrable object. Custom registries can also be used through giving a supplier of the object's class. Store the `RegistryObject` in a `public static final` field, and call `#get` whenever you need the registered object.
+To get a `RegistryObject`, call `RegistryObject#of` with a `ResourceLocation` and the `IForgeRegistry` of the registrable object. Custom registries can also be used by giving a supplier of the object's class. Store the `RegistryObject` in a `public static final` field, and call `#get` whenever you need the registered object.
 
 An example of using `RegistryObject`:
 
@@ -99,7 +99,7 @@ The rules for `@ObjectHolder` are as follows:
 * If no other errors or exceptions occur, the field will be injected
 * If all of the above rules do not apply, no action will be taken (and a message may be logged)
 
-`@ObjectHolder`-annotated fields are injected with their values after their corresponding registry's `RegistryEvent.Register` event is fired, along with the `RegistryObject`s.
+`@ObjectHolder`-annotated fields are injected with their values after their corresponding registry's `RegistryEvent$Register` event is fired, along with the `RegistryObject`s.
 
 !!! note
     If the object does not exist in the registry when it is to be injected, a debug message will be logged and no value will be injected.
@@ -184,11 +184,11 @@ class UnannotatedHolder { // Note the lack of an @ObjectHolder annotation on thi
 Creating Custom Registries
 -------------------
 
-Custom registries are created by using `RegistryBuilder` during the `RegistryEvent.NewRegistry` event. The class `RegistryBuilder` takes certain parameters (such as the name, the `Class` of its values, and various callbacks for different events happening on the registry). Calling `RegistryBuilder#create` will result in the registry being built, registered to the `RegistryManager`, and returned to the caller for additional processing.
+Custom registries are created by using `RegistryBuilder` during the `RegistryEvent$NewRegistry` event. The class `RegistryBuilder` takes certain parameters (such as the name, the `Class` of its values, and various callbacks for different events happening on the registry). Calling `RegistryBuilder#create` will result in the registry being built, registered to the `RegistryManager`, and returned to the caller for additional processing.
 
 The `Class` of the value of the registry must implement `IForgeRegistryEntry`, which defines that `#setRegistryName` and `#getRegistryName` can be called on the objects of that class. It is recommended to extend `ForgeRegistryEntry`, the default implementation instead of implementing the interface directly. When `#setRegistryName(String)` is called with a string, and that string does not have an explicit namespace, its namespace will be set to the current modid.
 
-The Forge registries can be accessed through the `ForgeRegistries` class. All registries, Forge-provided or custom, can be retrieved by calling `GameRegistry.findRegistry(Class)` with the appropriate class for the registry. For example, the registry for `Block`s can be retrieved by calling `GameRegistry.findRegistry(Block.class)`.
+The Forge registries can be accessed through the `ForgeRegistries` class. Any other registries can be stored and cached during their associated `RegistryEvent$Register`.
 
 [ResourceLocation]: resources.md#resourcelocation
 [events]: ../events/intro.md
