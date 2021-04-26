@@ -110,6 +110,15 @@ public class WheatSeedsConverterModifier extends LootModifier {
             Item wheat = ForgeRegistries.ITEMS.getValue(new ResourceLocation(JSONUtils.getString(object, "replacement")));
             return new WheatSeedsConverterModifier(conditionsIn, numSeeds, seed, wheat);
         }
+
+        @Override
+        public JsonObject write(WheatSeedsConverterModifier instance) {
+            JsonObject json = makeConditions(instance.conditions);
+            json.addProperty("numSeeds", instance.numSeedsToConvert);
+            json.addProperty("seedItem", ForgeRegistries.ITEMS.getKey(instance.itemToCheck).toString());
+            json.addProperty("replacement", ForgeRegistries.ITEMS.getKey(instance.itemReward).toString());
+            return json;
+        }
     }
 }
 ```
@@ -118,10 +127,11 @@ The critical portion is the `doApply` method.
 
 This method is only called if the `conditions` specified return `true`. If so, the modder is now able to make the modifications they desire. In this case, we can see that the number of `itemToCheck` meets or exceeds the `numSeedsToConvert` before modifying the list by adding an `itemReward` and removing any excess `itemToCheck` stacks, matching the previously mentioned effects: *When a wheat block is harvested with shears, if enough seeds are generated as loot, they are converted to additional wheat instead*.
 
-Also take note of the `read` method in the serializer. The conditions are already deserialized for you and if you have no other data, simply `return new MyModifier(conditionsIn)`. However, the full `JsonObject` is available if needed.
+Also take note of the `read` method in the serializer. The conditions are already deserialized for you and if you have no other data, simply `return new MyModifier(conditionsIn)`. However, the full `JsonObject` is available if needed. The `write` method, on the other hand, is used for if you want to utilize `GlobalLootModifierProvider` for [data generation][datagen].
 
 Additional [examples] can be found on the Forge Git repository, including silk touch and smelting effects.
 
 [tags]: ../utilities/tags.md
 [registered]: ../concepts/registries.md#registering-things
+[datagen]: ../datagen/intro.md
 [examples]: https://github.com/MinecraftForge/MinecraftForge/blob/1.15.x/src/test/java/net/minecraftforge/debug/gameplay/loot/GlobalLootModifiersTest.java
