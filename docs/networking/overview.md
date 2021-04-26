@@ -4,7 +4,7 @@ Overview
 There are two primary goals in network communication:
 
 1. Making sure the client view is "in sync" with the server view
-    - The flower at coordinates X,Y,Z just grew
+    - The flower at coordinates (X, Y, Z) just grew
 2. Giving the client a way to tell the server that something has changed about the player
     - the player pressed a key
 
