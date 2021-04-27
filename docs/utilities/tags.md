@@ -12,6 +12,7 @@ If `replace` is true, then all entries before the json specifying `replace` will
 See the [Vanilla wiki][tags] for a description of the base syntax.
 
 Forge provides two extensions on the Vanilla syntax:
+
 * You may declare an `optional` array of the same format as the `values` array, but any values listed here that are not present will not cause the tag loading to error.
 This is useful to provide integration for mods that may or may not be present at runtime.
 * You may declare a `remove` array of the same format as the `values` array. Any values listed here will be removed from the tag. This acts as a finer grained version of the Vanilla `replace` option.
@@ -42,6 +43,7 @@ Conventions
 -----------
 
 There are several conventions that will help facilitate compatibility in the ecosystem:
+
 * If there is a Vanilla tag that fits your block or item, add it to that tag. See the [list of Vanilla tags][taglist].
 * If there is a Forge tag that fits your block or item, add it to that tag. The list of tags declared by Forge can be seen on [GitHub][forgetags].
 * If there is a group of something you feel should be shared by the community, use the `forge` namespace instead of your mod id.
