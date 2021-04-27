@@ -45,7 +45,7 @@ The second method can be used to provide custom implementations. In the case of 
 
 Once you have your own instance of the capability interface, you will want to notify users of the capability system that you expose this capability and provide a `LazyOptional` of the interface reference. This is done by overriding the `#getCapability` method, and comparing the capability instance with the capability you are exposing. If your machine has different slots based on which side is being queried, you can test this with the `side` parameter. For Entities and ItemStacks, this parameter can be ignored, but it is still possible to have side as a context, such as different armor slots on a player (`Direction#UP` exposing the player's helmet slot), or about the surrounding blocks in the inventory (`Direction#WEST` exposing the input slot of a furnace). Do not forget to fall back to `super`, otherwise existing attached capabilities will stop working.
 
-Capabilities must be invalidated at the end of the provider's lifecycle via `LazyOptional#invalidate`. For owned TileEntities and Entities, the `LazyOptional` can be invalidated within `#remove`. For non-owned providers, a runnable supplying the invalidation should be passed into `AttachCapabilitiesEvent#addListener`.
+Capabilities must be invalidated at the end of the provider's lifecycle via `LazyOptional#invalidate`. For owned TileEntities and Entities, the `LazyOptional` can be invalidated within `#invalidateCaps`. For non-owned providers, a runnable supplying the invalidation should be passed into `AttachCapabilitiesEvent#addListener`.
 
 ```java
 // Somewhere in your TileEntity subclass
@@ -64,8 +64,8 @@ public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
 }
 
 @Override
-public void remove() {
-  super.remove();
+public void invalidateCaps() {
+  super.invalidateCaps();
   inventoryHandlerLazyOptional.invalidate();
 }
 ```
