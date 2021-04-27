@@ -5,7 +5,7 @@ Tags are generalized sets of objects in the game used for grouping related thing
 
 Declaring Your Own Groupings
 ----------------------------
-Tags are declared in your mod's [datapack][datapack]. For example, `/data/<modid>/tags/blocks/foo/tagname.json` will declare a `Tag<Block>` with ID `modid:foo/tagname`.
+Tags are declared in your mod's [datapack][datapack]. For example, `/data/<modid>/tags/blocks/foo/tagname.json` will declare an `INamedTag<Block>` with ID `modid:foo/tagname`.
 Similarly, you may append to or override tags declared in other domains, such as Vanilla, by declaring your own JSONs.
 For example, to add your own mod's saplings to the Vanilla sapling tag, you would specify it in `/data/minecraft/tags/blocks/saplings.json`, and Vanilla will merge everything into one tag at reload, if the `replace` option is false.
 If `replace` is true, then all entries before the json specifying `replace` will be removed.
@@ -13,16 +13,16 @@ See the [Vanilla wiki][tags] for a description of the base syntax.
 
 Forge provides two extensions on the Vanilla syntax:
 * You may declare an `optional` array of the same format as the `values` array, but any values listed here that are not present will not cause the tag loading to error.
-This is useful to provide integration for mods that may or may not be present at runtime.
+This has been deprecated in favor of the vanilla method of specifying optional tag values.
 * You may declare a `remove` array of the same format as the `values` array. Any values listed here will be removed from the tag. This acts as a finer grained version of the Vanilla `replace` option.
 
 
 Using Tags In Code
 ------------------
-Block, Item, and Fluid tags are automatically sent from the server to any remote clients on login and reload. Function tags are not synced.
+Block, Item, Fluid, and EntityType tags are automatically sent from the server to any remote clients on login and reload. In addition, Forge adds TileEntityType, Potion, and Enchantment tags. Function tags are not synced.
 
-`BlockTags#getCollection` and `ItemTags#getCollection` will retrieve the current `TagCollection`, from which you can retrieve a `Tag` object by its ID.
-With a `Tag` object in hand, membership can be tested with `tag.contains(thing)`, or all the objects in the tag queried with `tag.getAllElements()`.
+`BlockTags#getCollection` and `ItemTags#getCollection` will retrieve the current `ITagCollection`, from which you can retrieve a `ITag` object by its ID.
+With a `ITag` object in hand, membership can be tested with `tag.contains(thing)`, or all the objects in the tag queried with `tag.getAllElements()`.
 
 As an example:
 ```java
@@ -34,8 +34,8 @@ boolean isInGroup = unknownItem.isIn(myTag);
 ```
 
 !!! note:
-    The `TagCollection` returned by `getCollection()` (and the `Tag`s within it) may expire if a reload happens.
-    The static `Tag` fields in `BlockTags` and `ItemTags` avoid this by introducing a wrapper that handles this expiring.
+    The `ITagCollection` returned by `getCollection()` (and the `ITag`s within it) may expire if a reload happens.
+    The static `INamedTag` fields in `BlockTags` and `ItemTags` avoid this by introducing a wrapper that handles this expiring.
 
 
 Conventions
