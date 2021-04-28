@@ -1,12 +1,12 @@
 Versioning
 ==========
 
-In general projects, [Semantic Versioning](https://semver.org/) is often used (which has the format `MAJOR.MINOR.PATCH`). However, in the case of modding it may be more beneficial to use the format `MCVERSION-MAJORMOD.MAJORAPI.MINOR.PATCH`, to be able to differentiate between world-breaking and API-breaking changes of a mod.
+In general projects, [Semantic Versioning][semver] is often used (which has the format `MAJOR.MINOR.PATCH`). However, in the case of modding it may be more beneficial to use the format `MCVERSION-MAJORMOD.MAJORAPI.MINOR.PATCH` to be able to differentiate between world-breaking and API-breaking changes of a mod.
 
 Examples
 --------
 
-Here is a (most likely incomplete) list of things that increment the various variables.
+Here is a list of examples that can increment the various variables.
 
 * `MCVERSION`
 	* Always matches the Minecraft version the mod is for.
@@ -29,7 +29,7 @@ When incrementing any variable, all lesser variables should reset to `0`. For in
 
 ### Work In Progress
 
-If you are in the initial development stage of your mod (before any official releases), the `MAJORMOD` and `MAJORAPI` should always be `0`. Only `MINOR` should be updated every time you build your mod. Once you build an official release (most of the time with a stable API), you should increment `MAJORMOD` to version `1.0.0.0`. For any further development stages, refer to the [Prereleases](#prereleases) and [Release candidates](#release-candidates) section of this document.
+If you are in the initial development stage of your mod (before any official releases), the `MAJORMOD` and `MAJORAPI` should always be `0`. Only `MINOR` and `PATCH` should be updated every time you build your mod. Once you build an official release (most of the time with a stable API), you should increment `MAJORMOD` to version `1.0.0.0`. For any further development stages, refer to the [Prereleases][pre] and [Release candidates][rc] section of this document.
 
 ### Multiple Minecraft Versions
 
@@ -41,8 +41,12 @@ When dropping support for a Minecraft version, the last build for that version s
 
 ### Pre-releases
 
-It is also possible to prerelease work-in-progress features, which means new features are released that are not quite done yet. These can be seen as a sort of "beta". These versions should be appended with `-betaX`, where X is the number of the prerelease. (This guide does not use `-pre` since, at the time of writing, it is not a valid alias for `-beta` according to Forge.) Note that already released versions and versions before the initial release can not go into prerelease; variables (mostly `MINOR`, but `MAJORAPI` and `MAJORMOD` can also prerelease) should be updated accordingly before adding the `-beta` suffix. Versions before the initial release are simply work-in-progress builds.
+It is also possible to prerelease work-in-progress features, which means new features are released that are not quite done yet. These can be seen as a sort of "beta". These versions should be appended with `-betaX`, where `X` is the number of the prerelease. (This guide does not use `-pre` since, at the time of writing, it is not a valid alias for `-beta`.) Note that already released versions and versions before the initial release can not go into prerelease; variables (mostly `MINOR`, but `MAJORAPI` and `MAJORMOD` can also prerelease) should be updated accordingly before adding the `-beta` suffix. Versions before the initial release are simply work-in-progress builds.
 
 ### Release Candidates
 
 Release candidates act as prereleases before an actual version change. These versions should be appended with `-rcX`, where `X` is the number of the release candidate which should, in theory, only be increased for bugfixes. Already released versions can not receive release candidates; variables (mostly `MINOR`, but `MAJORAPI` and `MAJORMOD` can also prerelease)  should be updated accordingly before adding the `-rc` suffix. When releasing a release candidate as stable build, it can either be exactly the same as the last release candidate or have a few more bug fixes.
+
+[semver]: https://semver.org/
+[pre]: #pre-releases
+[rc]: #release-candidates
