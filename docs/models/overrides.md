@@ -8,11 +8,11 @@ An item property assigns a certain `float` value to every `ItemStack` it is regi
 Adding Properties to Items
 --------------------------
 
-`ItemModelsProperties::registerProperty` is used to add a property to a certain item. The `Item` parameter is the item the property is attaching to (e.g. ExampleItems.APPLE). The `ResourceLocation` parameter is the name given to the property (e.g. `new ResourceLocation("pull")`). The `IItemPropertyGetter` is a functional interface that takes the `ItemStack`, the `ClientWorld` it's in (may be null), and the `LivingEntity` that holds it (may be null), returning the `float` value for the property. For modded item properties, it is recommended that the modid of the mod is used as the namespace (e.g. `examplemod:property` and not just `property`, as that really means `minecraft:property`). These should be done in FMLClientSetupEvent.
-There's also another private method `ItemModelsProperties::registerGlobalProperty` that is used to add properties to all items, and it does not take `Item` as its parameter since all items will apply this property.
+`ItemModelsProperties#registerProperty` is used to add a property to a certain item. The `Item` parameter is the item the property is being attached to (e.g. `ExampleItems#APPLE`). The `ResourceLocation` parameter is the name given to the property (e.g. `new ResourceLocation("pull")`). The `IItemPropertyGetter` is a functional interface that takes the `ItemStack`, the `ClientWorld` it is in (may be null), and the `LivingEntity` that holds it (may be null), returning the `float` value for the property. For modded item properties, it is recommended that the modid of the mod is used as the namespace (e.g. `examplemod:property` and not just `property`, as that really means `minecraft:property`). These should be done in `FMLClientSetupEvent`.
+There's also another private method `ItemModelsProperties#registerGlobalProperty` that is used to add properties to all items, and it does not take `Item` as its parameter since all items will apply this property.
 
 !!! important
-    Use FMLClientSetupEvent::enqueueWork to proceed with the tasks, since the data structures in ItemModelsProperties are not threadsafe.
+    Use `FMLClientSetupEvent#enqueueWork` to proceed with the tasks, since the data structures in `ItemModelsProperties` are not thread-safe.
 
 Using Overrides
 ---------------
@@ -27,7 +27,7 @@ The format of an override can be seen on the [wiki][format], and a good example 
   "parent": "item/generated",
   "textures": {
     "__comment": "Default",
-    "layer0": "examplemod:items/examplePartial"
+    "layer0": "examplemod:items/example_partial"
   },
   "overrides": [
     {
@@ -35,13 +35,13 @@ The format of an override can be seen on the [wiki][format], and a good example 
       "predicate": {
         "examplemod:power": 0.75
       },
-      "model": "examplemod:item/examplePowered"
+      "model": "examplemod:item/example_powered"
     }
   ]
 }
 ```
 
-And here's a hypothetical snippet from the supporting code. Unlike the older versions (lower than 1.16.x), this needs to be done on client side only because `ItemModelsProperties` does not exist on server.
+And here is a hypothetical snippet from the supporting code. Unlike the older versions (lower than 1.16.x), this needs to be done on client side only because `ItemModelsProperties` does not exist on server.
 
 ```java
 private void setup(final FMLClientSetupEvent event)
