@@ -65,31 +65,31 @@ In your Block class, create or reference `static final` `Property<?>` objects fo
 
 The class `BlockStateProperties` contains shared vanilla properties which should be used or referenced whenever possible, in place of creating your own properties.
 
-When you have your desired `Property<>` objects, override `Block#fillStateContainer(StateContainer$Builder)` in your Block class. In that method, call `StateContainer$Builder#add(...);`  with the parameters as every `Property<?>` you wish the block to have.
+When you have your desired `Property<>` objects, override `Block#createBlockStateDefinition(StateContainer$Builder)` in your Block class. In that method, call `StateContainer$Builder#add(...);`  with the parameters as every `Property<?>` you wish the block to have.
 
-Every block will also have a "default" state that is automatically chosen for you. You can change this "default" state by calling the `Block#setDefaultState(BlockState)` method from your constructor. When your block is placed it will become this "default" state. An example from `DoorBlock`:
+Every block will also have a "default" state that is automatically chosen for you. You can change this "default" state by calling the `Block#registerDefaultState(BlockState)` method from your constructor. When your block is placed it will become this "default" state. An example from `DoorBlock`:
 
 ```Java
-this.setDefaultState(
-    this.stateContainer.getBaseState()
-        .with(FACING, Direction.NORTH)
-        .with(OPEN, false)
-        .with(HINGE, DoorHingeSide.LEFT)
-        .with(POWERED, false)
-        .with(HALF, DoubleBlockHalf.LOWER)
+this.registerDefaultState(
+    this.stateDefinition.any()
+        .setValue(FACING, Direction.NORTH)
+        .setValue(OPEN, false)
+        .setValue(HINGE, DoorHingeSide.LEFT)
+        .setValue(POWERED, false)
+        .setValue(HALF, DoubleBlockHalf.LOWER)
 );
 ```
 
 If you wish to change what `BlockState` is used when placing your block, you can overwrite `Block#getStateForPlacement(BlockItemUseContext)`. This can be used to, for example, set the direction of your block depending on where the player is standing when they place it.
 
-Because `BlockState`s are immutable, and all combinations of their properties are generated on startup of the game, calling `BlockState#with(Property<T>, T)` will simply go to the `Block`'s `StateContainer` and request the `BlockState` with the set of values you want.
+Because `BlockState`s are immutable, and all combinations of their properties are generated on startup of the game, calling `BlockState#setValue(Property<T>, T)` will simply go to the `Block`'s `StateContainer` and request the `BlockState` with the set of values you want.
 
 Because all possible `BlockState`s are generated at startup, you are free and encouraged to use the reference equality operator (`==`) to check if two `BlockState`s are equal.
 
 Using `BlockState`'s
 ---------------------
 
-You can get the value of a property by calling `BlockState#get(Property<?>)`, passing it the property you want to get the value of.
-If you want to get a `BlockState` with a different set of values, simply call `BlockState#with(Property<T>, T)` with the property and its value.
+You can get the value of a property by calling `BlockState#getValue(Property<?>)`, passing it the property you want to get the value of.
+If you want to get a `BlockState` with a different set of values, simply call `BlockState#setValue(Property<T>, T)` with the property and its value.
 
-You can get and place `BlockState`'s in the world using `World#setBlockState(BlockPos, BlockState)` and `World#getBlockState(BlockState)`. If you are placing a `Block`, call `Block#getDefaultState()` to get the "default" state, and use subsequent calls to `BlockState#with(Property<T>, T)` as stated above to achieve the desired state.
+You can get and place `BlockState`'s in the world using `World#setBlockAndUpdate(BlockPos, BlockState)` and `World#getBlockState(BlockState)`. If you are placing a `Block`, call `Block#defaultState()` to get the "default" state, and use subsequent calls to `BlockState#setValue(Property<T>, T)` as stated above to achieve the desired state.
