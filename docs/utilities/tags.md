@@ -21,19 +21,19 @@ Using Tags In Code
 ------------------
 Block, Item, and Fluid tags are automatically sent from the server to any remote clients on login and reload. Function tags are not synced.
 
-`BlockTags.getCollection()` and `ItemTags.getCollection()` will retrieve the current `TagCollection`, from which you can retrieve a `Tag` object by its ID.
-With a `Tag` object in hand, membership can be tested with `tag.contains(thing)`, or all the objects in the tag queried with `tag.getAllElements()`.
+`BlockTags.getAllTags()` and `ItemTags.getAllTags()` will retrieve the current `TagCollection`, from which you can retrieve a `Tag` object by its ID (`getTag`).
+With a `Tag` object in hand, membership can be tested with `tag.contains(thing)`, or all the objects in the tag queried with `tag.getValues()`.
 
 As an example:
 ```Java
 ResourceLocation myTagId = new ResourceLocation("mymod", "myitemgroup");
 Item unknownItem = stack.getItem();
-boolean isInGroup = ItemTags.getCollection().getOrCreateTag(myTagId).contains(unknownItem);
+boolean isInGroup = ItemTags.getAllTags().getTagOrEmpty(myTagId).contains(unknownItem);
 // alternatively, can use getTag and perform a null check
 ```
 
 !!! note:
-    The `TagCollection` returned by `getCollection()` (and the `Tag`s within it) may expire if a reload happens, so you should always query the collection anew every time you need it.
+    The `TagCollection` returned by `getAllTags()` (and the `Tag`s within it) may expire if a reload happens, so you should always query the collection anew every time you need it.
     The static `Tag` fields in `BlockTags` and `ItemTags` avoid this by introducing a wrapper that handles this expiring.
     Alternatively, a resource reload listener can be used to refresh any cached tags.
 
