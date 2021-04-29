@@ -20,11 +20,11 @@ In the Minecraft codebase, the physical side is represented by an enum called `D
 Performing Side-Specific Operations
 -----------------------------------
 
-### `world.isRemote`
+### `world.isClientSide()`
 
 This boolean check will be your most used way to check sides. Querying this field on a `World` object establishes the  **logical** side the world belongs to. That is, if this field is `true`, the world is currently running on the logical client. If the field is `false`, the world is running on the logical server. It follows that the physical server will always contain `false` in this field, but we cannot assume that `false` implies a physical server, since this field can also be `false` for the logical server inside a physical client (in other words, a single player world).
 
-Use this check whenever you need to determine if game logic and other mechanics should be run. For example, if you want to damage the player every time they click your block, or have your machine process dirt into diamonds, you should only do so after ensuring `world.isRemote` is `false`. Applying game logic to the logical client can cause desynchronization (ghost entities, desynchronized stats, etc.) in the lightest case, and crashes in the worst case.
+Use this check whenever you need to determine if game logic and other mechanics should be run. For example, if you want to damage the player every time they click your block, or have your machine process dirt into diamonds, you should only do so after ensuring `world.isClientSide()` is `false`. Applying game logic to the logical client can cause desynchronization (ghost entities, desynchronized stats, etc.) in the lightest case, and crashes in the worst case.
 
 This check should be used as your go-to default. Aside from `DistExecutor`, rarely will you need the other ways of determining side and adjusting behavior.
 
