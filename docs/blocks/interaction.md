@@ -13,7 +13,7 @@ Since left clicking, or "punching", a block does not generally result in any uni
 ----------------
 
 ```java
-public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
+public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
 ```
 
 This is the method that controls right click behavior.
@@ -55,16 +55,16 @@ One of the most common things to do on block activation is opening a GUI. Many b
 Another common use for activation is, well, activation. This can be something like "turning on" a block, or triggering it to perform some action. For instance, a block could light up when activated. A vanilla example would be buttons or levers.
 
 !!! important
-    `onBlockActivated` is called on both the client and the server, so be sure to keep the [sidedness] of your code in mind. Many things, like opening GUIs and modifying the world, should only be done on the server-side.
+    `use` is called on both the client and the server, so be sure to keep the [sidedness] of your code in mind. Many things, like opening GUIs and modifying the world, should only be done on the server-side.
 
 Block Placement
 --------------------
 
-`onBlockPlacedBy`
+`setPlacedBy`
 ----------------
 
 ```java
-public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
+public void setPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
 ```
 
 Called by `BlockItem`s after a block is set in the world, to allow post-place logic.
@@ -82,19 +82,15 @@ Called by `BlockItem`s after a block is set in the world, to allow post-place lo
 Player Break/Destroy
 --------------------
 
-`onBlockClicked`
+`attack`
 ----------------
 
 ```java
-public void onBlockClicked(BlockState state, World worldIn, BlockPos pos, PlayerEntity player)
+public void attack(BlockState state, World worldIn, BlockPos pos, PlayerEntity player)
 ```
 
 Called on a block when it is clicked by a player.
 
-!!! Note
-    
-    This method is for when the player *left-clicks* on a block.
-    Don't get this confused with `onBlockActivated`, which is called when the player *right-clicks*.
 
 ### Parameters:
 |      Type       |     Name     |                  Description                  |
@@ -110,11 +106,11 @@ This method is perfect for adding custom events when a player clicks on a block.
 By default this method does nothing.  
 `NoteBlock` overrides this method so when left-clicked, it plays a sound. `RedstoneOreBlock` on left-click emits a faint light and spawns particles around itself.
 
-`onBlockHarvested`
+`playerWillDestroy`
 ----------------
 
 ```java
-public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
+public void playerWillDestroy(World worldIn, BlockPos pos, BlockState state, PlayerEntity player)
 ```
 
 Called before the Block is set to air in the world. Called regardless of if the player's tool can actually collect this block.
@@ -130,9 +126,9 @@ Called before the Block is set to air in the world. Called regardless of if the 
 ### Usage example
 This method is perfect for adding custom events as a result of a player destroying a block
 
-This method has important behavior in the `Block` class so be sure to call the super method.
+This method has important behavior in the `Block` class so be sure to call the super method:
 ```java
-super.onBlockHarvested(worldIn, pos, state, player);
+super.playerWillDestroy(worldIn, pos, state, player);
 ```
 
 The `TNTBlock` overrides this method to cause it's explosion when a player destroys it if its `unstable` property is `true`.  
@@ -143,11 +139,11 @@ The `PistonHeadBlock` makes use of this method to destroy the base block when th
 Entity Collision
 ----------------
 
-`onEntityCollision`
+`entityInside`
 ----------------
 
 ```java
-public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn)
+public void entityInside(BlockState state, World worldIn, BlockPos pos, Entity entityIn)
 ```
 
 This method is called whenever an entity collides with the block.
