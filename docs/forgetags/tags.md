@@ -2,7 +2,9 @@ Forge Tags
 ====
 Usage
 ---
-Tags are an important element for communication between mods. Let's say, for example, you had rubies in your mod, along with ruby armor and ruby tools. If you want your rubies to be able to be used to make ruby armor and tools from other mods, you should apply the forge:gems/ruby tag to it. You do this by first making a directory in your resources folder: data/forge/tags/gems/. You then insert a JSON file there, called ruby.json. Inside of it, you should write:
+Tags are an important element for communication between mods. Tags categorize items by a general description of them, which can then be utilized by other people to have different versions of the same item be compatible across mods.
+
+Let's say, for example, you had rubies in your mod, along with ruby armor and ruby tools. If you want your rubies to be able to be used to make ruby armor and tools from other mods, you should apply the forge:gems/ruby tag to it. You do this by first making a directory in your resources folder: data/forge/tags/gems/. You then insert a JSON file there, called ruby.json. Inside of it, you should write:
 
 ```
 {
