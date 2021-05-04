@@ -29,6 +29,8 @@ nav:
   - Items:
     - Home: 'items/items.md'
     - Loot Modification: 'items/globallootmodifiers.md'
+   - Forge Tags:
+    - Home: 'forgetags/tags.md'
   - Models:
     - Intro to Models: 'models/introduction.md'
     - Model Files: 'models/files.md'
