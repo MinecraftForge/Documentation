@@ -37,5 +37,5 @@ To add these tags to your own recipes, you should go to the directory data/MODID
 ```
 Where to find them
 ---
-[Here](https://github.com/Dente222/Minecraft-Forge-Tag-List/blob/master/gears.txt) you can find most of the tags in Forge.
+[Here](https://github.com/MinecraftForge/MinecraftForge/tree/1.16.x/src/generated/resources/data/forge/tags/) you can find most of the tags in Forge.
 
