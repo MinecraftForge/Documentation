@@ -19,7 +19,8 @@ You will need 4 things:
 The `global_loot_modifiers.json`
 -------------------------------
 
-All you need to add here are the registry names of your loot modifiers:
+All you need to add here are the file names of your loot modifiers. The [ResourceLocation][resloc] specified points to `data/<namespace>/loot_modifiers/<path>.json`.
+
 ```json
 {
   "replace": false,
@@ -123,5 +124,6 @@ Also take note of the `read` method in the serializer. The conditions are alread
 Additional [examples] can be found on the Forge Git repository, including silk touch and smelting effects.
 
 [tags]: ../utilities/tags.md
+[resloc]: ../concepts/resources.md#ResourceLocation
 [registered]: ../concepts/registries.md#registering-things
 [examples]: https://github.com/MinecraftForge/MinecraftForge/blob/1.15.x/src/test/java/net/minecraftforge/debug/gameplay/loot/GlobalLootModifiersTest.java
