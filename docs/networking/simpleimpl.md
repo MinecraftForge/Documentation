@@ -53,7 +53,7 @@ There are a couple things to highlight in a packet handler. A packet handler has
 public static void handle(MyMessage msg, Supplier<NetworkEvent.Context> ctx) {
     ctx.get().enqueueWork(() -> {
         // Work that needs to be thread-safe (most work)
-        EntityPlayerMP sender = ctx.get().getSender(); // the client that sent this packet
+        ServerPlayerEntity sender = ctx.get().getSender(); // the client that sent this packet
         // Do stuff
     });
     ctx.get().setPacketHandled(true);
