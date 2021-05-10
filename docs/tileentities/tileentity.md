@@ -16,12 +16,12 @@ To register it, listen for the appropriate registry event and create a `TileEnti
 ```java
 @SubscribeEvent
 public static void registerTE(RegistryEvent.Register<TileEntityType<?>> evt) {
-  TileEntityType<?> type = TileEntityType.Builder.create(factory, validBlocks).build(null);
+  TileEntityType<?> type = TileEntityType.Builder.of(factory, validBlocks).build(null);
   type.setRegistryName("mymod", "myte");
   evt.getRegistry().register(type);
 }
 ```
-In this example, `factory` is a function that creates a new instance of your TileEntity. A method reference or a lambda is commonly used. The variable `validBlocks` is one or more blocks (`TileEntityType$Builder#create` is varargs) that the tile entity can exist for.
+In this example, `factory` is a function that creates a new instance of your TileEntity. A method reference or a lambda is commonly used. The variable `validBlocks` is one or more blocks (`TileEntityType$Builder#of` is varargs) that the tile entity can exist for.
 
 ## Attaching a `TileEntity` to a `Block`
 
@@ -38,16 +38,16 @@ Usually, you will return `true` in the first method and a new instance of your `
 
 In order to save data, override the following two methods:
 ```java
-TileEntity#write(CompoundNBT nbt)
+TileEntity#save(CompoundNBT nbt)
 
-TileEntity#read(BlockState state, CompoundNBT nbt)
+TileEntity#load(BlockState state, CompoundNBT nbt)
 ```
 These methods are called whenever the `Chunk` containing the `TileEntity` gets loaded from/saved to NBT.
 Use them to read and write to the fields in your tile entity class.
 
 !!! note
 
-		Whenever your data changes, you need to call `TileEntity#markDirty`; otherwise, the `Chunk` containing your `TileEntity` might be skipped while the world is saved.
+		Whenever your data changes, you need to call `TileEntity#setChanged`; otherwise, the `Chunk` containing your `TileEntity` might be skipped while the world is saved.
 
 !!! important
 
@@ -92,12 +92,12 @@ Here is a tiny example implementation of it:
 public SUpdateTileEntityPacket getUpdatePacket(){
     CompoundNBT nbtTag = new CompoundNBT();
     //Write your data into the nbtTag
-    return new SUpdateTileEntityPacket(getPos(), -1, nbtTag);
+    return new SUpdateTileEntityPacket(getBlockPos(), -1, nbtTag);
 }
 
 @Override
 public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt){
-    CompoundNBT tag = pkt.getNbtCompound();
+    CompoundNBT tag = pkt.getTag();
     //Handle your Data
 }
 ```
@@ -109,7 +109,7 @@ The Constructor of `SUpdateTileEntityPacket` takes:
 
 Now, to send the packet, an update notification must be given on the server.
 ```java
-World#notifyBlockUpdate(BlockPos pos, BlockState oldState, BlockState newState, int flags)
+World#sendBlockUpdated(BlockPos pos, BlockState oldState, BlockState newState, int flags)
 ```
 The `pos` should be your `TileEntity`'s position.
 For `oldState` and `newState`, you can pass the current `BlockState` at that position.
@@ -125,7 +125,7 @@ Once you've created your custom network message, you can send it to all users th
 !!! warning
 
     It is important that you do safety checks, the `TileEntity` might already be destroyed/replaced when the message arrives at the player!
-    You should also check if the chunk is loaded (`World#isBlockLoaded(BlockPos)`).
+    You should also check if the chunk is loaded (`World#hasChunkAt(BlockPos)`).
 
 [storing-data]: #storing-data-within-your-tileentity
 [networking]: ../networking/index.md

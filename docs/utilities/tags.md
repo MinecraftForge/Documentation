@@ -22,8 +22,8 @@ Using Tags In Code
 ------------------
 Block, Item, Fluid, and EntityType tags are automatically sent from the server to any remote clients on login and reload. In addition, Forge adds TileEntityType, Potion, and Enchantment tags. Function tags are not synced.
 
-`BlockTags#getCollection` and `ItemTags#getCollection` will retrieve the current `ITagCollection`, from which you can retrieve a `ITag` object by its ID.
-With a `ITag` object in hand, membership can be tested with `tag.contains(thing)`, or all the objects in the tag queried with `tag.getAllElements()`.
+`BlockTags#getAllTags` and `ItemTags#getAllTags` will retrieve the current `ITagCollection`, from which you can retrieve a `ITag` object by its ID.
+With a `ITag` object in hand, membership can be tested with `tag.contains(thing)`, or all the objects in the tag queried with `tag.getValues()`.
 
 As an example:
 ```java
@@ -31,11 +31,11 @@ public static final Tag<Item> myTag = new ItemTags.Wrapper(new ResourceLocation(
 
 // In some method
 Item unknownItem = stack.getItem();
-boolean isInGroup = unknownItem.isIn(myTag);
+boolean isInGroup = unknownItem.is(myTag);
 ```
 
 !!! note:
-    The `ITagCollection` returned by `getCollection()` (and the `ITag`s within it) may expire if a reload happens.
+    The `ITagCollection` returned by `#getAllTags` (and the `ITag`s within it) may expire if a reload happens.
     The static `INamedTag` fields in `BlockTags` and `ItemTags` avoid this by introducing a wrapper that handles this expiring.
 
 

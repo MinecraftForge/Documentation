@@ -40,9 +40,9 @@ Here is a small explanation of what each part means
 
 The Debug Profiler has basic support for `Entity` and `TileEntity`. If you would like to profile something else, you may need to manually create your sections like so:
 ```java
-  IProfiler#startSection(yourSectionName : String);
+  IProfiler#push(yourSectionName : String);
   //The code you want to profile
-  IProfiler#endSection();
+  IProfiler#pop();
 ```
 You can obtain the `IProfiler` instance from a `World`, `MinecraftServer`, or `Minecraft` instance.
 Now you just need to search the results file for your section name.

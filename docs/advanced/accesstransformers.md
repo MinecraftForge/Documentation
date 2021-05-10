@@ -99,13 +99,13 @@ public net.minecraft.client.gui.ScreenManager$IScreenFactory
 # Makes protected and removes the final modifier from 'random' in MinecraftServer
 protected-f net.minecraft.server.MinecraftServer field_147146_q #random
 
-# Makes public the 'createNamedService' method in Util,
+# Makes public the 'makeExecutor' method in Util,
 # accepting a String and returns an ExecutorService
-public net.minecraft.util.Util func_240979_a_(Ljava/lang/String;)Ljava/util/concurrent/ExecutorService; #createNamedService
+public net.minecraft.util.Util func_240979_a_(Ljava/lang/String;)Ljava/util/concurrent/ExecutorService; #makeExecutor
 
-# Makes public the 'func_239776_a_' method in UUIDCodec,
+# Makes public the 'leastMostToIntArray' method in UUIDCodec,
 # accepting two longs and returning an int[]
-public net.minecraft.util.UUIDCodec func_239776_a_(JJ)[I #func_239776_a_
+public net.minecraft.util.UUIDCodec func_239776_a_(JJ)[I #leastMostToIntArray
 ```
 
 [specs]: https://github.com/MinecraftForge/AccessTransformers/blob/master/FMLAT.md

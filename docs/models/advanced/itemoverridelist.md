@@ -7,7 +7,7 @@
 
 Given a list of `ItemOverride`s, the constructor copies that list and stores the copy. The list may be accessed with `#getOverrides`.
 
-### `getModelWithOverrides`
+### `resolve`
 
 This takes an `IBakedModel`, an `ItemStack`, a `ClientWorld`, and an `LivingEntity` to produce another `IBakedModel` to use for rendering. This is where models can handle the state of their items.
 

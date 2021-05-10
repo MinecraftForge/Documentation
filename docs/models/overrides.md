@@ -8,8 +8,8 @@ An item property assigns a certain `float` value to every `ItemStack` it is regi
 Adding Properties to Items
 --------------------------
 
-`ItemModelsProperties#registerProperty` is used to add a property to a certain item. The `Item` parameter is the item the property is being attached to (e.g. `ExampleItems#APPLE`). The `ResourceLocation` parameter is the name given to the property (e.g. `new ResourceLocation("pull")`). The `IItemPropertyGetter` is a functional interface that takes the `ItemStack`, the `ClientWorld` it is in (may be null), and the `LivingEntity` that holds it (may be null), returning the `float` value for the property. For modded item properties, it is recommended that the modid of the mod is used as the namespace (e.g. `examplemod:property` and not just `property`, as that really means `minecraft:property`). These should be done in `FMLClientSetupEvent`.
-There's also another private method `ItemModelsProperties#registerGlobalProperty` that is used to add properties to all items, and it does not take `Item` as its parameter since all items will apply this property.
+`ItemModelsProperties#register` is used to add a property to a certain item. The `Item` parameter is the item the property is being attached to (e.g. `ExampleItems#APPLE`). The `ResourceLocation` parameter is the name given to the property (e.g. `new ResourceLocation("pull")`). The `IItemPropertyGetter` is a functional interface that takes the `ItemStack`, the `ClientWorld` it is in (may be null), and the `LivingEntity` that holds it (may be null), returning the `float` value for the property. For modded item properties, it is recommended that the modid of the mod is used as the namespace (e.g. `examplemod:property` and not just `property`, as that really means `minecraft:property`). These should be done in `FMLClientSetupEvent`.
+There's also another private method `ItemModelsProperties#registerGeneric` that is used to add properties to all items, and it does not take `Item` as its parameter since all items will apply this property.
 
 !!! important
     Use `FMLClientSetupEvent#enqueueWork` to proceed with the tasks, since the data structures in `ItemModelsProperties` are not thread-safe.
@@ -48,9 +48,9 @@ private void setup(final FMLClientSetupEvent event)
 {
   event.enqueueWork(() ->
   {
-    ItemModelsProperties.registerProperty(ExampleItems.APPLE, 
+    ItemModelsProperties.register(ExampleItems.APPLE, 
       new ResourceLocation(ExampleMod.MODID, "pulling"), (stack, world, living) -> {
-        return living != null && living.isHandActive() && living.getActiveItemStack() == stack ? 1.0F : 0.0F;
+        return living != null && living.isUsingItem() && living.getUseItem() == stack ? 1.0F : 0.0F;
       });
   });
 }

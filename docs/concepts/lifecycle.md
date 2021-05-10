@@ -15,7 +15,7 @@ public class MyModEventSubscriber {
 @Mod("mymod")
 public class MyMod {
     public MyMod() {
-        FMLModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
+        FMLModLoadingContext.get().getModEventBus().addListener(this::onCommonSetup);
     } 
   
     private void onCommonSetup(FMLCommonSetupEvent event) { ... }

@@ -24,12 +24,12 @@ Dynamic Data
 
 This is the main vanilla system for synchronizing entity data from the server to the client. As such, a number of vanilla examples are available to refer to.
 
-Firstly, you need a `DataParameter<T>` for the data you wish to keep synchronized. This should be stored as a `static final` field in your entity class, obtained by calling `EntityDataManager#createKey` and passing the entity class and a serializer for that type of data. The available serializer implementations can be found as static constants within the `DataSerializers` class.
+Firstly, you need a `DataParameter<T>` for the data you wish to keep synchronized. This should be stored as a `static final` field in your entity class, obtained by calling `EntityDataManager#defineId` and passing the entity class and a serializer for that type of data. The available serializer implementations can be found as static constants within the `DataSerializers` class.
 
 !!! warning
     You should __only__ create data parameters for your own entities, _within that entity's class_.
     Adding parameters to entities you do not control can cause the IDs used to send that data over the network to become desynchronized, causing difficult to debug crashes.
 
-Then, override `Entity#registerData` and call `this.dataManager.register(...)` for each of your data parameters, passing the parameter and an initial value to use. Remember to always call the `super` method first!
+Then, override `Entity#defineSynchedData` and call `this.entityData.define(...)` for each of your data parameters, passing the parameter and an initial value to use. Remember to always call the `super` method first!
 
-You can then get and set these values via your entity's `dataManager` instance. Changes made will be synchronized to the client automatically.
+You can then get and set these values via your entity's `entityData` instance. Changes made will be synchronized to the client automatically.

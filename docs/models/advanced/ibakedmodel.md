@@ -1,7 +1,7 @@
 `IBakedModel`
 =============
 
-`IBakedModel` is the result of calling `IUnbakedModel#bakeModel` for the vanilla model loader or `IModelGeometry#bake` for custom model loaders. Unlike `IUnbakedModel` or `IModelGeometry`, which purely represents a shape without any concept of items or blocks, `IBakedModel` is not as abstract. It represents geometry that has been optimized and reduced to a form where it is (almost) ready to go to the GPU. It can also process the state of an item or block to change the model.
+`IBakedModel` is the result of calling `IUnbakedModel#bake` for the vanilla model loader or `IModelGeometry#bake` for custom model loaders. Unlike `IUnbakedModel` or `IModelGeometry`, which purely represents a shape without any concept of items or blocks, `IBakedModel` is not as abstract. It represents geometry that has been optimized and reduced to a form where it is (almost) ready to go to the GPU. It can also process the state of an item or block to change the model.
 
 In a majority of cases, it is not really necessary to implement this interface manually. One can instead use one of the existing implementations.
 
@@ -9,7 +9,7 @@ In a majority of cases, it is not really necessary to implement this interface m
 
 Returns the [`ItemOverrideList`][overrides] to use for this model. This is only used if this model is being rendered as an item.
 
-### `isAmbientOcclusion`
+### `useAmbientOcclusion`
 
 If the model is rendered as a block in the world, the block in question does not emit any light, and ambient occlusion is enabled. This causes the model to be rendered with [ambient occlusion](ambocc).
 
@@ -17,23 +17,23 @@ If the model is rendered as a block in the world, the block in question does not
 
 If the model is rendered as an item in an inventory, on the ground as an entity, on an item frame, etc., this makes the model look "flat." In GUIs, this also disables the lighting.
 
-### `isBuiltInRenderer`
+### `isCustomRenderer`
 
 !!! important
     Unless you know what you're doing, just `return false` from this and continue on.
 
-When rendering this as an item, returning `true` causes the model to not be rendered, instead falling back to `ItemStackTileEntityRenderer::render`. For certain vanilla items such as chests and banners, this method is hardcoded to copy data from the item into a `TileEntity`, before using a `TileEntitySpecialRenderer` to render that TE in place of the item. For all other items, it will use the `ItemStackTileEntityRenderer` instance provided by `Item$Properties#setISTER`. Refer to [ItemStackTileEntityRenderer][ister] page for more information.
+When rendering this as an item, returning `true` causes the model to not be rendered, instead falling back to `ItemStackTileEntityRenderer#renderByItem`. For certain vanilla items such as chests and banners, this method is hardcoded to copy data from the item into a `TileEntity`, before using a `TileEntitySpecialRenderer` to render that TE in place of the item. For all other items, it will use the `ItemStackTileEntityRenderer` instance provided by `Item$Properties#setISTER`. Refer to [ItemStackTileEntityRenderer][ister] page for more information.
 
-### `getParticleTexture`
+### `getParticleIcon`
 
 Whatever texture should be used for the particles. For blocks, this shows when an entity falls on it, when it breaks, etc. For items, this shows when it breaks or when it's eaten.
 
 !!! important
     The vanilla method with no parameters has been deprecated in favor of `#getParticleTexture(IModelData)` since model data can have an effect on how a particular model might be rendered.
 
-### <s>`getItemCameraTransforms`</s>
+### <s>`getTransforms`</s>
 
-Deprecated in favor of implementing `handlePerspective`. The default implementation is fine if `handlePerspective` is implemented. See [Perspective][perspective].
+Deprecated in favor of implementing `#handlePerspective`. The default implementation is fine if `#handlePerspective` is implemented. See [Perspective][perspective].
 
 ### `handlePerspective`
 

@@ -78,7 +78,7 @@ public static void handlePacket(MyClientMessage msg, Supplier<NetworkEvent.Conte
 }
 ```
 
-Note the presence of `setPacketHandled`, which is used to tell the network system that the packet has successfully completed handling.
+Note the presence of `#setPacketHandled`, which is used to tell the network system that the packet has successfully completed handling.
 
 !!! warning
 
@@ -94,7 +94,7 @@ Note the presence of `setPacketHandled`, which is used to tell the network syste
 
     A common problem is vulnerability to **arbitrary chunk generation**. This typically happens when the server is trusting a block position sent by a client to access blocks and tile entities. When accessing blocks and tile entities in unloaded areas of the world, the server will either generate or load this area from disk, then promptly write it to disk. This can be exploited to cause **catastrophic damage** to a server's performance and storage space without leaving a trace.
 
-    To avoid this problem, a general rule of thumb is to only access blocks and tile entities if `World#isBlockLoaded` is true.
+    To avoid this problem, a general rule of thumb is to only access blocks and tile entities if `World#hasChunkAt` is true.
 
 
 Sending Packets
@@ -106,7 +106,7 @@ There is but one way to send a packet to the server. This is because there is on
 
 ### Sending to Clients
 
-Packets can be sent directly to a client using the `SimpleChannel`: `HANDLER.sendTo(new MyClientMessage(), serverPlayer.connection.getNetworkManager(), NetworkDirection.PLAY_TO_CLIENT)`. However, this can be quite inconvenient. Forge has some convenience functions that can be used:
+Packets can be sent directly to a client using the `SimpleChannel`: `HANDLER.sendTo(new MyClientMessage(), serverPlayer.connection.getConnection(), NetworkDirection.PLAY_TO_CLIENT)`. However, this can be quite inconvenient. Forge has some convenience functions that can be used:
 
 ```java
 // Send to one player

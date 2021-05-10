@@ -65,14 +65,14 @@ Note that each takes a `SoundEvent`, the ones registered above. Additionally, th
     - **Usage**: The correspondence between the behaviors implies that these two methods are to be called from some player-initiated code that will be run on both logical sides at the same time: the logical client handles playing it to the user, and the logical server handles everyone else hearing it without re-playing it to the original user.
        They can also be used to play any sound in general at any position server-side by calling it on the logical server and passing in a `null` player, thus letting everyone hear it.
 
-3. <a name="world-playsound-xyzecvpd"></a> `playSound(double x, double y, double z, SoundEvent, SoundCategory, volume, pitch, distanceDelay)`
+3. <a name="world-playsound-xyzecvpd"></a> `playLocalSound(double x, double y, double z, SoundEvent, SoundCategory, volume, pitch, distanceDelay)`
     - **Client Behavior**: Just plays the sound event in the client world. If `distanceDelay` is `true`, then delays the sound based on how far it is from the player.
     - **Server Behavior**: Does nothing.
     - **Usage**: This method only works client-side, and thus is useful for sounds sent in custom packets, or other client-only effect-type sounds. Used for thunder.
 
 ### `ClientWorld`
 
-1. <a name="clientworld-playsound-becvpd"></a> `playSound(BlockPos, SoundEvent, SoundCategory, volume, pitch, distanceDelay)`
+1. <a name="clientworld-playsound-becvpd"></a> `playLocalSound(BlockPos, SoundEvent, SoundCategory, volume, pitch, distanceDelay)`
     - Simply forwards to `World`'s [overload (3)](#world-playsound-xyzecvpd), adding 0.5 to each coordinate of the `BlockPos` given.
 
 ### `Entity`
