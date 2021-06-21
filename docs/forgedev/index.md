@@ -23,7 +23,7 @@ Forking the repository is necessary since not every GitHub user can have free ac
 
 After forking the repository, it is time to get local access to actually make some changes. For this, you need to clone the repository onto your local machine.
 
-Using your favorite git client, simply clone your fork into a directory of your choice. As general example, here is a command line snippet that should work on all correctly configured systems and clones the repository into a directory called "Forge" under the current directory (note that you have to replace `<User>` with your username):
+Using your favorite git client, simply clone your fork into a directory of your choice. As general example, here is a command line snippet that should work on all correctly configured systems and clones the repository into a directory called "MinecraftForge" under the current directory (note that you have to replace `<User>` with your username):
 
 ```git clone https://github.com/<User>/MinecraftForge```
 
