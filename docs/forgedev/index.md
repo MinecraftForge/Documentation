@@ -25,7 +25,7 @@ After forking the repository, it is time to get local access to actually make so
 
 Using your favorite git client, simply clone your fork into a directory of your choice. As general example, here is a command line snippet that should work on all correctly configured systems and clones the repository into a directory called "Forge" under the current directory (note that you have to replace `<User>` with your username):
 
-```git clone https://github.com/<User>/MinecraftForge Forge```
+```git clone https://github.com/<User>/MinecraftForge```
 
 # Checking out the Correct Branch
 
