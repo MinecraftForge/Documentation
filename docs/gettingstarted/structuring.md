@@ -17,6 +17,10 @@ After the top level package (if you have one), you append a unique name for your
 The `mods.toml` file
 -------------------
 
+!!! important
+
+    The 1.16 release brought with it a substantial change: the license field in the mods.toml is now required. If it is not provided, this is an error state. See your choices at https://choosealicense.com/
+
 This file defines the metadata of your mod. Its information may be viewed by users from the main screen of the game through the 'Mods' button. A single info file can describe several mods.
 
 The `mods.toml` file is formatted as [TOML][], the example `mods.toml` file in the MDK provides comments explaining the contents of the file. It should be stored as `src/main/resources/META-INF/mods.toml`. A basic `mods.toml`, describing one mod, may look like this:
@@ -26,9 +30,9 @@ The `mods.toml` file is formatted as [TOML][], the example `mods.toml` file in t
     # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
     # Forge for 1.16.5 is version 36
     loaderVersion="[36,)"
-    # The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
+    # The license for your mod. This is mandatory and allows for easier comprehension of your redistributive properties.
     # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
-    license="All rights reserved"
+    license="All Rights Reserved"
     # A URL to refer people to when problems occur with this mod
     issueTrackerURL="github.com/MinecraftForge/MinecraftForge/issues"
     # If the mods defined in this file should show as separate resource packs
