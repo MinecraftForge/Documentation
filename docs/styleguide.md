@@ -25,4 +25,10 @@ Titles should be capitalized in the standard titling format. For example,
 
 Essentially, capitalize everything but unimportant words.
 
+Spelling, grammar, and syntax should follow those of American English. Also, prefer using separate words over contractions (e.g. "are not" instead of "aren't").
+
 Please use equals and dash underlines, instead of `#` and `##`. For h3 and lower, `###` etc. is fine. The source of this file contains an example for equals and dash underlining. Equals underlines create h1 text, and dash underlines create h2 text.
+
+When referencing fields and methods outside of code block snippets, they should use a `#` separator (e.g. `ClassName#methodName`). Inner classes should use a `$` separator (e.g. `ClassName$InnerClassName`).
+
+All links should have their location specified at the bottom of the page. Any internal links should reference the page via their relative path.
