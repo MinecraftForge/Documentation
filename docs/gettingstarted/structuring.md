@@ -26,9 +26,9 @@ The `mods.toml` file is formatted as [TOML][], the example `mods.toml` file in t
     # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
     # Forge for 1.16.5 is version 36
     loaderVersion="[36,)"
-    # The license for your mod. This is optional metadata and allows for easier comprehension of your redistributive properties.
+    # The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
     # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
-    license="MIT"
+    license="All rights reserved"
     # A URL to refer people to when problems occur with this mod
     issueTrackerURL="github.com/MinecraftForge/MinecraftForge/issues"
     # If the mods defined in this file should show as separate resource packs
@@ -50,14 +50,14 @@ The `mods.toml` file is formatted as [TOML][], the example `mods.toml` file in t
       [[dependencies.examplemod]]
         modId="forge"
         mandatory=true
-        versionRange="[34,)"
+        versionRange="[36,)"
         ordering="NONE"
         side="BOTH"
 
       [[dependencies.examplemod]]
         modId="minecraft"
         mandatory=true
-        versionRange="[1.16.3]"
+        versionRange="[1.16.5,1.17)"
         ordering="NONE"
         side="BOTH"
 ```
