@@ -15,7 +15,7 @@ public class MyModEventSubscriber {
 @Mod("mymod")
 public class MyMod {
     public MyMod() {
-        FMLModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
+        FMLModLoadingContext.get().getModEventBus().addListener(this::onCommonSetup);
     } 
   
     private void onCommonSetup(FMLCommonSetupEvent event) { ... }
@@ -23,23 +23,23 @@ public class MyMod {
 ```
 
 !!! warning
-    The lifecycle events are fired in parallel: All mods will concurrently receive the same event.
+    Most of the lifecycle events are fired in parallel: all mods will concurrently receive the same event.
     
-    Mods *must* take care to be thread-safe, like when calling other mods' API's or accessing vanilla systems. Defer code for later execution using the `DeferredWorkQueue` class.
+    Mods *must* take care to be thread-safe, like when calling other mods' APIs or accessing vanilla systems. Defer code for later execution via `ParallelDispatchEvent#enqueueWork`.
 
 Registry Events
 ---------------
 
-The `RegistryEvent`s are always the first to fire during mod loading, after the mod instance construction. There are two: the `NewRegistry` event and the `Register` event.
+The `RegistryEvent`s are fired after the mod instance construction. There are two: the `NewRegistry` event and the `Register` event. These events are fired synchronously during mod loading.
 
-The `RegistryEvent.NewRegistry` event allows modders to register their own custom registries, using the `RegistryBuilder` class.
+The `RegistryEvent$NewRegistry` event allows modders to register their own custom registries, using the `RegistryBuilder` class.
 
-The `RegistryEvent.Register<?>` event is for [registering objects][registering] into the registries. A `Register` event is fired for each registry. 
+The `RegistryEvent$Register<?>` event is for [registering objects][registering] into the registries. A `Register` event is fired for each registry. 
 
 Data Generation
 ---------------
 
-If the game is setup to run the [data generators][datagen], then the `GatherDataEvent` will be the last event to fire. This event is for registering mods' data providers to the data generators.
+If the game is setup to run [data generators][datagen], then the `GatherDataEvent` will be the last event to fire. This event is for registering mods' data providers to their associated data generator. This event is also fired synchronously.
 
 Common Setup
 ------------
@@ -49,19 +49,19 @@ Common Setup
 Sided Setup
 -----------
 
-The sided-setup events are fired on their respective [phyiscal sides][sides]: `FMLClientSetupEvent` on the physical client, and `FMLDedicatedServerSetupEvent` for the dedicated server. This is where physical side-specific initialization should occur, such as registering client-side key bindings.
+The sided-setup events are fired on their respective [physical sides][sides]: `FMLClientSetupEvent` on the physical client, and `FMLDedicatedServerSetupEvent` for the dedicated server. This is where physical side-specific initialization should occur, such as registering client-side key bindings.
 
 InterModComms
 -------------
 
-This is where messages can be sent to mods for cross-mod compatibility. There are two events: the `InterModEnqueueEvent` and `InterModProcessEvent`.
+This is where messages can be sent to mods for cross-mod compatibility. There are two events: `InterModEnqueueEvent` and `InterModProcessEvent`.
 
-`InterModComms` is the class responsible for holding messages for mods. This class is safe to call during the lifecycle events, as it is backed by a `ConcurrentMap`.
+`InterModComms` is the class responsible for holding messages for mods. The methods are safe to call during the lifecycle events, as it is backed by a `ConcurrentMap`.
 
-During the `InterModEnqueueEvent`, use `InterModComms.sendTo` to send messages to different mods, then during the `InterModProcessEvent`, call `InterModComms.getMessages` to get a stream of all received messages.
+During the `InterModEnqueueEvent`, use `InterModComms#sendTo` to send messages to different mods, then during the `InterModProcessEvent`, call `InterModComms#getMessages` to get a stream of all received messages.
 
 !!! note
-    There is one last lifecycle event: the `FMLLoadCompleteEvent`, fired after the InterModComms events, for when the mod loading process is complete.
+    There are two other lifecycle events: `FMLConstructModEvent`, fired directly after mod instance construction but before the `RegistryEvent`s, and `FMLLoadCompleteEvent`, fired after the `InterModComms` events, for when the mod loading process is complete.
 
 [registering]: registries.md#methods-for-registering
 [capabilities]: ../datastorage/capabilities.md

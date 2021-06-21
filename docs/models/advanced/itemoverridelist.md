@@ -1,13 +1,13 @@
 `ItemOverrideList`
 ==================
 
-`ItemOverrideList` provides a way for an [`IBakedModel`][IBakedModel] to process the state of an `ItemStack` and return a new `IBakedModel`; thereafter, the returned model replaces the old one. `ItemOverrideList` represents an arbitrary function `(IBakedModel, ItemStack, ClientWorld, LivingEntity)` → `IBakedModel`, making it useful for dynamic models. In vanilla, it is used to implement item property overrides.
+`ItemOverrideList` provides a way for an [`IBakedModel`][baked] to process the state of an `ItemStack` and return a new `IBakedModel`; thereafter, the returned model replaces the old one. `ItemOverrideList` represents an arbitrary function `(IBakedModel, ItemStack, ClientWorld, LivingEntity)` → `IBakedModel`, making it useful for dynamic models. In vanilla, it is used to implement item property overrides.
 
 ### `ItemOverrideList()`
 
-Given a list of `ItemOverride`s, the constructor copies that list and stores the copy. The list may be accessed with `getOverrides`.
+Given a list of `ItemOverride`s, the constructor copies that list and stores the copy. The list may be accessed with `#getOverrides`.
 
-### `getModelWithOverrides`
+### `resolve`
 
 This takes an `IBakedModel`, an `ItemStack`, a `ClientWorld`, and an `LivingEntity` to produce another `IBakedModel` to use for rendering. This is where models can handle the state of their items.
 
@@ -15,7 +15,7 @@ This should not mutate the world.
 
 ### `getOverrides`
 
-Returns an immutable list containing all the [`ItemOverride`][ItemOverride]s used by this `ItemOverrideList`. If none are applicable, this returns the empty list.
+Returns an immutable list containing all the [`ItemOverride`][override]s used by this `ItemOverrideList`. If none are applicable, this returns the empty list.
 
 ## `ItemOverride`
 
@@ -45,5 +45,5 @@ This class represents a vanilla item override, which holds several predicates fo
 }
 ```
 
-[IBakedModel]: ibakedmodel.md
-[ItemOverride]: #itemoverride
+[baked]: ibakedmodel.md
+[override]: #itemoverride

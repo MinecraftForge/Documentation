@@ -72,8 +72,6 @@ Targeting methods require a special syntax to denote the method parameters and r
 
 Also called "descriptors": see the [Java Virtual Machine Specification, SE 8, sections 4.3.2 and 4.3.3][jvmdescriptors] for more technical details.
 
-If the return type is void, or the method has no parameters, then it does not need to be specified.
-
   * `B` - `byte`, a signed byte
   * `C` - `char`, a Unicode character code point in UTF-16
   * `D` - `double`, a double-precision floating-point value
@@ -86,6 +84,10 @@ If the return type is void, or the method has no parameters, then it does not ne
     * Example: `[[S` refers to `short[][]`
   * `L<class name>;` - references a reference type
     * Example: `Ljava/lang/String;` refers to `java.lang.String` reference type _(note the use of slashes instead of periods)_
+  * `(` - references a method descriptor, parameters should be supplied here or nothing if no parameters are present
+    * Example: `<method>(I)Z` refers to a method that requires an integer argument and returns a boolean
+  * `V` - indicates a method returns no value, can only be used at the end of a method descriptor
+    * Example: `<method>()V` refers to a method that has no arguments and returns nothing
 
 Examples
 --------
@@ -97,13 +99,13 @@ public net.minecraft.client.gui.ScreenManager$IScreenFactory
 # Makes protected and removes the final modifier from 'random' in MinecraftServer
 protected-f net.minecraft.server.MinecraftServer field_147146_q #random
 
-# Makes public the 'createNamedService' method in Util,
+# Makes public the 'makeExecutor' method in Util,
 # accepting a String and returns an ExecutorService
-public net.minecraft.util.Util func_240979_a_(Ljava/lang/String;)Ljava/util/concurrent/ExecutorService; #createNamedService
+public net.minecraft.util.Util func_240979_a_(Ljava/lang/String;)Ljava/util/concurrent/ExecutorService; #makeExecutor
 
-# Makes public the 'func_239776_a_' method in UUIDCodec,
+# Makes public the 'leastMostToIntArray' method in UUIDCodec,
 # accepting two longs and returning an int[]
-public net.minecraft.util.UUIDCodec func_239776_a_(JJ)[I #func_239776_a_
+public net.minecraft.util.UUIDCodec func_239776_a_(JJ)[I #leastMostToIntArray
 ```
 
 [specs]: https://github.com/MinecraftForge/AccessTransformers/blob/master/FMLAT.md
