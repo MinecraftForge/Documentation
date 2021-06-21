@@ -48,4 +48,4 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
   * `TagsProvider` - for tags; override `#registerTags`
 
 !!! notes
-	An `AdvancementProvider` class does exists, however it is hardcoded for only the vanilla advancements.
+	An `AdvancementProvider` class does exist, however it is hardcoded for only the vanilla advancements.

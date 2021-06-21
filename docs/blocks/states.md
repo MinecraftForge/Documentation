@@ -29,7 +29,7 @@ Each *property* of a block is described by an instance of `IProperty<?>`. Exampl
 
 A unique triple can be constructed from the `Block`, the set of `IProperty<?>`, and the set of values for those properties. This unique triple is called a `BlockState`. 
 
-The previous system of meaningless metadata values were replaced by a system of block properties, which are easier to interpret and deal with. Previously, a stone button which is facing east and is powered or held down is represented by "`minecraft:stone_button` with metadata `9`. Now, this is represented by "`minecraft:stone_button[facing=east,powered=true]`" 
+The previous system of meaningless metadata values were replaced by a system of block properties, which are easier to interpret and deal with. Previously, a stone button which is facing east and is powered or held down is represented by "`minecraft:stone_button` with metadata `9`. Now, this is represented by "`minecraft:stone_button[facing=east,powered=true]`".
 
 Proper Usage of Block States
 ---------------------------------------
@@ -51,21 +51,21 @@ In your Block class, create or reference `static final` `IProperty<?>` objects f
 
   * `IntegerProperty`
     * Implements `IProperty<Integer>`. Defines a property that holds an integer value.
-    * Created by calling `IntegerProperty.create(String propertyName, int minimum, int maximum)`.
+    * Created by calling `IntegerProperty#create(String propertyName, int minimum, int maximum)`.
   * `BooleanProperty`
     * Implements `IProperty<Boolean>`. Defines a property that holds a `true` or `false` value.
-    * Created by calling `BooleanProperty.create(String propertyName)`.
+    * Created by calling `BooleanProperty#create(String propertyName)`.
   * `EnumProperty<E extends Enum<E>>`
     * Implements `IProperty<E>`. Defines a property that can take on the values of an Enum class.
-    * Created by calling `EnumProperty.create(String propertyName, Class<E> enumClass)`.
-    * It is also possible to use only a subset of the Enum values (e.g. 4 out of 16 `DyeColor`s). See the overloads of `EnumProperty.create`.
+    * Created by calling `EnumProperty#create(String propertyName, Class<E> enumClass)`.
+    * It is also possible to use only a subset of the Enum values (e.g. 4 out of 16 `DyeColor`s). See the overloads of `EnumProperty#create`.
   * `DirectionProperty`
     * This is a convenience implementation of `EnumProperty<Direction>`
-    * Several convenience predicates are also provided. For example, to get a property that represents the cardinal directions, call `DirectionProperty.create("<name>", Direction.Plane.HORIZONTAL)`; to get the X directions, `DirectionProperty.create("<name>", Direction.Axis.X)`
+    * Several convenience predicates are also provided. For example, to get a property that represents the cardinal directions, call `DirectionProperty.create("<name>", Direction.Plane.HORIZONTAL)`; to get the X directions, `DirectionProperty.create("<name>", Direction.Axis.X)`.
 
 The class `BlockStateProperties` contains shared vanilla properties which should be used or referenced whenever possible, in place of creating your own properties.
 
-When you have your desired `IProperty<>` objects, override `Block#fillStateContainer(StateContainer.Builder)` in your Block class. In that method, call `StateContainer.Builder#add(...);`  with the parameters as every `IProperty<?>` you wish the block to have.
+When you have your desired `IProperty<>` objects, override `Block#fillStateContainer(StateContainer.Builder)` in your Block class. In that method, call `StateContainer$Builder#add(...);`  with the parameters as every `IProperty<?>` you wish the block to have.
 
 Every block will also have a "default" state that is automatically chosen for you. You can change this "default" state by calling the `Block#setDefaultState(BlockState)` method from your constructor. When your block is placed it will become this "default" state. An example from `DoorBlock`:
 

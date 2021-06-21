@@ -1,15 +1,15 @@
 Events
 ======
 
-Forge uses an event bus that allows mods to intercept events from various vanilla and mod behaviors.
+Forge uses an event bus that allows mods to intercept events from various Vanilla and mod behaviors.
 
 Example: An event can be used to perform an action when a Vanilla stick is right clicked.
 
-The main event bus used for most events is located at `MinecraftForge.EVENT_BUS`. There is another event bus for mod specific events located at `FMLJavaModLoadingContext.get().getModEventBus()` that you should only use in specific cases, more information about this bus can be found below.
+The main event bus used for most events is located at `MinecraftForge#EVENT_BUS`. There is another event bus for mod specific events located at `FMLJavaModLoadingContext#getModEventBus` that you should only use in specific cases. More information about this bus can be found below.
 
-Every event is fired on one of these busses, most events are fired on the main event bus but some are fired on the mod specfic events bus.
+Every event is fired on one of these busses: most events are fired on the main forge event bus, but some are fired on the mod specific event buses.
 
-An event handler is a class that contains one or more `public void` member methods that are marked with the `@SubscribeEvent` annotation.
+An event handler is some method that has been registered to an event bus.
 
 Creating an Event Handler
 -------------------------
@@ -24,11 +24,11 @@ public class MyForgeEventHandler {
 ```
 This event handler listens for the `EntityItemPickupEvent`, which is, as the name states, posted to the event bus whenever an `Entity` picks up an item.
 
-To register this event handler, use `MinecraftForge.EVENT_BUS.register()` and pass it an instance of your event handler class. If you want to register this handler to the mod specific event bus you should use `FMLJavaModLoadingContext.get().getModEventBus().register()` instead.
+To register this event handler, use `MinecraftForge.EVENT_BUS.register(...)` and pass it an instance of the class the event handler is within. If you want to register this handler to the mod specific event bus, you should use `FMLJavaModLoadingContext.get().getModEventBus().register(...)` instead.
 
 ### Static Event Handlers
 
-An event handler may also be static. The handling method is still annotated with `@SubscribeEvent` and the only difference from an instance handler is that it is also marked `static`. In order to register a static event handler, an instance of the class won't do, the `Class` itself has to be passed in. An example:
+An event handler may also be static. The handling method is still annotated with `@SubscribeEvent`. The only difference from an instance handler is that it is also marked `static`. In order to register a static event handler, an instance of the class won't do. The `Class` itself has to be passed in. An example:
 
 ```java
 public class MyStaticForgeEventHandler {
@@ -43,13 +43,14 @@ which must be registered like this: `MinecraftForge.EVENT_BUS.register(MyStaticF
 
 ### Automatically Registering Static Event Handlers
 
-A class may be annotated with the `@Mod.EventBusSubscriber` annotation. Such a class is automatically registered to `MinecraftForge.EVENT_BUS` when the `@Mod` class itself is constructed. This is essentially equivalent to adding `MinecraftForge.EVENT_BUS.register(AnnotatedClass.class);` at the end of the `@Mod` class's constructor.
+A class may be annotated with the `@Mod$EventBusSubscriber` annotation. Such a class is automatically registered to `MinecraftForge#EVENT_BUS` when the `@Mod` class itself is constructed. This is essentially equivalent to adding `MinecraftForge.EVENT_BUS.register(AnnotatedClass.class);` at the end of the `@Mod` class's constructor.
 
-You can pass the bus you want to listen to to the `@Mod.EventBusSubscriber` annotation. You can also specify the `Dist`s to load this event subscriber on. This can be used to not load Client specific event subscribers on the dedicated server.
+You can pass the bus you want to listen to the `@Mod$EventBusSubscriber` annotation. It is recommended you also specify the mod id, since the annotation process may not be able to figure it out, and the bus you are registering to, since it serves as a reminder to make sure you are on the correct one. You can also specify the `Dist`s or physical sides to load this event subscriber on. This can be used to not load client specific event subscribers on the dedicated server.
 
-An example for a static event listener listening to `RenderWorldLastEvent` which will only be called on the Client:
+An example for a static event listener listening to `RenderWorldLastEvent` which will only be called on the client:
+
 ```java
-@Mod.EventBusSubscriber(Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = "mymod", bus = Bus.FORGE, value = Dist.CLIENT)
 public class MyStaticClientOnlyEventHandler {
 	@SubscribeEvent
 	public static void drawLast(RenderWorldLastEvent event) {
@@ -64,7 +65,7 @@ public class MyStaticClientOnlyEventHandler {
 Canceling
 ---------
 
-If an event can be canceled, it will be marked with the `@Cancelable` annotation, and the method `Event#isCancelable()` will return `true`. The cancel state of a cancelable event may be modified by calling `Event#setCanceled(boolean canceled)`, wherin passing the boolean value `true` is interpreted as canceling the event, and passing the boolean value `false` is interpreted as "un-canceling" the event. However, if the event cannot be canceled (as defined by `Event#isCancelable()`), an `UnsupportedOperationException` will be thrown regardless of the passed boolean value, since the cancel state of a non-cancelable event event is considered immutable.
+If an event can be canceled, it will be marked with the `@Cancelable` annotation, and the method `Event#isCancelable()` will return `true`. The cancel state of a cancelable event may be modified by calling `Event#setCanceled(boolean canceled)`, wherein passing the boolean value `true` is interpreted as canceling the event, and passing the boolean value `false` is interpreted as "un-canceling" the event. However, if the event cannot be canceled (as defined by `Event#isCancelable()`), an `UnsupportedOperationException` will be thrown regardless of the passed boolean value, since the cancel state of a non-cancelable event event is considered immutable.
 
 !!! important
     Not all events can be canceled! Attempting to cancel an event that is not cancelable will result in an unchecked `UnsupportedOperationException` being thrown, which is expected to result in the game crashing! Always check that an event can be canceled using `Event#isCancelable()` before attempting to cancel it!
@@ -72,7 +73,7 @@ If an event can be canceled, it will be marked with the `@Cancelable` annotation
 Results
 -------
 
-Some events have an `Event.Result`, a result can be one of three things, `DENY` which stops the event, `DEFAULT` which uses the Vanilla behavior, and `ALLOW` which forces the action to take place, regardless if it would have originally. The result of an event can be set by calling `setResult` with an `Event.Result` on the event. Not all events have results, an event with a result will be annotated with `@HasResult`.
+Some events have an `Event$Result`. A result can be one of three things: `DENY` which stops the event, `DEFAULT` which uses the Vanilla behavior, and `ALLOW` which forces the action to take place, regardless if it would have originally. The result of an event can be set by calling `#setResult` with an `Event$Result` on the event. Not all events have results; an event with a result will be annotated with `@HasResult`.
 
 !!! important
     Different events may use results in different ways, refer to the event's JavaDoc before using the result.
@@ -85,14 +86,15 @@ Event handler methods (marked with `@SubscribeEvent`) have a priority. You can s
 Sub Events
 ----------
 
-Many events have different variations of themselves, these can be different but all based around one common factor (e.g. `PlayerEvent`) or can be an event that has multiple phases (e.g. `PotionBrewEvent`). Take note that if you listen to the parent event class, you will receive calls to your method for *all* subclasses.
+Many events have different variations of themselves. These can be different but all based around one common factor (e.g. `PlayerEvent`) or can be an event that has multiple phases (e.g. `PotionBrewEvent`). Take note that if you listen to the parent event class, you will receive calls to your method for *all* subclasses.
 
 Mod Event Bus
 -------------
 
-The mod event bus is primarily used for listening to lifecycle events in which mods should initialize. Many of these events are also ran in parallel so mods can be initialized at the same time. This does mean you can't directly execute code from other mods in these events, use the `InterModComms` system for that.
+The mod event bus is primarily used for listening to lifecycle events in which mods should initialize. Many of these events are also ran in parallel so mods can be initialized at the same time. This does mean you can't directly execute code from other mods in these events. Use the `InterModComms` system for that.
 
 These are the four most commonly used lifecycle events that are called during mod initialization on the mod event bus:
+
 * `FMLCommonSetupEvent`
 * `FMLClientSetupEvent` & `FMLDedicatedServerSetupEvent`
 * `InterModEnqueueEvent`
@@ -103,7 +105,8 @@ These are the four most commonly used lifecycle events that are called during mo
 
 These four lifecycle events are all ran in parallel. If you want to run code on the main thread during these events you can use the `DeferredWorkQueue` to do so.
 
-Next to the lifecycle events there are a few miscellaneous events that are fired on the mod event bus where you can register, set up or initialize various things. Most of these events are not ran in parallel in contrast to the lifecycle events. A few examples:
+Next to the lifecycle events, there are a few miscellaneous events that are fired on the mod event bus where you can register, set up, or initialize various things. Most of these events are not ran in parallel in contrast to the lifecycle events. A few examples:
+
 * `ColorHandlerEvent`
 * `ModelBakeEvent`
 * `TextureStitchEvent`

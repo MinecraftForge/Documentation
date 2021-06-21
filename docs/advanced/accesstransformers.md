@@ -72,8 +72,6 @@ Targeting methods require a special syntax to denote the method parameters and r
 
 Also called "descriptors": see the [Java Virtual Machine Specification, SE 8, sections 4.3.2 and 4.3.3][jvmdescriptors] for more technical details.
 
-If the return type is void, or the method has no parameters, then it does not need to be specified.
-
   * `B` - `byte`, a signed byte
   * `C` - `char`, a Unicode character code point in UTF-16
   * `D` - `double`, a double-precision floating-point value
@@ -86,6 +84,10 @@ If the return type is void, or the method has no parameters, then it does not ne
     * Example: `[[S` refers to `short[][]`
   * `L<class name>;` - references a reference type
     * Example: `Ljava/lang/String;` refers to `java.lang.String` reference type _(note the use of slashes instead of periods)_
+  * `(` - references a method descriptor, parameters should be supplied here or nothing if no parameters are present
+    * Example: `<method>(I)Z` refers to a method that requires an integer argument and returns a boolean
+  * `V` - indicates a method returns no value, can only be used at the end of a method descriptor
+    * Example: `<method>()V` refers to a method that has no arguments and returns nothing
 
 Examples
 --------
