@@ -13,35 +13,35 @@ nav:
     - Data: 'concepts/data.md'
     - Registries: 'concepts/registries.md'
     - Mod Lifecycle: 'concepts/lifecycle.md'
-    - Internationalization and localization: 'concepts/internationalization.md'
+    - Internationalization and Localization: 'concepts/internationalization.md'
   - Blocks:
     - Home: 'blocks/blocks.md'
-    - Blockstates: 'blocks/states.md'
+    - BlockStates: 'blocks/states.md'
     - Interaction: 'blocks/interaction.md'
 #  - Animation API:
 #    - Intro to the Animation API: 'animation/intro.md'
 #    - Armatures: 'animation/armature.md'
 #    - Animation State Machines: 'animation/asm.md'
 #    - Using the API: 'animation/implementing.md'
-  - Tile Entities:
-    - Home: 'tileentities/tileentity.md'
-    - Renderer: 'tileentities/tesr.md'
+  - Block Entities:
+    - Home: 'blockentities/blockentity.md'
+    - Renderer: 'blockentities/ber.md'
   - Items:
     - Home: 'items/items.md'
     - Loot Modification: 'items/globallootmodifiers.md'
   - Models:
     - Intro to Models: 'models/introduction.md'
     - Model Files: 'models/files.md'
-    - Blockstates:
-      - Intro to Blockstate JSONs: 'models/blockstates/introduction.md'
+    - BlockStates:
+      - Intro to BlockState JSON: 'models/blockstates/introduction.md'
     - Coloring Textures: 'models/color.md'
-    - Item Property Overrides: 'models/overrides.md'
+    - Item Properties: 'models/itemproperties.md'
     - Advanced Models:
-      - IBakedModel: 'models/advanced/ibakedmodel.md'
+      - BakedModel: 'models/advanced/bakedmodel.md'
       - Perspective: 'models/advanced/perspective.md'
-      - ItemOverrideList: 'models/advanced/itemoverridelist.md'
+      - Item Overrides: 'models/advanced/itemoverrides.md'
   - Rendering:
-    - ItemStackTileEntityRenderer: 'rendering/ister.md'
+    - BlockEntityWithoutLevelRenderer: 'rendering/bewlr.md'
   - Data Generation:
     - Introduction: 'datagen/intro.md'
     - Model Providers: 'datagen/modelproviders.md'
@@ -54,7 +54,7 @@ nav:
     - Entities: 'networking/entities.md'
   - Data Storage:
     - Capabilities: 'datastorage/capabilities.md'
-#    - World Saved Data: 'datastorage/worldsaveddata.md'
+#    - Saved Data: 'datastorage/saveddata.md'
   - Utilities:
     - Recipes: 'utilities/recipes.md'
     - Tags: 'utilities/tags.md'
@@ -71,11 +71,11 @@ nav:
     - PR Guidelines: 'forgedev/prguidelines.md'
   - Legacy Versions:
     - Home: 'legacy/index.md'
-    - Porting to 1.16: 'legacy/porting.md'
+    - Porting to 1.17: 'legacy/porting.md'
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
-site_url: https://mcforge.readthedocs.io/en/1.16.x/
+site_url: https://mcforge.readthedocs.io/en/1.17.x/
 
 markdown_extensions:
   - admonition
@@ -92,7 +92,7 @@ theme:
   custom_dir: forge_theme
 
 extra:
-  current_version: 1.16.x
+  current_version: 1.17.x
   versions:
-    1.15.x: 1.15.x
     1.16.x: 1.16.x
+    1.17.x: 1.17.x
