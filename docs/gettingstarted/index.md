@@ -6,7 +6,7 @@ This is a simple guide to get you from nothing to a basic mod. The rest of this 
 From Zero to Modding
 --------------------
 
-1. Obtain a Java 8 Development Kit (JDK) and a 64-bit Java Virtual Machine (JVM). Minecraft and MinecraftForge both compile against Java 8 and as such should be used for development. Using a 32-bit JVM will result in some problems when running the below gradle tasks. You can obtain one from [AdoptOpenJDK][jdk].
+1. Obtain a Java 16 Development Kit (JDK) and a 64-bit Java Virtual Machine (JVM). Minecraft and MinecraftForge both compile against Java 16 and as such should be used for development. Using a 32-bit JVM will result in some problems when running the below gradle tasks. You can obtain one from [AdoptOpenJDK][jdk].
 2. Obtain the Mod Development Kit (MDK) from Forge's [files][] site.
 3. Extract the downloaded MDK into an empty directory. You should see a bunch of files along with an example mod placed in `src/main/java` for you to look at. Only a few of these files are strictly necessary for mod development, and you may reuse these files for all your projects. These files are:
     * `build.gradle`
@@ -46,15 +46,7 @@ These customizations are highly recommended for all projects.
 
 ### Migration to Mojang's Official Mappings
 
-As of 1.16.5, Forge will be using Mojang's Official Mappings, or MojMaps, for the forseeable future. The official mappings provide all method and field names, with the class names coming in 1.17. Parameters and javadocs are not provided by this mapping set. Currently, there is no guarantee that these mappings are legally safe; however, Forge has decided to adopt them in good faith since Mojang wants them to be used. You can read about [Forge's stance here][mojmap].
-
-If you are uncomfortable using these mappings, you can revert them back the previously used mappings: MCP. MCP provides a partial list of mapped methods, fields, parameters and javadocs. Note that the following will most likely be the last MCP mappings released as they are no longer being maintained:
-
-```groovy
-minecraft {
-    mappings channel: 'snapshot', version: '20210309-1.16.5'
-}
-```
+Forge uses Mojang's Official Mappings, or MojMaps, for the forseeable future. The official mappings provide class, method, and field names. Parameters and javadocs are not provided by this mapping set. Currently, there is no guarantee that these mappings are legally safe; however, Forge has decided to adopt them in good faith since Mojang wants them to be used. You can read about [Forge's stance here][mojmap].
 
 Building and Testing Your Mod
 -----------------------------
@@ -68,5 +60,5 @@ Building and Testing Your Mod
     It is always advisable to test your mod in a dedicated server environment if it is intended to run there.
     
 [files]: https://files.minecraftforge.net "Forge Files distribution site"
-[jdk]: https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot "AdoptOpenJdk 8 Prebuilt Binaries"
+[jdk]: https://adoptopenjdk.net/?variant=openjdk16&jvmVariant=hotspot "AdoptOpenJdk 16 Prebuilt Binaries"
 [mojmap]: https://github.com/MinecraftForge/MCPConfig/blob/master/Mojang.md
