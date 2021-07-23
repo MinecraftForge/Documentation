@@ -4,7 +4,7 @@ Block States
 Legacy Behavior
 ---------------------------------------
 
-In Minecraft 1.7 and previous versions, blocks which need to store placement or state data that did not have TileEntities used **metadata**. Metadata was an extra number stored with the block, allowing different rotations, facings, or even completely separate behaviors within a block.
+In Minecraft 1.7 and previous versions, blocks which need to store placement or state data that did not have BlockEntities used **metadata**. Metadata was an extra number stored with the block, allowing different rotations, facings, or even completely separate behaviors within a block.
 
 However, the metadata system was confusing and limited, since it was stored as only a number alongside the block ID, and had no meaning except what was commented in the code. For example, to implement a block that can face a direction and be on either the upper or lower half of a block space (such as a stair): 
 
@@ -25,7 +25,7 @@ Introduction of States
 
 In Minecraft 1.8 and above, the metadata system, along with the block ID system, was deprecated and eventually replaced with the **block state system**. The block state system abstracts out the details of the block's properties from the other behaviors of the block.
 
-Each *property* of a block is described by an instance of `IProperty<?>`. Examples of block properties include instruments (`Property<NoteBlockInstrument>`), facing (`Property<Direction`), poweredness (`Property<Boolean>`), etc. Each property has the value of the type `T` parametrized by `Property<T>`.
+Each *property* of a block is described by an instance of `Property<?>`. Examples of block properties include instruments (`EnumProperty<NoteBlockInstrument>`), facing (`DirectionProperty`), poweredness (`Property<Boolean>`), etc. Each property has the value of the type `T` parametrized by `Property<T>`.
 
 A unique triple can be constructed from the `Block`, the set of `Property<?>`, and the set of values for those properties. This unique triple is called a `BlockState`. 
 
@@ -36,7 +36,7 @@ Proper Usage of Block States
 
 The `BlockState` system is a flexible and powerful system, but it also has limitations. `BlockState`s are immutable, and all combinations of their properties are generated on startup of the game. This means that having a `BlockState` with many properties and possible values will slow down the loading of the game, and befuddle anyone trying to make sense of your block logic.
 
-Not all blocks and situations require the usage of `BlockState`; only the most basic properties of a block should be put into a `BlockState`, and any other situation is better off with having a `TileEntity` or being a separate `Block`. Always consider if you actually need to use blockstates for your purposes.
+Not all blocks and situations require the usage of `BlockState`; only the most basic properties of a block should be put into a `BlockState`, and any other situation is better off with having a `BlockEntity` or being a separate `Block`. Always consider if you actually need to use blockstates for your purposes.
 
 !!! Note
     A good rule of thumb is: **if it has a different name, it should be a separate block**.
@@ -65,7 +65,7 @@ In your Block class, create or reference `static final` `Property<?>` objects fo
 
 The class `BlockStateProperties` contains shared vanilla properties which should be used or referenced whenever possible, in place of creating your own properties.
 
-When you have your desired `Property<>` objects, override `Block#createBlockStateDefinition(StateContainer$Builder)` in your Block class. In that method, call `StateContainer$Builder#add(...);`  with the parameters as every `Property<?>` you wish the block to have.
+When you have your desired `Property<>` objects, override `Block#createBlockStateDefinition(StateDefinition$Builder)` in your Block class. In that method, call `StateDefinition$Builder#add(...);`  with the parameters as every `Property<?>` you wish the block to have.
 
 Every block will also have a "default" state that is automatically chosen for you. You can change this "default" state by calling the `Block#registerDefaultState(BlockState)` method from your constructor. When your block is placed it will become this "default" state. An example from `DoorBlock`:
 
@@ -80,9 +80,9 @@ this.registerDefaultState(
 );
 ```
 
-If you wish to change what `BlockState` is used when placing your block, you can overwrite `Block#getStateForPlacement(BlockItemUseContext)`. This can be used to, for example, set the direction of your block depending on where the player is standing when they place it.
+If you wish to change what `BlockState` is used when placing your block, you can overwrite `Block#getStateForPlacement(BlockPlaceContext)`. This can be used to, for example, set the direction of your block depending on where the player is standing when they place it.
 
-Because `BlockState`s are immutable, and all combinations of their properties are generated on startup of the game, calling `BlockState#setValue(Property<T>, T)` will simply go to the `Block`'s `StateContainer` and request the `BlockState` with the set of values you want.
+Because `BlockState`s are immutable, and all combinations of their properties are generated on startup of the game, calling `BlockState#setValue(Property<T>, T)` will simply go to the `Block`'s `StateHolder` and request the `BlockState` with the set of values you want.
 
 Because all possible `BlockState`s are generated at startup, you are free and encouraged to use the reference equality operator (`==`) to check if two `BlockState`s are equal.
 
@@ -92,4 +92,4 @@ Using `BlockState`'s
 You can get the value of a property by calling `BlockState#getValue(Property<?>)`, passing it the property you want to get the value of.
 If you want to get a `BlockState` with a different set of values, simply call `BlockState#setValue(Property<T>, T)` with the property and its value.
 
-You can get and place `BlockState`'s in the world using `World#setBlockAndUpdate(BlockPos, BlockState)` and `World#getBlockState(BlockState)`. If you are placing a `Block`, call `Block#defaultBlockState()` to get the "default" state, and use subsequent calls to `BlockState#setValue(Property<T>, T)` as stated above to achieve the desired state.
+You can get and place `BlockState`'s in the world using `Level#setBlockAndUpdate(BlockPos, BlockState)` and `Level#getBlockState(BlockState)`. If you are placing a `Block`, call `Block#defaultBlockState()` to get the "default" state, and use subsequent calls to `BlockState#setValue(Property<T>, T)` as stated above to achieve the desired state.
