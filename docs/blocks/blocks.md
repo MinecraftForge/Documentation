@@ -8,7 +8,7 @@ Creating a Block
 
 ### Basic Blocks
 
-For simple blocks, which need no special functionality (think cobblestone, wooden planks, etc.), a custom class is not necessary. You can create a block by instantiating the `Block` class with a `AbstractBlock$Properties` object. This `AbstractBlock$Properties` object can be made using `AbstractBlock$Properties#of`, and it can be customized by calling its methods. For instance:
+For simple blocks, which need no special functionality (think cobblestone, wooden planks, etc.), a custom class is not necessary. You can create a block by instantiating the `Block` class with a `BlockBehaviour$Properties` object. This `BlockBehaviour$Properties` object can be made using `BlockBehaviour$Properties#of`, and it can be customized by calling its methods. For instance:
 
 - `strength` - The hardness controls the time it takes to break the block. It is an arbitrary value. For reference, stone has a hardness of 1.5, and dirt 0.5. If the block should be unbreakable a hardness of -1.0 should be used, see the definition of `Blocks#BEDROCK` as an example. The resistance controls the explosion resistance of the block. For reference, stone has a resistance of 6.0, and dirt 0.5.
 - `sound` - Controls the sound the block makes when it is punched, broken, or placed. Requires a `SoundType` argument, see the [sounds][] page for more details.
@@ -19,7 +19,7 @@ All these methods are *chainable* which means you can call them in series. See t
 
 !!! Note
 
-    Blocks have no setter for their `ItemGroup` (formerly Creative Tab). This has been moved to the `BlockItem` and is now its responsibility. Furthermore, there is no setter for translation key as it is now generated from the registry name.
+    Blocks have no setter for their `CreativeModeTab`. This has been moved to the `BlockItem` and is now its responsibility. Furthermore, there is no setter for translation key as it is now generated from the registry name.
 
 ### Advanced Blocks
 
