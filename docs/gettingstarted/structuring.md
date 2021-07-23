@@ -19,7 +19,7 @@ The `mods.toml` file
 
 !!! important
 
-    The 1.16 release brought with it a substantial change: the license field in the mods.toml is now required. If it is not provided, this is an error state. See your choices at https://choosealicense.com/
+    The license field in the mods.toml is required. If it is not provided, an error will occur. See your choices at https://choosealicense.com/
 
 This file defines the metadata of your mod. Its information may be viewed by users from the main screen of the game through the 'Mods' button. A single info file can describe several mods.
 
@@ -28,8 +28,8 @@ The `mods.toml` file is formatted as [TOML][], the example `mods.toml` file in t
     # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
     modLoader="javafml"
     # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-    # Forge for 1.16.5 is version 36
-    loaderVersion="[36,)"
+    # Forge for 1.17.1 is version 37
+    loaderVersion="[37,)"
     # The license for your mod. This is mandatory and allows for easier comprehension of your redistributive properties.
     # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
     license="All Rights Reserved"
@@ -54,14 +54,14 @@ The `mods.toml` file is formatted as [TOML][], the example `mods.toml` file in t
       [[dependencies.examplemod]]
         modId="forge"
         mandatory=true
-        versionRange="[36,)"
+        versionRange="[37,)"
         ordering="NONE"
         side="BOTH"
 
       [[dependencies.examplemod]]
         modId="minecraft"
         mandatory=true
-        versionRange="[1.16.5,1.17)"
+        versionRange="[1.17,1.18)"
         ordering="NONE"
         side="BOTH"
 ```
@@ -98,7 +98,7 @@ Keeping Your Code Clean Using Sub-packages
 
 Rather than clutter up a single class and package with everything, it is recommended that you break your mod into subpackages.
 
-A common subpackage strategy has packages for `common` and `client` code, which is code that can be run on both server/client and only client, respectively. Inside the `common` package would go things like Items, Blocks, and Tile Entities (which can each, in turn, be another subpackage). Things like Screens and Renderers would go inside the `client` package.
+A common subpackage strategy has packages for `common` and `client` code, which is code that can be run on both server/client and only client, respectively. Inside the `common` package would go things like Items, Blocks, and Block Entities (which can each, in turn, be another subpackage). Things like Screens and Renderers would go inside the `client` package.
 
 !!! note
 
@@ -115,7 +115,7 @@ For Example:
 
 * An `Item` called `PowerRing` would be in an `item` package, with a class name of `PowerRingItem`.
 * A `Block` called `NotDirt` would be in a `block` package, with a class name of `NotDirtBlock`.
-* Finally, a `TileEntity` for a block called `SuperChewer` would be a `tile` or `tileentity` package, with a class name of `SuperChewerTile`.
+* Finally, a `BlockEntity` for a block called `SuperChewer` would be a `block.entity` or `blockentity` package, with a class name of `SuperChewerBlockEntity`.
 
 Appending your class names with what *kind* of object they are makes it easier to figure out what a class is or guess the class for an object.
 
