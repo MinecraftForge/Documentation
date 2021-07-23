@@ -11,10 +11,10 @@ You will need 4 things:
     This will tell Forge about your modifiers and works similar to [tags][].
 2. A serialized json representing your modifier.
     This will contain all of the data about your modification and allows data packs to tweak your effect.
-3. A class that extends `LootModifier`.
-    The operational code that makes your modifier work.
+3. A class that extends `IGlobalLootModifier`.
+    The operational code that makes your modifier work. Most modders can extend `LootModifier` as it supplies base functionality.
 4. Finally, the serializer for your operational class.
-    This is [registered] as any other `ForgeRegistryEntry`.
+    This is [registered] as any other `IForgeRegistryEntry`.
 
 The `global_loot_modifiers.json`
 -------------------------------
@@ -73,8 +73,8 @@ public class WheatSeedsConverterModifier extends LootModifier {
     private final int numSeedsToConvert;
     private final Item itemToCheck;
     private final Item itemReward;
-    public WheatSeedsConverterModifier(ILootCondition[] conditionsIn, int numSeeds, Item itemCheck, Item reward) {
-        super(conditionsIn);
+    public WheatSeedsConverterModifier(LootItemCondition[] conditions, int numSeeds, Item itemCheck, Item reward) {
+        super(conditions);
         numSeedsToConvert = numSeeds;
         itemToCheck = itemCheck;
         itemReward = reward;
@@ -105,11 +105,11 @@ public class WheatSeedsConverterModifier extends LootModifier {
     public static class Serializer extends GlobalLootModifierSerializer<WheatSeedsConverterModifier> {
 
         @Override
-        public WheatSeedsConverterModifier read(ResourceLocation name, JsonObject object, ILootCondition[] conditionsIn) {
+        public WheatSeedsConverterModifier read(ResourceLocation name, JsonObject object, LootItemCondition[] conditions) {
             int numSeeds = JSONUtils.getInt(object, "numSeeds");
             Item seed = ForgeRegistries.ITEMS.getValue(new ResourceLocation((JSONUtils.getString(object, "seedItem"))));
             Item wheat = ForgeRegistries.ITEMS.getValue(new ResourceLocation(JSONUtils.getString(object, "replacement")));
-            return new WheatSeedsConverterModifier(conditionsIn, numSeeds, seed, wheat);
+            return new WheatSeedsConverterModifier(conditions, numSeeds, seed, wheat);
         }
 
         @Override
@@ -136,4 +136,4 @@ Additional [examples] can be found on the Forge Git repository, including silk t
 [resloc]: ../concepts/resources.md#ResourceLocation
 [registered]: ../concepts/registries.md#registering-things
 [datagen]: ../datagen/intro.md
-[examples]: https://github.com/MinecraftForge/MinecraftForge/blob/1.15.x/src/test/java/net/minecraftforge/debug/gameplay/loot/GlobalLootModifiersTest.java
+[examples]: https://github.com/MinecraftForge/MinecraftForge/blob/1.17.x/src/test/java/net/minecraftforge/debug/gameplay/loot/GlobalLootModifiersTest.java
