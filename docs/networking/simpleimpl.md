@@ -38,11 +38,11 @@ Next, we must declare the types of messages that we would like to send and recei
 
 - The first parameter is the discriminator for the packet. This is a per-channel unique ID for the packet. We recommend you use a local variable to hold the ID, and then call registerMessage using `id++`. This will guarantee 100% unique IDs.
 - The second parameter is the actual packet class `MSG`.
-- The third parameter is a `BiConsumer<MSG, PacketBuffer>` responsible for encoding the message into the provided `PacketBuffer`.
-- The fourth parameter is a `Function<PacketBuffer, MSG>` responsible for decoding the message from the provided `PacketBuffer`.
+- The third parameter is a `BiConsumer<MSG, FriendlyByteBuf>` responsible for encoding the message into the provided `FriendlyByteBuf`.
+- The fourth parameter is a `Function<FriendlyByteBuf, MSG>` responsible for decoding the message from the provided `FriendlyByteBuf`.
 - The final parameter is a `BiConsumer<MSG, Supplier<NetworkEvent.Context>>` responsible for handling the message itself.
 
-The last three parameters can be method references to either static or instance methods in Java. Remember that an instance method `MSG#encode(PacketBuffer)` still satisfies `BiConsumer<MSG, PacketBuffer>`; the `MSG` simply becomes the implicit first argument.
+The last three parameters can be method references to either static or instance methods in Java. Remember that an instance method `MSG#encode(FriendlyByteBuf)` still satisfies `BiConsumer<MSG, FriendlyByteBuf>`; the `MSG` simply becomes the implicit first argument.
 
 Handling Packets
 ----------------
@@ -53,7 +53,7 @@ There are a couple things to highlight in a packet handler. A packet handler has
 public static void handle(MyMessage msg, Supplier<NetworkEvent.Context> ctx) {
     ctx.get().enqueueWork(() -> {
         // Work that needs to be thread-safe (most work)
-        ServerPlayerEntity sender = ctx.get().getSender(); // the client that sent this packet
+        ServerPlayer sender = ctx.get().getSender(); // the client that sent this packet
         // Do stuff
     });
     ctx.get().setPacketHandled(true);
@@ -92,9 +92,9 @@ Note the presence of `#setPacketHandled`, which is used to tell the network syst
 
     Be defensive when handling packets on the server. A client could attempt to exploit the packet handling by sending unexpected data.
 
-    A common problem is vulnerability to **arbitrary chunk generation**. This typically happens when the server is trusting a block position sent by a client to access blocks and tile entities. When accessing blocks and tile entities in unloaded areas of the world, the server will either generate or load this area from disk, then promptly write it to disk. This can be exploited to cause **catastrophic damage** to a server's performance and storage space without leaving a trace.
+    A common problem is vulnerability to **arbitrary chunk generation**. This typically happens when the server is trusting a block position sent by a client to access blocks and block entities. When accessing blocks and block entities in unloaded areas of the level, the server will either generate or load this area from disk, then promptly write it to disk. This can be exploited to cause **catastrophic damage** to a server's performance and storage space without leaving a trace.
 
-    To avoid this problem, a general rule of thumb is to only access blocks and tile entities if `World#hasChunkAt` is true.
+    To avoid this problem, a general rule of thumb is to only access blocks and block entities if `Level#hasChunkAt` is true.
 
 
 Sending Packets
@@ -112,8 +112,8 @@ Packets can be sent directly to a client using the `SimpleChannel`: `HANDLER.sen
 // Send to one player
 INSTANCE.send(PacketDistributor.PLAYER.with(serverPlayer), new MyMessage());
 
-// Send to all players tracking this chunk
-INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(chunk), new MyMessage());
+// Send to all players tracking this level chunk
+INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(levelChunk), new MyMessage());
 
 // Send to all connected players
 INSTANCE.send(PacketDistributor.ALL.noArg(), new MyMessage());
