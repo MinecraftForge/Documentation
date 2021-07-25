@@ -7,7 +7,7 @@ Minecraft provides a Debug Profiler that provides system data, current game sett
 The Debug Profiler is very simple to use. It requires the debug keybind `F3 + L` to start the profiler. After 10 seconds, it will automatically stop; however, it can be stopped earlier by pressing the keybind again.
 
 !!! note
-  Naturally, you can only profile code paths that are actually being reached. `Entities` and `BlockEntities` that you want to profile must exist in the world to show up in the results.
+  Naturally, you can only profile code paths that are actually being reached. `Entities` and `BlockEntities` that you want to profile must exist in the level to show up in the results.
 
 After you have stopped the debugger, it will create a new zip within the `debug/profiling` subdirectory in your run directory.
 The file name will be formatted with the date and time as `yyyy-mm-dd_hh_mi_ss-WorldName-VersionNumber.zip`
@@ -19,7 +19,7 @@ Within each sided folder (`client` and `server`), you will find a `profiling.txt
 Below that, you will find information similar to the snippet below:
 ```
 [00] levels - 96.70%/96.70%
-[01] |   World Name - 99.76%/96.47%
+[01] |   Level Name - 99.76%/96.47%
 [02] |   |   tick - 99.31%/95.81%
 [03] |   |   |   entities - 47.72%/45.72%
 [04] |   |   |   |   regular - 98.32%/44.95%

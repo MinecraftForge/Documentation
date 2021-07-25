@@ -20,7 +20,7 @@ This has been deprecated in favor of the vanilla method of specifying optional t
 
 Using Tags In Code
 ------------------
-Block, Item, Fluid, and EntityType tags are automatically sent from the server to any remote clients on login and reload. In addition, Forge adds TileEntityType, Potion, and Enchantment tags. Function tags are not synced.
+Block, Item, Fluid, and EntityType tags are automatically sent from the server to any remote clients on login and reload. In addition, Forge adds BlockEntityType, Potion, and Enchantment tags. Function tags are not synced.
 
 `BlockTags#getAllTags` and `ItemTags#getAllTags` will retrieve the current `TagCollection`, from which you can retrieve a `Tag` object by its ID.
 With a `Tag` object in hand, membership can be tested with `tag.contains(thing)`, or all the objects in the tag queried with `tag.getValues()`.
