@@ -40,7 +40,7 @@ Use them to read and write to the fields in your block entity class.
 
 !!! note
 
-		Whenever your data changes, you need to call `BlockEntity#setChanged`; otherwise, the `LevelChunk` containing your `BlockEntity` might be skipped while the world is saved.
+		Whenever your data changes, you need to call `BlockEntity#setChanged`; otherwise, the `LevelChunk` containing your `BlockEntity` might be skipped while the level is saved.
 
 !!! important
 

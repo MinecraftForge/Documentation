@@ -1,7 +1,7 @@
 Items
 =====
 
-Along with blocks, items are a key component of most mods. While blocks make up the world around you, items exist within inventories.
+Along with blocks, items are a key component of most mods. While blocks make up the level around you, items exist within inventories.
 
 Creating an Item
 ----------------

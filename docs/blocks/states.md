@@ -92,4 +92,4 @@ Using `BlockState`'s
 You can get the value of a property by calling `BlockState#getValue(Property<?>)`, passing it the property you want to get the value of.
 If you want to get a `BlockState` with a different set of values, simply call `BlockState#setValue(Property<T>, T)` with the property and its value.
 
-You can get and place `BlockState`'s in the world using `Level#setBlockAndUpdate(BlockPos, BlockState)` and `Level#getBlockState(BlockState)`. If you are placing a `Block`, call `Block#defaultBlockState()` to get the "default" state, and use subsequent calls to `BlockState#setValue(Property<T>, T)` as stated above to achieve the desired state.
+You can get and place `BlockState`'s in the level using `Level#setBlockAndUpdate(BlockPos, BlockState)` and `Level#getBlockState(BlockState)`. If you are placing a `Block`, call `Block#defaultBlockState()` to get the "default" state, and use subsequent calls to `BlockState#setValue(Property<T>, T)` as stated above to achieve the desired state.
