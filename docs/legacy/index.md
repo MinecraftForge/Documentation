@@ -18,3 +18,4 @@ Unfortunately, not all versions were used for a significant amount of time, and 
 |    1.13.x     |    10%     | https://mcforge.readthedocs.io/en/1.13.x/ |
 |    1.14.x     |    10%     | https://mcforge.readthedocs.io/en/1.14.x/ |
 |    1.15.x     |    85%     | https://mcforge.readthedocs.io/en/1.15.x/ |
+|    1.16.x     |    85%     | https://mcforge.readthedocs.io/en/1.16.x/ |
