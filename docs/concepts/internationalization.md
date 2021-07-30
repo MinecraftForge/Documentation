@@ -45,7 +45,7 @@ Localization methods
     
     To respect the language settings of clients, the server should have clients localize text in their own locale using `TranslatableComponent` or other methods preserving the language neutral translation keys.
 
-### `net.minecraft.client.resources.I18n` (client only)
+### `net.minecraft.client.resources.language.I18n` (client only)
 
 **This I18n class can only be found on a Minecraft client!** It is intended to be used by code that only runs on the client. Attempts to use this on a server will throw exceptions and crash.
 
