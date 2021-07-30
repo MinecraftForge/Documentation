@@ -12,7 +12,7 @@ Basic items that need no special functionality (think sticks or sugar) do not ne
 
 |         Method         |                  Description                  |
 |:----------------------:|:----------------------------------------------|
-|         `tab`        | Sets which `CreativeModeTab` this item is under. Must be called if this item is meant to be shown on the creative menu. Vanilla groups can be found in the class `CreativeModeTab`. |
+|         `tab`        | Sets which `CreativeModeTab` this item is under. Must be called if this item is meant to be shown on the creative menu. Vanilla tabs can be found in the class `CreativeModeTab`. |
 |       `durability`      | Sets the maximum damage value for this item. If it is over `0`, two item properties "damaged" and "damage" are added. |
 |     `stacksTo`     | Sets the maximum stack size. You cannot have an item that is both damageable and stackable. |
 |      `setNoRepair`     | Makes this item impossible to repair, even if it is damageable. |
