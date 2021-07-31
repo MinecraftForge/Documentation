@@ -21,11 +21,11 @@ public static void registerTE(RegistryEvent.Register<BlockEntityType<?>> evt) {
   evt.getRegistry().register(type);
 }
 ```
-In this example, `supplier` is a function that creates a new instance of your BlockEntity. A method reference or a lambda is commonly used. The variable `validBlocks` is one or more blocks (`BlockEntityType$Builder#of` is varargs) that the block entity can exist for.
+In this example, `supplier` is a `BlockEntityType$BlockEntitySupplier` that creates a new instance of your BlockEntity. A method reference or a lambda is commonly used. The variable `validBlocks` is one or more blocks (`BlockEntityType$Builder#of` is varargs) that the block entity can exist for.
 
 ## Attaching a `BlockEntity` to a `Block`
 
-To attach your new `BlockEntity` to a `Block`, the `EntityBlock` interface must be implemented on your `Block` subclass. The method `EntityBlock#newBlockEntity(BlockPos pos, BlockState state)` must be implemented and return a new instance of your `BlockEntity`.
+To attach your new `BlockEntity` to a `Block`, the `EntityBlock` interface must be implemented on your `Block` subclass. The method `EntityBlock#newBlockEntity(BlockPos, BlockState)` must be implemented and return a new instance of your `BlockEntity`.
 
 ## Storing Data within your `BlockEntity`
 
@@ -110,8 +110,8 @@ public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket
 The Constructor of `ClientboundBlockEntityDataPacket` takes:
 
 * The position of your `BlockEntity`.
-* An ID, though it isn't really used besides by Vanilla; therefore, you can just put a -1 in there.
-* An `CompoundTag` which should contain your data.
+* An id, though it isn't really used besides by Vanilla; therefore, you can just put a -1 in there.
+* A `CompoundTag` which should contain your data.
 
 Now, to send the packet, an update notification must be given on the server.
 ```java
