@@ -25,8 +25,4 @@ This method is called every frame in order to render the block entity.
 Registering a BER
 -----------------
 
-In order to register a BER, call `BlockEntityRenderers#register` passing the `BlockEntityType` to be rendered with this BER and a `BlockEntityRendererProvider`, or BERP, that's used to construct the BER. BERPs can be a method reference that takes in a `BlockEntityRendererProvider$Context` and returns a BER.
-
-!!! important
-
-    `BlockEntityRenderers#register` should be registered within the synchronous work queue (`#enqueueWork`) of the `FMLClientSetupEvent` since the method is not thread-safe.
+In order to register a BER, you must subscribe to the `EntityRenderersEvent$RegisterRenderers` event on the mod event bus and call `#registerBlockEntityRenderer`.
