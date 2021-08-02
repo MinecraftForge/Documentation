@@ -106,9 +106,9 @@ public class WheatSeedsConverterModifier extends LootModifier {
 
         @Override
         public WheatSeedsConverterModifier read(ResourceLocation name, JsonObject object, LootItemCondition[] conditions) {
-            int numSeeds = JSONUtils.getInt(object, "numSeeds");
-            Item seed = ForgeRegistries.ITEMS.getValue(new ResourceLocation((JSONUtils.getString(object, "seedItem"))));
-            Item wheat = ForgeRegistries.ITEMS.getValue(new ResourceLocation(JSONUtils.getString(object, "replacement")));
+            int numSeeds = GsonHelper.getAsInt(object, "numSeeds");
+            Item seed = ForgeRegistries.ITEMS.getValue(new ResourceLocation((GsonHelper.getAsString(object, "seedItem"))));
+            Item wheat = ForgeRegistries.ITEMS.getValue(new ResourceLocation(GsonHelper.getAsString(object, "replacement")));
             return new WheatSeedsConverterModifier(conditions, numSeeds, seed, wheat);
         }
 
@@ -128,7 +128,7 @@ The critical portion is the `doApply` method.
 
 This method is only called if the `conditions` specified return `true`. If so, the modder is now able to make the modifications they desire. In this case, we can see that the number of `itemToCheck` meets or exceeds the `numSeedsToConvert` before modifying the list by adding an `itemReward` and removing any excess `itemToCheck` stacks, matching the previously mentioned effects: *When a wheat block is harvested with shears, if enough seeds are generated as loot, they are converted to additional wheat instead*.
 
-Also take note of the `read` method in the serializer. The conditions are already deserialized for you and if you have no other data, simply `return new MyModifier(conditionsIn)`. However, the full `JsonObject` is available if needed. The `write` method, on the other hand, is used for if you want to utilize `GlobalLootModifierProvider` for [data generation][datagen].
+Also take note of the `read` method in the serializer. The conditions are already deserialized for you and if you have no other data, simply `return new MyModifier(conditions)`. However, the full `JsonObject` is available if needed. The `write` method, on the other hand, is used for if you want to utilize `GlobalLootModifierProvider` for [data generation][datagen].
 
 Additional [examples] can be found on the Forge Git repository, including silk touch and smelting effects.
 
