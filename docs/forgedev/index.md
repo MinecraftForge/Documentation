@@ -46,6 +46,7 @@ Due to the way Eclipse workspaces work, ForgeGradle can do most of the work invo
 
  1. Open a terminal/command prompt and navigate to the directory of your cloned fork.
  2. Type `./gradlew setup` and hit enter. Wait until ForgeGradle is done.
+ 3. Type `./gradlew genEclipseRuns` and hit enter. Once again, wait until ForgeGradle is done.
  4. Open your Eclipse workspace and go to `File -> Import -> General -> Existing Gradle Project`.
  5. Browse to the repo directory for the "Project root directory" option in the dialog that opens.
  7. Complete the import by clicking the "Finish" button.
@@ -63,6 +64,8 @@ JetBrains' flagship IDE comes with great integrated support for [Gradle][gradle]
 3. Click "Trust Project" if prompted.
 4. After IDEA is done importing the project and indexing its files, run the Gradle setup task. You can do this by:
     - Open the Gradle sidebar on the right hand side of your screen, then open the forge project tree, select Tasks, then other and double-click the `setup` task (may also appear as `MinecraftForge[Setup]`) found in Forge -> Tasks -> other -> `setup`.
+5. Generate the run configurations:
+    - Open the Gradle sidebar on the right hand side of your screen, then open the forge project tree, select Tasks, then other and double-click the `genIntellijRuns` task (may also appear as `MinecraftForge[genIntellijRuns]`) found in Forge -> Tasks -> forgegradle runs -> `genIntellijRuns`.
 - If you get a licensing error during build before making any changes, running the `updateLicenses` task may help. This task is found in Forge -> Tasks -> other as well.
 
 #### IDEA 2019-2020
