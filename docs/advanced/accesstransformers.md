@@ -97,15 +97,15 @@ Examples
 public net.minecraft.client.gui.screens.MenuScreens$ScreenConstructor
 
 # Makes protected and removes the final modifier from 'random' in MinecraftServer
-protected-f net.minecraft.server.MinecraftServer field_147146_q #random
+protected-f net.minecraft.server.MinecraftServer f_129758_ #random
 
 # Makes public the 'makeExecutor' method in Util,
 # accepting a String and returns an ExecutorService
-public net.minecraft.Util func_240979_a_(Ljava/lang/String;)Ljava/util/concurrent/ExecutorService; #makeExecutor
+public net.minecraft.Util m_137477_(Ljava/lang/String;)Ljava/util/concurrent/ExecutorService; #makeExecutor
 
 # Makes public the 'leastMostToIntArray' method in SerializableUUID,
 # accepting two longs and returning an int[]
-public net.minecraft.core.SerializableUUID func_239776_a_(JJ)[I #leastMostToIntArray
+public net.minecraft.core.SerializableUUID m_123274_(JJ)[I #leastMostToIntArray
 ```
 
 [specs]: https://github.com/MinecraftForge/AccessTransformers/blob/master/FMLAT.md
