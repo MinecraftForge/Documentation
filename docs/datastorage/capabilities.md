@@ -92,10 +92,13 @@ For information on how to implement `ICapabilityProvider`, refer to the [Exposin
 Creating Your Own Capability
 ----------------------------
 
-In general terms, a capability is declared and registered through a single method call to `CapabilityManager.INSTANCE.register(Class<CapabilityInstance>)`. One possibility is to define a static `register()` method inside a dedicated class for the capability, but this is not required by the capability system.
+In general terms, a capability is registered through the event `RegisterCapabilitiesEvent` on the mod event bus via the `#register` method.
 
 ```java
-CapabilityManager.INSTANCE.register(IExampleCapability.class);
+@SubscribeEvent
+public void registerCaps(RegisterCapabilitiesEvent event) {
+    event.register(IExampleCapability.class);
+}
 ```
 
 Persisting LevelChunk and BlockEntity capabilities
