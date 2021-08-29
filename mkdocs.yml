@@ -100,3 +100,6 @@ extra:
   versions:
     1.12.x: latest
     1.13.x: 1.13.x
+
+extra_css:
+  - css/version_warning_fix.css
