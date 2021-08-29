@@ -96,3 +96,6 @@ extra:
   versions:
     1.15.x: 1.15.x
     1.16.x: 1.16.x
+
+extra_css:
+  - css/version_warning_fix.css

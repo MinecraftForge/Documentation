@@ -1,0 +1,15 @@
+/*
+   Fixes the version warning added by ReadTheDocs on non-latest versions to not
+   stretch over the whole side of the screen. Instead, the notice is moved to
+   be above both the sidebar and content, stretched across the width of the
+   screen.
+ */
+
+.sidebar-wrapper {
+  flex-wrap: wrap;
+}
+
+.sidebar-wrapper > .admonition.warning {
+  width: 100%;
+  padding-bottom: 0.5rem;
+}
