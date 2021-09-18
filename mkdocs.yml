@@ -54,7 +54,7 @@ nav:
     - Entities: 'networking/entities.md'
   - Data Storage:
     - Capabilities: 'datastorage/capabilities.md'
-#    - Saved Data: 'datastorage/saveddata.md'
+    - Saved Data: 'datastorage/saveddata.md'
   - Utilities:
     - Recipes: 'utilities/recipes.md'
     - Tags: 'utilities/tags.md'
