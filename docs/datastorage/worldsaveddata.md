@@ -1,58 +1,24 @@
 World Saved Data
 ================
 
-The World Saved Data system allows attaching data to worlds, either per dimension, or global.
+The World Saved Data (WSD) system is an alternative to world capabilities that can attach data per world.
 
 Declaration
 -----------
 
-The basis of the system is the `WorldSavedData` class. This class provides the basic methods used to manage the data:
+Each WSD implementation must subtype the `WorldSavedData` class. There are three important methods to be aware of:
 
-* `write`: Allows the implementation to write data to the world.
-* `read`: Allows the implementation to load previously saved data.
-* `markDirty`: This method is not overridden by the implementation. Instead, it must be called after changing the data, to notify Minecraft that there are changes that need to be written. If not called, the existing data will be kept instead, and `write` will not get called.
+* `save`: Allows the implementation to write NBT data to the world.
+* `load`: Allows the implementation to read previously saved NBT data.
+* `setDirty`: A method that must be called after changing the data, to notify the game that there are changes that need to be written. If not called, `#save` will not get called and the existing data will persist.
 
-An implementation will override this class, and instances of this implementation will be attached to the `World` objects, ready to store any required data.
+The constructor of the class also requires a `String`. This is the name of the `.dat` file stored within the `data` folder for the implemented world. For example, if a WSD was named "example" within the Nether, then a file would be created at `./<level_folder>/DIM-1/data/example.dat`.
 
-A basic skeleton may look like this:
-
-```Java
-public class ExampleWorldSavedData extends WorldSavedData {
-  private static final String DATA_NAME = MODID + "_ExampleData";
-
-  // Required constructors
-  public ExampleWorldSavedData() {
-    super(DATA_NAME);
-  }
-  public ExampleWorldSavedData(String s) {
-    super(s);
-  }
-
-  // WorldSavedData methods
-}
-```
-
-Registration and Usage
+Attaching to a World
 ----------------------
 
-The WorldSavedData is loaded and/or attached to the world on demand. A good practice is to create a static get method that will load the data, and if not present, attach a new instance.
+Any `WorldSavedData` is loaded and/or attached to a world dynamically. As such, if one is never created on a world, then it will not exist. 
 
-There are two ways to attach the data: per dimension, or globally. Global data will be attached to a shared map, that will be obtainable from any instance of the World class, while per-world data will not be shared across dimensions. Keep in mind the separation between client and server, as they get separate instances of global data, so if data is needed on both sides, manual synchronization will be required.
+`WorldSavedData`s are created and loaded from the `DimensionSavedDataManager`, which can be accessed by either `ServerChunkProvider#getDataStorage` or `ServerWorld#getChunkSource`. From there, you can get or create an instance of your WSD by calling `DimensionSavedDataManager#computeIfAbsent`. This will attempt to get the current instance of the WSD if present or create a new one and load all available data.
 
-In code, these storage locations are represented by two instances of `MapStorage` present in the World object. The global data is obtained from `World#getMapStorage()`, while the per-world map is obtained from `World#getPerWorldStorage()`.
-
-The existing data can be obtained using `MapStorage#getOrLoadData`, and new data can be attached using `MapStorage#setData`.
-
-```Java
-public static ExampleWorldSavedData get(World world) {
-  // The IS_GLOBAL constant is there for clarity, and should be simplified into the right branch.
-  MapStorage storage = IS_GLOBAL ? world.getMapStorage() : world.getPerWorldStorage();
-  ExampleWorldSavedData instance = (ExampleWorldSavedData) storage.getOrLoadData(ExampleWorldSavedData.class, DATA_NAME);
-
-  if (instance == null) {
-    instance = new ExampleWorldSavedData();
-    storage.setData(DATA_NAME, instance);
-  }
-  return instance;
-}
-```
+To persist a WSD across worlds, a WSD should be attached to the Overworld dimension, which can be obtained from `MinecraftServer#overworld`. The Overworld is the only dimension that is never fully unloaded and as such makes it perfect to store multi-world data on.
