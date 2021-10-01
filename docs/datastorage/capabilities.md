@@ -23,14 +23,17 @@ Using an Existing Capability
 
 As mentioned earlier, BlockEntities, Entities, and ItemStacks implement the capability provider feature through the `ICapabilityProvider` interface. This interface adds the method `#getCapability`, which can be used to query the capabilities present in the associated provider objects.
 
-In order to obtain a capability, you will need to refer it by its unique instance. In the case of the `IItemHandler`, this capability is primarily stored in `CapabilityItemHandler#ITEM_HANDLER_CAPABILITY`, but it is possible to get other instance references by using the `@CapabilityInject` annotation.
+In order to obtain a capability, you will need to refer it by its unique instance. In the case of the `IItemHandler`, this capability is primarily stored in `CapabilityItemHandler#ITEM_HANDLER_CAPABILITY`, but it is possible to get other instance references by using `CapabilityManager#get`
 
-```Java
-@CapabilityInject(IItemHandler.class)
-static Capability<IItemHandler> ITEM_HANDLER_CAPABILITY = null;
+```java
+static Capability<IItemHandler> ITEM_HANDLER_CAPABILITY = CapabilityManager.get(new CapabilityToken<>(){});
 ```
 
-This annotation can be applied to fields and methods. When applied to a field, it will assign the instance of the capability (the same one gets assigned to all fields) upon registration of the capability and left to the existing value (`null`) if the capability was never registered. Because local static field accesses are fast, it is a good idea to keep your own local copy of the reference for objects that work with capabilities. This annotation can also be used on a method, in order to get notified when a capability is registered, so that certain features can be enabled conditionally.
+When called, `CapabilityManager#get` provides a non-null capability for your associated type. The anonymous `CapabilityToken` allows Forge to keep a soft dependency system while still having the necessary generic information to get the correct capability.
+
+!!! important
+
+  Even if you have a non-null capability available to you at all times, it does not mean the capability itself is usable or registered yet. This can be checked via `Capability#isRegistered`.
 
 The `#getCapability` method has a second parameter, of type `Direction`, which can be used to request the specific instance for that one face. If passed `null`, it can be assumed that the request comes either from within the block or from some place where the side has no meaning, such as a different dimension. In this case a general capability instance that does not care about sides will be requested instead. The return type of `#getCapability` will correspond to a `LazyOptional` of the type declared in the capability passed to the method. For the Item Handler capability, this is `LazyOptional<IItemHandler>`. If the capability is not available for a particular provider, it will return an empty `LazyOptional` instead.
 
