@@ -3,17 +3,26 @@ Introduction to Blockstate JSONs
 
 Blockstate JSONs are Minecraft's way to map "variant strings" to models. A variant string can be absolutely anything, from "inventory" to "power=5" to "I am your father." They represent an actual model, where the blockstate is just a container for them. In code, a variant string within a blockstate JSON is represented by a `ModelResourceLocation`.
 
-When the game searches for a model corresponding to a block in the world, it takes the [blockstate][] for that position, and then it uses a map within `ModelManager` to find the corresponding `ModelResourceLocation` for it, which then refers to the actual model. `BlockModelShapes` uses the block's registry name as the location of the blockstate JSON. (E.g. block `examplemod:testblock` goes to the `ResourceLocation` `examplemod:testblock`.) The variant string is pieced together from the blockstate's properties.
+When the game searches for a model corresponding to a block in the level, it takes the [blockstate][] for that position, and then it uses a map within `ModelManager` to find the corresponding `ModelResourceLocation` for it, which then refers to the actual model. `BlockModelShaper` uses the block's registry name as the location of the blockstate JSON. (E.g. block `examplemod:testblock` goes to the `ResourceLocation` `examplemod:testblock`.) The variant string is pieced together from the blockstate's properties.
 
 As an example, let's take a look at the vanilla `oak_log.json`:
 
 ```json
 {
-    "variants": {
-        "axis=y":    { "model": "block/oak_log" },
-        "axis=z":    { "model": "block/oak_log", "x": 90 },
-        "axis=x":    { "model": "block/oak_log", "x": 90, "y": 90 }
+  "variants": {
+    "axis=x": {
+      "model": "minecraft:block/oak_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "minecraft:block/oak_log"
+    },
+    "axis=z": {
+      "model": "minecraft:block/oak_log_horizontal",
+      "x": 90
     }
+  }
 }
 ```
 

@@ -28,7 +28,7 @@ The data generator can be configured to run 4 different data generations, which 
 Data Providers
 --------------
 
-Data providers are the classes that actually define what data will be generated and provided. All data providers implement `IDataProvider`.
+Data providers are the classes that actually define what data will be generated and provided. All data providers implement `DataProvider`.
 Minecraft has abstract implementations for most assets and data, so modders need only to extend and override the specified method.
 
 The `GatherDataEvent` is fired on the mod event bus when the data generator is being created, and the `DataGenerator` can be obtained from the event. Create and register data providers using `DataGenerator#addProvider`.
@@ -40,6 +40,7 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
     * `ItemModelProvider` - for item models; override `#registerModels`
     * `BlockStateProvider` - for blockstates and their block and item models; override `#registerStatesAndModels`
     * `BlockModelProvider` - for block models; override `#registerModels`
+  * `net.minecraftforge.common.data.SoundDefinitionsProvider` - for the `sounds.json`
 
 ### Server Data
   * `net.minecraftforge.common.data.GlobalLootModifierProvider` - for [global loot modifiers][glm]; override `#start`

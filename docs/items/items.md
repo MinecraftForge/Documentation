@@ -1,7 +1,7 @@
 Items
 =====
 
-Along with blocks, items are a key component of most mods. While blocks make up the world around you, items exist within inventories.
+Along with blocks, items are a key component of most mods. While blocks make up the level around you, items exist within inventories.
 
 Creating an Item
 ----------------
@@ -12,7 +12,7 @@ Basic items that need no special functionality (think sticks or sugar) do not ne
 
 |         Method         |                  Description                  |
 |:----------------------:|:----------------------------------------------|
-|         `tab`        | Sets which ItemGroup (previously called creative tab) this item is under. Must be called if this item is meant to be shown on the creative menu. Vanilla groups can be found in the class `ItemGroup`. |
+|         `tab`        | Sets which `CreativeModeTab` this item is under. Must be called if this item is meant to be shown on the creative menu. Vanilla tabs can be found in the class `CreativeModeTab`. |
 |       `durability`      | Sets the maximum damage value for this item. If it is over `0`, two item properties "damaged" and "damage" are added. |
 |     `stacksTo`     | Sets the maximum stack size. You cannot have an item that is both damageable and stackable. |
 |      `setNoRepair`     | Makes this item impossible to repair, even if it is damageable. |

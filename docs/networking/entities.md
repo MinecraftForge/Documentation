@@ -24,7 +24,7 @@ Dynamic Data
 
 This is the main vanilla system for synchronizing entity data from the server to the client. As such, a number of vanilla examples are available to refer to.
 
-Firstly, you need a `DataParameter<T>` for the data you wish to keep synchronized. This should be stored as a `static final` field in your entity class, obtained by calling `EntityDataManager#defineId` and passing the entity class and a serializer for that type of data. The available serializer implementations can be found as static constants within the `DataSerializers` class.
+Firstly, you need a `EntityDataAccessor<T>` for the data you wish to keep synchronized. This should be stored as a `static final` field in your entity class, obtained by calling `SynchedEntityData#defineId` and passing the entity class and a serializer for that type of data. The available serializer implementations can be found as static constants within the `EntityDataSerializers` class.
 
 !!! warning
     You should __only__ create data parameters for your own entities, _within that entity's class_.

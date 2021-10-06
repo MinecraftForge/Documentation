@@ -54,50 +54,50 @@ Vanilla has lots of methods for playing sounds, and it is unclear which to use a
 
 Note that each takes a `SoundEvent`, the ones registered above. Additionally, the terms *"Server Behavior"* and *"Client Behavior"* refer to the respective [**logical** side][sides].
 
-### `World`
+### `Level`
 
-1. <a name="world-playsound-pbecvp"></a> `playSound(PlayerEntity, BlockPos, SoundEvent, SoundCategory, volume, pitch)`
-    - Simply forwards to [overload (2)](#world-playsound-pxyzecvp), adding 0.5 to each coordinate of the `BlockPos` given.
+1. <a name="level-playsound-pbecvp"></a> `playSound(Player, BlockPos, SoundEvent, SoundCategory, volume, pitch)`
+    - Simply forwards to [overload (2)](#level-playsound-pxyzecvp), adding 0.5 to each coordinate of the `BlockPos` given.
 
-2. <a name="world-playsound-pxyzecvp"></a> `playSound(PlayerEntity, double x, double y, double z, SoundEvent, SoundCategory, volume, pitch)`
+2. <a name="level-playsound-pxyzecvp"></a> `playSound(Player, double x, double y, double z, SoundEvent, SoundCategory, volume, pitch)`
     - **Client Behavior**: If the passed in player is *the* client player, plays the sound event to the client player.
     - **Server Behavior**: Plays the sound event to everyone nearby **except** the passed in player. Player can be `null`.
     - **Usage**: The correspondence between the behaviors implies that these two methods are to be called from some player-initiated code that will be run on both logical sides at the same time: the logical client handles playing it to the user, and the logical server handles everyone else hearing it without re-playing it to the original user.
        They can also be used to play any sound in general at any position server-side by calling it on the logical server and passing in a `null` player, thus letting everyone hear it.
 
-3. <a name="world-playsound-xyzecvpd"></a> `playLocalSound(double x, double y, double z, SoundEvent, SoundCategory, volume, pitch, distanceDelay)`
-    - **Client Behavior**: Just plays the sound event in the client world. If `distanceDelay` is `true`, then delays the sound based on how far it is from the player.
+3. <a name="level-playsound-xyzecvpd"></a> `playLocalSound(double x, double y, double z, SoundEvent, SoundCategory, volume, pitch, distanceDelay)`
+    - **Client Behavior**: Just plays the sound event in the client level. If `distanceDelay` is `true`, then delays the sound based on how far it is from the player.
     - **Server Behavior**: Does nothing.
     - **Usage**: This method only works client-side, and thus is useful for sounds sent in custom packets, or other client-only effect-type sounds. Used for thunder.
 
-### `ClientWorld`
+### `ClientLevel`
 
-1. <a name="clientworld-playsound-becvpd"></a> `playLocalSound(BlockPos, SoundEvent, SoundCategory, volume, pitch, distanceDelay)`
-    - Simply forwards to `World`'s [overload (3)](#world-playsound-xyzecvpd), adding 0.5 to each coordinate of the `BlockPos` given.
+1. <a name="clientlevel-playsound-becvpd"></a> `playLocalSound(BlockPos, SoundEvent, SoundCategory, volume, pitch, distanceDelay)`
+    - Simply forwards to `Level`'s [overload (3)](#level-playsound-xyzecvpd), adding 0.5 to each coordinate of the `BlockPos` given.
 
 ### `Entity`
 
 1. <a name="entity-playsound-evp"></a> `playSound(SoundEvent, volume, pitch)`
-    - Forwards to `World`'s [overload (2)](#world-playsound-pxyzecvp), passing in `null` as the player.
+    - Forwards to `Level`'s [overload (2)](#level-playsound-pxyzecvp), passing in `null` as the player.
     - **Client Behavior**: Does nothing.
     - **Server Behavior**: Plays the sound event to everyone at this entity's position.
     - **Usage**: Emitting any sound from any non-player entity server-side.
 
-### `PlayerEntity`
+### `Player`
 
-1. <a name="playerentity-playsound-evp"></a> `playSound(SoundEvent, volume, pitch)` (overriding the one in [`Entity`](#entity-playsound-evp))
-    - Forwards to `World`'s [overload (2)](#world-playsound-pxyzecvp), passing in `this` as the player.
-    - **Client Behavior**: Does nothing, see override in [`ClientPlayerEntity`](#clientplayerentity-playsound-evp).
+1. <a name="player-playsound-evp"></a> `playSound(SoundEvent, volume, pitch)` (overriding the one in [`Entity`](#entity-playsound-evp))
+    - Forwards to `Level`'s [overload (2)](#level-playsound-pxyzecvp), passing in `this` as the player.
+    - **Client Behavior**: Does nothing, see override in [`LocalPlayer`](#localplayer-playsound-evp).
     - **Server Behavior**: Plays the sound to everyone nearby *except* this player.
-    - **Usage**: See [`ClientPlayerEntity`](#clientplayerentity-playsound-evp).
+    - **Usage**: See [`LocalPlayer`](#localplayer-playsound-evp).
 
-### `ClientPlayerEntity`
+### `LocalPlayer`
 
-1. <a name="clientplayerentity-playsound-evp"></a> `playSound(SoundEvent, volume, pitch)` (overriding the one in [`PlayerEntity`](#playerentity-playsound-evp))
-    - Forwards to `World`'s [overload (2)](#world-playsound-pxyzecvp), passing in `this` as the player.
+1. <a name="localplayer-playsound-evp"></a> `playSound(SoundEvent, volume, pitch)` (overriding the one in [`Player`](#player-playsound-evp))
+    - Forwards to `Level`'s [overload (2)](#level-playsound-pxyzecvp), passing in `this` as the player.
     - **Client Behavior**: Just plays the Sound Event.
     - **Server Behavior**: Method is client-only.
-    - **Usage**: Just like the ones in `World`, these two overrides in the player classes seem to be for code that runs together on both sides. The client handles playing the sound to the user, while the server handles everyone else hearing it without re-playing to the original user.
+    - **Usage**: Just like the ones in `Level`, these two overrides in the player classes seem to be for code that runs together on both sides. The client handles playing the sound to the user, while the server handles everyone else hearing it without re-playing to the original user.
 
 [loc]: ../concepts/resources.md#resourcelocation
 [wiki]: https://minecraft.gamepedia.com/Sounds.json

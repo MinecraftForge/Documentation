@@ -1,27 +1,25 @@
 # Debug Profiler
 
-Minecraft provides a Debug Profiler that can be used to find time consuming code. Considering things like `TickEvent`s and ticking `TileEntities`, this can be very useful for modders and server owners that want to find a lag source.
+Minecraft provides a Debug Profiler that provides system data, current game settings, JVM data, level data, and sided tick information to find time consuming code. Considering things like `TickEvent`s and ticking `BlockEntities`, this can be very useful for modders and server owners that want to find a lag source.
 
 ## Using the Debug Profiler
 
-The Debug Profiler is very simple to use. It requires two commands: `/debug start`, which starts the profiling process, and `/debug stop`, which ends it.
-The important part here is that the more time you give it to collect the data, the better the results will be.
-It is recommended to at least let it collect data for a minute.
+The Debug Profiler is very simple to use. It requires the debug keybind `F3 + L` to start the profiler. After 10 seconds, it will automatically stop; however, it can be stopped earlier by pressing the keybind again.
 
 !!! note
-  Naturally, you can only profile code paths that are actually being reached. `Entities` and `TileEntities` that you want to profile must exist in the world to show up in the results.
+  Naturally, you can only profile code paths that are actually being reached. `Entities` and `BlockEntities` that you want to profile must exist in the level to show up in the results.
 
-After you have stopped the debugger, it will create a new file within the `debug` subdirectory in your run directory.
-The file name will be formatted with the date and time as `profile-results-yyyy-mm-dd_hh.mi.ss.txt`
+After you have stopped the debugger, it will create a new zip within the `debug/profiling` subdirectory in your run directory.
+The file name will be formatted with the date and time as `yyyy-mm-dd_hh_mi_ss-WorldName-VersionNumber.zip`
 
 ## Reading a Profiling result
 
-At the top, it first tells you how long in milliseconds it was running and how many ticks ran in that time.
+Within each sided folder (`client` and `server`), you will find a `profiling.txt` file containing the result data. At the top, it first tells you how long in milliseconds it was running and how many ticks ran in that time.
 
 Below that, you will find information similar to the snippet below:
 ```
 [00] levels - 96.70%/96.70%
-[01] |   World Name - 99.76%/96.47%
+[01] |   Level Name - 99.76%/96.47%
 [02] |   |   tick - 99.31%/95.81%
 [03] |   |   |   entities - 47.72%/45.72%
 [04] |   |   |   |   regular - 98.32%/44.95%
@@ -38,11 +36,11 @@ Here is a small explanation of what each part means
 
 ## Profiling your own code
 
-The Debug Profiler has basic support for `Entity` and `TileEntity`. If you would like to profile something else, you may need to manually create your sections like so:
+The Debug Profiler has basic support for `Entity` and `BlockEntity`. If you would like to profile something else, you may need to manually create your sections like so:
 ```java
-  IProfiler#push(yourSectionName : String);
+  ProfilerFiller#push(yourSectionName : String);
   //The code you want to profile
-  IProfiler#pop();
+  ProfilerFiller#pop();
 ```
-You can obtain the `IProfiler` instance from a `World`, `MinecraftServer`, or `Minecraft` instance.
+You can obtain the `ProfilerFiller` instance from a `Level`, `MinecraftServer`, or `Minecraft` instance.
 Now you just need to search the results file for your section name.

@@ -1,7 +1,7 @@
 Model Files
 ===========
 
-A "model" is simply a shape. It can be a simple cube, it can be several cubes, it can be a truncated icosidodecahedron, or anything in between. Most models you'll see will be in the vanilla JSON format. Models in other formats are loaded into `IModelGeometry`s by an `IModelLoader` at runtime. Forge provides default implementations for WaveFront OBJ files, buckets, composite models, models in different render layers, and a reimplementation of Vanilla's `builtin/generated` item model. Most things do not care about what loaded the model or what format it's in as they are all eventually represented by an `IBakedModel` in code.
+A "model" is simply a shape. It can be a simple cube, it can be several cubes, it can be a truncated icosidodecahedron, or anything in between. Most models you'll see will be in the vanilla JSON format. Models in other formats are loaded into `IModelGeometry`s by an `IModelLoader` at runtime. Forge provides default implementations for WaveFront OBJ files, buckets, composite models, models in different render layers, and a reimplementation of Vanilla's `builtin/generated` item model. Most things do not care about what loaded the model or what format it's in as they are all eventually represented by an `BakedModel` in code.
 
 When `ResourceLocation` refers to a model, the path is normally relative to `models` (e.g. `examplemod:block/block` → `assets/examplemod/models/block/block.json`).
 
@@ -42,6 +42,6 @@ Forge adds a loader for the `.obj` file format. To use these models, the JSON mu
 ```
 
 [statejson]: blockstates/introduction.md
-[overrides]: overrides.md
+[overrides]: itemproperties.md
 [uv]: https://en.wikipedia.org/wiki/UV_mapping
 [wiki]: https://minecraft.gamepedia.com/Model#Block_models
