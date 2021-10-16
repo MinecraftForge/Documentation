@@ -24,14 +24,13 @@ public static final RegistryObject<TileEntityType<MyTE>> MY_TE = REGISTER.regist
 
 ## Creating a `TileEntity`
 
-To create a `TileEntity` and attach it to a `Block`, you need to override 2 (two) methods within your `Block` subclass:
+To create a `TileEntity` and attach it to a `Block`, two methods must be overridden within the `Block` subclass:
 ```java
 IForgeBlock#hasTileEntity(BlockState state)
 
 IForgeBlock#createTileEntity(BlockState state, IBlockReader world)
 ```
-Using the parameters, you can choose if the block should have a `TileEntity` or not.
-Usually, you will return `true` in the first method and a new instance of your `TileEntity` in the second method.
+In most cases, `#hasTileEntity` will return `true` to indicate the block has a `TileEntity` and return a new instance of said `TileEntity` within `#createTileEntity`.
 
 ## Storing Data within your `TileEntity`
 
