@@ -181,15 +181,46 @@ class UnannotatedHolder { // Note the lack of an @ObjectHolder annotation on thi
 }
 ```
 
-Creating Custom Registries
--------------------
+Creating Custom Forge Registries
+--------------------------------
 
-Custom registries are created by using `RegistryBuilder` during the `RegistryEvent$NewRegistry` event. The class `RegistryBuilder` takes certain parameters (such as the name, the `Class` of its values, and various callbacks for different events happening on the registry). Calling `RegistryBuilder#create` will result in the registry being built, registered to the `RegistryManager`, and returned to the caller for additional processing.
+Custom registries can usually just be a simple map of key to value. This is a common style; however, it forces a hard dependency on the registry being present. It also requires that any data that needs to be synced between sides must be done manually. Custom Forge Registries provide a simple alternative for creating soft dependents along with better management and automatic syncing between sides (unless told otherwise). Since the objects also use a Forge registry, registration becomes standardized in the same way.
+
+Custom Forge Registries are created via `RegistryBuilder` via either `RegistryEvent$NewRegistry` or the `DeferredRegister`. The class `RegistryBuilder` takes certain parameters (such as the name, the `Class` of its values, and various callbacks for different events happening on the registry). Calling `RegistryBuilder#create` will result in the registry being built, registered to the `RegistryManager`, and returned to the caller for additional processing.
 
 The `Class` of the value of the registry must implement `IForgeRegistryEntry`, which defines that `#setRegistryName` and `#getRegistryName` can be called on the objects of that class. It is recommended to extend `ForgeRegistryEntry`, the default implementation instead of implementing the interface directly. When `#setRegistryName(String)` is called with a string, and that string does not have an explicit namespace, its namespace will be set to the current modid.
 
-The Forge registries can be accessed through the `ForgeRegistries` class. Any other registries can be stored and cached during their associated `RegistryEvent$Register`.
+Any newly created registry should use its associated [registration method][registration] to register the associated objects.
+
+### Using RegistryEvent$NewRegistry
+
+When using `RegistryEvent$NewRegistry`, all one needs to do is construct the registry within the event via `RegistryBuilder`. Since the registry is created after calling `#create`, the resulting registry can be stored in any `IForgeRegistry` field for future use.
+
+### With DeferredRegister
+
+The `DeferredRegister` method is once again another wrapper around the above event. Once a `DeferredRegister` is created in a constant field, the registry can be constructed via `DeferredRegister#makeRegistry`. This takes in the name of the registry along with a supplied `RegistryBuilder` containing any additional configurations. The method already populates `#setName` and `#setType` by default. Since this method can be returned at any time, a supplied version of an `IForgeRegistry` is returned instead. This will be unresolvable until `RegistryEvent$NewRegistry` passes.
+
+!!! important
+
+  `DeferredRegister#makeRegistry` must be called before the `DeferredRegister` is added to the mod event bus via `#register`. `#makeRegistry` also uses the `#register` method to create the registry during `RegistryEvent$NewRegistry`.
+
+Handling Missing Entries
+------------------------
+
+There are cases where certain registry objects will cease to exist whenever a mod is updated or, more likely, removed. It is possible to specify actions to handle the missing mapping through the third of the registry events: `RegistryEvent$MissingMappings`. Within this event, a list of missing mappings can be obtained wither by `#getMappings` given a mod id or all mappings via `#getAllMappings`.
+
+For each `Mapping`, one of four mapping types can be selected to handle the missing entry:
+
+| Action | Description |
+| :---:  |     :---    |
+| IGNORE | Ignores the missing entry and abandons the mapping. |
+|  WARN  | Generates a warning in the log. |
+|  FAIL  | Prevents the world from loading. |
+| REMAP  | Remaps the entry to an already registered, non-null object. |
+
+If no action is specified, then the default action will occur by notifying the user about the missing entry and whether they still would like to load the world. All actions besides remapping will prevent any other registry object from taking the place of the existing id in case the associated entry ever gets added back into the game.
 
 [ResourceLocation]: resources.md#resourcelocation
+[registration]: #methods-for-registering
 [events]: ../events/intro.md
 [blockentity]: ../blockentities/blockentity.md
