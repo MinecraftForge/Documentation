@@ -13,7 +13,7 @@ More advanced examples exist in mods, such as quarries, sorting machines, pipes,
 
 Tile Entities are created and removed dynamically and as such are not registry objects on their own. 
 
-In order to create a `TileEntity`, you need to extend the `TileEntity` class. As such, a factory type is registered instead to easily create the dynamic object. For a `TileEntity`, these are known as `TileEntityType`s.
+In order to create a `TileEntity`, you need to extend the `TileEntity` class. As such, another object is registered instead to easily create and refer to the *type* of the dynamic object. For a `TileEntity`, these are known as `TileEntityType`s.
 
 A `TileEntityType` can be [registered][registration] like any other registry object. To construct a `TileEntityType`, its builder form can be used via `TileEntityType$Builder#of`. This takes in two arguments: a `factory` representing some supplied method to create a new instance of the associated `TileEntity`, and a varargs of `validBlocks` which this `TileEntity` can be attached to. Building the `TileEntityType` is done by calling `TileEntityType$Builder#build`. This takes in a `Type` which represents the type-safe reference used to refer to this registry object in a `DataFixer`. Since `DataFixer`s are an optional system to use for mods, this can be passed as `null`.
 
