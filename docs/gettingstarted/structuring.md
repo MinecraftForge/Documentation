@@ -28,8 +28,8 @@ The `mods.toml` file is formatted as [TOML][], the example `mods.toml` file in t
     # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
     modLoader="javafml"
     # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-    # Forge for 1.17.1 is version 37
-    loaderVersion="[37,)"
+    # Forge for 1.18 is version 38
+    loaderVersion="[38,)"
     # The license for your mod. This is mandatory and allows for easier comprehension of your redistributive properties.
     # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
     license="All Rights Reserved"
@@ -54,14 +54,14 @@ The `mods.toml` file is formatted as [TOML][], the example `mods.toml` file in t
       [[dependencies.examplemod]]
         modId="forge"
         mandatory=true
-        versionRange="[37,)"
+        versionRange="[38,)"
         ordering="NONE"
         side="BOTH"
 
       [[dependencies.examplemod]]
         modId="minecraft"
         mandatory=true
-        versionRange="[1.17,1.18)"
+        versionRange="[1.18,1.19)"
         ordering="NONE"
         side="BOTH"
 ```
