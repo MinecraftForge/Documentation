@@ -92,10 +92,10 @@ theme:
   custom_dir: forge_theme
 
 extra:
-  current_version: 1.17.x
+  current_version: 1.18.x
   versions:
     1.16.x: 1.16.x
-    1.17.x: 1.17.x
+    1.18.x: 1.18.x
 
 extra_css:
   - css/version_warning_fix.css
