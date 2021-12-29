@@ -5,7 +5,7 @@
 
 ### `ItemOverrides()`
 
-Given a list of `ItemOverride`s, the constructor copies that list and stores the copy. The list may be accessed with `#getOverrides`.
+Given a list of `ItemOverride`s, the constructor copies and bakes the list. The baked overrides may be accessed with `#getOverrides`.
 
 ### `resolve`
 
@@ -15,11 +15,11 @@ This should not mutate the level.
 
 ### `getOverrides`
 
-Returns an immutable list containing all the [`ItemOverride`][override]s used by this `ItemOverrides`. If none are applicable, this returns the empty list.
+Returns an immutable list containing all the [`BakedOverride`][override]s used by this `ItemOverrides`. If none are applicable, this returns the empty list.
 
-## `ItemOverride`
+## `BakedOverride`
 
-This class represents a vanilla item override, which holds several predicates for the properties on an item and a model to use in case those predicates are satisfied. They are the objects in the `overrides` array of a vanilla item JSON model:
+This class represents a vanilla item override, which holds several `ItemOverrides$PropertyMatcher` for the properties on an item and a model to use in case those matchers are satisfied. They are the objects in the `overrides` array of a vanilla item JSON model:
 
 ```json
 {

@@ -28,7 +28,7 @@ public class MyMod {
 Common actions to perform in common setup are:
 
   * Utilizing the common config data
-  * Registering [Capabilities][capabilities]
+  * Registering non-thread safe implementations
 
 ## Sided Setup
 

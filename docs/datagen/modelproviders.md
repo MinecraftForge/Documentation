@@ -16,7 +16,7 @@ Implementation
 --------------
 There are three main abstract implementations of `ModelProvider`: `ItemModelProvider`, `BlockModelProvider`, and `BlockStateProvider`.
 
-For items, use `ItemModelProvider` to define their models: override `#generateModels` and use the helper methods.
+For items, use `ItemModelProvider` to define their models: override `#registerModels` and use the helper methods.
 
 For blocks, it is recommended to use `BlockStateProvider` to define the blockstates, models, and their item models in a single class. It contains an instance of both `BlockModelProvider` and `ItemModelProvider`, which can be accessed through `#models()` and `#itemModels()`.
 `BlockModelProvider` is used to define only block models. 

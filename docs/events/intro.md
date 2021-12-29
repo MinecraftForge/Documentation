@@ -47,13 +47,13 @@ A class may be annotated with the `@Mod$EventBusSubscriber` annotation. Such a c
 
 You can pass the bus you want to listen to the `@Mod$EventBusSubscriber` annotation. It is recommended you also specify the mod id, since the annotation process may not be able to figure it out, and the bus you are registering to, since it serves as a reminder to make sure you are on the correct one. You can also specify the `Dist`s or physical sides to load this event subscriber on. This can be used to not load client specific event subscribers on the dedicated server.
 
-An example for a static event listener listening to `RenderWorldLastEvent` which will only be called on the client:
+An example for a static event listener listening to `RenderLevelLastEvent` which will only be called on the client:
 
 ```java
 @Mod.EventBusSubscriber(modid = "mymod", bus = Bus.FORGE, value = Dist.CLIENT)
 public class MyStaticClientOnlyEventHandler {
 	@SubscribeEvent
-	public static void drawLast(RenderWorldLastEvent event) {
+	public static void drawLast(RenderLevelLastEvent event) {
 		System.out.println("Drawing!");
 	}
 }
