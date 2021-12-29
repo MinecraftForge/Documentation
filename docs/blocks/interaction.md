@@ -30,14 +30,15 @@ This is the method that controls right click behavior.
 
 #### Return Value
 
-`InteractionResult` is the result right clicking, see example usages below. `InteractionResult#SUCCESS` means the right click action was successful. `InteractionResult#CONSUME` means that the right click action was consumed. `InteractionResult#PASS` is the default behavior, for when the block has no right click behavior, and allows something else to handle the right click. `InteractionResult#FAIL` means that the action failed.
+`InteractionResult` is the result right clicking, see example usages below. `InteractionResult#SUCCESS` means the right click action was successful. `InteractionResult#CONSUME` means that the right click action was consumed. `InteractionResult#CONSUME_PARTIAL` means that the right click action is being consumed. `InteractionResult#PASS` is the default behavior, for when the block has no right click behavior, and allows something else to handle the right click. `InteractionResult#FAIL` means that the action failed.
 
-| Enum Value |                           Example Usage                          |
-|:----------:|:----------------------------------------------------------------:|
-|  `SUCCESS` | Eating a slice of cake.                                          |
-|  `CONSUME` | Tuning a noteblock.                                              |
-|   `PASS`   | When right-clicking dirt. Or any other basic block.              |
-|   `FAIL`   | When attempting to place a minecart on a block other than rails. |
+|     Enum Value     |                           Example Usage                          |
+|:------------------:|:----------------------------------------------------------------:|
+|  `SUCCESS`         | Eating a slice of cake.                                          |
+|  `CONSUME`         | Tuning a noteblock.                                              |
+|  `CONSUME_PARTIAL` | Eating a carrot.                                                 |
+|   `PASS`           | When right-clicking dirt. Or any other basic block.              |
+|   `FAIL`           | When attempting to place a minecart on a block other than rails. |
 
 !!! important
     Returning `InteractionResult#CONSUME` from this method on the client will prevent it being called on the server. It is common practice to just check `level#isClientSide` and return `InteractionResult#SUCCESS`, and otherwise go on to normal activation logic. Vanilla has many examples of this, such as the chest.
@@ -108,7 +109,7 @@ Called on a block when it is clicked by a player.
 This method is perfect for adding custom events when a player clicks on a block.
 
 By default, this method does nothing.  
-`NoteBlock` overrides this method so when left-clicked, it plays a sound. `RedstoneOreBlock` on left-click emits a faint light and spawns particles around itself.
+`NoteBlock` overrides this method so when left-clicked, it plays a sound. `RedStoneOreBlock` on left-click emits a faint light and spawns particles around itself.
 
 `playerWillDestroy`
 ----------------
@@ -135,7 +136,7 @@ This method has important behavior in the `Block` class so be sure to call the s
 super.playerWillDestroy(level, pos, state, player);
 ```
 
-The `TNTBlock` overrides this method to cause it's explosion when a player destroys it if its `unstable` property is `true`.  
+The `TntBlock` overrides this method to cause it's explosion when a player destroys it if its `unstable` property is `true`.  
 This method is used by extended pistons; since an extended piston is made up of two blocks. (the extended head and the base)
 The `PistonHeadBlock` makes use of this method to destroy the base block when the `PistonHeadBlock` is destroyed. 
 
