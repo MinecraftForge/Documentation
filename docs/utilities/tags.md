@@ -11,10 +11,9 @@ For example, to add your own mod's saplings to the Vanilla sapling tag, you woul
 If `replace` is true, then all entries before the json specifying `replace` will be removed.
 See the [Vanilla wiki][tags] for a description of the base syntax.
 
-Forge provides two extensions on the Vanilla syntax:
+Forge extensions on the Vanilla syntax:
 
-* You may declare an `optional` array of the same format as the `values` array, but any values listed here that are not present will not cause the tag loading to error.
-This has been deprecated in favor of the vanilla method of specifying optional tag values.
+* The `optional` array was depreciated and has been removed in favor of the vanilla method of specifying optional tag values.
 * You may declare a `remove` array of the same format as the `values` array. Any values listed here will be removed from the tag. This acts as a finer grained version of the Vanilla `replace` option.
 
 
