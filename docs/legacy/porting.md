@@ -1,4 +1,4 @@
-Porting to Minecraft 1.17
+Porting to Minecraft 1.18
 =========================
 
 Here you can find a list of primers on how to port from old versions to the current version. Some versions are lumped together since that particular version never saw much usage.

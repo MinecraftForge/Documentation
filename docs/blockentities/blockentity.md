@@ -31,7 +31,7 @@ To attach your new `BlockEntity` to a `Block`, the `EntityBlock` interface must 
 
 In order to save data, override the following two methods:
 ```java
-BlockEntity#save(CompoundTag tag)
+BlockEntity#saveAdditional(CompoundTag tag)
 
 BlockEntity#load(CompoundTag tag)
 ```
@@ -91,27 +91,28 @@ while the second one processes that data. If your `BlockEntity` doesn't contain 
 
 ### Synchronizing on Block Update
 
-This method is a bit more complicated, but again you just need to override two methods.
+This method is a bit more complicated, but again you just need to override two or three methods.
 Here is a tiny example implementation of it:
 ```java
 @Override
-public ClientboundBlockEntityDataPacket getUpdatePacket(){
-    CompoundTag tag = new CompoundTag();
-    //Write your data into the tag
-    return new ClientboundBlockEntityDataPacket(getBlockPos(), -1, tag);
+public CompoundTag getUpdateTag() {
+  CompoundTag tag = new CompoundTag();
+  //Write your data into the tag
+  return tag;
 }
 
 @Override
-public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket pkt){
-    CompoundTag tag = pkt.getTag();
-    //Handle your Data
+public Packet<ClientGamePacketListener> getUpdatePacket() {
+  // Will get tag from #getUpdateTag
+  return ClientboundBlockEntityDataPacket.create(this);
 }
-```
-The Constructor of `ClientboundBlockEntityDataPacket` takes:
 
-* The position of your `BlockEntity`.
-* An id, though it isn't really used besides by Vanilla; therefore, you can just put a -1 in there.
-* A `CompoundTag` which should contain your data.
+// Can override IForgeBlockEntity#onDataPacket. By default, this will defer to the #load.
+```
+The static constructors `ClientboundBlockEntityDataPacket#create` takes:
+
+* The `BlockEntity`.
+* An optional function to get the `CompoundTag` from the `BlockEntity`. By default, this uses `BlockEntity#getUpdateTag`.
 
 Now, to send the packet, an update notification must be given on the server.
 ```java
@@ -119,7 +120,7 @@ Level#sendBlockUpdated(BlockPos pos, BlockState oldState, BlockState newState, i
 ```
 The `pos` should be your `BlockEntity`'s position.
 For `oldState` and `newState`, you can pass the current `BlockState` at that position.
-`flags` is a bitmask that should contain `2`, which will sync the changes to the client. See `Constants$BlockFlags` for more info as well as the rest of the flags. The flag `2` is equivalent to `Constants$BlockFlags#BLOCK_UPDATE`.
+`flags` is a bitmask that should contain `2`, which will sync the changes to the client. See `Block` for more info as well as the rest of the flags. The flag `2` is equivalent to `Block#UPDATE_CLIENTS`.
 
 ### Synchronizing Using a Custom Network Message
 

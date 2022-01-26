@@ -69,6 +69,6 @@ Tags are directly supported by Vanilla. See the respective Vanilla wiki pages fo
 [datapack]: ../concepts/data.md
 [tags]: https://minecraft.gamepedia.com/Tag#JSON_format
 [taglist]: https://minecraft.gamepedia.com/Tag#List_of_tags
-[forgetags]: https://github.com/MinecraftForge/MinecraftForge/tree/1.17.x/src/generated/resources/data/forge/tags
+[forgetags]: https://github.com/MinecraftForge/MinecraftForge/tree/1.18.x/src/generated/resources/data/forge/tags
 [recipes]: https://minecraft.gamepedia.com/Recipe#JSON_format
 [advancements]: https://minecraft.gamepedia.com/Advancements

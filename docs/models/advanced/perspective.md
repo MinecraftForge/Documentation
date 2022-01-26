@@ -28,7 +28,7 @@ The entire vanilla system for handling transforms is deprecated by Forge, and mo
 The Forge Way
 -------------
 
-The Forge way of handling transforms is `#handlePerspective`, a method patched into `BakedModel`. It supersedes the `##getTransforms` method. Additionally, the class `PerspectiveMapWrapper` is a simple implementation of an `BakedModel` with the method; it is a wrapper around other `BakedModel`s, augmenting them with a `Map<TransformType, Transformation>` to handle perspective.
+The Forge way of handling transforms is `#handlePerspective`, a method patched into `BakedModel`. It supersedes the `#getTransforms` method. Additionally, the class `PerspectiveMapWrapper` is a simple implementation of an `BakedModel` with the method; it is a wrapper around other `BakedModel`s, augmenting them with a `Map<TransformType, Transformation>` to handle perspective.
 
 #### `BakedModel#handlePerspective`
 
