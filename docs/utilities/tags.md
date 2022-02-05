@@ -9,7 +9,7 @@ Tags are declared in your mod's [datapack][datapack]. For example, `/data/<modid
 Similarly, you may append to or override tags declared in other domains, such as Vanilla, by declaring your own JSONs.
 For example, to add your own mod's saplings to the Vanilla sapling tag, you would specify it in `/data/minecraft/tags/blocks/saplings.json`, and Vanilla will merge everything into one tag at reload, if the `replace` option is false.
 If `replace` is true, then all entries before the json specifying `replace` will be removed.
-Values listed that are not present will cause the tag to error unless the value is listed using an id string and required boolean set to false as in the following example.
+Values listed that are not present will cause the tag to error unless the value is listed using an `id` string and `required` boolean set to false as in the following example.
 
 As an example:
 ```json
