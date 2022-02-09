@@ -9,23 +9,27 @@ More advanced examples exist in mods, such as quarries, sorting machines, pipes,
     `BlockEntities` aren't a solution for everything and they can cause lag when used wrongly.
     When possible, try to avoid them.
 
-## Creating a `BlockEntity`
+## Registering
 
-In order to create a `BlockEntity`, you need to extend the `BlockEntity` class.
-To register it, listen for the appropriate registry event and create a `BlockEntityType`:
+Block Entities are created and removed dynamically and as such are not registry objects on their own.
+
+In order to create a `BlockEntity`, you need to extend the `BlockEntity` class. As such, another object is registered instead to easily create and refer to the *type* of the dynamic object. For a `BlockEntity`, these are known as `BlockEntityType`s.
+
+A `BlockEntityType` can be [registered][registration] like any other registry object. To construct a `BlockEntityType`, its builder form can be used via `BlockEntityType$Builder#of`. This takes in two arguments: a `BlockEntityType$BlockEntitySupplier` which takes in a `BlockPos` and `BlockState` to create a new instance of the associated `BlockEntity`, and a varargs of `Block`s which this `BlockEntity` can be attached to. Building the `BlockEntityType` is done by calling `BlockEntityType$Builder#build`. This takes in a `Type` which represents the type-safe reference used to refer to this registry object in a `DataFixer`. Since `DataFixer`s are an optional system to use for mods, this can be passed as `null`.
+
 ```java
-@SubscribeEvent
-public static void registerTE(RegistryEvent.Register<BlockEntityType<?>> evt) {
-  BlockEntityType<?> type = BlockEntityType.Builder.of(supplier, validBlocks).build(null);
-  type.setRegistryName("mymod", "mybe");
-  evt.getRegistry().register(type);
+// For some DeferredRegister<BlockEntityType<?>> REGISTER
+public static final RegistryObject<BlockEntityType<MyBE>> MY_BE = REGISTER.register("mybe", () -> BlockEntityType.Builder.of(MyBE::new, validBlocks).build(null));
+
+// In MyBE, a BlockEntity subclass
+public MyBE(BlockPos pos, BlockState state) {
+  super(MY_BE.get(), pos, state);
 }
 ```
-In this example, `supplier` is a `BlockEntityType$BlockEntitySupplier` that creates a new instance of your BlockEntity. A method reference or a lambda is commonly used. The variable `validBlocks` is one or more blocks (`BlockEntityType$Builder#of` is varargs) that the block entity can exist for.
 
-## Attaching a `BlockEntity` to a `Block`
+## Creating a `BlockEntity`
 
-To attach your new `BlockEntity` to a `Block`, the `EntityBlock` interface must be implemented on your `Block` subclass. The method `EntityBlock#newBlockEntity(BlockPos, BlockState)` must be implemented and return a new instance of your `BlockEntity`.
+To create a `BlockEntity` and attack it to a `Block`, the `EntityBlock` interface must be implemented on your `Block` subclass. The method `EntityBlock#newBlockEntity(BlockPos, BlockState)` must be implemented and return a new instance of your `BlockEntity`.
 
 ## Storing Data within your `BlockEntity`
 
@@ -134,6 +138,7 @@ Once you've created your custom network message, you can send it to all users th
     It is important that you do safety checks, the `BlockEntity` might already be destroyed/replaced when the message arrives at the player!
     You should also check if the chunk is loaded (`Level#hasChunkAt(BlockPos)`).
 
+[registration]: ../concepts/registries.md#methods-for-registering
 [storing-data]: #storing-data-within-your-blockentity
 [networking]: ../networking/index.md
 [simple_impl]: ../networking/simpleimpl.md
