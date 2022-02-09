@@ -26,6 +26,7 @@ Values listed that are not present will cause the tag to error unless the value 
 ```
 
 See the [Vanilla wiki][tags] for a description of the base syntax.
+
 There is also a Forge extension on the Vanilla syntax.
 You may declare a `remove` array of the same format as the `values` array. Any values listed here will be removed from the tag. This acts as a finer grained version of the Vanilla `replace` option.
 
