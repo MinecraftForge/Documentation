@@ -9,30 +9,28 @@ More advanced examples exist in mods, such as quarries, sorting machines, pipes,
     `TileEntities` aren't a solution for everything and they can cause lag when used wrongly.
     When possible, try to avoid them.
 
+## Registering
+
+Tile Entities are created and removed dynamically and as such are not registry objects on their own. 
+
+In order to create a `TileEntity`, you need to extend the `TileEntity` class. As such, another object is registered instead to easily create and refer to the *type* of the dynamic object. For a `TileEntity`, these are known as `TileEntityType`s.
+
+A `TileEntityType` can be [registered][registration] like any other registry object. To construct a `TileEntityType`, its builder form can be used via `TileEntityType$Builder#of`. This takes in two arguments: a `factory` representing some supplied method to create a new instance of the associated `TileEntity`, and a varargs of `validBlocks` which this `TileEntity` can be attached to. Building the `TileEntityType` is done by calling `TileEntityType$Builder#build`. This takes in a `Type` which represents the type-safe reference used to refer to this registry object in a `DataFixer`. Since `DataFixer`s are an optional system to use for mods, this can be passed as `null`.
+
+```java
+// For some DeferredRegister<TileEntityType<?>> REGISTER
+public static final RegistryObject<TileEntityType<MyTE>> MY_TE = REGISTER.register("myte", () -> TileEntityType.Builder.of(factory, validBlocks).build(null));
+```
+
 ## Creating a `TileEntity`
 
-In order to create a `TileEntity`, you need to extend the `TileEntity` class.
-To register it, listen for the appropriate registry event and create a `TileEntityType`:
-```java
-@SubscribeEvent
-public static void registerTE(RegistryEvent.Register<TileEntityType<?>> evt) {
-  TileEntityType<?> type = TileEntityType.Builder.of(factory, validBlocks).build(null);
-  type.setRegistryName("mymod", "myte");
-  evt.getRegistry().register(type);
-}
-```
-In this example, `factory` is a function that creates a new instance of your TileEntity. A method reference or a lambda is commonly used. The variable `validBlocks` is one or more blocks (`TileEntityType$Builder#of` is varargs) that the tile entity can exist for.
-
-## Attaching a `TileEntity` to a `Block`
-
-To attach your new `TileEntity` to a `Block`, you need to override 2 (two) methods within your `Block` subclass:
+To create a `TileEntity` and attach it to a `Block`, two methods must be overridden within the `Block` subclass:
 ```java
 IForgeBlock#hasTileEntity(BlockState state)
 
 IForgeBlock#createTileEntity(BlockState state, IBlockReader world)
 ```
-Using the parameters, you can choose if the block should have a `TileEntity` or not.
-Usually, you will return `true` in the first method and a new instance of your `TileEntity` in the second method.
+In most cases, `#hasTileEntity` will return `true` to indicate the block has a `TileEntity` and return a new instance of said `TileEntity` within `#createTileEntity`.
 
 ## Storing Data within your `TileEntity`
 
@@ -127,6 +125,7 @@ Once you've created your custom network message, you can send it to all users th
     It is important that you do safety checks, the `TileEntity` might already be destroyed/replaced when the message arrives at the player!
     You should also check if the chunk is loaded (`World#hasChunkAt(BlockPos)`).
 
+[registration]: ../concepts/registries.md#methods-for-registering
 [storing-data]: #storing-data-within-your-tileentity
 [networking]: ../networking/index.md
 [simple_impl]: ../networking/simpleimpl.md
