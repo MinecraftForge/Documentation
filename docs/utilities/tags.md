@@ -9,13 +9,26 @@ Tags are declared in your mod's [datapack][datapack]. For example, `/data/<modid
 Similarly, you may append to or override tags declared in other domains, such as Vanilla, by declaring your own JSONs.
 For example, to add your own mod's saplings to the Vanilla sapling tag, you would specify it in `/data/minecraft/tags/blocks/saplings.json`, and Vanilla will merge everything into one tag at reload, if the `replace` option is false.
 If `replace` is true, then all entries before the json specifying `replace` will be removed.
+Values listed that are not present will cause the tag to error unless the value is listed using an `id` string and `required` boolean set to false, as in the following example:
+
+```json
+{
+  "replace": false,
+  "values": [
+    "minecraft:gold_ingot",
+    "mymod:my_ingot",
+    {
+      "id": "othermod:ingot_other",
+      "required": false
+    }
+  ]
+}
+```
+
 See the [Vanilla wiki][tags] for a description of the base syntax.
 
-Forge provides two extensions on the Vanilla syntax:
-
-* You may declare an `optional` array of the same format as the `values` array, but any values listed here that are not present will not cause the tag loading to error.
-This has been deprecated in favor of the vanilla method of specifying optional tag values.
-* You may declare a `remove` array of the same format as the `values` array. Any values listed here will be removed from the tag. This acts as a finer grained version of the Vanilla `replace` option.
+There is also a Forge extension on the Vanilla syntax.
+You may declare a `remove` array of the same format as the `values` array. Any values listed here will be removed from the tag. This acts as a finer grained version of the Vanilla `replace` option.
 
 
 Using Tags In Code
