@@ -27,7 +27,7 @@ In Minecraft 1.8 and above, the metadata system, along with the block ID system,
 
 Each *property* of a block is described by an instance of `Property<?>`. Examples of block properties include instruments (`EnumProperty<NoteBlockInstrument>`), facing (`DirectionProperty`), poweredness (`Property<Boolean>`), etc. Each property has the value of the type `T` parametrized by `Property<T>`.
 
-A unique triple can be constructed from the `Block`, the set of `Property<?>`, and the set of values for those properties. This unique triple is called a `BlockState`. 
+A unique pair can be constructed from the `Block` and a map of the `Property<?>` to their associated values. This unique pair is called a `BlockState`.
 
 The previous system of meaningless metadata values were replaced by a system of block properties, which are easier to interpret and deal with. Previously, a stone button which is facing east and is powered or held down is represented by "`minecraft:stone_button` with metadata `9`. Now, this is represented by "`minecraft:stone_button[facing=east,powered=true]`".
 
