@@ -47,8 +47,6 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
   * `LootTableProvider` - for loot tables; override `#getTables`
   * `RecipeProvider` - for recipes and their unlocking advancements; override `#buildShapelessRecipes`
   * `TagsProvider` - for tags; override `#addTags`
-
-!!! notes
-	An `AdvancementProvider` class does exist, however it is hardcoded for only the vanilla advancements.
+  * `AdvancementProvider` - for advancements; override `#registerAdvancements`
 
 [glm]: ../items/globallootmodifiers.md
