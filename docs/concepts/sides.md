@@ -38,11 +38,28 @@ How do we resolve this? Luckily, FML has `DistExecutor`, which provides various 
 
     It is important to understand that FML checks based on the **physical** side. A single player world (logical server + logical client within a physical client) will always use `Dist.CLIENT`!
 
-`DistExecutor` functions by taking in a supplied supplier executing a method, effectively preventing classloading by taking advantage of the [`invokedynamic` JVM instruction][invokedynamic]. The executed method should be static and within a different class. Additionally, if no parameters are present for the static method, a method reference should be used instead of a supplier executing a method.
+`DistExecutor` works by taking in a supplied supplier executing a method, effectively preventing classloading by taking advantage of the [`invokedynamic` JVM instruction][invokedynamic]. The executed method should be static and within a different class. Additionally, if no parameters are present for the static method, a method reference should be used instead of a supplier executing a method.
 
 There are two main methods within `DistExecutor`: `#runWhenOn` and `#callWhenOn`. The methods take in the physical side the executing method should run on and the supplied executing method which either runs or returns a result respectively.
 
 These two methods are subdivided further into `#safe*` and `#unsafe*` variants. Safe and unsafe variants are misnomers for their purposes. The main difference is that when in a development environment, the `#safe*` methods will validate that the supplied executing method is a lambda returning a method reference to another class with an error being thrown otherwise. Within the production environment, `#safe*` and `#unsafe*` are functionally the same.
+
+```java
+// In a client class: ExampleClass
+public static void unsafeRunMethodExample(Object param1, Object param2) {
+    // ...
+}
+
+public static Object safeCallMethodExample() {
+    // ...
+}
+
+// In some common class
+DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> ExampleClass.unsafeRunMethodExample(var1, var2));
+
+DistExecutor.safeCallWhenOn(Dist.CLIENT, () -> ExampleClass::safeCallMethodExample);
+
+```
 
 ### Thread Groups
 
