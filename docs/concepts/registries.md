@@ -10,7 +10,7 @@ Every type of registrable object has its own registry. To see all registries sup
 Methods for Registering
 ------------------
 
-There are two proper ways to register objects: the `DeferredRegister` class, and the `RegistryEvent$Register` lifecycle event.
+There are three proper ways to register objects: the `DeferredRegister` class, the `RegistryEvent$Register` lifecycle event, as well as `Registry#register` for vanilla-only registries.
 
 ### DeferredRegister
 
@@ -40,6 +40,37 @@ Here is an example: (the event handler is registered on the *mod event bus*)
 @SubscribeEvent
 public void registerBlocks(RegistryEvent.Register<Block> event) {
     event.getRegistry().registerAll(new Block(...), new Block(...), ...);
+}
+```
+
+### Registries that aren't Forge Registries
+
+Due to some peculiarities of vanilla code, not all registries are wrapped by Forge. One of the more common examples of this is with some worldgen registries, such as configured features and placed features.
+
+It is safe to use these registries in your mods when a forge variant isn't available. However, without the benefit of registry objects, we have to be careful of when we do the registration and how.
+
+Here is an example. Here, we just use vanilla's method `Registry#register` while being sure to populate it at a later date.
+
+```java
+public class MyFeatures
+{
+  public static final Supplier<ConfiguredFeature<?, ?>> DIAMOND_PILE = Lazy.of(() -> {
+    Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation("examplemod", "diamond_pile"), Feature.BLOCK_PILE.configured(...));
+  });
+  
+  public static void init()
+  {
+    DIAMOND_PILE.get(); // forces Lazy to populate the value
+  }
+}
+```
+
+Then, we populate the objects during common setup:
+
+```java
+public void onCommonSetup(FMLCommonSetupEvent event)
+{
+  event.enqueueWork(MyFeatures::init);
 }
 ```
 
