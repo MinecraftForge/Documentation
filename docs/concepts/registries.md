@@ -10,7 +10,7 @@ Every type of registrable object has its own registry. To see all registries sup
 Methods for Registering
 ------------------
 
-There are three proper ways to register objects: the `DeferredRegister` class, the `RegistryEvent$Register` lifecycle event, as well as `Registry#register` for vanilla-only registries.
+There are two proper ways to register objects: the `DeferredRegister` class, and the `RegistryEvent$Register` lifecycle event.
 
 ### DeferredRegister
 
@@ -45,34 +45,12 @@ public void registerBlocks(RegistryEvent.Register<Block> event) {
 
 ### Registries that aren't Forge Registries
 
-Due to some peculiarities of vanilla code, not all registries are wrapped by Forge. One of the more common examples of this is with some worldgen registries, such as configured features and placed features.
+Due to some peculiarities of vanilla code, not all registries are wrapped by Forge. These can be static registries, like `RecipeType`, which are safe to use. There are also dynamic registries, like `ConfiguredFeature` and some other worldgen registries, which are typically represented in JSON. These objects should only be registered this way if there is another registry object that requires it. 
 
-It is safe to use these registries in your mods when a forge variant isn't available. However, without the benefit of registry objects, we have to be careful of when we do the registration and how.
+Without the benefit of registry objects, we have to be careful of when we do the registration and how.
 
-Here is an example. Here, we just use vanilla's method `Registry#register` while being sure to populate it at a later date.
+Outside your main mod class, have a static field store a `Lazy` of a call to `Registry#register` containing the object you want to register. Later, in FMLCommonSetupEvent, enqueue a call to `Supplier#get` on the object, thus populating it.
 
-```java
-public class MyFeatures
-{
-  public static final Supplier<ConfiguredFeature<?, ?>> DIAMOND_PILE = Lazy.of(() -> {
-    Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new ResourceLocation("examplemod", "diamond_pile"), Feature.BLOCK_PILE.configured(...));
-  });
-  
-  public static void init()
-  {
-    DIAMOND_PILE.get(); // forces Lazy to populate the value
-  }
-}
-```
-
-Then, we populate the objects during common setup:
-
-```java
-public void onCommonSetup(FMLCommonSetupEvent event)
-{
-  event.enqueueWork(MyFeatures::init);
-}
-```
 
 !!! note
     Some classes cannot by themselves be registered. Instead, `*Type` classes are registered, and used in the formers' constructors. For example, [`BlockEntity`][blockentity] has `BlockEntityType`, and `Entity` has `EntityType`. These `*Type` classes are factories that simply create the containing type on demand. 
