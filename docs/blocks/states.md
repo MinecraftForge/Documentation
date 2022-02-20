@@ -6,7 +6,7 @@ Legacy Behavior
 
 In Minecraft 1.7 and previous versions, blocks which need to store placement or state data that did not have TileEntities used **metadata**. Metadata was an extra number stored with the block, allowing different rotations, facings, or even completely separate behaviors within a block.
 
-However, the metadata system was confusing and limited, since it was stored as only a number alongside the block ID, and had no meaning except what was commented in the code. For example, to implement a block that can face a direction and be on either the upper or lower half of a block space (such as a stair): 
+However, the metadata system was confusing and limited, since it was stored as only a number alongside the block ID, and had no meaning except what was commented in the code. For example, to implement a block that can face a direction and be on either the upper or lower half of a block space (such as a stair):
 
 ```Java
 switch (meta) {
@@ -27,7 +27,7 @@ In Minecraft 1.8 and above, the metadata system, along with the block ID system,
 
 Each *property* of a block is described by an instance of `IProperty<?>`. Examples of block properties include instruments (`Property<NoteBlockInstrument>`), facing (`Property<Direction`), poweredness (`Property<Boolean>`), etc. Each property has the value of the type `T` parametrized by `Property<T>`.
 
-A unique triple can be constructed from the `Block`, the set of `Property<?>`, and the set of values for those properties. This unique triple is called a `BlockState`. 
+A unique pair can be constructed from the block and a map of the properties to their associated values. This unique pair is called a `BlockState`.
 
 The previous system of meaningless metadata values were replaced by a system of block properties, which are easier to interpret and deal with. Previously, a stone button which is facing east and is powered or held down is represented by "`minecraft:stone_button` with metadata `9`. Now, this is represented by "`minecraft:stone_button[facing=east,powered=true]`".
 
