@@ -8,22 +8,33 @@ Registering a Global Loot Modifier
 
 You will need 4 things:
 1. Create a `global_loot_modifiers.json`.
+
     This will tell Forge about your modifiers and works similar to [tags].
+
 2. A serialized json representing your modifier.
+
     This will contain all of the data about your modification and allows data packs to tweak your effect.
+
 3. A class that extends `IGlobalLootModifier`.
+
     The operational code that makes your modifier work. Most modders can extend `LootModifier` as it supplies base functionality.
+
 4. Finally, a class that extends `GlobalLootModifierSerializer` for your operational class.
+
     This is [registered] as any other `IForgeRegistryEntry`.
 
 The `global_loot_modifiers.json`
 -------------------------------
 
-The `global_loot_modifiers.json` represents all loot modifiers to be loaded into the game. This file must be placed within `data/forge/loot_modifiers/global_loot_modifiers.json`.
+The `global_loot_modifiers.json` represents all loot modifiers to be loaded into the game. This file **MUST** be placed within `data/forge/loot_modifiers/global_loot_modifiers.json`.
 
-`entries` is an *ordered list* of the modifiers that will be loaded. This means that any modifier that not listed will not be loaded, and the ones listed are their written order. The [ResourceLocation][resloc]s specified points to their associated entry within `data/<namespace>/loot_modifiers/<path>.json`. This is primarily relevant to data pack makers for resolving conflicts between modifiers from separate mods.
+!!! important
 
-`replace` causes the cache of modifiers to be cleared fully when this asset loads (mods are loaded in an order that may be specified by a data pack). For modders, you will want to use `false`. Data pack makers may want to specify their overrides with `true`.
+    `global_loot_modifiers.json` will only be read in the `forge` namespace. The file will be neglected if it is under the mod's namespace.
+
+`entries` is an *ordered list* of the modifiers that will be loaded. The [ResourceLocation][resloc]s specified points to their associated entry within `data/<namespace>/loot_modifiers/<path>.json`. This is primarily relevant to data pack makers for resolving conflicts between modifiers from separate mods.
+
+`replace`, when `true`, changes the behavior from appending loot modifiers to the global list to replacing the global list entries entirely. Modders will want to use `false` for compatibility with other mod implementations. Datapack makers may want to specify their overrides with `true`.
 
 ```json5
 {
@@ -65,8 +76,6 @@ Any additional properties read by the serializer and defined by the modifier can
   "prop3": "minecraft:dirt"
 }
 ```
-
-# TODO: Document
 
 `IGlobalLootModifier`
 ---------------------
