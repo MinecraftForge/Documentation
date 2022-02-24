@@ -123,7 +123,7 @@ Two methods must be defined within the serializer implementation: `#read` and `#
 
 `#read` takes in the registry name of the JSON, the serialized `JsonObject`, and the array of conditions that, by most implementations, must be true to allow the loot modifier to execute. The only data that should be deserialized from the `JsonObject` are the custom properties specified for use by the implemented loot modifier. If no custom properties are needed, then no data should be deserialized from the `JsonObject` as the conditions are supplied as a parameter.
 
-`#write` is responsible for turning the defined loot modifier and writing it to a `JsonObject`. This requires that all conditions along with any custom properties must be written. For ease of convenience `#makeConditions` can be called to create a new `JsonObject` with the conditions already serialized within. Then, any additional properties can be added to this `JsonObject`. This is utilized for [data generation][datagen] of the associated loot modifier.
+`#write` is responsible for turning the defined loot modifier and writing it to a `JsonObject`. This requires that all conditions along with any custom properties must be written. For ease of convenience, `#makeConditions` can be called to create a new `JsonObject` with the conditions already serialized within. Any additional properties to be serialized can then be added to this `JsonObject`. This is utilized for [data generation][datagen] of the associated loot modifier.
 
 ```java
 public ExampleModifierSerializer extends GlobalLootModifierSerializer<ExampleModifier> {
