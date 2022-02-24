@@ -45,7 +45,7 @@ public void registerBlocks(RegistryEvent.Register<Block> event) {
 
 ### Registries that aren't Forge Registries
 
-Due to some peculiarities of vanilla code, not all registries are wrapped by Forge. These can be static registries, like `RecipeType`, which are safe to use. There are also dynamic registries, like `ConfiguredFeature` and some other worldgen registries, which are typically represented in JSON. These objects should only be registered this way if there is another registry object that requires it. 
+Due to some peculiarities of vanilla code, not all registries are wrapped by Forge. These can be static registries, like `IRecipeType`, which are safe to use. There are also dynamic registries, like `ConfiguredFeature` and some other worldgen registries, which are typically represented in JSON. These objects should only be registered this way if there is another registry object that requires it. 
 
 Without the benefit of registry objects, care has to be taken to not register things before they're ready. `Lazy` is a utility class that stores a value that is calculated the first time it is accessed. Using `Lazy.of(...)` with a supplier as a parameter is its typical usage. `Lazy` is a subclass of `Supplier`, so `Supplier#get` is used to retrieve the value.
 
