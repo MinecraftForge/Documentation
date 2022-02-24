@@ -7,6 +7,7 @@ Registering a Global Loot Modifier
 -------------------------------
 
 You will need 4 things:
+
 1. Create a `global_loot_modifiers.json`.
 
     This will tell Forge about your modifiers and works similar to [tags].
