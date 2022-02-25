@@ -130,10 +130,10 @@ Two methods must be defined within the serializer implementation: `#read` and `#
 public ExampleModifierSerializer extends GlobalLootModifierSerializer<ExampleModifier> {
 
     @Override
-    public ExampleModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] ailootcondition) {
+    public ExampleModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] conditions) {
         String prop1 = GsonHelper.getAsString(object, "prop1");
         // Deserializer other properties
-        return new ExampleModifier(ailootcondition, prop1, prop2, prop3);
+        return new ExampleModifier(conditions, prop1, prop2, prop3);
     }
 
     @Override
