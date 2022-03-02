@@ -15,7 +15,6 @@ Formatting
 ----------
 
 !!! important
-
     Please use **two spaces** to indent, not tabs.
 
 Titles should be capitalized in the standard titling format. For example,
@@ -32,3 +31,7 @@ Please use equals and dash underlines, instead of `#` and `##`. For h3 and lower
 When referencing fields and methods outside of code block snippets, they should use a `#` separator (e.g. `ClassName#methodName`). Inner classes should use a `$` separator (e.g. `ClassName$InnerClassName`).
 
 All links should have their location specified at the bottom of the page. Any internal links should reference the page via their relative path.
+
+Admonitions (represented by `!!! <type>`) must be formatted as [documented][admonition]; otherwise they may end up rendering incorrectly.
+
+[admonition]: https://python-markdown.github.io/extensions/admonition/

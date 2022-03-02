@@ -47,7 +47,7 @@ Item unknownItem = stack.getItem();
 boolean isInGroup = unknownItem.is(myTag);
 ```
 
-!!! note:
+!!! note
     The `TagCollection` returned by `#getAllTags` (and the `Tag`s within it) may expire if a reload happens.
     The static `Tag$Named` fields in `BlockTags` and `ItemTags` avoid this by introducing a wrapper that handles this expiring.
 

@@ -43,12 +43,11 @@ These methods are called whenever the `LevelChunk` containing the `BlockEntity` 
 Use them to read and write to the fields in your block entity class.
 
 !!! note
-
 		Whenever your data changes, you need to call `BlockEntity#setChanged`; otherwise, the `LevelChunk` containing your `BlockEntity` might be skipped while the level is saved.
 
 !!! important
-
 		It is important that you call the `super` methods!
+
     The tag names `id`, `x`, `y`, `z`, `ForgeData` and `ForgeCaps` are reserved by the `super` methods.
 
 ## Ticking `BlockEntities`
@@ -70,9 +69,7 @@ public static void tick(Level level, BlockPos pos, BlockState state, T blockEnti
 ```
 
 !!! note
-    This method is called each tick; therefore, you should avoid having complicated calculations in here.
-    If possible, you should make more complex calculations every X ticks.
-    (The amount of ticks in a second may be lower then 20 (twenty) but won't be higher)
+    This method is called each tick; therefore, you should avoid having complicated calculations in here. If possible, you should make more complex calculations every X ticks. (The amount of ticks in a second may be lower then 20 (twenty) but won't be higher)
 
 ## Synchronizing the Data to the Client
 
@@ -90,7 +87,6 @@ Again, this is pretty simple, the first method collects the data that should be 
 while the second one processes that data. If your `BlockEntity` doesn't contain much data, you might be able to use the methods out of the [Storing Data within your `BlockEntity`][storing-data] section.
 
 !!! important
-
     Synchronizing excessive/useless data for block entities can lead to network congestion. You should optimize your network usage by sending only the information the client needs when the client needs it. For instance, it is more often than not unnecessary to send the inventory of a block entity in the update tag, as this can be synchronized via its `AbstractContainerMenu`.
 
 ### Synchronizing on Block Update
@@ -134,9 +130,7 @@ You should first check out the [`Networking`][networking] section and especially
 Once you've created your custom network message, you can send it to all users that have the `BlockEntity` loaded with `SimpleChannel#send(PacketDistributor$PacketTarget, MSG)`.
 
 !!! warning
-
-    It is important that you do safety checks, the `BlockEntity` might already be destroyed/replaced when the message arrives at the player!
-    You should also check if the chunk is loaded (`Level#hasChunkAt(BlockPos)`).
+    It is important that you do safety checks, the `BlockEntity` might already be destroyed/replaced when the message arrives at the player! You should also check if the chunk is loaded (`Level#hasChunkAt(BlockPos)`).
 
 [registration]: ../concepts/registries.md#methods-for-registering
 [storing-data]: #storing-data-within-your-blockentity

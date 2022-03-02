@@ -92,10 +92,8 @@ public void attack(BlockState state, Level level, BlockPos pos, Player player)
 
 Called on a block when it is clicked by a player.
 
-!!! Note
-    
-    This method is for when the player *left-clicks* on a block.
-    Don't get this confused with `use`, which is called when the player *right-clicks*.
+!!! note
+    This method is for when the player *left-clicks* on a block. Don't get this confused with `use`, which is called when the player *right-clicks*.
 
 ### Parameters:
 |      Type       |     Name     |                  Description                  |

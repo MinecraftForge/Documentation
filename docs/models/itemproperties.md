@@ -15,7 +15,6 @@ There's also another method `ItemProperties#registerGeneric` that is used to add
     Use `FMLClientSetupEvent#enqueueWork` to proceed with the tasks, since the data structures in `ItemProperties` are not thread-safe.
 
 !!! note
-
     `ItemPropertyFunction` is deprecated by Mojang in favor of using the subinterface `ClampedItemPropertyFunction` which clamps the result between `0` and `1`.
 
 Using Overrides
