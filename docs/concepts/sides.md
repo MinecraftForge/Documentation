@@ -35,7 +35,6 @@ Considering the use of a single "universal" jar for client and server mods, and 
 How do we resolve this? Luckily, FML has `DistExecutor`, which provides various methods to run different methods on different physical sides, or a single method only on one side.
 
 !!! note
-
     It is important to understand that FML checks based on the **physical** side. A single player world (logical server + logical client within a physical client) will always use `Dist.CLIENT`!
 
 `DistExecutor` works by taking in a supplied supplier executing a method, effectively preventing classloading by taking advantage of the [`invokedynamic` JVM instruction][invokedynamic]. The executed method should be static and within a different class. Additionally, if no parameters are present for the static method, a method reference should be used instead of a supplier executing a method.

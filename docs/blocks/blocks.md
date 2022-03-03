@@ -17,8 +17,7 @@ For simple blocks, which need no special functionality (think cobblestone, woode
 
 All these methods are *chainable* which means you can call them in series. See the `Blocks` class for examples of this.
 
-!!! Note
-
+!!! note
     Blocks have no setter for their `ItemGroup` (formerly Creative Tab). This has been moved to the `BlockItem` and is now its responsibility. Furthermore, there is no setter for translation key as it is now generated from the registry name.
 
 ### Advanced Blocks
@@ -31,7 +30,6 @@ Registering a Block
 Blocks must be [registered][registering] to function.
 
 !!! important
-
     A block in the world and a "block" in an inventory are very different things. A block in the world is represented by an `BlockState`, and its behavior defined by an instance of `Block`. Meanwhile, an item in an inventory is an `ItemStack`, controlled by an `Item`. As a bridge between the different worlds of `Block` and `Item`, there exists the class `BlockItem`. `BlockItem` is a subclass of `Item` that has a field `block` that holds a reference to the `Block` it represents. `BlockItem` defines some of the behavior of a "block" as an item, like how a right click places the block. It's possible to have a `Block` without an `BlockItem`. (E.g. `minecraft:water` exists a block, but not an item. It is therefore impossible to hold it in an inventory as one.)
 
     When a block is registered, *only* a block is registered. The block does not automatically have an `BlockItem`. To create a basic `BlockItem` for a block, one should set the registry name of the `BlockItem` to that of its `Block`. Custom subclasses of `BlockItem` may be used as well. Once an `BlockItem` has been registered for a block, `Block#asItem` can be used to retrieve it. `Block#asItem` will return `Items#AIR` if there is no `BlockItem` for the `Block`, so if you are not certain that there is an `BlockItem` for the `Block` you are using, check for if `Block#asItem` returns `Items#AIR`.

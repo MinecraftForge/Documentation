@@ -41,7 +41,6 @@ A basic recipe file might look like the following example:
 ```
 
 !!! note
-
     When you first obtain an ingredient to a vanilla recipe, it will automatically unlock the recipe in the recipe book. To achieve the same effect, you have to use the [advancement][] system and create a new advancement for each of your ingredients.
 
     The advancement has to exist. This does not mean it has to be visible in the advancement tree.
@@ -69,7 +68,6 @@ A shapeless recipe does not make use of the `pattern` and `key` keywords.
 To define a shapeless recipe, you have to use the `ingredients` list. It defines which items have to be used for the crafting process. There are [many more][wiki] of these types which can be used here, and you can even register your own. It is even possible to define a slot that requires more than one of an item, which means multiple of these items have to be in place.
 
 !!! note
-
     While there is no limit on how many ingredients your recipe requires, the vanilla crafting table only allows 9 items to be placed for each crafting recipe.
 
 The following example shows how an ingredient list looks like within JSON:

@@ -46,7 +46,7 @@ A special modifier `+f` and `-f` can be appended to the aforementioned modifiers
 Targets and Directives
 ----------------------
 
-!!! Information
+!!! important
     When using Access Transformers on Minecraft classes, the SRG name must be used for fields and methods.
 
 ### Classes

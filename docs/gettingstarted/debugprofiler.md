@@ -9,7 +9,7 @@ The important part here is that the more time you give it to collect the data, t
 It is recommended to at least let it collect data for a minute.
 
 !!! note
-  Naturally, you can only profile code paths that are actually being reached. `Entities` and `TileEntities` that you want to profile must exist in the world to show up in the results.
+    Naturally, you can only profile code paths that are actually being reached. `Entities` and `TileEntities` that you want to profile must exist in the world to show up in the results.
 
 After you have stopped the debugger, it will create a new file within the `debug` subdirectory in your run directory.
 The file name will be formatted with the date and time as `profile-results-yyyy-mm-dd_hh.mi.ss.txt`
