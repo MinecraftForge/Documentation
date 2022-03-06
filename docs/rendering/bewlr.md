@@ -27,7 +27,6 @@ public void initializeClient(Consumer<IItemRenderProperties> consumer) {
 ```
 
 !!! important
-
     Each mod should only have one instance of a custom BEWLR.
 
 That is it, no additional setup is necessary to use a BEWLR.

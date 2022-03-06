@@ -45,6 +45,10 @@ public static final TagKey<Item> myItemTag = ItemTags.create("mymod:myitemgroup"
 
 public static final TagKey<Potion> myPotionTag = TagKey.create(Registry.POTION, "mymod:mypotiongroup");
 
+!!! note
+    The `TagCollection` returned by `#getAllTags` (and the `Tag`s within it) may expire if a reload happens.
+    The static `Tag$Named` fields in `BlockTags` and `ItemTags` avoid this by introducing a wrapper that handles this expiring.
+    
 // In some method where stack is an ItemStack
 boolean isInItemGroup = stack.is(myItemTag);
 

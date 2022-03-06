@@ -18,6 +18,7 @@ public class MyMod {
 !!! warning
     All four of the below events are called for all mods in parallel, meaning they are all a subclass of `ParallelDispatchEvent`. That is, all mods will concurrently receive common setup, FML will wait for 
     them all to finish, then all mods will concurrently receive sided setup, and so forth.
+    
     Mods *must* take care to be thread safe, especially when calling other mods' APIs and accessing Vanilla systems, which are not thread safe in general. This can be done by calling `#enqueueWork` on the event parameter.
 
 

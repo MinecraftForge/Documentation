@@ -4,7 +4,6 @@ Documentation for Legacy Versions
 Forge has existed for years, and you can still easily access builds of Forge for Minecraft versions as old as Minecraft 1.1. There are significant differences between each and every version, and it would be an impossible task to support so many different versions. Therefore, Forge uses an LTS system where a previous major Minecraft version is deemed as "LTS" (Long Term Support). Only the latest version and any current LTS versions will have easily accessible documentation and be included in the version dropdown in the sidebar. However, some older versions were LTS once or the latest version at some point and had documentation written. Links to old sites with documentation for those versions can be found here.
 
 !!! important
-
     These old documentation sites are for reference purposes only. Do not ask for help with old versions on the Forge discord or the Forge forums. **You will not receive support when you are using older versions.**
 
 ### List of Previously Documented versions

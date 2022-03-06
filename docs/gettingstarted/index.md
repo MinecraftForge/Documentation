@@ -29,7 +29,6 @@ Customizing Your Mod Information
 Edit the `build.gradle` file to customize how your mod is built (the file names, versions, and other things).
 
 !!! important
-
     **Do not** edit the `buildscript {}` section of the build.gradle file, its default text is necessary for ForgeGradle to function.
 
 Almost anything underneath the `// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.` marker can be changed. Many things can be removed and customized there as well.
@@ -56,7 +55,6 @@ Building and Testing Your Mod
 3. You can also run a dedicated server using the server run config or via `gradlew runServer`. This will launch the Minecraft server with its GUI. After the first run, the server will shut down immediately until the Minecraft EULA is accepted by editing `run/eula.txt`. Once accepted, the server will load and can be accessed via a direct connect to `localhost`.
 
 !!! note
-
     It is always advisable to test your mod in a dedicated server environment if it is intended to run there.
     
 [files]: https://files.minecraftforge.net "Forge Files distribution site"

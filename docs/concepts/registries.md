@@ -211,8 +211,7 @@ When using `RegistryEvent$NewRegistry`, all one needs to do is construct the reg
 The `DeferredRegister` method is once again another wrapper around the above event. Once a `DeferredRegister` is created in a constant field, the registry can be constructed via `DeferredRegister#makeRegistry`. This takes in the name of the registry along with a supplied `RegistryBuilder` containing any additional configurations. The method already populates `#setName` and `#setType` by default. Since this method can be returned at any time, a supplied version of an `IForgeRegistry` is returned instead. This will be unresolvable until `RegistryEvent$NewRegistry` passes.
 
 !!! important
-
-  `DeferredRegister#makeRegistry` must be called before the `DeferredRegister` is added to the mod event bus via `#register`. `#makeRegistry` also uses the `#register` method to create the registry during `RegistryEvent$NewRegistry`.
+    `DeferredRegister#makeRegistry` must be called before the `DeferredRegister` is added to the mod event bus via `#register`. `#makeRegistry` also uses the `#register` method to create the registry during `RegistryEvent$NewRegistry`.
 
 Handling Missing Entries
 ------------------------
