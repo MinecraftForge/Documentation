@@ -58,7 +58,9 @@ This is where messages can be sent to mods for cross-mod compatibility. There ar
 
 `InterModComms` is the class responsible for holding messages for mods. The methods are safe to call during the lifecycle events, as it is backed by a `ConcurrentMap`.
 
-During the `InterModEnqueueEvent`, use `InterModComms#sendTo` to send messages to different mods, then during the `InterModProcessEvent`, call `InterModComms#getMessages` to get a stream of all received messages.
+During the `InterModEnqueueEvent`, use `InterModComms#sendTo` to send messages to different mods. These methods take in the mod id that will be sent the message, the key associated with the message data, and a supplier holding the message data. Additionally, the sender of the message can also be specified, but by default it will be the mod id of the caller.
+
+Then during the `InterModProcessEvent`, use `InterModComms#getMessages` to get a stream of all received messages. The mod id supplied will almost always be the mod id of the mod the method is called on. Additionally, a predicate can be specified to filter out the message keys. This will return a stream of `IMCMessage`s which hold the sender of the data, the receiver of the data, the data key, and the supplied data itself.
 
 !!! note
     There are two other lifecycle events: `FMLConstructModEvent`, fired directly after mod instance construction but before the `RegistryEvent`s, and `FMLLoadCompleteEvent`, fired after the `InterModComms` events, for when the mod loading process is complete.
