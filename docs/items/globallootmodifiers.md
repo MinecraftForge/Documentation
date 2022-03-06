@@ -7,133 +7,151 @@ Registering a Global Loot Modifier
 -------------------------------
 
 You will need 4 things:
-1. Create a `global_loot_modifiers.json` file at `/data/forge/loot_modifiers/`.
-    This will tell Forge about your modifiers and works similar to [tags][].
+
+1. Create a `global_loot_modifiers.json`.
+
+    This will tell Forge about your modifiers and works similar to [tags].
+
 2. A serialized json representing your modifier.
+
     This will contain all of the data about your modification and allows data packs to tweak your effect.
-3. A class that extends `LootModifier`.
-    The operational code that makes your modifier work.
-4. Finally, the serializer for your operational class.
-    This is [registered] as any other `ForgeRegistryEntry`.
+
+3. A class that extends `IGlobalLootModifier`.
+
+    The operational code that makes your modifier work. Most modders can extend `LootModifier` as it supplies base functionality.
+
+4. Finally, a class that extends `GlobalLootModifierSerializer` for your operational class.
+
+    This is [registered] as any other `IForgeRegistryEntry`.
 
 The `global_loot_modifiers.json`
 -------------------------------
 
-All you need to add here are the file names of your loot modifiers. The [ResourceLocation][resloc] specified points to `data/<namespace>/loot_modifiers/<path>.json`.
+The `global_loot_modifiers.json` represents all loot modifiers to be loaded into the game. This file **MUST** be placed within `data/forge/loot_modifiers/global_loot_modifiers.json`.
 
-```json
+!!! important
+
+    `global_loot_modifiers.json` will only be read in the `forge` namespace. The file will be neglected if it is under the mod's namespace.
+
+`entries` is an *ordered list* of the modifiers that will be loaded. The [ResourceLocation][resloc]s specified points to their associated entry within `data/<namespace>/loot_modifiers/<path>.json`. This is primarily relevant to data pack makers for resolving conflicts between modifiers from separate mods.
+
+`replace`, when `true`, changes the behavior from appending loot modifiers to the global list to replacing the global list entries entirely. Modders will want to use `false` for compatibility with other mod implementations. Datapack makers may want to specify their overrides with `true`.
+
+```json5
 {
-  "replace": false,
+  "replace": false, // Must be present
   "entries": [
-    "global_loot_test:silk_touch_bamboo",
-    "global_loot_test:smelting",
-    "global_loot_test:wheat_harvest"
+    // Represents a loot modifier in 'data/examplemod/loot_modifiers/example_glm.json'
+    "examplemod:example_glm",
+    "examplemod:example_glm2"
+    // ...
   ]
 }
 ```
-
-`replace` causes the cache of modifiers to be cleared fully when this asset loads (mods are loaded in an order that may be specified by a data pack). For modders, you will want to use `false`. Data pack makers may want to specify their overrides with `true`.
-
-`entries` is an *ordered list* of the modifiers that will be loaded. This means that any modifier that not listed will not be loaded, and the ones listed are their written order. This is primarily relevant to data pack makers for resolving conflicts between modifiers from separate mods.
 
 The Serialized JSON
 -------------------------------
 
 This file contains all of the potential variables related to your modifier, including the conditions that must be met prior to modifying any loot. Avoid hard-coded values wherever possible so that data pack makers can adjust balance if they wish to.
-```json
+
+`type` represents the registry name of the [`GlobalLootModifierSerializer`][serializer] used to read the associated JSON file. This must always be present.
+
+`conditions` should represent the loot table conditions for this modifier to activate. Conditions should avoid being hardcoded to allow datapack creators as much flexibility to adjust the criteria. This must also be always present.
+
+!!! important
+
+    Although `conditions` should represent what is needed for the modifier to activate, this is only the case if using the bundled Forge classes. If using `LootModifier` as a subclass, all conditions will be **ANDed** together and checked to see if the modifier should be applied.
+
+Any additional properties read by the serializer and defined by the modifier can also be specified.
+
+```json5
+// Within data/examplemod/loot_modifiers/example_glm.json
 {
+  "type": "examplemod:example_loot_modifier",
   "conditions": [
-    {
-      "condition": "minecraft:match_tool",
-      "predicate": {
-        "item": "minecraft:shears"
-      }
-    },
-    {
-      "condition": "block_state_property",
-      "block":"minecraft:wheat"
-    }
+    // Normal loot table conditions
+    // ...
   ],
-  "seedItem": "minecraft:wheat_seeds",
-  "numSeeds": 3,
-  "replacement": "minecraft:wheat"
+  "prop1": "val1",
+  "prop2": 10,
+  "prop3": "minecraft:dirt"
 }
 ```
 
-In the above example, the modification only happens if an entity harvests wheat when using shears (specified by the two `conditions` which are automatically `AND`ed together). The `seedsItem` and `numSeeds` values are then used to count how many seeds were generated by the vanilla loot table, and if matched, are substituted for an additional `replacement` item instead. The operation code will be shown below.
-`conditions` is the only object needed by the system specification, everything else is the mod maker's data.
+`IGlobalLootModifier`
+---------------------
 
-The `LootModifier` Subclass and Serializer
--------------------------------
+To supply the functionality a global loot modifier specifies, a `IGlobalLootModifier` implementation must be specified. These are instances generated each time a serializer decodes the information from JSON and supplies it into this object.
 
-You will also need a class that extends `GlobalLootModifierSerializer<T>` where `T` is your `LootModifier` subclass in order to deserialize your json data file into operational code.
+There is only one method that needs to be defined in order to create a new modifier: `#apply`. This takes in the current loot that will be generated along with the context information such as the currently level or additional defined parameters. It returns the list of drops to generate.
+
+!!! note
+
+    The returned list of drops from any one modifier is fed into other modifiers in the order they are registered. As such, modified loot can be modified by another loot modifier.
+
+### The `LootModifier` Subclass
+
+`LootModifier` is an abstract implementation of `IGlobalLootModifier` to provide the base functionality which most modders can easily extend and implement. This expands upon the existing interface by defining the `#apply` method to check the conditions to determine whether or not to modify the generated loot.
+
+There are two things of note within the subclass implementation: the constructor which must take in an array of `ILootCondition`s and the `#doApply` method.
+
+The array of `ILootCondition`s define the list of conditions that must be true before the loot can be modified. The supplied conditions are **ANDed** together, meaning that all conditions must be true.
+
+The `#doApply` method works the same as the `#apply` method except that it only executes once all conditions return true.
 
 ```java
-public class WheatSeedsConverterModifier extends LootModifier {
-    private final int numSeedsToConvert;
-    private final Item itemToCheck;
-    private final Item itemReward;
-    public WheatSeedsConverterModifier(ILootCondition[] conditionsIn, int numSeeds, Item itemCheck, Item reward) {
+public class ExampleModifier extends LootModifier {
+
+    public ExampleModifier(ILootCondition[] conditionsIn, String prop1, int prop2, Item prop3) {
         super(conditionsIn);
-        numSeedsToConvert = numSeeds;
-        itemToCheck = itemCheck;
-        itemReward = reward;
+        // Store the rest of the parameters
     }
 
     @Nonnull
     @Override
-    public List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-        //
-        // Additional conditions can be checked, though as much as possible should be parameterized via JSON data.
-        // It is better to write a new ILootCondition implementation than to do things here.
-        //
-        int numSeeds = 0;
-        for (ItemStack stack : generatedLoot) {
-            if (stack.getItem() == itemToCheck)
-                numSeeds += stack.getCount();
-        }
-        if (numSeeds >= numSeedsToConvert) {
-            generatedLoot.removeIf(x -> x.getItem() == itemToCheck);
-            generatedLoot.add(new ItemStack(itemReward, (numSeeds / numSeedsToConvert)));
-            numSeeds = numSeeds % numSeedsToConvert;
-            if (numSeeds > 0)
-                generatedLoot.add(new ItemStack(itemToCheck, numSeeds));
-        }
-        return generatedLoot;
-    }
-
-    public static class Serializer extends GlobalLootModifierSerializer<WheatSeedsConverterModifier> {
-
-        @Override
-        public WheatSeedsConverterModifier read(ResourceLocation name, JsonObject object, ILootCondition[] conditionsIn) {
-            int numSeeds = JSONUtils.getInt(object, "numSeeds");
-            Item seed = ForgeRegistries.ITEMS.getValue(new ResourceLocation((JSONUtils.getString(object, "seedItem"))));
-            Item wheat = ForgeRegistries.ITEMS.getValue(new ResourceLocation(JSONUtils.getString(object, "replacement")));
-            return new WheatSeedsConverterModifier(conditionsIn, numSeeds, seed, wheat);
-        }
-
-        @Override
-        public JsonObject write(WheatSeedsConverterModifier instance) {
-            JsonObject json = makeConditions(instance.conditions);
-            json.addProperty("numSeeds", instance.numSeedsToConvert);
-            json.addProperty("seedItem", ForgeRegistries.ITEMS.getKey(instance.itemToCheck).toString());
-            json.addProperty("replacement", ForgeRegistries.ITEMS.getKey(instance.itemReward).toString());
-            return json;
-        }
+    protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
+        // Modify the loot and return the new drops
     }
 }
 ```
 
-The critical portion is the `doApply` method.
+`GlobalLootModifierSerializer`
+------------------------------
 
-This method is only called if the `conditions` specified return `true`. If so, the modder is now able to make the modifications they desire. In this case, we can see that the number of `itemToCheck` meets or exceeds the `numSeedsToConvert` before modifying the list by adding an `itemReward` and removing any excess `itemToCheck` stacks, matching the previously mentioned effects: *When a wheat block is harvested with shears, if enough seeds are generated as loot, they are converted to additional wheat instead*.
+The connector between the JSON and the `IGlobalLootModifier` instance is the `GlobalLootModifierSerializer<T>` implementation, where `T` represents the type of the `IGlobalLootModifier` to use.
 
-Also take note of the `read` method in the serializer. The conditions are already deserialized for you and if you have no other data, simply `return new MyModifier(conditionsIn)`. However, the full `JsonObject` is available if needed. The `write` method, on the other hand, is used for if you want to utilize `GlobalLootModifierProvider` for [data generation][datagen].
+Two methods must be defined within the serializer implementation: `#read` and `#write`.
 
-Additional [examples] can be found on the Forge Git repository, including silk touch and smelting effects.
+`#read` takes in the registry name of the JSON, the serialized `JsonObject`, and the array of conditions that, by most implementations, must be true to allow the loot modifier to execute. The only data that should be deserialized from the `JsonObject` are the custom properties specified for use by the implemented loot modifier. If no custom properties are needed, then no data should be deserialized from the `JsonObject` as the conditions are supplied as a parameter.
+
+`#write` is responsible for turning the defined loot modifier and writing it to a `JsonObject`. This requires that all conditions along with any custom properties must be written. For ease of convenience, `#makeConditions` can be called to create a new `JsonObject` with the conditions already serialized within. Any additional properties to be serialized can then be added to this `JsonObject`. This is utilized for [data generation][datagen] of the associated loot modifier.
+
+```java
+public ExampleModifierSerializer extends GlobalLootModifierSerializer<ExampleModifier> {
+
+    @Override
+    public ExampleModifier read(ResourceLocation location, JsonObject object, ILootCondition[] conditions) {
+        String prop1 = JSONUtils.getAsString(object, "prop1");
+        // Deserialize other properties
+        return new ExampleModifier(conditions, prop1, prop2, prop3);
+    }
+
+    @Override
+    public JsonObject write(ExampleModifier instance) {
+        // Create json object with conditions in modifier
+        JsonObject res = this.makeConditions(instance.conditionsIn);
+        res.addProperty("prop1", instance.prop1);
+        // Add other properties in modifier
+        return res;
+    }
+}
+
+```
+
+[Examples][examples] can be found on the Forge Git repository, including silk touch and smelting effects.
 
 [tags]: ../utilities/tags.md
 [resloc]: ../concepts/resources.md#ResourceLocation
 [registered]: ../concepts/registries.md#registering-things
 [datagen]: ../datagen/intro.md
-[examples]: https://github.com/MinecraftForge/MinecraftForge/blob/1.15.x/src/test/java/net/minecraftforge/debug/gameplay/loot/GlobalLootModifiersTest.java
+[examples]: https://github.com/MinecraftForge/MinecraftForge/blob/1.16.x/src/test/java/net/minecraftforge/debug/gameplay/loot/GlobalLootModifiersTest.java
