@@ -43,6 +43,16 @@ public void registerBlocks(RegistryEvent.Register<Block> event) {
 }
 ```
 
+### Registries that aren't Forge Registries
+
+Due to some peculiarities of vanilla code, not all registries are wrapped by Forge. These can be static registries, like `IRecipeType`, which are safe to use. There are also dynamic registries, like `ConfiguredFeature` and some other worldgen registries, which are typically represented in JSON. These objects should only be registered this way if there is another registry object that requires it. 
+
+Without the benefit of registry objects, care has to be taken to not register things before they're ready. `Lazy` is a utility class that stores a value that is calculated the first time it is accessed. Using `Lazy.of(...)` with a supplier as a parameter is its typical usage. `Lazy` is a subclass of `Supplier`, so `Supplier#get` is used to retrieve the value.
+
+In this case, the value to be stored is `() -> Registry.register(...)`. For parameters, `Registry#register` takes the registry being added to, a `ResourceLocation` identifying the object to be registered, and the object itself.
+
+The appropriate time to populate these objects is in `FMLCommonSetupEvent`. Because vanilla registries are not guaranteed to be threadsafe, a call to `Supplier#get` should be inside a `ParallelDispatchEvent#enqueueWork` call. This evaluates the `Registry#register` call, which will register the object and allow it to be referenced freely.
+
 !!! note
     Some classes cannot by themselves be registered. Instead, `*Type` classes are registered, and used in the formers' constructors. For example, [`TileEntity`][tileentity] has `TileEntityType`, and `Entity` has `EntityType`. These `*Type` classes are factories that simply create the containing type on demand. 
     
