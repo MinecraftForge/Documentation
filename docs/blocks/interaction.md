@@ -91,8 +91,7 @@ public void attack(BlockState state, World worldIn, BlockPos pos, PlayerEntity p
 
 Called on a block when it is clicked by a player.
 
-!!! Note
-    
+!!! note
     This method is for when the player *left-clicks* on a block.
     Don't get this confused with `use`, which is called when the player *right-clicks*.
 

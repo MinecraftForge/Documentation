@@ -81,7 +81,6 @@ public static void handlePacket(MyClientMessage msg, Supplier<NetworkEvent.Conte
 Note the presence of `#setPacketHandled`, which is used to tell the network system that the packet has successfully completed handling.
 
 !!! warning
-
     As of Minecraft 1.8 packets are by default handled on the network thread.
 
     That means that your handler can _not_ interact with most game objects directly.
@@ -89,7 +88,6 @@ Note the presence of `#setPacketHandled`, which is used to tell the network syst
     Simply call `NetworkEvent$Context#enqueueWork(Runnable)`, which will call the given `Runnable` on the main thread at the next opportunity.
 
 !!! warning
-
     Be defensive when handling packets on the server. A client could attempt to exploit the packet handling by sending unexpected data.
 
     A common problem is vulnerability to **arbitrary chunk generation**. This typically happens when the server is trusting a block position sent by a client to access blocks and tile entities. When accessing blocks and tile entities in unloaded areas of the world, the server will either generate or load this area from disk, then promptly write it to disk. This can be exploited to cause **catastrophic damage** to a server's performance and storage space without leaving a trace.

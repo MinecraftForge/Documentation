@@ -38,7 +38,7 @@ The `BlockState` system is a flexible and powerful system, but it also has limit
 
 Not all blocks and situations require the usage of `BlockState`; only the most basic properties of a block should be put into a `BlockState`, and any other situation is better off with having a `TileEntity` or being a separate `Block`. Always consider if you actually need to use blockstates for your purposes.
 
-!!! Note
+!!! note
     A good rule of thumb is: **if it has a different name, it should be a separate block**.
 
 An example is making chair blocks: the *direction* of the chair should be a *property*, while the different *types of wood* should be separated into different blocks.

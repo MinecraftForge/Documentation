@@ -22,12 +22,12 @@ A `ParticleType` is the registry object defining what a particular particle type
 Each `ParticleType` takes in two parameters: an `overrideLimiter` which determines whether the particle renders regardless of distance, and a `IParticleData$IDeserializer` which is used to read the sent `IParticleData` on the client. As the base `ParticleType` is abstract, a single method needs to be implemented: `#codec`. This represents how to encode and decode the associated `IParticleData` of the type.
 
 !!! note
-  `ParticleType#codec` is only used within the biome codec for vanilla implementations.
+    `ParticleType#codec` is only used within the biome codec for vanilla implementations.
 
 In most cases, there is no need to have any particle data sent to the client. For these instances, it is easier to create a new instance of `BasicParticleType`: an implementation of `ParticleType` and `IParticleData` which does not send any custom data to the client besides the type. Most vanilla implementations use `BasicParticleType` besides redstone dust for coloring and block/item dependent particles.
 
 !!! important
-  A `ParticleType` is not needed to make a particle spawn if only referenced on the client. However, it is necessary to use any of the prebuilt logic within `ParticleManager` or spawn a particle from the server.
+    A `ParticleType` is not needed to make a particle spawn if only referenced on the client. However, it is necessary to use any of the prebuilt logic within `ParticleManager` or spawn a particle from the server.
 
 ### IParticleData
 
@@ -87,7 +87,7 @@ Finally, a particle is usually created via an `IParticleFactory`. A factory has 
 An `IParticleFactory` must be registered by subscribing to the `ParticleFactoryRegisterEvent` on the **mod event bus**. Within the event, the factory can be registered via `ParticleManager#register` by supplying an instance of the factory to the method.
 
 !!! important
-  `ParticleFactoryRegisterEvent` should only be called on the client and thus sided off in some isolated client class, referenced by either `DistExecutor` or `@EventBusSubscriber`.
+    `ParticleFactoryRegisterEvent` should only be called on the client and thus sided off in some isolated client class, referenced by either `DistExecutor` or `@EventBusSubscriber`.
 
 #### TexturesParticle, IAnimatedSprite, and IParticleMetaFactory
 

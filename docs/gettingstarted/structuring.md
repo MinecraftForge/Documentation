@@ -9,7 +9,6 @@ Packaging
 Pick a unique package name. If you own a URL associated with your project, you can use it as your top level package. For example if you own "example.com", you may use `com.example` as your top level package.
 
 !!! important
-
     If you do not own a domain, do not use it for your top level package. You can use your email, a subdomain of where you host a website, or your name/username as long as it can be unique.
 
 After the top level package (if you have one), you append a unique name for your mod, such as `examplemod`. In our case it will end up as `com.example.examplemod`.
@@ -18,7 +17,6 @@ The `mods.toml` file
 -------------------
 
 !!! important
-
     The 1.16 release brought with it a substantial change: the license field in the mods.toml is now required. If it is not provided, this is an error state. See your choices at https://choosealicense.com/
 
 This file defines the metadata of your mod. Its information may be viewed by users from the main screen of the game through the 'Mods' button. A single info file can describe several mods.
@@ -101,7 +99,6 @@ Rather than clutter up a single class and package with everything, it is recomme
 A common subpackage strategy has packages for `common` and `client` code, which is code that can be run on both server/client and only client, respectively. Inside the `common` package would go things like Items, Blocks, and Tile Entities (which can each, in turn, be another subpackage). Things like Screens and Renderers would go inside the `client` package.
 
 !!! note
-
     This package style is only a suggestion, though it is a commonly used style. Feel free to use your own packaging system.
 
 By keeping your code in clean subpackages, you can grow your mod much more organically.
