@@ -41,9 +41,9 @@ Registry objects need to grab their associated holder using either `Registry#get
 
 As an example:
 ```java
-public static final TagKey<Item> myItemTag = ItemTags.create("mymod:myitemgroup");
+public static final TagKey<Item> myItemTag = ItemTags.create(new ResourceLocation("mymod", "myitemgroup"));
 
-public static final TagKey<Potion> myPotionTag = TagKey.create(Registry.POTION, "mymod:mypotiongroup");
+public static final TagKey<Potion> myPotionTag = TagKey.create(Registry.POTION, new ResourceLocation("mymod", "mypotiongroup"));
 
 !!! note
     The `TagCollection` returned by `#getAllTags` (and the `Tag`s within it) may expire if a reload happens.
