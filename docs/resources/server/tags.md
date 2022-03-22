@@ -41,7 +41,7 @@ Forge wrapped registries provide an additional helper for creating and managing 
 
 #### Custom Registries
 
-Custom registries can create tags when constructing their `DeferredRegister` via `#createTagKey` or `#createOptionalTagKey` respectively. Their tags or registry objects can then becked for either using the `IForgeRegistry` obtained by calling `DeferredRegister#makeRegistry`.
+Custom registries can create tags when constructing their `DeferredRegister` via `#createTagKey` or `#createOptionalTagKey` respectively. Their tags or registry objects can then checked for either using the `IForgeRegistry` obtained by calling `DeferredRegister#makeRegistry`.
 
 ### Referencing Tags
 
