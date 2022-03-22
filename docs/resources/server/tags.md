@@ -35,6 +35,9 @@ Using Tags In Code
 ------------------
 Tags for all registries are automatically sent from the server to any remote clients on login and reload. `Block`s, `Item`s, `EntityType`s, `Fluid`s, and `GameEvent`s are special cased as they have `Holder`s allowing for available tags to be accessible through the object itself.
 
+!!! note
+    Intrusive `Holder`s may be removed in a future version of Minecraft. If they are, the below methods can be used instead to query the associated `Holder`s.
+
 ### ITagManager
 
 Forge wrapped registries provide an additional helper for creating and managing tags through `ITagManager` which can be obtained via `IForgeRegistry#tags`. Tags can be created using using `#createTagKey` or `#createOptionalTagKey`. Tags or registry objects can also be checked for either or using `#getTag` or `#getReverseTag` respectively.
@@ -69,14 +72,16 @@ public static final TagKey<Item> myItemTag = ItemTags.create(new ResourceLocatio
 public static final TagKey<Potion> myPotionTag = ForgeRegistries.POTIONS.tags().createTagKey(new ResourceLocation("mymod", "mypotiongroup"));
 
 public static final TagKey<VillagerType> myVillagerTypeTag = TagKey.create(Registry.VILLAGER_TYPE, new ResourceLocation("mymod", "myvillagertypegroup"));
-    
-// In some method where stack is an ItemStack
+
+// In some method:
+
+ItemStack stack = /*...*/;
 boolean isInItemGroup = stack.is(myItemTag);
 
-// In some method where potion is a Potion
+Potion potion = /*...*/;
 boolean isInPotionGroup  = ForgeRegistries.POTIONS.tags().getTag(myPotionTag).contains(potion);
 
-// In some method where villagerTypeKey is a ResourceKey<VillagerType>
+ResourceKey<VillagerType> villagerTypeKey = /*...*/;
 boolean isInVillagerTypeGroup = Registry.VILLAGER_TYPE.getHolder(villagerTypeKey).map(holder -> holder.is(myVillagerTypeTag)).orElse(false);
 ```
 
