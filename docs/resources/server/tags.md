@@ -50,12 +50,12 @@ Custom registries can create tags when constructing their `DeferredRegister` via
 
 There are four methods of creating a tag wrapper:
 
-Method | For
-:---: | :---
-`*Tags#create` | `Block`, `Item`, `EntityType`, `Fluid`, and `Biome` where `*` represents one of these types.
-`ITagManager#createTagKey` | Forge wrapped vanilla registries, registries can be obtained from `ForgeRegistries`.
+Method                          | For
+:---:                           | :---
+`*Tags#create`                  | `Block`, `Item`, `EntityType`, `Fluid`, and `Biome` where `*` represents one of these types.
+`ITagManager#createTagKey`      | Forge wrapped vanilla registries, registries can be obtained from `ForgeRegistries`.
 `DeferredRegister#createTagKey` | Custom forge registries.
-`TagKey#create` | Vanilla registries without forge wrappers, registries can be obtained from `Registry`.
+`TagKey#create`                 | Vanilla registries without forge wrappers, registries can be obtained from `Registry`.
 
 Registry objects can check their tags or registry objects either through their `Holder` or through `ITag`/`IReverseTag` for vanilla or forge registry objects respectively.
 
