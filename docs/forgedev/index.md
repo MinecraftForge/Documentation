@@ -147,4 +147,4 @@ The last step before your contribution is added to Forge is a Pull Request (PR i
 [testsetup]: https://www.youtube.com/watch?v=pLWQk6ed56Q
 [submitpr]: https://github.com/MinecraftForge/MinecraftForge/compare
 [contribute]: https://github.com/MinecraftForge/MinecraftForge/blob/1.13.x/CONTRIBUTING.md
-[guidelines]: prguidelines.md
+[guidelines]: ./prguidelines.md

@@ -65,8 +65,8 @@ Then during the `InterModProcessEvent`, use `InterModComms#getMessages` to get a
 !!! note
     There are two other lifecycle events: `FMLConstructModEvent`, fired directly after mod instance construction but before the `RegistryEvent`s, and `FMLLoadCompleteEvent`, fired after the `InterModComms` events, for when the mod loading process is complete.
 
-[registering]: registries.md#methods-for-registering
+[registering]: ./registries.md#methods-for-registering
 [capabilities]: ../datastorage/capabilities.md
-[datagen]: ../datagen/intro.md
-[imc]: lifecycle.md#intermodcomms
-[sides]: sides.md
+[datagen]: ../datagen/index.md
+[imc]: ./lifecycle.md#intermodcomms
+[sides]: ./sides.md

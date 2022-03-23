@@ -43,6 +43,6 @@ Further Reading
 
 For information about block properties, such as those used for vanilla blocks like fences, walls, and many more, see the section on [blockstates][].
 
-[sounds]: ../effects/sounds.md
+[sounds]: ../gameeffects/sounds.md
 [registering]: ../concepts/registries.md#methods-for-registering
 [blockstates]: states.md

@@ -45,5 +45,5 @@ This class represents a vanilla item override, which holds several `ItemOverride
 }
 ```
 
-[baked]: bakedmodel.md
-[override]: #itemoverride
+[baked]: ./bakedmodel.md
+[override]: #bakedoverride

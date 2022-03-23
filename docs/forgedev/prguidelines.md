@@ -94,4 +94,4 @@ If you do your best to understand the slow and perfectionistic nature of the Pul
 After your Pull Request has been reviewed and cleaned up to the best of everyone's ability, it will be marked for a final review by Lex, who has the final say on what is included in the project or not.
 
 [patches]: https://github.com/MinecraftForge/MinecraftForge/wiki/If-you-want-to-contribute-to-Forge#conventions-for-coding-patches-for-a-minecraft-class-javapatch
-[forgeenv]: index.md
+[forgeenv]: ./index.md

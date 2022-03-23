@@ -20,7 +20,7 @@ nav:
     - Introduction: 'items/index.md'
     - BlockEntityWithoutLevelRenderer: 'items/bewlr.md'
   - Networking:
-    - Introduction: # TODO
+    - Introduction: 'networking/index.md'
     - SimpleImpl: 'networking/simpleimpl.md'
     - Synchronizing Entities: 'networking/entities.md'
   - Block Entities:
