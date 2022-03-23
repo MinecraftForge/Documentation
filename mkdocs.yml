@@ -11,7 +11,7 @@ nav:
     - Sides: 'concepts/sides.md'
     - Events: 'concepts/events.md'
     - Mod Lifecycle: 'concepts/lifecycle.md'
-    - Resources: # TODO
+    - Resources: 'concepts/resources.md'
     - Internationalization: 'concepts/internationalization.md'
   - Blocks:
     - Introduction: 'blocks/index.md'
@@ -34,19 +34,19 @@ nav:
     - Saved Data: 'datastorage/saveddata.md'
   - Rendering:
     - Model Loaders:
+      - Introduction: 'rendering/modelloaders/index.md'
       - Baked Model: 'rendering/modelloaders/bakedmodel.md'
       - Perspective: 'rendering/modelloaders/perspective.md'
       - Item Overrides: 'rendering/modelloaders/itemoverrides.md'
   - Resources:
-    - Introduction: # TODO
     - Client Assets:
-      - Introduction: # TODO
+      - Introduction: 'resources/client/index.md'
       - Models:
-        - Introduction: # TODO
-        - Texture Tinting: 'resources/client/tinting.md'
-        - Item Properties: 'resources/client/itemproperties.md'
+        - Introduction: 'resources/client/models/index.md'
+        - Texture Tinting: 'resources/client/models/tinting.md'
+        - Item Properties: 'resources/client/models/itemproperties.md'
     - Server Data:
-      - Introduction: # TODO
+      - Introduction: 'resources/server/index.md'
       - Recipes: 'resources/server/recipes.md'
       - Global Loot Modifiers: 'resources/server/glm.md'
       - Tags: 'resources/server/tags.md'
@@ -66,73 +66,6 @@ nav:
   - Legacy Versions:
     - Introduction: 'legacy/index.md'
     - Porting to This Version: 'legacy/porting.md'
-  # - Home: 'index.md'
-  # - Style Guide: 'styleguide.md'
-  # - Getting Started:
-  #   - Home: 'gettingstarted/index.md'
-  #   - Structuring Your Mod: 'gettingstarted/structuring.md'
-  #   - Forge Update Checker: 'gettingstarted/autoupdate.md'
-  #   - Debug Profiler: 'gettingstarted/debugprofiler.md'
-  # - Concepts:
-  #   - Sides: 'concepts/sides.md'
-  #   - Resources: 'concepts/resources.md'
-  #   - Data: 'concepts/data.md'
-  #   - Registries: 'concepts/registries.md'
-  #   - Mod Lifecycle: 'concepts/lifecycle.md'
-  #   - Internationalization and Localization: 'concepts/internationalization.md'
-  # - Blocks:
-  #   - Home: 'blocks/blocks.md'
-  #   - BlockStates: 'blocks/states.md'
-  #   - Interaction: 'blocks/interaction.md'
-  # - Block Entities:
-  #   - Home: 'blockentities/blockentity.md'
-  #   - Renderer: 'blockentities/ber.md'
-  # - Items:
-  #   - Home: 'items/items.md'
-  #   - Loot Modification: 'items/globallootmodifiers.md'
-  # - Models:
-  #   - Intro to Models: 'models/introduction.md'
-  #   - Model Files: 'models/files.md'
-  #   - BlockStates:
-  #     - Intro to BlockState JSON: 'models/blockstates/introduction.md'
-  #   - Coloring Textures: 'models/color.md'
-  #   - Item Properties: 'models/itemproperties.md'
-  #   - Advanced Models:
-  #     - BakedModel: 'models/advanced/bakedmodel.md'
-  #     - Perspective: 'models/advanced/perspective.md'
-  #     - Item Overrides: 'models/advanced/itemoverrides.md'
-  # - Rendering:
-  #   - BlockEntityWithoutLevelRenderer: 'rendering/bewlr.md'
-  # - Data Generation:
-  #   - Introduction: 'datagen/intro.md'
-  #   - Model Providers: 'datagen/modelproviders.md'
-  # - Events:
-  #   - Basic Usage: 'events/intro.md'
-  # - Networking:
-  #   - Home: 'networking/index.md'
-  #   - Overview: 'networking/overview.md'
-  #   - SimpleImpl: 'networking/simpleimpl.md'
-  #   - Entities: 'networking/entities.md'
-  # - Data Storage:
-  #   - Capabilities: 'datastorage/capabilities.md'
-  #   - Saved Data: 'datastorage/saveddata.md'
-  # - Utilities:
-  #   - Recipes: 'utilities/recipes.md'
-  #   - Tags: 'utilities/tags.md'
-  # - Effects:
-  #   - Particles: 'effects/particles.md'
-  #   - Sounds: 'effects/sounds.md'
-  # - Conventions:
-  #   - Versioning: 'conventions/versioning.md'
-  #   - Locations: 'conventions/locations.md'
-  # - Advanced Topics:
-  #   - Access Transformers: 'advanced/accesstransformers.md'
-  # - Contributing to Forge:
-  #   - Getting Started: 'forgedev/index.md'
-  #   - PR Guidelines: 'forgedev/prguidelines.md'
-  # - Legacy Versions:
-  #   - Home: 'legacy/index.md'
-  #   - Porting to 1.18: 'legacy/porting.md'
 
 # Do not edit in PRs below here
 site_name: Forge Documentation

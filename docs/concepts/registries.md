@@ -229,7 +229,7 @@ For each `Mapping`, one of four mapping types can be selected to handle the miss
 
 If no action is specified, then the default action will occur by notifying the user about the missing entry and whether they still would like to load the world. All actions besides remapping will prevent any other registry object from taking the place of the existing id in case the associated entry ever gets added back into the game.
 
-[ResourceLocation]: ./resources.md#resourcelocation "TODO"
+[ResourceLocation]: ./resources.md#resourcelocation
 [registration]: #methods-for-registering
 [events]: ./events.md
 [blockentity]: ../blockentities/index.md

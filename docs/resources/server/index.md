@@ -11,4 +11,4 @@ Additional reading: [Resource Locations][resourcelocation]
 
 [datapack]: https://minecraft.fandom.com/wiki/Data_pack
 [createdatapack]: https://minecraft.fandom.com/wiki/Tutorials/Creating_a_data_pack
-[resourcelocation]: resources.md#ResourceLocation
+[resourcelocation]: ../../concepts/resources.md#ResourceLocation

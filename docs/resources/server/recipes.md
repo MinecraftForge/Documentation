@@ -90,6 +90,6 @@ Every vanilla recipe has to have a `result` tag to define the output item.
 
 When crafting something, you can get out more than one item. This is achieved by defining the `count` number. If this is left out, meaning it doesn't exist within the result block, it defaults to 1. Negative values are not allowed here as an `ItemStack` cannot be smaller than 0. There is no option to use the `count` number anywhere else than for the result. Forge also added support for results to include NBT data via the `nbt` tag.
 
-[datapack]: /concepts/data.md "TODO"
+[datapack]: ./index.md
 [advancement]: https://minecraft.fandom.com/wiki/Advancement
 [wiki]: https://minecraft.gamepedia.com/Recipe
