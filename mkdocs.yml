@@ -76,6 +76,7 @@ nav:
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
+site_url: https://mcforge.readthedocs.io/en/1.14.x/
 
 markdown_extensions:
   - admonition
