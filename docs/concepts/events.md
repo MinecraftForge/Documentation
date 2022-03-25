@@ -14,6 +14,32 @@ An event handler is some method that has been registered to an event bus.
 Creating an Event Handler
 -------------------------
 
+Event handlers methods have a single parameter and do not return a result. The method could be static or instance depending on implementation.
+
+Event handlers can be directly registered using `IEventBus#addListener` for or `IEventBus#addGenericListener` for generic events (as denoted by subclassing `GenericEvent<T>`). Either listener adder takes in a consumer representing the method reference. Generic event handlers need to specify the class of the generic as well. Event handlers must be registered within the constructor of the main mod class.
+
+```java
+// In the main mod class ExampleMod
+
+// This event is on the forge bus
+private void forgeEventHandler(AddReloadListenerEvent event) {
+	// Do things here
+}
+
+// This event is on the mod bus
+private static void modEventHandler(RegistryEvent.Register<RecipeSerializer<?>> event) {
+	// ...
+}
+
+// In the mod constructor
+forgeEventBus.addListener(this::forgeEventHandler);
+modEventBus.addGenericListener(RecipeSerializer.class, ExampleMod::modEventHandler);
+```
+
+### Instance Annotated Event Handlers
+
+This event handler listens for the `EntityItemPickupEvent`, which is, as the name states, posted to the event bus whenever an `Entity` picks up an item.
+
 ```java
 public class MyForgeEventHandler {
 	@SubscribeEvent
@@ -22,11 +48,10 @@ public class MyForgeEventHandler {
 	}
 }
 ```
-This event handler listens for the `EntityItemPickupEvent`, which is, as the name states, posted to the event bus whenever an `Entity` picks up an item.
 
 To register this event handler, use `MinecraftForge.EVENT_BUS.register(...)` and pass it an instance of the class the event handler is within. If you want to register this handler to the mod specific event bus, you should use `FMLJavaModLoadingContext.get().getModEventBus().register(...)` instead.
 
-### Static Event Handlers
+### Static Annotated Event Handlers
 
 An event handler may also be static. The handling method is still annotated with `@SubscribeEvent`. The only difference from an instance handler is that it is also marked `static`. In order to register a static event handler, an instance of the class won't do. The `Class` itself has to be passed in. An example:
 
