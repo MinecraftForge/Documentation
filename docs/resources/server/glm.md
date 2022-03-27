@@ -150,9 +150,9 @@ public ExampleModifierSerializer extends GlobalLootModifierSerializer<ExampleMod
 
 [Examples][examples] can be found on the Forge Git repository, including silk touch and smelting effects.
 
-[tags]: ../utilities/tags.md
-[resloc]: ../concepts/resources.md#ResourceLocation
+[tags]: ./tags.md
+[resloc]: ../../concepts/resources.md#ResourceLocation
 [serializer]: #globallootmodifierserializer
-[registered]: ../concepts/registries.md#registering-things
-[datagen]: ../datagen/intro.md
+[registered]: ../../concepts/registries.md#methods-for-registering
+[datagen]: ../../datagen/index.md
 [examples]: https://github.com/MinecraftForge/MinecraftForge/blob/1.18.x/src/test/java/net/minecraftforge/debug/gameplay/loot/GlobalLootModifiersTest.java

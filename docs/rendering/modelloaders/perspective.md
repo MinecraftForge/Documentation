@@ -48,4 +48,4 @@ This is how models should support custom perspective transforms through `ModelSt
 
 Given either a map of transforms or an `ModelState`, an `BakedModel`, a `TransformType`, and a `PoseStack`, this finds the `BakedModel` for the transform from the map or the `ModelState`, and then pairs it with the given model. To extract the transform from an `ModelState`, the `TransformType` is passed to `#getPartTransformation`. This method is meant to be a simple implementation of `BakedModel#handlePerspective`.
 
-[bakedmodel]: bakedmodel.md
+[bakedmodel]: ./bakedmodel.md

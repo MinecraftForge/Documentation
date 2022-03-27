@@ -71,7 +71,7 @@ If any string is specified as `${file.jarVersion}`, Forge will replace the strin
 |        modid |  string  | mandatory | The modid this file is linked to. |
 |      version |  string  | mandatory | The version of the mod. It should be just numbers separated by dots, ideally conforming to Forge's [Semantic Versioning][versioning] structure. |
 |  displayName |  string  | mandatory | The user-friendly name of this mod. |
-| updateJSONURL |  string  |   `""`   | The URL to a [version JSON][autoupdate]. |
+| updateJSONURL |  string  |   `""`   | The URL to a [version JSON][updatechecker]. |
 |   displayURL |  string  |   `""`   | A link to the mod's homepage. |
 |     logoFile |  string  |   `""`   | The filename of the mod's logo. It must be placed in the root resource folder, not in a subfolder. |
 |      credits |  string  |   `""`   | A string that contains any acknowledgements you want to mention. |
@@ -117,6 +117,6 @@ For Example:
 Appending your class names with what *kind* of object they are makes it easier to figure out what a class is or guess the class for an object.
 
 [TOML]: https://github.com/toml-lang/toml
-[versioning]: ../conventions/versioning.md
-[autoupdate]: autoupdate.md
+[versioning]: ./versioning.md
+[updatechecker]: ../misc/updatechecker.md
 [mvr]: https://maven.apache.org/enforcer/enforcer-rules/versionRanges.html

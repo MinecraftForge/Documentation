@@ -1,5 +1,5 @@
-Item Property Overrides
-=======================
+Item Properties
+===============
 
 Item properties are a way for the "properties" of items to be exposed to the model system. An example is the bow, where the most important property is how far the bow has been pulled. This information is then used to choose a model for the bow, creating an animation for pulling it.
 

@@ -50,4 +50,4 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
   * `TagsProvider` - for tags; override `#addTags`
   * `AdvancementProvider` - for advancements; override `#registerAdvancements`
 
-[glm]: ../items/globallootmodifiers.md
+[glm]: ../resources/server/glm.md
