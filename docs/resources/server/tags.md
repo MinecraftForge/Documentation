@@ -35,25 +35,54 @@ Using Tags In Code
 ------------------
 Tags for all registries are automatically sent from the server to any remote clients on login and reload. `Block`s, `Item`s, `EntityType`s, `Fluid`s, and `GameEvent`s are special cased as they have `Holder`s allowing for available tags to be accessible through the object itself.
 
-Tags wrappers can be created using `TagKey#create` where the registry the tag should belong to and the tag name are supplied. Some vanilla defined helpers are also available to create wrappers via `*Tags#create` where `*` refers to the name of the registry object.
+!!! note
+    Intrusive `Holder`s may be removed in a future version of Minecraft. If they are, the below methods can be used instead to query the associated `Holder`s.
 
-Registry objects need to grab their associated holder using either `Registry#getHolder` or `Registry#getHolderOrThrow` and then compare if the registry object has a tag using `Holder#is`. Tag-holding registry objects contain a method called `#is` in either their registry object or state-aware class to check whether the object belongs to a certain tag.
+### ITagManager
+
+Forge wrapped registries provide an additional helper for creating and managing tags through `ITagManager` which can be obtained via `IForgeRegistry#tags`. Tags can be created using using `#createTagKey` or `#createOptionalTagKey`. Tags or registry objects can also be checked for either or using `#getTag` or `#getReverseTag` respectively.
+
+#### Custom Registries
+
+Custom registries can create tags when constructing their `DeferredRegister` via `#createTagKey` or `#createOptionalTagKey` respectively. Their tags or registry objects can then checked for either using the `IForgeRegistry` obtained by calling `DeferredRegister#makeRegistry`.
+
+### Referencing Tags
+
+There are four methods of creating a tag wrapper:
+
+Method                          | For
+:---:                           | :---
+`*Tags#create`                  | `Block`, `Item`, `EntityType`, `Fluid`, and `Biome` where `*` represents one of these types.
+`ITagManager#createTagKey`      | Forge wrapped vanilla registries, registries can be obtained from `ForgeRegistries`.
+`DeferredRegister#createTagKey` | Custom forge registries.
+`TagKey#create`                 | Vanilla registries without forge wrappers, registries can be obtained from `Registry`.
+
+Registry objects can check their tags or registry objects either through their `Holder` or through `ITag`/`IReverseTag` for vanilla or forge registry objects respectively.
+
+Vanilla registry objects can grab their associated holder using either `Registry#getHolder` or `Registry#getHolderOrThrow` and then compare if the registry object has a tag using `Holder#is`.
+
+Forge registry objects can grab their tag definition using either `ITagManager#getTag` or `ITagManager#getReverseTag` and then compare if a registry object has a tag using `ITag#contains` or `IReverseTag#containsTag` respectively.
+
+Tag-holding registry objects contain a method called `#is` in either their registry object or state-aware class to check whether the object belongs to a certain tag.
 
 As an example:
 ```java
-public static final TagKey<Item> myItemTag = ItemTags.create("mymod:myitemgroup");
+public static final TagKey<Item> myItemTag = ItemTags.create(new ResourceLocation("mymod", "myitemgroup"));
 
-public static final TagKey<Potion> myPotionTag = TagKey.create(Registry.POTION, "mymod:mypotiongroup");
+public static final TagKey<Potion> myPotionTag = ForgeRegistries.POTIONS.tags().createTagKey(new ResourceLocation("mymod", "mypotiongroup"));
 
-!!! note
-    The `TagCollection` returned by `#getAllTags` (and the `Tag`s within it) may expire if a reload happens.
-    The static `Tag$Named` fields in `BlockTags` and `ItemTags` avoid this by introducing a wrapper that handles this expiring.
-    
-// In some method where stack is an ItemStack
+public static final TagKey<VillagerType> myVillagerTypeTag = TagKey.create(Registry.VILLAGER_TYPE, new ResourceLocation("mymod", "myvillagertypegroup"));
+
+// In some method:
+
+ItemStack stack = /*...*/;
 boolean isInItemGroup = stack.is(myItemTag);
 
-// In some method where potionKey is a ResourceKey<Potion>
-boolean isInItemGroup = Registry.POTION.getHolder(potionKey).map(holder -> holder.is(myPotionTag)).orElse(false);
+Potion potion = /*...*/;
+boolean isInPotionGroup  = ForgeRegistries.POTIONS.tags().getTag(myPotionTag).contains(potion);
+
+ResourceKey<VillagerType> villagerTypeKey = /*...*/;
+boolean isInVillagerTypeGroup = Registry.VILLAGER_TYPE.getHolder(villagerTypeKey).map(holder -> holder.is(myVillagerTypeTag)).orElse(false);
 ```
 
 Conventions
