@@ -47,14 +47,20 @@ nav:
         - Item Properties: 'resources/client/models/itemproperties.md'
     - Server Data:
       - Introduction: 'resources/server/index.md'
-      - Recipes: 'resources/server/recipes.md'
+      - Recipes:
+        - Introduction: 'resources/server/recipes/index.md'
+        - Custom Recipes: 'resources/server/recipes/custom.md'
+        - Ingredients: 'resources/server/recipes/ingredients.md'
+        - Non-Datapack Recipes:  'resources/server/recipes/incode.md'
       - Global Loot Modifiers: 'resources/server/glm.md'
       - Tags: 'resources/server/tags.md'
+      - Conditionally-Loaded Data: 'resources/server/conditional.md'
   - Data Generation:
     - Introduction: 'datagen/index.md'
     - Client Assets:
       - Model Providers: 'datagen/client/modelproviders.md'
-#    - Server Data:
+    - Server Data:
+      - Recipe Providers: 'datagen/server/recipes.md'
   - Miscellaneous Features:
     - Forge Update Checker: 'misc/updatechecker.md'
     - Debug Profiler: 'misc/debugprofiler.md'
