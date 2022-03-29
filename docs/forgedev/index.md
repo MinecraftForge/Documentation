@@ -49,7 +49,7 @@ Due to the way Eclipse workspaces work, ForgeGradle can do most of the work invo
 3. Type `./gradlew genEclipseRuns` and hit enter. Once again, wait until ForgeGradle is done.
 4. Open your Eclipse workspace and go to `File -> Import -> General -> Existing Gradle Project`.
 5. Browse to the repo directory for the "Project root directory" option in the dialog that opens.
-7. Complete the import by clicking the "Finish" button.
+6. Complete the import by clicking the "Finish" button.
 
 That is all it takes to get you up and running with Eclipse. There is no extra steps required to get the test mods running. Simply hit "Run" like in any other project and select the appropriate run configuration.
 
