@@ -44,12 +44,12 @@ Depending on your favorite IDE, there is a different set of recommended steps yo
 
 Due to the way Eclipse workspaces work, ForgeGradle can do most of the work involved to get you started with a Forge workspace.
 
- 1. Open a terminal/command prompt and navigate to the directory of your cloned fork.
- 2. Type `./gradlew setup` and hit enter. Wait until ForgeGradle is done.
- 3. Type `./gradlew genEclipseRuns` and hit enter. Once again, wait until ForgeGradle is done.
- 4. Open your Eclipse workspace and go to `File -> Import -> General -> Existing Gradle Project`.
- 5. Browse to the repo directory for the "Project root directory" option in the dialog that opens.
- 7. Complete the import by clicking the "Finish" button.
+1. Open a terminal/command prompt and navigate to the directory of your cloned fork.
+2. Type `./gradlew setup` and hit enter. Wait until ForgeGradle is done.
+3. Type `./gradlew genEclipseRuns` and hit enter. Once again, wait until ForgeGradle is done.
+4. Open your Eclipse workspace and go to `File -> Import -> General -> Existing Gradle Project`.
+5. Browse to the repo directory for the "Project root directory" option in the dialog that opens.
+7. Complete the import by clicking the "Finish" button.
 
 That is all it takes to get you up and running with Eclipse. There is no extra steps required to get the test mods running. Simply hit "Run" like in any other project and select the appropriate run configuration.
 
@@ -90,14 +90,14 @@ That is all there is to creating a Forge development environment in IntelliJ IDE
 
 To enable the test mods coming with Forge, you will need to add the compiler output to the classpath. Again, cpw has put up [a video][testsetup] explaining these steps for IDEA 2016.1.
 
- 1. Build the test classes by selecting the `src/main/test` directory in your project view and then run `Build -> Build module 'Forge_test'` from the menu bar.
- 2. Open the "Project Structure" window under `File -> Project Structure`.
- 3. Head to the "Modules" section and expand the `Forge` module.
- 4. Select the `Forge_test` submodule and head to the "Paths" tab.
- 5. Remember the path listed under the "Test output path" label and select the `Forge_main` submodule from the tree.
- 6. Open the "Dependencies" tab, hit the green plus button on the right-hand side, and select "JARs or directories".
- 7. Navigate to the path previously displayed as the `Forge_test` output path and confirm your selection.
- 8. For the "Scope" of this newly added dependency (currently "Compile") choose "Runtime", since the main code does not rely on the test code for compilation.
+1. Build the test classes by selecting the `src/main/test` directory in your project view and then run `Build -> Build module 'Forge_test'` from the menu bar.
+2. Open the "Project Structure" window under `File -> Project Structure`.
+3. Head to the "Modules" section and expand the `Forge` module.
+4. Select the `Forge_test` submodule and head to the "Paths" tab.
+5. Remember the path listed under the "Test output path" label and select the `Forge_main` submodule from the tree.
+6. Open the "Dependencies" tab, hit the green plus button on the right-hand side, and select "JARs or directories".
+7. Navigate to the path previously displayed as the `Forge_test` output path and confirm your selection.
+8. For the "Scope" of this newly added dependency (currently "Compile") choose "Runtime", since the main code does not rely on the test code for compilation.
 
 Now that you have added the test mods to the classpath, you need to rebuild them each time you make a change, as they will not be built automatically. To do so, repeat step 1 from the above list or, in case you make changes to a single test mod file and want them to get rebuilt, simply hit `Build -> Rebuild project` or the corresponding keyboard shortcut (CTRL+F9 by default).
 
@@ -105,14 +105,14 @@ Now that you have added the test mods to the classpath, you need to rebuild them
 
 You might want to test changes in Forge with an existing project. The [video][testsetup] by cpw linked in the test mods section also covers this for IDEA 2016.1. Getting the mod to run requires similar steps to the test mod, but getting your project added to the workspace requires some additional work.
 
- 1. Open the "Project Structure" Window under `File -> Project Structure`.
- 2. Head to the "Modules" section and press the green plus icon above the tree view.
- 3. Select "Import Module", navigate to your project's `build.gradle` file, and confirm your selection as well as the import settings.
- 4. Close the "Project Structure" window by clicking the "OK" button.
- 5. Reopen the window after IDEA is done importing the project and select your project's `_main` module from the tree.
- 6. Open the "Dependencies" tab, click the green plus icon on the right-hand side, and select "Module dependency".
- 7. In the window that just opened, select the `Forge_main` module.
- 8. From here on, reproduce the steps from the test mods section, just with your project's `_main` module instead of the `Forge_test` one.
+1. Open the "Project Structure" Window under `File -> Project Structure`.
+2. Head to the "Modules" section and press the green plus icon above the tree view.
+3. Select "Import Module", navigate to your project's `build.gradle` file, and confirm your selection as well as the import settings.
+4. Close the "Project Structure" window by clicking the "OK" button.
+5. Reopen the window after IDEA is done importing the project and select your project's `_main` module from the tree.
+6. Open the "Dependencies" tab, click the green plus icon on the right-hand side, and select "Module dependency".
+7. In the window that just opened, select the `Forge_main` module.
+8. From here on, reproduce the steps from the test mods section, just with your project's `_main` module instead of the `Forge_test` one.
 
 !!! note
     You might need to remove existing dependencies from a normal development environment (mainly references to a `forgeSrc` JAR) or move the Forge module higher up in the dependency list.

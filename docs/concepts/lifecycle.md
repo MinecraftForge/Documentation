@@ -8,17 +8,17 @@ Event listeners should be registered either using `@EventBusSubscriber(bus = Bus
 ```Java
 @Mod.EventBusSubscriber(modid = "mymod", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MyModEventSubscriber {
-    @SubscribeEvent
-    static void onCommonSetup(FMLCommonSetupEvent event) { ... }
+  @SubscribeEvent
+  static void onCommonSetup(FMLCommonSetupEvent event) { ... }
 }
 
 @Mod("mymod")
 public class MyMod {
-    public MyMod() {
-        FMLModLoadingContext.get().getModEventBus().addListener(this::onCommonSetup);
-    } 
-  
-    private void onCommonSetup(FMLCommonSetupEvent event) { ... }
+  public MyMod() {
+    FMLModLoadingContext.get().getModEventBus().addListener(this::onCommonSetup);
+  } 
+
+  private void onCommonSetup(FMLCommonSetupEvent event) { ... }
 }
 ```
 

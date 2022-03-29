@@ -14,29 +14,29 @@ A basic recipe file might look like the following example:
 
 ```json
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern":
-    [
-        "xxa",
-        "x x",
-        "xxx"
-    ],
-    "key":
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "xxa",
+    "x x",
+    "xxx"
+  ],
+  "key":
+  {
+    "x":
     {
-        "x":
-        {
-            "tag": "forge:gems/diamond"
-        },
-        "a":
-        {
-            "item": "mymod:myfirstitem"
-        }
+      "tag": "forge:gems/diamond"
     },
-    "result":
+    "a":
     {
-        "item": "mymod:myitem",
-        "count": 9
+      "item": "mymod:myfirstitem"
     }
+  },
+  "result":
+  {
+    "item": "mymod:myitem",
+    "count": 9
+  }
 }
 ```
 
@@ -72,16 +72,16 @@ To define a shapeless recipe, you have to use the `ingredients` list. It defines
 
 The following example shows how an ingredient list looks like within JSON:
 
-```json
-    "ingredients": [
-        {
-            "tag": "forge:gems/diamond"
-        },
-        {
-            "item": "minecraft:nether_star"
-        }
-    ],
-    ...
+```json5
+"ingredients": [
+  {
+    "tag": "forge:gems/diamond"
+  },
+  {
+    "item": "minecraft:nether_star"
+  }
+],
+// ...
 ```
 
 ### Results

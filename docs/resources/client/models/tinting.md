@@ -16,7 +16,7 @@ If an item inherits from the `builtin/generated` model, each layer ("layer0", "l
 ```java
 @SubscribeEvent
 public void registerBlockColors(ColorHandlerEvent.Block event){
-    event.getBlockColors().register(myBlockColor, coloredBlock1, coloredBlock2, ...);
+  event.getBlockColors().register(myBlockColor, coloredBlock1, coloredBlock2, ...);
 }
 ```
 
@@ -25,7 +25,7 @@ public void registerBlockColors(ColorHandlerEvent.Block event){
 ```java
 @SubscribeEvent
 public void registerItemColors(ColorHandlerEvent.Item event){
-    event.getItemColors().register(myItemColor, coloredItem1, coloredItem2, ...);
+  event.getItemColors().register(myItemColor, coloredItem1, coloredItem2, ...);
 }
 ```
 
