@@ -23,45 +23,45 @@ This file defines the metadata of your mod. Its information may be viewed by use
 
 The `mods.toml` file is formatted as [TOML][], the example `mods.toml` file in the MDK provides comments explaining the contents of the file. It should be stored as `src/main/resources/META-INF/mods.toml`. A basic `mods.toml`, describing one mod, may look like this:
 ```toml
-    # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
-    modLoader="javafml"
-    # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-    # Forge for 1.18 is version 38
-    loaderVersion="[38,)"
-    # The license for your mod. This is mandatory and allows for easier comprehension of your redistributive properties.
-    # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
-    license="All Rights Reserved"
-    # A URL to refer people to when problems occur with this mod
-    issueTrackerURL="github.com/MinecraftForge/MinecraftForge/issues"
-    # If the mods defined in this file should show as separate resource packs
-    showAsResourcePack=false
+# The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
+modLoader="javafml"
+# A version range to match for said mod loader - for regular FML @Mod it will be the forge version
+# Forge for 1.18 is version 38
+loaderVersion="[38,)"
+# The license for your mod. This is mandatory and allows for easier comprehension of your redistributive properties.
+# Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
+license="All Rights Reserved"
+# A URL to refer people to when problems occur with this mod
+issueTrackerURL="github.com/MinecraftForge/MinecraftForge/issues"
+# If the mods defined in this file should show as separate resource packs
+showAsResourcePack=false
 
-    [[mods]]
-      modId="examplemod"
-      version="1.0.0.0"
-      displayName="Example Mod"
-      updateJSONURL="minecraftforge.net/versions.json"
-      displayURL="minecraftforge.net"
-      logoFile="logo.png"
-      credits="I'd like to thank my mother and father."
-      authors="Author"
-      description='''
-      Lets you craft dirt into diamonds. This is a traditional mod that has existed for eons. It is ancient. The holy Notch created it. Jeb rainbowfied it. Dinnerbone made it upside down. Etc.
-      '''
+[[mods]]
+  modId="examplemod"
+  version="1.0.0.0"
+  displayName="Example Mod"
+  updateJSONURL="minecraftforge.net/versions.json"
+  displayURL="minecraftforge.net"
+  logoFile="logo.png"
+  credits="I'd like to thank my mother and father."
+  authors="Author"
+  description='''
+  Lets you craft dirt into diamonds. This is a traditional mod that has existed for eons. It is ancient. The holy Notch created it. Jeb rainbowfied it. Dinnerbone made it upside down. Etc.
+  '''
 
-      [[dependencies.examplemod]]
-        modId="forge"
-        mandatory=true
-        versionRange="[38,)"
-        ordering="NONE"
-        side="BOTH"
+  [[dependencies.examplemod]]
+    modId="forge"
+    mandatory=true
+    versionRange="[38,)"
+    ordering="NONE"
+    side="BOTH"
 
-      [[dependencies.examplemod]]
-        modId="minecraft"
-        mandatory=true
-        versionRange="[1.18,1.19)"
-        ordering="NONE"
-        side="BOTH"
+  [[dependencies.examplemod]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18,1.19)"
+    ordering="NONE"
+    side="BOTH"
 ```
 
 If any string is specified as `${file.jarVersion}`, Forge will replace the string with the **Implementation Version** specified in your jar manifest at runtime. Since the user development environment has no jar manifest to pull from, it will be `NONE` instead. As such, it is usually recommended to leave the `version` field alone. Here is a table of attributes that may be given to a mod, where `mandatory` means there is no default and the absence of the property causes an error.

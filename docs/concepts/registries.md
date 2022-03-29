@@ -24,7 +24,7 @@ private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Fo
 public static final RegistryObject<Block> ROCK_BLOCK = BLOCKS.register("rock", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
 
 public ExampleMod() {
-    BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+  BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
 }
 ```
 
@@ -39,7 +39,7 @@ Here is an example: (the event handler is registered on the *mod event bus*)
 ```java
 @SubscribeEvent
 public void registerBlocks(RegistryEvent.Register<Block> event) {
-    event.getRegistry().registerAll(new Block(...), new Block(...), ...);
+  event.getRegistry().registerAll(new Block(...), new Block(...), ...);
 }
 ```
 
@@ -59,7 +59,7 @@ The appropriate time to populate these objects is in `FMLCommonSetupEvent`. Beca
     These factories are created through the use of their `*Type$Builder` classes. An example: (`REGISTER` refers to a `DeferredRegister<BlockEntityType>`)
     ```java
     public static final RegistryObject<BlockEntityType<ExampleBlockEntity>> EXAMPLE_BLOCK_ENTITY = REGISTER.register(
-        "example_block_entity", () -> BlockEntityType.Builder.of(ExampleBlockEntity::new, EXAMPLE_BLOCK.get()).build(null)
+      "example_block_entity", () -> BlockEntityType.Builder.of(ExampleBlockEntity::new, EXAMPLE_BLOCK.get()).build(null)
     );
     ```
 
@@ -94,17 +94,17 @@ The rules for `@ObjectHolder` are as follows:
 * If the class is annotated with `@ObjectHolder`, its value will be the default namespace for all fields within if not explicitly defined
 * If the class is annotated with `@Mod`, the modid will be the default namespace for all annotated fields within if not explicitly defined
 * A field is considered for injection if:
-    * it has at least the modifiers `public static`;
-    * one of the following conditions are true:
-        * the **enclosing class** has an `@ObjectHolder` annotation, and the field is `final`, and:
-            * the name value is the field's name; and
-            * the namespace value is the enclosing class's namespace
-            * _An exception is thrown if the namespace value cannot be found and inherited_
-        * the **field** is annotated with `@ObjectHolder`, and:
-            * the name value is explicitly defined; and
-            * the namespace value is either explicitly defined or the enclosing class's namespace
-    * the field type or one of its supertypes corresponds to a valid registry (e.g. `Item` or `ArrowItem` for the `Item` registry);
-    * _An exception is thrown if a field does not have a corresponding registry._
+  * it has at least the modifiers `public static`;
+  * one of the following conditions are true:
+    * the **enclosing class** has an `@ObjectHolder` annotation, and the field is `final`, and:
+      * the name value is the field's name; and
+      * the namespace value is the enclosing class's namespace
+      * _An exception is thrown if the namespace value cannot be found and inherited_
+    * the **field** is annotated with `@ObjectHolder`, and:
+      * the name value is explicitly defined; and
+      * the namespace value is either explicitly defined or the enclosing class's namespace
+  * the field type or one of its supertypes corresponds to a valid registry (e.g. `Item` or `ArrowItem` for the `Item` registry);
+  * _An exception is thrown if a field does not have a corresponding registry._
 * _An exception is thrown if the resulting `ResourceLocation` is incomplete or invalid (non-valid characters in path)_
 * If no other errors or exceptions occur, the field will be injected
 * If all of the above rules do not apply, no action will be taken (and a message may be logged)
@@ -118,76 +118,76 @@ As these rules are rather complicated, here are some examples:
 ```java
 @ObjectHolder("minecraft") // Inheritable resource namespace: "minecraft"
 class AnnotatedHolder {
-    public static final Block diamond_block = null;   // No annotation. [public static final] is required.
-                                                      // Block has a corresponding registry: [Block]
-                                                      // Name path is the name of the field: "diamond_block"
-                                                      // Namespace is not explicitly defined.
-                                                      // So, namespace is inherited from class annotation: "minecraft"
-                                                      // To inject: "minecraft:diamond_block" from the [Block] registry
+  public static final Block diamond_block = null;   // No annotation. [public static final] is required.
+                                                    // Block has a corresponding registry: [Block]
+                                                    // Name path is the name of the field: "diamond_block"
+                                                    // Namespace is not explicitly defined.
+                                                    // So, namespace is inherited from class annotation: "minecraft"
+                                                    // To inject: "minecraft:diamond_block" from the [Block] registry
 
-    @ObjectHolder("ambient.cave")
-    public static SoundEvent ambient_sound = null;    // Annotation present. [public static] is required.
-                                                      // SoundEvent has a corresponding registry: [SoundEvent]
-                                                      // Name path is the value of the annotation: "ambient.cave"
-                                                      // Namespace is not explicitly defined.
-                                                      // So, namespace is inherited from class annotation: "minecraft"
-                                                      // To inject: "minecraft:ambient.cave" from the [SoundEvent] registry
+  @ObjectHolder("ambient.cave")
+  public static SoundEvent ambient_sound = null;    // Annotation present. [public static] is required.
+                                                    // SoundEvent has a corresponding registry: [SoundEvent]
+                                                    // Name path is the value of the annotation: "ambient.cave"
+                                                    // Namespace is not explicitly defined.
+                                                    // So, namespace is inherited from class annotation: "minecraft"
+                                                    // To inject: "minecraft:ambient.cave" from the [SoundEvent] registry
 
-    // Assume for the next entry that [ManaType] is a valid registry.          
-    @ObjectHolder("neomagicae:coffeinum")
-    public static final ManaType coffeinum = null;    // Annotation present. [public static] is required. [final] is optional.
-                                                      // ManaType has a corresponding registry: [ManaType] (custom registry)
-                                                      // Resource location is explicitly defined: "neomagicae:coffeinum"
-                                                      // To inject: "neomagicae:coffeinum" from the [ManaType] registry
+  // Assume for the next entry that [ManaType] is a valid registry.          
+  @ObjectHolder("neomagicae:coffeinum")
+  public static final ManaType coffeinum = null;    // Annotation present. [public static] is required. [final] is optional.
+                                                    // ManaType has a corresponding registry: [ManaType] (custom registry)
+                                                    // Resource location is explicitly defined: "neomagicae:coffeinum"
+                                                    // To inject: "neomagicae:coffeinum" from the [ManaType] registry
 
-    public static final Item ENDER_PEARL = null;      // No annotation. [public static final] is required.
-                                                      // Item has a corresponding registry: [Item].
-                                                      // Name path is the name of the field: "ENDER_PEARL" -> "ender_pearl"
-                                                      // !! ^ Field name is valid, because they are
-                                                      //      converted to lowercase automatically.
-                                                      // Namespace is not explicitly defined.
-                                                      // So, namespace is inherited from class annotation: "minecraft"
-                                                      // To inject: "minecraft:ender_pearl" from the [Item] registry
+  public static final Item ENDER_PEARL = null;      // No annotation. [public static final] is required.
+                                                    // Item has a corresponding registry: [Item].
+                                                    // Name path is the name of the field: "ENDER_PEARL" -> "ender_pearl"
+                                                    // !! ^ Field name is valid, because they are
+                                                    //      converted to lowercase automatically.
+                                                    // Namespace is not explicitly defined.
+                                                    // So, namespace is inherited from class annotation: "minecraft"
+                                                    // To inject: "minecraft:ender_pearl" from the [Item] registry
 
-    @ObjectHolder("minecraft:arrow")
-    public static final ArrowItem arrow = null;       // Annotation present. [public static] is required. [final] is optional.
-                                                      // ArrowItem does not have a corresponding registry.
-                                                      // ArrowItem's supertype of Item has a corresponding registry: [Item]
-                                                      // Resource location is explicitly defined: "minecraft:arrow"
-                                                      // To inject: "minecraft:arrow" from the [Item] registry                                                    
+  @ObjectHolder("minecraft:arrow")
+  public static final ArrowItem arrow = null;       // Annotation present. [public static] is required. [final] is optional.
+                                                    // ArrowItem does not have a corresponding registry.
+                                                    // ArrowItem's supertype of Item has a corresponding registry: [Item]
+                                                    // Resource location is explicitly defined: "minecraft:arrow"
+                                                    // To inject: "minecraft:arrow" from the [Item] registry                                                    
 
-    public static Block bedrock = null;               // No annotation, so [public static final] is required.
-                                                      // Therefore, the field is ignored.
+  public static Block bedrock = null;               // No annotation, so [public static final] is required.
+                                                    // Therefore, the field is ignored.
     
-    public static final CreativeModeTab group = null; // No annotation. [public static final] is required.
-                                                      // CreativeModeTab does not have a corresponding registry.
-                                                      // No supertypes of CreativeModeTab has a corresponding registry.
-                                                      // Therefore, THIS WILL PRODUCE AN EXCEPTION.
+  public static final CreativeModeTab group = null; // No annotation. [public static final] is required.
+                                                    // CreativeModeTab does not have a corresponding registry.
+                                                    // No supertypes of CreativeModeTab has a corresponding registry.
+                                                    // Therefore, THIS WILL PRODUCE AN EXCEPTION.
 }
 
 class UnannotatedHolder { // Note the lack of an @ObjectHolder annotation on this class.
-    @ObjectHolder("minecraft:flame")
-    public static final Enchantment flame = null;     // Annotation present. [public static] is required. [final] is optional.
-                                                      // Enchantment has corresponding registry: [Enchantment].
-                                                      // Resource location is explicitly defined: "minecraft:flame"
-                                                      // To inject: "minecraft:flame" from the [Enchantment] registry
+  @ObjectHolder("minecraft:flame")
+  public static final Enchantment flame = null;     // Annotation present. [public static] is required. [final] is optional.
+                                                    // Enchantment has corresponding registry: [Enchantment].
+                                                    // Resource location is explicitly defined: "minecraft:flame"
+                                                    // To inject: "minecraft:flame" from the [Enchantment] registry
 
-    public static final Biome ice_flat = null;        // No annotation on the enclosing class.
-                                                      // Therefore, the field is ignored.
+  public static final Biome ice_flat = null;        // No annotation on the enclosing class.
+                                                    // Therefore, the field is ignored.
 
-    @ObjectHolder("minecraft:creeper")
-    public static Entity creeper = null;              // Annotation present. [public static] is required.
-                                                      // Entity does not have a corresponding registry.
-                                                      // No supertypes of Entity has a corresponding registry.
-                                                      // Therefore, THIS WILL PRODUCE AN EXCEPTION.
+  @ObjectHolder("minecraft:creeper")
+  public static Entity creeper = null;              // Annotation present. [public static] is required.
+                                                    // Entity does not have a corresponding registry.
+                                                    // No supertypes of Entity has a corresponding registry.
+                                                    // Therefore, THIS WILL PRODUCE AN EXCEPTION.
 
-    @ObjectHolder("levitation")
-    public static final Potion levitation = null;     // Annotation present. [public static] is required. [final] is optional.
-                                                      // Potion has a corresponding registry: [Potion].
-                                                      // Name path is the value of the annotation: "levitation"
-                                                      // Namespace is not explicitly defined.
-                                                      // No annotation in enclosing class.
-                                                      // Therefore, THIS WILL PRODUCE AN EXCEPTION.
+  @ObjectHolder("levitation")
+  public static final Potion levitation = null;     // Annotation present. [public static] is required. [final] is optional.
+                                                    // Potion has a corresponding registry: [Potion].
+                                                    // Name path is the value of the annotation: "levitation"
+                                                    // Namespace is not explicitly defined.
+                                                    // No annotation in enclosing class.
+                                                    // Therefore, THIS WILL PRODUCE AN EXCEPTION.
 }
 ```
 
