@@ -25,16 +25,16 @@ The format of an override can be seen on the [wiki][format], and a good example 
 !!! important
     A predicate applies to all values *greater than or equal to* the given value.
 
-```json
+```json5
 {
   "parent": "item/generated",
   "textures": {
-    "__comment": "Default",
+    // Default
     "layer0": "examplemod:items/example_partial"
   },
   "overrides": [
     {
-      "__comment": "power >= .75",
+      // power >= .75
       "predicate": {
         "examplemod:power": 0.75
       },

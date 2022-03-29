@@ -11,10 +11,10 @@ First you need to create your `SimpleChannel` object. We recommend that you do t
 ```java
 private static final String PROTOCOL_VERSION = "1";
 public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
-    new ResourceLocation("mymodid", "main"),
-    () -> PROTOCOL_VERSION,
-    PROTOCOL_VERSION::equals,
-    PROTOCOL_VERSION::equals
+  new ResourceLocation("mymodid", "main"),
+  () -> PROTOCOL_VERSION,
+  PROTOCOL_VERSION::equals,
+  PROTOCOL_VERSION::equals
 );
 ```
 
@@ -51,12 +51,12 @@ There are a couple things to highlight in a packet handler. A packet handler has
 
 ```java
 public static void handle(MyMessage msg, Supplier<NetworkEvent.Context> ctx) {
-    ctx.get().enqueueWork(() -> {
-        // Work that needs to be thread-safe (most work)
-        ServerPlayer sender = ctx.get().getSender(); // the client that sent this packet
-        // Do stuff
-    });
-    ctx.get().setPacketHandled(true);
+  ctx.get().enqueueWork(() -> {
+    // Work that needs to be thread-safe (most work)
+    ServerPlayer sender = ctx.get().getSender(); // the client that sent this packet
+    // Do stuff
+  });
+  ctx.get().setPacketHandled(true);
 }
 ```
 
@@ -65,16 +65,16 @@ Packets sent from the server to the client should be handled in another class an
 ```java
 // In Packet class
 public static void handle(MyClientMessage msg, Supplier<NetworkEvent.Context> ctx) {
-    ctx.get().enqueueWork(() ->
-        // Make sure it's only executed on the physical client
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientPacketHandlerClass.handlePacket(msg, ctx))
-    );
-    ctx.get().setPacketHandled(true);
+  ctx.get().enqueueWork(() ->
+    // Make sure it's only executed on the physical client
+    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientPacketHandlerClass.handlePacket(msg, ctx))
+  );
+  ctx.get().setPacketHandled(true);
 }
 
 // In ClientPacketHandlerClass
 public static void handlePacket(MyClientMessage msg, Supplier<NetworkEvent.Context> ctx) {
-    // Do stuff
+  // Do stuff
 }
 ```
 

@@ -46,11 +46,11 @@ These two methods are subdivided further into `#safe*` and `#unsafe*` variants. 
 ```java
 // In a client class: ExampleClass
 public static void unsafeRunMethodExample(Object param1, Object param2) {
-    // ...
+  // ...
 }
 
 public static Object safeCallMethodExample() {
-    // ...
+  // ...
 }
 
 // In some common class

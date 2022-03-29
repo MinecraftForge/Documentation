@@ -13,7 +13,7 @@ Adding an Access Transformer to your mod project is as simple as adding a single
 ```groovy
 // This block is where your mappings version is also specified
 minecraft {
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+  accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 }
 ```
 
@@ -31,10 +31,10 @@ Access Modifiers
 
 Access modifiers specify to what new member visibility the given target will be transformed to. In decreasing order of visibility:
 
-  * `public` - visible to all classes inside and outside its package
-  * `protected` - visible only to classes inside the package and subclasses
-  * `default` - visible only to classes inside the package
-  * `private` - visible only to inside the class
+* `public` - visible to all classes inside and outside its package
+* `protected` - visible only to classes inside the package and subclasses
+* `default` - visible only to classes inside the package
+* `private` - visible only to inside the class
 
 A special modifier `+f` and `-f` can be appended to the aforementioned modifiers to either add or remove respectively the `final` modifier, which prevents subclassing, method overriding, or field modification when applied.
 
@@ -72,22 +72,22 @@ Targeting methods require a special syntax to denote the method parameters and r
 
 Also called "descriptors": see the [Java Virtual Machine Specification, SE 8, sections 4.3.2 and 4.3.3][jvmdescriptors] for more technical details.
 
-  * `B` - `byte`, a signed byte
-  * `C` - `char`, a Unicode character code point in UTF-16
-  * `D` - `double`, a double-precision floating-point value
-  * `F` - `float`, a single-precision floating-point value
-  * `I` - `integer`, a 32-bit integer
-  * `J` - `long`, a 64-bit integer
-  * `S` - `short`, a signed short
-  * `Z` - `boolean`, a `true` or `false` value
-  * `[` - references one dimension of an array
-    * Example: `[[S` refers to `short[][]`
-  * `L<class name>;` - references a reference type
-    * Example: `Ljava/lang/String;` refers to `java.lang.String` reference type _(note the use of slashes instead of periods)_
-  * `(` - references a method descriptor, parameters should be supplied here or nothing if no parameters are present
-    * Example: `<method>(I)Z` refers to a method that requires an integer argument and returns a boolean
-  * `V` - indicates a method returns no value, can only be used at the end of a method descriptor
-    * Example: `<method>()V` refers to a method that has no arguments and returns nothing
+* `B` - `byte`, a signed byte
+* `C` - `char`, a Unicode character code point in UTF-16
+* `D` - `double`, a double-precision floating-point value
+* `F` - `float`, a single-precision floating-point value
+* `I` - `integer`, a 32-bit integer
+* `J` - `long`, a 64-bit integer
+* `S` - `short`, a signed short
+* `Z` - `boolean`, a `true` or `false` value
+* `[` - references one dimension of an array
+  * Example: `[[S` refers to `short[][]`
+* `L<class name>;` - references a reference type
+  * Example: `Ljava/lang/String;` refers to `java.lang.String` reference type _(note the use of slashes instead of periods)_
+* `(` - references a method descriptor, parameters should be supplied here or nothing if no parameters are present
+ * Example: `<method>(I)Z` refers to a method that requires an integer argument and returns a boolean
+* `V` - indicates a method returns no value, can only be used at the end of a method descriptor
+  * Example: `<method>()V` refers to a method that has no arguments and returns nothing
 
 Examples
 --------

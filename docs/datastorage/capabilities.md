@@ -99,7 +99,7 @@ In general terms, a capability is registered through the event `RegisterCapabili
 ```java
 @SubscribeEvent
 public void registerCaps(RegisterCapabilitiesEvent event) {
-    event.register(IExampleCapability.class);
+  event.register(IExampleCapability.class);
 }
 ```
 
@@ -121,7 +121,7 @@ public class MyBlockEntity extends BlockEntity {
     }
   }
 
-  ...
+  // ...
 }
 ```
 

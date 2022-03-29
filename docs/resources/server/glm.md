@@ -9,20 +9,13 @@ Registering a Global Loot Modifier
 You will need 4 things:
 
 1. Create a `global_loot_modifiers.json`.
-
-    This will tell Forge about your modifiers and works similar to [tags].
-
+    * This will tell Forge about your modifiers and works similar to [tags].
 2. A serialized json representing your modifier.
-
-    This will contain all of the data about your modification and allows data packs to tweak your effect.
-
+    * This will contain all of the data about your modification and allows data packs to tweak your effect.
 3. A class that extends `IGlobalLootModifier`.
-
-    The operational code that makes your modifier work. Most modders can extend `LootModifier` as it supplies base functionality.
-
+    * The operational code that makes your modifier work. Most modders can extend `LootModifier` as it supplies base functionality.
 4. Finally, a class that extends `GlobalLootModifierSerializer` for your operational class.
-
-    This is [registered] as any other `IForgeRegistryEntry`.
+    * This is [registered] as any other `IForgeRegistryEntry`.
 
 The `global_loot_modifiers.json`
 -------------------------------
@@ -30,7 +23,6 @@ The `global_loot_modifiers.json`
 The `global_loot_modifiers.json` represents all loot modifiers to be loaded into the game. This file **MUST** be placed within `data/forge/loot_modifiers/global_loot_modifiers.json`.
 
 !!! important
-
     `global_loot_modifiers.json` will only be read in the `forge` namespace. The file will be neglected if it is under the mod's namespace.
 
 `entries` is an *ordered list* of the modifiers that will be loaded. The [ResourceLocation][resloc]s specified points to their associated entry within `data/<namespace>/loot_modifiers/<path>.json`. This is primarily relevant to data pack makers for resolving conflicts between modifiers from separate mods.
@@ -59,7 +51,6 @@ This file contains all of the potential variables related to your modifier, incl
 `conditions` should represent the loot table conditions for this modifier to activate. Conditions should avoid being hardcoded to allow datapack creators as much flexibility to adjust the criteria. This must also be always present.
 
 !!! important
-
     Although `conditions` should represent what is needed for the modifier to activate, this is only the case if using the bundled Forge classes. If using `LootModifier` as a subclass, all conditions will be **ANDed** together and checked to see if the modifier should be applied.
 
 Any additional properties read by the serializer and defined by the modifier can also be specified.
@@ -86,7 +77,6 @@ To supply the functionality a global loot modifier specifies, a `IGlobalLootModi
 There is only one method that needs to be defined in order to create a new modifier: `#apply`. This takes in the current loot that will be generated along with the context information such as the currently level or additional defined parameters. It returns the list of drops to generate.
 
 !!! note
-
     The returned list of drops from any one modifier is fed into other modifiers in the order they are registered. As such, modified loot can be modified by another loot modifier.
 
 ### The `LootModifier` Subclass
@@ -102,16 +92,16 @@ The `#doApply` method works the same as the `#apply` method except that it only 
 ```java
 public class ExampleModifier extends LootModifier {
 
-    public ExampleModifier(LootItemCondition[] conditionsIn, String prop1, int prop2, Item prop3) {
-        super(conditionsIn);
-        // Store the rest of the parameters
-    }
+  public ExampleModifier(LootItemCondition[] conditionsIn, String prop1, int prop2, Item prop3) {
+    super(conditionsIn);
+    // Store the rest of the parameters
+  }
 
-    @Nonnull
-    @Override
-    protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-        // Modify the loot and return the new drops
-    }
+  @Nonnull
+  @Override
+  protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
+    // Modify the loot and return the new drops
+  }
 }
 ```
 
@@ -129,21 +119,21 @@ Two methods must be defined within the serializer implementation: `#read` and `#
 ```java
 public ExampleModifierSerializer extends GlobalLootModifierSerializer<ExampleModifier> {
 
-    @Override
-    public ExampleModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] conditions) {
-        String prop1 = GsonHelper.getAsString(object, "prop1");
-        // Deserializer other properties
-        return new ExampleModifier(conditions, prop1, prop2, prop3);
-    }
+  @Override
+  public ExampleModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] conditions) {
+    String prop1 = GsonHelper.getAsString(object, "prop1");
+    // Deserializer other properties
+    return new ExampleModifier(conditions, prop1, prop2, prop3);
+  }
 
-    @Override
-    public JsonObject write(ExampleModifier instance) {
-        // Create json object with conditions in modifier
-        JsonObject res = this.makeConditions(instance.conditionsIn);
-        res.addProperty("prop1", instance.prop1);
-        // Add other properties in modifier
-        return res;
-    }
+  @Override
+  public JsonObject write(ExampleModifier instance) {
+    // Create json object with conditions in modifier
+    JsonObject res = this.makeConditions(instance.conditionsIn);
+    res.addProperty("prop1", instance.prop1);
+    // Add other properties in modifier
+    return res;
+  }
 }
 
 ```

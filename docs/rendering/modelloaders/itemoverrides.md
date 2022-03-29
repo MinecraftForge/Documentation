@@ -21,21 +21,21 @@ Returns an immutable list containing all the [`BakedOverride`][override]s used b
 
 This class represents a vanilla item override, which holds several `ItemOverrides$PropertyMatcher` for the properties on an item and a model to use in case those matchers are satisfied. They are the objects in the `overrides` array of a vanilla item JSON model:
 
-```json
+```json5
 {
-  "__comment": "Inside a vanilla JSON item model.",
+  // Inside a vanilla JSON item model
   "overrides": [
     {
-      "__comment": "This is an ItemOverride.",
+      // This is an ItemOverride
       "predicate": {
-        "__comment": "This is the Map<ResourceLocation, Float>, containing the names of properties and their minimum values.",
+        // This is the Map<ResourceLocation, Float>, containing the names of properties and their minimum values
         "example1:prop": 0.5
       },
-      "__comment": "This is the 'location', or target model, of the override, which is used if the predicate above matches.",
+      // This is the 'location', or target model, of the override, which is used if the predicate above matches
       "model": "example1:item/model"
     },
     {
-      "__comment": "This is another ItemOverride.",
+      // This is another ItemOverride
       "predicate": {
         "example2:prop": 1
       },

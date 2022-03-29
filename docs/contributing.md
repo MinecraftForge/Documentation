@@ -16,8 +16,8 @@ Style Guide
 
 Titles should be capitalized in the standard titling format. For example,
 
-  * Guide For Contributing to This Documentation
-  * Building and Testing Your Mod
+* Guide For Contributing to This Documentation
+* Building and Testing Your Mod
 
 Essentially, capitalize everything but unimportant words.
 
