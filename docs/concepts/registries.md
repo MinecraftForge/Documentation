@@ -45,10 +45,14 @@ public void registerBlocks(RegistryEvent.Register<Block> event) {
 
 ### Registries that aren't Forge Registries
 
-Due to some peculiarities of vanilla code, not all registries are wrapped by Forge. These can be static registries, like `RecipeType`, which are safe to use. There are also dynamic registries, like `ConfiguredFeature` and some other worldgen registries, which are typically represented in JSON. These objects should only be registered this way if there is another registry object that requires it. `DeferredRegister#create` has an overload which allows modders to specify the registry key of which vanilla registry to create a `RegistryObject` for.
+Due to some peculiarities of vanilla code, not all registries are wrapped by Forge. These can be static registries, like `RecipeType`, which are safe to use. There are also dynamic registries, like `ConfiguredFeature` and some other worldgen registries, which are typically represented in JSON. These objects should only be registered this way if there is another registry object that requires it. `DeferredRegister#create` has an overload which allows modders to specify the registry key of which vanilla registry to create a `RegistryObject` for. The registry method and attaching to the mod event bus is the same as other `DeferredRegister`s.
 
 ```java
 private static final DeferredRegister<RecipeType<?>> REGISTER = DeferredRegister.create(Registry.RECIPE_TYPE_REGISTRY, "examplemod");
+
+// As RecipeType is an interface, an anonymous class will be created for registering
+// Assume some recipe ExampleRecipe
+public static final RegistryObject<RecipeType<ExampleRecipe>> EXAMPLE_RECIPE_TYPE = REGISTER.register("example_recipe_type", () -> new RecipeType<>() {});
 ```
 
 !!! note
