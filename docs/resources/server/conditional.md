@@ -141,6 +141,9 @@ Method | Description
 getID | The registry name of the condition. Must be equivalent to [`IConditionSerializer#getID`][serializer]. Used only for [data generation][datagen].
 test | Returns true if the condition has been satisfied.
 
+!!! note
+    Every `#test` has access to some `IContext` representing the state of the game. Currently, only tags can be obtained from a registry.
+
 ### IConditionSerializer
 
 Serializers need to implement three methods:
