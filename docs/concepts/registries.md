@@ -51,6 +51,7 @@ Due to some peculiarities of vanilla code, not all registries are wrapped by For
 private static final DeferredRegister<RecipeType<?>> REGISTER = DeferredRegister.create(Registry.RECIPE_TYPE_REGISTRY, "examplemod");
 
 // As RecipeType is an interface, an anonymous class will be created for registering
+// Vanilla RecipeTypes override #toString for debugging purposes, so it is omitted in this example
 // Assume some recipe ExampleRecipe
 public static final RegistryObject<RecipeType<ExampleRecipe>> EXAMPLE_RECIPE_TYPE = REGISTER.register("example_recipe_type", () -> new RecipeType<>() {});
 ```
