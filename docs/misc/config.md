@@ -63,64 +63,68 @@ The values themselves can be obtained using `ConfigValue#get`. The values are ad
 #### Additional Config Value Types
 
 * **Range Values**
-  * Description: Value must be between the defined bounds
-  * Class Type: `Comparable<T>`
-  * Method Name: `#defineInRange`
-  * Additional Components:
-    * The minimum and maximum the config value may be
-    * A class representing the data type of the config value
+    * Description: Value must be between the defined bounds
+    * Class Type: `Comparable<T>`
+    * Method Name: `#defineInRange`
+    * Additional Components:
+      * The minimum and maximum the config value may be
+      * A class representing the data type of the config value
 
 !!! note
     `DoubleValue`s, `IntValue`s, and `LongValue`s are range values which specify the class as `Double`, `Integer`, and `Long` respectively.
 
 * **Whitelisted Values**
-  * Description: Value must be in supplied collection
-  * Class Type: `T`
-  * Method Name: `#defineInList`
-  * Additional Components:
-    * A collection of the allowed values the configuration can be
+    * Description: Value must be in supplied collection
+    * Class Type: `T`
+    * Method Name: `#defineInList`
+    * Additional Components:
+      * A collection of the allowed values the configuration can be
 
 * **List Values**
-  * Description: Value is a list of entries
-  * Class Type: `List<T>`
-  * Method Name: `#defineList`, `#defineListAllowEmpty` if list can be empty
-  * Additional Components:
-    * A validator to make sure a deserialized element from the list is valid
+    * Description: Value is a list of entries
+    * Class Type: `List<T>`
+    * Method Name: `#defineList`, `#defineListAllowEmpty` if list can be empty
+    * Additional Components:
+      * A validator to make sure a deserialized element from the list is valid
 
 * **Enum Values**
-  * Description: An enum value in the supplied collection
-  * Class Type: `Enum<T>`
-  * Method Name: `#defineEnum`
-  * Additional Components:
-    * A getter to convert a string or integer into an enum
-    * A collection of the allowed values the configuration can be
+    * Description: An enum value in the supplied collection
+    * Class Type: `Enum<T>`
+    * Method Name: `#defineEnum`
+    * Additional Components:
+      * A getter to convert a string or integer into an enum
+      * A collection of the allowed values the configuration can be
 
 * **Boolean Values**
-  * Description: A `boolean` value
-  * Class Type: `Boolean`
-  * Method Name: `#define`
+    * Description: A `boolean` value
+    * Class Type: `Boolean`
+    * Method Name: `#define`
 
 Registering a Configuration
 ---------------------------
 
 Once a `ForgeConfigSpec` has been built, it must be registered to allow Forge to load, track, and sync the configuration settings as required. Configurations should be registered in the mod constructor via `ModLoadingContext#registerConfig`. A configuration can be registered with a given type representing the side the config belongs to, the `ForgeConfigSpec`, and optionally a specific file name for the configuration.
 
-Type   | Loaded | Synced to Client | Stored                         | Default Suffix
-:---:  | :---:  | :---:            | :---:                          | :---
-CLIENT | Client | ❌               | `.minecraft/config`            | `-client`
-COMMON | Both   | ❌               | `.minecraft/config`            | `-common`
-SERVER | Server | ✔️               | `<server_folder>/serverconfig` | `-server`
-
-!!! tip
-    Forge documents the [config types][type] within their codebase.
-
 ```java
 // In the mod constructor with a ForgeConfigSpec CONFIG
 ModLoadingContext.get().registerConfig(Type.COMMON, CONFIG);
 ```
 
-Listening for Configuration Loading/Reloading
----------------------------------------------
+Here is a list of the available configuration types:
+
+Type   | Loaded           | Synced to Client | Stored                         | Default File Suffix
+:---:  | :---:            | :---:            | :---:                          | :---
+CLIENT | Client Side Only | No               | `.minecraft/config`            | `-client`
+COMMON | On Both Sides    | No               | `<run_location>/config`            | `-common`
+SERVER | Server Side Only | Yes               | `<server_folder>/world/serverconfig` | `-server`
+
+* `<run_location>` specifies the folder the game is being run from, whether `.minecraft` on the client or the `<server_folder>` for the server.
+
+!!! tip
+    Forge documents the [config types][type] within their codebase.
+
+Configuration Events
+--------------------
 
 Operations that occur whenever a config is loaded or reloaded can be done using the `ModConfigEvent$Loading` and `ModConfigEvent$Reloading` events. The events must be [registered][events] to the mod event bus.
 
@@ -129,5 +133,5 @@ Operations that occur whenever a config is loaded or reloaded can be done using 
 
 [toml]: https://toml.io/
 [nightconfig]: https://github.com/TheElectronWill/night-config
-[type]: https://github.com/MinecraftForge/MinecraftForge/blob/1.18.x/fmlcore/src/main/java/net/minecraftforge/fml/config/ModConfig.java#L108-L136
+[type]: https://github.com/MinecraftForge/MinecraftForge/blob/c3e0b071a268b02537f9d79ef8e7cd9b100db416/fmlcore/src/main/java/net/minecraftforge/fml/config/ModConfig.java#L108-L136
 [events]: ../concepts/events.md#creating-an-event-handler
