@@ -8,25 +8,25 @@ Creating a Configuration
 
 A configuration can be created using a subtype of `IConfigSpec`. Forge implements the type via `ForgeConfigSpec` and enables its construction through `ForgeConfigSpec$Builder`. The builder can separate the config values into sections via `Builder#push` to create a section and `Builder#pop` to leave a section. Afterwards, the configuration can be built using one of two methods:
 
-Method    | Description
-:---      | :---
+ Method     | Description
+ :---       | :---
 `build`     | Creates the `ForgeConfigSpec`.
 `configure` | Creates a pair of the class holding the config values and the `ForgeConfigSpec`.
 
 !!! note
-    `ForgeConfigSpec$Builder#configure` is typically used with a `static` block and a class that takes in `ForgeCondifSpec$Builder` as part of its constructor to attach and hold the values:
+    `ForgeConfigSpec$Builder#configure` is typically used with a `static` block and a class that takes in `ForgeConfigSpec$Builder` as part of its constructor to attach and hold the values:
 
     ```java
     // In some config class
     ExampleConfig(ForgeConfigSpec.Builder builder) {
-        // Define values here in final fields
+      // Define values here in final fields
     }
 
     // Somewhere the constructor is accessible
     static {
-        Pair<ExampleConfig, ForgeConfigSpec> pair = new ForgeConfigSpec.Builder()
-            .configure(ExampleConfig::new);
-        // Store pair values in some constant field
+      Pair<ExampleConfig, ForgeConfigSpec> pair = new ForgeConfigSpec.Builder()
+        .configure(ExampleConfig::new);
+      // Store pair values in some constant field
     }
     ```
 
@@ -43,10 +43,12 @@ Method       | Description
 Config values can be built with the provided contexts (if defined) using any of the `#define` methods.
 
 All config value methods take in at least two components:
+
 * A path representing the name of the variable: a `.` separated string representing the sections the config value is in
 * The default value when no valid configuration is present
 
 The `ConfigValue` specific methods take in two additional components:
+
 * A validator to make sure the deserialized object is valid
 * A class representing the data type of the config value
 
