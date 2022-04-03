@@ -56,6 +56,7 @@ nav:
       - Model Providers: 'datagen/client/modelproviders.md'
 #    - Server Data:
   - Miscellaneous Features:
+    - Game Tests: 'misc/gametest.md'
     - Forge Update Checker: 'misc/updatechecker.md'
     - Debug Profiler: 'misc/debugprofiler.md'
   - Advanced Topics:
