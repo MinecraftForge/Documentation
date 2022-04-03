@@ -45,13 +45,16 @@ public void registerBlocks(RegistryEvent.Register<Block> event) {
 
 ### Registries that aren't Forge Registries
 
-Due to some peculiarities of vanilla code, not all registries are wrapped by Forge. These can be static registries, like `RecipeType`, which are safe to use. There are also dynamic registries, like `ConfiguredFeature` and some other worldgen registries, which are typically represented in JSON. These objects should only be registered this way if there is another registry object that requires it. 
+Due to some peculiarities of vanilla code, not all registries are wrapped by Forge. These can be static registries, like `RecipeType`, which are safe to use. There are also dynamic registries, like `ConfiguredFeature` and some other worldgen registries, which are typically represented in JSON. These objects should only be registered this way if there is another registry object that requires it. `DeferredRegister#create` has an overload which allows modders to specify the registry key of which vanilla registry to create a `RegistryObject` for. The registry method and attaching to the mod event bus is the same as other `DeferredRegister`s.
 
-Without the benefit of registry objects, care has to be taken to not register things before they're ready. `Lazy` is a utility class that stores a value that is calculated the first time it is accessed. Using `Lazy.of(...)` with a supplier as a parameter is its typical usage. `Lazy` is a subclass of `Supplier`, so `Supplier#get` is used to retrieve the value.
+```java
+private static final DeferredRegister<RecipeType<?>> REGISTER = DeferredRegister.create(Registry.RECIPE_TYPE_REGISTRY, "examplemod");
 
-In this case, the value to be stored is `() -> Registry.register(...)`. For parameters, `Registry#register` takes the registry being added to, a `ResourceLocation` identifying the object to be registered, and the object itself.
-
-The appropriate time to populate these objects is in `FMLCommonSetupEvent`. Because vanilla registries are not guaranteed to be threadsafe, a call to `Supplier#get` should be inside a `ParallelDispatchEvent#enqueueWork` call. This evaluates the `Registry#register` call, which will register the object and allow it to be referenced freely.
+// As RecipeType is an interface, an anonymous class will be created for registering
+// Vanilla RecipeTypes override #toString for debugging purposes, so it is omitted in this example
+// Assume some recipe ExampleRecipe
+public static final RegistryObject<RecipeType<ExampleRecipe>> EXAMPLE_RECIPE_TYPE = REGISTER.register("example_recipe_type", () -> new RecipeType<>() {});
+```
 
 !!! note
     Some classes cannot by themselves be registered. Instead, `*Type` classes are registered, and used in the formers' constructors. For example, [`BlockEntity`][blockentity] has `BlockEntityType`, and `Entity` has `EntityType`. These `*Type` classes are factories that simply create the containing type on demand. 
@@ -74,15 +77,15 @@ Registered objects must always be referenced through a `RegistryObject` or a fie
 
 `RegistryObject`s can be used to retrieve references to registered objects once they are available. These are used by `DeferredRegister` to return a reference to the registered objects. Their references are updated after their corresponding registry's `RegistryEvent$Register` event is fired, along with the `@ObjectHolder` annotations.
 
-To get a `RegistryObject`, call `RegistryObject#of` with a `ResourceLocation` and the `IForgeRegistry` of the registrable object. Custom registries can also be used by giving a supplier of the object's class. Store the `RegistryObject` in a `public static final` field, and call `#get` whenever you need the registered object.
+To get a `RegistryObject`, call `RegistryObject#create` with a `ResourceLocation` and the `IForgeRegistry` of the registrable object. Custom registries can also be used by giving a supplier of the object's class. Store the `RegistryObject` in a `public static final` field, and call `#get` whenever you need the registered object.
 
 An example of using `RegistryObject`:
 
 ```java
-public static final RegistryObject<Item> BOW = RegistryObject.of(new ResourceLocation("minecraft:bow"), ForgeRegistries.ITEMS);
+public static final RegistryObject<Item> BOW = RegistryObject.create(new ResourceLocation("minecraft:bow"), ForgeRegistries.ITEMS);
 
-// assume that ManaType is a valid registry, and 'neomagicae:coffeinum' is a valid object within that registry
-public static final RegistryObject<ManaType> COFFEINUM = RegistryObject.of(new ResourceLocation("neomagicae", "coffeinum"), () -> ManaType.class); 
+// assume that 'neomagicae:mana_type' is a valid registry, and 'neomagicae:coffeinum' is a valid object within that registry
+public static final RegistryObject<ManaType> COFFEINUM = RegistryObject.create(new ResourceLocation("neomagicae", "coffeinum"), new ResourceLocation("neomagicae", "mana_type"), "neomagicae"); 
 ```
 
 ### Using @ObjectHolder
@@ -208,7 +211,7 @@ When using `RegistryEvent$NewRegistry`, all one needs to do is construct the reg
 
 ### With DeferredRegister
 
-The `DeferredRegister` method is once again another wrapper around the above event. Once a `DeferredRegister` is created in a constant field, the registry can be constructed via `DeferredRegister#makeRegistry`. This takes in the name of the registry along with a supplied `RegistryBuilder` containing any additional configurations. The method already populates `#setName` and `#setType` by default. Since this method can be returned at any time, a supplied version of an `IForgeRegistry` is returned instead. This will be unresolvable until `RegistryEvent$NewRegistry` passes.
+The `DeferredRegister` method is once again another wrapper around the above event. Once a `DeferredRegister` is created in a constant field using the `#create` overload which takes in the registry name and the mod id, the registry can be constructed via `DeferredRegister#makeRegistry`. This takes in the registry class along with a supplied `RegistryBuilder` containing any additional configurations. The method already populates `#setName` and `#setType` by default. Since this method can be returned at any time, a supplied version of an `IForgeRegistry` is returned instead. This will be unresolvable until `RegistryEvent$NewRegistry` passes.
 
 !!! important
     `DeferredRegister#makeRegistry` must be called before the `DeferredRegister` is added to the mod event bus via `#register`. `#makeRegistry` also uses the `#register` method to create the registry during `RegistryEvent$NewRegistry`.
