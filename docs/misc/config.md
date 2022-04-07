@@ -112,13 +112,11 @@ ModLoadingContext.get().registerConfig(Type.COMMON, CONFIG);
 
 Here is a list of the available configuration types:
 
-Type   | Loaded           | Synced to Client | Stored                         | Default File Suffix
-:---:  | :---:            | :---:            | :---:                          | :---
-CLIENT | Client Side Only | No               | `.minecraft/config`            | `-client`
-COMMON | On Both Sides    | No               | `<run_location>/config`            | `-common`
-SERVER | Server Side Only | Yes               | `<server_folder>/world/serverconfig` | `-server`
-
-* `<run_location>` specifies the folder the game is being run from, whether `.minecraft` on the client or the `<server_folder>` for the server.
+Type   | Loaded           | Synced to Client | Client Location                              | Server Location                      | Default File Suffix
+:---:  | :---:            | :---:            | :---:                                        | :---:                                | :---
+CLIENT | Client Side Only | No               | `.minecraft/config`                          | N/A                                  | `-client`
+COMMON | On Both Sides    | No               | `.minecraft/config`                          | `<server_folder>/config`             | `-common`
+SERVER | Server Side Only | Yes              | `.minecraft/saves/<level_name>/serverconfig` | `<server_folder>/world/serverconfig` | `-server`
 
 !!! tip
     Forge documents the [config types][type] within their codebase.
