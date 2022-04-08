@@ -6,7 +6,7 @@ Ingredients
 Custom Ingredients
 ------------------
 
-Custom ingredients can be specified by setting `type` to the name of the [ingredient's serializer][serializer] with only [one exception][compound]. When no type is specified, `type` defaults to the vanilla ingredient `minecraft:item`. Custom ingredients can also easily be used in [data generation][datagen].
+Custom ingredients can be specified by setting `type` to the name of the [ingredient's serializer][serializer], with the exception of [compound ingredients][compound]. When no type is specified, `type` defaults to the vanilla ingredient `minecraft:item`. Custom ingredients can also easily be used in [data generation][datagen].
 
 ### Forge Types
 
@@ -14,12 +14,12 @@ Forge provides a few additional `Ingredient` types for programmers to implement.
 
 #### CompoundIngredient
 
-Though they are functionally identical, Compound ingredients replaces the way one would implement a list of ingredients would in a recipe. They work as a set OR where the passed in stack must be within at least one of the supplied ingredients. This change was made to allow custom ingredients to work correctly within lists. As such, **NO TYPE** needs to be specified.
+Though they are functionally identical, Compound ingredients replaces the way one would implement a list of ingredients would in a recipe. They work as a set OR where the passed in stack must be within at least one of the supplied ingredients. This change was made to allow custom ingredients to work correctly within lists. As such, **no type** needs to be specified.
 
 ```json5
 // For some input
 [
-  // At least one of these ingredients must return true to succeed
+  // At least one of these ingredients must match to succeed
   {
     // Ingredient
   },
@@ -76,7 +76,7 @@ Though they are functionally identical, Compound ingredients replaces the way on
 
 ### IntersectionIngredient
 
-`IntersectionIngredient`s work as a set AND where the passed in stack must be within all supplied ingredients. There must be at least two ingredients supplied to this. This can be used by specifying the `type` as `forge:intersection`.
+`IntersectionIngredient`s work as a set AND where the passed in stack must match all supplied ingredients. There must be at least two ingredients supplied to this. This can be used by specifying the `type` as `forge:intersection`.
 
 ```json5
 // For some input
@@ -98,7 +98,7 @@ Though they are functionally identical, Compound ingredients replaces the way on
 
 ### DifferenceIngredient
 
-`DifferenceIngredient`s work as a set subtraction (SUB) where the passed in stack must be within the first ingredient but not in the second ingredient. This can be used by specifying the `type` as `forge:difference`.
+`DifferenceIngredient`s work as a set subtraction (SUB) where the passed in stack must match the first ingredient but must not match the second ingredient. This can be used by specifying the `type` as `forge:difference`.
 
 ```json5
 // For some input
@@ -125,11 +125,11 @@ Custom ingredients can be created by implementing `IIngredientSerializer` for th
 
 There are three important methods to implement for each ingredient subclass:
 
-Method | Description
-:---: | :---
+ Method       | Description
+ :---:        | :---
 getSerializer | Returns the [serializer] used to read and write the ingredient.
-test | Returns true if the input is valid for this ingredient.
-isSimple | Returns false if the ingredient matches on the stack's tag. `AbstractIngredient` subclasses will need to define this behavior, while `Ingredient` subclasses return `true` by default.
+test          | Returns true if the input is valid for this ingredient.
+isSimple      | Returns false if the ingredient matches on the stack's tag. `AbstractIngredient` subclasses will need to define this behavior, while `Ingredient` subclasses return `true` by default.
 
 All other defined methods are left as an exercise to the reader to use as required for the ingredient subclass.
 
@@ -137,11 +137,11 @@ All other defined methods are left as an exercise to the reader to use as requir
 
 `IIngredientSerializer` subtypes must implement three methods:
 
-Method | Description
-:---: | :---
-parse (JSON) | Converts a `JsonObject` to an `Ingredient`.
+ Method         | Description
+ :---:          | :---
+parse (JSON)    | Converts a `JsonObject` to an `Ingredient`.
 parse (Network) | Reads the network buffer to decode an `Ingredient`.
-write | Writes an `Ingredient` to the network buffer.
+write           | Writes an `Ingredient` to the network buffer.
 
 Additionally, `Ingredient` subclasses should implement `Ingredient#toJson` for use with [data generation][datagen].
 

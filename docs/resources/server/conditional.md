@@ -123,7 +123,7 @@ Boolean operator conditions consist of the condition(s) being operated upon and 
 {
   "type": "forge:tag_empty",
    // Returns true if 'examplemod:example_tag' is an item tag with no entries
-  "item": "examplemod:example_tag"
+  "tag": "examplemod:example_tag"
 }
 ```
 
@@ -137,9 +137,9 @@ Custom conditions can be created by implementing `ICondition` and its associated
 Any condition only need to implement two methods:
 
 Method | Description
-:---: | :---
-getID | The registry name of the condition. Must be equivalent to [`IConditionSerializer#getID`][serializer]. Used only for [data generation][datagen].
-test | Returns true if the condition has been satisfied.
+:---:  | :---
+getID  | The registry name of the condition. Must be equivalent to [`IConditionSerializer#getID`][serializer]. Used only for [data generation][datagen].
+test   | Returns true if the condition has been satisfied.
 
 !!! note
     Every `#test` has access to some `IContext` representing the state of the game. Currently, only tags can be obtained from a registry.
@@ -149,10 +149,10 @@ test | Returns true if the condition has been satisfied.
 Serializers need to implement three methods:
 
 Method | Description
-:---: | :---
-getID | The registry name of the condition. Must be equivalent to [`ICondition#getID`][condition].
-read | Reads the condition data from JSON.
-write | Writes the given condition data to JSON.
+:---:  | :---
+getID  | The registry name of the condition. Must be equivalent to [`ICondition#getID`][condition].
+read   | Reads the condition data from JSON.
+write  | Writes the given condition data to JSON.
 
 !!! note
     Condition serializers are not responsible for writing or reading the type of the serializer, similar to other serializer implementations in Minecraft.

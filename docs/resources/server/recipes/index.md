@@ -8,7 +8,7 @@ Data-Driven Recipes
 
 Most recipe implementations within vanilla are data driven via JSON. This means that a mod is not necessary to create a new recipe, only a [Data pack][datapack]. A full list on how to create and put these recipes within the mod's `resources` folder can be found on the [Minecraft Wiki][wiki].
 
-A recipe can be obtained within the Recipe Book as a reward for completing an [advancement][advancement]. Recipe advancements always parent `minecraft:recipes/root` so as not to appear on the Advancement screen and that they are treated as standalone. In addition, the criteria to unlock a recipe always checks if the user has unlocked the recipe from using it once:
+A recipe can be obtained within the Recipe Book as a reward for completing an [advancement][advancement]. Recipe advancements always have `minecraft:recipes/root` as their parent, to not to appear on the advancement screen. The default criteria to gain the recipe advancement is a check if the user has unlocked the recipe from using it once or receiving it through a command like `/recipe`:
 
 ```json5
 // Within some recipe advancement json
@@ -35,15 +35,15 @@ Recipe Manager
 
 Recipes are loaded and stored via the `RecipeManager`. Any operations relating to getting available recipe(s) are handled by this manager. There are two important methods to know of:
 
-Method|Description
-:---: | :---
-getRecipeFor | Gets the first recipe that matches the current input.
-getRecipesFor | Gets all recipes that match the current input.
+ Method         | Description
+ :---:          | :---
+`getRecipeFor`  | Gets the first recipe that matches the current input.
+`getRecipesFor` | Gets all recipes that match the current input.
 
 Each method takes in a `RecipeType`, which denotes what method is being applied to use the recipe (crafting, smelting, etc.), a `Container` which holds the configuration of the inputs, and the current level which is passed to `Recipe#matches` along with the container.
 
 !!! important
-    When using an [item handler capability][cap] as the configuration inputs, it must be wrapped via `RecipeWrapper` and passed in as `IItemHandler` and its subtypes are not instances of `Container`:
+    Forge provides the `RecipeWrapper` utility class which extends `Container` for wrapping around `IItemHandler`s and passing them to methods which requires a `Container` parameter.
 
     ```java
     // Within some method with IItemHandlerModifiable handler

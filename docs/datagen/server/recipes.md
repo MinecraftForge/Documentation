@@ -11,14 +11,14 @@ After implementation, the provider must be [added][datagen] to the `DataGenerato
 `RecipeBuilder` is a convenience implementation for creating `FinishedRecipe`s to generate. It provides basic definitions for unlocking, grouping, saving, and getting the result of a recipe. This is done through `#unlockedBy`, `#group`, `#save`, and `#getResult` respectively.
 
 !!! important
-    [`ItemStack` outputs][stack] in recipes is not supported within vanilla recipe builders for `RecipeProvider`. A `FinishedRecipe` must be built in a different manner for existing vanilla recipe serializers to generate this data.
+    [`ItemStack` outputs][stack] in recipes are not supported within vanilla recipe builders for `RecipeProvider`. A `FinishedRecipe` must be built in a different manner for existing vanilla recipe serializers to generate this data.
 
 !!! warning
     The item results being generated must have a valid `CreativeModeTab` specified; otherwise, a `NullPointerException` will be thrown. If no category accurately represents the item and no tab should be created, set the `#tab` property during item initialization to `CreativeModeTab#TAB_SEARCH`.
 
 ### ShapedRecipeBuilder
 
-`ShapedRecipeBuilder` is used to generate shaped recipes. The builder can be initialized via `#shaped`. The recipe group, input symbol pattern, symbol definition of ingredients, and how the recipe is unlocked can be specified before saving.
+`ShapedRecipeBuilder` is used to generate shaped recipes. The builder can be initialized via `#shaped`. The recipe group, input symbol pattern, symbol definition of ingredients, and the recipe unlock criteria can be specified before saving.
 
 The advancement criteria for having the recipe is added and ORed together with all other added criteria.
 
@@ -92,7 +92,7 @@ builder.save(writer);
 Non-`RecipeBuilder` Builders
 ----------------------------
 
-Some recipe builders do not implement `RecipeBuilder` due to lacking  features used by all previously mentioned recipes.
+Some recipe builders do not implement `RecipeBuilder` due to lacking features used by all previously mentioned recipes.
 
 ### UpgradeRecipeBuilder
 

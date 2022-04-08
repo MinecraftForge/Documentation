@@ -29,7 +29,7 @@ public record ExampleRecipe(Ingredient input, int data, ItemStack output) implem
 RecipeType
 ----------
 
-`RecipeType` is responsible for defining the category or context the recipe will be used within. For example, if a recipe was going to be smelted in a furnace, it would have a type of `RecipeType#SMELTING`.  Being blasted in a blast furnace would have a type of `RecipeType#BLASTING`.
+`RecipeType` is responsible for defining the category or context the recipe will be used within. For example, if a recipe was going to be smelted in a furnace, it would have a type of `RecipeType#SMELTING`. Being blasted in a blast furnace would have a type of `RecipeType#BLASTING`.
 
 If none of the existing types match what context the recipe will be used within, then a new `RecipeType` must be [registered][nonforge].
 
@@ -51,10 +51,10 @@ A `RecipeSerializer` is responsible for decoding JSONs and communicating across 
 
 Only three methods need to be implemented for a `RecipeSerializer`:
 
-Method | Description
-:---: | :---
-fromJson | Decodes a JSON into the `Recipe` subtype.
-toNetwork | Encodes a `Recipe` to the buffer to send to the client. The recipe identifier does not need to be encoded.
+ Method     | Description
+ :---:      | :---
+fromJson    | Decodes a JSON into the `Recipe` subtype.
+toNetwork   | Encodes a `Recipe` to the buffer to send to the client. The recipe identifier does not need to be encoded.
 fromNetwork | Decodes a `Recipe` from the buffer sent from the server. The recipe identifier does not need to be decoded.
 
 A `RecipeSerializer` must be [registered][forge].
