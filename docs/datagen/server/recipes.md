@@ -47,7 +47,7 @@ Shaped recipes have some additional validation checks performed before building:
 
 ### ShapelessRecipeBuilder
 
-`ShapelessRecipeBuilder` is used to generate shapeless recipes. The builder can be initialized via `#shapeless`. The recipe group, input ingredients, and how the recipe is unlocked can be specified before saving.
+`ShapelessRecipeBuilder` is used to generate shapeless recipes. The builder can be initialized via `#shapeless`. The recipe group, input ingredients, and the recipe unlock criteria can be specified before saving.
 
 ```java
 // In RecipeProvider#buildCraftingRecipes(writer)
@@ -59,7 +59,7 @@ ShapelessRecipeBuilder builder = ShapelessRecipeBuilder.shapeless(result)
 
 ### SimpleCookingRecipeBuilder
 
-`SimpleCookingRecipeBuilder` is used to generate smelting, blasting, smoking, and campfire cooking recipes. Additionally, custom cooking recipes using the `SimpleCookingSerializer` can also be data generated using this builder. The builder can be initialized via `#smelting`, `#blasting`, `#smoking`, `#campfireCooking`, or `#cooking` respectively. The recipe group and how the recipe is unlocked can be specified before saving.
+`SimpleCookingRecipeBuilder` is used to generate smelting, blasting, smoking, and campfire cooking recipes. Additionally, custom cooking recipes using the `SimpleCookingSerializer` can also be data generated using this builder. The builder can be initialized via `#smelting`, `#blasting`, `#smoking`, `#campfireCooking`, or `#cooking` respectively. The recipe group and the recipe unlock criteria can be specified before saving.
 
 ```java
 // In RecipeProvider#buildCraftingRecipes(writer)
@@ -70,7 +70,7 @@ SimpleCookingRecipeBuilder builder = SimpleCookingRecipeBuilder.smelting(input, 
 
 ### SingleItemRecipeBuilder
 
-`SingleItemRecipeBuilder` is used to generate stonecutting recipes. Additionally, custom single item recipes using a serializer like `SingleItemRecipe$Serializer` can also be data generated using this builder. The builder can be initialized via `#stonecutting` or through the constructor respectively. The recipe group and how the recipe is unlocked can be specified before saving.
+`SingleItemRecipeBuilder` is used to generate stonecutting recipes. Additionally, custom single item recipes using a serializer like `SingleItemRecipe$Serializer` can also be data generated using this builder. The builder can be initialized via `#stonecutting` or through the constructor respectively. The recipe group and the recipe unlock criteria can be specified before saving.
 
 ```java
 // In RecipeProvider#buildCraftingRecipes(writer)
@@ -86,7 +86,7 @@ Some recipe builders do not implement `RecipeBuilder` due to lacking features us
 
 ### UpgradeRecipeBuilder
 
-`UpgradeRecipeBuilder` is used to generate smithing recipes. Additionally, custom upgrade recipes using a serializer like `UpgradeRecipe$Serializer` can also be data generated using this builder. The builder can be initialized via `#smithing` or through the constructor respectively. How the recipe is unlocked can be specified before saving.
+`UpgradeRecipeBuilder` is used to generate smithing recipes. Additionally, custom upgrade recipes using a serializer like `UpgradeRecipe$Serializer` can also be data generated using this builder. The builder can be initialized via `#smithing` or through the constructor respectively. The recipe unlock criteria can be specified before saving.
 
 ```java
 // In RecipeProvider#buildCraftingRecipes(writer)
