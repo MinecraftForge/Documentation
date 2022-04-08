@@ -32,7 +32,7 @@ Though they are functionally identical, Compound ingredients replaces the way on
 
 #### NBTIngredient
 
-`NBTIngredient`s compare the item, damage, and the share tags (as defined by `IForgeItem#getShareTag`) on an `ItemStack` for equivalency. This can be used by specifying the `type` as `forge:nbt`.
+`NBTIngredient`s compare the item, damage, and the share tags (as defined by `IForgeItem#getShareTag`) on an `ItemStack` for exact equivalency. This can be used by specifying the `type` as `forge:nbt`.
 
 ```json5
 // For some input
@@ -143,10 +143,7 @@ parse (JSON)    | Converts a `JsonObject` to an `Ingredient`.
 parse (Network) | Reads the network buffer to decode an `Ingredient`.
 write           | Writes an `Ingredient` to the network buffer.
 
-Additionally, `Ingredient` subclasses should implement `Ingredient#toJson` for use with [data generation][datagen].
-
-!!! important
-    `Ingredient#toJson` is made abstract if using an `AbstractIngredient` subclass and must be implemented.
+Additionally, `Ingredient` subclasses should implement `Ingredient#toJson` for use with [data generation][datagen]. `AbstractIngredient` subclasses make `#toJson` an abstract method requiring the method to be implemented.
 
 Afterwards, a static instance should be declared to hold the initialized serializer and then registered using `CraftingHelper#register` either during the `RegistryEvent$Register` for `RecipeSerializer`s or during `FMLCommonSetupEvent`. The `Ingredient` subclass return the static instance of the serializer in `Ingredient#getSerializer`.
 
@@ -166,7 +163,7 @@ public IIngredientSerializer<? extends Ingredient> getSerializer() {
 }
 ```
 
-!!! important
+!!! tip
     If using `FMLCommonSetupEvent` to register an ingredient serializer, it must be enqueued to the synchronous work queue via `FMLCommonSetupEvent#enqueueWork` as `CraftingHelper#register` is not thread-safe.
 
 [recipes]: https://minecraft.fandom.com/wiki/Recipe#List_of_recipe_types

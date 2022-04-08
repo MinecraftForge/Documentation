@@ -26,6 +26,9 @@ public record ExampleRecipe(Ingredient input, int data, ItemStack output) implem
 }
 ```
 
+!!! note
+    While a record is used in the above example, it is not required to do so in your own implementation.
+
 RecipeType
 ----------
 
@@ -47,7 +50,7 @@ public RecipeType<?> getType() {
 RecipeSerializer
 ----------------
 
-A `RecipeSerializer` is responsible for decoding JSONs and communicating across the network for an associated `Recipe` subtype. Each recipe decoded by the serializer is saved as a unique instance within the `RecipeManager`.
+A `RecipeSerializer` is responsible for decoding JSONs and communicating across the network for an associated `Recipe` subtype. Each recipe decoded by the serializer is saved as a unique instance within the `RecipeManager`. A `RecipeSerializer` must be [registered][forge].
 
 Only three methods need to be implemented for a `RecipeSerializer`:
 
@@ -57,8 +60,6 @@ fromJson    | Decodes a JSON into the `Recipe` subtype.
 toNetwork   | Encodes a `Recipe` to the buffer to send to the client. The recipe identifier does not need to be encoded.
 fromNetwork | Decodes a `Recipe` from the buffer sent from the server. The recipe identifier does not need to be decoded.
 
-A `RecipeSerializer` must be [registered][forge].
-
 !!! tip
     For ease of convenience, the `RecipeSerializer` subtype can extend `ForgeRegistryEntry` to implement the methods within `IForgeRegistryEntry`.
 
@@ -67,9 +68,6 @@ public class ExampleSerializer extends ForgeRegistryEntry<RecipeSerializer<?>> i
   // Implement methods here
 }
 ```
-
-!!! tip
-    There are some useful methods to make reading and writing data for recipes easier. `Ingredient`s can use `#fromJson`, `#toNetwork`, and `#fromNetwork` while `ItemStack`s can use `CraftingHelper#getItemStack`, `FriendlyByteBuf#writeItem`, and `FriendlyByteBuf# readItem`.
 
 The `RecipeSerializer` instance must then be returned by `Recipe#getSerializer` in the new recipe subtype.
 
@@ -81,6 +79,9 @@ public RecipeSerializer<?> getSerializer() {
   return EXAMPLE_SERIALIZER;
 }
 ```
+
+!!! tip
+    There are some useful methods to make reading and writing data for recipes easier. `Ingredient`s can use `#fromJson`, `#toNetwork`, and `#fromNetwork` while `ItemStack`s can use `CraftingHelper#getItemStack`, `FriendlyByteBuf#writeItem`, and `FriendlyByteBuf# readItem`.
 
 Building the JSON
 -----------------
@@ -117,8 +118,11 @@ BlockState assemble();
 
 // In some manager class
 public Optional<ExampleRecipe> getRecipeFor(Level level, BlockPos pos) {
-  return level.getRecipeManager().getAllRecipesFor(exampleRecipeType)
-    .stream().filter(recipe -> recipe.matches(level, pos)).findFirst();
+  return level.getRecipeManager()
+    .getAllRecipesFor(exampleRecipeType) // Gets all recipes
+    .stream() // Looks through all recipes for types
+    .filter(recipe -> recipe.matches(level, pos)) // Checks if the recipe inputs are valid
+    .findFirst(); // Finds the first recipe whose inputs match
 }
 ```
 

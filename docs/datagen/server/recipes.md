@@ -16,78 +16,68 @@ After implementation, the provider must be [added][datagen] to the `DataGenerato
 !!! warning
     The item results being generated must have a valid `CreativeModeTab` specified; otherwise, a `NullPointerException` will be thrown. If no category accurately represents the item and no tab should be created, set the `#tab` property during item initialization to `CreativeModeTab#TAB_SEARCH`.
 
+All recipe builders except for [`SpecialRecipeBuilder`] require an advancement criteria to be specified. All recipes generate a criteria unlocking the recipe if the player has used the recipe previously. However, an additional criteria must be specified that allows the player to obtain the recipe without any prior knowledge. If any of the criteria specified is true, then the played will obtain the recipe for the recipe book.
+
+!!! tip
+    Recipe criteria commonly use `InventoryChangeTrigger` to unlock their recipe when certain items are present in the user's inventory.
+
 ### ShapedRecipeBuilder
 
 `ShapedRecipeBuilder` is used to generate shaped recipes. The builder can be initialized via `#shaped`. The recipe group, input symbol pattern, symbol definition of ingredients, and the recipe unlock criteria can be specified before saving.
 
-The advancement criteria for having the recipe is added and ORed together with all other added criteria.
-
 ```java
 // In RecipeProvider#buildCraftingRecipes(writer)
-ShapedRecipeBuilder builder = ShapedRecipeBuilder.shaped(result);
-// Add data to builder
-builder.save(writer);
+ShapedRecipeBuilder builder = ShapedRecipeBuilder.shaped(result)
+  .pattern("a a") // Create recipe pattern
+  .define('a', item) // Define what the symbol represents
+  .unlockedBy("criteria", criteria) // How the recipe is unlocked
+  .save(writer); // Add data to builder
 ```
 
-#### Validation Checks
+#### Additional Validation Checks
+
+Shaped recipes have some additional validation checks performed before building:
 
 * A pattern must be defined and take in more than one item.
 * All pattern rows must be the same width.
 * A symbol cannot be defined more than once.
-* The whitespace (' ') symbol is reserved and, as such, cannot be defined.
-* A pattern must only use all defined symbols.
+* The space character (`' '`) is reserved for representing no item in a slot and, as such, cannot be defined.
+* A pattern must use all symbols defined by the user.
 * A criteria besides from using the recipe must be specified to unlock the recipe.
 
 ### ShapelessRecipeBuilder
 
 `ShapelessRecipeBuilder` is used to generate shapeless recipes. The builder can be initialized via `#shapeless`. The recipe group, input ingredients, and how the recipe is unlocked can be specified before saving.
 
-The advancement criteria for having the recipe is added and ORed together with all other added criteria.
-
 ```java
 // In RecipeProvider#buildCraftingRecipes(writer)
-ShapelessRecipeBuilder builder = ShapelessRecipeBuilder.shapeless(result);
-// Add data to builder
-builder.save(writer);
+ShapelessRecipeBuilder builder = ShapelessRecipeBuilder.shapeless(result)
+  .requires(item) // Add item to the recipe
+  .unlockedBy("criteria", criteria) // How the recipe is unlocked
+  .save(writer); // Add data to builder
 ```
-
-#### Validation Checks
-
-* A criteria besides from using the recipe must be specified to unlock the recipe.
 
 ### SimpleCookingRecipeBuilder
 
 `SimpleCookingRecipeBuilder` is used to generate smelting, blasting, smoking, and campfire cooking recipes. Additionally, custom cooking recipes using the `SimpleCookingSerializer` can also be data generated using this builder. The builder can be initialized via `#smelting`, `#blasting`, `#smoking`, `#campfireCooking`, or `#cooking` respectively. The recipe group and how the recipe is unlocked can be specified before saving.
 
-The advancement criteria for having the recipe is added and ORed together with all other added criteria.
-
 ```java
 // In RecipeProvider#buildCraftingRecipes(writer)
-SimpleCookingRecipeBuilder builder = SimpleCookingRecipeBuilder.smelting(input, result, experience, cookingTime);
-// Add data to builder
-builder.save(writer);
+SimpleCookingRecipeBuilder builder = SimpleCookingRecipeBuilder.smelting(input, result, experience, cookingTime)
+  .unlockedBy("criteria", criteria) // How the recipe is unlocked 
+  .save(writer); // Add data to builder
 ```
-
-#### Validation Checks
-
-* A criteria besides from using the recipe must be specified to unlock the recipe.
 
 ### SingleItemRecipeBuilder
 
 `SingleItemRecipeBuilder` is used to generate stonecutting recipes. Additionally, custom single item recipes using a serializer like `SingleItemRecipe$Serializer` can also be data generated using this builder. The builder can be initialized via `#stonecutting` or through the constructor respectively. The recipe group and how the recipe is unlocked can be specified before saving.
 
-The advancement criteria for having the recipe is added and ORed together with all other added criteria.
-
 ```java
 // In RecipeProvider#buildCraftingRecipes(writer)
-SingleItemRecipeBuilder builder = SingleItemRecipeBuilder.stonecutting(input, result);
-// Add data to builder
-builder.save(writer);
+SingleItemRecipeBuilder builder = SingleItemRecipeBuilder.stonecutting(input, result)
+  .unlockedBy("criteria", criteria) // How the recipe is unlocked
+  .save(writer); // Add data to builder
 ```
-
-#### Validation Checks
-
-* A criteria besides from using the recipe must be specified to unlock the recipe.
 
 Non-`RecipeBuilder` Builders
 ----------------------------
@@ -98,18 +88,12 @@ Some recipe builders do not implement `RecipeBuilder` due to lacking features us
 
 `UpgradeRecipeBuilder` is used to generate smithing recipes. Additionally, custom upgrade recipes using a serializer like `UpgradeRecipe$Serializer` can also be data generated using this builder. The builder can be initialized via `#smithing` or through the constructor respectively. How the recipe is unlocked can be specified before saving.
 
-The advancement criteria for having the recipe is added and ORed together with all other added criteria.
-
 ```java
 // In RecipeProvider#buildCraftingRecipes(writer)
-UpgradeRecipeBuilder builder = UpgradeRecipeBuilder.smithing(base, addition, result);
-// Add data to builder
-builder.save(writer, name);
+UpgradeRecipeBuilder builder = UpgradeRecipeBuilder.smithing(base, addition, result)
+  .unlocks("criteria", criteria) // How the recipe is unlocked
+  .save(writer, name); // Add data to builder
 ```
-
-#### Validation Checks
-
-* A criteria besides from using the recipe must be specified to unlock the recipe.
 
 ### SpecialRecipeBuilder
 
@@ -117,7 +101,8 @@ builder.save(writer, name);
 
 ```java
 // In RecipeProvider#buildCraftingRecipes(writer)
-SpecialRecipeBuilder.special(dynamicRecipeSerializer).save(writer, name);
+SpecialRecipeBuilder.special(dynamicRecipeSerializer)
+  .save(writer, name); // Add data to builder
 ```
 
 Conditional Recipes
@@ -159,7 +144,9 @@ To simplify adding conditions to conditional recipes without having to construct
   // OR 'examplemod:example_item2' exists
   // AND
   // NOT FALSE
-  and(
+
+  // Methods are defined by IConditionBuilder
+  and( 
     or(
       itemExists("examplemod", "example_item"),
       itemExists("examplemod", "example_item2")
@@ -183,3 +170,4 @@ Custom recipe serializers can be data generated by creating a builder that can c
 [ingredients]: ../../resources/server/recipes/ingredients.md#forge-types
 [stack]: ../../resources/server/recipes/index.md#recipe-itemstack-result
 [conditional]: ../../resources/server/conditional.md
+[special]: #specialrecipebuilder

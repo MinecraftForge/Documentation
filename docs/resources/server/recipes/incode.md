@@ -13,15 +13,14 @@ Brewing is one of the few recipes that still exist in code. Brewing recipes are 
 
 The default implementation takes in an input ingredient, a catalyst ingredient, and a stack output for a standard implementation. Additionally, an `IBrewingRecipe` instance can be supplied instead to do the transformations.
 
-!!! note
-    There is no wrapper for adding additional potion containers or potion mixes similar to vanilla. A new `IBrewingRecipe` implementation will need to be added to replicate this behavior.
-
 ### IBrewingRecipe
 
 `IBrewingRecipe` is a pseudo-[`Recipe`][recipe] interface that checks whether the input and catalyst is valid and provides the associated output if so. This is provided through `#isInput`, `#isIngredient`, and `#getOutput` respectively. The output method has access to the input and catalyst stacks to construct the result.
 
 !!! important
     When copying data between `ItemStack`s or `CompoundTag`s, make sure to use their respective `#copy` methods to create unique instances.
+
+There is no wrapper for adding additional potion containers or potion mixes similar to vanilla. A new `IBrewingRecipe` implementation will need to be added to replicate this behavior.
 
 Anvil Recipes
 -------------
@@ -47,7 +46,7 @@ Loom Recipes
 
 Looms are responsible for applying a dye and pattern (either from the loom or from an item) to a banner. While the banner and the dye must be a `BannerItem` or `DyeItem` respectively, custom patterns can be created and applied in the loom. Banner Patterns can be created by calling `BannerPattern#create` during mod construction.
 
-!!! warning
+!!! important
     `BannerPattern`s which return `true` for `#hasPatternItem` do not appear as an option in the loom. These patterns must have an accompanying `BannerPatternItem` to be used.
 
 ```java

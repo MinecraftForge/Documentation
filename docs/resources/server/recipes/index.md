@@ -57,7 +57,7 @@ Forge provides some additional behavior to the recipe schema and its implementat
 
 ### Recipe ItemStack Result
 
-Except for `minecraft:stonecutting` recipes, all recipe serializers expand the `result` tag to take in a full `ItemStack` as a `JsonObject` instead of just the item name and amount in some cases.
+Except for `minecraft:stonecutting` recipes, all vanilla recipe serializers expand the `result` tag to take in a full `ItemStack` as a `JsonObject` instead of just the item name and amount in some cases.
 
 ```json5
 // In some recipe JSON
@@ -72,6 +72,9 @@ Except for `minecraft:stonecutting` recipes, all recipe serializers expand the `
   }
 }
 ```
+
+!!! note
+    The `nbt` tag can alternatively be a string containing a stringified NBT (or SNBT) for data which cannot be properly represented as a JSON object (such as `IntArrayTag`s).
 
 ### Conditional Recipes
 
