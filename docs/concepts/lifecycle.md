@@ -30,9 +30,9 @@ public class MyMod {
 Registry Events
 ---------------
 
-The `RegistryEvent`s are fired after the mod instance construction. There are two: the `NewRegistry` event and the `Register` event. These events are fired synchronously during mod loading.
+The registry events are fired after the mod instance construction. There are two: the `NewRegistryEvent` event and the `RegistryEvent$Register` event. These events are fired synchronously during mod loading.
 
-The `RegistryEvent$NewRegistry` event allows modders to register their own custom registries, using the `RegistryBuilder` class.
+The `NewRegistryEvent` event allows modders to register their own custom registries, using the `RegistryBuilder` class.
 
 The `RegistryEvent$Register<?>` event is for [registering objects][registering] into the registries. A `Register` event is fired for each registry. 
 

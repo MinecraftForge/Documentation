@@ -46,8 +46,10 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
 * `net.minecraftforge.common.data.GlobalLootModifierProvider` - for [global loot modifiers][glm]; override `#start`
 * _These classes are under the `net.minecraft.data` package_
 * `LootTableProvider` - for loot tables; override `#getTables`
-* `RecipeProvider` - for recipes and their unlocking advancements; override `#buildCraftingRecipes`
+* [`RecipeProvider`][recipegen] - for [recipes] and their unlocking advancements; override `#buildCraftingRecipes`
 * `TagsProvider` - for tags; override `#addTags`
 * `AdvancementProvider` - for advancements; override `#registerAdvancements`
 
 [glm]: ../resources/server/glm.md
+[recipegen]: ./server/recipes.md
+[recipes]: ../resources/server/recipes/index.md
