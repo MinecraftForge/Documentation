@@ -11,7 +11,7 @@ For example, to add your own mod's saplings to the Vanilla sapling tag, you woul
 If `replace` is true, then all entries before the json specifying `replace` will be removed.
 Values listed that are not present will cause the tag to error unless the value is listed using an `id` string and `required` boolean set to false, as in the following example:
 
-```json
+```js
 {
   "replace": false,
   "values": [

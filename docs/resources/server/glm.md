@@ -29,7 +29,7 @@ The `global_loot_modifiers.json` represents all loot modifiers to be loaded into
 
 `replace`, when `true`, changes the behavior from appending loot modifiers to the global list to replacing the global list entries entirely. Modders will want to use `false` for compatibility with other mod implementations. Datapack makers may want to specify their overrides with `true`.
 
-```json5
+```js
 {
   "replace": false, // Must be present
   "entries": [
@@ -55,7 +55,7 @@ This file contains all of the potential variables related to your modifier, incl
 
 Any additional properties read by the serializer and defined by the modifier can also be specified.
 
-```json5
+```js
 // Within data/examplemod/loot_modifiers/example_glm.json
 {
   "type": "examplemod:example_loot_modifier",
