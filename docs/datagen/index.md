@@ -48,8 +48,10 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
 * `LootTableProvider` - for loot tables; override `#getTables`
 * [`RecipeProvider`][recipegen] - for [recipes] and their unlocking advancements; override `#buildCraftingRecipes`
 * `TagsProvider` - for tags; override `#addTags`
-* `AdvancementProvider` - for advancements; override `#registerAdvancements`
+* [`AdvancementProvider`][advgen] - for [advancements]; override `#registerAdvancements`
 
 [glm]: ../resources/server/glm.md
 [recipegen]: ./server/recipes.md
 [recipes]: ../resources/server/recipes/index.md
+[advgen]: ./server/advancements.md
+[advancements]: ../resources/server/advancements.md
