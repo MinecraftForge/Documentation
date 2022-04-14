@@ -61,6 +61,7 @@ nav:
       - Model Providers: 'datagen/client/modelproviders.md'
     - Server Data:
       - Recipe Providers: 'datagen/server/recipes.md'
+      - Tag Providers: 'datagen/server/tags.md'
   - Miscellaneous Features:
     - Configuration: 'misc/config.md'
     - Forge Update Checker: 'misc/updatechecker.md'
