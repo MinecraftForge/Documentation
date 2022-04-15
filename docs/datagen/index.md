@@ -7,6 +7,14 @@ The data generator system is loaded by the main class `net.minecraft.data.Main`.
 
 The default configurations in the MDK `build.gradle` adds the `runData` task for running the data generators.
 
+Existing Files
+--------------
+All references to textures or other data files not generated for data generation must reference existing files on the system. This is to ensure that all referenced textures are in the correct places, so typos can be found and corrected. 
+
+`ExistingFileHelper` is the class responsible for validating the existence of those data files. An instance can be retrieved from  `GatherDataEvent#getExistingFileHelper`.
+
+The `--existing <folderpath>` argument allows the specified folder and its subfolders to be used when validating the existence of files. Additionally, the `--existing-mod <modid>` argument allows the resources of a loaded mod to be used for validation. By default, only the vanilla datapack and resources are available to the `ExistingFileHelper`.
+
 Generator Modes
 ---------------
 
