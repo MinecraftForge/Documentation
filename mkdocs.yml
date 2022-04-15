@@ -59,6 +59,7 @@ nav:
     - Introduction: 'datagen/index.md'
     - Client Assets:
       - Model Providers: 'datagen/client/modelproviders.md'
+      - Sound Providers: 'datagen/client/sounds.md'
     - Server Data:
       - Recipe Providers: 'datagen/server/recipes.md'
   - Miscellaneous Features:

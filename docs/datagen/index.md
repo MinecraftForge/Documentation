@@ -40,7 +40,7 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
   * `ItemModelProvider` - for item models; override `#registerModels`
   * `BlockStateProvider` - for blockstates and their block and item models; override `#registerStatesAndModels`
   * `BlockModelProvider` - for block models; override `#registerModels`
-* `net.minecraftforge.common.data.SoundDefinitionsProvider` - for the `sounds.json`
+* [`net.minecraftforge.common.data.SoundDefinitionsProvider`][soundgen] - for [`sounds.json`][sounds]; override `#registerSounds`
 
 ### Server Data
 * `net.minecraftforge.common.data.GlobalLootModifierProvider` - for [global loot modifiers][glm]; override `#start`
@@ -50,6 +50,8 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
 * `TagsProvider` - for tags; override `#addTags`
 * `AdvancementProvider` - for advancements; override `#registerAdvancements`
 
+[soundgen]: ./client/sounds.md
+[sounds]: https://minecraft.fandom.com/wiki/Sounds.json
 [glm]: ../resources/server/glm.md
 [recipegen]: ./server/recipes.md
 [recipes]: ../resources/server/recipes/index.md
