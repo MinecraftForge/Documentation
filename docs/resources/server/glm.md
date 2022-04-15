@@ -144,5 +144,5 @@ public ExampleModifierSerializer extends GlobalLootModifierSerializer<ExampleMod
 [resloc]: ../../concepts/resources.md#ResourceLocation
 [serializer]: #globallootmodifierserializer
 [registered]: ../../concepts/registries.md#methods-for-registering
-[datagen]: ../../datagen/index.md
+[datagen]: ../../datagen/server/glm.md
 [examples]: https://github.com/MinecraftForge/MinecraftForge/blob/1.18.x/src/test/java/net/minecraftforge/debug/gameplay/loot/GlobalLootModifiersTest.java
