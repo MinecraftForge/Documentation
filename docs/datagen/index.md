@@ -22,22 +22,23 @@ The data generator can be configured to run 4 different data generations, which 
 
 * __Client Assets__
   * Generates client-only files in `assets`: block/item models, blockstate JSONs, language files, etc.
-  * __`--client`__, `includeClient()`
+  * __`--client`__, `#includeClient`
 * __Server Data__
   * Generates server-only files in `data`: recipes, advancements, tags, etc.
-  * __`--server`__, `includeServer()`
+  * __`--server`__, `#includeServer`
 * __Development Tools__
   * Runs some development tools: converting SNBT to NBT and vice-versa, etc.
-  * __`--dev`__, `includeDev()`
+  * __`--dev`__, `#includeDev`
 * __Reports__
   * Dumps all registered blocks, items, commands, etc.
-  * __`--reports`__, `includeReports()`
+  * __`--reports`__, `#includeReports`
+
+All of the generators can be included using `--all`.
 
 Data Providers
 --------------
 
-Data providers are the classes that actually define what data will be generated and provided. All data providers implement `DataProvider`.
-Minecraft has abstract implementations for most assets and data, so modders need only to extend and override the specified method.
+Data providers are the classes that actually define what data will be generated and provided. All data providers implement `DataProvider`. Minecraft has abstract implementations for most assets and data, so modders need only to extend and override the specified method.
 
 The `GatherDataEvent` is fired on the mod event bus when the data generator is being created, and the `DataGenerator` can be obtained from the event. Create and register data providers using `DataGenerator#addProvider`.
 
