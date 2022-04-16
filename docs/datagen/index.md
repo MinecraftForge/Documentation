@@ -43,7 +43,7 @@ Data providers are the classes that actually define what data will be generated 
 The `GatherDataEvent` is fired on the mod event bus when the data generator is being created, and the `DataGenerator` can be obtained from the event. Create and register data providers using `DataGenerator#addProvider`.
 
 ### Client Assets
-* `net.minecraftforge.common.data.LanguageProvider` - for language strings; override `#addTranslations`
+* [`net.minecraftforge.common.data.LanguageProvider`][langgen] - for [language strings][lang]; override `#addTranslations`
 * [`net.minecraftforge.common.data.SoundDefinitionsProvider`][soundgen] - for [`sounds.json`][sounds]; override `#registerSounds`
 * `ModelProvider<?>` - base class for all model providers
   * _These classes are under the `net.minecraftforge.client.model.generators` package_
@@ -59,6 +59,8 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
 * `TagsProvider` - for tags; override `#addTags`
 * `AdvancementProvider` - for advancements; override `#registerAdvancements`
 
+[langgen]: ./client/localization.md
+[lang]: https://minecraft.fandom.com/wiki/Language
 [soundgen]: ./client/sounds.md
 [sounds]: https://minecraft.fandom.com/wiki/Sounds.json
 [glmgen]: ./server/glm.md
