@@ -25,7 +25,7 @@ The format of an override can be seen on the [wiki][format], and a good example 
 !!! important
     A predicate applies to all values *greater than or equal to* the given value.
 
-```json5
+```js
 {
   "parent": "item/generated",
   "textures": {

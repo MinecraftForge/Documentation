@@ -62,6 +62,7 @@ nav:
       - Sound Providers: 'datagen/client/sounds.md'
     - Server Data:
       - Recipe Providers: 'datagen/server/recipes.md'
+      - Global Loot Modifier Providers: 'datagen/server/glm.md'
   - Miscellaneous Features:
     - Configuration: 'misc/config.md'
     - Forge Update Checker: 'misc/updatechecker.md'

@@ -8,7 +8,7 @@ Implementations
 
 Currently, conditional loading is implemented for recipes and advancements. For any conditional recipe or advancement, a list of conditions to datum pair is loaded. If the conditions specified for a datum in the list is true, then that datum is returned. Otherwise, the datum is discarded.
 
-```json5
+```js
 {
   // The type needs to be specified for recipes as they can have custom serializers
   // Advancements do not need this type
@@ -48,7 +48,7 @@ Conditions are specified by setting `type` to the name of the condition as speci
 
 Boolean conditions consist of no data and return the expected value of the condition. They are represented by `forge:true` and `forge:false`.
 
-```json5
+```js
 // For some condition
 {
   // Will always return true (or false for 'forge:false')
@@ -61,7 +61,7 @@ Boolean conditions consist of no data and return the expected value of the condi
 Boolean operator conditions consist of the condition(s) being operated upon and apply the following logic. They are represented by `forge:not`, `forge:and`, and `forge:or`.
 
 
-```json5
+```js
 // For some condition
 {
   // Inverts the result of the stored condition
@@ -72,7 +72,7 @@ Boolean operator conditions consist of the condition(s) being operated upon and 
 }
 ```
 
-```json5
+```js
 // For some condition
 {
   // ANDs the stored conditions together (or ORs for 'forge:or')
@@ -92,7 +92,7 @@ Boolean operator conditions consist of the condition(s) being operated upon and 
 
 `ModLoadedCondition` returns true whenever the specified mod with the given id is loaded in the current application. This is represented by `forge:mod_loaded`.
 
-```json5
+```js
 // For some condition
 {
   "type": "forge:mod_loaded",
@@ -105,7 +105,7 @@ Boolean operator conditions consist of the condition(s) being operated upon and 
 
 `ItemExistsCondition` returns true whenever the given item has been registered in the current application. This is represented by `forge:item_exists`.
 
-```json5
+```js
 // For some condition
 {
   "type": "forge:item_exists",
@@ -118,7 +118,7 @@ Boolean operator conditions consist of the condition(s) being operated upon and 
 
 `TagEmptyCondition` returns true whenever the given item tag has no items within it. This is represented by `forge:tag_empty`.
 
-```json5
+```js
 // For some condition
 {
   "type": "forge:tag_empty",

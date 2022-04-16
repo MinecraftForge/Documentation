@@ -17,7 +17,7 @@ This JSON defines sound events, and defines which sound files they play, the sub
 
 A full specification is available on the vanilla [wiki][], but this example highlights the important parts:
 
-```json
+```js
 {
   "open_chest": {
     "subtitle": "mymod.subtitle.open_chest",

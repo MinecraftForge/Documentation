@@ -13,7 +13,7 @@ Update JSON format
 
 The JSON itself has a relatively simple format as follows:
 
-```json5
+```js
 {
   "homepage": "<homepage/download page for your mod>",
   "<mcversion>": {
