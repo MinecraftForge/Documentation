@@ -19,8 +19,8 @@ Method           | Description
 `addOptional`    | Adds an object to a tag through its name. If the object is not present, then the object will be skipped when loading.
 `addTag`         | Adds a tag to a tag. All elements within the inner tag are now a part of the outer tag.
 `addOptionalTag` | Adds a tag to a tag through its name. If the tag is not present, then the tag will be skipped when loading.
-`replace` | When `true`, all other entries added to this tag from other datapacks will be discarded.
-`remove` | Removes an object or tag from a tag.
+`replace`        | When `true`, all other entries added to this tag from other datapacks will be discarded.
+`remove`         | Removes an object or tag from a tag.
 
 ```java
 // In some TagProvider#addTags
@@ -34,7 +34,7 @@ this.tag(EXAMPLE_TAG_2)
 ```
 
 !!! important
-    If the mod's tags softly depends on another mod's tags, the other mods' tags should be referenced using the optional methods.
+    If the mod's tags softly depends on another mod's tags (the other mod may or may not be present at runtime), the other mods' tags should be referenced using the optional methods.
 
 ### Existing Providers
 
