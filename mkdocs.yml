@@ -63,6 +63,7 @@ nav:
       - Sound Providers: 'datagen/client/sounds.md'
     - Server Data:
       - Recipe Providers: 'datagen/server/recipes.md'
+      - Tag Providers: 'datagen/server/tags.md'
       - Global Loot Modifier Providers: 'datagen/server/glm.md'
   - Miscellaneous Features:
     - Configuration: 'misc/config.md'
