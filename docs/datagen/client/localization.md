@@ -18,8 +18,8 @@ this.add("object.examplemod.example_object", "Example Object");
     Localized names which contain alphanumeric values not in American English can be supplied as is. The provider automatically translates the characters into their unicode equivalents to be read by the game.
 
     ```java
-    // Encdoded as 'Casco de rub\u00ED' for 'es_es' (Spanish) locale
-    this.addItem(RUBY_HELMET, "Casco de rubí");
+    // Encdoded as 'Example with a d\u00EDacritic'
+    this.addItem("example.diacritic", "Example with a díacritic");
     ```
 
 [lang]: ../../concepts/internationalization.md
