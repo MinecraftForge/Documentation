@@ -44,12 +44,12 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
 
 ### Client Assets
 * `net.minecraftforge.common.data.LanguageProvider` - for language strings; override `#addTranslations`
+* [`net.minecraftforge.common.data.SoundDefinitionsProvider`][soundgen] - for [`sounds.json`][sounds]; override `#registerSounds`
 * `ModelProvider<?>` - base class for all model providers
   * _These classes are under the `net.minecraftforge.client.model.generators` package_
   * `ItemModelProvider` - for item models; override `#registerModels`
   * `BlockStateProvider` - for blockstates and their block and item models; override `#registerStatesAndModels`
   * `BlockModelProvider` - for block models; override `#registerModels`
-* `net.minecraftforge.common.data.SoundDefinitionsProvider` - for the `sounds.json`
 
 ### Server Data
 * [`net.minecraftforge.common.data.GlobalLootModifierProvider`][glmgen] - for [global loot modifiers][glm]; override `#start`
@@ -59,6 +59,8 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
 * `TagsProvider` - for tags; override `#addTags`
 * `AdvancementProvider` - for advancements; override `#registerAdvancements`
 
+[soundgen]: ./client/sounds.md
+[sounds]: https://minecraft.fandom.com/wiki/Sounds.json
 [glmgen]: ./server/glm.md
 [glm]: ../resources/server/glm.md
 [recipegen]: ./server/recipes.md
