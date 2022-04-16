@@ -41,7 +41,7 @@ Method                | Description
 `volume`              | Sets the volume scale of the sound, must be greater than `0`.
 `pitch`               | Sets the pitch scale of the sound, must be greater than `0`.
 `weight`              | Sets the likelihood of the sound getting played when the sound is selected.
-`stream`              | When `true`, reads the sound from file instead of loading the sound into memory.
+`stream`              | When `true`, reads the sound from file instead of loading the sound into memory. Recommended for long sounds: background music, music discs, etc.
 `attenuationDistance` | Sets the number of blocks the sound can be heard from.
 `preload`             | When `true`, immediately loads the sound into memory as soon as the resource pack is loaded.
 
