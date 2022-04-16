@@ -95,7 +95,7 @@ There are three particle render types that cannot use the above method of regist
 
 To add a texture to a particle, a new JSON file must be added to `assets/<modid>/particles`. This is known as the `ParticleDescription`. The name of this file will represent the registry name of the `ParticleType` the factory is being attached to. Each particle JSON is an object. The object stores a single key `textures` which holds an array of `ResourceLocation`s. Any `<modid>:<path>` texture represented here will point to a texture at `assets/<modid>/textures/particle/<path>.png`.
 
-```json5
+```js
 {
   "textures": [
     // Will point to a texture located in

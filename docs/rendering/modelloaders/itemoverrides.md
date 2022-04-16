@@ -21,7 +21,7 @@ Returns an immutable list containing all the [`BakedOverride`][override]s used b
 
 This class represents a vanilla item override, which holds several `ItemOverrides$PropertyMatcher` for the properties on an item and a model to use in case those matchers are satisfied. They are the objects in the `overrides` array of a vanilla item JSON model:
 
-```json5
+```js
 {
   // Inside a vanilla JSON item model
   "overrides": [

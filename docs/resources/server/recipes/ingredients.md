@@ -16,7 +16,7 @@ Forge provides a few additional `Ingredient` types for programmers to implement.
 
 Though they are functionally identical, Compound ingredients replaces the way one would implement a list of ingredients would in a recipe. They work as a set OR where the passed in stack must be within at least one of the supplied ingredients. This change was made to allow custom ingredients to work correctly within lists. As such, **no type** needs to be specified.
 
-```json5
+```js
 // For some input
 [
   // At least one of these ingredients must match to succeed
@@ -34,7 +34,7 @@ Though they are functionally identical, Compound ingredients replaces the way on
 
 `NBTIngredient`s compare the item, damage, and the share tags (as defined by `IForgeItem#getShareTag`) on an `ItemStack` for exact equivalency. This can be used by specifying the `type` as `forge:nbt`.
 
-```json5
+```js
 // For some input
 {
   "type": "forge:nbt",
@@ -49,7 +49,7 @@ Though they are functionally identical, Compound ingredients replaces the way on
 
 `PartialNBTIngredient`s are a looser version of [`NBTIngredient`][nbt] as they compare against a single or set of items and only keys specified within the share tag (as defined by `IForgeItem#getShareTag`). This can be used by specifying the `type` as `forge:partial_nbt`.
 
-```json5
+```js
 // For some input
 {
   "type": "forge:partial_nbt",
@@ -78,7 +78,7 @@ Though they are functionally identical, Compound ingredients replaces the way on
 
 `IntersectionIngredient`s work as a set AND where the passed in stack must match all supplied ingredients. There must be at least two ingredients supplied to this. This can be used by specifying the `type` as `forge:intersection`.
 
-```json5
+```js
 // For some input
 {
   "type": "forge:intersection",
@@ -100,7 +100,7 @@ Though they are functionally identical, Compound ingredients replaces the way on
 
 `DifferenceIngredient`s work as a set subtraction (SUB) where the passed in stack must match the first ingredient but must not match the second ingredient. This can be used by specifying the `type` as `forge:difference`.
 
-```json5
+```js
 // For some input
 {
   "type": "forge:difference",

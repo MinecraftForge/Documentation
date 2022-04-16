@@ -88,7 +88,7 @@ Building the JSON
 
 Custom Recipe JSONs are stored in the same place as other [recipes][json]. The specified `type` should represent the registry name of the **recipe serializer**. Any additional data is specified by the serializer during decoding.
 
-```json5
+```js
 {
   // The custom serializer registry name
   "type": "examplemod:example_serializer",
