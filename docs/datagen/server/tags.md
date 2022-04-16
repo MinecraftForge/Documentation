@@ -1,7 +1,7 @@
 Tag Generation
 ==============
 
-Tags can be generated for a mod by subclassing `TagsProvider` and implementing `#addTags`. After implementation, the provider must be [added][datagen] to the `DataGenerator`.
+[Tags] can be generated for a mod by subclassing `TagsProvider` and implementing `#addTags`. After implementation, the provider must be [added][datagen] to the `DataGenerator`.
 
 `TagsProvider`
 --------------
@@ -19,7 +19,7 @@ Method           | Description
 `addOptional`    | Adds an object to a tag through its name. If the object is not present, then the object will be skipped when loading.
 `addTag`         | Adds a tag to a tag. All elements within the inner tag are now a part of the outer tag.
 `addOptionalTag` | Adds a tag to a tag through its name. If the tag is not present, then the tag will be skipped when loading.
-`replace`        | When `true`, all other entries added to this tag from other datapacks will be discarded.
+`replace`        | When `true`, all previously loaded entries added to this tag from other datapacks will be discarded. If a datapack is loaded after this one, then it will still append the entries to the tag.
 `remove`         | Removes an object or tag from a tag.
 
 ```java
@@ -72,7 +72,7 @@ public RecipeTypeTagsProvider(DataGenerator generator, ExistingFileHelper fileHe
 
 ### Forge Registry Tag Providers
 
-If a registry is wrapped or created by Forge, a provider can be created via a `ForgeRegistryTagsProvider` subclass instead:
+If a registry is wrapped by Forge or [created by a mod][custom], a provider can be created via a `ForgeRegistryTagsProvider` subclass instead:
 
 ```java
 public MotiveTagsProvider(DataGenerator generator, ExistingFileHelper fileHelper) {
@@ -80,4 +80,6 @@ public MotiveTagsProvider(DataGenerator generator, ExistingFileHelper fileHelper
 }
 ```
 
+[tags]: ../../resources/server/tags.md
 [datagen]: ../index.md#data-providers
+[custom]: ../../concepts/registries.md#creating-custom-forge-registries
