@@ -48,7 +48,7 @@ In order to reference sounds on the server, a `SoundEvent` holding a correspondi
 The `SoundEvent` acts as a reference to the sound and is passed around to play them. If a mod has an API, it should expose its `SoundEvent`s in the API.
 
 !!! note
-    As long as a sound is registered within the `sounds.json`, it can still be referenced on the logical client regardless of if there is a referencing `SoundEvent`.
+    As long as a sound is registered within the `sounds.json`, it can still be referenced on the logical client regardless of whether there is a referencing `SoundEvent`.
 
 Playing Sounds
 --------------
