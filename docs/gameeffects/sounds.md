@@ -17,7 +17,7 @@ This JSON defines sound events, and defines which sound files they play, the sub
 
 A full specification is available on the vanilla [wiki][], but this example highlights the important parts:
 
-```json
+```js
 {
   "open_chest": {
     "subtitle": "mymod.subtitle.open_chest",
@@ -43,9 +43,12 @@ In all cases, the path to a sound file for namespace `namespace` and path `path`
 Creating Sound Events
 ---------------------
 
-In order to actually be able to play sounds, a `SoundEvent` corresponding to an entry in `sounds.json` must be created. This `SoundEvent` must then be [registered][registration]. Normally, the location used to create a sound event should be set as it's registry name.
+In order to reference sounds on the server, a `SoundEvent` holding a corresponding entry in `sounds.json` must be created. This `SoundEvent` must then be [registered][registration]. Normally, the location used to create a sound event should be set as it's registry name.
 
 The `SoundEvent` acts as a reference to the sound and is passed around to play them. If a mod has an API, it should expose its `SoundEvent`s in the API.
+
+!!! note
+    As long as a sound is registered within the `sounds.json`, it can still be referenced on the logical client regardless of whether there is a referencing `SoundEvent`.
 
 Playing Sounds
 --------------

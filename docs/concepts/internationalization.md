@@ -12,7 +12,7 @@ Language files
 
 Language files are located by `assets/[namespace]/lang/[locale].json` (e.g. all US English translations provided by `examplemod` would be within `assets/examplemod/lang/en_us.json`). The file format is simply a json map from translation keys to values. The file must be encoded in UTF-8. Old .lang files can be converted to json using a [converter][converter].
 
-```json
+```js
 {
   "item.examplemod.example_item": "Example Item Name",
   "block.examplemod.example_block": "Example Block Name",
@@ -27,7 +27,7 @@ Block, Item and a few other Minecraft classes have built-in translation keys use
 
 By default, `#getDescriptionId` will return `block.` or `item.` prepended to the registry name of the block or item, with the colon replaced by a dot. `BlockItem`s override this method to take their corresponding `Block`'s translation key by default. For example, an item with ID `examplemod:example_item` effectively requires the following line in a language file:
 
-```json
+```js
 {
   "item.examplemod.example_item": "Example Item Name"
 }
