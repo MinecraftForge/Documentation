@@ -198,7 +198,7 @@ Subcommand  | Description
 `run`       | Runs the specified test: `run <test_name>`.
 `runall`    | Runs all available tests.
 `runthis`   | Runs the nearest test to the player within 15 blocks.
-`runthese`  | Runs the nearest test to the player with 200 blocks.
+`runthese`  | Runs tests within 200 blocks of the player.
 `runfailed` | Runs all tests that failed in the previous run.
 
 !!! note
