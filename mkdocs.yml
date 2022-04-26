@@ -60,11 +60,16 @@ nav:
     - Introduction: 'datagen/index.md'
     - Client Assets:
       - Model Providers: 'datagen/client/modelproviders.md'
+      - Language Providers: 'datagen/client/localization.md'
+      - Sound Providers: 'datagen/client/sounds.md'
     - Server Data:
       - Recipe Providers: 'datagen/server/recipes.md'
+      - Tag Providers: 'datagen/server/tags.md'
       - Advancement Providers: 'datagen/server/advancements.md'
+      - Global Loot Modifier Providers: 'datagen/server/glm.md'
   - Miscellaneous Features:
     - Configuration: 'misc/config.md'
+    - Game Tests: 'misc/gametest.md'
     - Forge Update Checker: 'misc/updatechecker.md'
     - Debug Profiler: 'misc/debugprofiler.md'
   - Advanced Topics:

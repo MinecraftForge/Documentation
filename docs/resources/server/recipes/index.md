@@ -10,7 +10,7 @@ Most recipe implementations within vanilla are data driven via JSON. This means 
 
 A recipe can be obtained within the Recipe Book as a reward for completing an [advancement][advancement]. Recipe advancements always have `minecraft:recipes/root` as their parent, to not to appear on the advancement screen. The default criteria to gain the recipe advancement is a check if the user has unlocked the recipe from using it once or receiving it through a command like `/recipe`:
 
-```json5
+```js
 // Within some recipe advancement json
 "has_the_recipe": { // Criteria label
   // Succeeds if examplemod:example_recipe is used
@@ -59,7 +59,7 @@ Forge provides some additional behavior to the recipe schema and its implementat
 
 Except for `minecraft:stonecutting` recipes, all vanilla recipe serializers expand the `result` tag to take in a full `ItemStack` as a `JsonObject` instead of just the item name and amount in some cases.
 
-```json5
+```js
 // In some recipe JSON
 "result": {
   // The name of the registry item to give as a result
