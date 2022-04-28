@@ -45,11 +45,10 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
 ### Client Assets
 * [`net.minecraftforge.common.data.LanguageProvider`][langgen] - for [language strings][lang]; override `#addTranslations`
 * [`net.minecraftforge.common.data.SoundDefinitionsProvider`][soundgen] - for [`sounds.json`][sounds]; override `#registerSounds`
-* `ModelProvider<?>` - base class for all model providers
-  * _These classes are under the `net.minecraftforge.client.model.generators` package_
-  * `ItemModelProvider` - for item models; override `#registerModels`
-  * `BlockStateProvider` - for blockstates and their block and item models; override `#registerStatesAndModels`
-  * `BlockModelProvider` - for block models; override `#registerModels`
+* [`net.minecraftforge.client.model.generators.ModelProvider<?>`][modelgen] - for [models]; override `#registerModels`
+    * [`ItemModelProvider`][itemmodelgen] - for item models
+    * [`BlockModelProvider`][blockmodelgen] - for block models
+* [`net.minecraftforge.client.model.generators.BlockStateProvider`][blockstategen] - for blockstate JSONs and their block and item models; override `#registerStatesAndModels`
 
 ### Server Data
 * [`net.minecraftforge.common.data.GlobalLootModifierProvider`][glmgen] - for [global loot modifiers][glm]; override `#start`
@@ -63,6 +62,11 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
 [lang]: https://minecraft.fandom.com/wiki/Language
 [soundgen]: ./client/sounds.md
 [sounds]: https://minecraft.fandom.com/wiki/Sounds.json
+[modelgen]: ./client/modelproviders.md
+[models]: ../resources/client/models/index.md
+[itemmodelgen]: ./client/modelproviders.md#itemmodelprovider
+[blockmodelgen]: ./client/modelproviders.md#blockmodelprovider
+[blockstategen]: ./client/modelproviders.md#block-state-provider
 [glmgen]: ./server/glm.md
 [glm]: ../resources/server/glm.md
 [recipegen]: ./server/recipes.md
