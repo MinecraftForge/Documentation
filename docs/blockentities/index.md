@@ -29,7 +29,7 @@ public MyBE(BlockPos pos, BlockState state) {
 
 ## Creating a `BlockEntity`
 
-To create a `BlockEntity` and attack it to a `Block`, the `EntityBlock` interface must be implemented on your `Block` subclass. The method `EntityBlock#newBlockEntity(BlockPos, BlockState)` must be implemented and return a new instance of your `BlockEntity`.
+To create a `BlockEntity` and attach it to a `Block`, the `EntityBlock` interface must be implemented on your `Block` subclass. The method `EntityBlock#newBlockEntity(BlockPos, BlockState)` must be implemented and return a new instance of your `BlockEntity`.
 
 ## Storing Data within your `BlockEntity`
 
