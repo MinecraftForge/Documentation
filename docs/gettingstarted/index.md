@@ -6,7 +6,7 @@ This is a simple guide to get you from nothing to a basic mod. The rest of this 
 From Zero to Modding
 --------------------
 
-1. Obtain a Java 17 Development Kit (JDK) and a 64-bit Java Virtual Machine (JVM). Minecraft and MinecraftForge both compile against Java 17 and as such should be used for development. Using a 32-bit JVM will result in some problems when running the below gradle tasks. You can obtain one from [AdoptOpenJDK][jdk].
+1. Obtain a Java 17 Development Kit (JDK) and a 64-bit Java Virtual Machine (JVM). Minecraft and MinecraftForge both compile against Java 17 and as such should be used for development. Using a 32-bit JVM will result in some problems when running the below gradle tasks. You can obtain one from [Eclipse Adoptium][jdk].
 2. Obtain the Mod Development Kit (MDK) from Forge's [files][] site.
 3. Extract the downloaded MDK into an empty directory. You should see a bunch of files along with an example mod placed in `src/main/java` for you to look at. Only a few of these files are strictly necessary for mod development, and you may reuse these files for all your projects. These files are:
     * `build.gradle`
@@ -58,5 +58,5 @@ Building and Testing Your Mod
     It is always advisable to test your mod in a dedicated server environment if it is intended to run there.
     
 [files]: https://files.minecraftforge.net "Forge Files distribution site"
-[jdk]: https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot "Adoptium 17 Prebuilt Binaries"
+[jdk]: https://adoptium.net/temurin/releases "Temurin Prebuilt Binaries"
 [mojmap]: https://github.com/MinecraftForge/MCPConfig/blob/master/Mojang.md
