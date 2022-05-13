@@ -27,15 +27,15 @@ A `ModelBuilder` represents a to-be-generated `ModelFile`. It contains all the d
 !!! tip
     While a complex model can be generated, it is recommended that those models be constructed using a modeling software beforehand and generate children of the complex model with the specified textures applied through the associated provider.
 
-The parent (via `ModeBuilder#parent`) of the builder can be any `ModelFile`: generated or existing. Generated files are added to `ModelProvider`s as soon as the builder is created. The builder itself can be passed in as a parent, or the `ResourceLocation` can supplied alternatively.
+The parent (via `ModelBuilder#parent`) of the builder can be any `ModelFile`: generated or existing. Generated files are added to `ModelProvider`s as soon as the builder is created. The builder itself can be passed in as a parent, or the `ResourceLocation` can supplied alternatively.
 
 !!! warning
     If the parent is not generated before the child model when passing in a `ResourceLocation`, then an exception will be thrown.
 
-Each element (via `ModeBuilder#element`) within a model is defined as cube using two three-dimensional points (`ElementBuilder#from` and `#to` respectively) where each axis is limited to the values `[-16,32]`. Each face (`ElementBuilder#face`) of the cube can specify when the face is culled (`FaceBuilder#cullface`), [tint index][color](`FaceBuilder#tintindex`), texture reference from the `textures` keys(`FaceBuilder#texture`), UV coordinate on the texture(`FaceBuilder#uvs`), and rotation in 90 degree intervals(`FaceBuilder#rotation`).
+Each element (via `ModelBuilder#element`) within a model is defined as cube using two three-dimensional points (`ElementBuilder#from` and `#to` respectively) where each axis is limited to the values `[-16,32]`. Each face (`ElementBuilder#face`) of the cube can specify when the face is culled (`FaceBuilder#cullface`), [tint index][color] (`FaceBuilder#tintindex`), texture reference from the `textures` keys (`FaceBuilder#texture`), UV coordinate on the texture (`FaceBuilder#uvs`), and rotation in 90 degree intervals (`FaceBuilder#rotation`).
 
 !!! note
-    It recommended for block models that any axis that needs to be outside a `[0,16]` bound should be a separate model for a multiblock structure.
+    It recommended for block models which have elements that exceed a bound of `[0,16]` on any axis to separate into multiple blocks, such as for a multiblock structure, to avoid lighting and culling issues.
 
 Each cube can additionally be rotated (`ElementBuilder#rotation`) around a specified point (`RotationBuilder#origin`) for a given axis (`RotationBuilder#axis`) in 22.5 degree intervals (`RotationBuilder#angle`). The cube can scale all faces in relation to the entire model as well (`RotationBuilder#rescale`). The cube can also determine whether its shadows should be rendered (`ElementBuilder#shade`).
 
@@ -73,7 +73,7 @@ Method               | Description
 Additionally, there are several helpers for easily generating common models using vanilla templates. Most are for block models with only a few being universal.
 
 !!! note
-    Although the models are within a specific subdirectory, that does **not** mean that the model cannot be referenced by a model in another subdirectory. Usually, it is indicative of that model being using for that type of object.
+    Although the models are within a specific subdirectory, that does **not** mean that the model cannot be referenced by a model in another subdirectory. Usually, it is indicative of that model being used for that type of object.
 
 ### `BlockModelProvider`
 
