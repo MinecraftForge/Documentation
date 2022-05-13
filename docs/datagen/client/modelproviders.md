@@ -25,22 +25,19 @@ Model Builders
 A `ModelBuilder` represents a to-be-generated `ModelFile`. It contains all the data about a model: its parent, faces, textures, transformations, lighting, and [loader].
 
 !!! tip
-    While a complex model can be generated, it is recommended that those models be constructed using a modeling software beforehand and generate children of the complex model with the specified textures applied through the associated provider.
+    While a complex model can be generated, it is recommended that those models be constructed using a modeling software beforehand. Then, the data provider can generate the children models with specific textures applied through the defined references in the parent complex model.
 
 The parent (via `ModelBuilder#parent`) of the builder can be any `ModelFile`: generated or existing. Generated files are added to `ModelProvider`s as soon as the builder is created. The builder itself can be passed in as a parent, or the `ResourceLocation` can supplied alternatively.
 
 !!! warning
     If the parent is not generated before the child model when passing in a `ResourceLocation`, then an exception will be thrown.
 
-Each element (via `ModelBuilder#element`) within a model is defined as cube using two three-dimensional points (`ElementBuilder#from` and `#to` respectively) where each axis is limited to the values `[-16,32]`. Each face (`ElementBuilder#face`) of the cube can specify when the face is culled (`FaceBuilder#cullface`), [tint index][color] (`FaceBuilder#tintindex`), texture reference from the `textures` keys (`FaceBuilder#texture`), UV coordinate on the texture (`FaceBuilder#uvs`), and rotation in 90 degree intervals (`FaceBuilder#rotation`).
+Each element (via `ModelBuilder#element`) within a model is defined as cube using two three-dimensional points (`ElementBuilder#from` and `#to` respectively) where each axis is limited to the values `[-16,32]` (between -16 and 32 inclusive). Each face (`ElementBuilder#face`) of the cube can specify when the face is culled (`FaceBuilder#cullface`), [tint index][color] (`FaceBuilder#tintindex`), texture reference from the `textures` keys (`FaceBuilder#texture`), UV coordinate on the texture (`FaceBuilder#uvs`), and rotation in 90 degree intervals (`FaceBuilder#rotation`).
 
 !!! note
     It recommended for block models which have elements that exceed a bound of `[0,16]` on any axis to separate into multiple blocks, such as for a multiblock structure, to avoid lighting and culling issues.
 
 Each cube can additionally be rotated (`ElementBuilder#rotation`) around a specified point (`RotationBuilder#origin`) for a given axis (`RotationBuilder#axis`) in 22.5 degree intervals (`RotationBuilder#angle`). The cube can scale all faces in relation to the entire model as well (`RotationBuilder#rescale`). The cube can also determine whether its shadows should be rendered (`ElementBuilder#shade`).
-
-!!! important
-    Elements can be rotated on different axes on 90 degree intervals. Only one axis per cube can use the 22.5 degree interval.
 
 Each model defines a list of texture keys (`ModelBuilder#texture`) which points to either a location or a reference. Each key can then be referenced in any element by prefixing using a `#` (a texture key of `example` can be referenced in an element using `#example`). A location specifies where a texture is in `assets/<namespace>/textures/<path>.png`. A reference is used by any models parenting the current model as keys to define textures for later.
 
@@ -84,7 +81,10 @@ The `BlockModelProvider` is used for generating block models via `BlockModelBuil
 
 ### `ItemModelProvider`
 
-The `ItemModelProvider` is used for generating block models via `ItemModelBuilder` in the `item` folder. Most item models parent `item/generated` and use `layer0` to specify their texture, which can be done using `#singleTexture`
+The `ItemModelProvider` is used for generating block models via `ItemModelBuilder` in the `item` folder. Most item models parent `item/generated` and use `layer0` to specify their texture, which can be done using `#singleTexture`.
+
+!!! note
+    `item/generated` can support five texture layers stacked on top of each other: `layer0`, `layer1`, `layer2`, `layer3`, and `layer4`.
 
 ```java
 // In some ItemModelProvider#registerModels
@@ -114,7 +114,7 @@ Method            | Description
 `blockTexture`    | References a texture within `textures/block` which has the same name as the block.
 `simpleBlockItem` | Creates an item model for a block given the associated model file.
 
-A block state JSON is made up of variants or conditions. Each variant or condition references a `ConfiguredModelList`: a list of `ConfiguredModel`s. Each configured model contains the model file (via `ConfiguredModel$Builder#modelFile`), the x and y rotation in 90 degree intervals (via `#rotationX` and `rotationY` respectively), whether the texture can rotate when the model is rotated by the block state JSON (via `#uvLock`), and the weight of the model appearing compared to other models in the list (via `#weight`).
+A block state JSON is made up of variants or conditions. Each variant or condition references a `ConfiguredModelList`: a list of `ConfiguredModel`s. Each configured model contains the model file (via `ConfiguredModel$Builder#modelFile`), the X and Y rotation in 90 degree intervals (via `#rotationX` and `rotationY` respectively), whether the texture can rotate when the model is rotated by the block state JSON (via `#uvLock`), and the weight of the model appearing compared to other models in the list (via `#weight`).
 
 The builder (`ConfiguredModel#builder`) can also create an array of `ConfiguredModel`s by creating the next model using `#nextModel` and repeating the settings until `#build` is called.
 
@@ -170,8 +170,8 @@ this.getVariantBuilder(EXAMPLE_BLOCK_3) // Get variant builder
     ConfiguredModel.builder() // Creates configured model builder
       .modelFile(modelFile) // Can show 'modelFile'
       .rotationY((int) state.getValue(HORIZONTAL_FACING).toYRot()) // Rotates 'modelFile' on the Y axis depending on the property
-      .build() // Creates the array of configured models
-  , WATERLOGGED); // Ignores WATERLOGGED property
+      .build(), // Creates the array of configured models
+  WATERLOGGED); // Ignores WATERLOGGED property
 ```
 
 ### `MultiPartBlockStateBuilder`
@@ -276,11 +276,11 @@ Model Builder                     | Factory Method | Description
 ```java
 // For some BlockModelBuilder builder
 builder.customLoader(OBJLoaderBuilder::begin) // Custom loader 'forge:obj'
-  .modelLocation(new ResourceLocation(MOD_ID, "models/block/model.obj")) // Set the OBJ model location
+  .modelLocation(modLoc("models/block/model.obj")) // Set the OBJ model location
   .flipV(true) // Flips the V coordinate in the supplied .mtl texture
   .end() // Finish custom loader configuration
-.texture("particle", new ResourceLocation("block/dirt")) // Set particle texture to dirt
-.texture("texture0", new ResourceLocation("block/dirt")); // Set 'texture0' texture to dirt
+.texture("particle", mcLoc("block/dirt")) // Set particle texture to dirt
+.texture("texture0", mcLoc("block/dirt")); // Set 'texture0' texture to dirt
 ```
 
 Custom Model Loader Builders
