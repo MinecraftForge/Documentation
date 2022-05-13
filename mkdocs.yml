@@ -52,6 +52,7 @@ nav:
         - Custom Recipes: 'resources/server/recipes/custom.md'
         - Ingredients: 'resources/server/recipes/ingredients.md'
         - Non-Datapack Recipes:  'resources/server/recipes/incode.md'
+      - Loot Tables: 'resources/server/loottables.md'
       - Global Loot Modifiers: 'resources/server/glm.md'
       - Tags: 'resources/server/tags.md'
       - Conditionally-Loaded Data: 'resources/server/conditional.md'
@@ -63,6 +64,7 @@ nav:
       - Sound Providers: 'datagen/client/sounds.md'
     - Server Data:
       - Recipe Providers: 'datagen/server/recipes.md'
+      - Loot Table Providers: 'datagen/server/loottables.md'
       - Tag Providers: 'datagen/server/tags.md'
       - Global Loot Modifier Providers: 'datagen/server/glm.md'
   - Miscellaneous Features:
