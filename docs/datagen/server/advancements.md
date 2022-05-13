@@ -1,7 +1,7 @@
 Advancement Generation
 ======================
 
-Advancements can be generated for a mod by subclassing `AdvancementProvider` and overriding `#registerAdvancements`. Advancements can either be created and supplied manually or, for convenience, created using `Advancement$Builder`.
+[Advancements] can be generated for a mod by subclassing `AdvancementProvider` and overriding `#registerAdvancements`. Advancements can either be created and supplied manually or, for convenience, created using `Advancement$Builder`.
 
 After implementation, the provider must be [added][datagen] to the `DataGenerator`.
 
@@ -30,5 +30,6 @@ Advancement example = Advancement.Builder.advancement()
 }
 ```
 
+[advancements]: ../../resources/server/advancements.md
 [datagen]: ../index.md#data-providers
 [conditional]: ../../resources/server/conditional.md

@@ -3,10 +3,7 @@ Advancements
 
 Advancements are tasks that can be achieved by the player which may advance the progress of the game. Advancements can trigger based on any action the player may be directly involved in.
 
-Data-Driven Advancements
-------------------------
-
-All advancement implementations within vanilla are data driven via JSON. This means that a mod is not necessary to create a new advancement, only a [Data pack][datapack]. A full list on how to create and put these advancements within the mod's `resources` folder can be found on the [Minecraft Wiki][wiki].
+All advancement implementations within vanilla are data driven via JSON. This means that a mod is not necessary to create a new advancement, only a [data pack][datapack]. A full list on how to create and put these advancements within the mod's `resources` can be found on the [Minecraft Wiki][wiki]. Additionally, advancements can be [loaded conditionally and defaulted][conditional] depending on what information is present (mod loaded, item exists, etc.).
 
 Advancement Criteria
 --------------------
@@ -63,7 +60,7 @@ public ExampleTriggerInstance(EntityPredicate.Composite player, ItemPredicate it
 ```
 
 !!! note
-    Typically, trigger instances have a static constructor which allow these instances to be easily created for data generation.
+    Typically, trigger instances have a static constructor which allow these instances to be easily created for data generation. These static factory methods can also be statically imported instead of the class itself.
 
     ```java
     public static ExampleTriggerInstance instance(EntityPredicate.Builder playerBuilder, ItemPredicate.Builder itemBuilder) {
@@ -161,13 +158,8 @@ When an advancement is completed, rewards may be given out. These can be a combi
 }
 ```
 
-Conditional Advancements
-------------------------
-
-Advancements can be [loaded conditionally and defaulted][conditional] depending on what information is present (mod loaded, item exists, etc.).
-
 [datapack]: https://minecraft.fandom.com/wiki/Data_pack
 [wiki]: https://minecraft.fandom.com/wiki/Advancement/JSON_format
+[conditional]: ./conditional.md#implementations
 [function]: https://minecraft.fandom.com/wiki/Function_(Java_Edition)
 [triggers]: https://minecraft.fandom.com/wiki/Advancement/JSON_format#List_of_triggers
-[conditional]: ./conditional.md#implementations
