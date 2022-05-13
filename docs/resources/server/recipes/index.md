@@ -95,7 +95,7 @@ A few additional [ingredient types][ingredients] are added to allow recipes to h
 
 [datapack]: https://minecraft.fandom.com/wiki/Data_pack
 [wiki]: https://minecraft.fandom.com/wiki/Recipe
-[advancement]: https://minecraft.fandom.com/wiki/Advancement/JSON_format#File_format
+[advancement]: ../advancements.md
 [datagen]: ../../../datagen/server/recipes.md
 [cap]: ../../../datastorage/capabilities.md
 [conditional]: ../conditional.md#implementations

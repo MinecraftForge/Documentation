@@ -57,7 +57,7 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
 * `LootTableProvider` - for loot tables; override `#getTables`
 * [`RecipeProvider`][recipegen] - for [recipes] and their unlocking advancements; override `#buildCraftingRecipes`
 * [`TagsProvider`][taggen] - for [tags]; override `#addTags`
-* `AdvancementProvider` - for advancements; override `#registerAdvancements`
+* [`AdvancementProvider`][advgen] - for [advancements]; override `#registerAdvancements`
 
 [langgen]: ./client/localization.md
 [lang]: https://minecraft.fandom.com/wiki/Language
@@ -69,3 +69,5 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
 [recipes]: ../resources/server/recipes/index.md
 [taggen]: ./server/tags.md
 [tags]: ../resources/server/tags.md
+[advgen]: ./server/advancements.md
+[advancements]: ../resources/server/advancements.md

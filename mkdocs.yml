@@ -54,6 +54,7 @@ nav:
         - Non-Datapack Recipes:  'resources/server/recipes/incode.md'
       - Global Loot Modifiers: 'resources/server/glm.md'
       - Tags: 'resources/server/tags.md'
+      - Advancements: 'resources/server/advancements.md'
       - Conditionally-Loaded Data: 'resources/server/conditional.md'
   - Data Generation:
     - Introduction: 'datagen/index.md'
@@ -64,6 +65,7 @@ nav:
     - Server Data:
       - Recipe Providers: 'datagen/server/recipes.md'
       - Tag Providers: 'datagen/server/tags.md'
+      - Advancement Providers: 'datagen/server/advancements.md'
       - Global Loot Modifier Providers: 'datagen/server/glm.md'
   - Miscellaneous Features:
     - Configuration: 'misc/config.md'
