@@ -67,7 +67,7 @@ Forge extends certain parameter sets to account for missing contexts which may b
 
 ### Multiple Items on Smelting
 
-When using the `SmeltItemFunction`, a smelted recipe will now return the actual number of items from the result instead of a single smelted item (e.g. if a smelting recipe returns 3 items and there are 3 drops, then the result would be 9 items instead of 3).
+When using the `SmeltItemFunction`, a smelted recipe will now return the actual number of items from the result instead of a single smelted item (e.g. if a smelting recipe returns 3 items and there are 3 drops, then the result would be 9 smelted items instead of 3).
 
 ### Loot Table Id Condition
 
