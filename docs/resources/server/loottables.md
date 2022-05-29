@@ -6,7 +6,7 @@ Loot tables are logic files which dictate what should happen when various action
 Data-Driven Tables
 ------------------
 
-Most loot tables within vanilla are data driven via JSON. This means that a mod is not necessary to create a new recipe, only a [Data pack][datapack]. A full list on how to create and put these recipes within the mod's `resources` folder can be found on the [Minecraft Wiki][wiki].
+Most loot tables within vanilla are data driven via JSON. This means that a mod is not necessary to create a new loot table, only a [Data pack][datapack]. A full list on how to create and put these loot tables within the mod's `resources` folder can be found on the [Minecraft Wiki][wiki].
 
 Using a Loot Table
 ------------------
