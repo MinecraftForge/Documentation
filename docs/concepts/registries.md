@@ -219,7 +219,7 @@ The `DeferredRegister` method is once again another wrapper around the above eve
 Handling Missing Entries
 ------------------------
 
-There are cases where certain registry objects will cease to exist whenever a mod is updated or, more likely, removed. It is possible to specify actions to handle the missing mapping through the third of the registry events: `RegistryEvent$MissingMappings`. Within this event, a list of missing mappings can be obtained wither by `#getMappings` given a mod id or all mappings via `#getAllMappings`.
+There are cases where certain registry objects will cease to exist whenever a mod is updated or, more likely, removed. It is possible to specify actions to handle the missing mapping through the third of the registry events: `RegistryEvent$MissingMappings`. Within this event, a list of missing mappings can be obtained either by `#getMappings` given a mod id or all mappings via `#getAllMappings`.
 
 For each `Mapping`, one of four mapping types can be selected to handle the missing entry:
 
