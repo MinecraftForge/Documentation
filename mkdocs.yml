@@ -104,8 +104,8 @@ theme:
 extra:
   current_version: 1.18.x
   versions:
-    1.16.x: 1.16.x
     1.18.x: 1.18.x
+    1.19.x: 1.19.x
 
 extra_css:
   - css/version_warning_fix.css
