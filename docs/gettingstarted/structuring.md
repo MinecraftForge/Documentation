@@ -26,8 +26,8 @@ The `mods.toml` file is formatted as [TOML][], the example `mods.toml` file in t
 # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
 modLoader="javafml"
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-# Forge for 1.18 is version 38
-loaderVersion="[38,)"
+# Forge for 1.19 is version 41
+loaderVersion="[41,)"
 # The license for your mod. This is mandatory and allows for easier comprehension of your redistributive properties.
 # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
 license="All Rights Reserved"
@@ -52,32 +52,32 @@ showAsResourcePack=false
   [[dependencies.examplemod]]
     modId="forge"
     mandatory=true
-    versionRange="[38,)"
+    versionRange="[41,)"
     ordering="NONE"
     side="BOTH"
 
   [[dependencies.examplemod]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18,1.19)"
+    versionRange="[1.19,1.20)"
     ordering="NONE"
     side="BOTH"
 ```
 
 If any string is specified as `${file.jarVersion}`, Forge will replace the string with the **Implementation Version** specified in your jar manifest at runtime. Since the user development environment has no jar manifest to pull from, it will be `NONE` instead. As such, it is usually recommended to leave the `version` field alone. Here is a table of attributes that may be given to a mod, where `mandatory` means there is no default and the absence of the property causes an error.
 
-|     Property |   Type   | Default  | Description |
-|-------------:|:--------:|:--------:|:------------|
-|        modid |  string  | mandatory | The modid this file is linked to. |
-|      version |  string  | mandatory | The version of the mod. It should be just numbers separated by dots, ideally conforming to Forge's [Semantic Versioning][versioning] structure. |
-|  displayName |  string  | mandatory | The user-friendly name of this mod. |
-| updateJSONURL |  string  |   `""`   | The URL to a [version JSON][updatechecker]. |
-|   displayURL |  string  |   `""`   | A link to the mod's homepage. |
-|     logoFile |  string  |   `""`   | The filename of the mod's logo. It must be placed in the root resource folder, not in a subfolder. |
-|      credits |  string  |   `""`   | A string that contains any acknowledgements you want to mention. |
-|      authors |  string  |   `""`   | The authors of this mod. |
-|  description |  string  | mandatory | A description of this mod. |
-| dependencies | [list] |   `[]`   | A list of dependencies of this mod. |
+|     Property  |   Type   | Default   | Description |
+|-------------: |:--------:|:--------: |:------------|
+|        modid  |  string  | mandatory | The modid this file is linked to. |
+|      version  |  string  | mandatory | The version of the mod. It should be just numbers separated by dots, ideally conforming to Forge's [Semantic Versioning][versioning] structure. |
+|  displayName  |  string  | mandatory | The user-friendly name of this mod. |
+| updateJSONURL |  string  |   `""`    | The URL to a [version JSON][updatechecker]. |
+|   displayURL  |  string  |   `""`    | A link to the mod's homepage. |
+|     logoFile  |  string  |   `""`    | The filename of the mod's logo. It must be placed in the root resource folder, not in a subfolder. |
+|      credits  |  string  |   `""`    | A string that contains any acknowledgements you want to mention. |
+|      authors  |  string  |   `""`    | The authors of this mod. |
+|  description  |  string  | mandatory | A description of this mod. |
+| dependencies  | [list]   |   `[]`    | A list of dependencies of this mod. |
 
 \* All version ranges use the [Maven Version Range Specification][mvr].
 

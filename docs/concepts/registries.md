@@ -3,18 +3,18 @@ Registries
 
 Registration is the process of taking the objects of a mod (such as items, blocks, sounds, etc.) and making them known to the game. Registering things is important, as without registration the game will simply not know about these objects, which will cause unexplainable behaviors and crashes. 
 
-Most things that require registration in the game are handled by the Forge registries. A registry is an object similar to a map that assigns values to keys. Forge uses registries with [`ResourceLocation`][ResourceLocation] keys to register objects. This allows the `ResourceLocation` to act as the "registry name" for objects. The registry name for an object may be accessed with `#getRegistryName`/`#setRegistryName`. The setter can only be called once; calling it twice results in an exception. 
+Most things that require registration in the game are handled by the Forge registries. A registry is an object similar to a map that assigns values to keys. Forge uses registries with [`ResourceLocation`][ResourceLocation] keys to register objects. This allows the `ResourceLocation` to act as the "registry name" for objects.
 
-Every type of registrable object has its own registry. To see all registries supported by Forge, see the `ForgeRegistries` class. All registry names within a registry must be unique. However, names in different registries will not collide. For example, there's a `Block` registry, and an `Item` registry. A `Block` and an `Item` may be registered with the same name `example:thing` without colliding; however, if two different `Block`s or `Item`s were registered with the same exact name, the second object will override the first.
+Every type of registrable object has its own registry. To see all registries wrapped by Forge, see the `ForgeRegistries` class. All registry names within a registry must be unique. However, names in different registries will not collide. For example, there's a `Block` registry, and an `Item` registry. A `Block` and an `Item` may be registered with the same name `example:thing` without colliding; however, if two different `Block`s or `Item`s were registered with the same exact name, the second object will override the first.
 
 Methods for Registering
 ------------------
 
-There are two proper ways to register objects: the `DeferredRegister` class, and the `RegistryEvent$Register` lifecycle event.
+There are two proper ways to register objects: the `DeferredRegister` class, and the `RegisterEvent` lifecycle event.
 
 ### DeferredRegister
 
-`DeferredRegister` is the newer and documented way to register objects. It allows the use and convenience of static initializers while avoiding the issues associated with it. It simply maintains a list of suppliers for entries and registers the objects from those suppliers during the proper `RegistryEvent$Register` event.
+`DeferredRegister` is the recommended way to register objects. It allows the use and convenience of static initializers while avoiding the issues associated with it. It simply maintains a list of suppliers for entries and registers the objects from those suppliers during `RegisterEvent`.
 
 An example of a mod registering a custom block:
 
@@ -28,32 +28,27 @@ public ExampleMod() {
 }
 ```
 
-### `Register` events
+### `RegisterEvent`
 
-The `RegistryEvent`s are the second and more flexible way to register objects. These [events][] are fired after the mod constructors and before the loading of configs.
-
-The event used to register objects is `RegistryEvent$Register<T>`. The type parameter `T` should be set to the type of the object being registered. Calling `#getRegistry` will return the registry, upon which objects are registered with `#register` or `#registerAll`. 
+`RegisterEvent` is the second way to register objects. This [event] is fired for each registry after the mod constructors and before the loading of configs. Objects are registered using `#register` by passing in the registry key, the name of the registry object, and the object itself.
 
 Here is an example: (the event handler is registered on the *mod event bus*)
 
 ```java
 @SubscribeEvent
-public void registerBlocks(RegistryEvent.Register<Block> event) {
-  event.getRegistry().registerAll(new Block(...), new Block(...), ...);
+public void register(RegisterEvent event) {
+  event.register(ForgeRegistries.Keys.BLOCKS, new ResourceLocation(MODID, "rock"), () -> new Block(...));
 }
 ```
 
 ### Registries that aren't Forge Registries
 
-Due to some peculiarities of vanilla code, not all registries are wrapped by Forge. These can be static registries, like `RecipeType`, which are safe to use. There are also dynamic registries, like `ConfiguredFeature` and some other worldgen registries, which are typically represented in JSON. These objects should only be registered this way if there is another registry object that requires it. `DeferredRegister#create` has an overload which allows modders to specify the registry key of which vanilla registry to create a `RegistryObject` for. The registry method and attaching to the mod event bus is the same as other `DeferredRegister`s.
+Not all registries are wrapped by Forge. These can be static registries, like `LootItemConditionType`, which are safe to use. There are also dynamic registries, like `ConfiguredFeature` and some other worldgen registries, which are typically represented in JSON. These objects should only be registered this way if there is another registry object that requires it. `DeferredRegister#create` has an overload which allows modders to specify the registry key of which vanilla registry to create a `RegistryObject` for. The registry method and attaching to the mod event bus is the same as other `DeferredRegister`s.
 
 ```java
-private static final DeferredRegister<RecipeType<?>> REGISTER = DeferredRegister.create(Registry.RECIPE_TYPE_REGISTRY, "examplemod");
+private static final DeferredRegister<LootItemConditionType> REGISTER = DeferredRegister.create(Registry.LOOT_ITEM_REGISTRY, "examplemod");
 
-// As RecipeType is an interface, an anonymous class will be created for registering
-// Vanilla RecipeTypes override #toString for debugging purposes, so it is omitted in this example
-// Assume some recipe ExampleRecipe
-public static final RegistryObject<RecipeType<ExampleRecipe>> EXAMPLE_RECIPE_TYPE = REGISTER.register("example_recipe_type", () -> new RecipeType<>() {});
+public static final RegistryObject<LootItemConditionType> EXAMPLE_RECIPE_TYPE = REGISTER.register("example_loot_item_condition_type", () -> new LootItemConditionType(...));
 ```
 
 !!! note
@@ -69,15 +64,15 @@ public static final RegistryObject<RecipeType<ExampleRecipe>> EXAMPLE_RECIPE_TYP
 Referencing Registered Objects
 ------------------------------
 
-Registered objects should not be stored in fields when they are created and registered. They are to be always newly created and registered whenever their respective `RegistryEvent$Register` event is fired. This is to allow dynamic loading and unloading of mods in a future version of Forge.
+Registered objects should not be stored in fields when they are created and registered. They are to be always newly created and registered whenever `RegisterEvent` is fired for that registry. This is to allow dynamic loading and unloading of mods in a future version of Forge.
 
 Registered objects must always be referenced through a `RegistryObject` or a field with `@ObjectHolder`.
 
 ### Using RegistryObjects
 
-`RegistryObject`s can be used to retrieve references to registered objects once they are available. These are used by `DeferredRegister` to return a reference to the registered objects. Their references are updated after their corresponding registry's `RegistryEvent$Register` event is fired, along with the `@ObjectHolder` annotations.
+`RegistryObject`s can be used to retrieve references to registered objects once they are available. These are used by `DeferredRegister` to return a reference to the registered objects. Their references are updated after `RegisterEvent` is called for their registry, along with the `@ObjectHolder` annotations.
 
-To get a `RegistryObject`, call `RegistryObject#create` with a `ResourceLocation` and the `IForgeRegistry` of the registrable object. Custom registries can also be used by giving a supplier of the object's class. Store the `RegistryObject` in a `public static final` field, and call `#get` whenever you need the registered object.
+To get a `RegistryObject`, call `RegistryObject#create` with a `ResourceLocation` and the `IForgeRegistry` of the registrable object. Custom registries can also be used by supplying the registry name instead. Store the `RegistryObject` in a `public static final` field, and call `#get` whenever you need the registered object.
 
 An example of using `RegistryObject`:
 
@@ -112,7 +107,7 @@ The rules for `@ObjectHolder` are as follows:
 * If no other errors or exceptions occur, the field will be injected
 * If all of the above rules do not apply, no action will be taken (and a message may be logged)
 
-`@ObjectHolder`-annotated fields are injected with their values after their corresponding registry's `RegistryEvent$Register` event is fired, along with the `RegistryObject`s.
+`@ObjectHolder`-annotated fields are injected with their values after `RegisterEvent` is fired for their registry, along with the `RegistryObject`s.
 
 !!! note
     If the object does not exist in the registry when it is to be injected, a debug message will be logged and no value will be injected.
@@ -199,9 +194,7 @@ Creating Custom Forge Registries
 
 Custom registries can usually just be a simple map of key to value. This is a common style; however, it forces a hard dependency on the registry being present. It also requires that any data that needs to be synced between sides must be done manually. Custom Forge Registries provide a simple alternative for creating soft dependents along with better management and automatic syncing between sides (unless told otherwise). Since the objects also use a Forge registry, registration becomes standardized in the same way.
 
-Custom Forge Registries are created with the help of a `RegistryBuilder`, through either `NewRegistryEvent` or the `DeferredRegister`. The `RegistryBuilder` class takes various parameters (such as the registry's name, the `Class` of its values, and various callbacks for different events happening on the registry). New registries are registered to the `RegistryManager` after `NewRegistryEvent` finishes firing.
-
-The `Class` of the value of the registry must implement `IForgeRegistryEntry`, which defines that `#setRegistryName` and `#getRegistryName` can be called on the objects of that class. It is recommended to extend `ForgeRegistryEntry`, the default implementation instead of implementing the interface directly. When `#setRegistryName(String)` is called with a string, and that string does not have an explicit namespace, its namespace will be set to the current modid.
+Custom Forge Registries are created with the help of a `RegistryBuilder`, through either `NewRegistryEvent` or the `DeferredRegister`. The `RegistryBuilder` class takes various parameters (such as the registry's name, id range, and various callbacks for different events happening on the registry). New registries are registered to the `RegistryManager` after `NewRegistryEvent` finishes firing.
 
 Any newly created registry should use its associated [registration method][registration] to register the associated objects.
 
@@ -211,7 +204,7 @@ When using `NewRegistryEvent`, calling `#create` with a `RegistryBuilder` will r
 
 ### With DeferredRegister
 
-The `DeferredRegister` method is once again another wrapper around the above event. Once a `DeferredRegister` is created in a constant field using the `#create` overload which takes in the registry name and the mod id, the registry can be constructed via `DeferredRegister#makeRegistry`. This takes in the registry class along with a supplied `RegistryBuilder` containing any additional configurations. The method already populates `#setName` and `#setType` by default. Since this method can be returned at any time, a supplied version of an `IForgeRegistry` is returned instead. Getting the custom registry from the supplier before `NewRegistryEvent` is fired will result in a `null` value.
+The `DeferredRegister` method is once again another wrapper around the above event. Once a `DeferredRegister` is created in a constant field using the `#create` overload which takes in the registry name and the mod id, the registry can be constructed via `DeferredRegister#makeRegistry`. This takes in  a supplied `RegistryBuilder` containing any additional configurations. The method already populates `#setName` by default. Since this method can be returned at any time, a supplied version of an `IForgeRegistry` is returned instead. Getting the custom registry from the supplier before `NewRegistryEvent` is fired will result in a `null` value.
 
 !!! important
     `DeferredRegister#makeRegistry` must be called before the `DeferredRegister` is added to the mod event bus via `#register`. `#makeRegistry` also uses the `#register` method to create the registry during `NewRegistryEvent`.
@@ -219,7 +212,10 @@ The `DeferredRegister` method is once again another wrapper around the above eve
 Handling Missing Entries
 ------------------------
 
-There are cases where certain registry objects will cease to exist whenever a mod is updated or, more likely, removed. It is possible to specify actions to handle the missing mapping through the third of the registry events: `RegistryEvent$MissingMappings`. Within this event, a list of missing mappings can be obtained either by `#getMappings` given a mod id or all mappings via `#getAllMappings`.
+There are cases where certain registry objects will cease to exist whenever a mod is updated or, more likely, removed. It is possible to specify actions to handle the missing mapping through the third of the registry events: `MissingMappingsEvent`. Within this event, a list of missing mappings can be obtained either by `#getMappings` given a registry key and mod id or all mappings via `#getAllMappings` given a registry key.
+
+!!! important
+    `MissingMappingsEvent` is fired on the **Forge** event bus.
 
 For each `Mapping`, one of four mapping types can be selected to handle the missing entry:
 
@@ -234,5 +230,5 @@ If no action is specified, then the default action will occur by notifying the u
 
 [ResourceLocation]: ./resources.md#resourcelocation
 [registration]: #methods-for-registering
-[events]: ./events.md
+[event]: ./events.md
 [blockentity]: ../blockentities/index.md

@@ -99,7 +99,7 @@ public class ExampleModifier extends LootModifier {
 
   @Nonnull
   @Override
-  protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
+  protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
     // Modify the loot and return the new drops
   }
 }
@@ -145,4 +145,4 @@ public ExampleModifierSerializer extends GlobalLootModifierSerializer<ExampleMod
 [serializer]: #globallootmodifierserializer
 [registered]: ../../concepts/registries.md#methods-for-registering
 [datagen]: ../../datagen/server/glm.md
-[examples]: https://github.com/MinecraftForge/MinecraftForge/blob/1.18.x/src/test/java/net/minecraftforge/debug/gameplay/loot/GlobalLootModifiersTest.java
+[examples]: https://github.com/MinecraftForge/MinecraftForge/blob/1.19.x/src/test/java/net/minecraftforge/debug/gameplay/loot/GlobalLootModifiersTest.java

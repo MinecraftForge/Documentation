@@ -43,7 +43,7 @@ This is fairly self-explanatory, but some notes:
 Retrieving Update Check Results
 -------------------------------
 
-You can retrieve the results of the Forge Update Checker using `VersionChecker#getResult(IModInfo)`. You can obtain your `IModInfo` via `ModContainer#getModInfo`. You can get your `ModContainer` using `ModLoadingContext.get().getActiveContainer()` inside your constructor, `ModList.get().getModContainerById(<your modId>)`, or `ModList.get().getModContainerByObject(<your mod instance>)`. You can obtain any other mod's `ModContainer` using `ModList.get().getModContainerById(<modId>)`. The returned object has a field `status` which indicates the status of the version check.
+You can retrieve the results of the Forge Update Checker using `VersionChecker#getResult(IModInfo)`. You can obtain your `IModInfo` via `ModContainer#getModInfo`. You can get your `ModContainer` using `ModLoadingContext.get().getActiveContainer()` inside your constructor, `ModList.get().getModContainerById(<your modId>)`, or `ModList.get().getModContainerByObject(<your mod instance>)`. You can obtain any other mod's `ModContainer` using `ModList.get().getModContainerById(<modId>)`. The returned object has a method `#status` which indicates the status of the version check.
 
 |          Status | Description |
 |----------------:|:------------|

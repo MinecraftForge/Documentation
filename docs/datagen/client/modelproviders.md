@@ -371,7 +371,7 @@ Once the data provider is running, the models within the `ModelProvider` subclas
 ```java
 // In ExampleModelConsumerProvider
 @Override
-public void run(HashCache cache) throws IOException {
+public void run(CachedOutput cache) throws IOException {
   // Populate the model provider
   this.example.generateAll(cache); // Generate the models
   // ...

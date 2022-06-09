@@ -51,15 +51,15 @@ Localization methods
 
 - `get(String, Object...)` localizes in the client's locale with formatting. The first parameter is a translation key, and the rest are formatting arguments for `String.format(String, Object...)`.
 
-### `TranslatableComponent`
+### `TranslatableContents`
 
-`TranslatableComponent` is a `Component` that is localized and formatted lazily. It is very useful when sending messages to players because it will be automatically localized in their own locale.
+`TranslatableContents` is a `ComponentContents` that is localized and formatted lazily. A `Component` can be created using `Component#translatable`. It is very useful when sending messages to players because it will be automatically localized in their own locale.
 
-The first parameter of the `TranslatableComponent(String, Object...)` constructor is a translation key, and the rest are used for formatting. The only supported format specifiers are `%s` and `%1$s`, `%2$s`, `%3$s` etc. Formatting arguments may be other `Components`s that will be inserted into the resulting formatted text with all their attributes preserved.
+The first parameter of the `TranslatableContents(String, Object...)` constructor is a translation key, and the rest are used for formatting. The only supported format specifiers are `%s` and `%1$s`, `%2$s`, `%3$s` etc. Formatting arguments may be other `Component`s that will be inserted into the resulting formatted text with all their attributes preserved.
 
 ### `TextComponentHelper`
 
-- `createComponentTranslation(CommandSource, String, Object...)` creates a localized and formatted `BaseComponent` depending on a receiver. The localization and formatting is done eagerly if the receiver is a vanilla client. If not, the localization and formatting is done lazily with a `TranslatableComponent`. This is only useful if the server should allow vanilla clients to connect.
+- `createComponentTranslation(CommandSource, String, Object...)` creates a localized and formatted `MutableComponent` depending on a receiver. The localization and formatting is done eagerly if the receiver is a vanilla client. If not, the localization and formatting is done lazily with a `Component` containing `TranslatableContents`. This is only useful if the server should allow vanilla clients to connect.
 
 [langs]: https://minecraft.gamepedia.com/Language#Available_languages
 [converter]: https://tterrag.com/lang2json/

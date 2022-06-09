@@ -48,7 +48,14 @@ Registry Object Type         | Tag Provider
 `Fluid`                      | `FluidTagsProvider`
 `GameEvent`                  | `GameEventTagsProvider`
 `Biome`                      | `BiomeTagsProvider`
-`ConfiguredStructureFeature` | `ConfiguredStructureTagsProvider`
+`FlatLevelGeneratorPreset`   | `FlatLevelGeneratorPresetTagsProvider`
+`WorldPreset`                | `WorldPresetTagsProvider`
+`Structure`                  | `StructureTagsProvider`
+`PoiType`                    | `PoiTypeTagsProvider`
+`BannerPattern`              | `BannerPatternTagsProvider`
+`CatVariant`                 | `CatVariantTagsProvider`
+`PaintingVariant`            | `PaintingVariantTagsProvider`
+`Instrument`                 | `InstrumentTagsProvider`
 
 #### `ItemTagsProvider#copy`
 
@@ -75,8 +82,8 @@ public RecipeTypeTagsProvider(DataGenerator generator, ExistingFileHelper fileHe
 If a registry is wrapped by Forge or [created by a mod][custom], a provider can be created via a `ForgeRegistryTagsProvider` subclass instead:
 
 ```java
-public MotiveTagsProvider(DataGenerator generator, ExistingFileHelper fileHelper) {
-  super(generator, ForgeRegistries.PAINTING_TYPES, MOD_ID, fileHelper);
+public AttributeTagsProvider(DataGenerator generator, ExistingFileHelper fileHelper) {
+  super(generator, ForgeRegistries.ATTRIBUTES, MOD_ID, fileHelper);
 }
 ```
 

@@ -21,19 +21,19 @@ Event handlers can be directly registered using `IEventBus#addListener` for or `
 ```java
 // In the main mod class ExampleMod
 
-// This event is on the forge bus
-private void forgeEventHandler(AddReloadListenerEvent event) {
+// This event is on the mod bus
+private void modEventHandler(RegisterEvent event) {
 	// Do things here
 }
 
-// This event is on the mod bus
-private static void modEventHandler(RegistryEvent.Register<RecipeSerializer<?>> event) {
+// This event is on the forge bus
+private static void forgeEventHandler(AttachCapabilitiesEvent<Entity> event) {
 	// ...
 }
 
 // In the mod constructor
-forgeEventBus.addListener(this::forgeEventHandler);
-modEventBus.addGenericListener(RecipeSerializer.class, ExampleMod::modEventHandler);
+modEventBus.addListener(this::modEventHandler);
+forgeEventBus.addGenericListener(Entity.class, ExampleMod::forgeEventHandler);
 ```
 
 ### Instance Annotated Event Handlers
@@ -135,6 +135,6 @@ Next to the lifecycle events, there are a few miscellaneous events that are fire
 * `ColorHandlerEvent`
 * `ModelBakeEvent`
 * `TextureStitchEvent`
-* `RegistryEvent`
+* `RegisterEvent`
 
 A good rule of thumb: events are fired on the mod event bus when they should be handled during initialization of a mod.

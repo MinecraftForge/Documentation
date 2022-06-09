@@ -44,25 +44,19 @@ The update event must be [attached] to the Forge event bus.
 Loom Recipes
 ------------
 
-Looms are responsible for applying a dye and pattern (either from the loom or from an item) to a banner. While the banner and the dye must be a `BannerItem` or `DyeItem` respectively, custom patterns can be created and applied in the loom. Banner Patterns can be created by calling `BannerPattern#create` during mod construction.
+Looms are responsible for applying a dye and pattern (either from the loom or from an item) to a banner. While the banner and the dye must be a `BannerItem` or `DyeItem` respectively, custom patterns can be created and applied in the loom. Banner Patterns can be created by [registering]a `BannerPattern`.
 
 !!! important
-    `BannerPattern`s which return `true` for `#hasPatternItem` do not appear as an option in the loom. These patterns must have an accompanying `BannerPatternItem` to be used.
+    `BannerPattern`s which are in the `minecraft:no_item_required` tag appear as an option in the loom. Patterns not in this tag must have an accompanying `BannerPatternItem` to be used along with an associated tag.
 
 ```java
-// In the main mod class
-public static final BannerPattern EXAMPLE_PATTERN = BannerPattern.create(
-  "EXAMPLE_MOD_EXAMPLE_PATTERN", // Name of the enum constant
-  "examplemod/example_pattern", // Texture location (assets/minecraft/textures/entity/(banner|shield)/<texture_location>.png)
-  "examplemod:ep", // Pattern name to send over the network
-  false // The pattern is an option in the loom
-);
-```
+private static final DeferredRegister<BannerPattern> REGISTER = DeferredRegister.create(Registry.BANNER_PATTERN_REGISTRY, "examplemod");
 
-!!! important
-    The enum name supplied to `BannerPattern#create` should be a valid [identifier] and prefixed with the mod id followed by an underscore `_` (e.g. `examplemod:example_pattern` should be `EXAMPLE_MOD_EXAMPLE_PATTERN`).
+// Takes in the pattern name to send over the network
+public static final BannerPattern EXAMPLE_PATTERN = REGISTER.register("example_pattern", () -> new BannerPattern("examplemod:ep"));
+```
 
 [recipe]: ./custom.md#recipe
 [cancel]: ../../../concepts/events.md#canceling
 [attached]: ../../../concepts/events.md#creating-an-event-handler
-[identifier]: https://docs.oracle.com/javase/specs/jls/se17/html/jls-3.html#jls-Identifier
+[registering]: ../../../concepts/registries.md#registries-that-arent-forge-registries

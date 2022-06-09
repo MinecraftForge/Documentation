@@ -58,5 +58,5 @@ Building and Testing Your Mod
     It is always advisable to test your mod in a dedicated server environment if it is intended to run there.
     
 [files]: https://files.minecraftforge.net "Forge Files distribution site"
-[jdk]: https://adoptium.net/temurin/releases "Temurin Prebuilt Binaries"
+[jdk]: https://adoptium.net/temurin/releases?version=17 "Temurin 17 Prebuilt Binaries"
 [mojmap]: https://github.com/MinecraftForge/MCPConfig/blob/master/Mojang.md

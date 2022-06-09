@@ -52,7 +52,7 @@ There are four methods of creating a tag wrapper:
 
 Method                          | For
 :---:                           | :---
-`*Tags#create`                  | `Block`, `Item`, `EntityType`, `Fluid`, and `Biome` where `*` represents one of these types.
+`*Tags#create`                  | `BannerPattern`, `Biome`, `Block`, `CatVariant`, `EntityType`, `FlatLevelGeneratorPreset`, `Fluid`, `GameEvent`, `Instrument`, `Item`, `PaintingVariant`, `PoiType`, `Structure`, and `WorldPreset` where `*` represents one of these types.
 `ITagManager#createTagKey`      | Forge wrapped vanilla registries, registries can be obtained from `ForgeRegistries`.
 `DeferredRegister#createTagKey` | Custom forge registries.
 `TagKey#create`                 | Vanilla registries without forge wrappers, registries can be obtained from `Registry`.
@@ -110,11 +110,11 @@ Migration from OreDictionary
 Using Tags in Recipes and Advancements
 --------------------------------------
 
-Tags are directly supported by Vanilla. See the respective Vanilla wiki pages for [recipes][] and [advancements][] for usage details.
+Tags are directly supported by Vanilla. See the respective Vanilla wiki pages for [recipes] and [advancements] for usage details.
 
 [datapack]: ./index.md
 [tags]: https://minecraft.gamepedia.com/Tag#JSON_format
 [taglist]: https://minecraft.gamepedia.com/Tag#List_of_tags
-[forgetags]: https://github.com/MinecraftForge/MinecraftForge/tree/1.18.x/src/generated/resources/data/forge/tags
+[forgetags]: https://github.com/MinecraftForge/MinecraftForge/tree/1.19.x/src/generated/resources/data/forge/tags
 [recipes]: https://minecraft.gamepedia.com/Recipe#JSON_format
 [advancements]: https://minecraft.gamepedia.com/Advancements
