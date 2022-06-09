@@ -85,7 +85,7 @@ nav:
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
-site_url: https://mcforge.readthedocs.io/en/1.18.x/
+site_url: https://mcforge.readthedocs.io/en/1.19.x/
 
 markdown_extensions:
   - admonition
@@ -102,7 +102,7 @@ theme:
   custom_dir: forge_theme
 
 extra:
-  current_version: 1.18.x
+  current_version: 1.19.x
   versions:
     1.18.x: 1.18.x
     1.19.x: 1.19.x
