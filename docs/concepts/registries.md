@@ -30,14 +30,16 @@ public ExampleMod() {
 
 ### `RegisterEvent`
 
-`RegisterEvent` is the second way to register objects. This [event] is fired for each registry after the mod constructors and before the loading of configs. Objects are registered using `#register` by passing in the registry key, the name of the registry object, and the object itself.
+`RegisterEvent` is the second way to register objects. This [event] is fired for each registry after the mod constructors and before the loading of configs. Objects are registered using `#register` by passing in the registry key, the name of the registry object, and the object itself. There is an additional `#register` overload which takes in a consumed helper to register an object with a given name. It is recommended to use this method to avoid unnecessary object creation.
 
 Here is an example: (the event handler is registered on the *mod event bus*)
 
 ```java
 @SubscribeEvent
 public void register(RegisterEvent event) {
-  event.register(ForgeRegistries.Keys.BLOCKS, new ResourceLocation(MODID, "rock"), () -> new Block(...));
+  event.register(ForgeRegistries.Keys.BLOCKS,
+    helper -> helper.register(new ResourceLocation(MODID, "rock"), new Block(...))
+  );
 }
 ```
 
