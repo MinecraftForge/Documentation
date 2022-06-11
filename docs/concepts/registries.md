@@ -50,7 +50,7 @@ Not all registries are wrapped by Forge. These can be static registries, like `L
 ```java
 private static final DeferredRegister<LootItemConditionType> REGISTER = DeferredRegister.create(Registry.LOOT_ITEM_REGISTRY, "examplemod");
 
-public static final RegistryObject<LootItemConditionType> EXAMPLE_RECIPE_TYPE = REGISTER.register("example_loot_item_condition_type", () -> new LootItemConditionType(...));
+public static final RegistryObject<LootItemConditionType> EXAMPLE_LOOT_ITEM_CONDITION_TYPE = REGISTER.register("example_loot_item_condition_type", () -> new LootItemConditionType(...));
 ```
 
 !!! note
