@@ -53,9 +53,11 @@ Localization methods
 
 ### `TranslatableContents`
 
-`TranslatableContents` is a `ComponentContents` that is localized and formatted lazily. A `Component` can be created using `Component#translatable`. It is very useful when sending messages to players because it will be automatically localized in their own locale.
+`TranslatableContents` is a `ComponentContents` that is localized and formatted lazily. It is very useful when sending messages to players because it will be automatically localized in their own locale.
 
-The first parameter of the `TranslatableContents(String, Object...)` constructor is a translation key, and the rest are used for formatting. The only supported format specifiers are `%s` and `%1$s`, `%2$s`, `%3$s` etc. Formatting arguments may be other `Component`s that will be inserted into the resulting formatted text with all their attributes preserved.
+The first parameter of the `TranslatableContents(String, Object...)` constructor is a translation key, and the rest are used for formatting. The only supported format specifiers are `%s` and `%1$s`, `%2$s`, `%3$s` etc. Formatting arguments may be `Component`s that will be inserted into the resulting formatted text with all their attributes preserved.
+
+A `MutableComponent` can be created using `Component#translatable` by passing in the `TranslatableContents`'s parameters. It can also be created using `MutableComponent#create` by passing in the `ComponentContents` itself.
 
 ### `TextComponentHelper`
 

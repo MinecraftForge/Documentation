@@ -48,6 +48,7 @@ showAsResourcePack=false
   description='''
   Lets you craft dirt into diamonds. This is a traditional mod that has existed for eons. It is ancient. The holy Notch created it. Jeb rainbowfied it. Dinnerbone made it upside down. Etc.
   '''
+  displayTest="MATCH_VERSION"
 
   [[dependencies.examplemod]]
     modId="forge"
@@ -66,18 +67,19 @@ showAsResourcePack=false
 
 If any string is specified as `${file.jarVersion}`, Forge will replace the string with the **Implementation Version** specified in your jar manifest at runtime. Since the user development environment has no jar manifest to pull from, it will be `NONE` instead. As such, it is usually recommended to leave the `version` field alone. Here is a table of attributes that may be given to a mod, where `mandatory` means there is no default and the absence of the property causes an error.
 
-|     Property  |   Type   | Default   | Description |
-|-------------: |:--------:|:--------: |:------------|
-|        modid  |  string  | mandatory | The modid this file is linked to. |
-|      version  |  string  | mandatory | The version of the mod. It should be just numbers separated by dots, ideally conforming to Forge's [Semantic Versioning][versioning] structure. |
-|  displayName  |  string  | mandatory | The user-friendly name of this mod. |
-| updateJSONURL |  string  |   `""`    | The URL to a [version JSON][updatechecker]. |
-|   displayURL  |  string  |   `""`    | A link to the mod's homepage. |
-|     logoFile  |  string  |   `""`    | The filename of the mod's logo. It must be placed in the root resource folder, not in a subfolder. |
-|      credits  |  string  |   `""`    | A string that contains any acknowledgements you want to mention. |
-|      authors  |  string  |   `""`    | The authors of this mod. |
-|  description  |  string  | mandatory | A description of this mod. |
-| dependencies  | [list]   |   `[]`    | A list of dependencies of this mod. |
+|     Property  |   Type   | Default           | Description |
+|-------------: |:--------:|:--------:         |:------------|
+|        modid  |  string  | mandatory         | The modid this file is linked to. |
+|      version  |  string  | mandatory         | The version of the mod. It should be just numbers separated by dots, ideally conforming to Forge's [Semantic Versioning][versioning] structure. |
+|  displayName  |  string  | mandatory         | The user-friendly name of this mod. |
+| updateJSONURL |  string  |   `""`            | The URL to a [version JSON][updatechecker]. |
+|   displayURL  |  string  |   `""`            | A link to the mod's homepage. |
+|     logoFile  |  string  |   `""`            | The filename of the mod's logo. It must be placed in the root resource folder, not in a subfolder. |
+|      credits  |  string  |   `""`            | A string that contains any acknowledgements you want to mention. |
+|      authors  |  string  |   `""`            | The authors of this mod. |
+|  description  |  string  | mandatory         | A description of this mod. |
+| displayTest   | string   | `"MATCH_VERSION"` | Controls the display of the mod in the server connection screen.
+| dependencies  | [list]   |   `[]`            | A list of dependencies of this mod. |
 
 \* All version ranges use the [Maven Version Range Specification][mvr].
 
