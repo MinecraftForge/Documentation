@@ -103,16 +103,10 @@ The rules for `@ObjectHolder` are as follows:
 * If the class is annotated with `@Mod`, the modid will be the default namespace for all annotated fields within if not explicitly defined
 * A field is considered for injection if:
   * it has at least the modifiers `public static`;
-  * one of the following conditions are true:
-    * the **enclosing class** has an `@ObjectHolder` annotation, and the field is `final`, and:
-      * the name value is the field's name; and
-      * the registry name value is the name of the object's registry; and
-      * the namespace value is the enclosing class's namespace
-      * _An exception is thrown if the namespace value cannot be found and inherited_
-    * the **field** is annotated with `@ObjectHolder`, and:
-      * the name value is explicitly defined; and
-      * the registry name value is either explicitly defined or the enclosing class's registry name; and
-      * the namespace value is either explicitly defined or the enclosing class's namespace
+  * the **field** is annotated with `@ObjectHolder`, and:
+    * the name value is explicitly defined; and
+    * the registry name value is either explicitly defined or the enclosing class's registry name; and
+    * the namespace value is either explicitly defined or the enclosing class's namespace
   * _An exception is thrown if a field does not have a corresponding registry._
 * _An exception is thrown if the resulting `ResourceLocation` is incomplete or invalid (non-valid characters in path)_
 * If no other errors or exceptions occur, the field will be injected
@@ -124,80 +118,27 @@ The rules for `@ObjectHolder` are as follows:
     If the object does not exist in the registry when it is to be injected, a debug message will be logged and no value will be injected.
 
 As these rules are rather complicated, here are some examples:
+
 ```java
-@ObjectHolder(registryName = "block", value = "minecraft") // Registry: minecraft:block, Inheritable resource namespace: "minecraft"
-class AnnotatedHolder {
-  public static final Block diamond_block = null;   // No annotation. [public static final] is required.
-                                                    // Registry name is not explicitly defined.
-                                                    // So, registry name is inherited from class annotation: "minecraft:block"
-                                                    // Name path is the name of the field: "diamond_block"
-                                                    // Namespace is not explicitly defined.
-                                                    // So, namespace is inherited from class annotation: "minecraft"
-                                                    // To inject: "minecraft:diamond_block" from the [Block] registry
-
-  @ObjectHolder(registry = "sound_event", value = "ambient.cave")
-  public static SoundEvent ambient_sound = null;    // Annotation present. [public static] is required.
-                                                    // Registry name is explicitly defined: "minecraft:sound_event"
-                                                    // Name path is the value of the annotation: "ambient.cave"
-                                                    // Namespace is not explicitly defined.
-                                                    // So, namespace is inherited from class annotation: "minecraft"
-                                                    // To inject: "minecraft:ambient.cave" from the [SoundEvent] registry
-
-  // Assume for the next entry that [ManaType] is a valid registry.          
-  @ObjectHolder(registryName = "neomagicae:mana_type", value = "neomagicae:coffeinum")
-  public static final ManaType coffeinum = null;    // Annotation present. [public static] is required. [final] is optional.
-                                                    // Registry name is explicitly defined: "neomagicae:mana_type" (custom registry)
-                                                    // Resource location is explicitly defined: "neomagicae:coffeinum"
-                                                    // To inject: "neomagicae:coffeinum" from the [ManaType] registry
-
-  public static final Item ENDER_PEARL = null;      // No annotation. [public static final] is required.
-                                                    // Registry name is not explicitly defined.
-                                                    // So, registry name is inherited from class annotation: "minecraft:block"
-                                                    // Name path is the name of the field: "ENDER_PEARL" -> "ender_pearl"
-                                                    // !! ^ Field name is valid, because they are
-                                                    //      converted to lowercase automatically.
-                                                    // Namespace is not explicitly defined.
-                                                    // So, namespace is inherited from class annotation: "minecraft"
-                                                    // When registering, this will attempt to force into a Block type, which is not a type or supertype of this object.
-                                                    // Therefore, THIS WILL PRODUCE AN EXCEPTION.
-
-  @ObjectHolder(registryName = "item", value = "minecraft:arrow")
-  public static final ArrowItem arrow = null;       // Annotation present. [public static] is required. [final] is optional.
-                                                    // Registry name is explicitly defined: "minecraft:item"
-                                                    // Resource location is explicitly defined: "minecraft:arrow"
-                                                    // To inject: "minecraft:arrow" from the [Item] registry                                                    
-
-  public static Block bedrock = null;               // No annotation, so [public static final] is required.
-                                                    // Therefore, the field is ignored.
-    
-  public static final CreativeModeTab group = null; // No annotation. [public static final] is required.
-                                                    // Registry name is not explicitly defined.
-                                                    // So, registry name is inherited from class annotation: "minecraft:block"
-                                                    // When registering, this will attempt to force into a Block type, which is not a type or supertype of this object.
-                                                    // Therefore, THIS WILL PRODUCE AN EXCEPTION.
-}
-
-class UnannotatedHolder { // Note the lack of an @ObjectHolder annotation on this class.
-  @ObjectHolder(registryName = "enchantment", value = "minecraft:flame")
+class Holder {
+  @ObjectHolder(registryName = "minecraft:enchantment", value = "minecraft:flame")
   public static final Enchantment flame = null;     // Annotation present. [public static] is required. [final] is optional.
                                                     // Registry name is explicitly defined: "minecraft:enchantment"
                                                     // Resource location is explicitly defined: "minecraft:flame"
                                                     // To inject: "minecraft:flame" from the [Enchantment] registry
 
-  public static final Biome ice_flat = null;        // No annotation on the enclosing class.
+  public static final Biome ice_flat = null;        // No annotation on the field.
                                                     // Therefore, the field is ignored.
 
   @ObjectHolder("minecraft:creeper")
   public static Entity creeper = null;              // Annotation present. [public static] is required.
-                                                    // The registry has not been specified on the class.
+                                                    // The registry has not been specified on the field.
                                                     // Therefore, THIS WILL PRODUCE AN EXCEPTION.
 
-  @ObjectHolder(registryName = "potion", value = "levitation")
+  @ObjectHolder(registryName = "potion")
   public static final Potion levitation = null;     // Annotation present. [public static] is required. [final] is optional.
                                                     // Registry name is explicitly defined: "minecraft:potion"
-                                                    // Name path is the value of the annotation: "levitation"
-                                                    // Namespace is not explicitly defined.
-                                                    // No annotation in enclosing class.
+                                                    // Resource location is not specified on the field
                                                     // Therefore, THIS WILL PRODUCE AN EXCEPTION.
 }
 ```
