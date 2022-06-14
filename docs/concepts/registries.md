@@ -106,7 +106,7 @@ The rules for `@ObjectHolder` are as follows:
   * the **field** is annotated with `@ObjectHolder`, and:
     * the name value is explicitly defined; and
     * the registry name value is explicitly defined
-  * _An exception is thrown if a field does not have a corresponding registry._
+  * _A compile-time exception is thrown if a field does not have a corresponding registry or name._
 * _An exception is thrown if the resulting `ResourceLocation` is incomplete or invalid (non-valid characters in path)_
 * If no other errors or exceptions occur, the field will be injected
 * If all of the above rules do not apply, no action will be taken (and a message may be logged)
@@ -132,13 +132,13 @@ class Holder {
   @ObjectHolder("minecraft:creeper")
   public static Entity creeper = null;              // Annotation present. [public static] is required.
                                                     // The registry has not been specified on the field.
-                                                    // Therefore, THIS WILL PRODUCE AN EXCEPTION.
+                                                    // Therefore, THIS WILL PRODUCE A COMPILE-TIME EXCEPTION.
 
   @ObjectHolder(registryName = "potion")
   public static final Potion levitation = null;     // Annotation present. [public static] is required. [final] is optional.
                                                     // Registry name is explicitly defined: "minecraft:potion"
                                                     // Resource location is not specified on the field
-                                                    // Therefore, THIS WILL PRODUCE AN EXCEPTION.
+                                                    // Therefore, THIS WILL PRODUCE A COMPILE-TIME EXCEPTION.
 }
 ```
 
