@@ -105,7 +105,7 @@ The rules for `@ObjectHolder` are as follows:
   * it has at least the modifiers `public static`;
   * the **field** is annotated with `@ObjectHolder`, and:
     * the name value is explicitly defined; and
-    * the registry name value is explicitly defined; and
+    * the registry name value is explicitly defined
   * _An exception is thrown if a field does not have a corresponding registry._
 * _An exception is thrown if the resulting `ResourceLocation` is incomplete or invalid (non-valid characters in path)_
 * If no other errors or exceptions occur, the field will be injected
