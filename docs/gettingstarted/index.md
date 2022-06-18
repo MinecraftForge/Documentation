@@ -26,13 +26,10 @@ From Zero to Modding
 Customizing Your Mod Information
 --------------------------------
 
-Edit the `build.gradle` file to customize how your mod is built (the file names, versions, and other things).
+Edit the `build.gradle` file to customize how your mod is built (the file names, versions, and other things). Most things in the `build.gradle` can be removed or customized there.
 
 !!! important
-    **Do not** edit the `buildscript {}` section of the build.gradle file, its default text is necessary for ForgeGradle to function.
-
-Almost anything underneath the `// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.` marker can be changed. Many things can be removed and customized there as well.
-    
+    **Do not** edit the `settings.gradle` unless you know what you are doing. The default text is necessary to get the ForgeGradle plugin.    
 
 ### Simple `build.gradle` Customizations
 
@@ -58,5 +55,5 @@ Building and Testing Your Mod
     It is always advisable to test your mod in a dedicated server environment if it is intended to run there.
     
 [files]: https://files.minecraftforge.net "Forge Files distribution site"
-[jdk]: https://adoptium.net/temurin/releases "Temurin Prebuilt Binaries"
+[jdk]: https://adoptium.net/temurin/releases?version=17 "Temurin 17 Prebuilt Binaries"
 [mojmap]: https://github.com/MinecraftForge/MCPConfig/blob/master/Mojang.md

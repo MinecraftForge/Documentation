@@ -81,7 +81,7 @@ For `LootContextParamSets#BLOCK` and `#ENTITY`, there are special types (`BlockL
 To use them, all registered objects must be supplied to either `BlockLoot#getKnownBlocks` and `EntityLoot#getKnownEntities` respectively. These methods are to make sure all objects within the iterable has a loot table.
 
 !!! tip
-    If `DeferredRegister` is being used to register a mod's objects, then the `#getKnown*` methods can be supplied the entries via `DeferredRegister#getEntities`:
+    If `DeferredRegister` is being used to register a mod's objects, then the `#getKnown*` methods can be supplied the entries via `DeferredRegister#getEntries`:
 
     ```java
     // In some BlockLoot subclass for some DeferredRegister BLOCK_REGISTRAR

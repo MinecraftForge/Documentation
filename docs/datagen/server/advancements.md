@@ -27,7 +27,6 @@ Once an `Advancement$Builder` is ready to be built, the `#save` method should be
 Advancement example = Advancement.Builder.advancement()
   .addCriterion("example_criterion", triggerInstance) // How the advancement is unlocked
   .save(writer, name, fileHelper); // Add data to builder
-}
 ```
 
 [advancements]: ../../resources/server/advancements.md

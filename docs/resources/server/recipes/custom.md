@@ -39,11 +39,11 @@ If none of the existing types match what context the recipe will be used within,
 The `RecipeType` instance must then be returned by `Recipe#getType` in the new recipe subtype.
 
 ```java
-// For some RecipeType EXAMPLE_TYPE
+// For some RegistryObject<RecipeType> EXAMPLE_TYPE
 // In ExampleRecipe
 @Override
 public RecipeType<?> getType() {
-  return EXAMPLE_TYPE;
+  return EXAMPLE_TYPE.get();
 }
 ```
 
@@ -60,28 +60,19 @@ fromJson    | Decodes a JSON into the `Recipe` subtype.
 toNetwork   | Encodes a `Recipe` to the buffer to send to the client. The recipe identifier does not need to be encoded.
 fromNetwork | Decodes a `Recipe` from the buffer sent from the server. The recipe identifier does not need to be decoded.
 
-!!! tip
-    For ease of convenience, the `RecipeSerializer` subtype can extend `ForgeRegistryEntry` to implement the methods within `IForgeRegistryEntry`.
-
-```java
-public class ExampleSerializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<ExampleRecipe> {
-  // Implement methods here
-}
-```
-
 The `RecipeSerializer` instance must then be returned by `Recipe#getSerializer` in the new recipe subtype.
 
 ```java
-// For some RecipeSerializer EXAMPLE_SERIALIZER
+// For some RegistryObject<RecipeSerializer> EXAMPLE_SERIALIZER
 // In ExampleRecipe
 @Override
 public RecipeSerializer<?> getSerializer() {
-  return EXAMPLE_SERIALIZER;
+  return EXAMPLE_SERIALIZER.get();
 }
 ```
 
 !!! tip
-    There are some useful methods to make reading and writing data for recipes easier. `Ingredient`s can use `#fromJson`, `#toNetwork`, and `#fromNetwork` while `ItemStack`s can use `CraftingHelper#getItemStack`, `FriendlyByteBuf#writeItem`, and `FriendlyByteBuf# readItem`.
+    There are some useful methods to make reading and writing data for recipes easier. `Ingredient`s can use `#fromJson`, `#toNetwork`, and `#fromNetwork` while `ItemStack`s can use `CraftingHelper#getItemStack`, `FriendlyByteBuf#writeItem`, and `FriendlyByteBuf#readItem`.
 
 Building the JSON
 -----------------

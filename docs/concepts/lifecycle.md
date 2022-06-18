@@ -30,11 +30,11 @@ public class MyMod {
 Registry Events
 ---------------
 
-The registry events are fired after the mod instance construction. There are two: the `NewRegistryEvent` event and the `RegistryEvent$Register` event. These events are fired synchronously during mod loading.
+The registry events are fired after the mod instance construction. There are two: `NewRegistryEvent` and `RegisterEvent`. These events are fired synchronously during mod loading.
 
-The `NewRegistryEvent` event allows modders to register their own custom registries, using the `RegistryBuilder` class.
+`NewRegistryEvent` allows modders to register their own custom registries, using the `RegistryBuilder` class.
 
-The `RegistryEvent$Register<?>` event is for [registering objects][registering] into the registries. A `Register` event is fired for each registry. 
+`RegisterEvent` is for [registering objects][registering] into the registries. The event is fired for each registry. 
 
 Data Generation
 ---------------
@@ -63,7 +63,7 @@ During the `InterModEnqueueEvent`, use `InterModComms#sendTo` to send messages t
 Then during the `InterModProcessEvent`, use `InterModComms#getMessages` to get a stream of all received messages. The mod id supplied will almost always be the mod id of the mod the method is called on. Additionally, a predicate can be specified to filter out the message keys. This will return a stream of `IMCMessage`s which hold the sender of the data, the receiver of the data, the data key, and the supplied data itself.
 
 !!! note
-    There are two other lifecycle events: `FMLConstructModEvent`, fired directly after mod instance construction but before the `RegistryEvent`s, and `FMLLoadCompleteEvent`, fired after the `InterModComms` events, for when the mod loading process is complete.
+    There are two other lifecycle events: `FMLConstructModEvent`, fired directly after mod instance construction but before the `RegisterEvent`, and `FMLLoadCompleteEvent`, fired after the `InterModComms` events, for when the mod loading process is complete.
 
 [registering]: ./registries.md#methods-for-registering
 [capabilities]: ../datastorage/capabilities.md

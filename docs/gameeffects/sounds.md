@@ -4,7 +4,7 @@ Sounds
 Terminology
 -----------
 
-| Term | Description |
+| Term           | Description |
 |----------------|----------------|
 |  Sound Events  | Something that triggers a sound effect. Examples include `minecraft:block.anvil.hit` or `botania:spreader_fire`. |
 | Sound Category | The category of the sound, for example `player`, `block` or simply `master`. The sliders in the sound settings GUI represent these categories. |
@@ -36,7 +36,7 @@ A full specification is available on the vanilla [wiki][], but this example high
 
 Underneath the top-level object, each key corresponds to a sound event. Note that the namespace is not given, as it is taken from the namespace of the JSON itself. Each event specifies a localization key to be shown when subtitles are enabled. Finally, the actual sound files to be played are specified. Note that the value is an array; if multiple sound files are specified, the game will randomly choose one to play whenever the sound event is triggered.
 
-The two examples represent two different ways to specify a sound file. The [wiki][] has precise details, but generally, long sound files such as background music or music discs should use the second form, because the "stream" argument tells Minecraft to not load the entire sound file into memory but to stream it from disk. The second form can also specify the volume, pitch, and weight of a sound file.
+The two examples represent two different ways to specify a sound file. The [wiki] has precise details, but generally, long sound files such as background music or music discs should use the second form, because the "stream" argument tells Minecraft to not load the entire sound file into memory but to stream it from disk. The second form can also specify the volume, pitch, and weight of a sound file.
 
 In all cases, the path to a sound file for namespace `namespace` and path `path` is `assets/<namespace>/sounds/<path>.ogg`. Therefore `mymod:open_chest_sound_file` points to `assets/mymod/sounds/open_chest_sound_file.ogg`, and `mymod:music/epic_music` points to `assets/mymod/sounds/music/epic_music.ogg`.
 
