@@ -12,6 +12,7 @@ From Zero to Modding
     * `build.gradle`
     * `gradlew.bat`
     * `gradlew`
+    * `settings.gradle`
     * the `gradle` folder
 4. Move the files listed above to a new folder. This will be your mod project folder.
 5. Choose your IDE:
