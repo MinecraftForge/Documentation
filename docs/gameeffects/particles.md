@@ -84,10 +84,10 @@ Implementing a custom render type will be left as an exercise to the reader.
 
 Finally, a particle is usually created via an `ParticleProvider`. A factory has a single method `#createParticle` which is used to create a particle given the particle data, client level, position, and movement delta. Since a `Particle` is not beholden to any particular `ParticleType`, it can be reused in different factories as necessary.
 
-An `ParticleProvider` must be registered by subscribing to the `ParticleFactoryRegisterEvent` on the **mod event bus**. Within the event, the factory can be registered via `ParticleEngine#register` by supplying an instance of the factory to the method.
+An `ParticleProvider` must be registered by subscribing to the `RegisterParticleProvidersEvent` on the **mod event bus**. Within the event, the factory can be registered via `#register` by supplying an instance of the factory to the method.
 
 !!! important
-    `ParticleFactoryRegisterEvent` should only be called on the client and thus sided off in some isolated client class, referenced by either `DistExecutor` or `@EventBusSubscriber`.
+    `RegisterParticleProvidersEvent` should only be called on the client and thus sided off in some isolated client class, referenced by either `DistExecutor` or `@EventBusSubscriber`.
 
 #### ParticleDescription, SpriteSet, and SpriteParticleRegistration
 
@@ -111,7 +111,7 @@ To add a texture to a particle, a new JSON file must be added to `assets/<modid>
 
 To reference a particle texture, the subtype of `TextureSheetParticle` should either take in an `SpriteSet` or a `TextureAtlasSprite` obtained from `SpriteSet`. `SpriteSet` holds a list of textures which refer to the sprites as defined by our `ParticleDescription`. `SpriteSet` has two methods, both of which grab a `TextureAtlasSprite` in different methods. The first method takes in two integers. The backing implementation allows the sprite to have a texture change as it ages. The second method takes in a `Random` instance to get a random texture from the sprite set. The sprite can be set within `TextureSheetParticle` by using one of the helper methods that takes in the `SpriteSet`: `#pickSprite` which uses the random method of picking a texture, and `#setSpriteFromAge` which uses the percentage method of two integers to pick the texture.
 
-To register these particle textures, a `SpriteParticleRegistration` needs to be supplied to the `ParticleEngine#register` method. This method takes in an `SpriteSet` holding the associated sprite set for the particle and creates an `ParticleProvider` to create the particle. The simplest method of implementation can be done by implementing `ParticleProvider` on some class and having the constructor take in an `SpriteSet`. Then the `SpriteSet` can be passed to the particle as normal.
+To register these particle textures, a `SpriteParticleRegistration` needs to be supplied to the `RegisterParticleProvidersEvent#register` method. This method takes in an `SpriteSet` holding the associated sprite set for the particle and creates an `ParticleProvider` to create the particle. The simplest method of implementation can be done by implementing `ParticleProvider` on some class and having the constructor take in an `SpriteSet`. Then the `SpriteSet` can be passed to the particle as normal.
 
 Spawning a Particle
 -------------------

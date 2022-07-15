@@ -103,9 +103,9 @@ protected-f net.minecraft.server.MinecraftServer f_129758_ #random
 # accepting a String and returns an ExecutorService
 public net.minecraft.Util m_137477_(Ljava/lang/String;)Ljava/util/concurrent/ExecutorService; #makeExecutor
 
-# Makes public the 'leastMostToIntArray' method in SerializableUUID,
+# Makes public the 'leastMostToIntArray' method in UUIDUtil,
 # accepting two longs and returning an int[]
-public net.minecraft.core.SerializableUUID m_123274_(JJ)[I #leastMostToIntArray
+public net.minecraft.core.UUIDUtil m_235872_(JJ)[I #leastMostToIntArray
 ```
 
 [specs]: https://github.com/MinecraftForge/AccessTransformers/blob/master/FMLAT.md

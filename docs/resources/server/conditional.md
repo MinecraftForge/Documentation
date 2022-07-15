@@ -157,15 +157,17 @@ write  | Writes the given condition data to JSON.
 !!! note
     Condition serializers are not responsible for writing or reading the type of the serializer, similar to other serializer implementations in Minecraft.
 
-Afterwards, a static instance should be declared to hold the initialized serializer and then registered using `CraftingHelper#register` either during the `RegistryEvent$Register` for `RecipeSerializer`s or during `FMLCommonSetupEvent`.
+Afterwards, a static instance should be declared to hold the initialized serializer and then registered using `CraftingHelper#register` either during the `RegisterEvent` for `RecipeSerializer`s or during `FMLCommonSetupEvent`.
 
 ```java
 // In some serializer class
 public static final ExampleConditionSerializer INSTANCE = new ExampleConditionSerializer();
 
 // In some handler class
-public void registerSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
-  CraftingHelper.register(INSTANCE);
+public void registerSerializers(RegisterEvent event) {
+  event.register(ForgeRegistries.Keys.RECIPE_SERIALIZERS,
+    helper -> CraftingHelper.register(INSTANCE)
+  );
 }
 ```
 

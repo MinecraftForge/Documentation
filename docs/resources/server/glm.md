@@ -14,7 +14,7 @@ You will need 4 things:
     * This will contain all of the data about your modification and allows data packs to tweak your effect.
 3. A class that extends `IGlobalLootModifier`.
     * The operational code that makes your modifier work. Most modders can extend `LootModifier` as it supplies base functionality.
-4. Finally, a class that extends `GlobalLootModifierSerializer` for your operational class.
+4. Finally, a codec to encode and decode your operational class.
     * This is [registered] as any other `IForgeRegistryEntry`.
 
 The `global_loot_modifiers.json`
@@ -46,7 +46,7 @@ The Serialized JSON
 
 This file contains all of the potential variables related to your modifier, including the conditions that must be met prior to modifying any loot. Avoid hard-coded values wherever possible so that data pack makers can adjust balance if they wish to.
 
-`type` represents the registry name of the [`GlobalLootModifierSerializer`][serializer] used to read the associated JSON file. This must always be present.
+`type` represents the registry name of the [codec] used to read the associated JSON file. This must always be present.
 
 `conditions` should represent the loot table conditions for this modifier to activate. Conditions should avoid being hardcoded to allow datapack creators as much flexibility to adjust the criteria. This must also be always present.
 
@@ -74,10 +74,12 @@ Any additional properties read by the serializer and defined by the modifier can
 
 To supply the functionality a global loot modifier specifies, a `IGlobalLootModifier` implementation must be specified. These are instances generated each time a serializer decodes the information from JSON and supplies it into this object.
 
-There is only one method that needs to be defined in order to create a new modifier: `#apply`. This takes in the current loot that will be generated along with the context information such as the currently level or additional defined parameters. It returns the list of drops to generate.
+There are two methods that needs to be defined in order to create a new modifier: `#apply` and `#codec`. `#apply` takes in the current loot that will be generated along with the context information such as the currently level or additional defined parameters. It returns the list of drops to generate.
 
 !!! note
     The returned list of drops from any one modifier is fed into other modifiers in the order they are registered. As such, modified loot can be modified by another loot modifier.
+
+`#codec` returns the registered [codec] used to encode and decode the modifier to/from JSON.
 
 ### The `LootModifier` Subclass
 
@@ -97,52 +99,46 @@ public class ExampleModifier extends LootModifier {
     // Store the rest of the parameters
   }
 
-  @Nonnull
+  @NotNull
   @Override
   protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
     // Modify the loot and return the new drops
   }
+
+  @Override
+  public Codec<? extends IGlobalLootModifier> codec() {
+    // Return the codec used to encode and decode this modifier
+  }
 }
 ```
 
-`GlobalLootModifierSerializer`
-------------------------------
+The Loot Modifier Codec
+-----------------------
 
-The connector between the JSON and the `IGlobalLootModifier` instance is the `GlobalLootModifierSerializer<T>` implementation, where `T` represents the type of the `IGlobalLootModifier` to use.
+The connector between the JSON and the `IGlobalLootModifier` instance is a `Codec<T>`, where `T` represents the type of the `IGlobalLootModifier` to use.
 
-Two methods must be defined within the serializer implementation: `#read` and `#write`.
-
-`#read` takes in the registry name of the JSON, the serialized `JsonObject`, and the array of conditions that, by most implementations, must be true to allow the loot modifier to execute. The only data that should be deserialized from the `JsonObject` are the custom properties specified for use by the implemented loot modifier. If no custom properties are needed, then no data should be deserialized from the `JsonObject` as the conditions are supplied as a parameter.
-
-`#write` is responsible for turning the defined loot modifier and writing it to a `JsonObject`. This requires that all conditions along with any custom properties must be written. For ease of convenience, `#makeConditions` can be called to create a new `JsonObject` with the conditions already serialized within. Any additional properties to be serialized can then be added to this `JsonObject`. This is utilized for [data generation][datagen] of the associated loot modifier.
+For ease of convenience, a loot conditions codec has been provided for an easy addition to a record-like codec via `LootModifier#codecStart`. This is utilized for [data generation][datagen] of the associated loot modifier.
 
 ```java
-public ExampleModifierSerializer extends GlobalLootModifierSerializer<ExampleModifier> {
-
-  @Override
-  public ExampleModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] conditions) {
-    String prop1 = GsonHelper.getAsString(object, "prop1");
-    // Deserializer other properties
-    return new ExampleModifier(conditions, prop1, prop2, prop3);
-  }
-
-  @Override
-  public JsonObject write(ExampleModifier instance) {
-    // Create json object with conditions in modifier
-    JsonObject res = this.makeConditions(instance.conditionsIn);
-    res.addProperty("prop1", instance.prop1);
-    // Add other properties in modifier
-    return res;
-  }
-}
-
+// For some DeferredRegister<Codec<? extends IGlobalLootModifier>> REGISTRAR
+public static final RegistryObject<Codec<ExampleModifier>> = REGISTRAR.register("example_codec", () ->
+  RecordCodecBuilder.create(
+    inst -> LootModifier.codecStart(inst).and(
+      inst.group(
+        Codec.STRING.fieldOf("prop1").forGetter(m -> m.prop1),
+        Codec.INT.fieldOf("prop2").forGetter(m -> m.prop2),
+        ForgeRegistries.ITEMS.getCodec().fieldOf("prop3").forGetter(m -> m.prop3)
+      )
+    ).apply(inst, ExampleModifier::new)
+  )
+);
 ```
 
 [Examples][examples] can be found on the Forge Git repository, including silk touch and smelting effects.
 
 [tags]: ./tags.md
 [resloc]: ../../concepts/resources.md#ResourceLocation
-[serializer]: #globallootmodifierserializer
+[codec]: #the-loot-modifier-codec
 [registered]: ../../concepts/registries.md#methods-for-registering
 [datagen]: ../../datagen/server/glm.md
 [examples]: https://github.com/MinecraftForge/MinecraftForge/blob/1.19.x/src/test/java/net/minecraftforge/debug/gameplay/loot/GlobalLootModifiersTest.java

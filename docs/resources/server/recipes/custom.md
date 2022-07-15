@@ -34,7 +34,7 @@ RecipeType
 
 `RecipeType` is responsible for defining the category or context the recipe will be used within. For example, if a recipe was going to be smelted in a furnace, it would have a type of `RecipeType#SMELTING`. Being blasted in a blast furnace would have a type of `RecipeType#BLASTING`.
 
-If none of the existing types match what context the recipe will be used within, then a new `RecipeType` must be [registered][nonforge].
+If none of the existing types match what context the recipe will be used within, then a new `RecipeType` must be [registered][forge].
 
 The `RecipeType` instance must then be returned by `Recipe#getType` in the new recipe subtype.
 
@@ -122,7 +122,6 @@ Data Generation
 
 All custom recipes, regardless of input or output data, can be created into a `FinishedRecipe` for [data generation][datagen] using the `RecipeProvider`.
 
-[nonforge]: ../../../concepts/registries.md#registries-that-arent-forge-registries
 [forge]: ../../../concepts/registries.md#methods-for-registering
 [json]: https://minecraft.fandom.com/wiki/Recipe#JSON_format
 [manager]: ./index.md#recipe-manager

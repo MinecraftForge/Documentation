@@ -36,7 +36,7 @@ nav:
     - Model Loaders:
       - Introduction: 'rendering/modelloaders/index.md'
       - Baked Model: 'rendering/modelloaders/bakedmodel.md'
-      - Perspective: 'rendering/modelloaders/perspective.md'
+      - Transform: 'rendering/modelloaders/transform.md'
       - Item Overrides: 'rendering/modelloaders/itemoverrides.md'
   - Resources:
     - Client Assets:
