@@ -145,15 +145,17 @@ write           | Writes an `Ingredient` to the network buffer.
 
 Additionally, `Ingredient` subclasses should implement `Ingredient#toJson` for use with [data generation][datagen]. `AbstractIngredient` subclasses make `#toJson` an abstract method requiring the method to be implemented.
 
-Afterwards, a static instance should be declared to hold the initialized serializer and then registered using `CraftingHelper#register` either during the `RegistryEvent$Register` for `RecipeSerializer`s or during `FMLCommonSetupEvent`. The `Ingredient` subclass return the static instance of the serializer in `Ingredient#getSerializer`.
+Afterwards, a static instance should be declared to hold the initialized serializer and then registered using `CraftingHelper#register` either during the `RegisterEvent` for `RecipeSerializer`s or during `FMLCommonSetupEvent`. The `Ingredient` subclass return the static instance of the serializer in `Ingredient#getSerializer`.
 
 ```java
 // In some serializer class
 public static final ExampleIngredientSerializer INSTANCE = new ExampleIngredientSerializer();
 
 // In some handler class
-public void registerSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
-  CraftingHelper.register(registryName, INSTANCE);
+public void registerSerializers(RegisterEvent event) {
+  event.register(ForgeRegistries.Keys.RECIPE_SERIALIZERS,
+    helper -> CraftingHelper.register(registryName, INSTANCE)
+  );
 }
 
 // In some ingredient subclass

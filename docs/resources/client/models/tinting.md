@@ -11,21 +11,21 @@ If an item inherits from the `builtin/generated` model, each layer ("layer0", "l
 
 ### Creating Color Handlers
 
-`BlockColor`s need to be registered to the `BlockColors` instance of the game. `BlockColors` can be acquired through `ColorHandlerEvent$Block`, and an `BlockColor` can be registered by `BlockColors#register`. Note that this does not cause the `BlockItem` for the given block to be colored. `BlockItem`s are items and need to be colored with an `ItemColor`.
+`BlockColor`s need to be registered to the `BlockColors` instance of the game. `BlockColors` can be acquired through `RegisterColorHandlersEvent$Block`, and an `BlockColor` can be registered by `#register`. Note that this does not cause the `BlockItem` for the given block to be colored. `BlockItem`s are items and need to be colored with an `ItemColor`.
 
 ```java
 @SubscribeEvent
-public void registerBlockColors(ColorHandlerEvent.Block event){
-  event.getBlockColors().register(myBlockColor, coloredBlock1, coloredBlock2, ...);
+public void registerBlockColors(RegisterColorHandlersEvent.Block event){
+  event.register(myBlockColor, coloredBlock1, coloredBlock2, ...);
 }
 ```
 
-`ItemColor`s need to be registered to the `ItemColors` instance of the game. `ItemColors` can be acquired through `ColorHandlerEvent$Item`, and an `ItemColor` can be registered by `ItemColors#register`. This method is overloaded to also take `Block`s, which simply registers the color handler for the item `Block#asItem` (i.e. the block's `BlockItem`).
+`ItemColor`s need to be registered to the `ItemColors` instance of the game. `ItemColors` can be acquired through `RegisterColorHandlersEvent$Item`, and an `ItemColor` can be registered by `#register`. This method is overloaded to also take `Block`s, which simply registers the color handler for the item `Block#asItem` (i.e. the block's `BlockItem`).
 
 ```java
 @SubscribeEvent
-public void registerItemColors(ColorHandlerEvent.Item event){
-  event.getItemColors().register(myItemColor, coloredItem1, coloredItem2, ...);
+public void registerItemColors(RegisterColorHandlersEvent.Item event){
+  event.register(myItemColor, coloredItem1, coloredItem2, ...);
 }
 ```
 

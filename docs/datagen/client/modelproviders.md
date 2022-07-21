@@ -264,18 +264,17 @@ Model Loader Builders
 
 Custom model loaders can also be generated for a given `ModelBuilder`. Custom model loaders subclass `CustomLoaderBuilder` and can be applied to a `ModelBuilder` via `#customLoader`. The factory method passed in creates a new loader builder to which configurations can be made. After all the changes have been finished, the custom loader can return back to the `ModelBuilder` via `CustomLoaderBuilder#end`.
 
-Model Builder                     | Factory Method | Description
-:---:                             | :---:          | :---
-`DynamicBucketModelBuilder`       | `#begin`       | Generates a bucket model for the specified fluid.
-`CompositeModelBuilder`           | `#begin`       | Generates a model composed of models.
-`ItemLayersModelBuilder`          | `#begin`       | Generates a Forge implementation of an `item/generated` model.
-`SeparatePerspectiveModelBuilder` | `#begin`       | Generates a model which changes based on the specified [perspective].
-`OBJLoaderBuilder`                | `#begin`       | Generates an [OBJ model][obj].
-`MultiLayerModelBuilder`          | `#begin`       | Generates a model made up of models in different rendering layers.
+Model Builder                       | Factory Method | Description
+:---:                               | :---:          | :---
+`DynamicFluidContainerModelBuilder` | `#begin`       | Generates a bucket model for the specified fluid.
+`CompositeModelBuilder`             | `#begin`       | Generates a model composed of models.
+`ItemLayersModelBuilder`            | `#begin`       | Generates a Forge implementation of an `item/generated` model.
+`SeparateTransformsModelBuilder`    | `#begin`       | Generates a model which changes based on the specified [transform].
+`ObjModelBuilder`                   | `#begin`       | Generates an [OBJ model][obj].
 
 ```java
 // For some BlockModelBuilder builder
-builder.customLoader(OBJLoaderBuilder::begin) // Custom loader 'forge:obj'
+builder.customLoader(ObjModelBuilder::begin) // Custom loader 'forge:obj'
   .modelLocation(modLoc("models/block/model.obj")) // Set the OBJ model location
   .flipV(true) // Flips the V coordinate in the supplied .mtl texture
   .end() // Finish custom loader configuration
@@ -286,7 +285,7 @@ builder.customLoader(OBJLoaderBuilder::begin) // Custom loader 'forge:obj'
 Custom Model Loader Builders
 ----------------------------
 
-Custom loader builders can be created by extending `CustomLoaderBuilder`. The constructor can still have a `protected` visibility with the `ResourceLocation` hardcoded to the loader id registered via `ModelLoaderRegistry#registerLoader`. The builder can then be initialized via a static factory method or the constructor if made `public`.
+Custom loader builders can be created by extending `CustomLoaderBuilder`. The constructor can still have a `protected` visibility with the `ResourceLocation` hardcoded to the loader id registered via `ModelEvent$RegisterGeometryLoaders#register`. The builder can then be initialized via a static factory method or the constructor if made `public`.
 
 ```java
 public class ExampleLoaderBuilder<T extends ModelBuilder<T>> extends CustomLoaderBuilder<T> {
@@ -390,5 +389,5 @@ public void run(CachedOutput cache) throws IOException {
 [blockmodels]: #blockmodelprovider
 [itemmodels]: #itemmodelprovider
 [properties]: ../../blocks/states.md#implementing-block-states
-[perspective]: ../../rendering/modelloaders/perspective.md
+[transform]: ../../rendering/modelloaders/transform.md
 [obj]: ../../rendering/modelloaders/index.md#wavefront-obj-models
