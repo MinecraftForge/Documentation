@@ -40,6 +40,8 @@ The two examples represent two different ways to specify a sound file. The [wiki
 
 In all cases, the path to a sound file for namespace `namespace` and path `path` is `assets/<namespace>/sounds/<path>.ogg`. Therefore `mymod:open_chest_sound_file` points to `assets/mymod/sounds/open_chest_sound_file.ogg`, and `mymod:music/epic_music` points to `assets/mymod/sounds/music/epic_music.ogg`.
 
+A `sounds.json` can be [data generated][datagen].
+
 Creating Sound Events
 ---------------------
 
@@ -103,5 +105,6 @@ Note that each takes a `SoundEvent`, the ones registered above. Additionally, th
 
 [loc]: ../concepts/resources.md#resourcelocation
 [wiki]: https://minecraft.gamepedia.com/Sounds.json
+[datagen]: ../datagen/client/sounds.md
 [registration]: ../concepts/registries.md#methods-for-registering
 [sides]: ../concepts/sides.md
