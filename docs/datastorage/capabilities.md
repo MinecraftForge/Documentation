@@ -3,7 +3,7 @@ The Capability System
 
 Capabilities allow exposing features in a dynamic and flexible way without having to resort to directly implementing many interfaces.
 
-In general terms, each capability provides a feature in the form of an interface, a default implementation which can be requested, and a storage handler for at least this default implementation. The storage handler can support other implementations, but this is up to the capability implementor, so look it up in their documentation before trying to use the default storage with non-default implementations.
+In general terms, each capability provides a feature in the form of an interface.
 
 Forge adds capability support to BlockEntities, Entities, ItemStacks, Levels, and LevelChunks, which can be exposed either by attaching them through an event or by overriding the capability methods in your own implementations of the objects. This will be explained in more detail in the following sections.
 
@@ -23,10 +23,10 @@ Using an Existing Capability
 
 As mentioned earlier, BlockEntities, Entities, and ItemStacks implement the capability provider feature through the `ICapabilityProvider` interface. This interface adds the method `#getCapability`, which can be used to query the capabilities present in the associated provider objects.
 
-In order to obtain a capability, you will need to refer it by its unique instance. In the case of the `IItemHandler`, this capability is primarily stored in `CapabilityItemHandler#ITEM_HANDLER_CAPABILITY`, but it is possible to get other instance references by using `CapabilityManager#get`
+In order to obtain a capability, you will need to refer it by its unique instance. In the case of the `IItemHandler`, this capability is primarily stored in `ForgeCapabilities#ITEM_HANDLER`, but it is possible to get other instance references by using `CapabilityManager#get`
 
 ```java
-static Capability<IItemHandler> ITEM_HANDLER_CAPABILITY = CapabilityManager.get(new CapabilityToken<>(){});
+public static final Capability<IItemHandler> ITEM_HANDLER = CapabilityManager.get(new CapabilityToken<>(){});
 ```
 
 When called, `CapabilityManager#get` provides a non-null capability for your associated type. The anonymous `CapabilityToken` allows Forge to keep a soft dependency system while still having the necessary generic information to get the correct capability.
@@ -57,7 +57,7 @@ inventoryHandlerLazyOptional = LazyOptional.of(inventoryHandlerSupplier);
 
 @Override
 public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-  if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+  if (cap == ForgeCapabilities.ITEM_HANDLER) {
     return inventoryHandlerLazyOptional.cast();
   }
   return super.getCapability(cap, side);
@@ -69,6 +69,16 @@ public void invalidateCaps() {
   inventoryHandlerLazyOptional.invalidate();
 }
 ```
+
+!!! tip
+    If only one capability is exposed on a given object, you can use `Capability#orEmpty` as an alternative to the if/else statement.
+
+    ```java
+    @Override
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
+      return ForgeCapabilities.ITEM_HANDLER.orEmpty(cap, inventoryHandlerLazyOptional);
+    }
+    ```
 
 `Item`s are a special case since their capability providers are stored on an `ItemStack`. Instead, a provider should be attached through `Item#initCapabilities`. This should hold your capabilities for the lifecycle of the stack.
 
@@ -94,12 +104,27 @@ For information on how to implement `ICapabilityProvider`, refer to the [Exposin
 Creating Your Own Capability
 ----------------------------
 
-In general terms, a capability is registered through the event `RegisterCapabilitiesEvent` on the mod event bus via the `#register` method.
+A capability can be registered using one of two ways: `RegisterCapabilitiesEvent` or `@AutoRegisterCapability`.
+
+### RegisterCapabilitiesEvent
+
+A capability can be registered using `RegisterCapabilitiesEvent` by supplying the class of the capability type to the `#register` method. The event is [handled] on the mod event bus.
 
 ```java
 @SubscribeEvent
 public void registerCaps(RegisterCapabilitiesEvent event) {
   event.register(IExampleCapability.class);
+}
+```
+
+### @AutoRegisterCapability
+
+A capability is registered using `@AutoRegisterCapability` by annotating the capability type.
+
+```java
+@AutoRegisterCapability
+public interface IExampleCapability {
+  // ...
 }
 ```
 
@@ -164,4 +189,5 @@ Quick conversion guide:
 4. Create a registration method if you don't have one (you may have one where you registered your IEEP's event handlers) and in it, run the capability registration function.
 
 [expose]: #exposing-a-capability
+[handled]: ../concepts/events.md#creating-an-event-handler
 [network]: ../networking/index.md
