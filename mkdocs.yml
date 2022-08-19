@@ -32,10 +32,9 @@ nav:
   - Data Storage:
     - Capabilities: 'datastorage/capabilities.md'
     - Saved Data: 'datastorage/saveddata.md'
-  - Data User Interaction:
-    - Introduction: 'dui/index.md'
-    - Menus: 'dui/menus.md'
-    - Screens: 'dui/screens.md'
+  - Graphical User Interfaces:
+    - Menus: 'gui/menus.md'
+    - Screens: 'gui/screens.md'
   - Rendering:
     - Model Loaders:
       - Introduction: 'rendering/modelloaders/index.md'
