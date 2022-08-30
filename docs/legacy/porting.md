@@ -9,8 +9,10 @@ Here you can find a list of primers on how to port from old versions to the curr
 | 1.14 -> 1.15      | [Primer by williewillus][114to115] |
 | 1.15 -> 1.16      | [Primer by 50ap5ud5][115to116]     |
 | 1.16 -> 1.17      | [Primer by 50ap5ud5][116to117]     |
+| 1.17 -> 1.18      | [List of Refactors/Removals by Curle][117to118]|
 
 [112to114]: https://gist.github.com/williewillus/353c872bcf1a6ace9921189f6100d09a
 [114to115]: https://gist.github.com/williewillus/30d7e3f775fe93c503bddf054ef3f93e
 [115to116]: https://gist.github.com/50ap5ud5/f4e70f0e8faeddcfde6b4b1df70f83b8
 [116to117]: https://gist.github.com/50ap5ud5/beebcf056cbdd3c922cc8993689428f4
+[117to118]: https://forums.minecraftforge.net/topic/106322-forge-380-minecraft-118
