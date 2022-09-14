@@ -183,22 +183,22 @@ public class ClassB {
 }
 
 // Assume there is some codec A_CODEC
-public static final Codec<ClassB> B_CODEC = A_CODEC.xmap(ClassA:toB, ClassB:toA);
+public static final Codec<ClassB> B_CODEC = A_CODEC.xmap(ClassA::toB, ClassB::toA);
 ```
 
 If a type is partially equivalent, meaning that there are some restrictions during conversion, there are mapping functions which return a `DataResult` which can be used to return an error state whenever an exception or invalid state is reached.
 
-A => B | B => A | Transform Method
-:---:  | :---:  | :---
-Yes    | Yes    | `#xmap`
-Yes    | No     | `#flatComapMap`
-No     | Yes    | `#comapFlatMap`
-No     | No     | `#flatXMap`
+Is A Fully Equivalent to B | Is B Fully Equivalent to A | Transform Method
+:---:                      | :---:                      | :---
+Yes                        | Yes                        | `#xmap`
+Yes                        | No                         | `#flatComapMap`
+No                         | Yes                        | `#comapFlatMap`
+No                         | No                         | `#flatXMap`
 
 ```java
 // Given an string codec to convert to a integer
-// Not all strings can become integers (A !=> B)
-// All integers can become strings (B => A)
+// Not all strings can become integers (A is not fully equivalent to B)
+// All integers can become strings (B is fully equivalent to A)
 public static final Codec<Integer> INT_CODEC = Codec.STRING.comapFlatMap(
   s -> { // Return data result containing error on failure
     try {
@@ -284,7 +284,7 @@ List objects decoded using a list codec are stored in an **immutable** list. If 
 
 ### Map
 
-A codec for a map of keys and value objects can be generated from two codecs via `Codec#unboundedMap`.
+A codec for a map of keys and value objects can be generated from two codecs via `Codec#unboundedMap`. Unbounded maps can specify any string-based or string-transformed value to be a key.
 
 ```java
 // BlockPos#CODEC is a Codec<BlockPos>
