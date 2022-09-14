@@ -115,7 +115,7 @@ public class ExampleModifier extends LootModifier {
 The Loot Modifier Codec
 -----------------------
 
-The connector between the JSON and the `IGlobalLootModifier` instance is a `Codec<T>`, where `T` represents the type of the `IGlobalLootModifier` to use.
+The connector between the JSON and the `IGlobalLootModifier` instance is a [`Codec<T>`][codecdef], where `T` represents the type of the `IGlobalLootModifier` to use.
 
 For ease of convenience, a loot conditions codec has been provided for an easy addition to a record-like codec via `LootModifier#codecStart`. This is utilized for [data generation][datagen] of the associated loot modifier.
 
@@ -140,5 +140,6 @@ public static final RegistryObject<Codec<ExampleModifier>> = REGISTRAR.register(
 [resloc]: ../../concepts/resources.md#ResourceLocation
 [codec]: #the-loot-modifier-codec
 [registered]: ../../concepts/registries.md#methods-for-registering
+[codecdef]: ../../datastorage/codecs.md
 [datagen]: ../../datagen/server/glm.md
 [examples]: https://github.com/MinecraftForge/MinecraftForge/blob/1.19.x/src/test/java/net/minecraftforge/debug/gameplay/loot/GlobalLootModifiersTest.java
