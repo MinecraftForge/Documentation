@@ -72,6 +72,7 @@ nav:
       - Global Loot Modifier Providers: 'datagen/server/glm.md'
   - Miscellaneous Features:
     - Configuration: 'misc/config.md'
+    - Key Mappings: 'misc/keymappings.md'
     - Game Tests: 'misc/gametest.md'
     - Forge Update Checker: 'misc/updatechecker.md'
     - Debug Profiler: 'misc/debugprofiler.md'
