@@ -23,7 +23,7 @@ public void registerBindings(RegisterKeyBindingsEvent event) {
 A `KeyMapping` can be created using it's constructor. The `KeyMapping` takes in a [translation key][tk] defining the name of the mapping, the default input of the mapping, and the [translation key][tk] defining the category the mapping will be put within in the [Controls option menu][controls].
 
 !!! tip
-    A `KeyMapping` can be added to a custom category by providing a category [translation key][tk] not provided by vanilla. Custom category translation keys should contain the mod id.
+    A `KeyMapping` can be added to a custom category by providing a category [translation key][tk] not provided by vanilla. Custom category translation keys should contain the mod id (e.g. `key.categories.examplemod.examplecategory`).
 
 ### Default Inputs
 
@@ -46,7 +46,7 @@ new KeyMapping(
 ```
 
 !!! note
-    If the key mapping should not be mapped to a default, the input should be set to `InputConstants#UNKNOWN`. The vanilla constructor will require you to extract the input code via `#getValue` while the Forge constructor can be supplied the raw input field.
+    If the key mapping should not be mapped to a default, the input should be set to `InputConstants#UNKNOWN`. The vanilla constructor will require you to extract the input code via `InputConstants$Key#getValue` while the Forge constructor can be supplied the raw input field.
 
 ### `IKeyConflictContext`
 
@@ -62,7 +62,7 @@ new KeyMapping(
   KeyConflictContext.GUI, // Mapping can only be used when a screen is open
   InputConstants.Type.MOUSE, // Default mapping is on the mouse
   GLFW.GLFW_MOUSE_BUTTON_LEFT, // Default mouse input is the left mouse button
-  "key.categories.examplemod.custom" // Mapping will be in the new custom category
+  "key.categories.examplemod.examplecategory" // Mapping will be in the new example category
 )
 ```
 
@@ -89,10 +89,10 @@ A `KeyMapping` can be checked to see whether it has been clicked. Depending on w
 
 ### Within the Game
 
-Within the game, a mapping should be checked by listening to `ClientTickEvent` on the [**forge event bus**][forgebus] and checking `KeyMapping#consumeClick` within a while loop. `#consumeClick` will return `true` only the number of times the input was performed and not already previously handled, so it won't infinitely stall the game.
+Within the game, a mapping should be checked by listening to `ClientTickEvent` on the [**Forge event bus**][forgebus] and checking `KeyMapping#consumeClick` within a while loop. `#consumeClick` will return `true` only the number of times the input was performed and not already previously handled, so it won't infinitely stall the game.
 
 ```java
-// Event is on the forge event bus only on the physical client
+// Event is on the Forge event bus only on the physical client
 public void onClientTick(ClientTickEvent event) {
   if (event.phase == TickEvent.Phase.END) { // Only call code once as the tick event is called twice every tick
     while (EXAMPLE_MAPPING.get().consumeClick()) {
@@ -124,7 +124,7 @@ public boolean keyPressed(int key, int scancode, int mods) {
 ```
 
 !!! note
-    If you do not own the screen which you are trying to check a key for, you can listen to the `Pre` or `Post` events of `ScreenEvent$KeyPressed` on the [**forge event bus**][forgebus] instead.
+    If you do not own the screen which you are trying to check a **key** for, you can listen to the `Pre` or `Post` events of `ScreenEvent$KeyPressed` on the [**Forge event bus**][forgebus] instead.
 
 `#mouseClicked` takes in the mouse's x position, y position, and the button clicked. A mouse button can be checked against a mapping by creating the input using `InputConstants$Type#getOrCreate` with the `MOUSE` input.
 
@@ -141,7 +141,7 @@ public boolean mouseClicked(double x, double y, int button) {
 ```
 
 !!! note
-    If you do not own the screen which you are trying to check a mouse for, you can listen to the `Pre` or `Post` events of `ScreenEvent$MouseButtonPressed` on the [**forge event bus**][forgebus] instead.
+    If you do not own the screen which you are trying to check a **mouse** for, you can listen to the `Pre` or `Post` events of `ScreenEvent$MouseButtonPressed` on the [**Forge event bus**][forgebus] instead.
 
 [modbus]: ../concepts/events.md#mod-event-bus
 [controls]: https://minecraft.fandom.com/wiki/Options#Controls
