@@ -78,45 +78,6 @@ There are a few minor differences between IDEA 2021 and these versions for setup
 
 You can then run Forge using the `forge_client` gradle task (`Tasks -> fg_runs -> forge_client`): right-click the task and select either `Run` or `Debug` as desired.
 
-#### IDEA older versions
-Versions older than 2016 will not work because they did not have the appropriate Gradle support nor support Forge development multi-project workspaces.
-
-IDEA 2016 - 2018 will work with extra manual steps required, but it is strongly recommended to update to IDEA 2019+ instead.
-cpw has uploaded [a video][intellijsetup] for IDEA 2016.1 explaining very similar steps which will lead to a working setup.
-
-That is all there is to creating a Forge development environment in IntelliJ IDEA. However, you will not be able to run tests and debug mods included in Forge straight away. This takes some extra effort.
-
-#### Enabling test mods
-
-To enable the test mods coming with Forge, you will need to add the compiler output to the classpath. Again, cpw has put up [a video][testsetup] explaining these steps for IDEA 2016.1.
-
-1. Build the test classes by selecting the `src/main/test` directory in your project view and then run `Build -> Build module 'Forge_test'` from the menu bar.
-2. Open the "Project Structure" window under `File -> Project Structure`.
-3. Head to the "Modules" section and expand the `Forge` module.
-4. Select the `Forge_test` submodule and head to the "Paths" tab.
-5. Remember the path listed under the "Test output path" label and select the `Forge_main` submodule from the tree.
-6. Open the "Dependencies" tab, hit the green plus button on the right-hand side, and select "JARs or directories".
-7. Navigate to the path previously displayed as the `Forge_test` output path and confirm your selection.
-8. For the "Scope" of this newly added dependency (currently "Compile") choose "Runtime", since the main code does not rely on the test code for compilation.
-
-Now that you have added the test mods to the classpath, you need to rebuild them each time you make a change, as they will not be built automatically. To do so, repeat step 1 from the above list or, in case you make changes to a single test mod file and want them to get rebuilt, simply hit `Build -> Rebuild project` or the corresponding keyboard shortcut (CTRL+F9 by default).
-
-#### Testing with existing mods
-
-You might want to test changes in Forge with an existing project. The [video][testsetup] by cpw linked in the test mods section also covers this for IDEA 2016.1. Getting the mod to run requires similar steps to the test mod, but getting your project added to the workspace requires some additional work.
-
-1. Open the "Project Structure" Window under `File -> Project Structure`.
-2. Head to the "Modules" section and press the green plus icon above the tree view.
-3. Select "Import Module", navigate to your project's `build.gradle` file, and confirm your selection as well as the import settings.
-4. Close the "Project Structure" window by clicking the "OK" button.
-5. Reopen the window after IDEA is done importing the project and select your project's `_main` module from the tree.
-6. Open the "Dependencies" tab, click the green plus icon on the right-hand side, and select "Module dependency".
-7. In the window that just opened, select the `Forge_main` module.
-8. From here on, reproduce the steps from the test mods section, just with your project's `_main` module instead of the `Forge_test` one.
-
-!!! note
-    You might need to remove existing dependencies from a normal development environment (mainly references to a `forgeSrc` JAR) or move the Forge module higher up in the dependency list.
-
 You should now be able to work with your mod using the changes you introduce to the Forge and Vanilla codebase.
 
 Making Changes and Pull Requests
@@ -143,8 +104,6 @@ The last step before your contribution is added to Forge is a Pull Request (PR i
 [register]: https://www.github.com/join
 [forgerepo]: https://www.github.com/MinecraftForge/MinecraftForge
 [gradle]: https://www.gradle.org
-[intellijsetup]: https://www.youtube.com/watch?v=yanCpy8p2ZE
-[testsetup]: https://www.youtube.com/watch?v=pLWQk6ed56Q
 [submitpr]: https://github.com/MinecraftForge/MinecraftForge/compare
 [contribute]: https://github.com/MinecraftForge/MinecraftForge/blob/1.13.x/CONTRIBUTING.md
 [guidelines]: ./prguidelines.md
