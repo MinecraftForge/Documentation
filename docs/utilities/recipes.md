@@ -67,6 +67,9 @@ A shapeless recipe does not make use of the `pattern` and `key` keywords.
 
 To define a shapeless recipe, you have to use the `ingredients` list. It defines which items have to be used for the crafting process. There are [many more][wiki] of these types which can be used here, and you can even register your own. It is even possible to define a slot that requires more than one of an item, which means multiple of these items have to be in place.
 
+
+
+
 !!! note
     While there is no limit on how many ingredients your recipe requires, the vanilla crafting table only allows 9 items to be placed for each crafting recipe.
 
@@ -89,6 +92,10 @@ The following example shows how an ingredient list looks like within JSON:
 Every vanilla recipe has to have a `result` tag to define the output item.
 
 When crafting something, you can get out more than one item. This is achieved by defining the `count` number. If this is left out, meaning it doesn't exist within the result block, it defaults to 1. Negative values are not allowed here as an `ItemStack` cannot be smaller than 0. There is no option to use the `count` number anywhere else than for the result. Forge also added support for results to include NBT data via the `nbt` tag.
+
+Recipe Generator
+---------------
+Creating Forge recipes normally can be really annoying and hard to do manually so we reccomend doing it with a recipe generator [thedestruc7i0n's crafing recipe generator](https://crafting.thedestruc7i0n.ca/) which allows you to make a recipe's easier and easier by generating the .json automaticaly all you have to do is change the result output type to yourmodid:yourcustomitem.
 
 [datapack]: /concepts/data.md
 [advancement]: https://minecraft.fandom.com/wiki/Advancement
