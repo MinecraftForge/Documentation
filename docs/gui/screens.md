@@ -53,7 +53,28 @@ The z coordinate when rendering a texture is typically set to the blit offset. T
 The offset can be obtained by calling `#getBlitOffset` and set using `#setBlitOffset`.
 
 !!! important
-    When setting the blit offset, you must reset it after rendering your object. Otherwise, other objects within the screen may be rendered in an incorrect layer, potentially causing graphical issues.
+    When setting the blit offset, you must reset it after rendering your object. Otherwise, other objects within the screen may be rendered in an incorrect layer causing graphical issues.
+
+## Widget
+
+`Widget`s are essentially objects that are rendered. These include screens, buttons, chat boxes, lists, etc. `Widget`s only have one method: `#render`. This takes in the `PoseStack` holding any prior transformations to properly render the widget, the x and y positions of the mouse scaled to the relative screen size, and the tick delta (how many ticks have passed since the last frame).
+
+## GuiEventListener
+
+Any screen rendered in Minecraft implements `GuiEventListener`. `GuiEventListener`s are responsible for handling user interaction with the screen. These include inputs from the mouse (movement, clicked, released, dragged, scrolled, mouseover) and keyboard (pressed, released, typed). Each method returns whether the associated action affected the screen successfully. Widgets like buttons, chat boxes, lists, etc. also implement this interface.
+
+### ContainerEventHandler
+
+Almost synonymous with `GuiEventListener`s are their subtype: `ContainerEventHandler`s. These are responsible for handling user interaction on screens which contain widgets, managing which is currently focused and how the associated interactions are applied. `ContainerEventHandler`s add three additional features: interactable children, dragging, and focusing.
+
+Event handlers held children which was used to determine the interaction order of elements. During the mouse event handlers (excluding dragging), the first child in the list that the mouse was over would have their logic executed.
+
+Dragging is implemented within `#mouseClicked` and `#mouseReleased` allowing for logic to be more precisely executed when the mouse was dragging the element.
+
+Focusing allowed for a specific child to be selected to execute logic. These included during keyboard events and when the mouse was being dragged. Focus of which element was typically set through `#setFocused` or, when the screen was being opened, `#setInitialFocus`. In addition, interactable children could be cycled through using `#changeFocus`, selecting the next child in the list, or the previous child when shift was held down.
+
+!!! note
+    Screens implement `ContainerEventHandler` and `GuiComponent` through `AbstractContainerEventHandler`, which adds in the setter and getter logic for dragging and focusing children.
 
 # TODO BELOW
 
@@ -78,13 +99,7 @@ onFilesDrop method
 
 resize method
 
-input logic through `GuiEventListener`
 `NarratableEntry`
-
-### `ContainerEventHandler`
-
-focusing on a specific element
-dragging element on screen
 
 ## `AbstractContainerScreen`
 
