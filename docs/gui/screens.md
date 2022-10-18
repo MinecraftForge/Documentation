@@ -76,6 +76,15 @@ Focusing allowed for a specific child to be selected to execute logic. These inc
 !!! note
     Screens implement `ContainerEventHandler` and `GuiComponent` through `AbstractContainerEventHandler`, which adds in the setter and getter logic for dragging and focusing children.
 
+## NarratableEntry
+
+`NarratableEntry`s are elements which can be spoken about through Minecraft's accessibility narration feature. Each element can provide different narration depending on what is hovered or selected, prioritized typically by focus, hovering, and then all other cases.
+
+`NarratableEntry`s have three methods: one which determines the priority of the element (`#narrationPriority`), one which determines whether to speak the narration (`#isActive`), and finally one which supplies the narration to its associated output, spoken or read (`#updateNarration`). 
+
+!!! note
+    All widgets from Minecraft are `NarratableEntry`s, so it typically does not need to be manually implemented if using an available subtype.
+
 # TODO BELOW
 
 ## A Screen Subclass
@@ -98,8 +107,6 @@ removed method
 onFilesDrop method
 
 resize method
-
-`NarratableEntry`
 
 ## `AbstractContainerScreen`
 
