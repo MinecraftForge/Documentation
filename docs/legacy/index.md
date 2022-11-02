@@ -12,13 +12,13 @@ Unfortunately, not all versions were used for a significant amount of time, and 
 
 |    Version    |  Accuracy  |                  Link                     |
 |:-------------:|:----------:|:------------------------------------------|
-|    1.12.x     |   100%     | https://mcforge.readthedocs.io/en/1.12.x/ |
-|    1.13.x     |    10%     | https://mcforge.readthedocs.io/en/1.13.x/ |
-|    1.14.x     |    10%     | https://mcforge.readthedocs.io/en/1.14.x/ |
-|    1.15.x     |    85%     | https://mcforge.readthedocs.io/en/1.15.x/ |
-|    1.16.x     |    85%     | https://mcforge.readthedocs.io/en/1.16.x/ |
-|    1.17.x     |    85%     | https://mcforge.readthedocs.io/en/1.17.x/ |
-|    1.18.x     |    90%     | https://mcforge.readthedocs.io/en/1.18.x/ |
+|    1.12.x     |   100%     | https://docs.minecraftforge.net/en/1.12.x/ |
+|    1.13.x     |    10%     | https://docs.minecraftforge.net/en/1.13.x/ |
+|    1.14.x     |    10%     | https://docs.minecraftforge.net/en/1.14.x/ |
+|    1.15.x     |    85%     | https://docs.minecraftforge.net/en/1.15.x/ |
+|    1.16.x     |    85%     | https://docs.minecraftforge.net/en/1.16.x/ |
+|    1.17.x     |    85%     | https://docs.minecraftforge.net/en/1.17.x/ |
+|    1.18.x     |    90%     | https://docs.minecraftforge.net/en/1.18.x/ |
 
 ### RetroGradle
 
