@@ -87,7 +87,7 @@ nav:
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
-site_url: https://mcforge.readthedocs.io/en/1.19.x/
+site_url: https://docs.minecraftforge.net/en/1.19.x/
 
 markdown_extensions:
   - admonition
