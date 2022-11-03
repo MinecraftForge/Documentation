@@ -37,7 +37,7 @@ Strings are drawn through its `Font`, typically consisting of their own shaders 
 
 ### Textures
 
-Textures are drawn through blitting, hence the method name `#blit`, which, for this purpose, copies the bits of an image and draws them directly to the screen. These are drawn through a position texture shader. While there are many different `#blit` overloads, we will only discuss two: the instance `#blit` and the static `#blit` the instance method delegates to.
+Textures are drawn through blitting, hence the method name `#blit`, which, for this purpose, copies the bits of an image and draws them directly to the screen. These are drawn through a position texture shader. While there are many different `#blit` overloads, we will only discuss two: the instance `#blit` and the static `#blit` which the instance method delegates to.
 
 The instance `#blit` takes in six integers and assumes the texture being rendered is on a 256 x 256 PNG file. It takes in the left x and top y screen coordinate, the left x and top y coordinate within the PNG, and the width and height of the image to render.
 
@@ -69,11 +69,11 @@ Any screen rendered in Minecraft implements `GuiEventListener`. `GuiEventListene
 
 Almost synonymous with `GuiEventListener`s are their subtype: `ContainerEventHandler`s. These are responsible for handling user interaction on screens which contain widgets, managing which is currently focused and how the associated interactions are applied. `ContainerEventHandler`s add three additional features: interactable children, dragging, and focusing.
 
-Event handlers held children which was used to determine the interaction order of elements. During the mouse event handlers (excluding dragging), the first child in the list that the mouse was over would have their logic executed.
+Event handlers hold children which are used to determine the interaction order of elements. During the mouse event handlers (excluding dragging), the first child in the list that the mouse hovers over has their logic executed.
 
-Dragging is implemented within `#mouseClicked` and `#mouseReleased` allowing for logic to be more precisely executed when the mouse was dragging the element.
+Dragging an element with the mouse, implemented via `#mouseClicked` and `#mouseReleased`, provides more precisely executed logic.
 
-Focusing allowed for a specific child to be selected to execute logic. These included during keyboard events and when the mouse was being dragged. Focus of which element was typically set through `#setFocused` or, when the screen was being opened, `#setInitialFocus`. In addition, interactable children could be cycled through using `#changeFocus`, selecting the next child in the list, or the previous child when shift was held down.
+Focusing allows for a specific child to be checked first and handled during an event's execution, such during keyboard events or dragging the mouse. Focus is typically set through `#setFocused` or, when the screen is being opened, `#setInitialFocus`. In addition, interactable children can be cycled using `#changeFocus`, selecting the next child in the list, or the previous child if the shift key is held down.
 
 !!! note
     Screens implement `ContainerEventHandler` and `GuiComponent` through `AbstractContainerEventHandler`, which adds in the setter and getter logic for dragging and focusing children.
@@ -349,7 +349,7 @@ private void clientSetup(FMLClientSetupEvent event) {
 
 [menus]: ./menus.md
 [network]: ../networking/index.md
-[screen]: #TODO
+[screen]: #the-screen-subtype
 [argb]: https://en.wikipedia.org/wiki/RGBA_color_model#ARGB32
 [component]: ../concepts/internationalization.md#translatablecontents
 [keymapping]: ../misc/keymappings.md#inside-a-gui

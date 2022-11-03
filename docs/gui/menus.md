@@ -65,7 +65,7 @@ public MyMenu(int containerId, Inventory playerInventory) {
 }
 ```
 
-Each menu implementation must implement two methods: `#stillValid` and [`#quickMoveStack`][qms]. `#stillValid` determines whether the menu should remain open for a given player. This is typically directed to the Forge deprecated `Container#stillValid`. As an alternative, a boolean function which takes in the player will work just as well. The client menu must always return `true` for this method. The vanilla implementation checks whether the player is within eight blocks of where the data storage object is located.
+Each menu implementation must implement two methods: `#stillValid` and [`#quickMoveStack`][qms]. `#stillValid` determines whether the menu should remain open for a given player. This is typically directed to the Forge-deprecated `Container#stillValid`. As an alternative, a boolean function which takes in the player will work just as well. The client menu must always return `true` for this method. The vanilla implementation checks whether the player is within eight blocks of where the data storage object is located.
 
 ```java
 // Client menu constructor
@@ -107,18 +107,18 @@ Some data needs to be present on both the server and the client to display to th
 Minecraft supports two forms of data synchronization by default: `ItemStack`s via `Slot`s and integers via `DataSlot`s. `Slot`s and `DataSlot`s are views which hold references to data storages that can be be modified by the player in a screen, assuming the action is valid. These can be added to a menu within the constructor through `#addSlot` and `#addDataSlot`.
 
 !!! note
-    Since `Container`s used by `Slot`s are deprecated by Forge in favor of using the [`IItemHandler` capability][cap], the rest of the explanation will revolve around using `SlotItemHandler`: the capability variant.
+    Since `Container`s used by `Slot`s are deprecated by Forge in favor of using the [`IItemHandler` capability][cap], the rest of the explanation will revolve around using the capability variant: `SlotItemHandler`.
 
 A `SlotItemHandler` contains four parameters: the `IItemHandler` representing the inventory the stacks are within, the index of the stack this slot is specifically representing, and the x and y position of where the top-left position of the slot will render on the screen relative to `AbstractContainerScreen#leftPos` and `#topPos`. The client menu constructor should always supply an empty instance of an inventory of the same size.
 
 In most cases, any slots the menu contains is first added, followed by the player's inventory, and finally concluded with the player's hotbar. To access any individual `Slot` from the menu, the index must be calculated based upon the order of which slots were added.
 
-A `DataSlot` is an abstract class which should implement a getter and setter to reference the data stored in the data storage object.The client menu constructor should always supply a new instance via `DataSlot#standalone`.
+A `DataSlot` is an abstract class which should implement a getter and setter to reference the data stored in the data storage object. The client menu constructor should always supply a new instance via `DataSlot#standalone`.
 
 These, along with slots, should be recreated every time a new menu is initialized.
 
 !!! warning
-    Although a `DataSlot` may hold enough data for an integer, only a short is sent across the network.
+    Although a `DataSlot` stores an integer, it is effectively limited to a **short** (-32768 to 32767) because of how it sends the value across the network. The 16 high-order bits of the integer are ignored.
 
 ```java
 // Assume we have an inventory from a data object of size 5
@@ -169,9 +169,14 @@ public MyMenuAccess(int containerId, Inventory playerInventory, ContainerData da
 }
 ```
 
+!!! warning
+    As `ContainerData` delegates to `DataSlot`s, these are also limited to a **short** (-32768 to 32767).
+
 #### `#quickMoveStack`
 
 `#quickMoveStack` is the second method that must be implemented by any menu. This method is called whenever a stack has been shift-clicked, or quick moved, out of its current slot until the stack has been fully moved out of its previous slot or there is no other place for the stack to go. The method returns a copy of the stack in the slot being quick moved.
+
+Stacks are typically moved between slots using `#moveItemStackTo`, which moves the stack into the first available slot. It takes in the stack to be moved, the starting slot index (inclusive) to try and move the stack to, the last slot index (exclusive), and whether to check the slots in ascending (when false) or descending (when true) order.
 
 Across Minecraft implementations, this method is fairly consistent in its logic:
 
