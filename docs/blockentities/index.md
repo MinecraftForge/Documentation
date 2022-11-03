@@ -87,7 +87,7 @@ Again, this is pretty simple, the first method collects the data that should be 
 while the second one processes that data. If your `BlockEntity` doesn't contain much data, you might be able to use the methods out of the [Storing Data within your `BlockEntity`][storing-data] section.
 
 !!! important
-    Synchronizing excessive/useless data for block entities can lead to network congestion. You should optimize your network usage by sending only the information the client needs when the client needs it. For instance, it is more often than not unnecessary to send the inventory of a block entity in the update tag, as this can be synchronized via its `AbstractContainerMenu`.
+    Synchronizing excessive/useless data for block entities can lead to network congestion. You should optimize your network usage by sending only the information the client needs when the client needs it. For instance, it is more often than not unnecessary to send the inventory of a block entity in the update tag, as this can be synchronized via its [`AbstractContainerMenu`][menu].
 
 ### Synchronizing on Block Update
 
@@ -134,5 +134,6 @@ Once you've created your custom network message, you can send it to all users th
 
 [registration]: ../concepts/registries.md#methods-for-registering
 [storing-data]: #storing-data-within-your-blockentity
+[menu]: ../gui/menus.md
 [networking]: ../networking/index.md
 [simple_impl]: ../networking/simpleimpl.md

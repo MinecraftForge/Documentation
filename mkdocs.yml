@@ -33,6 +33,9 @@ nav:
     - Capabilities: 'datastorage/capabilities.md'
     - Saved Data: 'datastorage/saveddata.md'
     - Codecs: 'datastorage/codecs.md'
+  - Graphical User Interfaces:
+    - Menus: 'gui/menus.md'
+    - Screens: 'gui/screens.md'
   - Rendering:
     - Model Loaders:
       - Introduction: 'rendering/modelloaders/index.md'
