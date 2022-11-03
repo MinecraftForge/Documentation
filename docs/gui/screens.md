@@ -73,7 +73,7 @@ Event handlers hold children which are used to determine the interaction order o
 
 Dragging an element with the mouse, implemented via `#mouseClicked` and `#mouseReleased`, provides more precisely executed logic.
 
-Focusing allows for a specific child to be checked first and handled during an event's execution, such during keyboard events or dragging the mouse. Focus is typically set through `#setFocused` or, when the screen is being opened, `#setInitialFocus`. In addition, interactable children can be cycled using `#changeFocus`, selecting the next child in the list, or the previous child if the shift key is held down.
+Focusing allows for a specific child to be checked first and handled during an event's execution, such as during keyboard events or dragging the mouse. Focus is typically set through `#setFocused` or, when the screen is being opened, `#setInitialFocus`. In addition, interactable children can be cycled using `#changeFocus`, selecting the next child in the list, or the previous child if the shift key is held down.
 
 !!! note
     Screens implement `ContainerEventHandler` and `GuiComponent` through `AbstractContainerEventHandler`, which adds in the setter and getter logic for dragging and focusing children.

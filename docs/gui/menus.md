@@ -176,7 +176,7 @@ public MyMenuAccess(int containerId, Inventory playerInventory, ContainerData da
 
 `#quickMoveStack` is the second method that must be implemented by any menu. This method is called whenever a stack has been shift-clicked, or quick moved, out of its current slot until the stack has been fully moved out of its previous slot or there is no other place for the stack to go. The method returns a copy of the stack in the slot being quick moved.
 
-Stacks are typically moved between slots using `#moveItemStackTo`, which moves the stack into the first available slot. It takes in the stack to be moved, the starting slot index (inclusive) to try and move the stack to, the last slot index (exclusive), and whether to check the slots in ascending (when false) or descending (when true) order.
+Stacks are typically moved between slots using `#moveItemStackTo`, which moves the stack into the first available slot. It takes in the stack to be moved, the first slot index (inclusive) to try and move the stack to, the last slot index (exclusive), and whether to check the slots from first to last (when `false`) or from last to first (when `true`).
 
 Across Minecraft implementations, this method is fairly consistent in its logic:
 
