@@ -12,9 +12,9 @@ Forge-provided Capabilities
 
 Forge provides three capabilities: `IItemHandler`, `IFluidHandler` and `IEnergyStorage`
 
-`IItemHandler` exposes an interface for handling inventory slots. It can be applied to BlockEntities (chests, machines, etc.), Entities (extra player slots, mob/creature inventories/bags), or ItemStacks (portable backpacks and such). It replaces the old `IInventory` and `ISidedInventory` with an automation-friendly system.
+`IItemHandler` exposes an interface for handling inventory slots. It can be applied to BlockEntities (chests, machines, etc.), Entities (extra player slots, mob/creature inventories/bags), or ItemStacks (portable backpacks and such). It replaces the old `Container` and `WorldlyContainer` with an automation-friendly system.
 
-`IFluidHandler` exposes an interface for handling fluid inventories. It can also be applied to BlockEntities, Entities, or ItemStacks. It replaces the old `IFluidHandler` with a more consistent and automation-friendly system.
+`IFluidHandler` exposes an interface for handling fluid inventories. It can also be applied to BlockEntities, Entities, or ItemStacks.
 
 `IEnergyStorage` exposes an interface for handling energy containers. It can be applied to BlockEntities, Entities, or ItemStacks. It is based on the RedstoneFlux API by TeamCoFH.
 

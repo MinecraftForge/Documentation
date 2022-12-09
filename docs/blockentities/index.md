@@ -63,7 +63,7 @@ public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, Block
 }
 
 // Inside MyBlockEntity
-public static void tick(Level level, BlockPos pos, BlockState state, T blockEntity) {
+public static void tick(Level level, BlockPos pos, BlockState state, MyBlockEntity blockEntity) {
   // Do stuff
 }
 ```

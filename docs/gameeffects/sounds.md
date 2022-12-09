@@ -61,22 +61,22 @@ Note that each takes a `SoundEvent`, the ones registered above. Additionally, th
 
 ### `Level`
 
-1. <a name="level-playsound-pbecvp"></a> `playSound(Player, BlockPos, SoundEvent, SoundCategory, volume, pitch)`
+1. <a name="level-playsound-pbecvp"></a> `playSound(Player, BlockPos, SoundEvent, SoundSource, volume, pitch)`
     - Simply forwards to [overload (2)](#level-playsound-pxyzecvp), adding 0.5 to each coordinate of the `BlockPos` given.
 
-2. <a name="level-playsound-pxyzecvp"></a> `playSound(Player, double x, double y, double z, SoundEvent, SoundCategory, volume, pitch)`
+2. <a name="level-playsound-pxyzecvp"></a> `playSound(Player, double x, double y, double z, SoundEvent, SoundSource, volume, pitch)`
     - **Client Behavior**: If the passed in player is *the* client player, plays the sound event to the client player.
     - **Server Behavior**: Plays the sound event to everyone nearby **except** the passed in player. Player can be `null`.
     - **Usage**: The correspondence between the behaviors implies that these two methods are to be called from some player-initiated code that will be run on both logical sides at the same time: the logical client handles playing it to the user, and the logical server handles everyone else hearing it without re-playing it to the original user. They can also be used to play any sound in general at any position server-side by calling it on the logical server and passing in a `null` player, thus letting everyone hear it.
 
-3. <a name="level-playsound-xyzecvpd"></a> `playLocalSound(double x, double y, double z, SoundEvent, SoundCategory, volume, pitch, distanceDelay)`
+3. <a name="level-playsound-xyzecvpd"></a> `playLocalSound(double x, double y, double z, SoundEvent, SoundSource, volume, pitch, distanceDelay)`
     - **Client Behavior**: Just plays the sound event in the client level. If `distanceDelay` is `true`, then delays the sound based on how far it is from the player.
     - **Server Behavior**: Does nothing.
     - **Usage**: This method only works client-side, and thus is useful for sounds sent in custom packets, or other client-only effect-type sounds. Used for thunder.
 
 ### `ClientLevel`
 
-1. <a name="clientlevel-playsound-becvpd"></a> `playLocalSound(BlockPos, SoundEvent, SoundCategory, volume, pitch, distanceDelay)`
+1. <a name="clientlevel-playsound-becvpd"></a> `playLocalSound(BlockPos, SoundEvent, SoundSource, volume, pitch, distanceDelay)`
     - Simply forwards to `Level`'s [overload (3)](#level-playsound-xyzecvpd), adding 0.5 to each coordinate of the `BlockPos` given.
 
 ### `Entity`
@@ -104,7 +104,7 @@ Note that each takes a `SoundEvent`, the ones registered above. Additionally, th
     - **Usage**: Just like the ones in `Level`, these two overrides in the player classes seem to be for code that runs together on both sides. The client handles playing the sound to the user, while the server handles everyone else hearing it without re-playing to the original user.
 
 [loc]: ../concepts/resources.md#resourcelocation
-[wiki]: https://minecraft.gamepedia.com/Sounds.json
+[wiki]: https://minecraft.fandom.com/wiki/Sounds.json
 [datagen]: ../datagen/client/sounds.md
 [registration]: ../concepts/registries.md#methods-for-registering
 [sides]: ../concepts/sides.md

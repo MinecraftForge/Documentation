@@ -1,9 +1,43 @@
 Advancement Generation
 ======================
 
-[Advancements] can be generated for a mod by subclassing `AdvancementProvider` and overriding `#registerAdvancements`. Advancements can either be created and supplied manually or, for convenience, created using `Advancement$Builder`.
+[Advancements] can be generated for a mod by constructing a new `AdvancementProvider` and providing `AdvancementSubProvider`s. Advancements can either be created and supplied manually or, for convenience, created using `Advancement$Builder`. The provider must be [added][datagen] to the `DataGenerator`.
 
-After implementation, the provider must be [added][datagen] to the `DataGenerator`.
+```java
+// On the MOD event bus
+@SubscribeEvent
+public void gatherData(GatherDataEvent event) {
+    event.getGenerator().addProvider(
+        // Tell generator to run only when server data are generating
+        event.includeServer(),
+        output -> new MyAdvancementProvider(
+          output,
+          event.getLookupProvider(),
+          // Sub providers which generate the advancements
+          List.of(subProvider1, subProvider2, /*...*/),
+          event.getExistingFileHelper()
+        )
+    );
+}
+```
+
+`AdvancementSubProvider`
+------------------------
+
+An `AdvancementSubProvider` is responsible for generating advancements, containing a method which takes in a registry lookup and the writer (`Consumer<Advancement>`). A subtype of `AdvancementSubProvider` should take in an `ExistingFileHelper` to use while building an `Advancement`.
+
+```java
+// In some AdvancementSubProvider
+
+public MyAdvancementSubProvider(ExistingFileHelper fileHelper) {
+  // ...
+}
+
+@Override
+public void generate(HolderLookup.Provider registries, Consumer<Advancement> writer) {
+  // Build advancements here
+}
+```
 
 `Advancement$Builder`
 ---------------------
@@ -23,7 +57,8 @@ Method         | Description
 Once an `Advancement$Builder` is ready to be built, the `#save` method should be called which takes in the writer, the registry name of the advancement, and the file helper used to check whether the supplied parent exists.
 
 ```java
-// In AdvancementProvider#registerAdvancements(writer, fileHelper)
+// In some AdvancementSubProvider#generate(registries, writer)
+// Assume some field ExistingFileHelper fileHelper
 Advancement example = Advancement.Builder.advancement()
   .addCriterion("example_criterion", triggerInstance) // How the advancement is unlocked
   .save(writer, name, fileHelper); // Add data to builder

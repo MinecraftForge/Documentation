@@ -30,9 +30,9 @@ Though they are functionally identical, Compound ingredients replaces the way on
 ]
 ```
 
-#### NBTIngredient
+#### StrictNBTIngredient
 
-`NBTIngredient`s compare the item, damage, and the share tags (as defined by `IForgeItem#getShareTag`) on an `ItemStack` for exact equivalency. This can be used by specifying the `type` as `forge:nbt`.
+`StrictNBTIngredient`s compare the item, damage, and the share tags (as defined by `IForgeItem#getShareTag`) on an `ItemStack` for exact equivalency. This can be used by specifying the `type` as `forge:nbt`.
 
 ```js
 // For some input

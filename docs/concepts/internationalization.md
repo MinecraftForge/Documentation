@@ -63,5 +63,5 @@ A `MutableComponent` can be created using `Component#translatable` by passing in
 
 - `createComponentTranslation(CommandSource, String, Object...)` creates a localized and formatted `MutableComponent` depending on a receiver. The localization and formatting is done eagerly if the receiver is a vanilla client. If not, the localization and formatting is done lazily with a `Component` containing `TranslatableContents`. This is only useful if the server should allow vanilla clients to connect.
 
-[langs]: https://minecraft.gamepedia.com/Language#Available_languages
+[langs]: https://minecraft.fandom.com/wiki/Language#Languages
 [converter]: https://tterrag.com/lang2json/

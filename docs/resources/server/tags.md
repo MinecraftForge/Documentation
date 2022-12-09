@@ -71,7 +71,7 @@ public static final TagKey<Item> myItemTag = ItemTags.create(new ResourceLocatio
 
 public static final TagKey<Potion> myPotionTag = ForgeRegistries.POTIONS.tags().createTagKey(new ResourceLocation("mymod", "mypotiongroup"));
 
-public static final TagKey<VillagerType> myVillagerTypeTag = TagKey.create(Registry.VILLAGER_TYPE, new ResourceLocation("mymod", "myvillagertypegroup"));
+public static final TagKey<VillagerType> myVillagerTypeTag = TagKey.create(Registries.VILLAGER_TYPE, new ResourceLocation("mymod", "myvillagertypegroup"));
 
 // In some method:
 
@@ -82,7 +82,7 @@ Potion potion = /*...*/;
 boolean isInPotionGroup  = ForgeRegistries.POTIONS.tags().getTag(myPotionTag).contains(potion);
 
 ResourceKey<VillagerType> villagerTypeKey = /*...*/;
-boolean isInVillagerTypeGroup = Registry.VILLAGER_TYPE.getHolder(villagerTypeKey).map(holder -> holder.is(myVillagerTypeTag)).orElse(false);
+boolean isInVillagerTypeGroup = BuiltInRegistries.VILLAGER_TYPE.getHolder(villagerTypeKey).map(holder -> holder.is(myVillagerTypeTag)).orElse(false);
 ```
 
 Conventions
@@ -113,8 +113,8 @@ Using Tags in Recipes and Advancements
 Tags are directly supported by Vanilla. See the respective Vanilla wiki pages for [recipes] and [advancements] for usage details.
 
 [datapack]: ./index.md
-[tags]: https://minecraft.gamepedia.com/Tag#JSON_format
-[taglist]: https://minecraft.gamepedia.com/Tag#List_of_tags
+[tags]: https://minecraft.fandom.com/wiki/Tag#JSON_format
+[taglist]: https://minecraft.fandom.com/wiki/Tag#List_of_tags
 [forgetags]: https://github.com/MinecraftForge/MinecraftForge/tree/1.19.x/src/generated/resources/data/forge/tags
-[recipes]: https://minecraft.gamepedia.com/Recipe#JSON_format
-[advancements]: https://minecraft.gamepedia.com/Advancements
+[recipes]: https://minecraft.fandom.com/wiki/Recipe#JSON_format
+[advancements]: https://minecraft.fandom.com/wiki/Advancement

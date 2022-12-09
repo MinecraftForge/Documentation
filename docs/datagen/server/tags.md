@@ -3,6 +3,24 @@ Tag Generation
 
 [Tags] can be generated for a mod by subclassing `TagsProvider` and implementing `#addTags`. After implementation, the provider must be [added][datagen] to the `DataGenerator`.
 
+```java
+// On the MOD event bus
+@SubscribeEvent
+public void gatherData(GatherDataEvent event) {
+    event.getGenerator().addProvider(
+        // Tell generator to run only when server data are generating
+        event.includeServer(),
+        // Extends net.minecraftforge.common.data.BlockTagsProvider
+        output -> new MyBlockTagsProvider(
+          output,
+          event.getLookupProvider(),
+          MOD_ID,
+          event.getExistingFileHelper()
+        )
+    );
+}
+```
+
 `TagsProvider`
 --------------
 
@@ -15,12 +33,12 @@ When `#tag` is called, a `TagAppender` is created which acts as a chainable cons
 
 Method           | Description
 :---:            | :---
-`add`            | Adds an object to a tag. 
+`add`            | Adds an object to a tag through its resource key. 
 `addOptional`    | Adds an object to a tag through its name. If the object is not present, then the object will be skipped when loading.
-`addTag`         | Adds a tag to a tag. All elements within the inner tag are now a part of the outer tag.
+`addTag`         | Adds a tag to a tag through its tag key. All elements within the inner tag are now a part of the outer tag.
 `addOptionalTag` | Adds a tag to a tag through its name. If the tag is not present, then the tag will be skipped when loading.
 `replace`        | When `true`, all previously loaded entries added to this tag from other datapacks will be discarded. If a datapack is loaded after this one, then it will still append the entries to the tag.
-`remove`         | Removes an object or tag from a tag.
+`remove`         | Removes an object or tag from a tag through its name or key.
 
 ```java
 // In some TagProvider#addTags
@@ -42,7 +60,7 @@ Minecraft contains a few tag providers for certain registries that can be subcla
 
 Registry Object Type         | Tag Provider
 :---:                        | :---
-`Block`                      | `BlockTagsProvider`
+`Block`                      | `BlockTagsProvider`\*
 `Item`                       | `ItemTagsProvider`
 `EntityType`                 | `EntityTypeTagsProvider`
 `Fluid`                      | `FluidTagsProvider`
@@ -57,6 +75,8 @@ Registry Object Type         | Tag Provider
 `PaintingVariant`            | `PaintingVariantTagsProvider`
 `Instrument`                 | `InstrumentTagsProvider`
 
+\* `BlockTagsProvider` is a Forge added `TagsProvider`.
+
 #### `ItemTagsProvider#copy`
 
 Blocks have item representations to obtain them in the inventory. As such, many of the block tags can also be an item tag. To easily generate item tags to have the same entries as block tags, the `#copy` method can be used which takes in the block tag to copy from and the item tag to copy to.
@@ -69,21 +89,29 @@ this.copy(EXAMPLE_BLOCK_TAG, EXAMPLE_ITEM_TAG);
 Custom Tag Providers
 --------------------
 
-A custom tag provider can be created via a `TagsProvider` subclass which takes in the `Registry` to generate tags for.
+A custom tag provider can be created via a `TagsProvider` subclass which takes in the registry key to generate tags for.
 
 ```java
-public RecipeTypeTagsProvider(DataGenerator generator, ExistingFileHelper fileHelper) {
-  super(generator, Registry.RECIPE_TYPE, MOD_ID, fileHelper);
+public RecipeTypeTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries, ExistingFileHelper fileHelper) {
+  super(output, Registries.RECIPE_TYPE, registries, MOD_ID, fileHelper);
 }
 ```
 
-### Forge Registry Tag Providers
+### Intrinsic Holder Tags Providers
 
-If a registry is wrapped by Forge or [created by a mod][custom], a provider can be created via a `ForgeRegistryTagsProvider` subclass instead:
+One special type of `TagProvider`s are `IntrinsicHolderTagsProvider`s. When creating a tag using this provider via `#tag`, the object itself can be used to add itself to the tag via `#add`. To do so, a function is provided within the constructor to turn an object into its `ResourceKey`.
 
 ```java
-public AttributeTagsProvider(DataGenerator generator, ExistingFileHelper fileHelper) {
-  super(generator, ForgeRegistries.ATTRIBUTES, MOD_ID, fileHelper);
+// Subtype of `IntrinsicHolderTagsProvider`
+public AttributeTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries, ExistingFileHelper fileHelper) {
+  super(
+    output,
+    ForgeRegistries.Keys.ATTRIBUTES,
+    registries,
+    attribute -> ForgeRegistries.ATTRIBUTES.getResourceKey(attribute).get(),
+    MOD_ID,
+    fileHelper
+  );
 }
 ```
 
