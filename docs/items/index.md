@@ -26,39 +26,22 @@ Setting the properties of an item as above only works for simple items. If you w
 
 ## `CreativeModeTabEvent`
 
-An item can be added to a `CreativeModeTab` via `CreativeModeTabEvent$BuildContents` on the [mod event bus][modbus]. An item(s) can be added without any additional configurations via `#registerSimple`.
+An item can be added to a `CreativeModeTab` via `CreativeModeTabEvent$BuildContents` on the [mod event bus][modbus]. An item(s) can be added without any additional configurations via `#accept`.
 
 ```java
 // Registered on the MOD event bus
 // Assume we have RegistryObject<Item> and RegistryObject<Block> called ITEM and BLOCK
 @SubscribeEvent
 public void buildContents(CreativeModeTabEvent.BuildContents event) {
-  event.registerSimple(CreativeModeTabs.INGREDIENTS, // Add to ingredients tab
-    ITEM.get(),
-    BLOCK.get() // Takes in an ItemLike, assumes block has registered item
-  );
+  // Add to ingredients tab
+  if (event.getTab() == CreativeModeTabs.INGREDIENTS) {
+    event.accept(ITEM);
+    event.accept(BLOCK); // Takes in an ItemLike, assumes block has registered item
+  }
 }
 ```
 
-If greater granularity is needed in population or is enabled or disabled through a `FeatureFlag`, a `DisplayItemsAdapter` can be registered instead. A `DisplayItemsAdapter` takes in a `FeatureFlagSet` to see which flags are enabled, a `CreativeModeTabPopulator` used to add the stacks to the tab, and whether the player has permissions to see operator creative tabs.
-
-```java
-// Registered on the MOD event bus
-// Assume we have RegistryObject<Item> and RegistryObject<Block> called ITEM and BLOCK
-@SubscribeEvent
-public void buildContents(CreativeModeTabEvent.BuildContents event) {
-  event.registerSimple(CreativeModeTabs.INGREDIENTS, // Add to ingredients tab
-    (enabledFlags, populator, hasPermissions) -> {
-      // Places the item between charcoal and raw iron
-      populator.accept(ITEM.get(), new ItemStack(Items.CHARCOAL), new ItemStack(Items.RAW_IRON));
-
-      // Adds the block if the player has permissions
-      if (hasPermissions)
-        populator.accept(BLOCK.get());
-    }
-  );
-}
-```
+You can also enable or disable items being added through a `FeatureFlag` in the `FeatureFlagSet` or a boolean determining whether the player has permissions to see operator creative tabs.
 
 ### Custom Creative Tabs
 
