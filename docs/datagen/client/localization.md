@@ -7,13 +7,11 @@ Language Generation
 // On the MOD event bus
 @SubscribeEvent
 public void gatherData(GatherDataEvent event) {
-    DataGenerator gen = event.getGenerator();
-
-    gen.addProvider(
+    event.getGenerator().addProvider(
         // Tell generator to run only when client assets are generating
         event.includeClient(),
         // Localizations for American English
-        new MyLanguageProvider(gen, MOD_ID, "en_us")
+        output -> new MyLanguageProvider(output, MOD_ID, "en_us")
     );
 }
 ```

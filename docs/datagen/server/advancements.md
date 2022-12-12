@@ -3,6 +3,9 @@ Advancement Generation
 
 [Advancements] can be generated for a mod by constructing a new `AdvancementProvider` and providing `AdvancementSubProvider`s. Advancements can either be created and supplied manually or, for convenience, created using `Advancement$Builder`. The provider must be [added][datagen] to the `DataGenerator`.
 
+!!! note
+    Forge provides an extension for the `AdvancementProvider` called `ForgeAdvancementProvider` which integrates better for generating advancements. So, this documentation will use `ForgeAdvancementProvider` along with the sub provider interface `ForgeAdvancementProvider$AdvancementGenerator`.
+
 ```java
 // On the MOD event bus
 @SubscribeEvent
@@ -10,31 +13,27 @@ public void gatherData(GatherDataEvent event) {
     event.getGenerator().addProvider(
         // Tell generator to run only when server data are generating
         event.includeServer(),
-        output -> new MyAdvancementProvider(
+        output -> new ForgeAdvancementProvider(
           output,
           event.getLookupProvider(),
+          event.getExistingFileHelper(),
           // Sub providers which generate the advancements
-          List.of(subProvider1, subProvider2, /*...*/),
-          event.getExistingFileHelper()
+          List.of(subProvider1, subProvider2, /*...*/)
         )
     );
 }
 ```
 
-`AdvancementSubProvider`
-------------------------
+`ForgeAdvancementProvider$AdvancementGenerator`
+-----------------------------------------------
 
-An `AdvancementSubProvider` is responsible for generating advancements, containing a method which takes in a registry lookup and the writer (`Consumer<Advancement>`). A subtype of `AdvancementSubProvider` should take in an `ExistingFileHelper` to use while building an `Advancement`.
+An `ForgeAdvancementProvider$AdvancementGenerator` is responsible for generating advancements, containing a method which takes in a registry lookup, the writer (`Consumer<Advancement>`), and the existing file helper..
 
 ```java
-// In some AdvancementSubProvider
-
-public MyAdvancementSubProvider(ExistingFileHelper fileHelper) {
-  // ...
-}
+// In some ForgeAdvancementProvider$AdvancementGenerator or as a lambda reference
 
 @Override
-public void generate(HolderLookup.Provider registries, Consumer<Advancement> writer) {
+public void generate(HolderLookup.Provider registries, Consumer<Advancement> writer, ExistingFileHelper existingFileHelper) {
   // Build advancements here
 }
 ```
@@ -57,11 +56,10 @@ Method         | Description
 Once an `Advancement$Builder` is ready to be built, the `#save` method should be called which takes in the writer, the registry name of the advancement, and the file helper used to check whether the supplied parent exists.
 
 ```java
-// In some AdvancementSubProvider#generate(registries, writer)
-// Assume some field ExistingFileHelper fileHelper
+// In some ForgeAdvancementProvider$AdvancementGenerator#generate(registries, writer, existingFileHelper)
 Advancement example = Advancement.Builder.advancement()
   .addCriterion("example_criterion", triggerInstance) // How the advancement is unlocked
-  .save(writer, name, fileHelper); // Add data to builder
+  .save(writer, name, existingFileHelper); // Add data to builder
 ```
 
 [advancements]: ../../resources/server/advancements.md

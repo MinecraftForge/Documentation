@@ -7,12 +7,10 @@ Global Loot Modifier Generation
 // On the MOD event bus
 @SubscribeEvent
 public void gatherData(GatherDataEvent event) {
-    DataGenerator gen = event.getGenerator();
-
-    gen.addProvider(
+    event.getGenerator().addProvider(
         // Tell generator to run only when server data are generating
         event.includeServer(),
-        new MyGlobalLootModifierProvider(gen, MOD_ID)
+        output -> new MyGlobalLootModifierProvider(output, MOD_ID)
     );
 }
 

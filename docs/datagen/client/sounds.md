@@ -7,12 +7,10 @@ The `sounds.json` file can be generated for a mod by subclassing `SoundDefinitio
 // On the MOD event bus
 @SubscribeEvent
 public void gatherData(GatherDataEvent event) {
-    DataGenerator gen = event.getGenerator();
-
-    gen.addProvider(
+    event.getGenerator().addProvider(
         // Tell generator to run only when client assets are generating
         event.includeClient(),
-        new MySoundDefinitionsProvider(gen, MOD_ID, event.getExistingFileHelper())
+        output -> new MySoundDefinitionsProvider(output, MOD_ID, event.getExistingFileHelper())
     );
 }
 ```

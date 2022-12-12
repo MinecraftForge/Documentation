@@ -13,11 +13,11 @@ public void gatherData(GatherDataEvent event) {
     gen.addProvider(
         // Tell generator to run only when client assets are generating
         event.includeClient(),
-        new MyItemModelProvider(gen, MOD_ID, efh)
+        output -> new MyItemModelProvider(output, MOD_ID, efh)
     );
     gen.addProvider(
         event.includeClient(),
-        new MyBlockStateProvider(gen, MOD_ID, efh)
+        output -> new MyBlockStateProvider(output, MOD_ID, efh)
     );
 }
 ```
@@ -125,14 +125,15 @@ A `BlockStateProvider` is responsible for generating [block state JSONs][blockst
 
 The provider contains basic methods for generating block state JSONs and block models. Item models must be generated separately as a block state JSON may define multiple models to use in different contexts. There are a number of common methods, however, that that the modder should be aware of when dealing with more complex tasks:
 
-Method            | Description
-:---:             | :---
-`models`          | Gets the [`BlockModelProvider`][blockmodels] used to generate the item block models.
-`itemModels`      | Gets the [`ItemModelProvider`][itemmodels] used to generate the item block models.
-`modLoc`          | Creates a `ResourceLocation` for the path in the given mod id's namespace.
-`mcLoc`           | Creates a `ResourceLocation` for the path in the `minecraft` namespace.
-`blockTexture`    | References a texture within `textures/block` which has the same name as the block.
-`simpleBlockItem` | Creates an item model for a block given the associated model file.
+Method                | Description
+:---:                 | :---
+`models`              | Gets the [`BlockModelProvider`][blockmodels] used to generate the item block models.
+`itemModels`          | Gets the [`ItemModelProvider`][itemmodels] used to generate the item block models.
+`modLoc`              | Creates a `ResourceLocation` for the path in the given mod id's namespace.
+`mcLoc`               | Creates a `ResourceLocation` for the path in the `minecraft` namespace.
+`blockTexture`        | References a texture within `textures/block` which has the same name as the block.
+`simpleBlockItem`     | Creates an item model for a block given the associated model file.
+`simpleBlockWithItem` | Creates a cube all block model and an item model using the block model as its parent.
 
 A block state JSON is made up of variants or conditions. Each variant or condition references a `ConfiguredModelList`: a list of `ConfiguredModel`s. Each configured model contains the model file (via `ConfiguredModel$Builder#modelFile`), the X and Y rotation in 90 degree intervals (via `#rotationX` and `rotationY` respectively), whether the texture can rotate when the model is rotated by the block state JSON (via `#uvLock`), and the weight of the model appearing compared to other models in the list (via `#weight`).
 
@@ -364,9 +365,9 @@ The `ModelProvider` subclass requires no special logic. The constructor should h
 ```java
 public class ExampleModelProvider extends ModelProvider<ExampleModelBuilder> {
 
-  public ExampleModelProvider(DataGenerator generator, String modid, ExistingFileHelper existingFileHelper) {
+  public ExampleModelProvider(PackOutput output, String modid, ExistingFileHelper existingFileHelper) {
     // Models will be generated to 'assets/<modid>/models/example' if no modid is specified in '#getBuilder'
-    super(generator, modid, "example", ExampleModelBuilder::new, existingFileHelper);
+    super(output, modid, "example", ExampleModelBuilder::new, existingFileHelper);
   }
 }
 ```
@@ -379,8 +380,8 @@ Custom model consumers like [`BlockStateProvider`][blockstateprovider] can be cr
 ```java
 public class ExampleModelConsumerProvider implements IDataProvider {
 
-  public ExampleModelConsumerProvider(DataGenerator generator, String modid, ExistingFileHelper existingFileHelper) {
-    this.example = new ExampleModelProvider(generator, modid, existingFileHelper);
+  public ExampleModelConsumerProvider(PackOutput output, String modid, ExistingFileHelper existingFileHelper) {
+    this.example = new ExampleModelProvider(output, modid, existingFileHelper);
   }
 }
 ```
