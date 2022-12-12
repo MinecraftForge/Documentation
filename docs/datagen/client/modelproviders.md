@@ -133,7 +133,7 @@ Method                | Description
 `mcLoc`               | Creates a `ResourceLocation` for the path in the `minecraft` namespace.
 `blockTexture`        | References a texture within `textures/block` which has the same name as the block.
 `simpleBlockItem`     | Creates an item model for a block given the associated model file.
-`simpleBlockWithItem` | Creates a cube all block model and an item model using the block model as its parent.
+`simpleBlockWithItem` | Creates a single block state for a block model and an item model using the block model as its parent.
 
 A block state JSON is made up of variants or conditions. Each variant or condition references a `ConfiguredModelList`: a list of `ConfiguredModel`s. Each configured model contains the model file (via `ConfiguredModel$Builder#modelFile`), the X and Y rotation in 90 degree intervals (via `#rotationX` and `rotationY` respectively), whether the texture can rotate when the model is rotated by the block state JSON (via `#uvLock`), and the weight of the model appearing compared to other models in the list (via `#weight`).
 
