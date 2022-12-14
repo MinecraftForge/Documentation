@@ -178,7 +178,7 @@ When a screen is closed, two methods handle the teardown: `#onClose` and `#remov
 
 `#onClose` is called whenever the user makes an input to close the current screen. This method is typically used as a callback to destroy and save any internal processes in the screen itself. This includes sending packets to the server.
 
-`#removed` is called just before the screen changes and is released to the garbage collector. This handles anything that hasn't been reset back to its initial state before the screen was opened. This is typically used to disable the keyboard handler sending repeat key presses to the screen when held down.
+`#removed` is called just before the screen changes and is released to the garbage collector. This handles anything that hasn't been reset back to its initial state before the screen was opened.
 
 ```java
 // In some Screen subclass
@@ -194,7 +194,6 @@ public void onClose() {
 @Override
 public void removed() {
     // Reset initial states here
-    this.minecraft.keyboardHandler.setSendRepeatsToGui(false);
 
     // Call last in case it interferes with the override
     super.removed()
