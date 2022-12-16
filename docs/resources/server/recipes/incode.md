@@ -50,7 +50,7 @@ Looms are responsible for applying a dye and pattern (either from the loom or fr
     `BannerPattern`s which are in the `minecraft:no_item_required` tag appear as an option in the loom. Patterns not in this tag must have an accompanying `BannerPatternItem` to be used along with an associated tag.
 
 ```java
-private static final DeferredRegister<BannerPattern> REGISTER = DeferredRegister.create(Registry.BANNER_PATTERN_REGISTRY, "examplemod");
+private static final DeferredRegister<BannerPattern> REGISTER = DeferredRegister.create(Registries.BANNER_PATTERN, "examplemod");
 
 // Takes in the pattern name to send over the network
 public static final BannerPattern EXAMPLE_PATTERN = REGISTER.register("example_pattern", () -> new BannerPattern("examplemod:ep"));

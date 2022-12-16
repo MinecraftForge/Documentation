@@ -55,11 +55,11 @@ The offset can be obtained by calling `#getBlitOffset` and set using `#setBlitOf
 !!! important
     When setting the blit offset, you must reset it after rendering your object. Otherwise, other objects within the screen may be rendered in an incorrect layer causing graphical issues.
 
-## Widget
+## Renderable
 
-`Widget`s are essentially objects that are rendered. These include screens, buttons, chat boxes, lists, etc. `Widget`s only have one method: `#render`. This takes in the `PoseStack` holding any prior transformations to properly render the widget, the x and y positions of the mouse scaled to the relative screen size, and the tick delta (how many ticks have passed since the last frame).
+`Renderable`s are essentially objects that are rendered. These include screens, buttons, chat boxes, lists, etc. `Renderable`s only have one method: `#render`. This takes in the `PoseStack` holding any prior transformations to properly render the renderable, the x and y positions of the mouse scaled to the relative screen size, and the tick delta (how many ticks have passed since the last frame).
 
-Some common widgets which may be used are `Button`, its subtype `ImageButton`, and `EditBox` which is used to input text on the screen.
+Some common renderables are screens and 'widgets': interactable elements which typically render on the screen such as `Button`, its subtype `ImageButton`, and `EditBox` which is used to input text on the screen.
 
 ## GuiEventListener
 
@@ -146,7 +146,7 @@ Since screens are subtypes of `GuiEventListener`s, the input handlers can also b
 
 ### Rendering the Screen
 
-Finally, screens are rendered through the `#render` method provided by being a `Widget` subtype. As mentioned, the `#render` method draws the everything the screen has to render every frame, such as the background, widgets, tooltips, etc. By default, the `#render` method only renders the widgets to the screen.
+Finally, screens are rendered through the `#render` method provided by being a `Renderable` subtype. As mentioned, the `#render` method draws the everything the screen has to render every frame, such as the background, widgets, tooltips, etc. By default, the `#render` method only renders the widgets to the screen.
 
 The two most common things rendered within a screen that is typically not handled by a subtype is the background and the tooltips.
 
@@ -178,7 +178,7 @@ When a screen is closed, two methods handle the teardown: `#onClose` and `#remov
 
 `#onClose` is called whenever the user makes an input to close the current screen. This method is typically used as a callback to destroy and save any internal processes in the screen itself. This includes sending packets to the server.
 
-`#removed` is called just before the screen changes and is released to the garbage collector. This handles anything that hasn't been reset back to its initial state before the screen was opened. This is typically used to disable the keyboard handler sending repeat key presses to the screen when held down.
+`#removed` is called just before the screen changes and is released to the garbage collector. This handles anything that hasn't been reset back to its initial state before the screen was opened.
 
 ```java
 // In some Screen subclass
@@ -194,7 +194,6 @@ public void onClose() {
 @Override
 public void removed() {
     // Reset initial states here
-    this.minecraft.keyboardHandler.setSendRepeatsToGui(false);
 
     // Call last in case it interferes with the override
     super.removed()

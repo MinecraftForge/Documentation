@@ -3,6 +3,25 @@ Model Generation
 
 [Models] can be generated for models or block states by default. Each provides a method of generating the necessary JSONs (`ModelBuilder#toJson` for models and `IGeneratedBlockState#toJson` for block states). After implementation, the [associated providers][provider] must be [added][datagen] to the `DataGenerator`.
 
+```java
+// On the MOD event bus
+@SubscribeEvent
+public void gatherData(GatherDataEvent event) {
+    DataGenerator gen = event.getGenerator();
+    ExistingFileHelper efh = event.getExistingFileHelper();
+
+    gen.addProvider(
+        // Tell generator to run only when client assets are generating
+        event.includeClient(),
+        output -> new MyItemModelProvider(output, MOD_ID, efh)
+    );
+    gen.addProvider(
+        event.includeClient(),
+        output -> new MyBlockStateProvider(output, MOD_ID, efh)
+    );
+}
+```
+
 Model Files
 -----------
 
@@ -47,7 +66,7 @@ Finally, the model can set whether to use ambient occlusion in a level (`ModelBu
 
 ### `BlockModelBuilder`
 
-A `BlockModelBuilder` represents a block model to-be-generated. There is no additional functionality compared to a `ModelBuilder`.
+A `BlockModelBuilder` represents a block model to-be-generated. In addition to the `ModelBuilder`, a transform to the entire model (`BlockModelBuilder#rootTransform`) can be generated. The root can be translated (`RootTransformBuilder#transform`), rotated (`RootTransformBuilder#rotation`, `RootTransformBuilder#postRotation`), and scaled (`RootTransformBuilder#scale`) either individually or all in one transformation (`RootTransformBuilder#transform`) around some origin (`RootTransformBuilder#origin`).
 
 ### `ItemModelBuilder`
 
@@ -88,11 +107,12 @@ The `ItemModelProvider` is used for generating block models via `ItemModelBuilde
 
 ```java
 // In some ItemModelProvider#registerModels
-this.singleTexture("example_item", // For 'assets/<modid>/models/item/example_item.json'
-  "item/generated", // Set parent to 'minecraft:item/generated'
-  "layer0", // For the texture key 'layer0'
-  modLoc("item/example_texture") // Set the reference to 'assets/<modid>/textures/item/example_texture.png'
-);
+
+// Will generate 'assets/<modid>/models/item/example_item.json'
+// Parent will be 'minecraft:item/generated'
+// For the texture key 'layer0'
+//  It will be at 'assets/<modid>/textures/item/example_item.png'
+this.basicItem(EXAMPLE_ITEM.get());
 ```
 
 !!! note
@@ -105,14 +125,15 @@ A `BlockStateProvider` is responsible for generating [block state JSONs][blockst
 
 The provider contains basic methods for generating block state JSONs and block models. Item models must be generated separately as a block state JSON may define multiple models to use in different contexts. There are a number of common methods, however, that that the modder should be aware of when dealing with more complex tasks:
 
-Method            | Description
-:---:             | :---
-`models`          | Gets the [`BlockModelProvider`][blockmodels] used to generate the item block models.
-`itemModels`      | Gets the [`ItemModelProvider`][itemmodels] used to generate the item block models.
-`modLoc`          | Creates a `ResourceLocation` for the path in the given mod id's namespace.
-`mcLoc`           | Creates a `ResourceLocation` for the path in the `minecraft` namespace.
-`blockTexture`    | References a texture within `textures/block` which has the same name as the block.
-`simpleBlockItem` | Creates an item model for a block given the associated model file.
+Method                | Description
+:---:                 | :---
+`models`              | Gets the [`BlockModelProvider`][blockmodels] used to generate the item block models.
+`itemModels`          | Gets the [`ItemModelProvider`][itemmodels] used to generate the item block models.
+`modLoc`              | Creates a `ResourceLocation` for the path in the given mod id's namespace.
+`mcLoc`               | Creates a `ResourceLocation` for the path in the `minecraft` namespace.
+`blockTexture`        | References a texture within `textures/block` which has the same name as the block.
+`simpleBlockItem`     | Creates an item model for a block given the associated model file.
+`simpleBlockWithItem` | Creates a single block state for a block model and an item model using the block model as its parent.
 
 A block state JSON is made up of variants or conditions. Each variant or condition references a `ConfiguredModelList`: a list of `ConfiguredModel`s. Each configured model contains the model file (via `ConfiguredModel$Builder#modelFile`), the X and Y rotation in 90 degree intervals (via `#rotationX` and `rotationY` respectively), whether the texture can rotate when the model is rotated by the block state JSON (via `#uvLock`), and the weight of the model appearing compared to other models in the list (via `#weight`).
 
@@ -344,9 +365,9 @@ The `ModelProvider` subclass requires no special logic. The constructor should h
 ```java
 public class ExampleModelProvider extends ModelProvider<ExampleModelBuilder> {
 
-  public ExampleModelProvider(DataGenerator generator, String modid, ExistingFileHelper existingFileHelper) {
+  public ExampleModelProvider(PackOutput output, String modid, ExistingFileHelper existingFileHelper) {
     // Models will be generated to 'assets/<modid>/models/example' if no modid is specified in '#getBuilder'
-    super(generator, modid, "example", ExampleModelBuilder::new, existingFileHelper);
+    super(output, modid, "example", ExampleModelBuilder::new, existingFileHelper);
   }
 }
 ```
@@ -359,8 +380,8 @@ Custom model consumers like [`BlockStateProvider`][blockstateprovider] can be cr
 ```java
 public class ExampleModelConsumerProvider implements IDataProvider {
 
-  public ExampleModelConsumerProvider(DataGenerator generator, String modid, ExistingFileHelper existingFileHelper) {
-    this.example = new ExampleModelProvider(generator, modid, existingFileHelper);
+  public ExampleModelConsumerProvider(PackOutput output, String modid, ExistingFileHelper existingFileHelper) {
+    this.example = new ExampleModelProvider(output, modid, existingFileHelper);
   }
 }
 ```
@@ -370,7 +391,7 @@ Once the data provider is running, the models within the `ModelProvider` subclas
 ```java
 // In ExampleModelConsumerProvider
 @Override
-public void run(CachedOutput cache) throws IOException {
+public CompletableFuture<?> run(CachedOutput cache) {
   // Populate the model provider
   this.example.generateAll(cache); // Generate the models
   // ...
@@ -385,7 +406,7 @@ public void run(CachedOutput cache) throws IOException {
 [color]: ../../resources/client/models/tinting.md#blockcoloritemcolor
 [overrides]: ../../resources/client/models/itemproperties.md
 [blockstateprovider]: #block-state-provider
-[blockstate]: https://minecraft.fandom.com/wiki/Model#Block_states
+[blockstate]: https://minecraft.fandom.com/wiki/Tutorials/Models#Block_states
 [blockmodels]: #blockmodelprovider
 [itemmodels]: #itemmodelprovider
 [properties]: ../../blocks/states.md#implementing-block-states

@@ -65,28 +65,13 @@ public MyMenu(int containerId, Inventory playerInventory) {
 }
 ```
 
-Each menu implementation must implement two methods: `#stillValid` and [`#quickMoveStack`][qms]. `#stillValid` determines whether the menu should remain open for a given player. This is typically directed to the Forge-deprecated `Container#stillValid`. As an alternative, a boolean function which takes in the player will work just as well. The client menu must always return `true` for this method. The vanilla implementation checks whether the player is within eight blocks of where the data storage object is located.
+Each menu implementation must implement two methods: `#stillValid` and [`#quickMoveStack`][qms].
 
-```java
-// Client menu constructor
-public MyMenuValid(int containerId, Inventory playerInventory) {
-  this(containerId, playerInventory, (player) -> true);
-}
+### `#stillValid` and `ContainerLevelAccess`
 
-// Server menu constructor
-public MyMenuValid(int containerId, Inventory playerInventory, Function<Player, Boolean> stillValid) {
-  // ...
-}
+`#stillValid` determines whether the menu should remain open for a given player. This is typically directed to the static `#stillValid` which takes in a `ContainerLevelAccess`, the player, and the `Block` this menu is attached to. The client menu must always return `true` for this method, which the static `#stillValid` does default to. This implementation checks whether the player is within eight blocks of where the data storage object is located.
 
-@Override
-public boolean stillValid(Player player) {
-  return this.stillValid.apply(player);
-}
-```
-
-### `ContainerLevelAccess`
-
-If a menu is opened by a block, sometimes the menu needs access to its location in a given level. This can be done by passing in a `ContainerLevelAccess` to the menu. The access supplies the current level and location of the block within an enclosed scope. When constructing the menu on the server, a new access can be created by calling `ContainerLevelAccess#create`. The client menu constructor can pass in `ContainerLevelAccess#NULL`, which will do nothing.
+A `ContainerLevelAccess` supplies the current level and location of the block within an enclosed scope. When constructing the menu on the server, a new access can be created by calling `ContainerLevelAccess#create`. The client menu constructor can pass in `ContainerLevelAccess#NULL`, which will do nothing.
 
 ```java
 // Client menu constructor
@@ -97,6 +82,12 @@ public MyMenuAccess(int containerId, Inventory playerInventory) {
 // Server menu constructor
 public MyMenuAccess(int containerId, Inventory playerInventory, ContainerLevelAccess access) {
   // ...
+}
+
+// Assume this menu is attached to RegistryObject<Block> MY_BLOCK
+@Override
+public boolean stillValid(Player player) {
+  return AbstractContainerMenu.stillValid(this.access, player, MY_BLOCK.get());
 }
 ```
 
@@ -309,7 +300,7 @@ public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos)
 @Override
 public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
   if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
-    NetworkHooks.openScreen(serverPlayer, this.getMenuProvider(state, level, pos));
+    NetworkHooks.openScreen(serverPlayer, state.getMenuProvider(level, pos));
   }
   return InteractionResult.sidedSuccess(level.isClientSide);
 }

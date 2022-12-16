@@ -1,61 +1,40 @@
 Loot Table Generation
 =====================
 
-[Loot tables][loottable] can be generated for a mod by subclassing `LootTableProvider` with a few modifications. After implementation, the provider must be [added][datagen] to the `DataGenerator`.
-
-The `LootTableProvider` Subclass
---------------------------------
-
-`LootTableProvider` is simplified into two methods: `#getTables`, which collect the table builders, and `#validate`, which checks whether the generated loot tables are valid. Both of these methods need to be overridden to use `LootTableProvider`.
-
-`#validate` can be simplified to call `LootTables#validate` for every single table. It initially fails since it expects the tables defined within `BuiltInLootTables` to be generated as well.
+[Loot tables][loottable] can be generated for a mod by constructing a new `LootTableProvider` and providing `LootTableProvider$SubProviderEntry`s. The provider must be [added][datagen] to the `DataGenerator`.
 
 ```java
-// In some LootTableProvider subclass
-@Override
-protected void validate(Map<ResourceLocation, LootTable> tables, ValidationContext ctx) {
-  tables.forEach((name, table) -> LootTables.validate(ctx, name, table));
+// On the MOD event bus
+@SubscribeEvent
+public void gatherData(GatherDataEvent event) {
+    event.getGenerator().addProvider(
+        // Tell generator to run only when server data are generating
+        event.includeServer(),
+        output -> new MyLootTableProvider(
+          output,
+          // Specify registry names of tables that are required to generate, or can leave empty
+          Collections.emptySet(),
+          // Sub providers which generate the loot
+          List.of(subProvider1, subProvider2, /*...*/)
+        )
+    );
 }
 ```
 
-`#getTables` defines a list of factory methods for table builders for a given `LootContextParamSet`. Each table builder consumes a writer used to generate the given table for a specific name. To simplify understanding:
+`LootTableSubProvider`
+----------------------
+
+Each `LootTableProvider$SubProviderEntry` takes in a supplied `LootTableSubProvider`, which generates the loot table, for a given `LootContextParamSet`. The `LootTableSubProvider` contains a method which takes in the writer (`Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>`) to generate a table.
 
 ```java
-// In some LootTableProvider subclass
-@Override
-protected
-  List< // Get a list
-    Pair< // of pairs
-      Supplier< // for a factory
-        Consumer< // which takes in
-          BiConsumer< // a writer of
-            ResourceLocation, // the name of the table
-            LootTable.Builder // and the table to generate
-          >
-        >
-      >,
-      LootContextParamSet // with a given parameter set
-    >
-  >
-getTables() {
-  // Return table builders here
-}
-```
-
-Table Builders
---------------
-
-Each table builder has a method which takes in the writer to generate a table. This is typically done implementing a `Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>`.
-
-```java
-public class ExampleLoot implements Consumer<BiConsumer<ResourceLocation, LootTable.Builder>> {
+public class ExampleSubProvider implements LootTableSubProvider {
 
   // Used to create a factory method for the wrapping Supplier
-  public ExampleLoot() {}
+  public ExampleSubProvider() {}
 
   // The method used to generate the loot tables
   @Override
-  public void accept(BiConsumer<ResourceLocation, LootTable.Builder> writer) {
+  public void generate(BiConsumer<ResourceLocation, LootTable.Builder> writer) {
     // Generate loot tables here by calling writer#accept
   }
 }
@@ -64,27 +43,43 @@ public class ExampleLoot implements Consumer<BiConsumer<ResourceLocation, LootTa
 The table can then be added to `LootTableProvider#getTables` for any available `LootContextParamSet`:
 
 ```java
-// In some LootTableProvider subclass
-@Override
-protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootContextParamSet>> getTables() {
-  return ImmutableList.of(
-    Pair.of(ExampleLoot::new, LootContextParamSets.EMPTY) // Loot table builder for the 'empty' parameter set
-    //...
-  );
+// In the list passed into the LootTableProvider constructor
+new LootTableProvider.SubProviderEntry(
+  ExampleSubProvider::new,
+  // Loot table generator for the 'empty' param set
+  LootContextParamSets.EMPTY
+)
+```
+
+### `BlockLootSubProvider` and `EntityLootSubProvider` Subclasses
+
+For `LootContextParamSets#BLOCK` and `#ENTITY`, there are special types (`BlockLootSubProvider` and `EntityLootSubProvider` respectively) which provide additional helper methods for creating and validating that there are loot tables.
+
+The `BlockLootSubProvider`'s constructor takes in a list of items, which are explosion resistant to determine whether the loot table can be generated if a block is exploded, and a `FeatureFlagSet`, which determines whether the block is enabled so that a loot table is generated for it.
+
+```java
+// In some BlockLootSubProvider subclass
+public MyBlockLootSubProvider() {
+  super(Collections.emptySet(), FeatureFlags.REGISTRY.allFlags());
 }
 ```
 
-### `BlockLoot` and `EntityLoot` Subclasses
+The `EntityLootSubProvider`'s constructor takes in a `FeatureFlagSet`, which determines whether the entity type is enabled so that a loot table is generated for it.
 
-For `LootContextParamSets#BLOCK` and `#ENTITY`, there are special types (`BlockLoot` and `EntityLoot` respectively) which provide additional helper methods for creating and validating that there are loot tables.
+```java
+// In some EntityLootSubProvider subclass
+public MyEntityLootSubProvider() {
+  super(FeatureFlags.REGISTRY.allFlags());
+}
+```
 
-To use them, all registered objects must be supplied to either `BlockLoot#getKnownBlocks` and `EntityLoot#getKnownEntities` respectively. These methods are to make sure all objects within the iterable has a loot table.
+To use them, all registered objects must be supplied to either `BlockLootSubProvider#getKnownBlocks` and `EntityLootSubProvider#getKnownEntityTypes` respectively. These methods are to make sure all objects within the iterable has a loot table.
 
 !!! tip
     If `DeferredRegister` is being used to register a mod's objects, then the `#getKnown*` methods can be supplied the entries via `DeferredRegister#getEntries`:
 
     ```java
-    // In some BlockLoot subclass for some DeferredRegister BLOCK_REGISTRAR
+    // In some BlockLootSubProvider subclass for some DeferredRegister BLOCK_REGISTRAR
     @Override
     protected Iterable<Block> getKnownBlocks() {
       return BLOCK_REGISTRAR.getEntries() // Get all registered entries
@@ -94,10 +89,20 @@ To use them, all registered objects must be supplied to either `BlockLoot#getKno
     }
     ```
 
+The loot tables themselves can be added by implementing the `#generate` method.
+
+```java
+// In some BlockLootSubProvider subclass
+@Override
+public void generate() {
+  // Add loot tables here
+}
+```
+
 Loot Table Builders
 -------------------
 
-To generate loot tables, they are accepted by the `LootTableProvider` as a `LootTable$Builder`. Afterwards, the specified `LootContextParamSet` is set and then built via `#build`. Before being built, the builder can specify entries, conditions, and modifiers which affect how the loot table functions.
+To generate loot tables, they are accepted by the `LootTableSubProvider` as a `LootTable$Builder`. Afterwards, the specified `LootContextParamSet` is set in the `LootTableProvider$SubProviderEntry` and then built via `#build`. Before being built, the builder can specify entries, conditions, and modifiers which affect how the loot table functions.
 
 !!! note
     The functionality of loot tables is so expansive that it will not be covered by this documentation in its entirety. Instead, a brief description of each component will be mentioned. The specific subtypes of each component can be found using an IDE. Their implementations will be left as an exercise to the reader.

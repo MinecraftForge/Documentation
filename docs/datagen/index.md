@@ -43,20 +43,20 @@ Data providers are the classes that actually define what data will be generated 
 The `GatherDataEvent` is fired on the mod event bus when the data generator is being created, and the `DataGenerator` can be obtained from the event. Create and register data providers using `DataGenerator#addProvider`.
 
 ### Client Assets
-* [`net.minecraftforge.common.data.LanguageProvider`][langgen] - for [language strings][lang]; override `#addTranslations`
-* [`net.minecraftforge.common.data.SoundDefinitionsProvider`][soundgen] - for [`sounds.json`][sounds]; override `#registerSounds`
-* [`net.minecraftforge.client.model.generators.ModelProvider<?>`][modelgen] - for [models]; override `#registerModels`
+* [`net.minecraftforge.common.data.LanguageProvider`][langgen] - for [language strings][lang]; implement `#addTranslations`
+* [`net.minecraftforge.common.data.SoundDefinitionsProvider`][soundgen] - for [`sounds.json`][sounds]; implement `#registerSounds`
+* [`net.minecraftforge.client.model.generators.ModelProvider<?>`][modelgen] - for [models]; implement `#registerModels`
     * [`ItemModelProvider`][itemmodelgen] - for item models
     * [`BlockModelProvider`][blockmodelgen] - for block models
-* [`net.minecraftforge.client.model.generators.BlockStateProvider`][blockstategen] - for blockstate JSONs and their block and item models; override `#registerStatesAndModels`
+* [`net.minecraftforge.client.model.generators.BlockStateProvider`][blockstategen] - for blockstate JSONs and their block and item models; implement `#registerStatesAndModels`
 
 ### Server Data
-* [`net.minecraftforge.common.data.GlobalLootModifierProvider`][glmgen] - for [global loot modifiers][glm]; override `#start`
+* [`net.minecraftforge.common.data.GlobalLootModifierProvider`][glmgen] - for [global loot modifiers][glm]; implement `#start`
 * _These classes are under the `net.minecraft.data` package_
-* [`LootTableProvider`][loottablegen] - for [loot tables][loottable]; override `#getTables`
-* [`RecipeProvider`][recipegen] - for [recipes] and their unlocking advancements; override `#buildCraftingRecipes`
-* [`TagsProvider`][taggen] - for [tags]; override `#addTags`
-* [`AdvancementProvider`][advgen] - for [advancements]; override `#registerAdvancements`
+* [`loot.LootTableProvider`][loottablegen] - for [loot tables][loottable]; pass in `LootTableProvider$SubProviderEntry`s to the constructor
+* [`recipes.RecipeProvider`][recipegen] - for [recipes] and their unlocking advancements; implement `#buildRecipes`
+* [`tags.TagsProvider`][taggen] - for [tags]; implement `#addTags`
+* [`advancements.AdvancementProvider`][advgen] - for [advancements]; pass in `AdvancementSubProvider`s to the constructor
 
 [langgen]: ./client/localization.md
 [lang]: https://minecraft.fandom.com/wiki/Language

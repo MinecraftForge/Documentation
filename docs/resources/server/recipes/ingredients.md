@@ -30,9 +30,9 @@ Though they are functionally identical, Compound ingredients replaces the way on
 ]
 ```
 
-#### NBTIngredient
+#### StrictNBTIngredient
 
-`NBTIngredient`s compare the item, damage, and the share tags (as defined by `IForgeItem#getShareTag`) on an `ItemStack` for exact equivalency. This can be used by specifying the `type` as `forge:nbt`.
+`StrictNBTIngredient`s compare the item, damage, and the share tags (as defined by `IForgeItem#getShareTag`) on an `ItemStack` for exact equivalency. This can be used by specifying the `type` as `forge:nbt`.
 
 ```js
 // For some input
@@ -47,7 +47,7 @@ Though they are functionally identical, Compound ingredients replaces the way on
 
 ### PartialNBTIngredient
 
-`PartialNBTIngredient`s are a looser version of [`NBTIngredient`][nbt] as they compare against a single or set of items and only keys specified within the share tag (as defined by `IForgeItem#getShareTag`). This can be used by specifying the `type` as `forge:partial_nbt`.
+`PartialNBTIngredient`s are a looser version of [`StrictNBTIngredient`][nbt] as they compare against a single or set of items and only keys specified within the share tag (as defined by `IForgeItem#getShareTag`). This can be used by specifying the `type` as `forge:partial_nbt`.
 
 ```js
 // For some input
@@ -169,7 +169,7 @@ public IIngredientSerializer<? extends Ingredient> getSerializer() {
     If using `FMLCommonSetupEvent` to register an ingredient serializer, it must be enqueued to the synchronous work queue via `FMLCommonSetupEvent#enqueueWork` as `CraftingHelper#register` is not thread-safe.
 
 [recipes]: https://minecraft.fandom.com/wiki/Recipe#List_of_recipe_types
-[nbt]: #nbtingredient
+[nbt]: #strictnbtingredient
 [serializer]: #iingredientserializer
 [compound]: #compoundingredient
 [datagen]: ../../../datagen/server/recipes.md

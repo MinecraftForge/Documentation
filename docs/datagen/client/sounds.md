@@ -3,6 +3,18 @@ Sound Definition Generation
 
 The `sounds.json` file can be generated for a mod by subclassing `SoundDefinitionsProvider` and implementing `#registerSounds`. After implementation, the provider must be [added][datagen] to the `DataGenerator`.
 
+```java
+// On the MOD event bus
+@SubscribeEvent
+public void gatherData(GatherDataEvent event) {
+    event.getGenerator().addProvider(
+        // Tell generator to run only when client assets are generating
+        event.includeClient(),
+        output -> new MySoundDefinitionsProvider(output, MOD_ID, event.getExistingFileHelper())
+    );
+}
+```
+
 Adding a Sound
 --------------
 

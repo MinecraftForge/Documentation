@@ -93,8 +93,8 @@ Examples
 --------
 
 ```
-# Makes public the ScreenConstructor class in MenuScreens
-public net.minecraft.client.gui.screens.MenuScreens$ScreenConstructor
+# Makes public the ByteArrayToKeyFunction interface in Crypt
+public net.minecraft.util.Crypt$ByteArrayToKeyFunction
 
 # Makes protected and removes the final modifier from 'random' in MinecraftServer
 protected-f net.minecraft.server.MinecraftServer f_129758_ #random

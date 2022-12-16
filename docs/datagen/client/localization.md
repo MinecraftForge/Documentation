@@ -3,6 +3,19 @@ Language Generation
 
 [Language files][lang] can be generated for a mod by subclassing `LanguageProvider` and implementing `#addTranslations`. Each `LanguageProvider` subclass created represents a separate [locale] (`en_us` represents American English, `es_es` represents Spanish, etc.). After implementation, the provider must be [added][datagen] to the `DataGenerator`.
 
+```java
+// On the MOD event bus
+@SubscribeEvent
+public void gatherData(GatherDataEvent event) {
+    event.getGenerator().addProvider(
+        // Tell generator to run only when client assets are generating
+        event.includeClient(),
+        // Localizations for American English
+        output -> new MyLanguageProvider(output, MOD_ID, "en_us")
+    );
+}
+```
+
 `LanguageProvider`
 ------------------
 

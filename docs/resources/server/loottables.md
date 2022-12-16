@@ -17,7 +17,7 @@ A loot table is always generated within a given context. The `LootContext` defin
 
 The created `LootContext` adheres to some `LootContextParamSet`. The param set defines which `LootContextParam`s are required or optional in context for generation. A loot table generated within a given param set must only use contexts that are defined.
 
-A loot table can be generated using one of the available methods:
+A `LootTable` can be used to generate `ItemStack`s using one of the available methods:
 
 Method              | Description
 :---:               | :---

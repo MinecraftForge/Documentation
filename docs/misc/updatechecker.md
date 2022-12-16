@@ -48,10 +48,11 @@ You can retrieve the results of the Forge Update Checker using `VersionChecker#g
 |          Status | Description |
 |----------------:|:------------|
 |        `FAILED` | The version checker could not connect to the URL provided. |
-|    `UP_TO_DATE` | The current version is equal to or newer than the latest stable version. |
-|      `OUTDATED` | There is a new stable version. |
-| `BETA_OUTDATED` | There is a new unstable version. |
-|          `BETA` | The current version is equal to or newer than the latest unstable version. |
+|    `UP_TO_DATE` | The current version is equal to the recommended version. |
+|         `AHEAD` | The current version is newer than the recommended version if there is not latest version. |
+|      `OUTDATED` | There is a new recommended or latest version. |
+| `BETA_OUTDATED` | There is a new latest version. |
+|          `BETA` | The current version is equal to or newer than the latest version. |
 |       `PENDING` | The result requested has not finished yet, so you should try again in a little bit. |
 
 The returned object will also have the target version and any changelog lines as specified in `update.json`.

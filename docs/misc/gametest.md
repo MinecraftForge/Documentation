@@ -247,6 +247,19 @@ property 'forge.enabledGameTestNamespaces', 'modid1,modid2,modid3'
 
 The Game Test Server is a special configuration which runs a build server. The build server returns an exit code of the number of required, failed Game Tests. All failed tests, whether required or optional, are logged. This server can be run using `gradlew runGameTestServer`.
 
+!!! important
+    Due to a quirk in how Gradle works, by default, if a task forces a system exit, the Gradle daemon will be killed, causing the Gradle runner to report a build failure. ForgeGradle sets by default a force exit on run tasks such that any subprojects are not executed in sequence. However, as such, the Game Test Server will always fail.
+
+    This can be fixed by disabling the force exit on the run configuration using the `#setForceExit` method:
+
+    ```gradle
+    // Game Test Server run configuration
+    gameTestServer {
+        // ...
+        setForceExit false
+    }
+    ```
+
 ### Enabling Game Tests in Other Run Configurations
 
 By default, only the `client`, `server`, and `gameTestServer` run configurations have Game Tests enabled. If another run configuration should run Game Tests, then the `forge.enableGameTest` property must be set to `true`.
