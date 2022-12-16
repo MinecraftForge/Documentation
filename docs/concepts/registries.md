@@ -53,7 +53,7 @@ public void register(RegisterEvent event) {
 Not all registries are wrapped by Forge. These can be static registries, like `LootItemConditionType`, which are safe to use. There are also dynamic registries, like `ConfiguredFeature` and some other worldgen registries, which are typically represented in JSON. `DeferredRegister#create` has an overload which allows modders to specify the registry key of which vanilla registry to create a `RegistryObject` for. The registry method and attaching to the mod event bus is the same as other `DeferredRegister`s.
 
 !!! important
-    Dynamic registry objects can **only** be registered through data files (e.g. JSON). It **cannot** be registered in-code.
+    Dynamic registry objects can **only** be registered through data files (e.g. JSON). They **cannot** be registered in-code.
 
 ```java
 private static final DeferredRegister<LootItemConditionType> REGISTER = DeferredRegister.create(Registries.LOOT_CONDITION_TYPE, "examplemod");

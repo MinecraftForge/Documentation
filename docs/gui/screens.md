@@ -57,9 +57,9 @@ The offset can be obtained by calling `#getBlitOffset` and set using `#setBlitOf
 
 ## Renderable
 
-`Renderable`s are essentially objects that are rendered. These include screens, buttons, chat boxes, lists, etc. `Renderable`s only have one method: `#render`. This takes in the `PoseStack` holding any prior transformations to properly render the widget, the x and y positions of the mouse scaled to the relative screen size, and the tick delta (how many ticks have passed since the last frame).
+`Renderable`s are essentially objects that are rendered. These include screens, buttons, chat boxes, lists, etc. `Renderable`s only have one method: `#render`. This takes in the `PoseStack` holding any prior transformations to properly render the renderable, the x and y positions of the mouse scaled to the relative screen size, and the tick delta (how many ticks have passed since the last frame).
 
-Some common widgets which may be used are `Button`, its subtype `ImageButton`, and `EditBox` which is used to input text on the screen.
+Some common renderables are screens and 'widgets': interactable elements which typically render on the screen  such as `Button`, its subtype `ImageButton`, and `EditBox` which is used to input text on the screen.
 
 ## GuiEventListener
 

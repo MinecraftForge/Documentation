@@ -66,7 +66,7 @@ Finally, the model can set whether to use ambient occlusion in a level (`ModelBu
 
 ### `BlockModelBuilder`
 
-A `BlockModelBuilder` represents a block model to-be-generated. In Addition to the `ModelBuilder`, a transform to the entire model (`BlockModelBuilder#rootTransform`) can be generated. The root can be translated (`RootTransformBuilder#transform`), rotated (`RootTransformBuilder#rotation`, `RootTransformBuilder#postRotation`), and scaled (`RootTransformBuilder#scale`) either individually or all in one transformation (`RootTransformBuilder#transform`) around some origin (`RootTransformBuilder#origin`).
+A `BlockModelBuilder` represents a block model to-be-generated. In addition to the `ModelBuilder`, a transform to the entire model (`BlockModelBuilder#rootTransform`) can be generated. The root can be translated (`RootTransformBuilder#transform`), rotated (`RootTransformBuilder#rotation`, `RootTransformBuilder#postRotation`), and scaled (`RootTransformBuilder#scale`) either individually or all in one transformation (`RootTransformBuilder#transform`) around some origin (`RootTransformBuilder#origin`).
 
 ### `ItemModelBuilder`
 

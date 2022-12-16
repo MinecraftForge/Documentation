@@ -27,10 +27,10 @@ public void gatherData(GatherDataEvent event) {
 `ForgeAdvancementProvider$AdvancementGenerator`
 -----------------------------------------------
 
-An `ForgeAdvancementProvider$AdvancementGenerator` is responsible for generating advancements, containing a method which takes in a registry lookup, the writer (`Consumer<Advancement>`), and the existing file helper..
+A `ForgeAdvancementProvider$AdvancementGenerator` is responsible for generating advancements, containing a method which takes in a registry lookup, the writer (`Consumer<Advancement>`), and the existing file helper..
 
 ```java
-// In some ForgeAdvancementProvider$AdvancementGenerator or as a lambda reference
+// In some subclass of ForgeAdvancementProvider$AdvancementGenerator or as a lambda reference
 
 @Override
 public void generate(HolderLookup.Provider registries, Consumer<Advancement> writer, ExistingFileHelper existingFileHelper) {

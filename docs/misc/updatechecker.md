@@ -49,7 +49,7 @@ You can retrieve the results of the Forge Update Checker using `VersionChecker#g
 |----------------:|:------------|
 |        `FAILED` | The version checker could not connect to the URL provided. |
 |    `UP_TO_DATE` | The current version is equal to the recommended version. |
-|    `AHEAD` | The current version is newer than the recommended version if there is not latest version. |
+|         `AHEAD` | The current version is newer than the recommended version if there is not latest version. |
 |      `OUTDATED` | There is a new recommended or latest version. |
 | `BETA_OUTDATED` | There is a new latest version. |
 |          `BETA` | The current version is equal to or newer than the latest version. |
