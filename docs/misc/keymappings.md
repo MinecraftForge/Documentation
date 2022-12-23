@@ -13,7 +13,8 @@ A `KeyMapping` can be registered by listening to the `RegisterKeyMappingsEvent` 
 public static final Lazy<KeyMapping> EXAMPLE_MAPPING = Lazy.of(() -> /*...*/);
 
 // Event is on the mod event bus only on the physical client
-public void registerBindings(RegisterKeyBindingsEvent event) {
+@SubscribeEvent
+public void registerBindings(RegisterKeyMappingsEvent event) {
   event.register(EXAMPLE_MAPPING.get());
 }
 ```
