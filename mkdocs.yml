@@ -90,7 +90,7 @@ nav:
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
-site_url: https://docs.minecraftforge.net/en/1.19.x/
+site_url: https://docs.minecraftforge.net/en/1.19.2/
 
 markdown_extensions:
   - admonition
@@ -107,9 +107,10 @@ theme:
   custom_dir: forge_theme
 
 extra:
-  current_version: 1.19.x
+  current_version: 1.19.2
   versions:
     1.18.x: 1.18.x
+    1.19.2: 1.19.2
     1.19.x: 1.19.x
 
 extra_css:
