@@ -30,7 +30,7 @@ public void gatherData(GatherDataEvent event) {
 
 A `RegistrySetBuilder` is responsible for building all dynamic registry objects to be used within the game. The builder can add a new entry for a registry, which can then register objects to that registry.
 
-First, a new instance of a `RegistrySetBuilder` can be initialized by calling the constructor. Then, the `#add` method can be called to handle a specific registry for registration. The `#add` method takes in the `ResourceKey` of the registry, a `RegistryBootstrap` consumer containing the `BootstapContext` to register the objects, and an optional `Lifecycle` argument to indicate the registry's current lifecycle status.
+First, a new instance of a `RegistrySetBuilder` can be initialized by calling the constructor. Then, the `#add` method (which takes in the `ResourceKey` of the registry, a `RegistryBootstrap` consumer containing the `BootstapContext` to register the objects, and an optional `Lifecycle` argument to indicate the registry's current lifecycle status) can be called to handle a specific registry for registration.
 
 ```java
 new RegistrySetBuilder()
@@ -50,7 +50,7 @@ new RegistrySetBuilder()
 Registering with `BootstapContext`
 ----------------------------------
 
-The `BootstapContext` provided by the builder can be used to register an object by calling the `#register` method. The `#register` method takes in the `ResourceKey` representing the registry name of the object, the object to register, and an optional `Lifecycle` argument to indicate the registry object's current lifecycle status.
+The `#register` method in the `BootstapContext` provided by the builder can be used to register objects. It takes in the `ResourceKey` representing the registry name of the object, the object to register, and an optional `Lifecycle` argument to indicate the registry object's current lifecycle status. 
 
 ```java
 public static final ResourceKey<ConfiguredFeature<?, ?>> EXAMPLE_CONFIGURED_FEATURE = ResourceKey.create(
