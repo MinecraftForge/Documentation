@@ -73,6 +73,7 @@ nav:
       - Tag Providers: 'datagen/server/tags.md'
       - Advancement Providers: 'datagen/server/advancements.md'
       - Global Loot Modifier Providers: 'datagen/server/glm.md'
+      - Dynamic Registry Object Providers: 'datagen/server/dynamicregistries.md'
   - Miscellaneous Features:
     - Configuration: 'misc/config.md'
     - Key Mappings: 'misc/keymappings.md'
