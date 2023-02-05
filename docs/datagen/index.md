@@ -51,8 +51,14 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
 * [`net.minecraftforge.client.model.generators.BlockStateProvider`][blockstategen] - for blockstate JSONs and their block and item models; implement `#registerStatesAndModels`
 
 ### Server Data
-* [`net.minecraftforge.common.data.GlobalLootModifierProvider`][glmgen] - for [global loot modifiers][glm]; implement `#start`
-* _These classes are under the `net.minecraft.data` package_
+
+**These classes are under the `net.minecraftforge.common.data` package**:
+
+* [`GlobalLootModifierProvider`][glmgen] - for [global loot modifiers][glm]; implement `#start`
+* [`DatapackBuiltinEntriesProvider`][datapackregistriesgen] for datapack registry objects; pass in `RegistrySetBuilder` to the constructor
+
+**These classes are under the `net.minecraft.data` package**:
+
 * [`loot.LootTableProvider`][loottablegen] - for [loot tables][loottable]; pass in `LootTableProvider$SubProviderEntry`s to the constructor
 * [`recipes.RecipeProvider`][recipegen] - for [recipes] and their unlocking advancements; implement `#buildRecipes`
 * [`tags.TagsProvider`][taggen] - for [tags]; implement `#addTags`
@@ -69,6 +75,7 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
 [blockstategen]: ./client/modelproviders.md#block-state-provider
 [glmgen]: ./server/glm.md
 [glm]: ../resources/server/glm.md
+[datapackregistriesgen]: ./server/datapackregistries.md
 [loottablegen]: ./server/loottables.md
 [loottable]: ../resources/server/loottables.md
 [recipegen]: ./server/recipes.md
