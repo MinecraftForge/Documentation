@@ -24,8 +24,8 @@ theme:
 extra:
   current_type: ForgeGradle
   types:
-    MinecraftForge: MinecraftForge
-    ForgeGradle: FG
+    MinecraftForge: latest
+    ForgeGradle: FG/6.x
   current_version: 6.x
   versions:
     6.x: 6.x
