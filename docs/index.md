@@ -1,11 +1,12 @@
-MinecraftForge Documentation
-============================
+ForgeGradle Documentation
+=========================
 
-This is the official documentation for [MinecraftForge], the Minecraft modding API.
+This is the official documentation for [ForgeGradle], the Minecraft modding development framework for [Gradle].
 
-This documentation is _only_ for Forge, **this is not a Java tutorial**.
+This documentation is _only_ for ForgeGradle, **this is not a Java or Groovy tutorial**.
 
 Contribute to the docs at [GitHub].
 
-[MinecraftForge]: http://minecraftforge.net
+[ForgeGradle]: https://github.com/MinecraftForge/ForgeGradle
+[Gradle]: https://gradle.org/
 [GitHub]: https://github.com/MinecraftForge/Documentation
