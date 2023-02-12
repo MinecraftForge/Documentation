@@ -110,7 +110,7 @@ extra:
   current_type: MinecraftForge
   types:
     MinecraftForge: latest
-    ForgeGradle: FG/6.x
+    ForgeGradle: fg-6.x
   current_version: 1.19.2
   versions:
     1.18.x: 1.18.x
