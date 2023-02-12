@@ -98,7 +98,7 @@
                         <label for="version-selection-dropdown">Version:</label>
                         <select id="version-selection-dropdown" class="version-selection-dropdown" onchange="location = this.value;">
                             {% for name, url in config.extra.versions.items() %}
-                            <option value="https://docs.minecraftforge.net/en/FG/{{ url }}" {% if name == config.extra.current_version %}selected{% endif %}>{{ name }}</option>
+                            <option value="https://docs.minecraftforge.net/en/fg-{{ url }}" {% if name == config.extra.current_version %}selected{% endif %}>{{ name }}</option>
                             {% endfor %}
                         </select>
                     </form>
