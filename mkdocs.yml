@@ -5,7 +5,7 @@ nav:
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
-site_url: https://docs.minecraftforge.net/en/FG/6.x
+site_url: https://docs.minecraftforge.net/en/fg-6.x
 
 markdown_extensions:
   - admonition
@@ -25,7 +25,7 @@ extra:
   current_type: ForgeGradle
   types:
     MinecraftForge: latest
-    ForgeGradle: FG/6.x
+    ForgeGradle: fg-6.x
   current_version: 6.x
   versions:
     6.x: 6.x
