@@ -107,6 +107,10 @@ theme:
   custom_dir: forge_theme
 
 extra:
+  current_type: MinecraftForge
+  types:
+    MinecraftForge: latest
+    ForgeGradle: fg-6.x
   current_version: 1.19.2
   versions:
     1.18.x: 1.18.x
