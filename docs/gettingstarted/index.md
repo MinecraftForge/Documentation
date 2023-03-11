@@ -14,7 +14,7 @@ From Zero to Modding
     * `gradlew`
     * `settings.gradle`
     * the `gradle` folder
-4. Move the files listed above to a new folder. This will be your mod project folder.
+4. Copy the files listed above, and the example `src` folder, to a new folder. This will be your mod project folder.
 5. Choose your IDE:
     * Forge only explicitly supports developing with Eclipse, but there are additional run tasks for IntelliJ IDEA or Visual Studio Code environments. However, any environment, from Netbeans to vim/emacs, can be made to work.
     * For both Intellij IDEA and Eclipse, their Gradle integration will handle the rest of the initial workspace setup. This includes downloading packages from Mojang, MinecraftForge, and a few other software sharing sites. For VSCode, the 'Gradle Tasks' plugin can be used to handle the initial workspace setup.

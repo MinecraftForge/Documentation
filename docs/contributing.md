@@ -1,6 +1,8 @@
 Contributing to This Documentation
 ==================================
 
+Contribute to this documentation at [GitHub].
+
 This documentation is meant to be explanatory. Please explain how to do things, and break it down into reasonable chunks.
 We have a wiki elsewhere that can capture more comprehensive code examples.
 
@@ -33,4 +35,5 @@ All links should have their location specified at the bottom of the page. Any in
 
 Admonitions (represented by `!!! <type>`) must be formatted as [documented][admonition]; otherwise they may end up rendering incorrectly.
 
+[GitHub]: https://github.com/MinecraftForge/Documentation
 [admonition]: https://python-markdown.github.io/extensions/admonition/
