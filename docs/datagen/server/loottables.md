@@ -24,7 +24,7 @@ public void gatherData(GatherDataEvent event) {
 `LootTableSubProvider`
 ----------------------
 
-Each `LootTableProvider$SubProviderEntry` takes in a supplied `LootTableSubProvider`, which generates the loot table, for a given `LootContextParamSet`. The `LootTableSubProvider` contains a method which takes in the writer (`Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>`) to generate a table.
+Each `LootTableProvider$SubProviderEntry` takes in a supplied `LootTableSubProvider`, which generates the loot table, for a given `LootContextParamSet`. The `LootTableSubProvider` contains a method which takes in the writer (`BiConsumer<ResourceLocation, LootTable.Builder>`) to generate a table.
 
 ```java
 public class ExampleSubProvider implements LootTableSubProvider {

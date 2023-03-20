@@ -37,23 +37,21 @@ Strings are drawn through its `Font`, typically consisting of their own shaders 
 
 ### Textures
 
-Textures are drawn through blitting, hence the method name `#blit`, which, for this purpose, copies the bits of an image and draws them directly to the screen. These are drawn through a position texture shader. While there are many different `#blit` overloads, we will only discuss two: the instance `#blit` and the static `#blit` which the instance method delegates to.
+Textures are drawn through blitting, hence the method name `#blit`, which, for this purpose, copies the bits of an image and draws them directly to the screen. These are drawn through a position texture shader. While there are many different `#blit` overloads, we will only discuss two static `#blit`s.
 
-The instance `#blit` takes in six integers and assumes the texture being rendered is on a 256 x 256 PNG file. It takes in the left x and top y screen coordinate, the left x and top y coordinate within the PNG, and the width and height of the image to render.
+The first static `#blit` takes in six integers and assumes the texture being rendered is on a 256 x 256 PNG file. It takes in the left x and top y screen coordinate, the left x and top y coordinate within the PNG, and the width and height of the image to render.
 
 !!! note
     The size of the PNG file must be specified so that the coordinates can be normalized to obtain the associated UV values.
 
-The static `#blit` expands this to nine integers, only assuming the image is on a PNG file. It takes in the left x and top y screen coordinate, the z coordinate (referred to as the blit offset), the left x and top y coordinate within the PNG, the width and height of the image to render, and the width and height of the PNG file.
+The static `#blit` which the first calls expands this to nine integers, only assuming the image is on a PNG file. It takes in the left x and top y screen coordinate, the z coordinate (referred to as the blit offset), the left x and top y coordinate within the PNG, the width and height of the image to render, and the width and height of the PNG file.
 
 #### Blit Offset
 
-The z coordinate when rendering a texture is typically set to the blit offset. The offset is responsible for properly layering renders when viewing a screen. Renders with a smaller z coordinate are rendered in the background and vice versa where renders with a larger z coordinate are rendered in the foreground.
-
-The offset can be obtained by calling `#getBlitOffset` and set using `#setBlitOffset`.
+The z coordinate when rendering a texture is typically set to the blit offset. The offset is responsible for properly layering renders when viewing a screen. Renders with a smaller z coordinate are rendered in the background and vice versa where renders with a larger z coordinate are rendered in the foreground. The z offset can be set directly on the `PoseStack` itself via `#translate`.
 
 !!! important
-    When setting the blit offset, you must reset it after rendering your object. Otherwise, other objects within the screen may be rendered in an incorrect layer causing graphical issues.
+    When setting the blit offset, you must reset it after rendering your object. Otherwise, other objects within the screen may be rendered in an incorrect layer causing graphical issues. It is recommended to push the current pose before translating and then popping after all rendering at the offset is completed.
 
 ## Renderable
 
@@ -73,7 +71,7 @@ Event handlers hold children which are used to determine the interaction order o
 
 Dragging an element with the mouse, implemented via `#mouseClicked` and `#mouseReleased`, provides more precisely executed logic.
 
-Focusing allows for a specific child to be checked first and handled during an event's execution, such as during keyboard events or dragging the mouse. Focus is typically set through `#setFocused` or, when the screen is being opened, `#setInitialFocus`. In addition, interactable children can be cycled using `#changeFocus`, selecting the next child in the list, or the previous child if the shift key is held down.
+Focusing allows for a specific child to be checked first and handled during an event's execution, such as during keyboard events or dragging the mouse. Focus is typically set through `#setFocused`. In addition, interactable children can be cycled using `#nextFocusPath`, selecting the child based upon the `FocusNavigationEvent` passed in.
 
 !!! note
     Screens implement `ContainerEventHandler` and `GuiComponent` through `AbstractContainerEventHandler`, which adds in the setter and getter logic for dragging and focusing children.
@@ -287,13 +285,6 @@ private static final ResourceLocation BACKGROUND_LOCATION = new ResourceLocation
 @Override
 protected void renderBg(PoseStack pose, float partialTick, int mouseX, int mouseY) {
     /*
-     * Sets the tint color when rendering the texture. The shader used 
-     * to apply the texture when calling 'blit' does not contain the 
-     * color, so tints can only be applied through this method.
-     */
-    RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-
-    /*
      * Sets the texture location for the shader to use. While up to
      * 12 textures can be set, the shader used within 'blit' only
      * looks at the first texture index.
@@ -307,7 +298,7 @@ protected void renderBg(PoseStack pose, float partialTick, int mouseX, int mouse
      * 'imageWidth' and 'imageHeight'. The two zeros represent the
      * integer u/v coordinates inside the 256 x 256 PNG file.
      */
-    this.blit(pose, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+    GuiComponent.blit(pose, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
 }
 ```
 

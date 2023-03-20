@@ -58,9 +58,9 @@ public void buildContents(CreativeModeTabEvent.Register event) {
     // Set icon of creative tab
     .icon(() -> new ItemStack(ITEM.get()))
     // Add default items to tab
-    .displayItems((enabledFlags, populator, hasPermissions) -> {
-      populator.accept(ITEM.get());
-      populator.accept(BLOCK.get());
+    .displayItems((params, output) -> {
+      output.accept(ITEM.get());
+      output.accept(BLOCK.get());
     })
   );
 }
