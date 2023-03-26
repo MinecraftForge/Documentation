@@ -394,7 +394,12 @@ Once the data provider is running, the models within the `ModelProvider` subclas
 public CompletableFuture<?> run(CachedOutput cache) {
   // Populate the model provider
   CompletableFuture<?> exampleFutures = this.example.generateAll(cache); // Generate the models
+
+  // Run logic and create CompletableFuture(s) for writing files
   // ...
+
+  // Assume we have a new CompletableFuture providerFuture
+  return CompletableFuture.allOf(exampleFutures, providerFuture);
 }
 ```
 

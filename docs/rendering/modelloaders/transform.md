@@ -6,7 +6,7 @@ When an [`BakedModel`][bakedmodel] is being rendered as an item, it can apply sp
 `ItemDisplayContext`
 ---------------
 
-`NONE` - Used for the display entity and by Forge when a `Block`'s `RenderShape` is set to `#ENTITYBLOCK_ANIMATED`.
+`NONE` - Used for the display entity by default when no context is set and by Forge when a `Block`'s `RenderShape` is set to `#ENTITYBLOCK_ANIMATED`.
 
 `THIRD_PERSON_LEFT_HAND`/`THIRD_PERSON_RIGHT_HAND`/`FIRST_PERSON_LEFT_HAND`/`FIRST_PERSON_RIGHT_HAND` - The first person values represent when the player is holding the item in their own hand. The third person values represent when another player is holding the item and the client is looking at them in the 3rd person. Hands are self-explanatory.
 
