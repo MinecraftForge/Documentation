@@ -105,7 +105,7 @@ If items are not used as part of the input or result of a recipe, then the norma
 boolean matches(Level level, BlockPos pos);
 
 // Creates the block state to set the block at the specified position to
-BlockState assemble();
+BlockState assemble(RegistryAccess access);
 
 // In some manager class
 public Optional<ExampleRecipe> getRecipeFor(Level level, BlockPos pos) {

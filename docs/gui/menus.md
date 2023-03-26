@@ -10,11 +10,11 @@ Menus are created and removed dynamically and as such are not registry objects. 
 
 ### `MenuSupplier`
 
-A `MenuType` is created by passing in a `MenuSupplier` to its constructor. A `MenuSupplier` represents a function which takes in the id of the container and the inventory of the player viewing the menu, and returns a newly created [`AbstractContainerMenu`][acm].
+A `MenuType` is created by passing in a `MenuSupplier` and a `FeatureFlagSet` to its constructor. A `MenuSupplier` represents a function which takes in the id of the container and the inventory of the player viewing the menu, and returns a newly created [`AbstractContainerMenu`][acm].
 
 ```java
 // For some DeferredRegister<MenuType<?>> REGISTER
-public static final RegistryObject<MenuType<MyMenu>> MY_MENU = REGISTER.register("my_menu", () -> new MenuType(MyMenu::new));
+public static final RegistryObject<MenuType<MyMenu>> MY_MENU = REGISTER.register("my_menu", () -> new MenuType(MyMenu::new, FeatureFlags.DEFAULT_FLAGS));
 
 // In MyMenu, an AbstractContainerMenu subclass
 public MyMenu(int containerId, Inventory playerInv) {

@@ -95,13 +95,24 @@ Non-`RecipeBuilder` Builders
 
 Some recipe builders do not implement `RecipeBuilder` due to lacking features used by all previously mentioned recipes.
 
-### UpgradeRecipeBuilder
+### SmithingTransformRecipeBuilder
 
-`UpgradeRecipeBuilder` is used to generate smithing recipes. Additionally, custom upgrade recipes using a serializer like `UpgradeRecipe$Serializer` can also be data generated using this builder. The builder can be initialized via `#smithing` or through the constructor respectively. The recipe unlock criteria can be specified before saving.
+`SmithingTransformRecipeBuilder` is used to generate smithing recipes which transform an item. Additionally, custom recipes using a serializer like `SmithingTransformRecipe$Serializer` can also be data generated using this builder. The builder can be initialized via `#smithing` or through the constructor respectively. The recipe unlock criteria can be specified before saving.
 
 ```java
 // In RecipeProvider#buildRecipes(writer)
-UpgradeRecipeBuilder builder = UpgradeRecipeBuilder.smithing(base, addition, RecipeCategory.MISC, result)
+SmithingTransformRecipeBuilder builder = SmithingTransformRecipeBuilder.smithing(template, base, addition, RecipeCategory.MISC, result)
+  .unlocks("criteria", criteria) // How the recipe is unlocked
+  .save(writer, name); // Add data to builder
+```
+
+### SmithingTrimRecipeBuilder
+
+`SmithingTrimRecipeBuilder` is used to generate smithing recipes for armor trims. Additionally, custom upgrade recipes using a serializer like `SmithingTrimRecipe$Serializer` can also be data generated using this builder. The builder can be initialized via `#smithingTrim` or through the constructor respectively. The recipe unlock criteria can be specified before saving.
+
+```java
+// In RecipeProvider#buildRecipes(writer)
+SmithingTrimRecipe builder = SmithingTrimRecipe.smithingTrim(template, base, addition, RecipeCategory.MISC)
   .unlocks("criteria", criteria) // How the recipe is unlocked
   .save(writer, name); // Add data to builder
 ```

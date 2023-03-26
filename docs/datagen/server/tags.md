@@ -74,6 +74,7 @@ Registry Object Type         | Tag Provider
 `CatVariant`                 | `CatVariantTagsProvider`
 `PaintingVariant`            | `PaintingVariantTagsProvider`
 `Instrument`                 | `InstrumentTagsProvider`
+`DamageType`                 | `DamageTypeTagsProvider`
 
 \* `BlockTagsProvider` is a Forge added `TagsProvider`.
 

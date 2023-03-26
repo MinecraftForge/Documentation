@@ -113,6 +113,9 @@ To reference a particle texture, the subtype of `TextureSheetParticle` should ei
 
 To register these particle textures, a `SpriteParticleRegistration` needs to be supplied to the `RegisterParticleProvidersEvent#register` method. This method takes in an `SpriteSet` holding the associated sprite set for the particle and creates an `ParticleProvider` to create the particle. The simplest method of implementation can be done by implementing `ParticleProvider` on some class and having the constructor take in an `SpriteSet`. Then the `SpriteSet` can be passed to the particle as normal.
 
+!!! note
+    If you are registering a `TextureSheetParticle` subtype which only contains one texture, then you can supply a `ParticleProvider$Sprite` instead to the `#register` method, which has essentially the same functional interface method as `ParticleProvider`.
+
 Spawning a Particle
 -------------------
 

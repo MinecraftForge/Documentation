@@ -52,7 +52,7 @@ There are four methods of creating a tag wrapper:
 
 Method                          | For
 :---:                           | :---
-`*Tags#create`                  | `BannerPattern`, `Biome`, `Block`, `CatVariant`, `EntityType`, `FlatLevelGeneratorPreset`, `Fluid`, `GameEvent`, `Instrument`, `Item`, `PaintingVariant`, `PoiType`, `Structure`, and `WorldPreset` where `*` represents one of these types.
+`*Tags#create`                  | `BannerPattern`, `Biome`, `Block`, `CatVariant`, `DamageType`, `EntityType`, `FlatLevelGeneratorPreset`, `Fluid`, `GameEvent`, `Instrument`, `Item`, `PaintingVariant`, `PoiType`, `Structure`, and `WorldPreset` where `*` represents one of these types.
 `ITagManager#createTagKey`      | Forge wrapped vanilla registries, registries can be obtained from `ForgeRegistries`.
 `DeferredRegister#createTagKey` | Custom forge registries.
 `TagKey#create`                 | Vanilla registries without forge wrappers, registries can be obtained from `Registry`.
