@@ -2,6 +2,14 @@
 nav:
   - Home: 'index.md'
   - Contributing to the Docs: 'contributing.md'
+  - Getting Started:
+    - Introduction: 'gettingstarted/index.md'
+  - Configurations:
+    - Introduction: 'configuration/index.md'
+    - Run Configs: 'configuration/runs.md'
+  - Dependencies:
+    - Introduction: 'dependencies/index.md'
+    - Jar-in-Jar: 'dependencies/jarinjar.md'
 
 # Do not edit in PRs below here
 site_name: Forge Documentation

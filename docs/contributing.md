@@ -1,12 +1,16 @@
 Contributing to This Documentation
 ==================================
 
+You can make a contribution via a PR on [Github].
+
 This documentation is meant to be explanatory. Please explain how to do things, and break it down into reasonable chunks.
 We have a wiki elsewhere that can capture more comprehensive code examples.
 
 Our audience is anyone who wants to understand how to use ForgeGradle.
 
 Please don't try to turn this documentation into a tutorial on Java or Groovy Development - it is intended for people who understand how a class and other fundamental structures work.
+
+Contributions to ForgeGradle code should be written in [Groovy].
 
 Style Guide
 -----------
@@ -33,4 +37,6 @@ All links should have their location specified at the bottom of the page. Any in
 
 Admonitions (represented by `!!! <type>`) must be formatted as [documented][admonition]; otherwise they may end up rendering incorrectly.
 
+[GitHub]: https://github.com/MinecraftForge/Documentation
+[Groovy]: https://docs.groovy-lang.org/docs/latest/html/documentation/
 [admonition]: https://python-markdown.github.io/extensions/admonition/
