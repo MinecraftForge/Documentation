@@ -53,7 +53,7 @@ Custom Values
 
 Custom named render types to be specified in a model can be registered in the `RegisterNamedRenderTypesEvent`. This event is fired on the mod event bus.
 
-A custom named render type consists two or three components:
+A custom named render type consists of two or three components:
 
 - A chunk render type - any of the types in the list returned by `RenderType.chunkBufferLayers()` can be used
 - A render type with the `DefaultVertexFormat.NEW_ENTITY` vertex format ("entity render type")

@@ -10,7 +10,7 @@ All values of the face data are optional.
 Elements Model
 --------------
 
-In vanilla "elements" models the face data applies to the face it is specified in or all faces of the element it is specified in which don't have their own face data.
+In vanilla "elements" models, the face data applies to the face it is specified in or all faces of the element it is specified in which don't have their own face data.
 
 The additional data can be specified in the two ways shown in this example:
 ```js
@@ -44,9 +44,9 @@ The additional data can be specified in the two ways shown in this example:
 Generated Item Model
 --------------------
 
-In generated item models loaded through the `forge:item_layers` loader the face data applies to all faces generated from the texture specified for the layer the respective entry is associated with.
+In generated item models loaded through the `forge:item_layers` loader, the face data applies to all faces generated from the texture specified for the layer the respective entry is associated with.
 
-The additional data has to be specified at the top level with the entry names in the `forge_data` object being the layer index the respective entry belongs to (in the example layer 1 will be tinted red and glow at full brightness):
+The additional data has to be specified at the top level with the entry names in the `forge_data` object being the layer index the respective entry belongs to (in the example, layer 1 will be tinted red and glow at full brightness):
 ```js
 {
   "textures": {
@@ -78,7 +78,7 @@ This can be used as a replacement for tinting with [`BlockColor` and `ItemColor`
 
 ### Block and Sky Light
 
-Specifying a block and/or sky light value with the `block_light` and `sky_light` entry respectively will override the respective light value of the quads. Both values default to 0. The values must be in the range 0-15 (inclusive) and are treated as a minimum value for the respective light type when the face is rendered meaning that a higher in-world value of the respective light type will override the specified value.
+Specifying a block and/or sky light value with the `block_light` and `sky_light` entry respectively will override the respective light value of the quads. Both values default to 0. The values must be in the range 0-15 (inclusive) and are treated as a minimum value for the respective light type when the face is rendered, meaning that a higher in-world value of the respective light type will override the specified value.
 
 The specified light values are purely client-side and affect neither the server's light level nor the brightness of surrounding blocks.
 
