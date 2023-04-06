@@ -23,7 +23,11 @@ Composite model with two parts, the second of which will not be baked into the f
 
 The visibility of a given part is determined by checking whether the model specifies a visibility for this part and, if not present, recursively checking the model's parent until either an entry is found or there is no further parent to check, in which case it defaults to true.
 
-This allows things like a composite model with multiple parts which multiple models use as their parent and then specify different visibility settings for the parts.
+This allows setups like the following where multiple models use different parts of a single composite model:
+
+1. A composite model specifies multiple components
+2. Multiple models specify this composite model as their parent
+3. These child models individually specify different visibilities for the parts
 
 [bakedmodel]: ../modelloaders/bakedmodel.md
 [composite]: ../modelloaders/index.md/#composite-models
