@@ -10,7 +10,7 @@ Our audience is anyone who wants to understand how to use ForgeGradle.
 
 Please don't try to turn this documentation into a tutorial on Java or Groovy Development - it is intended for people who understand how a class and other fundamental structures work.
 
-Contributions to ForgeGradle code should be written in [Groovy].
+ForgeGradle configuration code examples should be written in [Groovy].
 
 Style Guide
 -----------

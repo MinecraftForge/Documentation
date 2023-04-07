@@ -7,7 +7,7 @@ Run configurations define how an instance of the game is going to run. This incl
 minecraft {
     // ...
     runs {
-        // Add runs here
+        // Configure runs here
     }
 }
 ```
@@ -95,7 +95,7 @@ client {
     token 'tokenKey', 'value'
 
     // Sets a token that's lazily initialized
-    // Should be used in most cases compared to 'token'
+    // Should usually be used instead of 'token', for example when the token resolves Gradle configurations
     lazyToken('lazyTokenKey') {
       'value'
     }

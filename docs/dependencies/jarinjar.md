@@ -22,7 +22,7 @@ tasks.jarJar.configure {
 Adding Dependencies
 -------------------
 
-You can add dependencies to be included inside your jar using the `jarJar` configuration. As Jar-in-Jar is a negotiation system, all versions should supply a support range.
+You can add dependencies to be included inside your jar using the `jarJar` configuration. As Jar-in-Jar is a negotiation system, all versions should supply a supported range.
 
 ```gradle
 // In build.gradle

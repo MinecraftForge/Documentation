@@ -13,7 +13,7 @@ minecraft {
     // ...
 
     // Add an access transformer file relative to the project's directory
-    accessTransformer = project.file('src/main/resources/META-INF/accesstransformer.cfg)
+    accessTransformer = project.file('src/main/resources/META-INF/accesstransformer.cfg')
 }
 ```
 

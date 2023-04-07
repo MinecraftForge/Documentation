@@ -22,7 +22,7 @@ dependencies {
 Mod Dependencies
 ----------------
 
-In a typical development environment, Minecraft is deobfuscated into intermediate mappings, used in production, and then transformed into whatever [human-readable mappings][mappings] the modder specified. Mod artifacts, when built, are transformed into the intermediate mappings used for production, and as such, are unable to be used directly as a gradle dependency.
+In a typical development environment, Minecraft is deobfuscated to intermediate mappings, used in production, and then transformed into whatever [human-readable mappings][mappings] the modder specified. Mod artifacts, when built, are obfuscated to production mappings (SRG), and as such, are unable to be used directly as a Gradle dependency.
 
 As such, all mod dependencies need to be wrapped with `fg.deobf` before being added to the intended configuration.
 
@@ -68,12 +68,12 @@ dependencies {
 ```
 
 !!! note
-    The group name can be anything for flat directory entries as they are not checked when resolving the artifact file.
+    The group name can be anything but must not be empty for flat directory entries as they are not checked when resolving the artifact file.
 
 Non-Minecraft Dependencies
 --------------------------
 
-Non-Minecraft dependencies are not loaded by Forge by default in the development environment. To get Forge to recognize the non-Minecraft dependency, they must be added to the `minecraftLibrary` configuration. `minecraftLibrary` works similarly to the `implementation` configuration within gradle, being applied during compile time and runtime.
+Non-Minecraft dependencies are not loaded by Forge by default in the development environment. To get Forge to recognize the non-Minecraft dependency, they must be added to the `minecraftLibrary` configuration. `minecraftLibrary` works similarly to the `implementation` configuration within Gradle, being applied during compile time and runtime.
 
 ```gradle
 dependencies {
