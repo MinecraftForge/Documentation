@@ -12,9 +12,10 @@ The `minecraft` dependency specifies the version of Minecraft to use and must be
 
 ```gradle
 dependencies {
-    // Version of artifact is in the form '<mc_version>-<forge_version>'
+    // Version of Forge artifact is in the form '<mc_version>-<forge_version>'
     // 'mc_version' is the version of Minecraft to load (e.g., 1.19.4)
     // 'forge_version' is the version of Forge wanted for that Minecraft version (e.g., 45.0.23)
+    // Vanilla can be compiled against using 'net.minecraft:joined:<mc_version>' instead
     minecraft 'net.minecraftforge:forge:1.19.4-45.0.23'
 }
 ```
@@ -58,11 +59,12 @@ dependencies {
     // - <name>.<ext>
     // - <name>-<classifier>.<ext>
 
-    // This will search for a file in the following order:
-    // - examplemod-1.0.jar
+    // If a classifier is explicitly specified
+    //  artifacts with the classifier will take priority:
     // - examplemod-1.0-api.jar
-    // - examplemod.jar
     // - examplemod-api.jar
+    // - examplemod-1.0.jar
+    // - examplemod.jar
     implementation fg.deobf('com.example:examplemod:1.0:api')
 }
 ```

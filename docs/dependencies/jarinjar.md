@@ -14,7 +14,7 @@ jarJar.enable()
 
 // Configure the 'jarJar' task
 // 'all' is the default classifier
-tasks.jarJar.configure {
+tasks.named('jarJar') {
     // ...
 }
 ```
@@ -27,9 +27,9 @@ You can add dependencies to be included inside your jar using the `jarJar` confi
 ```gradle
 // In build.gradle
 dependencies {
-    // Compiles against and includes the highest supported version of gson
+    // Compiles against and includes the highest supported version of examplelib
     //   between 2.0 (inclusive) and 3.0 (exclusive)
-    jarJar(group: 'com.google.code.gson', name: 'gson', version: '[2.0,3.0)')
+    jarJar(group: 'com.example', name: 'examplelib', version: '[2.0,3.0)')
 }
 ```
 
@@ -38,10 +38,10 @@ If you need to specify an exact version to include rather than the highest suppo
 ```gradle
 // In build.gradle
 dependencies {
-    // Compiles against the highest supported version of gson
+    // Compiles against the highest supported version of examplelib
     //   between 2.0 (inclusive) and 3.0 (exclusive)
-    jarJar(group: 'com.google.code.gson', name: 'gson', version: '[2.0,3.0)') {
-      // Includes gson 2.8.0
+    jarJar(group: 'com.example', name: 'examplelib', version: '[2.0,3.0)') {
+      // Includes examplelib 2.8.0
       jarJar.pin(it, '2.8.0')
     }
 }
@@ -52,9 +52,9 @@ You can additionally pin a version range while compiling against a specific vers
 ```gradle
 // In build.gradle
 dependencies {
-    // Compiles against gson 2.8.0
-    jarJar(group: 'com.google.code.gson', name: 'gson', version: '2.8.0') {
-      // Includes the highest supported version of gson
+    // Compiles against examplelib 2.8.0
+    jarJar(group: 'com.example', name: 'examplelib', version: '2.8.0') {
+      // Includes the highest supported version of examplelib
       //   between 2.0 (inclusive) and 3.0 (exclusive)
       jarJar.pin(it, '[2.0,3.0)')
     }
@@ -73,6 +73,7 @@ jarJar.fromRuntimeConfiguration()
 
 // ...
 
+// Dependencies will be executed on the 'jarJar' task
 dependencies {
     // Exclude any dependency which begins with 'com.google.gson.'
     exclude(dependency('com.google.gson.*'))

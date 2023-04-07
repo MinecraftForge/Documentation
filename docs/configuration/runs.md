@@ -1,7 +1,7 @@
 Run Configurations
 ==================
 
-Run configurations define how an instance of the game is going to run. This includes arguments, working directories, task names, etc. Run configurations are defined within the `minecraft.runs` block. While no runs are configured by default, ForgeGradle does provide some assumptions for the configurations `client`, `server`, `data`, or `gameTestServer` on their entry points.
+Run configurations define how an instance of the game is going to run. This includes arguments, working directories, task names, etc. Run configurations are defined within the `minecraft.runs` block. While no runs are configured by default, [Forge][userdev] does provide the configurations `client`, `server`, `data`, or `gameTestServer`.
 
 ```gradle
 minecraft {
@@ -17,7 +17,7 @@ Run configurations can be added similar to any `NamedDomainObjectContainer` usin
 ```gradle
 // Inside the minecraft block
 runs {
-    // Adds the run configuration named 'client'
+    // Creates or configures the run configuration named 'client'
     client {
         // Configure run
     }
@@ -125,17 +125,19 @@ client {
     mods {
         // Configures the 'example' mod
         example {
+            // Add a source set to a mod's sources
+            // This is recommended over manually adding classes and resources
+            source sourceSets.main
+
             // Sets the location of the mod's classes
             classes sourceSets.api.output
 
             // Sets the location of the mod's resources
             resources files('./my_resources')
-
-            // Add a source set to a mod's sources
-            source sourceSets.main
         }
     }
 }
 ```
 
+[userdev]: https://github.com/MinecraftForge/MinecraftForge/blob/1.19.x/build.gradle#L374-L430
 [buildscript]: https://github.com/MinecraftForge/MinecraftForge/blob/d4836bc769da003528b6cebc7e677a5aa23a8228/build.gradle#L434-L470
