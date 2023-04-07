@@ -73,10 +73,12 @@ jarJar.fromRuntimeConfiguration()
 
 // ...
 
-// Dependencies will be executed on the 'jarJar' task
-dependencies {
-    // Exclude any dependency which begins with 'com.google.gson.'
-    exclude(dependency('com.google.gson.*'))
+jarJar {
+    // Include or exclude dependencies here from runtime configuration
+    dependencies {
+        // Exclude any dependency which begins with 'com.google.gson.'
+        exclude(dependency('com.google.gson.*'))
+    }
 }
 ```
 
