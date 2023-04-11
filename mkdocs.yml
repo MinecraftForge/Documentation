@@ -28,6 +28,7 @@ extra:
     ForgeGradle: fg-6.x
   current_version: 6.x
   versions:
+    5.x: 5.x
     6.x: 6.x
 
 extra_css:
