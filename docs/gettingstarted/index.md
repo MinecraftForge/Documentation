@@ -1,60 +1,117 @@
 Getting Started with Forge
 ==========================
 
-This is a simple guide to get you from nothing to a basic mod. The rest of this documentation is about where to go from here.
+If you have never made a Forge mod before, this section will provide the minimum amount of information needed to setup a Forge development environment. The rest of the documentation is about where to go from here.
+
+Prerequisites
+-------------
+
+* An installation of the Java 17 Development Kit (JDK) and 64-bit Java Virtual Machine (JVM). Forge recommends and officially supports [Eclipse Temurin][jdk].
+
+!!! warning
+    Using a 32-bit JVM will cause some problems when using [ForgeGradle]. Make sure your computer supports a 64-bit architecture along with an associated JVM.
+
+* Familiarity with an Integrated Development Environment (IDE).
+    * It is recommended to use an IDE with Gradle integration.
 
 From Zero to Modding
 --------------------
 
-1. Obtain a Java 17 Development Kit (JDK) and a 64-bit Java Virtual Machine (JVM). Minecraft and MinecraftForge both compile against Java 17 and as such should be used for development. Using a 32-bit JVM will result in some problems when running the below gradle tasks. You can obtain one from [Eclipse Adoptium][jdk].
-2. Obtain the Mod Development Kit (MDK) from Forge's [files][] site.
-3. Extract the downloaded MDK into an empty directory. You should see a bunch of files along with an example mod placed in `src/main/java` for you to look at. Only a few of these files are strictly necessary for mod development, and you may reuse these files for all your projects. These files are:
+1. Download the Mod Developer Kit (MDK) from the [Forge file site][files] by clicking 'Mdk' followed by the 'Skip' button in the top right after waiting for a period of time. It is recommended to download the latest version of Forge whenever possible.
+1. Extract the downloaded MDK into an empty directory. This will be your mod's directory, which should now contain some gradle files and a `src` subdirectory containing the example mod.
+
+!!! note
+    A number of files can be reused across different mods. These files are:
+
+    * the `gradle` subdirectory
     * `build.gradle`
-    * `gradlew.bat`
     * `gradlew`
+    * `gradlew.bat`
     * `settings.gradle`
-    * the `gradle` folder
-4. Move the files listed above to a new folder. This will be your mod project folder.
-5. Choose your IDE:
-    * Forge only explicitly supports developing with Eclipse, but there are additional run tasks for IntelliJ IDEA or Visual Studio Code environments. However, any environment, from Netbeans to vim/emacs, can be made to work.
-    * For both Intellij IDEA and Eclipse, their Gradle integration will handle the rest of the initial workspace setup. This includes downloading packages from Mojang, MinecraftForge, and a few other software sharing sites. For VSCode, the 'Gradle Tasks' plugin can be used to handle the initial workspace setup.
-    * For most, if not all, changes to the build.gradle file to take effect, Gradle will need to be invoked to re-evaluate the project. This can be done through 'Refresh' buttons in the Gradle panels of both of the previously mentioned IDEs.
-6. Generating IDE Launch/Run Configurations:
-    * For Eclipse, run the `genEclipseRuns` gradle task (`gradlew genEclipseRuns`). This will generate the Launch Configurations and download any required assets for the game to run. After this has finished, refresh your project.
-    * For IntelliJ, run the `genIntellijRuns` gradle task (`gradlew genIntellijRuns`). This will generate the Run Configurations and download any required assets for the game to run. If you encounter an error saying "module not specified", you can either edit the configuration to select your "main" module or specify it through the `ideaModule` property.
-    * For VSCode, run the `genVSCodeRuns` gradle task (`gradlew genVSCodeRuns`). This will generate the Launch Configurations and download any required assets for the game to run.
+
+    The `src` subdirectory does not need to be copied across workspaces; however, you may need to refresh the Gradle project if the java (`src/main/java`) and resource (`src/main/resources`) are created later.
+
+3. Open your selected IDE:
+    * Forge only explicitly supports development on Eclipse, but there are additional run configurations for IntelliJ IDEA and Visual Studio Code. Regardless, any environment, from Apache NetBeans to Vim / Emacs, can be used.
+    * Eclipse and IntelliJ IDEA's Gradle integration, both installed and enabled by default, will handle the rest of the initial workspace setup on import or open. This includes downloading the necessary packages from Mojang, MinecraftForge, etc. The 'Gradle for Java' plugin is needed for Visual Studio Code to do the same.
+    * Gradle will need to be invoked to re-evaluate the project for almost all changes to its associated files (e.g., `build.gradle`, `settings.gradle`, etc.). Some IDEs come with 'Refresh' buttons to do this; however, it can be done through the terminal via `gradlew build --refresh-dependencies`.
+3. Run configurations can be generated for Eclipse, IntelliJ IDEA, or Visual Studio Code:
+    * **Eclipse**: Run the `genEclipseRuns` task.
+    * **IntelliJ IDEA**: Run the `genIntellijRuns` task. If a "module not specified" error occurs, set the [`ideaModule` property][config] to your 'main' module (typically `${project.name}.main`).
+    * **Visual Studio Code**: Run the `getVSCodeRuns` task.
+    * **Other IDEs**: You can run the configurations directly using `gradle run*` (e.g., `runClient`, `runServer`, `runData`, `runGameTestServer`). These can also be used with the supported IDEs.
 
 Customizing Your Mod Information
 --------------------------------
 
-Edit the `build.gradle` file to customize how your mod is built (the file names, versions, and other things). Most things in the `build.gradle` can be removed or customized there.
+Edit the `build.gradle` file to customize how your mod is built (e.g., file name, artifact version, etc.).
 
 !!! important
-    **Do not** edit the `settings.gradle` unless you know what you are doing. The default text is necessary to get the ForgeGradle plugin.    
+    Do **not** edit the `settings.gradle` unless you know what you are doing. The file specifies the repository that [ForgeGradle] is uploaded to.
 
-### Simple `build.gradle` Customizations
+### Recommended `build.gradle` Customizations
 
-These customizations are highly recommended for all projects.
+#### Mod Id Replacement
 
-* To change the name of the file you build - edit the value of `archivesBaseName` to suit.
-* To change your "maven coordinates" - edit the value of `group` as well.
-* To change the version number - edit the value of `version`.
-* To update the run configurations - replace all occurrences of `examplemod` to the mod id of your mod.
+Replace all occurrences of `examplemod`, including [`mods.toml` and the main mod file][structuring] with the mod id of your mod. This also includes changing the name of the file you build by setting `archivesBaseName` (this is typically set to your mod id).
 
-### Migration to Mojang's Official Mappings
+```gradle
+// In some build.gradle
+archivesBaseName = 'mymod'
+```
 
-Forge uses Mojang's Official Mappings, or MojMaps, for the forseeable future. The official mappings provide class, method, and field names. Parameters and javadocs are not provided by this mapping set. Currently, there is no guarantee that these mappings are legally safe; however, Forge has decided to adopt them in good faith since Mojang wants them to be used. You can read about [Forge's stance here][mojmap].
+#### Group Id
+
+Pick a unique package name. If you own a URL associated with your project, you can use it as your top level package. For example if you own "example.com", you may use `com.example` as your top level package.
+
+!!! important
+    If you do not own a domain, do not use it for your top level package. You can use your email, a subdomain of where you host a website, or your name/username as long as it can be unique.
+
+The `group` property should be set to the top level package:
+
+```gradle
+// In some build.gradle
+group = 'com.example'
+```
+
+The packages within your java source (`src/main/java`) should also now conform to this structure, with an inner package representing the mod id:
+
+```text
+com
+- example (group package)
+  - mymod (the mod id)
+    - MyMod.java (renamed ExampleMod.java)
+```
+
+#### Version
+
+Set the `version` property to the current version of your mod. We recommend using a [variation of semantic versioning][semver].
+
+```gradle
+// In some build.gradle
+version = '1.19.4-1.0.0.0'
+```
+
+### Additional Configurations
+
+Additional configurations can be found on the [ForgeGradle] docs.
 
 Building and Testing Your Mod
 -----------------------------
 
-1. To build your mod, run `gradlew build`. This will output a file in `build/libs` with the name `[archivesBaseName]-[version].jar`. This file can be placed in the `mods` folder of a Forge enabled Minecraft setup or distributed.
-2. To test run your mod, the easiest way is to use the run configs that were generated when you set up your project. Otherwise, you can run `gradlew runClient`. This will launch Minecraft from the `<runDir>` location along with your mod's code in any source sets specified within your run configurations. The default MDK includes the `main` source set, so any code written within `src/main/java` will be applied.
-3. You can also run a dedicated server using the server run config or via `gradlew runServer`. This will launch the Minecraft server with its GUI. After the first run, the server will shut down immediately until the Minecraft EULA is accepted by editing `run/eula.txt`. Once accepted, the server will load and can be accessed via a direct connect to `localhost`.
+1. To build your mod, run `gradlew build`. This will output a file in `build/libs` with the name `[archivesBaseName]-[version].jar`. This file can be placed in the `mods` folder of a Forge-enabled Minecraft setup or distributed.
+1. To run your mod in a test environment, you can either use the generated run configurations or use the associated tasks (e.g. `gradlew runClient`). This will launch Minecraft from the run directory (default 'run') along with any source sets specified. The default MDK includes the `main` source set, so any code written in `src/main/java` will be applied.
+1. If you are running a dedicated server, whether through the run configuration or `gradlew runServer`, the server will initially shut down immediately. You will need to accept the Minecraft EULA by editing the `eula.txt` file in the run directory. Once accepted, the server will load, which can then be accessed via a direct connect to `localhost`.
 
 !!! note
-    It is always advisable to test your mod in a dedicated server environment if it is intended to run there.
-    
+    You should always test your mod in a dedicated server environment. This includes [client-only mods][client] as they should not do anything when loaded on the server.
+
+[jdk]: https://adoptium.net/temurin/releases?version=17 "Eclipse Temurin 17 Prebuilt Binaries"
+[ForgeGradle]: https://docs.minecraftforge.net/en/fg-5.x
+
 [files]: https://files.minecraftforge.net "Forge Files distribution site"
-[jdk]: https://adoptium.net/temurin/releases?version=17 "Temurin 17 Prebuilt Binaries"
-[mojmap]: https://github.com/MinecraftForge/MCPConfig/blob/master/Mojang.md
+[config]: https://docs.minecraftforge.net/en/fg-5.x/configuration/runs/
+
+[structuring]: ./structuring.md
+[semver]: ./versioning.md
+[client]: ../concepts/sides.md#writing-one-sided-mods
