@@ -4,6 +4,7 @@ nav:
   - Contributing to the Docs: 'contributing.md'
   - Getting Started:
     - Introduction: 'gettingstarted/index.md'
+    - The Mod Files: 'gettingstarted/modfiles.md'
     - Structuring Your Mod: 'gettingstarted/structuring.md'
     - Versioning: 'gettingstarted/versioning.md'
   - Core Concepts:

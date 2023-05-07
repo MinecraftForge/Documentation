@@ -53,7 +53,7 @@ Edit the `build.gradle` file to customize how your mod is built (e.g., file name
 
 #### Mod Id Replacement
 
-Replace all occurrences of `examplemod`, including [`mods.toml` and the main mod file][structuring] with the mod id of your mod. This also includes changing the name of the file you build by setting `archivesBaseName` (this is typically set to your mod id).
+Replace all occurrences of `examplemod`, including [`mods.toml` and the main mod file][modfiles] with the mod id of your mod. This also includes changing the name of the file you build by setting `archivesBaseName` (this is typically set to your mod id).
 
 ```gradle
 // In some build.gradle
@@ -62,12 +62,7 @@ archivesBaseName = 'mymod'
 
 #### Group Id
 
-Pick a unique package name. If you own a URL associated with your project, you can use it as your top level package. For example if you own "example.com", you may use `com.example` as your top level package.
-
-!!! important
-    If you do not own a domain, do not use it for your top level package. You can use your email, a subdomain of where you host a website, or your name/username as long as it can be unique.
-
-The `group` property should be set to the top level package:
+The `group` property should be set to your [top-level package][packaging]:
 
 ```gradle
 // In some build.gradle
@@ -112,6 +107,7 @@ Building and Testing Your Mod
 [files]: https://files.minecraftforge.net "Forge Files distribution site"
 [config]: https://docs.minecraftforge.net/en/fg-5.x/configuration/runs/
 
-[structuring]: ./structuring.md
+[modfiles]: ./modfiles.md
+[packaging]: ./structuring.md#packaging
 [semver]: ./versioning.md
 [client]: ../concepts/sides.md#writing-one-sided-mods
