@@ -8,7 +8,7 @@ mods.toml
 
 The `mods.toml` file defines the metadata of your mod(s). It also contains additional information that is displayed within the 'Mods' menu and how your mod(s) should be loaded into the game.
 
-The file uses the [Tom's Obvious Minimal Language, or TOML,][toml] format. The file must be stored under the `META-INF` folder in the resource directory of the source set you are using (`src/main/resources/META-INF/mods.toml` for the `main` source set). A `mods.toml` file may look something like this:
+The file uses the [Tom's Obvious Minimal Language, or TOML][toml], format. The file must be stored under the `META-INF` folder in the resource directory of the source set you are using (`src/main/resources/META-INF/mods.toml` for the `main` source set). A `mods.toml` file may look something like this:
 
 ```toml
 modLoader="javafml"
@@ -110,7 +110,7 @@ Property        | Type    | Default                 | Description | Example
 
 #### Features
 
-The features system allows mods to demand that certain settings, software, or hardware are available when loading the system. Currently, only the following features can be specified:
+The features system allows mods to demand that certain settings, software, or hardware are available when loading the system. When a feature is not satisfied, mod loading will fail, informing the user about the requirement. Currently, Forge provides the following features:
 
 Feature        | Description | Example
 :---:          | :---:       | :---
@@ -126,7 +126,7 @@ Property       | Type    | Default       | Description | Example
 `mandatory`    | boolean | **mandatory** | Whether the game should crash when this dependency is not met. | `true`
 `versionRange` | string  | `""`          | The acceptable version range of the language loader, expressed as a [Maven Version Range][mvr]. An empty string matches any version. | `"[1, 2)"`
 `ordering`     | string  | `"NONE"`      | Defines if the mod must load before (`"BEFORE"`) or after (`"AFTER"`) this dependency. If the ordering does not matter, return `"NONE"` | `"AFTER"`
-`side`         | string  | `"BOTH"`      | The [physical side][dist] the most must be present on: `"CLIENT"`, `"SERVER"`, or `"BOTH"`.| `"CLIENT"`
+`side`         | string  | `"BOTH"`      | The [physical side][dist] the dependency must be present on: `"CLIENT"`, `"SERVER"`, or `"BOTH"`.| `"CLIENT"`
 `referralUrl`  | string  | *nothing*     | A URL to the download page of the dependency. Currently unused. | `"https://library.example.com/"`
 
 !!! warning

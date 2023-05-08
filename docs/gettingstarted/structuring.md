@@ -4,7 +4,7 @@ Structuring Your Mod
 Structured mods are beneficial for maintenance, making contributions, and providing a clearer understanding of the underlying codebase. Some of the recommendations from Java, Minecraft, and Forge are listed below.
 
 !!! note
-    You do not have to follow the advice below; you can structure your mod anyway you set fit. However, it is still highly recommended to do so.
+    You do not have to follow the advice below; you can structure your mod any way you set fit. However, it is still highly recommended to do so.
 
 Packaging
 ---------
@@ -40,7 +40,7 @@ Domain    | example.com       | `com.example`
 Subdomain | example.github.io | `io.github.example`
 Email     | example@gmail.com | `com.gmail.example`
 
-The next level package should then be your mod's id (e.g. `com.example.examplemod` where `examplemod` is the mod id). This will guarantee that, unless you have two mods with the same mod id (which should never be the case), your packages should not have any issues loading.
+The next level package should then be your mod's id (e.g. `com.example.examplemod` where `examplemod` is the mod id). This will guarantee that, unless you have two mods with the same id (which should never be the case), your packages should not have any issues loading.
 
 You can find some additional naming conventions on [Oracle's tutorial page][naming].
 
@@ -48,8 +48,8 @@ You can find some additional naming conventions on [Oracle's tutorial page][nami
 
 In addition to the top-level package, it is highly recommend to break your mod's classes between subpackages. There are numerous methods on how to do so:
 
-* **Group By Function**: Make subpackages for classes with a common purpose. For example, blocks can be under `block` or `blocks`, entities under `entity` or `entities`, etc. Minecraft uses this structure with the singular version of the word.
-* **Group By Logic**: Make subpackages for classes with a common logic. For example, if you were creating a new type of crafting table, you would put its block, menu, item, and more under `feature/crafting_table`.
+* **Group By Function**: Make subpackages for classes with a common purpose. For example, blocks can be under `block` or `blocks`, entities under `entity` or `entities`, etc. Mojang uses this structure with the singular version of the word.
+* **Group By Logic**: Make subpackages for classes with a common logic. For example, if you were creating a new type of crafting table, you would put its block, menu, item, and more under `feature.crafting_table`.
 
 #### Client, Server, and Data Packages
 
@@ -69,7 +69,7 @@ Classes are commonly suffixed with its type, for example:
 * A menu for an `Oven` -> `OvenMenu`.
 
 !!! note
-    Minecraft typically follows a similar structure for all classes except entities. Those are represented by just their names (e.g. `Pig`, `Zombie`, etc.).
+    Mojang typically follows a similar structure for all classes except entities. Those are represented by just their names (e.g. `Pig`, `Zombie`, etc.).
 
 Choose One Method from Many
 ---------------------------
