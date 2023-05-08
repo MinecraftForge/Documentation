@@ -366,7 +366,7 @@ The `ModelProvider` subclass requires no special logic. The constructor should h
 public class ExampleModelProvider extends ModelProvider<ExampleModelBuilder> {
 
   public ExampleModelProvider(PackOutput output, String modid, ExistingFileHelper existingFileHelper) {
-    // Models will be generated to 'assets/<modid>/models/example' if no modid is specified in '#getBuilder'
+    // Models will be generated to 'assets/<modid>/models/example' if no 'modid' is specified in '#getBuilder'
     super(output, modid, "example", ExampleModelBuilder::new, existingFileHelper);
   }
 }
