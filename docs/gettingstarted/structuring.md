@@ -18,7 +18,7 @@ b.jar
   - com.example.ExampleClass // This class will not normally be loaded
 ```
 
-This is even more relevant when it comes to loading modules. If there are class files in two packages under the same name in separate modules, then only the first package will be loaded.
+This is even more relevant when it comes to loading modules. If there are class files in two packages under the same name in separate modules, this will cause the mod loader to crash on startup since mod modules are exported to the game and other mods.
 
 ```
 module A
