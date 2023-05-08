@@ -62,7 +62,13 @@ archivesBaseName = 'mymod'
 
 #### Group Id
 
-The `group` property should be set to your [top-level package][packaging]:
+The `group` property should be set to your [top-level package][packaging], which should either be a domain you own or your email address:
+
+Type      | Value             | Top-Level Package
+:---:     | :---:             | :---
+Domain    | example.com       | `com.example`
+Subdomain | example.github.io | `io.github.example`
+Email     | example@gmail.com | `com.gmail.example`
 
 ```gradle
 // In some build.gradle
