@@ -66,7 +66,7 @@ Property             | Type    | Default       | Description | Example
 !!! important
     The `services` property is functionally equivalent to specifying the [`uses` directive in a module][uses], which allows [*loading*][serviceload] a service of a given type.
 
-    For example, the [`javafml` language loader][fmlservice] **uses** the `net.minecraftforge.forgespi.language.IModLanguageProvider` service and would be referenced within a `module-info.java` like so:
+    For example, the `javafml` language loader **uses** the `net.minecraftforge.forgespi.language.IModLanguageProvider` service and would be referenced within a `module-info.java` like so:
 
     ```java
     module com.example.examplemod {
@@ -164,7 +164,6 @@ public class Example {
 [modsp]: #mod-specific-properties
 [uses]: https://docs.oracle.com/javase/specs/jls/se17/html/jls-7.html#jls-7.7.3
 [serviceload]: https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ServiceLoader.html#load(java.lang.Class)
-[fmlservice]: https://github.com/MinecraftForge/MinecraftForge/blob/1.19.x/javafmllanguage/src/main/resources/META-INF/services/net.minecraftforge.forgespi.language.IModLanguageProvider
 [array]: https://toml.io/en/v1.0.0#array-of-tables
 [semver]: ./versioning.md
 [multiline]: https://toml.io/en/v1.0.0#string
