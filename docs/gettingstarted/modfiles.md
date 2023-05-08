@@ -66,16 +66,6 @@ Property             | Type    | Default       | Description | Example
 !!! important
     The `services` property is functionally equivalent to specifying the [`uses` directive in a module][uses], which allows [*loading*][serviceload] a service of a given type.
 
-    For example, the `javafml` language loader **uses** the `net.minecraftforge.forgespi.language.IModLanguageProvider` service and would be referenced within a `module-info.java` like so:
-
-    ```java
-    module com.example.examplemod {
-      requires net.minecraftforge.forgespi.language;
-
-      uses net.minecraftforge.forgespi.language.IModLanguageProvider;
-    }
-    ```
-
 ### Mod-Specific Properties
 
 Mod-specific properties are tied to the specified mod using the `[[mods]]` header. This is an [array of tables][array]; all key/value properties will be attached to that mod until the next header.
