@@ -51,7 +51,7 @@ showAsResourcePack=false
 
 ### Non-Mod-Specific Properties
 
-Non-mod-specific properties are properties associated with the JAR itself,  indicating how to load the mod(s) and any additional global metadata.
+Non-mod-specific properties are properties associated with the JAR itself, indicating how to load the mod(s) and any additional global metadata.
 
 Property             | Type    | Default       | Description | Example
 :---                 | :---:   | :---:         | :---:       | :---
@@ -62,6 +62,19 @@ Property             | Type    | Default       | Description | Example
 `services`           | array   | `[]`          | An array of services your mod **uses**. This is consumed as part of the created module for the mod from Forge's implementation of the Java Platform Module System. | `["net.minecraftforge.forgespi.language.IModLanguageProvider"]`
 `properties`         | table   | `{}`          | A table of substitution properties. This is used by `StringSubstitutor` to replace `${file.<key>}` with its corresponding value. This is currently only used to replace the `version` in the [mod-specific properties][modsp]. | `{ "example" = "1.2.3" }` referenced by `${file.example}`
 `issueTrackerURL`    | string  | *nothing*     | A URL representing the place to report and track issues with the mod(s). | `"https://forums.minecraftforge.net/"`
+
+!!! important
+    The `services` property is functionally equivalent to specifying the [`uses` directive in a module][uses], which allows [*loading*][serviceload] a service of a given type.
+
+    For example, the [`javafml` language loader][fmlservice] **uses** the `net.minecraftforge.forgespi.language.IModLanguageProvider` service and would be referenced within a `module-info.java` like so:
+
+    ```java
+    module com.example.examplemod {
+      requires net.minecraftforge.forgespi.language;
+
+      uses net.minecraftforge.forgespi.language.IModLanguageProvider;
+    }
+    ```
 
 ### Mod-Specific Properties
 
@@ -149,6 +162,9 @@ public class Example {
 [mvr]: https://maven.apache.org/enforcer/enforcer-rules/versionRanges.html
 [spdx]: https://spdx.org/licenses/
 [modsp]: #mod-specific-properties
+[uses]: https://docs.oracle.com/javase/specs/jls/se17/html/jls-7.html#jls-7.7.3
+[serviceload]: https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/ServiceLoader.html#load(java.lang.Class)
+[fmlservice]: https://github.com/MinecraftForge/MinecraftForge/blob/1.19.x/javafmllanguage/src/main/resources/META-INF/services/net.minecraftforge.forgespi.language.IModLanguageProvider
 [array]: https://toml.io/en/v1.0.0#array-of-tables
 [semver]: ./versioning.md
 [multiline]: https://toml.io/en/v1.0.0#string
