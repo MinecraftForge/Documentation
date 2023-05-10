@@ -1,7 +1,7 @@
 Contributing to This Documentation
 ==================================
 
-You can make a contribution via a PR on [Github].
+You can make a contribution via a PR on [GitHub].
 
 This documentation is meant to be explanatory. Please explain how to do things, and break it down into reasonable chunks.
 We have a wiki elsewhere that can capture more comprehensive code examples.
