@@ -20,21 +20,21 @@ From Zero to Modding
 1. Download the Mod Developer Kit (MDK) from the [Forge file site][files] by clicking 'Mdk' followed by the 'Skip' button in the top right after waiting for a period of time. It is recommended to download the latest version of Forge whenever possible.
 1. Extract the downloaded MDK into an empty directory. This will be your mod's directory, which should now contain some gradle files and a `src` subdirectory containing the example mod.
 
-!!! note
-    A number of files can be reused across different mods. These files are:
+    !!! note
+        A number of files can be reused across different mods. These files are:
 
-    * the `gradle` subdirectory
-    * `build.gradle`
-    * `gradlew`
-    * `gradlew.bat`
-    * `settings.gradle`
+        * the `gradle` subdirectory
+        * `build.gradle`
+        * `gradlew`
+        * `gradlew.bat`
+        * `settings.gradle`
 
-    The `src` subdirectory does not need to be copied across workspaces; however, you may need to refresh the Gradle project if the java (`src/main/java`) and resource (`src/main/resources`) are created later.
+        The `src` subdirectory does not need to be copied across workspaces; however, you may need to refresh the Gradle project if the java (`src/main/java`) and resource (`src/main/resources`) are created later.
 
 1. Open your selected IDE:
     * Forge only explicitly supports development on Eclipse and IntelliJ IDEA, but there are additional run configurations for Visual Studio Code. Regardless, any environment, from Apache NetBeans to Vim / Emacs, can be used.
     * Eclipse and IntelliJ IDEA's Gradle integration, both installed and enabled by default, will handle the rest of the initial workspace setup on import or open. This includes downloading the necessary packages from Mojang, MinecraftForge, etc. The 'Gradle for Java' plugin is needed for Visual Studio Code to do the same.
-    * Gradle will need to be invoked to re-evaluate the project for almost all changes to its associated files (e.g., `build.gradle`, `settings.gradle`, etc.). Some IDEs come with 'Refresh' buttons to do this; however, it can be done through the terminal via `gradlew build --refresh-dependencies`.
+    * Gradle will need to be invoked to re-evaluate the project for almost all changes to its associated files (e.g., `build.gradle`, `settings.gradle`, etc.). Some IDEs come with 'Refresh' buttons to do this; however, it can be done through the terminal via `gradlew`.
 1. Generate run configurations for your selected IDE:
     * **Eclipse**: Run the `genEclipseRuns` task.
     * **IntelliJ IDEA**: Run the `genIntellijRuns` task. If a "module not specified" error occurs, set the [`ideaModule` property][config] to your 'main' module (typically `${project.name}.main`).
@@ -53,12 +53,22 @@ Edit the `build.gradle` file to customize how your mod is built (e.g., file name
 
 #### Mod Id Replacement
 
-Replace all occurrences of `examplemod`, including [`mods.toml` and the main mod file][modfiles] with the mod id of your mod. This also includes changing the name of the file you build by setting `archivesBaseName` (this is typically set to your mod id).
+Replace all occurrences of `examplemod`, including [`mods.toml` and the main mod file][modfiles] with the mod id of your mod. This also includes changing the name of the file you build by setting `base.archivesName` (this is typically set to your mod id).
 
 ```gradle
 // In some build.gradle
-archivesBaseName = 'mymod'
+base.archivesName = 'mymod'
 ```
+
+!!! note
+    The Forge MDK currently uses `archivesBaseName` to set the artifact name instead of `base.archivesName`. We recommend using `base.archivesName` instead as `archivesBaseName` is deprecated for removal in Gradle 9, which a future version of ForgeGradle will support.
+
+    You can still use `archivesBaseName` by setting the following:
+
+    ```gradle
+    // In some build.gradle
+    base.archivesName = 'mymod'
+    ```
 
 #### Group Id
 
@@ -86,7 +96,7 @@ com
 
 #### Version
 
-Set the `version` property to the current version of your mod. We recommend using a [variation of maven versioning][mvnver].
+Set the `version` property to the current version of your mod. We recommend using a [variation of Maven versioning][mvnver].
 
 ```gradle
 // In some build.gradle

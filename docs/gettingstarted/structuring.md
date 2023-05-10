@@ -26,7 +26,7 @@ module A
     - class I
     - class J
 module B
-  - package X // This package will not normally be loaded, preventing usage of R, S, T
+  - package X // This package will cause the mod loader to crash, as there already is a module with package X being exported
     - class R
     - class S
     - class T
@@ -74,7 +74,7 @@ Classes are commonly suffixed with its type, for example:
 Choose One Method from Many
 ---------------------------
 
-There are many methods for performing a certain task: registering an object, listening for events, etc. It's generally recommended to only use a single method to accomplish a given task. While this does improve code formatting, it also avoid any weird interactions or redundancies that may occur (e.g. your event listener executing twice).
+There are many methods for performing a certain task: registering an object, listening for events, etc. It's generally recommended to be consistent by using a single method to accomplish a given task. While this does improve code formatting, it also avoid any weird interactions or redundancies that may occur (e.g. your event listener executing twice).
 
 [naming]: https://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html
 [datagen]: ../datagen/index.md
