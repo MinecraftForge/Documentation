@@ -5,7 +5,7 @@ This is the official documentation for [MinecraftForge], the Minecraft modding A
 
 This documentation is _only_ for Forge, **this is not a Java tutorial**.
 
-Contribute to the docs at [GitHub].
+If you would like to contribute to the docs, read [Contributing to the Docs][contributing].
 
 [MinecraftForge]: http://minecraftforge.net
-[GitHub]: https://github.com/MinecraftForge/Documentation
+[contributing]: ./contributing.md

@@ -1,124 +1,81 @@
 Structuring Your Mod
 ====================
 
-Let us look at how to organize your mod into different files and what those files should do.
+Structured mods are beneficial for maintenance, making contributions, and providing a clearer understanding of the underlying codebase. Some of the recommendations from Java, Minecraft, and Forge are listed below.
+
+!!! note
+    You do not have to follow the advice below; you can structure your mod any way you see fit. However, it is still highly recommended to do so.
 
 Packaging
 ---------
 
-Pick a unique package name. If you own a URL associated with your project, you can use it as your top level package. For example if you own "example.com", you may use `com.example` as your top level package.
+When structuring your mod, pick a unique, top-level package structure. Many programmers will use the same name for different classes, interfaces, etc. Java allows classes to have the same name as long as they are in different packages. As such, if two classes have the same package with the same name, only one would be loaded, most likely causing the game to crash.
 
-!!! important
-    If you do not own a domain, do not use it for your top level package. You can use your email, a subdomain of where you host a website, or your name/username as long as it can be unique.
-
-After the top level package (if you have one), you append a unique name for your mod, such as `examplemod`. In our case it will end up as `com.example.examplemod`.
-
-The `mods.toml` file
--------------------
-
-!!! important
-    The license field in the mods.toml is required. If it is not provided, an error will occur. See your choices at https://choosealicense.com/
-
-This file defines the metadata of your mod. Its information may be viewed by users from the main screen of the game through the 'Mods' button. A single info file can describe several mods.
-
-The `mods.toml` file is formatted as [TOML][], the example `mods.toml` file in the MDK provides comments explaining the contents of the file. It should be stored as `src/main/resources/META-INF/mods.toml`. A basic `mods.toml`, describing one mod, may look like this:
-```toml
-# The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
-modLoader="javafml"
-# A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-# Forge for 1.19.4 is version 45
-loaderVersion="[45,)"
-# The license for your mod. This is mandatory and allows for easier comprehension of your redistributive properties.
-# Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
-license="All Rights Reserved"
-# A URL to refer people to when problems occur with this mod
-issueTrackerURL="github.com/MinecraftForge/MinecraftForge/issues"
-# If the mods defined in this file should show as separate resource packs
-showAsResourcePack=false
-
-[[mods]]
-  modId="examplemod"
-  version="1.0.0.0"
-  displayName="Example Mod"
-  updateJSONURL="minecraftforge.net/versions.json"
-  displayURL="minecraftforge.net"
-  logoFile="logo.png"
-  credits="I'd like to thank my mother and father."
-  authors="Author"
-  description='''
-  Lets you craft dirt into diamonds. This is a traditional mod that has existed for eons. It is ancient. The holy Notch created it. Jeb rainbowfied it. Dinnerbone made it upside down. Etc.
-  '''
-  displayTest="MATCH_VERSION"
-
-  [[dependencies.examplemod]]
-    modId="forge"
-    mandatory=true
-    versionRange="[45,)"
-    ordering="NONE"
-    side="BOTH"
-
-  [[dependencies.examplemod]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.19.4]"
-    ordering="NONE"
-    side="BOTH"
+```
+a.jar
+  - com.example.ExampleClass
+b.jar
+  - com.example.ExampleClass // This class will not normally be loaded
 ```
 
-If any string is specified as `${file.jarVersion}`, Forge will replace the string with the **Implementation Version** specified in your jar manifest at runtime. Since the user development environment has no jar manifest to pull from, it will be `NONE` instead. As such, it is usually recommended to leave the `version` field alone. Here is a table of attributes that may be given to a mod, where `mandatory` means there is no default and the absence of the property causes an error.
+This is even more relevant when it comes to loading modules. If there are class files in two packages under the same name in separate modules, this will cause the mod loader **to crash on startup** since mod modules are exported to the game and other mods.
 
-|     Property  |   Type   | Default           | Description |
-|-------------: |:--------:|:--------:         |:------------|
-|        modid  |  string  | mandatory         | The modid this file is linked to. |
-|      version  |  string  | mandatory         | The version of the mod. It should be just numbers separated by dots, ideally conforming to Forge's [Semantic Versioning][versioning] structure. |
-|  displayName  |  string  | mandatory         | The user-friendly name of this mod. |
-| updateJSONURL |  string  |   `""`            | The URL to a [version JSON][updatechecker]. |
-|   displayURL  |  string  |   `""`            | A link to the mod's homepage. |
-|     logoFile  |  string  |   `""`            | The filename of the mod's logo. It must be placed in the root resource folder, not in a subfolder. |
-|      credits  |  string  |   `""`            | A string that contains any acknowledgements you want to mention. |
-|      authors  |  string  |   `""`            | The authors of this mod. |
-|  description  |  string  | mandatory         | A description of this mod. |
-| displayTest   | string   | `"MATCH_VERSION"` | Controls the display of the mod in the server connection screen.
-| dependencies  | [list]   |   `[]`            | A list of dependencies of this mod. |
+```
+module A
+  - package X
+    - class I
+    - class J
+module B
+  - package X // This package will cause the mod loader to crash, as there already is a module with package X being exported
+    - class R
+    - class S
+    - class T
+```
 
-\* All version ranges use the [Maven Version Range Specification][mvr].
+As such, your top level package should be something that you own: a domain, email address, a subdomain of where your website, etc. It can even be your name or username as long as you can guarantee that it will be uniquely identifiable within the expected target.
 
-The Mod File
-------------
+Type      | Value             | Top-Level Package
+:---:     | :---:             | :---
+Domain    | example.com       | `com.example`
+Subdomain | example.github.io | `io.github.example`
+Email     | example@gmail.com | `com.gmail.example`
 
-Generally, we will start with a file named after your mod and put into your package. This is the *entry point* to your mod and will contain some special indicators marking it as such.
+The next level package should then be your mod's id (e.g. `com.example.examplemod` where `examplemod` is the mod id). This will guarantee that, unless you have two mods with the same id (which should never be the case), your packages should not have any issues loading.
 
-What is `@Mod`?
--------------
+You can find some additional naming conventions on [Oracle's tutorial page][naming].
 
-This is an annotation indicating to the Forge Mod Loader that the class is a Mod entry point. The `@Mod` annotation's value should match a mod id in the `src/main/resources/META-INF/mods.toml` file.
+### Sub-package Organization
 
-Keeping Your Code Clean Using Sub-packages
-------------------------------------------
+In addition to the top-level package, it is highly recommend to break your mod's classes between subpackages. There are two major methods on how to do so:
 
-Rather than clutter up a single class and package with everything, it is recommended that you break your mod into subpackages.
+* **Group By Function**: Make subpackages for classes with a common purpose. For example, blocks can be under `block` or `blocks`, entities under `entity` or `entities`, etc. Mojang uses this structure with the singular version of the word.
+* **Group By Logic**: Make subpackages for classes with a common logic. For example, if you were creating a new type of crafting table, you would put its block, menu, item, and more under `feature.crafting_table`.
 
-A common subpackage strategy has packages for `common` and `client` code, which is code that can be run on both server/client and only client, respectively. Inside the `common` package would go things like Items, Blocks, and Block Entities (which can each, in turn, be another subpackage). Things like Screens and Renderers would go inside the `client` package.
+#### Client, Server, and Data Packages
 
-!!! note
-    This package style is only a suggestion, though it is a commonly used style. Feel free to use your own packaging system.
+In general, code only for a given side or runtime should be isolated from the other classes in a separate subpackage. For example, code related to [data generation][datagen] should go in a `data` package while code only on the dedicated server should go in a `server` package.
 
-By keeping your code in clean subpackages, you can grow your mod much more organically.
+However, it is highly recommended that [client-only code][sides] should be isolated in a `client` subpackage. This is because dedicated servers have no access to any of the client-only packages in Minecraft. As such, having a dedicated package would provide a decent sanity check to verify you are not reaching across sides within your mod.
 
 Class Naming Schemes
 --------------------
 
-A common class naming scheme allows easier deciphering of what a class is, and it also makes it easier for someone developing with your mod to find things.
+A common class naming scheme makes it easier to decipher the purpose of the class or to easily locate specific classes.
 
-For Example:
+Classes are commonly suffixed with its type, for example:
 
-* An `Item` called `PowerRing` would be in an `item` package, with a class name of `PowerRingItem`.
-* A `Block` called `NotDirt` would be in a `block` package, with a class name of `NotDirtBlock`.
-* Finally, a `BlockEntity` for a block called `SuperChewer` would be a `block.entity` or `blockentity` package, with a class name of `SuperChewerBlockEntity`.
+* An `Item` called `PowerRing` -> `PowerRingItem`.
+* A `Block` called `NotDirt` -> `NotDirtBlock`.
+* A menu for an `Oven` -> `OvenMenu`.
 
-Appending your class names with what *kind* of object they are makes it easier to figure out what a class is or guess the class for an object.
+!!! note
+    Mojang typically follows a similar structure for all classes except entities. Those are represented by just their names (e.g. `Pig`, `Zombie`, etc.).
 
-[TOML]: https://github.com/toml-lang/toml
-[versioning]: ./versioning.md
-[updatechecker]: ../misc/updatechecker.md
-[mvr]: https://maven.apache.org/enforcer/enforcer-rules/versionRanges.html
+Choose One Method from Many
+---------------------------
+
+There are many methods for performing a certain task: registering an object, listening for events, etc. It's generally recommended to be consistent by using a single method to accomplish a given task. While this does improve code formatting, it also avoid any weird interactions or redundancies that may occur (e.g. your event listener executing twice).
+
+[naming]: https://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html
+[datagen]: ../datagen/index.md
+[sides]: ../concepts/sides.md

@@ -116,4 +116,4 @@ This tells the client that it should ignore the server version being absent, and
 
 [invokedynamic]: https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-6.html#jvms-6.5.invokedynamic
 [dist]: #fmlenvironmentdist-and-onlyin
-[structuring]: ../gettingstarted/structuring.md#the-modstoml-file
+[structuring]: ../gettingstarted/modfiles.md#modstoml

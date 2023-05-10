@@ -34,7 +34,7 @@ The JSON itself has a relatively simple format as follows:
 This is fairly self-explanatory, but some notes:
  
 * The link under `homepage` is the link the user will be shown when the mod is outdated.
-* Forge uses an internal algorithm to determine whether one version string of your mod is "newer" than another. Most versioning schemes should be compatible, but see the `ComparableVersion` class if you are concerned about whether your scheme is supported. Adherence to [semantic versioning][semver] is highly recommended.
+* Forge uses an internal algorithm to determine whether one version string of your mod is "newer" than another. Most versioning schemes should be compatible, but see the `ComparableVersion` class if you are concerned about whether your scheme is supported. Adherence to [Maven versioning][mvnver] is highly recommended.
 * The changelog string can be separated into lines using `\n`. Some prefer to include a abbreviated changelog, then link to an external site that provides a full listing of changes.
 * Manually inputting data can be chore. You can configure your `build.gradle` to automatically update this file when building a release as Groovy has native JSON parsing support. Doing this is left as an exercise to the reader.
 
@@ -57,7 +57,7 @@ You can retrieve the results of the Forge Update Checker using `VersionChecker#g
 
 The returned object will also have the target version and any changelog lines as specified in `update.json`.
 
-[semver]: https://semver.org/
+[mvnver]: ../gettingstarted/versioning.md
 [nocubes]: https://cadiboo.github.io/projects/nocubes/update.json
 [corail]: https://github.com/Corail31/tombstone_lite/blob/master/update.json
 [chisel]: https://github.com/Aeltumn/Chisels-and-Bits-2/blob/master/update.json
