@@ -86,7 +86,7 @@ com
 
 #### Version
 
-Set the `version` property to the current version of your mod. We recommend using a [variation of semantic versioning][semver].
+Set the `version` property to the current version of your mod. We recommend using a [variation of maven versioning][mvnver].
 
 ```gradle
 // In some build.gradle
@@ -115,5 +115,5 @@ Building and Testing Your Mod
 
 [modfiles]: ./modfiles.md
 [packaging]: ./structuring.md#packaging
-[semver]: ./versioning.md
+[mvnver]: ./versioning.md
 [client]: ../concepts/sides.md#writing-one-sided-mods
