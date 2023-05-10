@@ -8,9 +8,17 @@ Custom model loaders are given these transforms combined with the [blockstate] t
 The root transforms can be specified in four formats:
 
 1. A string referring to a default value (currently only supports the value `"identity"`)
-2. A raw transformation matrix in the form of a nested JSON array with the last row omitted (3*4 matrix, row major order)
-3. A JSON object containing a singular `matrix` entry with the same format as above
-4. A JSON object containing any combination of the following optional entries:
+2. A JSON object containing a singular `matrix` entry containing a raw transformation matrix in the form of a nested JSON array with the last row omitted (3*4 matrix, row major order). Example to demonstrate the structure:
+   ```js
+   "transform": {
+       "matrix": [
+           [ 0, 0, 0, 0 ],
+           [ 0, 0, 0, 0 ],
+           [ 0, 0, 0, 0 ]
+       ]
+   }
+   ```
+3. A JSON object containing any combination of the following optional entries:
     - `origin`: origin point used for the rotations and scaling
     - `translation`: relative translation
     - `rotation` or `left_rotation`: rotation around the translated origin to be applied before scaling
