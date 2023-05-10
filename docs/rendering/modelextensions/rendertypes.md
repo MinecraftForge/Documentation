@@ -2,17 +2,21 @@ Render Types
 ============
 
 Adding the `render_type` entry at the top level allows specifying the render type this model will render in.  
-If this is not specified, the model will fall back to the render types returned by `ItemBlockRenderTypes#getRenderLayers()`.
+If this is not specified, the model will fall back to the render types returned by `ItemBlockRenderTypes#getRenderLayers()`.  
+This is merely a hint to the model loader and custom model loaders are free to ignore this entry.
 
 !!! note
-    Since 1.19 this replaces the deprecated method of setting the applicable render type(s) via `ItemBlockRenderTypes#setRenderLayer()` for blocks.
+    Since 1.19 this is preferred over the deprecated method of setting the applicable render type(s) via `ItemBlockRenderTypes#setRenderLayer()` for blocks.
 
-Example of a cutout block (i.e. a Glass Block)
+Example of a model for a cutout block with the glass texture
 
 ```js
 {
   "render_type": "minecraft:cutout",
-  // ...
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "block/glass"
+  }
 }
 ```
 

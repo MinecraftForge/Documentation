@@ -12,6 +12,9 @@ Elements Model
 
 In vanilla "elements" models, the face data applies to the face it is specified in or all faces of the element it is specified in which don't have their own face data.
 
+!!!note
+    The `forge_data` specified on a specific face completely overrides the `forge_data` specified on the whole element for that face and will not inherit any parameters from the element-level declaration.
+
 The additional data can be specified in the two ways shown in this example:
 ```js
 {
@@ -72,7 +75,7 @@ Parameters
 Specifying a color value with the `color` entry will apply that color as a tint to the quads. Defaults to `0xFFFFFFFF` (white, fully opaque). The color must be in the `ARGB` format packed into a 32-bit integer and can be specified as either a hexadecimal string (`"0xAARRGGBB"`) or as a decimal integer literal (JSON does not support hexadecimal integer literals).
 
 !!! warning
-    If the color is specified as a 24-bit integer (no matter the representation), the resulting color will be fully transparent due to the alpha component being 0.
+    The four color components are multiplied with the texture's pixels. If the alpha component is ommited, the quad will render fully transparent.
 
 This can be used as a replacement for tinting with [`BlockColor` and `ItemColor`][tinting] if the color values are constant.
 
@@ -86,7 +89,7 @@ The specified light values are purely client-side and affect neither the server'
 
 Specifying the `ambient_occlusion` flag will configure [AO] for the quads. Defaults to `true`. The behaviour of this flag is equivalent to the top-level `ambientocclusion` flag of the vanilla format.
 
-![Ambient occlusion in action](./ambientocclusion.png)  
+![Ambient occlusion in action](./ambientocclusion_annotated.png)  
 *Ambient occlusion enabled on the left and disabled on the right, demonstrated with the Smooth Lighting graphics setting*
 
 !!! note
@@ -106,4 +109,4 @@ Specifying the `ambient_occlusion` flag will configure [AO] for the quads. Defau
 
 [tinting]: ../../resources/client/models/tinting.md
 [AO]: https://en.wikipedia.org/wiki/Ambient_occlusion
-[ao_img]: ./ambientocclusion.png
+[ao_img]: ./ambientocclusion_annotated.png
