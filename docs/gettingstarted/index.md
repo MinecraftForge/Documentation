@@ -32,7 +32,7 @@ From Zero to Modding
     The `src` subdirectory does not need to be copied across workspaces; however, you may need to refresh the Gradle project if the java (`src/main/java`) and resource (`src/main/resources`) are created later.
 
 3. Open your selected IDE:
-    * Forge only explicitly supports development on Eclipse, but there are additional run configurations for IntelliJ IDEA and Visual Studio Code. Regardless, any environment, from Apache NetBeans to Vim / Emacs, can be used.
+    * Forge only explicitly supports development on Eclipse and IntelliJ IDEA, but there are additional run configurations for Visual Studio Code. Regardless, any environment, from Apache NetBeans to Vim / Emacs, can be used.
     * Eclipse and IntelliJ IDEA's Gradle integration, both installed and enabled by default, will handle the rest of the initial workspace setup on import or open. This includes downloading the necessary packages from Mojang, MinecraftForge, etc. The 'Gradle for Java' plugin is needed for Visual Studio Code to do the same.
     * Gradle will need to be invoked to re-evaluate the project for almost all changes to its associated files (e.g., `build.gradle`, `settings.gradle`, etc.). Some IDEs come with 'Refresh' buttons to do this; however, it can be done through the terminal via `gradlew build --refresh-dependencies`.
 3. Run configurations can be generated for Eclipse, IntelliJ IDEA, or Visual Studio Code:
@@ -79,7 +79,7 @@ The packages within your java source (`src/main/java`) should also now conform t
 
 ```text
 com
-- example (group package)
+- example (top-level package specified in group property)
   - mymod (the mod id)
     - MyMod.java (renamed ExampleMod.java)
 ```
