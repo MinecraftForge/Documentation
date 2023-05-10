@@ -8,8 +8,8 @@ Prerequisites
 
 * An installation of the Java 17 Development Kit (JDK) and 64-bit Java Virtual Machine (JVM). Forge recommends and officially supports [Eclipse Temurin][jdk].
 
-!!! warning
-    Make sure you are using a 64-bit JVM. One way of checking is to run `java -version` in a terminal. Using a 32-bit JVM will cause some problems when using [ForgeGradle].
+    !!! warning
+        Make sure you are using a 64-bit JVM. One way of checking is to run `java -version` in a terminal. Using a 32-bit JVM will cause some problems when using [ForgeGradle].
 
 * Familiarity with an Integrated Development Environment (IDE).
     * It is recommended to use an IDE with Gradle integration.
@@ -31,11 +31,11 @@ From Zero to Modding
 
     The `src` subdirectory does not need to be copied across workspaces; however, you may need to refresh the Gradle project if the java (`src/main/java`) and resource (`src/main/resources`) are created later.
 
-3. Open your selected IDE:
+1. Open your selected IDE:
     * Forge only explicitly supports development on Eclipse and IntelliJ IDEA, but there are additional run configurations for Visual Studio Code. Regardless, any environment, from Apache NetBeans to Vim / Emacs, can be used.
     * Eclipse and IntelliJ IDEA's Gradle integration, both installed and enabled by default, will handle the rest of the initial workspace setup on import or open. This includes downloading the necessary packages from Mojang, MinecraftForge, etc. The 'Gradle for Java' plugin is needed for Visual Studio Code to do the same.
     * Gradle will need to be invoked to re-evaluate the project for almost all changes to its associated files (e.g., `build.gradle`, `settings.gradle`, etc.). Some IDEs come with 'Refresh' buttons to do this; however, it can be done through the terminal via `gradlew build --refresh-dependencies`.
-3. Run configurations can be generated for Eclipse, IntelliJ IDEA, or Visual Studio Code:
+1. Generate run configurations for your selected IDE:
     * **Eclipse**: Run the `genEclipseRuns` task.
     * **IntelliJ IDEA**: Run the `genIntellijRuns` task. If a "module not specified" error occurs, set the [`ideaModule` property][config] to your 'main' module (typically `${project.name}.main`).
     * **Visual Studio Code**: Run the `getVSCodeRuns` task.

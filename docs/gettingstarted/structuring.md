@@ -18,7 +18,7 @@ b.jar
   - com.example.ExampleClass // This class will not normally be loaded
 ```
 
-This is even more relevant when it comes to loading modules. If there are class files in two packages under the same name in separate modules, this will cause the mod loader to crash on startup since mod modules are exported to the game and other mods.
+This is even more relevant when it comes to loading modules. If there are class files in two packages under the same name in separate modules, this will cause the mod loader **to crash on startup** since mod modules are exported to the game and other mods.
 
 ```
 module A
@@ -46,7 +46,7 @@ You can find some additional naming conventions on [Oracle's tutorial page][nami
 
 ### Sub-package Organization
 
-In addition to the top-level package, it is highly recommend to break your mod's classes between subpackages. There are numerous methods on how to do so:
+In addition to the top-level package, it is highly recommend to break your mod's classes between subpackages. There are two major methods on how to do so:
 
 * **Group By Function**: Make subpackages for classes with a common purpose. For example, blocks can be under `block` or `blocks`, entities under `entity` or `entities`, etc. Mojang uses this structure with the singular version of the word.
 * **Group By Logic**: Make subpackages for classes with a common logic. For example, if you were creating a new type of crafting table, you would put its block, menu, item, and more under `feature.crafting_table`.
