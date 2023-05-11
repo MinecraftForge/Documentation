@@ -7,7 +7,7 @@ Custom model loaders are given these transforms combined with the [blockstate] t
 
 The root transforms can be specified in two formats:
 
-1. A JSON object containing a singular `matrix` entry containing a raw transformation matrix in the form of a nested JSON array with the last row omitted (3*4 matrix, row major order). Example to demonstrate the structure:
+1. A JSON object containing a singular `matrix` entry containing a raw transformation matrix in the form of a nested JSON array with the last row omitted (3*4 matrix, row major order). The matrix is the composition of the translation, left rotation, scale, right rotation and the transformation origin in that order. Example demonstrating the structure:
     ```js
     "transform": {
         "matrix": [
