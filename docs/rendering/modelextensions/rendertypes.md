@@ -1,9 +1,9 @@
 Render Types
 ============
 
-Adding the `render_type` entry at the top level allows specifying the render type this model will render in.  
-If this is not specified, the model will fall back to the render types returned by `ItemBlockRenderTypes#getRenderLayers()`.  
-This is merely a hint to the model loader and custom model loaders are free to ignore this entry.
+Adding the `render_type` entry at the top level of the JSON suggests to the loader what render type the model should use. If not specified, the loader gets to pick the render type(s) used, often falling back to the render types returned by `ItemBlockRenderTypes#getRenderLayers()`.
+
+Custom model loaders may ignore this field entirely.
 
 !!! note
     Since 1.19 this is preferred over the deprecated method of setting the applicable render type(s) via `ItemBlockRenderTypes#setRenderLayer()` for blocks.
@@ -74,5 +74,7 @@ public static void onRegisterNamedRenderTypes(RegisterNamedRenderTypesEvent even
   event.register("special_translucent", RenderType.translucent(), Sheets.translucentCullBlockSheet(), Sheets.translucentItemSheet());
 }
 ```
+
+These can then be addressed in JSON as `<your_mod_id>:special_cutout` and `<your_mod_id>:special_translucent`.
 
 [mipmapping]: https://en.wikipedia.org/wiki/Mipmap

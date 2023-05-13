@@ -1,7 +1,7 @@
 Model Extensions
 ================
 
-Forge provides several extensions to the model JSON format to allow fine tuning the way JSON models are loaded, baked and rendered:
+Forge provides several extensions to vanilla's JSON model format to allow fine tuning of loading, baking and rendering behavior:
 
 * [Custom Model Loaders][modelloaders]
 * [Root Transforms][transforms]

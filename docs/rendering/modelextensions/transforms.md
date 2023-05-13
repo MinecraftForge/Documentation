@@ -1,9 +1,9 @@
 Root Transforms
 ===============
 
-Adding the `transform` entry at the top level of a model JSON allows specifying a transformation that will be baked into the vertex data of all quads of the model. These transforms apply before the transforms specified in the [blockstate] file of a block model and the [display transforms][displaytransform] of an item model.
+Adding the `transform` entry at the top level of a model JSON suggests to the loader that a transformation should be applied to all geometry right before the rotations in the [blockstate] file in the case of a block model, and before the [display transforms][displaytransform] in the case of an item model. The transformation is available through `IGeometryBakingContext#getRootTransform()` in `IUnbakedGeometry#bake()`.
 
-Custom model loaders are given these transforms combined with the [blockstate] transforms or [display transforms][displaytransform] in the form of a `ModelState` in `IGeometryLoader#bake()` and are free to ignore them.
+Custom model loaders may ignore this field entirely.
 
 The root transforms can be specified in two formats:
 

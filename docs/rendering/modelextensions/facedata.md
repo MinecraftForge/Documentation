@@ -13,7 +13,7 @@ Elements Model
 In vanilla "elements" models, the face data applies to the face it is specified in or all faces of the element it is specified in which don't have their own face data.
 
 !!!note
-    The `forge_data` specified on a specific face completely overrides the `forge_data` specified on the whole element for that face and will not inherit any parameters from the element-level declaration.
+    If `forge_data` is specified on a face, it will not inherit any parameters from the element-level `forge_data` declaration.
 
 The additional data can be specified in the two ways shown in this example:
 ```js
@@ -47,9 +47,11 @@ The additional data can be specified in the two ways shown in this example:
 Generated Item Model
 --------------------
 
-In generated item models loaded through the `forge:item_layers` loader, the face data applies to all faces generated from the texture specified for the layer the respective entry is associated with.
+In item models generated using the `forge:item_layers` loader, face data is specified for each texture layer and applies to all of the geometry (front/back facing quads and edge quads).
 
-The additional data has to be specified at the top level with the entry names in the `forge_data` object being the layer index the respective entry belongs to (in the example, layer 1 will be tinted red and glow at full brightness):
+The `forge_data` field must be located at the top level of the model JSON, with each key-value pair associating a face data object to a layer index.
+
+In the following example, layer 1 will be tinted red and glow at full brightness:
 ```js
 {
   "textures": {
