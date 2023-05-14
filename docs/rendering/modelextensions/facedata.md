@@ -22,9 +22,9 @@ The additional data can be specified in the two ways shown in this example:
     {
       "forge_data": {
         "color": "0xFFFF0000",
-          "block_light": 15,
-          "sky_light": 15,
-          "ambient_occlusion": false
+        "block_light": 15,
+        "sky_light": 15,
+        "ambient_occlusion": false
       },
       "faces": {
         "north": {
@@ -91,7 +91,7 @@ The specified light values are purely client-side and affect neither the server'
 
 Specifying the `ambient_occlusion` flag will configure [AO] for the quads. Defaults to `true`. The behaviour of this flag is equivalent to the top-level `ambientocclusion` flag of the vanilla format.
 
-![Ambient occlusion in action](./ambientocclusion_annotated.png)  
+![Ambient occlusion in action][ao_img]  
 *Ambient occlusion enabled on the left and disabled on the right, demonstrated with the Smooth Lighting graphics setting*
 
 !!! note
