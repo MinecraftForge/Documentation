@@ -77,7 +77,7 @@ Parameters
 Specifying a color value with the `color` entry will apply that color as a tint to the quads. Defaults to `0xFFFFFFFF` (white, fully opaque). The color must be in the `ARGB` format packed into a 32-bit integer and can be specified as either a hexadecimal string (`"0xAARRGGBB"`) or as a decimal integer literal (JSON does not support hexadecimal integer literals).
 
 !!! warning
-    The four color components are multiplied with the texture's pixels. If the alpha component is ommited, the quad will render fully transparent.
+    The four color components are multiplied with the texture's pixels. Omitting the alpha component is equivalent to making it 0, which will make the geometry fully transparent.
 
 This can be used as a replacement for tinting with [`BlockColor` and `ItemColor`][tinting] if the color values are constant.
 
