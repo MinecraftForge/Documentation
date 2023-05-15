@@ -3,6 +3,9 @@ Custom Model Loaders
 
 A "model" is simply a shape. It can be a simple cube, it can be several cubes, it can be a truncated icosidodecahedron, or anything in between. Most models you'll see will be in the vanilla JSON format. Models in other formats are loaded into `IUnbakedGeometry`s by an `IGeometryLoader` at runtime. Forge provides default implementations for WaveFront OBJ files, buckets, composite models, models in different render layers, and a reimplementation of Vanilla's `builtin/generated` item model. Most things do not care about what loaded the model or what format it's in as they are all eventually represented by an `BakedModel` in code.
 
+!!! warning
+    Specifying a custom model loader through the top-level `loader` entry in a model JSON will cause the `elements` entry to be ignored unless it is consumed by the custom loader. All other vanilla entries will still be loaded and available in the unbaked `BlockModel` representation and may be consumed outside of the custom loader.
+
 WaveFront OBJ Models
 --------------------
 

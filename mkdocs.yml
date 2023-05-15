@@ -38,6 +38,12 @@ nav:
     - Menus: 'gui/menus.md'
     - Screens: 'gui/screens.md'
   - Rendering:
+    - Model Extensions:
+      - Introduction: 'rendering/modelextensions/index.md'
+      - Root Transforms: 'rendering/modelextensions/transforms.md'
+      - Render Types: 'rendering/modelextensions/rendertypes.md'
+      - Part Visibility: 'rendering/modelextensions/visibility.md'
+      - Face Data: 'rendering/modelextensions/facedata.md'
     - Model Loaders:
       - Introduction: 'rendering/modelloaders/index.md'
       - Baked Model: 'rendering/modelloaders/bakedmodel.md'
