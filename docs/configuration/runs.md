@@ -139,5 +139,5 @@ client {
 }
 ```
 
-[userdev]: https://github.com/MinecraftForge/MinecraftForge/blob/1.19.x/build.gradle#L374-L430
+[userdev]: https://github.com/MinecraftForge/MinecraftForge/blob/42115d37d6a46856e3dc914b54a1ce6d33b9872a/build.gradle#L374-L430
 [buildscript]: https://github.com/MinecraftForge/MinecraftForge/blob/d4836bc769da003528b6cebc7e677a5aa23a8228/build.gradle#L434-L470

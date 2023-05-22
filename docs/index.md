@@ -10,7 +10,7 @@ If you would like to contribute to the docs, read [Contributing to the Docs][con
 Adding the Plugin
 -----------------
 
-ForgeGradle can be added using the `plugins` block by adding the MinecraftForge maven to the available plugin repositories:
+ForgeGradle uses Gradle 8; it can be added using the `plugins` block in the `build.gradle` by adding the following information to the `settings.gradle`:
 
 ```gradle
 // In settings.gradle
@@ -22,13 +22,18 @@ pluginManagement {
         maven { url = 'https://maven.minecraftforge.net/' }
     }
 }
+
+plugins {
+    // Add toolchain resolver
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.5.0'
+}
 ```
 
 ```gradle
 // In build.gradle
 plugins {
     // Add the ForgeGradle plugin
-    id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
 
     // ...
 }
