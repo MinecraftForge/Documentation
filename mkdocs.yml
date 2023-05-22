@@ -2,10 +2,18 @@
 nav:
   - Home: 'index.md'
   - Contributing to the Docs: 'contributing.md'
+  - Getting Started:
+    - Introduction: 'gettingstarted/index.md'
+  - Configurations:
+    - Introduction: 'configuration/index.md'
+    - Run Configs: 'configuration/runs.md'
+  - Dependencies:
+    - Introduction: 'dependencies/index.md'
+    - Jar-in-Jar: 'dependencies/jarinjar.md'
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
-site_url: https://docs.minecraftforge.net/en/fg-6.x
+site_url: https://docs.minecraftforge.net/en/fg-5.x
 
 markdown_extensions:
   - admonition
@@ -26,7 +34,7 @@ extra:
   types:
     MinecraftForge: latest
     ForgeGradle: fg-6.x
-  current_version: 6.x
+  current_version: 5.x
   versions:
     5.x: 5.x
     6.x: 6.x
