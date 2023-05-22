@@ -45,6 +45,10 @@ client {
     // Defaults to '<project_name>.main'
     ideaModule 'example.main'
 
+    // Sets the name of the folder that the run configuration should be added to
+    // Defaults to the name of the project
+    folderName 'example'
+
     // Sets whether this should run a Minecraft client
     // If not specified, checks the following
     // - Is there an environment property 'thing' that contains 'client'
@@ -123,17 +127,17 @@ client {
     // ...
 
     mods {
+        other_mod {
+            // ...
+        }
+
         // Configures the 'example' mod
         example {
             // Add a source set to a mod's sources
-            // This is recommended over manually adding classes and resources
             source sourceSets.main
 
-            // Sets the location of the mod's classes
-            classes sourceSets.api.output
-
-            // Sets the location of the mod's resources
-            resources files('./my_resources')
+            // Merges this configuration and specifies whether to overwrite existing properties
+            merge mods.other_mod, true
         }
     }
 }
