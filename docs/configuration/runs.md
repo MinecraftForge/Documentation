@@ -104,9 +104,6 @@ client {
       'value'
     }
 
-    // If not false, Gradle will stop once the process has finished
-    forceExit true
-
     // If true, compile all projects instead of for the current task
     // This is only used by IntelliJ IDEA
     buildAllProjects false
