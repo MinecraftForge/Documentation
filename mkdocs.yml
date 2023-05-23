@@ -7,6 +7,7 @@ nav:
   - Configurations:
     - Introduction: 'configuration/index.md'
     - Run Configs: 'configuration/runs.md'
+    - Advanced Topics: 'configuration/advanced.md'
   - Dependencies:
     - Introduction: 'dependencies/index.md'
     - Jar-in-Jar: 'dependencies/jarinjar.md'

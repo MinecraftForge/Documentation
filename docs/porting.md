@@ -1,4 +1,5 @@
-# Porting to ForgeGradle 6
+Porting to ForgeGradle 6
+========================
 
 Here you can find a list of primers on how to port from an older version of ForgeGradle to a newer version, including the current one.
 
