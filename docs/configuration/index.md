@@ -53,6 +53,52 @@ mappings {
 
 Parchment is an official project maintained by ParchmentMC which provides open, community-sourced parameter names and javadocs on top of the `official` mapping set. You can learn how setup and use the parchment mapping set on [their website][parchment].
 
+Preparing Run Tasks
+-------------------
+
+Run tasks (`run*`) have two separate pipelines depending on whether they are executed through `gradlew` or a run configuration. By default, there are two tasks that prepare the workspace for execution:
+
+First, there is the `prepare*` tasks which extract and apply the relevant mappings for execution in a development environment. Within an integrated development environment (IDE), the mod sources are not compiled by default, as it is unnecessary. Next, there are the `prepare*Compile` tasks which compiles the mod sources. This is used in conjunction within the `prepare*` tasks to execute a run configuration directly through `gradlew`, or if the relevant setting is enabled through the run configuration.
+
+If your IDE is either Eclipse or IntelliJ IDEA, the run configuration can be configured to execute the `prepare*Compile` tasks before starting the game by setting `enableEclipsePrepareRuns` or `enableIdeaPrepareRuns`, respectively, to `true`.
+
+```gradle
+minecraft {
+    // ...
+
+    // Enable the prepare*Compile task for run configurations
+    enableEclipsePrepareRuns true
+    enableIdeaPrepareRuns true
+}
+```
+
+### Copy IDE Resources
+
+The `copyIdeResources` property can be used to copy resources configured by the `processResources` task to the IDE's resource output directories. This allows run configurations not using the `prepare*Compile` task to use buildscript configurable resources. This only applies to Eclipse and IntelliJ IDEA via the `copyEclipseResources` and `copyIntellijResources` tasks, respectively.
+
+```gradle
+minecraft {
+    // ...
+
+    // Copies the files from 'processResources' to the IDE's resource output directories
+    copyIdeResources true
+}
+```
+
+### Run Configuration Folders
+
+Run configurations can be sorted into folders if the `generateRunFolders` is set to `true`. This reads the `folderName` property set in the specific [run configuration][run] to determine the organizational structure.
+
+```gradle
+minecraft {
+    // ...
+
+    // When true, run configurations will be grouped into folders by their 'folderName'
+    generateRunFolders true
+}
+```
+
 [at]: https://docs.minecraftforge.net/en/latest/advanced/accesstransformers/
 [fart]: https://github.com/MinecraftForge/ForgeAutoRenamingTool
 [parchment]: https://parchmentmc.org/docs/getting-started
+[run]: ./runs.md#run-configurations
