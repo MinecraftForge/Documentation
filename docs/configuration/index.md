@@ -58,7 +58,7 @@ Preparing Run Tasks
 
 Run tasks (`run*`) have two separate pipelines depending on whether they are executed through `gradlew` or a run configuration. By default, there are two tasks that prepare the workspace for execution:
 
-First, there are `prepare*` tasks which run before `run*` tasks and ensure that mapping files are prepared for the game. The `prepare*Compile` task is tipically only run as a dependency of `run*` tasks to make sure that the game is compiled before it is run.
+First, there are `prepare*` tasks which are executed before `run*` tasks and ensure that mapping files are prepared for the game. The `prepare*Compile` task is typically only executed as a dependency of `run*` tasks to make sure that the game is compiled before it is run.
 
 If your IDE is either Eclipse or IntelliJ IDEA, the run configuration can be configured to execute the `prepare*` tasks before starting the game by setting `enableEclipsePrepareRuns` or `enableIdeaPrepareRuns`, respectively, to `true`. This will allow you to invoke custom Gradle tasks before your IDE launches the game.
 
@@ -66,7 +66,7 @@ If your IDE is either Eclipse or IntelliJ IDEA, the run configuration can be con
 minecraft {
     // ...
 
-    // Enable the prepare* task for run configurations
+    // Enable the 'prepare*' task for run configurations
     enableEclipsePrepareRuns true
     enableIdeaPrepareRuns true
 }
@@ -74,7 +74,7 @@ minecraft {
 
 ### Copy IDE Resources
 
-The `copyIdeResources` property can be used to copy resources configured by the `processResources` task to the IDE's resource output directories. This allows IDE run configurations that do not invoke Gradle (IntelliJ configured to use the IDEA runner or Eclipse) to use buildscript configurable resources. Usually, you need to enable this property when you're replacing values in files like the `mods.toml`.  
+The `copyIdeResources` property can be used to copy resources configured by the `processResources` task to the IDE's resource output directories. This allows IDE run configurations that do not invoke Gradle (IntelliJ configured to use the IDEA runner or Eclipse) to use buildscript configurable resources. Usually, you need to enable this property when you are replacing values in files like the `mods.toml`.  
 This only applies to Eclipse and IntelliJ IDEA via the `copyEclipseResources` and `copyIntellijResources` tasks, respectively.
 
 ```gradle
