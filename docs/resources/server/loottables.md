@@ -11,13 +11,13 @@ Most loot tables within vanilla are data driven via JSON. This means that a mod 
 Using a Loot Table
 ------------------
 
-A loot table is referenced by its `ResourceLocation` which points to `data/<namespace>/loot_tables/<path>.json`. The `LootTable` associated with the reference can be obtained using `LootTables#get`, where `LootTables` can be obtained via `MinecraftServer#getLootTables`.
+A loot table is referenced by its `ResourceLocation` which points to `data/<namespace>/loot_tables/<path>.json`. The `LootTable` associated with the reference can be obtained using `LootDataResolver#getLootTable`, where `LootDataResolver` can be obtained via `MinecraftServer#getLootData`.
 
-A loot table is always generated within a given context. The `LootContext` defines the level the table is generated in, a specific randomizer and seed if desired, luck for better generation, the `LootContextParam`s which define scenario context, and any dynamic information that should occur on activation. A loot context can be created using the constructor for `LootContext$Builder` and built using `LootContext$Builder#create`.
+A loot table is always generated with given parameters. The `LootParams` contains the level the table is generated in, luck for better generation, the `LootContextParam`s which define scenario context, and any dynamic information that should occur on activation. The `LootParams` can be created using the builder constructor `LootParams$Builder` and built via `LootParams$Builder#create` by passing in the `LootContextParamSet`.
 
-The created `LootContext` adheres to some `LootContextParamSet`. The param set defines which `LootContextParam`s are required or optional in context for generation. A loot table generated within a given param set must only use contexts that are defined.
+A loot table may also have some context. The `LootContext` takes in the built `LootParams` and can set some random seeded instance. The context is created via the builder `LootContext$Builder` and built using `LootContext$Builder#create` by passing in a nullable `ResourceLocation` representing the random instance to use.
 
-A `LootTable` can be used to generate `ItemStack`s using one of the available methods:
+A `LootTable` can be used to generate `ItemStack`s using one of the available methods which may take in a `LootParams` or a `LootContext`:
 
 Method              | Description
 :---:               | :---

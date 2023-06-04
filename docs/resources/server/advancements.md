@@ -49,11 +49,11 @@ Custom criteria triggers can be created by implementing `SimpleCriterionTrigger`
 
 The `AbstractCriterionTriggerInstance` represents a single criteria defined in the `criteria` object. Trigger instances are responsible for holding the defined conditions, returning whether the inputs match the condition, and writing the instance to JSON for data generation.
 
-Conditions are usually passed in through the constructor. The `AbstractCriterionTriggerInstance` super constructor requires the instance to define the registry name of the trigger and the conditions the player must meet as an `EntityPredicate$Composite`. The registry name of the trigger should be supplied to the super directly while the conditions of the player should be a constructor parameter.
+Conditions are usually passed in through the constructor. The `AbstractCriterionTriggerInstance` super constructor requires the instance to define the registry name of the trigger and the conditions the player must meet as an `ContextAwarePredicate`. The registry name of the trigger should be supplied to the super directly while the conditions of the player should be a constructor parameter.
 
 ```java
 // Where ID is the registry name of the trigger
-public ExampleTriggerInstance(EntityPredicate.Composite player, ItemPredicate item) {
+public ExampleTriggerInstance(ContextAwarePredicate player, ItemPredicate item) {
   super(ID, player);
   // Store the item condition that must be met
 }
@@ -63,8 +63,8 @@ public ExampleTriggerInstance(EntityPredicate.Composite player, ItemPredicate it
     Typically, trigger instances have a static constructor which allow these instances to be easily created for data generation. These static factory methods can also be statically imported instead of the class itself.
 
     ```java
-    public static ExampleTriggerInstance instance(EntityPredicate.Builder playerBuilder, ItemPredicate.Builder itemBuilder) {
-      return new ExampleTriggerInstance(EntityPredicate.Composite.wrap(playerBuilder.build()), itemBuilder.build());
+    public static ExampleTriggerInstance instance(ContextAwarePredicate player, ItemPredicate item) {
+      return new ExampleTriggerInstance(player, item);
     }
     ```
 
@@ -99,7 +99,7 @@ A trigger instance is created via `#createInstance`. This method reads a criteri
 
 ```java
 @Override
-public ExampleTriggerInstance createInstance(JsonObject json, EntityPredicate.Composite player, DeserializationContext context) {
+public ExampleTriggerInstance createInstance(JsonObject json, ContextAwarePredicate player, DeserializationContext context) {
   // Read conditions from JSON: item
   return new ExampleTriggerInstance(player, item);
 }
