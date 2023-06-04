@@ -18,7 +18,7 @@ For simple blocks, which need no special functionality (think cobblestone, woode
 All these methods are *chainable* which means you can call them in series. See the `Blocks` class for examples of this.
 
 !!! note
-    Blocks have no setter for their `CreativeModeTab`. This is now handled by the [`CreativeModeTabEvent$BuildContents`][creativetabs] if the block has an associated item (e.g. `BlockItem`). Furthermore, there is no setter for translation key as it is now generated from the registry name.
+    Blocks have no setter for their `CreativeModeTab`. This is handled by the [`BuildCreativeModeTabContentsEvent`][creativetabs] if the block has an associated item (e.g. `BlockItem`). Furthermore, there is no setter for translation key of the block as it is generated from the registry name via `Block#getDescriptionId`.
 
 ### Advanced Blocks
 
@@ -36,7 +36,7 @@ Blocks must be [registered][registering] to function.
 
 #### Optionally Registering Blocks
 
-In the past there have been several mods that have allowed users to disable blocks/items in a configuration file. However, you shouldn't do this. There is no limit on the amount of blocks that can be register, so register all blocks in your mod! If you want a block to be disabled through a configuration file, you should disable the crafting recipe. If you would like to disable the block in the creative tab, use a `FeatureFlag` when building the contents within [`CreativeModeTabEvent$BuildContents`][creativetabs].
+In the past there have been several mods that have allowed users to disable blocks/items in a configuration file. However, you shouldn't do this. There is no limit on the amount of blocks that can be register, so register all blocks in your mod! If you want a block to be disabled through a configuration file, you should disable the crafting recipe. If you would like to disable the block in the creative tab, use a `FeatureFlag` when building the contents within [`BuildCreativeModeTabContentsEvent`][creativetabs].
 
 Further Reading
 ---------------
