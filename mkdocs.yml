@@ -98,7 +98,7 @@ nav:
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
-site_url: https://docs.minecraftforge.net/en/1.19.x/
+site_url: https://docs.minecraftforge.net/en/1.20.x/
 
 markdown_extensions:
   - admonition
@@ -119,10 +119,10 @@ extra:
   types:
     MinecraftForge: latest
     ForgeGradle: fg-6.x
-  current_version: 1.19.x
+  current_version: 1.20.x
   versions:
-    1.18.x: 1.18.x
     1.19.x: 1.19.x
+    1.20.x: 1.20.x
 
 extra_css:
   - css/version_warning_fix.css
