@@ -24,17 +24,17 @@ The above methods are chainable, meaning they `return this` to facilitate callin
 
 Setting the properties of an item as above only works for simple items. If you want more complicated items, you should subclass `Item` and override its methods.
 
-## `CreativeModeTabEvent`
+## Creative Tabs
 
-An item can be added to a `CreativeModeTab` via `CreativeModeTabEvent$BuildContents` on the [mod event bus][modbus]. An item(s) can be added without any additional configurations via `#accept`.
+An item can be added to a `CreativeModeTab` via `BuildCreativeModeTabContentsEvent` on the [mod event bus][modbus]. An item(s) can be added without any additional configurations via `#accept`.
 
 ```java
 // Registered on the MOD event bus
 // Assume we have RegistryObject<Item> and RegistryObject<Block> called ITEM and BLOCK
 @SubscribeEvent
-public void buildContents(CreativeModeTabEvent.BuildContents event) {
+public void buildContents(BuildCreativeModeTabContentsEvent event) {
   // Add to ingredients tab
-  if (event.getTab() == CreativeModeTabs.INGREDIENTS) {
+  if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
     event.accept(ITEM);
     event.accept(BLOCK); // Takes in an ItemLike, assumes block has registered item
   }
@@ -45,25 +45,23 @@ You can also enable or disable items being added through a `FeatureFlag` in the 
 
 ### Custom Creative Tabs
 
-A custom `CreativeModeTab` can be created via `CreativeModeTabEvent$Register#registerCreativeModeTab` on the [mod event bus][modbus]. This takes in the name of the tab and a consumer of the builder. In addition, a list of `ResourceLocation`s or `CreativeModeTab`s can be provided to determine where this tab should be located.
+A custom `CreativeModeTab` must be [registered][registering]. The builder can be created via `CreativeModeTab$Builder#of`. The tab can set the title, icon, default items, and a number of other properties. In addition, Forge provides additional methods to customize the tab's image, label and slot colors, where the tab should be ordered, etc.
 
 ```java
-// Registered on the MOD event bus
+// Assume we have a DeferredRegister<CreativeModeTab> called REGISTRAR
 // Assume we have RegistryObject<Item> and RegistryObject<Block> called ITEM and BLOCK
-@SubscribeEvent
-public void buildContents(CreativeModeTabEvent.Register event) {
-  event.registerCreativeModeTab(new ResourceLocation(MOD_ID, "example"), builder ->
-    // Set name of tab to display
-    builder.title(Component.translatable("item_group." + MOD_ID + ".example"))
-    // Set icon of creative tab
-    .icon(() -> new ItemStack(ITEM.get()))
-    // Add default items to tab
-    .displayItems((params, output) -> {
-      output.accept(ITEM.get());
-      output.accept(BLOCK.get());
-    })
-  );
-}
+public static final RegistryObject<CreativeModeTab> EXAMPLE_TAB = REGISTRAR.register("example", () -> CreativeModeTab.Builder.of()
+  // Set name of tab to display
+  .title(Component.translatable("item_group." + MOD_ID + ".example"))
+  // Set icon of creative tab
+  .icon(() -> new ItemStack(ITEM.get()))
+  // Add default items to tab
+  .displayItems((params, output) -> {
+    output.accept(ITEM.get());
+    output.accept(BLOCK.get());
+  })
+  .build()
+);
 ```
 
 Registering an Item

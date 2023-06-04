@@ -44,6 +44,6 @@ Further Reading
 For information about block properties, such as those used for vanilla blocks like fences, walls, and many more, see the section on [blockstates].
 
 [sounds]: ../gameeffects/sounds.md
-[creativetabs]: ../items/index.md#creativemodetabevent
+[creativetabs]: ../items/index.md#creative-tabs
 [registering]: ../concepts/registries.md#methods-for-registering
 [blockstates]: states.md
