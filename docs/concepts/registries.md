@@ -21,7 +21,7 @@ An example of a mod registering a custom block:
 ```java
 private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
 
-public static final RegistryObject<Block> ROCK_BLOCK = BLOCKS.register("rock", () -> new Block(BlockBehaviour.Properties.of(Material.STONE)));
+public static final RegistryObject<Block> ROCK_BLOCK = BLOCKS.register("rock", () -> new Block(BlockBehaviour.Properties.of()));
 
 public ExampleMod() {
   BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -154,6 +154,13 @@ Any newly created registry should use its associated [registration method][regis
 ### Using NewRegistryEvent
 
 When using `NewRegistryEvent`, calling `#create` with a `RegistryBuilder` will return a supplier-wrapped registry. The supplied registry can be accessed after `NewRegistryEvent` has finished posting to the mod event bus. Getting the custom registry from the supplier before `NewRegistryEvent` finishes firing will result in a `null` value.
+
+#### New Datapack Registries
+
+New datapack registries can be added using the `DataPackRegistryEvent$NewRegistry` event on the mod event bus. The registry is created via `#dataPackRegistry` by passing in the `ResourceKey` representing the registry name and the `Codec` used to encode and decode the data from JSON. An optional `Codec` can be provided to sync the datapack registry to the client.
+
+!!! important
+    Datapack Registries cannot be created with `DeferredRegister`. They can only be created through the event.
 
 ### With DeferredRegister
 

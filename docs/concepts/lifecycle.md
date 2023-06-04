@@ -30,9 +30,11 @@ public class MyMod {
 Registry Events
 ---------------
 
-The registry events are fired after the mod instance construction. There are two: `NewRegistryEvent` and `RegisterEvent`. These events are fired synchronously during mod loading.
+The registry events are fired after the mod instance construction. There are two: `NewRegistryEvent`, `DataPackRegistryEvent$NewRegistry` and `RegisterEvent`. These events are fired synchronously during mod loading.
 
 `NewRegistryEvent` allows modders to register their own custom registries, using the `RegistryBuilder` class.
+
+`DataPackRegistryEvent$NewRegistry` allows modders to register custom datapack registries by providing a `Codec` to encode and decode the object from JSON.
 
 `RegisterEvent` is for [registering objects][registering] into the registries. The event is fired for each registry. 
 
