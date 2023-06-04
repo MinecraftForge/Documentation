@@ -50,7 +50,7 @@ A custom `CreativeModeTab` must be [registered][registering]. The builder can be
 ```java
 // Assume we have a DeferredRegister<CreativeModeTab> called REGISTRAR
 // Assume we have RegistryObject<Item> and RegistryObject<Block> called ITEM and BLOCK
-public static final RegistryObject<CreativeModeTab> EXAMPLE_TAB = REGISTRAR.register("example", () -> CreativeModeTab.Builder.of()
+public static final RegistryObject<CreativeModeTab> EXAMPLE_TAB = REGISTRAR.register("example", () -> CreativeModeTab.builder()
   // Set name of tab to display
   .title(Component.translatable("item_group." + MOD_ID + ".example"))
   // Set icon of creative tab
