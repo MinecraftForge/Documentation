@@ -12,7 +12,7 @@ The file uses the [Tom's Obvious Minimal Language, or TOML][toml], format. The f
 
 ```toml
 modLoader="javafml"
-loaderVersion="[45,)"
+loaderVersion="[46,)"
 
 license="All Rights Reserved"
 issueTrackerURL="https://github.com/MinecraftForge/MinecraftForge/issues"
@@ -35,14 +35,14 @@ showAsResourcePack=false
 [[dependencies.examplemod]]
   modId="forge"
   mandatory=true
-  versionRange="[45,)"
+  versionRange="[46,)"
   ordering="NONE"
   side="BOTH"
 
 [[dependencies.examplemod]]
   modId="minecraft"
   mandatory=true
-  versionRange="[1.19.4]"
+  versionRange="[1.20]"
   ordering="NONE"
   side="BOTH"
 ```
@@ -56,7 +56,7 @@ Non-mod-specific properties are properties associated with the JAR itself, indic
 Property             | Type    | Default       | Description | Example
 :---                 | :---:   | :---:         | :---:       | :---
 `modLoader`          | string  | **mandatory** | The language loader used by the mod(s). Can be used to support alternative language structures, such as Kotlin objects for the main file, or different methods of determining the entrypoint, such as an interface or method. Forge provides the Java loader `"javafml"` and low/no code loader `"lowcodefml"`. | `"javafml"`
-`loaderVersion`      | string  | **mandatory** | The acceptable version range of the language loader, expressed as a [Maven Version Range][mvr]. For `javafml` and `lowcodefml`, the version is the major version of the Forge version. | `"[45,)"`
+`loaderVersion`      | string  | **mandatory** | The acceptable version range of the language loader, expressed as a [Maven Version Range][mvr]. For `javafml` and `lowcodefml`, the version is the major version of the Forge version. | `"[46,)"`
 `license`            | string  | **mandatory** | The license the mod(s) in this JAR are provided under. It is suggested that this is set to the [SPDX identifier][spdx] you are using and/or a link to the license. You can visit https://choosealicense.com/ to help pick the license you want to use. | `"MIT"`
 `showAsResourcePack` | boolean | `false`       | When `true`, the mod(s)'s resources will be displayed as a separate resource pack on the 'Resource Packs' menu, rather than being combined with the 'Mod resources' pack. | `true`
 `services`           | array   | `[]`          | An array of services your mod **uses**. This is consumed as part of the created module for the mod from Forge's implementation of the Java Platform Module System. | `["net.minecraftforge.forgespi.language.IModLanguageProvider"]`
@@ -84,7 +84,7 @@ Property        | Type    | Default                 | Description | Example
 :---            | :---:   | :---:                   | :---:       | :---
 `modId`         | string  | **mandatory**           | The unique identifier representing this mod. The id must match `^[a-z][a-z0-9_]{1,63}$` (a string 2-64 characters; starts with a lowercase letter; made up of lowercase letters, numbers, or underscores). | `"examplemod"`
 `namespace`     | string  | value of `modId`        | An override namespace for the mod. The namespace much match `^[a-z][a-z0-9_.-]{1,63}$` (a string 2-64 characters; starts with a lowercase letter; made up of lowercase letters, numbers, underscores, dots, or dashes). Currently unused. | `"example"`
-`version`       | string  | `"1"`                   | The version of the mod, preferably in a [variation of Maven versioning][mvnver]. When set to `${file.jarVersion}`, it will be replaced with the value of the `Implementation-Version` property in the JAR's manifest (displays as `0.0NONE` in a development environment). | `"1.19.4-1.0.0.0"`
+`version`       | string  | `"1"`                   | The version of the mod, preferably in a [variation of Maven versioning][mvnver]. When set to `${file.jarVersion}`, it will be replaced with the value of the `Implementation-Version` property in the JAR's manifest (displays as `0.0NONE` in a development environment). | `"1.20-1.0.0.0"`
 `displayName`   | string  | value of `modId`        | The pretty name of the mod. Used when representing the mod on a screen (e.g., mod list, mod mismatch). | `"Example Mod"`
 `description`   | string  | `"MISSING DESCRIPTION"` | The description of the mod shown in the mod list screen. It is recommended to use a [multiline literal string][multiline]. | `"This is an example."`
 `logoFile`      | string  | *nothing*               | The name and extension of an image file used on the mods list screen. The logo must be in the root of the JAR or directly in the root of the source set (e.g., `src/main/resources` for the main source set). | `"example_logo.png"`
