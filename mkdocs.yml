@@ -121,8 +121,8 @@ extra:
     ForgeGradle: fg-6.x
   current_version: 1.19.x
   versions:
-    1.18.x: 1.18.x
     1.19.x: 1.19.x
+    1.20.x: 1.20.x
 
 extra_css:
   - css/version_warning_fix.css
