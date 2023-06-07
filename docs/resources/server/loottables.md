@@ -13,7 +13,7 @@ Using a Loot Table
 
 A loot table is referenced by its `ResourceLocation` which points to `data/<namespace>/loot_tables/<path>.json`. The `LootTable` associated with the reference can be obtained using `LootDataResolver#getLootTable`, where `LootDataResolver` can be obtained via `MinecraftServer#getLootData`.
 
-A loot table is always generated with given parameters. The `LootParams` contains the level the table is generated in, luck for better generation, the `LootContextParam`s which define scenario context, and any dynamic information that should occur on activation. The `LootParams` can be created using the builder constructor `LootParams$Builder` and built via `LootParams$Builder#create` by passing in the `LootContextParamSet`.
+A loot table is always generated with given parameters. The `LootParams` contains the level the table is generated in, luck for better generation, the `LootContextParam`s which define scenario context, and any dynamic information that should occur on activation. The `LootParams` can be created using the constructor of the `LootParams$Builder` builder, and built via `LootParams$Builder#create` by passing in the `LootContextParamSet`.
 
 A loot table may also have some context. The `LootContext` takes in the built `LootParams` and can set some random seeded instance. The context is created via the builder `LootContext$Builder` and built using `LootContext$Builder#create` by passing in a nullable `ResourceLocation` representing the random instance to use.
 

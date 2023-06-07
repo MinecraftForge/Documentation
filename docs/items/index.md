@@ -45,7 +45,7 @@ You can also enable or disable items being added through a `FeatureFlag` in the 
 
 ### Custom Creative Tabs
 
-A custom `CreativeModeTab` must be [registered][registering]. The builder can be created via `CreativeModeTab$Builder#of`. The tab can set the title, icon, default items, and a number of other properties. In addition, Forge provides additional methods to customize the tab's image, label and slot colors, where the tab should be ordered, etc.
+A custom `CreativeModeTab` must be [registered][registering]. The builder can be created via `CreativeModeTab#builder`. The tab can set the title, icon, default items, and a number of other properties. In addition, Forge provides additional methods to customize the tab's image, label and slot colors, where the tab should be ordered, etc.
 
 ```java
 // Assume we have a DeferredRegister<CreativeModeTab> called REGISTRAR

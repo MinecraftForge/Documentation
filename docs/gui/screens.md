@@ -15,7 +15,7 @@ Information on how to relativize your coordinates will be within the [screen] se
 
 ## Gui Graphics
 
-Any GUI rendered by Minecraft is typically done using `GuiGraphics`. `GuiGraphics` is the first parameter to almost all rendering methods; it contains basic methods to render commonly used objects. These fall into five categories: colored rectangles, strings, and textures, items, and tooltips. There is also an additional method for rendering a snippet of a component (`#enableScissor` / `#disableScissor`). `GuiGraphics`. `GuiGraphics` also exposes the `PoseStack` which applies the transformations necessary to properly render where the component should be rendered. Additionally, colors are in the [ARGB][argb] format.
+Any GUI rendered by Minecraft is typically done using `GuiGraphics`. `GuiGraphics` is the first parameter to almost all rendering methods; it contains basic methods to render commonly used objects. These fall into five categories: colored rectangles, strings, and textures, items, and tooltips. There is also an additional method for rendering a snippet of a component (`#enableScissor` / `#disableScissor`). `GuiGraphics` also exposes the `PoseStack` which applies the transformations necessary to properly render where the component should be rendered. Additionally, colors are in the [ARGB][argb] format.
 
 ### Colored Rectangles
 
@@ -267,7 +267,7 @@ public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTi
 
     /*
      * This method is added by the container screen to render
-     * a tooltip for whatever slot is hovered over.
+     * the tooltip of the hovered slot.
      */
     this.renderTooltip(graphics, mouseX, mouseY);
 }
