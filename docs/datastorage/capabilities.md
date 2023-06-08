@@ -170,24 +170,6 @@ By default, the capability data does not persist on death. In order to change th
 
 This can be done via `PlayerEvent$Clone` by reading the data from the original entity and assigning it to the new entity. In this event, the `#isWasDeath` method can be used to distinguish between respawning after death and returning from the End. This is important because the data will already exist when returning from the End, so care has to be taken to not duplicate values in this case.
 
-Migrating from IExtendedEntityProperties
----------------------------
-
-Although the Capability system can do everything IEEPs (IExtendedEntityProperties) did and more, the two concepts don't fully match 1:1. This section will explain how to convert existing IEEPs into Capabilities.
-
-This is a quick list of IEEP concepts and their Capability equivalent:
-
-* Property name/id (`String`): Capability key (`ResourceLocation`)
-* Registration (`EntityConstructing`): Attaching (`AttachCapabilitiesEvent<Entity>`), the real registration of the `Capability` happens during `FMLCommonSetupEvent`.
-* Tag read/write methods: Does not happen automatically. Attach an `ICapabilitySerializable` in the event and run the read/write methods from the `serializeNBT`/`deserializeNBT`.
-
-Quick conversion guide:
-
-1. Convert the IEEP key/id string into a `ResourceLocation` (which will use your MODID as a namespace).
-2. In your handler class (not the class that implements your capability interface), create a field that will hold the Capability instance.
-3. Change the `EntityConstructing` event to `AttachCapabilitiesEvent`, and instead of querying the IEEP, you will want to attach an `ICapabilityProvider` (probably `ICapabilitySerializable`, which allows saving/loading from a tag).
-4. Create a registration method if you don't have one (you may have one where you registered your IEEP's event handlers) and in it, run the capability registration function.
-
 [expose]: #exposing-a-capability
 [handled]: ../concepts/events.md#creating-an-event-handler
 [network]: ../networking/index.md

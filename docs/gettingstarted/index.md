@@ -60,16 +60,6 @@ Replace all occurrences of `examplemod`, including [`mods.toml` and the main mod
 base.archivesName = 'mymod'
 ```
 
-!!! note
-    The Forge MDK currently uses `archivesBaseName` to set the artifact name instead of `base.archivesName`. We recommend using `base.archivesName` instead as `archivesBaseName` is deprecated for removal in Gradle 9, which a future version of ForgeGradle will support.
-
-    You can still use `archivesBaseName` by setting the following:
-
-    ```gradle
-    // In some build.gradle
-    base.archivesName = 'mymod'
-    ```
-
 #### Group Id
 
 The `group` property should be set to your [top-level package][packaging], which should either be a domain you own or your email address:
@@ -100,7 +90,7 @@ Set the `version` property to the current version of your mod. We recommend usin
 
 ```gradle
 // In some build.gradle
-version = '1.19.4-1.0.0.0'
+version = '1.20-1.0.0.0'
 ```
 
 ### Additional Configurations
@@ -118,10 +108,10 @@ Building and Testing Your Mod
     You should always test your mod in a dedicated server environment. This includes [client-only mods][client] as they should not do anything when loaded on the server.
 
 [jdk]: https://adoptium.net/temurin/releases?version=17 "Eclipse Temurin 17 Prebuilt Binaries"
-[ForgeGradle]: https://docs.minecraftforge.net/en/fg-5.x
+[ForgeGradle]: https://docs.minecraftforge.net/en/fg-6.x
 
 [files]: https://files.minecraftforge.net "Forge Files distribution site"
-[config]: https://docs.minecraftforge.net/en/fg-5.x/configuration/runs/
+[config]: https://docs.minecraftforge.net/en/fg-6.x/configuration/runs/
 
 [modfiles]: ./modfiles.md
 [packaging]: ./structuring.md#packaging

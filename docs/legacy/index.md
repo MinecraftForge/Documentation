@@ -20,6 +20,7 @@ Unfortunately, not all versions were used for a significant amount of time, and 
 |    1.17.x     |    85%     | https://docs.minecraftforge.net/en/1.17.x/ |
 |    1.18.x     |    90%     | https://docs.minecraftforge.net/en/1.18.x/ |
 |    1.19.2     |    90%     | https://docs.minecraftforge.net/en/1.19.2/ |
+|    1.19.x     |    90%     | https://docs.minecraftforge.net/en/1.19.x/ |
 
 ### RetroGradle
 

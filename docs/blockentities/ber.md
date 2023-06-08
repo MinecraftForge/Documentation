@@ -16,7 +16,7 @@ This method is called every frame in order to render the block entity.
 
 #### Parameters
 * `blockEntity`: This is the instance of the block entity being rendered.
-* `partialTicks`: The amount of time, in fractions of a tick, that has passed since the last full tick.
+* `partialTick`: The amount of time, in fractions of a tick, that has passed since the last full tick.
 * `poseStack`: A stack holding four-dimensional matrix entries offset to the current position of the block entity.
 * `bufferSource`: A rendering buffer able to access a vertex consumer.
 * `combinedLight`: An integer of the current light value on the block entity.

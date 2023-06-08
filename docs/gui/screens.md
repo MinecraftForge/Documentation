@@ -13,9 +13,9 @@ Information on how to relativize your coordinates will be within the [screen] se
 !!! important
     If you choose to use fixed coordinates or incorrectly scale the screen, the rendered objects may look strange or misplaced. An easy way to check if you relativized your coordinates correctly is to click the 'Gui Scale' button in your video settings. This value is used as the divisor to the width and height of your display when determining the scale at which a GUI should render.
 
-## Gui Components
+## Gui Graphics
 
-Any GUI rendered by Minecraft is an instance of a `GuiComponent`. `GuiComponent`s contain the most basic methods used to render the most commonly used objects. These fall into three categories: colored rectangles, strings, and textures. There is also an additional method for rendering a snippet of a component (`#enableScissor` / `#disableScissor`). All methods take in a `PoseStack` which applies the transformations necessary to properly render where the component should be rendered. Additionally, colors are in the [ARGB][argb] format.
+Any GUI rendered by Minecraft is typically done using `GuiGraphics`. `GuiGraphics` is the first parameter to almost all rendering methods; it contains basic methods to render commonly used objects. These fall into five categories: colored rectangles, strings, and textures, items, and tooltips. There is also an additional method for rendering a snippet of a component (`#enableScissor` / `#disableScissor`). `GuiGraphics` also exposes the `PoseStack` which applies the transformations necessary to properly render where the component should be rendered. Additionally, colors are in the [ARGB][argb] format.
 
 ### Colored Rectangles
 
@@ -24,7 +24,6 @@ Colored rectangles are drawn through a position color shader. There are three ty
 First, there is a colored horizontal and vertical one-pixel wide line, `#hLine` and `#vLine` respectively. `#hLine` takes in two x coordinates defining the left and right (inclusively), the top y coordinate, and the color. `#vLine` takes in the left x coordinate, two y coordinates defining the top and bottom (inclusively), and the color.
 
 Second, there is the `#fill` method, which draws a rectangle to the screen. The line methods internally call this method. This takes in the left x coordinate, the top y coordinate, the right x coordinate, the bottom y coordinate, and the color.
-
 
 Finally, there is the `#fillGradient` method, which draws a rectangle with a vertical gradient. This takes in the right x coordinate, the bottom y coordinate, the left x coordinate, the top y coordinate, the z coordinate, and the bottom and top colors.
 
@@ -48,14 +47,14 @@ The static `#blit` which the first calls expands this to nine integers, only ass
 
 #### Blit Offset
 
-The z coordinate when rendering a texture is typically set to the blit offset. The offset is responsible for properly layering renders when viewing a screen. Renders with a smaller z coordinate are rendered in the background and vice versa where renders with a larger z coordinate are rendered in the foreground. The z offset can be set directly on the `PoseStack` itself via `#translate`.
+The z coordinate when rendering a texture is typically set to the blit offset. The offset is responsible for properly layering renders when viewing a screen. Renders with a smaller z coordinate are rendered in the background and vice versa where renders with a larger z coordinate are rendered in the foreground. The z offset can be set directly on the `PoseStack` itself via `#translate`. Some basic offset logic is applied internally in some methods of `GuiGraphics` (e.g. item rendering).
 
 !!! important
     When setting the blit offset, you must reset it after rendering your object. Otherwise, other objects within the screen may be rendered in an incorrect layer causing graphical issues. It is recommended to push the current pose before translating and then popping after all rendering at the offset is completed.
 
 ## Renderable
 
-`Renderable`s are essentially objects that are rendered. These include screens, buttons, chat boxes, lists, etc. `Renderable`s only have one method: `#render`. This takes in the `PoseStack` holding any prior transformations to properly render the renderable, the x and y positions of the mouse scaled to the relative screen size, and the tick delta (how many ticks have passed since the last frame).
+`Renderable`s are essentially objects that are rendered. These include screens, buttons, chat boxes, lists, etc. `Renderable`s only have one method: `#render`. This takes in the `GuiGraphics` used to render things to the screen, the x and y positions of the mouse scaled to the relative screen size, and the tick delta (how many ticks have passed since the last frame).
 
 Some common renderables are screens and 'widgets': interactable elements which typically render on the screen such as `Button`, its subtype `ImageButton`, and `EditBox` which is used to input text on the screen.
 
@@ -74,7 +73,7 @@ Dragging an element with the mouse, implemented via `#mouseClicked` and `#mouseR
 Focusing allows for a specific child to be checked first and handled during an event's execution, such as during keyboard events or dragging the mouse. Focus is typically set through `#setFocused`. In addition, interactable children can be cycled using `#nextFocusPath`, selecting the child based upon the `FocusNavigationEvent` passed in.
 
 !!! note
-    Screens implement `ContainerEventHandler` and `GuiComponent` through `AbstractContainerEventHandler`, which adds in the setter and getter logic for dragging and focusing children.
+    Screens implement `ContainerEventHandler` through `AbstractContainerEventHandler`, which adds in the setter and getter logic for dragging and focusing children.
 
 ## NarratableEntry
 
@@ -150,21 +149,21 @@ The two most common things rendered within a screen that is typically not handle
 
 The background can be rendered using `#renderBackground`, with one method taking in a v Offset for the options background whenever a screen is rendered when the level behind it cannot be.
 
-Tooltips are rendered through `#renderTooltip` or `#renderComponentTooltip` which can take in the text components being rendered, an optional custom tooltip component, and the x / y relative coordinates on where the tooltip should be rendered on the screen.
+Tooltips are rendered through `GuiGraphics#renderTooltip` or `GuiGraphics#renderComponentTooltip` which can take in the text components being rendered, an optional custom tooltip component, and the x / y relative coordinates on where the tooltip should be rendered on the screen.
 
 ```java
 // In some Screen subclass
 
 // mouseX and mouseY indicate the scaled coordinates of where the cursor is in on the screen
 @Override
-public void render(PoseStack pose, int mouseX, int mouseY, float partialTick) {
+public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
     // Background is typically rendered first
-    this.renderBackground(pose);
+    this.renderBackground(graphics);
 
     // Render things here before widgets (background textures)
 
     // Then the widgets if this is a direct child of the Screen
-    super.render(pose, mouseX, mouseY, partialTick);
+    super.render(graphics, mouseX, mouseY, partialTick);
 
     // Render things after widgets (tooltips)
 }
@@ -262,15 +261,15 @@ Starting with `#render`, the most common override (and typically the only case) 
 ```java
 // In some AbstractContainerScreen subclass
 @Override
-public void render(PoseStack pose, int mouseX, int mouseY, float partialTick) {
-    this.renderBackground(pose);
-    super.render(pose, mouseX, mouseY, partialTick);
+public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+    this.renderBackground(graphics);
+    super.render(graphics, mouseX, mouseY, partialTick);
 
     /*
      * This method is added by the container screen to render
-     * a tooltip for whatever slot is hovered over.
+     * the tooltip of the hovered slot.
      */
-    this.renderTooltip(pose, mouseX, mouseY);
+    this.renderTooltip(graphics, mouseX, mouseY);
 }
 ```
 
@@ -283,14 +282,7 @@ Within the super, `#renderBg` is called to render the background of the screen. 
 private static final ResourceLocation BACKGROUND_LOCATION = new ResourceLocation(MOD_ID, "textures/gui/container/my_container_screen.png");
 
 @Override
-protected void renderBg(PoseStack pose, float partialTick, int mouseX, int mouseY) {
-    /*
-     * Sets the texture location for the shader to use. While up to
-     * 12 textures can be set, the shader used within 'blit' only
-     * looks at the first texture index.
-     */
-    RenderSystem.setShaderTexture(0, BACKGROUND_LOCATION);
-
+protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
     /*
      * Renders the background texture to the screen. 'leftPos' and
      * 'topPos' should already represent the top left corner of where
@@ -298,7 +290,7 @@ protected void renderBg(PoseStack pose, float partialTick, int mouseX, int mouse
      * 'imageWidth' and 'imageHeight'. The two zeros represent the
      * integer u/v coordinates inside the 256 x 256 PNG file.
      */
-    GuiComponent.blit(pose, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
+    graphics.blit(BACKGROUND_LOCATION, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
 }
 ```
 
@@ -307,12 +299,12 @@ Finally, `#renderLabels` is called to render any text above the background, but 
 ```java
 // In some AbstractContainerScreen subclass
 @Override
-protected void renderLabels(PoseStack pose, int mouseX, int mouseY) {
-    super.renderLabels(pose, mouseX, mouseY);
+protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
+    super.renderLabels(graphics, mouseX, mouseY);
 
     // Assume we have some Component 'label'
     // 'label' is drawn at 'labelX' and 'labelY'
-    this.font.draw(pose, label, labelX, labelY, 0x404040);
+    graphics.drawString(this.font, this.label, this.labelX, this.labelY, 0x404040);
 }
 ```
 
