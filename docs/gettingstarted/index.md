@@ -60,16 +60,6 @@ Replace all occurrences of `examplemod`, including [`mods.toml` and the main mod
 base.archivesName = 'mymod'
 ```
 
-!!! note
-    The Forge MDK currently uses `archivesBaseName` to set the artifact name instead of `base.archivesName`. We recommend using `base.archivesName` instead as `archivesBaseName` is deprecated for removal in Gradle 9, which a future version of ForgeGradle will support.
-
-    You can still use `archivesBaseName` by setting the following:
-
-    ```gradle
-    // In some build.gradle
-    archivesBaseName = 'mymod'
-    ```
-
 #### Group Id
 
 The `group` property should be set to your [top-level package][packaging], which should either be a domain you own or your email address:
