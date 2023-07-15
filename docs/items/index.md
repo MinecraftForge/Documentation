@@ -24,8 +24,6 @@ Basic items that need no special functionality (think sticks or sugar) do not ne
 | `fireResistant`         | Makes it so the item is resistant to fire.
 | `setNoRepair`         | Makes the item impossible to Repair.
 
-
-
 The above methods are chainable, meaning they `return this` to facilitate calling them in series.
 
 ### Advanced Items
