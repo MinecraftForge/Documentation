@@ -26,7 +26,7 @@ Setting the properties of an item as above only works for simple items. If you w
 
 ## `CreativeModeTabEvent`
 
-An item can be added to a `CreativeModeTab` via `CreativeModeTabEvent$BuildContents` on the [mod event bus][modbus]. An item(s) can be added without any additional configurations via `#accept`.
+An item can be added to a `CreativeModeTab` via `CreativeModeTabEvent$BuildContents` on the [mod event bus][modbus]. An item or multiple items can be added without any additional configurations via `#accept`.
 
 ```java
 // Registered on the MOD event bus
