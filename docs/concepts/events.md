@@ -7,7 +7,7 @@ Example: An event can be used to perform an action when a Vanilla stick is right
 
 The main event bus used for most events is located at `MinecraftForge#EVENT_BUS`. There is another event bus for mod specific events located at `FMLJavaModLoadingContext#getModEventBus` that you should only use in specific cases. More information about this bus can be found below.
 
-Every event is fired on one of these busses: most events are fired on the main forge event bus, but some are fired on the mod specific event buses.
+Every event is fired on one of these buses: most events are fired on the main forge event bus, but some are fired on the mod specific event buses.
 
 An event handler is some method that has been registered to an event bus.
 
