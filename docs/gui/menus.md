@@ -186,7 +186,7 @@ public ItemStack quickMoveStack(Player player, int quickMovedSlotIndex) {
   // The quick moved slot
   Slot quickMovedSlot = this.slots.get(quickMovedSlotIndex) 
   
-   // If the slot is in the valid range and the slot is not empty
+  // If the slot is in the valid range and the slot is not empty
   if (quickMovedSlot != null && quickMovedSlot.hasItem()) {
     // Get the raw stack to move
     ItemStack rawStack = quickMovedSlot.getItem(); 
