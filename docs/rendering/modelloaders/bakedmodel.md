@@ -43,6 +43,9 @@ See [Transform][transform].
 
 This is the main method of `BakedModel`. It returns a list of `BakedQuad`s: objects which contain the low-level vertex data that will be used to render the model. If the model is being rendered as a block, then the `BlockState` passed in is non-null. If the model is being rendered as an item, the `ItemOverrides` returned from `#getOverrides` is responsible for handling the state of the item, and the `BlockState` parameter will be `null`.
 
+!!! note
+  The origin point for the vertices in a `BakedQuad` is the bottom, Northwest corner. Any value greater than 1 will position a given vertex outside of the block space. To avoid lighting issues, provide the vertices in counterclockwise order.
+
 The `Direction` passed in is used for face culling. If the block against the given side of another block being rendered is opaque, then the faces associated with that side are not rendered. If that parameter is `null`, all faces not associated with a side are returned (that will never be culled).
 
 The `rand` parameter is an instance of Random.
@@ -50,6 +53,8 @@ The `rand` parameter is an instance of Random.
 It also takes in a non null `ModelData` instance. This can be used to define extra data when rendering the specific model via `ModelProperty`s. For example, one such property is `CompositeModel$Data`, which is used to store any additional submodel data for a model using the `forge:composite` model loader.
 
 Note that this method is called very often: once for every combination of non-culled face and supported block render layer (anywhere between 0 to 28 times) *per block in a level*. This method should be as fast as possible, and should probably cache heavily.
+
+
 
 [overrides]: ./itemoverrides.md
 [ambocc]: https://en.wikipedia.org/wiki/Ambient_occlusion
