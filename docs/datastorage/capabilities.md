@@ -10,7 +10,7 @@ Forge adds capability support to BlockEntities, Entities, ItemStacks, Levels, an
 Forge-provided Capabilities
 ---------------------------
 
-Forge provides three capabilities: `IItemHandler`, `IFluidHandler` and `IEnergyStorage`
+Forge provides three capabilities: `IItemHandler`, `IFluidHandler` and `IEnergyStorage`.
 
 `IItemHandler` exposes an interface for handling inventory slots. It can be applied to BlockEntities (chests, machines, etc.), Entities (extra player slots, mob/creature inventories/bags), or ItemStacks (portable backpacks and such). It replaces the old `Container` and `WorldlyContainer` with an automation-friendly system.
 
@@ -23,7 +23,7 @@ Using an Existing Capability
 
 As mentioned earlier, BlockEntities, Entities, and ItemStacks implement the capability provider feature through the `ICapabilityProvider` interface. This interface adds the method `#getCapability`, which can be used to query the capabilities present in the associated provider objects.
 
-In order to obtain a capability, you will need to refer it by its unique instance. In the case of the `IItemHandler`, this capability is primarily stored in `ForgeCapabilities#ITEM_HANDLER`, but it is possible to get other instance references by using `CapabilityManager#get`
+In order to obtain a capability, you will need to refer it by its unique instance. In the case of the `IItemHandler`, this capability is primarily stored in `ForgeCapabilities#ITEM_HANDLER`, but it is possible to get other instance references by using `CapabilityManager#get`.
 
 ```java
 public static final Capability<IItemHandler> ITEM_HANDLER = CapabilityManager.get(new CapabilityToken<>(){});
