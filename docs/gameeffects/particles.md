@@ -12,7 +12,7 @@ Particles are broken up between its [**client only**][sides] implementation to d
 | :---             | :---:  |     :---    |
 | ParticleType     | BOTH   | The registry object of a particle's type definition used to reference the particle on either side |
 | ParticleOptions    | BOTH   | A data holder used to sync information from the network or a command to the associated client(s) |
-| ParticleProvider | CLIENT | A factory registered by the `ParticleType` used to construct a `Particle` from the associated `ParticleOptions`.
+| ParticleProvider | CLIENT | A factory registered by the `ParticleType` used to construct a `Particle` from the associated `ParticleOptions`. |
 | Particle         | CLIENT | The renderable logic to display on the associated client(s) |
 
 ### ParticleType
