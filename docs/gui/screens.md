@@ -207,7 +207,7 @@ An `AbstractContainerScreen` typically requires three parameters: the container 
 Field             | Description
 :---:             | :---
 `imageWidth`      | The width of the texture used for the background. This is typically inside a PNG of 256 x 256 and defaults to 176.
-`imageHeight`     | The width of the texture used for the background. This is typically inside a PNG of 256 x 256 and defaults to 166.
+`imageHeight`     | The height of the texture used for the background. This is typically inside a PNG of 256 x 256 and defaults to 166.
 `titleLabelX`     | The relative x coordinate of where the screen title will be rendered.
 `titleLabelY`     | The relative y coordinate of where the screen title will be rendered.
 `inventoryLabelX` | The relative x coordinate of where the player inventory name will be rendered.
