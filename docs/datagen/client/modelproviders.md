@@ -100,7 +100,7 @@ The `BlockModelProvider` is used for generating block models via `BlockModelBuil
 
 ### `ItemModelProvider`
 
-The `ItemModelProvider` is used for generating block models via `ItemModelBuilder` in the `item` folder. Most item models parent `item/generated` and use `layer0` to specify their texture, which can be done using `#singleTexture`.
+The `ItemModelProvider` is used for generating item models via `ItemModelBuilder` in the `item` folder. Most item models parent `item/generated` and use `layer0` to specify their texture, which can be done using `#singleTexture`.
 
 !!! note
     `item/generated` can support five texture layers stacked on top of each other: `layer0`, `layer1`, `layer2`, `layer3`, and `layer4`.
