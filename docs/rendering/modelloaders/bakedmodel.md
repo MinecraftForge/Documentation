@@ -55,7 +55,6 @@ It also takes in a non null `ModelData` instance. This can be used to define ext
 Note that this method is called very often: once for every combination of non-culled face and supported block render layer (anywhere between 0 to 28 times) *per block in a level*. This method should be as fast as possible, and should probably cache heavily.
 
 
-
 [overrides]: ./itemoverrides.md
 [ambocc]: https://en.wikipedia.org/wiki/Ambient_occlusion
 [bewlr]: ../../items/bewlr.md
