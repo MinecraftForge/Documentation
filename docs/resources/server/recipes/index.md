@@ -93,8 +93,8 @@ Larger crafting grids in recipes can be [data generated][datagen].
 
 A few additional [ingredient types][ingredients] are added to allow recipes to have inputs which check tag data or combine multiple ingredients into a single input checker.
 
-[datapack]: https://minecraft.fandom.com/wiki/Data_pack
-[wiki]: https://minecraft.fandom.com/wiki/Recipe
+[datapack]: https://minecraft.wiki/w/Data_pack
+[wiki]: https://minecraft.wiki/w/Recipe
 [advancement]: ../advancements.md
 [datagen]: ../../../datagen/server/recipes.md
 [cap]: ../../../datastorage/capabilities.md
