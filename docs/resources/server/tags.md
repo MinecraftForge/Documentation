@@ -113,8 +113,8 @@ Using Tags in Recipes and Advancements
 Tags are directly supported by Vanilla. See the respective Vanilla wiki pages for [recipes] and [advancements] for usage details.
 
 [datapack]: ./index.md
-[tags]: https://minecraft.fandom.com/wiki/Tag#JSON_format
-[taglist]: https://minecraft.fandom.com/wiki/Tag#List_of_tags
+[tags]: https://minecraft.wiki/w/Tag#JSON_format
+[taglist]: https://minecraft.wiki/w/Tag#List_of_tags
 [forgetags]: https://github.com/MinecraftForge/MinecraftForge/tree/1.19.x/src/generated/resources/data/forge/tags
-[recipes]: https://minecraft.fandom.com/wiki/Recipe#JSON_format
-[advancements]: https://minecraft.fandom.com/wiki/Advancement
+[recipes]: https://minecraft.wiki/w/Recipe#JSON_format
+[advancements]: https://minecraft.wiki/w/Advancement

@@ -72,5 +72,5 @@ If the respective rotation is not specified, it will default to no rotation.
 
 The scale must be specified as an array of 3 floating point values representing a three-dimensional vector: `[ x, y, z ]` and defaults to (1, 1, 1) if not present.
 
-[blockstate]: https://minecraft.fandom.com/wiki/Tutorials/Models#Block_states
+[blockstate]: https://minecraft.wiki/w/Tutorials/Models#Block_states
 [displaytransform]: ../modelloaders/transform.md

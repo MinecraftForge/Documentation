@@ -168,7 +168,7 @@ public IIngredientSerializer<? extends Ingredient> getSerializer() {
 !!! tip
     If using `FMLCommonSetupEvent` to register an ingredient serializer, it must be enqueued to the synchronous work queue via `FMLCommonSetupEvent#enqueueWork` as `CraftingHelper#register` is not thread-safe.
 
-[recipes]: https://minecraft.fandom.com/wiki/Recipe#List_of_recipe_types
+[recipes]: https://minecraft.wiki/w/Recipe#List_of_recipe_types
 [nbt]: #strictnbtingredient
 [serializer]: #iingredientserializer
 [compound]: #compoundingredient
