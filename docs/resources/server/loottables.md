@@ -103,7 +103,7 @@ Forge adds an additional `LootItemCondition` which checks whether the given `Loo
 }
 ```
 
-[datapack]: https://minecraft.fandom.com/wiki/Data_pack
-[wiki]: https://minecraft.fandom.com/wiki/Loot_table
+[datapack]: https://minecraft.wiki/w/Data_pack
+[wiki]: https://minecraft.wiki/w/Loot_table
 [event]: ../../concepts/events.md#creating-an-event-handler
 [glm]: ./glm.md

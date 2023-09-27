@@ -36,5 +36,5 @@ this.add("object.examplemod.example_object", "Example Object");
     ```
 
 [lang]: ../../concepts/internationalization.md
-[locale]: https://minecraft.fandom.com/wiki/Language#Languages
+[locale]: https://minecraft.wiki/w/Language#Languages
 [datagen]: ../index.md#data-providers
