@@ -9,6 +9,6 @@ You can then follow the steps found [here][createdatapack] to create any datapac
 
 Additional reading: [Resource Locations][resourcelocation]
 
-[datapack]: https://minecraft.fandom.com/wiki/Data_pack
-[createdatapack]: https://minecraft.fandom.com/wiki/Tutorials/Creating_a_data_pack
+[datapack]: https://minecraft.wiki/w/Data_pack
+[createdatapack]: https://minecraft.wiki/w/Tutorials/Creating_a_data_pack
 [resourcelocation]: ../../concepts/resources.md#ResourceLocation

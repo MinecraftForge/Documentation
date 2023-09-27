@@ -59,9 +59,9 @@ The `GatherDataEvent` is fired on the mod event bus when the data generator is b
 * [`AdvancementProvider`][advgen] - for [advancements]; override `#registerAdvancements`
 
 [langgen]: ./client/localization.md
-[lang]: https://minecraft.fandom.com/wiki/Language
+[lang]: https://minecraft.wiki/w/Language
 [soundgen]: ./client/sounds.md
-[sounds]: https://minecraft.fandom.com/wiki/Sounds.json
+[sounds]: https://minecraft.wiki/w/Sounds.json
 [modelgen]: ./client/modelproviders.md
 [models]: ../resources/client/models/index.md
 [itemmodelgen]: ./client/modelproviders.md#itemmodelprovider
