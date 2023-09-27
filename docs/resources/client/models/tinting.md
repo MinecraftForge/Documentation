@@ -29,4 +29,4 @@ public void registerItemColors(ColorHandlerEvent.Item event){
 }
 ```
 
-[wiki]: https://minecraft.gamepedia.com/Model#Block_models
+[wiki]: https://minecraft.wiki/w/Model#Block_models

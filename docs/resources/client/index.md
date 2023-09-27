@@ -10,6 +10,6 @@ You can then follow the steps found [at the Minecraft Wiki][createrespack] to cr
 
 Additional reading: [Resource Locations][resourcelocation]
 
-[respack]: https://minecraft.fandom.com/wiki/Resource_Pack
-[createrespack]: https://minecraft.fandom.com/wiki/Tutorials/Creating_a_resource_pack
+[respack]: https://minecraft.wiki/w/Resource_Pack
+[createrespack]: https://minecraft.wiki/w/Tutorials/Creating_a_resource_pack
 [resourcelocation]: ../../concepts/resources.md#ResourceLocation

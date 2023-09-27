@@ -61,5 +61,5 @@ The first parameter of the `TranslatableComponent(String, Object...)` constructo
 
 - `createComponentTranslation(CommandSource, String, Object...)` creates a localized and formatted `BaseComponent` depending on a receiver. The localization and formatting is done eagerly if the receiver is a vanilla client. If not, the localization and formatting is done lazily with a `TranslatableComponent`. This is only useful if the server should allow vanilla clients to connect.
 
-[langs]: https://minecraft.gamepedia.com/Language#Available_languages
+[langs]: https://minecraft.wiki/w/Language#Available_languages
 [converter]: https://tterrag.com/lang2json/
