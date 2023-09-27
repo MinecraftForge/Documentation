@@ -158,8 +158,8 @@ When an advancement is completed, rewards may be given out. These can be a combi
 }
 ```
 
-[datapack]: https://minecraft.fandom.com/wiki/Data_pack
-[wiki]: https://minecraft.fandom.com/wiki/Advancement/JSON_format
+[datapack]: https://minecraft.wiki/w/Data_pack
+[wiki]: https://minecraft.wiki/w/Advancement/JSON_format
 [conditional]: ./conditional.md#implementations
-[function]: https://minecraft.fandom.com/wiki/Function_(Java_Edition)
-[triggers]: https://minecraft.fandom.com/wiki/Advancement/JSON_format#List_of_triggers
+[function]: https://minecraft.wiki/w/Function_(Java_Edition)
+[triggers]: https://minecraft.wiki/w/Advancement/JSON_format#List_of_triggers

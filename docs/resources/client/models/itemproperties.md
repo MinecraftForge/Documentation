@@ -59,4 +59,4 @@ private void setup(final FMLClientSetupEvent event)
 }
 ```
 
-[format]: https://minecraft.fandom.com/wiki/Tutorials/Models#Item_models
+[format]: https://minecraft.wiki/w/Tutorials/Models#Item_models
