@@ -93,5 +93,5 @@ Building and Testing Your Mod
 
 !!! note
 
-   For `forge-1.12.2-14.23.5.2860-mdk` version, it looks like `gradlew runClient` will ignore all assets under `src/main/resourcs`. (BUG?)   
+    For `forge-1.12.2-14.23.5.2860-mdk` version, it looks like `gradlew runClient` will ignore all assets under `src/main/resourcs`. (BUG?)   
 
