@@ -89,3 +89,9 @@ Building and Testing Your Mod
 !!! note
 
     It is always advisable to test your mod in a dedicated server environment if it is intended to run there.
+
+
+!!! note
+
+   For `forge-1.12.2-14.23.5.2860-mdk` version, it looks like `gradlew runClient` will ignore all assets under `src/main/resourcs`. (BUG?)   
+
