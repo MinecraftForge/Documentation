@@ -17,9 +17,11 @@ From Zero to Modding
 5. Choose your IDE: Forge explicitly supports developing with Eclipse or IntelliJ environments, but any environment, from Netbeans to vi/emacs, can be made to work.
     * For Eclipse, you should run `gradlew eclipse` - this will download some more artifacts for building eclipse projects and then place the eclipse project artifacts in your current directory.
     * For IntelliJ, simply import the build.gradle file.
+
 !!! note
     For `forge-1.12.2-14.23.5.2860-mdk` version, it looks like `gradlew setupDecompWorkspace` will error. If you want to use cli for
     building, you only have to do `gradlew eclipse`
+
 6. Load your project into your IDE.
     * For Eclipse, create a workspace anywhere (though the easiest location is one level above your project folder). Then simply import your project folder as a project, everything will be done automatically.
     * For IntelliJ, you only need to create run configs. You can run `gradlew genIntellijRuns` to do this.
