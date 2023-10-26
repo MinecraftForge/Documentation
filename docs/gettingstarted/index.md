@@ -20,8 +20,8 @@ From Zero to Modding
 
 !!! note    
 
-    For `forge-1.12.2-14.23.5.2860-mdk` version, it looks like `gradlew setupDecompWorkspace` will error. If you want to use cli for
-    building, you only have to do `gradlew eclipse`
+    For `forge-1.12.2-14.23.5.2860-mdk` version, it looks like `gradlew setupDecompWorkspace` will error. If you want to use cli for    
+    building, you only have to do `gradlew eclipse`    
 
 6. Load your project into your IDE.
     * For Eclipse, create a workspace anywhere (though the easiest location is one level above your project folder). Then simply import your project folder as a project, everything will be done automatically.
