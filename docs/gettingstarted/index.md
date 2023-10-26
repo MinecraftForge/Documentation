@@ -18,7 +18,8 @@ From Zero to Modding
     * For Eclipse, you should run `gradlew eclipse` - this will download some more artifacts for building eclipse projects and then place the eclipse project artifacts in your current directory.
     * For IntelliJ, simply import the build.gradle file.
 
-!!! note
+!!! note    
+
     For `forge-1.12.2-14.23.5.2860-mdk` version, it looks like `gradlew setupDecompWorkspace` will error. If you want to use cli for
     building, you only have to do `gradlew eclipse`
 
