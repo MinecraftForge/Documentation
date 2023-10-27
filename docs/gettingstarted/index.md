@@ -20,8 +20,7 @@ From Zero to Modding
 
 !!! note    
 
-    For `forge-1.12.2-14.23.5.2860-mdk` version, it looks like `gradlew setupDecompWorkspace` will error. Maybe you can skip this step.   
-    Checked that building will work without doing `setupDecompWorkspace`.
+    `setupDecompWorkspace` is deleted (tested in `1.12.2 - 14.23.5.2860`) and you can skip step 4.
 
 6. Load your project into your IDE.
     * For Eclipse, create a workspace anywhere (though the easiest location is one level above your project folder). Then simply import your project folder as a project, everything will be done automatically.
