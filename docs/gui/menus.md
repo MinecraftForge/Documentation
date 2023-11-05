@@ -294,7 +294,7 @@ pPlayer.openMenu(new SimpleMenuProvider(
   (containerId, playerInventory, player) -> new MyMenu(containerId, playerInventory),
   Component.translatable("menu.title.examplemod.mymenu"),pPos);
 ```
-
+NetworkHooks was replaced by IForgeServerPlayer#openMenu in [48,)
 ### Common Implementations
 
 Menus are typically opened on a player interaction of some kind (e.g. when a block or entity is right-clicked).
