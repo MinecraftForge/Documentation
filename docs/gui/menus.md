@@ -272,12 +272,27 @@ A `MenuProvider` is an interface that contains two methods: `#createMenu`, which
 
 A `MenuProvider` can easily be created using `SimpleMenuProvider`, which takes in a method reference to create the server menu and the title of the menu.
 
+##### On [46,48)
 ```java
 // In some implementation
 NetworkHooks.openScreen(serverPlayer, new SimpleMenuProvider(
   (containerId, playerInventory, player) -> new MyMenu(containerId, playerInventory),
   Component.translatable("menu.title.examplemod.mymenu")
 ));
+```
+##### On [48,)
+```java
+/*
+  In some implementation
+  args:
+   IForgeServerPlayer pPlayer , BlockPos pPos
+  use:
+  {@link IForgeServerPlayer#openMenu(MenuProvider, BlockPos)}
+  {@link IForgeServerPlayer#openMenu(MenuProvider, Consumer)}
+*/
+pPlayer.openMenu(new SimpleMenuProvider(
+  (containerId, playerInventory, player) -> new MyMenu(containerId, playerInventory),
+  Component.translatable("menu.title.examplemod.mymenu"),pPos);
 ```
 
 ### Common Implementations
