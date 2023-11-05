@@ -54,7 +54,7 @@ Next, we must declare the types of messages that we would like to send and recei
 
 The last three parameters can be method references to either static or instance methods in Java. Remember that an instance method `MSG#encode(FriendlyByteBuf)` still satisfies `BiConsumer<MSG, FriendlyByteBuf>`; the `MSG` simply becomes the implicit first argument.
 #### On [48,)
-example: a call back message
+example: a callback message
 ```java
 INSTANCE.messageBuilder(MyMessage.class, NetworkDirection.PLAY_TO_SERVER)
             .decoder(buf ->{new MyMessage())
@@ -64,7 +64,7 @@ INSTANCE.messageBuilder(MyMessage.class, NetworkDirection.PLAY_TO_SERVER)
             })
             .add();
 ```
-so a confortable format:
+A confortable format:
 ```java
 private static final String PROTOCOL_VERSION = "1";
 public static final SimpleChannel INSTANCE = ChannelBuilder.named("mymodid","main"))
