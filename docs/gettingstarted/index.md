@@ -17,6 +17,8 @@ From Zero to Modding
 * For both Intellij IDEA and Eclipse their Gradle integration will handle the rest of the initial workspace setup, this includes downloading packages from Mojang, MinecraftForge, and a few other software sharing sites.
     * For most, if not all, changes to the build.gradle file to take effect Gradle will need to be invoked to re-evaluate the project, this can be done through Refresh buttons in the Gradle panels of both the previously mentioned IDEs.
 
+[files]: https://files.minecraftforge.net "Forge Files distribution site"
+
 Customizing Your Mod Information
 --------------------------------
 
