@@ -38,7 +38,6 @@ From Zero to Modding
     assign more RAM into gradle by adding `org.gradle.jvmargs=-Xmx2G` into the file `~/.gradle/gradle.properties` (create file if doesn't exist). The `~` sign means it's a user's [home directory][]    .
 
 
-
 [home directory]: https://en.wikipedia.org/wiki/Home_directory#Default_home_directory_per_operating_system "Default user's home folder location for different operation systems"
 [files]: https://files.minecraftforge.net "Forge Files distribution site"
 
