@@ -52,5 +52,3 @@ Building and Testing Your Mod
 !!! note
 
     It is always advisable to test your mod in a dedicated server environment if it is intended to run there.
-
-
