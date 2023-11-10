@@ -23,9 +23,6 @@ From Zero to Modding
     * For IntelliJ, run the `genIntellijRuns` gradle task (`gradlew genIntellijRuns`). This will generate the Run Configurations and download any required assets for the game to run. If you encounter an error saying "module not specified", you can either edit the configuration to select your "main" module or specify it through the `ideaModule` property.
     * For VSCode, run the `genVSCodeRuns` gradle task (`gradlew genVSCodeRuns`). This will generate the Launch Configurations and download any required assets for the game to run.
 
-[files]: https://files.minecraftforge.net "Forge Files distribution site"
-[jdk]: https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot "AdoptOpenJdk 8 Prebuilt Binaries"
-
 Customizing Your Mod Information
 --------------------------------
 
@@ -35,11 +32,7 @@ Edit the `build.gradle` file to customize how your mod is built (the file names,
 
     **Do not** edit the `buildscript {}` section of the build.gradle file, its default text is necessary for ForgeGradle to function.
 
-Almost anything underneath `apply project: forge` and the `// EDITS GO BELOW HERE` marker can be changed, many things can be removed and customized there as well.
-
-There is a whole site dedicated to customizing the forge `build.gradle` files - the [ForgeGradle cookbook][]. Once you're comfortable with your mod setup, you'll find many useful recipes there.
-
-[forgegradle cookbook]: https://forgegradle.readthedocs.org/en/latest/cookbook/ "The ForgeGradle cookbook"
+Almost anything underneath the `// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.` marker can be changed. Many things can be removed and customized there as well.
 
 ### Simple `build.gradle` Customizations
 
@@ -48,14 +41,18 @@ These customizations are highly recommended for all projects.
 * To change the name of the file you build - edit the value of `archivesBaseName` to suit.
 * To change your "maven coordinates" - edit the value of `group` as well.
 * To change the version number - edit the value of `version`.
+* To update the run configurations - replace all occurrences of `examplemod` to the mod id of your mod.
 
 Building and Testing Your Mod
 -----------------------------
 
-1. To build your mod, run `gradlew build`. This will output a file in `build/libs` with the name `[archivesBaseName]-[version].jar`. This file can be placed in the `mods` folder of a forge enabled Minecraft setup, and distributed.
-2. To test run with your mod, the easiest way is to use the run configs that were generated when you set up your project. Otherwise, you can run `gradlew runClient`. This will launch Minecraft from the `<runDir>` location, including your mod code. There are various customizations to this command. Consult the [ForgeGradle cookbook][] for more information.
-3. You can also run a dedicated server using the server run config, or `gradlew runServer`. This will launch the Minecraft server with its GUI.
+1. To build your mod, run `gradlew build`. This will output a file in `build/libs` with the name `[archivesBaseName]-[version].jar`. This file can be placed in the `mods` folder of a Forge enabled Minecraft setup or distributed.
+2. To test run your mod, the easiest way is to use the run configs that were generated when you set up your project. Otherwise, you can run `gradlew runClient`. This will launch Minecraft from the `<runDir>` location along with your mod's code in any source sets specified within your run configurations. The default MDK includes the `main` source set, so any code written within `src/main/java` will be applied.
+3. You can also run a dedicated server using the server run config or via `gradlew runServer`. This will launch the Minecraft server with its GUI. After the first run, the server will shut down immediately until the Minecraft EULA is accepted by editing `run/eula.txt`. Once accepted, the server will load and can be accessed via a direct connect to `localhost`.
 
 !!! note
 
     It is always advisable to test your mod in a dedicated server environment if it is intended to run there.
+    
+[files]: https://files.minecraftforge.net "Forge Files distribution site"
+[jdk]: https://adoptopenjdk.net/?variant=openjdk8&jvmVariant=hotspot "AdoptOpenJdk 8 Prebuilt Binaries"
