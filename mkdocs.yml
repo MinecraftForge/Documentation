@@ -1,5 +1,5 @@
 # If you add a page, you must add it to the index here
-pages:
+nav:
   - Home: 'index.md'
   - Style Guide: 'styleguide.md'
   - Getting Started:
@@ -77,6 +77,7 @@ pages:
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
+site_url: https://mcforge.readthedocs.io/en/1.13.x/
 
 markdown_extensions:
   - admonition
@@ -89,16 +90,13 @@ markdown_extensions:
       permalink: ' '
 
 theme:
-  name: null
+  name: readthedocs
   custom_dir: forge_theme
-# Technically deprecated, but RTD overrides theme.custom_dir with their default style
-# They still seem to respect the old option, though
-theme_dir: forge_theme
 
 extra:
   current_version: 1.13.x
   versions:
-    1.12.x: latest
+    1.12.x: 1.12.x
     1.13.x: 1.13.x
 
 extra_css:
