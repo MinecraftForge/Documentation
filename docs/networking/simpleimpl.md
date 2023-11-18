@@ -8,20 +8,6 @@ Getting Started
 
 First you need to create your `SimpleChannel` object. We recommend that you do this in a separate class, possibly something like `ModidPacketHandler`. Create your `SimpleChannel` as a static field in this class, like so:
 
-#### On [46,48)
-```java
-private static final String PROTOCOL_VERSION = "1";
-public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
-  new ResourceLocation("mymodid", "main"),
-  () -> PROTOCOL_VERSION,
-  PROTOCOL_VERSION::equals,
-  PROTOCOL_VERSION::equals
-);
-```
-The first argument is a name for the channel. The second argument is a `Supplier<String>` returning the current network protocol version. The third and fourth arguments respectively are `Predicate<String>` checking whether an incoming connection protocol version is network-compatible with the client or server, respectively.
-Here, we simply compare with the `PROTOCOL_VERSION` field directly, meaning that the client and server `PROTOCOL_VERSION`s must always match or FML will deny login.
-
-#### On [48,)
 ```java
 private static final String PROTOCOL_VERSION = "1";
 public static final SimpleChannel INSTANCE = ChannelBuilder.named("mymodid","main"))
@@ -30,6 +16,9 @@ public static final SimpleChannel INSTANCE = ChannelBuilder.named("mymodid","mai
             .acceptedVersions(PROTOCOL_VERSION::equals)
             .optional().simpleChannel();
 ```
+Call the `ChannelBuilder.named(String,String)` to start a building of `SimpleChannel`. The first String is usually modid,and the second String is the name of channel, just like a ResourceLocation.
+`clientAcceptedVersions`, `serverAcceptedVersions` and `acceptedVersions` accept the argument of `Predicate<String>` checking whether an incoming connection protocol version is network-compatible with the client , server or both, respectively.Here, we simply compare with the `PROTOCOL_VERSION` field directly, meaning that the client and server `PROTOCOL_VERSION`s must always match or FML will deny login.
+Then call `optional` and `simpleCannel` to get a registered `SimpleChannel`.
 
 The Version Checker
 -------------------
@@ -43,28 +32,16 @@ Returning `false` for both means that this channel must be present on the other 
 
 Registering Packets
 -------------------
-#### On [46,47)
-Next, we must declare the types of messages that we would like to send and receive. This is done using `INSTANCE#registerMessage`, which takes 5 parameters:
 
-- The first parameter is the discriminator for the packet. This is a per-channel unique ID for the packet. We recommend you use a local variable to hold the ID, and then call registerMessage using `id++`. This will guarantee 100% unique IDs.
-- The second parameter is the actual packet class `MSG`.
-- The third parameter is a `BiConsumer<MSG, FriendlyByteBuf>` responsible for encoding the message into the provided `FriendlyByteBuf`.
-- The fourth parameter is a `Function<FriendlyByteBuf, MSG>` responsible for decoding the message from the provided `FriendlyByteBuf`.
-- The final parameter is a `BiConsumer<MSG, Supplier<NetworkEvent.Context>>` responsible for handling the message itself.
+Next, we must declare the types of messages that we would like to send and receive. This is done using the following steps:
 
-The last three parameters can be method references to either static or instance methods in Java. Remember that an instance method `MSG#encode(FriendlyByteBuf)` still satisfies `BiConsumer<MSG, FriendlyByteBuf>`; the `MSG` simply becomes the implicit first argument.
-#### On [48,)
-example: a callback message
-```java
-INSTANCE.messageBuilder(MyMessage.class, NetworkDirection.PLAY_TO_SERVER)
-            .decoder(buf ->{new MyMessage())
-            .encoder((message, buf) -> {})
-            .consumerMainThread((message, context) -> {
-                //TODO
-            })
-            .add();
-```
-A confortable format:
+- First: Invoke the SimpleChannel#messageBuilder to starting a building of a message.
+- Then: Call `decoder`, `encoder` and `consumerMainThread` in any order to build your message.
+    The parameter of `decoder` is a `Function<FriendlyByteBuf, MSG>` responsible for decoding the message from the provided `FriendlyByteBuf`.
+    The parameter of `encoder` is a  `BiConsumer<MSG, FriendlyByteBuf>` responsible for encoding the message into the provided `FriendlyByteBuf`.
+    The parameter of `consumerMainThread` is a `BiConsumer<MSG, Supplier<NetworkEvent.Context>>` responsible for handling the message itself on the correct thread designated by `messageBuilder`.
+- Finally: call `add` to register the message to SimpleChannel.
+A confortable format: 
 ```java
 private static final String PROTOCOL_VERSION = "1";
 public static final SimpleChannel INSTANCE = ChannelBuilder.named("mymodid","main"))
@@ -137,28 +114,11 @@ Sending Packets
 ---------------
 
 ### Sending to the Server
-#### On [46,48)
-There is but one way to send a packet to the server. This is because there is only ever *one* server the client can be connected to at once. To do so, we must again use that `SimpleChannel` that was defined earlier. Simply call `INSTANCE.sendToServer(new MyMessage())`. The message will be sent to the handler for its type, if one exists.
-#### On [48,)
-```java
-INSTANCE.send(new MyMessage(), PacketDistributor.SERVER.noArg());
-```
+
+There is but one way to send a packet to the server. This is because there is only ever *one* server the client can be connected to at once. To do so, we must again use that `SimpleChannel` that was defined earlier. Simply call `INSTANCE.send(new MyMessage(),PacketDistributor.SERVER.noArg())`. The message will be sent to the handler for its type, if one exists.
 
 ### Sending to Clients
-#### On [46,48)
-Packets can be sent directly to a client using the `SimpleChannel`: `HANDLER.sendTo(new MyClientMessage(), serverPlayer.connection.getConnection(), NetworkDirection.PLAY_TO_CLIENT)`. However, this can be quite inconvenient. Forge has some convenience functions that can be used:
 
-```java
-// Send to one player
-INSTANCE.send(PacketDistributor.PLAYER.with(serverPlayer), new MyMessage());
-
-// Send to all players tracking this level chunk
-INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(levelChunk), new MyMessage());
-
-// Send to all connected players
-INSTANCE.send(PacketDistributor.ALL.noArg(), new MyMessage());
-```
-#### On [48,)
 ```java
 // Send to one player
 INSTANCE.send(new MyMessage(), PacketDistributor.PLAYER.with(serverPlayer));

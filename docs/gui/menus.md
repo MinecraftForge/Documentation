@@ -272,15 +272,6 @@ A `MenuProvider` is an interface that contains two methods: `#createMenu`, which
 
 A `MenuProvider` can easily be created using `SimpleMenuProvider`, which takes in a method reference to create the server menu and the title of the menu.
 
-##### On [46,48)
-```java
-// In some implementation
-NetworkHooks.openScreen(serverPlayer, new SimpleMenuProvider(
-  (containerId, playerInventory, player) -> new MyMenu(containerId, playerInventory),
-  Component.translatable("menu.title.examplemod.mymenu")
-));
-```
-##### On [48,)
 ```java
 /*
   In some implementation
@@ -294,7 +285,8 @@ pPlayer.openMenu(new SimpleMenuProvider(
   (containerId, playerInventory, player) -> new MyMenu(containerId, playerInventory),
   Component.translatable("menu.title.examplemod.mymenu"),pPos);
 ```
-NetworkHooks was replaced by IForgeServerPlayer#openMenu in [48,)
+NetworkHooks#openScreen was replaced by IForgeServerPlayer#openMenu in [48,)
+
 ### Common Implementations
 
 Menus are typically opened on a player interaction of some kind (e.g. when a block or entity is right-clicked).
@@ -314,8 +306,8 @@ public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos)
 
 @Override
 public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-  if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
-    NetworkHooks.openScreen(serverPlayer, state.getMenuProvider(level, pos));
+  if (!level.isClientSide && player instanceof IForgeServerPlayer serverPlayer) {
+    serverPlayer.openMenu(state.getMenuProvider(level, pos) , pos);
   }
   return InteractionResult.sidedSuccess(level.isClientSide);
 }
@@ -334,8 +326,8 @@ public class MyMob extends Mob implements MenuProvider {
 
   @Override
   public InteractionResult mobInteract(Player player, InteractionHand hand) {
-    if (!this.level.isClientSide && player instanceof ServerPlayer serverPlayer) {
-      NetworkHooks.openScreen(serverPlayer, this);
+    if (!this.level.isClientSide && player instanceof IForgeServerPlayer serverPlayer) {
+      serverPlayer.openMenu(this, new BlockPos(this.getX(), this.getY(),this.getZ()));
     }
     return InteractionResult.sidedSuccess(this.level.isClientSide);
   }
