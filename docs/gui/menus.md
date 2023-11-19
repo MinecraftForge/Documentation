@@ -272,20 +272,16 @@ A `MenuProvider` is an interface that contains two methods: `#createMenu`, which
 
 A `MenuProvider` can easily be created using `SimpleMenuProvider`, which takes in a method reference to create the server menu and the title of the menu.
 
+##### Open a menu
+
+Use `IForgeServerPlayer#openMenu(MenuProvider, BlockPos)` if you just need to send a pos to create menu.
+Use `IForgeServerPlayer#openMenu(MenuProvider, Consumer<FriendlyByteBuf>)` for more information.(https://github.com/MinecraftForge/MinecraftForge/issues/3228)
+
 ```java
-/*
-  In some implementation
-  args:
-   IForgeServerPlayer pPlayer , BlockPos pPos
-  use:
-  {@link IForgeServerPlayer#openMenu(MenuProvider, BlockPos)}
-  {@link IForgeServerPlayer#openMenu(MenuProvider, Consumer)}
-*/
-pPlayer.openMenu(new SimpleMenuProvider(
-  (containerId, playerInventory, player) -> new MyMenu(containerId, playerInventory),
-  Component.translatable("menu.title.examplemod.mymenu"),pPos);
+serverPlayer.openMenu(new SimpleMenuProvider(
+  (containerId, playerInventory, serverPlayer) -> new MyMenu(containerId, playerInventory),
+  Component.translatable("menu.title.examplemod.mymenu"),menuPos);
 ```
-NetworkHooks#openScreen was replaced by IForgeServerPlayer#openMenu in [48,)
 
 ### Common Implementations
 
@@ -327,7 +323,7 @@ public class MyMob extends Mob implements MenuProvider {
   @Override
   public InteractionResult mobInteract(Player player, InteractionHand hand) {
     if (!this.level.isClientSide && player instanceof IForgeServerPlayer serverPlayer) {
-      serverPlayer.openMenu(this, new BlockPos(this.getX(), this.getY(),this.getZ()));
+      serverPlayer.openMenu(this,(extraDataWriter)->{});
     }
     return InteractionResult.sidedSuccess(this.level.isClientSide);
   }
