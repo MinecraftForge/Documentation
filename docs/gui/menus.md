@@ -302,7 +302,7 @@ public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos)
 
 @Override
 public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-  if (!level.isClientSide && player instanceof IForgeServerPlayer serverPlayer) {
+  if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
     serverPlayer.openMenu(state.getMenuProvider(level, pos) , pos);
   }
   return InteractionResult.sidedSuccess(level.isClientSide);
@@ -322,7 +322,7 @@ public class MyMob extends Mob implements MenuProvider {
 
   @Override
   public InteractionResult mobInteract(Player player, InteractionHand hand) {
-    if (!this.level.isClientSide && player instanceof IForgeServerPlayer serverPlayer) {
+    if (!this.level.isClientSide && player instanceof ServerPlayer serverPlayer) {
       serverPlayer.openMenu(this,(extraDataWriter)->{});
     }
     return InteractionResult.sidedSuccess(this.level.isClientSide);

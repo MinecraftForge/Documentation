@@ -34,6 +34,7 @@ Registering and Handle Packets
 -------------------
 
 Next, we must declare the types of messages that we would like to send and receive. This is a example:
+
 ```java
 private static final int PROTOCOL_VERSION = 1;
 public static final SimpleChannel INSTANCE = ChannelBuilder.named(new ResourceLocation("mymodid","main"))
@@ -56,6 +57,8 @@ public static final SimpleChannel INSTANCE = ChannelBuilder.named(new ResourceLo
 ```
 
 Note the presence of `#setPacketHandled`, which is used to tell the network system that the packet has successfully completed handling.
+
+!!! The parameters, BiConsumer<MSG, FriendlyByteBuf>, Function<FriendlyByteBuf, MSG>, BiConsumer<MSG, CustomPayloadEvent.Context>, VersionTest can be method references to either static or instance methods in Java. Remember that an instance method `MSG#encode(FriendlyByteBuf)` still satisfies `BiConsumer<MSG, FriendlyByteBuf>`; the `MSG` simply becomes the implicit first argument.
 
 !!! warning
     Be defensive when handling packets on the server. A client could attempt to exploit the packet handling by sending unexpected data.
