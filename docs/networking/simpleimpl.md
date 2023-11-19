@@ -11,14 +11,11 @@ First you need to create your `SimpleChannel` object. We recommend that you do t
 ```java
 private static final int PROTOCOL_VERSION = 1;
 public static final SimpleChannel INSTANCE = ChannelBuilder.named(new ResourceLocation("mymodid","main"))
-            .networkProtocolVersion(PROTOCOL_VERSION).
-            .acceptedVersions((status, version) -> PROTOCOL_VERSION==version)
-            .simpleChannel();
+            .networkProtocolVersion(PROTOCOL_VERSION)//set the version of channel.Optional,default is 0.Version can not be lower than 0.
+            .acceptedVersions((status, version) -> PROTOCOL_VERSION==version)//accept the argument of `VersionTest` checking whether an incoming connection protocol version is network-compatible with the client(`#clientAcceptedVersions`) , server(`#serverAcceptedVersions`) or both(`#acceptedVersions`).Optional, if you do not call any one, channel will be required it's version is equal.
+            .simpleChannel();//get a registered `SimpleChannel`.
 ```
-Call the `ChannelBuilder#named(ResourceLocation)` to start a building of `SimpleChannel`.
-Call `networkProtocolVersion(int)` to set the version of channel.
-`clientAcceptedVersions`, `serverAcceptedVersions` and `acceptedVersions` accept the argument of `VersionTest` checking whether an incoming connection protocol version is network-compatible with the client , server or both, respectively.Here, we simply compare with the `PROTOCOL_VERSION` field directly, meaning that the client and server `PROTOCOL_VERSION`s must always match or FML will deny login.If you do not call any one, channel will be required it's version is equal.
-Then call `simpleCannel` to get a registered `SimpleChannel`.
+Here, we simply compare with the `PROTOCOL_VERSION` field directly, meaning that the client and server `PROTOCOL_VERSION`s must always match or FML will deny login.
 
 The Version Checker
 -------------------
@@ -52,13 +49,13 @@ public static final SimpleChannel INSTANCE = ChannelBuilder.named(new ResourceLo
             message itself on the network thread.As of Minecraft 1.8 packets are by default handled on the network thread.
             That means that your handler can _not_ interact with most game objects directly. Forge provides a convenient way to make your code execute on the main thread instead through `consumerMainThread`.
             */
-            .add()//return the builder.It means the messages can be chained.
+            .add()//return the `SimpleChannel`.It means the messages can be chained.
             //Chain another message...
 ```
 
 Note the presence of `#setPacketHandled`, which is used to tell the network system that the packet has successfully completed handling.
 
-!!! The parameters, BiConsumer<MSG, FriendlyByteBuf>, Function<FriendlyByteBuf, MSG>, BiConsumer<MSG, CustomPayloadEvent.Context>, VersionTest can be method references to either static or instance methods in Java. Remember that an instance method `MSG#encode(FriendlyByteBuf)` still satisfies `BiConsumer<MSG, FriendlyByteBuf>`; the `MSG` simply becomes the implicit first argument.
+!!! The parameters, `BiConsumer<MSG, FriendlyByteBuf>`, `Function<FriendlyByteBuf, MSG>`, `BiConsumer<MSG, CustomPayloadEvent.Context>`, `VersionTest` can be method references to either static or instance methods in Java. Remember that an instance method `MSG#encode(FriendlyByteBuf)` still satisfies `BiConsumer<MSG, FriendlyByteBuf>`; the `MSG` simply becomes the implicit first argument.
 
 !!! warning
     Be defensive when handling packets on the server. A client could attempt to exploit the packet handling by sending unexpected data.
