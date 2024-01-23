@@ -69,7 +69,7 @@
             </ul>
         </nav>
         {% block search_form %}
-        <form class="search" action="{{ base_url }}/search.html" method="get">
+        <form role="search" id="rtd-search-form" class="search" action="{{ base_url }}/search.html" method="get">
             <input type="submit" value="&#xf002;">
             <div class="search-field">
                 <input type="search" title="Search" name="q" placeholder="Search...">
