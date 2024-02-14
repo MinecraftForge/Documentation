@@ -261,10 +261,10 @@ public ItemStack quickMoveStack(Player player, int quickMovedSlotIndex) {
 
 ## Opening a Menu
 
-Once a menu type has been registered, the menu itself has been finished, and a [screen] has been attached, a menu can then be opened by the player. Menus can be opened by calling `NetworkHooks#openScreen` on the logical server. The method takes in the player opening the menu, the `MenuProvider` of the server side menu, and optionally a `FriendlyByteBuf` if extra data needs to be synced to the client.
+Once a menu type has been registered, the menu itself has been finished, and a [screen] has been attached, a menu can then be opened by the player. Menus can be opened by calling `ServerPlayer#openMenu` on the logical server. The method takes in the `MenuProvider` of the server side menu, and optionally a `FriendlyByteBuf` if extra data needs to be synced to the client.
 
 !!! note
-    `NetworkHooks#openScreen` with the `FriendlyByteBuf` parameter should only be used if a menu type was created using an [`IContainerFactory`][icf].
+    `ServerPlayer#openMenu` with the `FriendlyByteBuf` parameter should only be used if a menu type was created using an [`IContainerFactory`][icf].
 
 #### `MenuProvider`
 
@@ -274,7 +274,7 @@ A `MenuProvider` can easily be created using `SimpleMenuProvider`, which takes i
 
 ```java
 // In some implementation
-NetworkHooks.openScreen(serverPlayer, new SimpleMenuProvider(
+serverPlayer.openMenu(new SimpleMenuProvider(
   (containerId, playerInventory, player) -> new MyMenu(containerId, playerInventory),
   Component.translatable("menu.title.examplemod.mymenu")
 ));
@@ -300,7 +300,7 @@ public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos)
 @Override
 public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
   if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
-    NetworkHooks.openScreen(serverPlayer, state.getMenuProvider(level, pos));
+    serverPlayer.openMenu(state.getMenuProvider(level, pos));
   }
   return InteractionResult.sidedSuccess(level.isClientSide);
 }
@@ -320,7 +320,7 @@ public class MyMob extends Mob implements MenuProvider {
   @Override
   public InteractionResult mobInteract(Player player, InteractionHand hand) {
     if (!this.level.isClientSide && player instanceof ServerPlayer serverPlayer) {
-      NetworkHooks.openScreen(serverPlayer, this);
+      serverPlayer.openMenu(this);
     }
     return InteractionResult.sidedSuccess(this.level.isClientSide);
   }
