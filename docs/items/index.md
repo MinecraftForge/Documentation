@@ -13,10 +13,15 @@ Basic items that need no special functionality (think sticks or sugar) do not ne
 |      Method        |                  Description                  |
 |:------------------:|:----------------------------------------------|
 | `requiredFeatures` | Sets the required `FeatureFlag`s needed to see this item in the `CreativeModeTab` it is added to. |
+| `food`         | Makes the item eatable and is used to store information about the Hunger and Effects. |
 | `durability`       | Sets the maximum damage value for this item. If it is over `0`, two item properties "damaged" and "damage" are added. |
+| `defaultDurability`       | Sets the Item Durability for if it has a Maximum Damage of 0.
 | `stacksTo`         | Sets the maximum stack size. You cannot have an item that is both damageable and stackable. |
 | `setNoRepair`      | Makes this item impossible to repair, even if it is damageable. |
 | `craftRemainder`   | Sets this item's container item, the way that lava buckets give you back an empty bucket when they are used. |
+| `rarity`         | Sets the Item Name Color in the ToolTip based on Rarity.
+| `fireResistant`         | Makes it so the item is resistant to fire.
+| `setNoRepair`         | Makes the item impossible to Repair.
 
 The above methods are chainable, meaning they `return this` to facilitate calling them in series.
 
