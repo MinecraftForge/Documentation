@@ -1,4 +1,4 @@
-Porting to Minecraft 1.20
+Porting to Minecraft 1.21
 =========================
 
 Here you can find a list of primers on how to port from old versions to the current version. Some versions are lumped together since that particular version never saw much usage.
@@ -13,6 +13,7 @@ Here you can find a list of primers on how to port from old versions to the curr
 | 1.19.3 -> 1.19.4   | [Primer by ChampionAsh5357][1193to1194] |
 | 1.19.4 -> 1.20     | [Primer by ChampionAsh5357][1194to120]  |
 | 1.20.4 -> 1.20.5/6 | [Primer by ChampionAsh5357][1204to1205] |
+| 1.20.6 -> 1.21     | [Primer by ChampionAsh5357][1206to121]  |
 
 [112to114]: https://gist.github.com/williewillus/353c872bcf1a6ace9921189f6100d09a
 [114to115]: https://gist.github.com/williewillus/30d7e3f775fe93c503bddf054ef3f93e
@@ -22,3 +23,4 @@ Here you can find a list of primers on how to port from old versions to the curr
 [1193to1194]: https://gist.github.com/ChampionAsh5357/163a75e87599d19ee6b4b879821953e8
 [1194to120]: https://gist.github.com/ChampionAsh5357/cf818acc53ffea6f4387fe28c2977d56
 [1204to1205]: https://gist.github.com/ChampionAsh5357/53b04132e292aa12638d339abfabf955
+[1206to121]: https://gist.github.com/ChampionAsh5357/d895a7b1a34341e19c80870720f9880f
