@@ -87,7 +87,7 @@ To get a `RegistryObject`, call `RegistryObject#create` with a `ResourceLocation
 An example of using `RegistryObject`:
 
 ```java
-public static final RegistryObject<Item> BOW = RegistryObject.create(ResourceLocation.fromNamespaceAndPath("minecraft", "bow"), ForgeRegistries.ITEMS);
+public static final RegistryObject<Item> BOW = RegistryObject.create(ResourceLocation.withDefaultNamespace("bow"), ForgeRegistries.ITEMS);
 
 // assume that 'neomagicae:mana_type' is a valid registry, and 'neomagicae:coffeinum' is a valid object within that registry
 public static final RegistryObject<ManaType> COFFEINUM = RegistryObject.create(ResourceLocation.fromNamespaceAndPath("neomagicae", "coffeinum"), ResourceLocation.fromNamespaceAndPath("neomagicae", "mana_type"), "neomagicae"); 
