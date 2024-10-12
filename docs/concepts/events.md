@@ -106,7 +106,9 @@ Some events have an `Event$Result`. A result can be one of three things: `DENY` 
 Priority
 --------
 
-Event handler methods (marked with `@SubscribeEvent`) have a priority. You can set the priority of an event handler method by setting the `priority` value of the annotation. The priority can be any value of the `EventPriority` enum (`HIGHEST`, `HIGH`, `NORMAL`, `LOW`, and `LOWEST`). Event handlers with priority `HIGHEST` are executed first and from there in descending order until `LOWEST` events which are executed last.
+Event handler methods (marked with `@SubscribeEvent`) have a priority. You can set the priority of an event handler method by setting the `priority` value of the annotation. The priority can be any value of the `EventPriority` enum (`HIGHEST`, `HIGH`, `NORMAL`, `LOW`, `LOWEST` and `MONITOR`). Event handlers with priority `HIGHEST` are executed first and from there in descending order until `MONITOR` events which are executed last.
+
+The `MONITOR` priority is a special priority that runs after `LOWEST` but does not affect the result of the event. Attempting to cancel or otherwise mutate the event object during the `MONITOR` phase may cause an exception to be thrown. The `MONITOR` priority is useful for logging and other read-only actions that need to run last in a state that's guaranteed to be final by the time your listener is called.
 
 Sub Events
 ----------

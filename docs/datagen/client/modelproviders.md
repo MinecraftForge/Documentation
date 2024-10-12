@@ -315,7 +315,7 @@ public class ExampleLoaderBuilder<T extends ModelBuilder<T>> extends CustomLoade
   }
 
   protected ExampleLoaderBuilder(T parent, ExistingFileHelper existingFileHelper) {
-    super(new ResourceLocation(MOD_ID, "example_loader"), parent, existingFileHelper);
+    super(ResourceLocation.fromNamespaceAndPath(MOD_ID, "example_loader"), parent, existingFileHelper);
   }
 }
 ```

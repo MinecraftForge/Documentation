@@ -23,8 +23,8 @@ private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Fo
 
 public static final RegistryObject<Block> ROCK_BLOCK = BLOCKS.register("rock", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
 
-public ExampleMod() {
-  BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+public ExampleMod(FMLJavaModLoadingContext context) {
+  BLOCKS.register(context.getModEventBus());
 }
 ```
 
@@ -39,9 +39,9 @@ Here is an example: (the event handler is registered on the *mod event bus*)
 public void register(RegisterEvent event) {
   event.register(ForgeRegistries.Keys.BLOCKS,
     helper -> {
-      helper.register(new ResourceLocation(MODID, "example_block_1"), new Block(...));
-      helper.register(new ResourceLocation(MODID, "example_block_2"), new Block(...));
-      helper.register(new ResourceLocation(MODID, "example_block_3"), new Block(...));
+      helper.register(ResourceLocation.fromNamespaceAndPath(MODID, "example_block_1"), new Block(...));
+      helper.register(ResourceLocation.fromNamespaceAndPath(MODID, "example_block_2"), new Block(...));
+      helper.register(ResourceLocation.fromNamespaceAndPath(MODID, "example_block_3"), new Block(...));
       // ...
     }
   );
@@ -87,10 +87,10 @@ To get a `RegistryObject`, call `RegistryObject#create` with a `ResourceLocation
 An example of using `RegistryObject`:
 
 ```java
-public static final RegistryObject<Item> BOW = RegistryObject.create(new ResourceLocation("minecraft:bow"), ForgeRegistries.ITEMS);
+public static final RegistryObject<Item> BOW = RegistryObject.create(ResourceLocation.fromNamespaceAndPath("minecraft", "bow"), ForgeRegistries.ITEMS);
 
 // assume that 'neomagicae:mana_type' is a valid registry, and 'neomagicae:coffeinum' is a valid object within that registry
-public static final RegistryObject<ManaType> COFFEINUM = RegistryObject.create(new ResourceLocation("neomagicae", "coffeinum"), new ResourceLocation("neomagicae", "mana_type"), "neomagicae"); 
+public static final RegistryObject<ManaType> COFFEINUM = RegistryObject.create(ResourceLocation.fromNamespaceAndPath("neomagicae", "coffeinum"), ResourceLocation.fromNamespaceAndPath("neomagicae", "mana_type"), "neomagicae"); 
 ```
 
 ### Using @ObjectHolder

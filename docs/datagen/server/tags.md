@@ -44,7 +44,7 @@ Method           | Description
 // In some TagProvider#addTags
 this.tag(EXAMPLE_TAG)
   .add(EXAMPLE_OBJECT) // Adds an object to the tag
-  .addOptional(new ResourceLocation("othermod", "other_object")) // Adds an object from another mod to the tag
+  .addOptional(ResourceLocation.fromNamespaceAndPath("othermod", "other_object")) // Adds an object from another mod to the tag
 
 this.tag(EXAMPLE_TAG_2)
   .addTag(EXAMPLE_TAG) // Adds a tag to the tag

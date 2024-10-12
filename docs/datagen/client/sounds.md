@@ -62,10 +62,10 @@ Method                | Description
 this.add(EXAMPLE_SOUND_EVENT, definition()
   .subtitle("sound.examplemod.example_sound") // Set translation key
   .with(
-    sound(new ResourceLocation(MODID, "example_sound_1")) // Set first sound
+    sound(ResourceLocation.fromNamespaceAndPath(MODID, "example_sound_1")) // Set first sound
       .weight(4) // Has a 4 / 5 = 80% chance of playing
       .volume(0.5), // Scales all volumes called on this sound by half
-    sound(new ResourceLocation(MODID, "example_sound_2")) // Set second sound
+    sound(ResourceLocation.fromNamespaceAndPath(MODID, "example_sound_2")) // Set second sound
       .stream() // Streams the sound
   )
 );
