@@ -5,7 +5,7 @@ Forge bundles many tags useful for mods, both Forge-specific and de-facto common
 !!! note
     This page does not include Vanilla tags. Refer to the `net.minecraft.tags` package for those.
 
-This page is generated from the [CommonTagsDumper][commontagsdumper] and is correct as of Forge 52.0.20. Note that not all builds of Forge contain tag changes, so just because this page references an older build does not mean this page is outdated.
+This page is generated from the [CommonTagsDumper][commontagsdumper] and is correct as of Forge 52.0.20. Note that not all builds of Forge contain tag changes, so just because this page references an older build does not mean this page is outdated. However, you should treat the actual generated JSONs on the Forge GitHub repository found [here][tagsrepo] as the ground truth. This page is provided for convenience and is not guaranteed to be up-to-date.
 
 block
 -----
@@ -2886,3 +2886,5 @@ worldgen/structure
 ------------------
 - `c:hidden_from_displayers`
 - `c:hidden_from_locator_selection`
+
+[tagsrepo]: https://github.com/MinecraftForge/MinecraftForge/tree/1.21.x/src/main/generated/data
