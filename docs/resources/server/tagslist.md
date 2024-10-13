@@ -1,0 +1,2891 @@
+Tags list
+=========
+Forge bundles many tags useful for mods, both Forge-specific and de-facto common tags that apply across all major mod loaders. You can find all of them in the `net.minecraftforge.common.Tags` class. This page lists all those tags and their contents.
+
+!!! note
+    This page does not include Vanilla tags. Refer to the `net.minecraft.tags` package for those.
+
+This page is generated from the [CommonTagsDumper][commontagsdumper] and is correct as of Forge 52.0.20. Note that not all builds of Forge contain tag changes, so just because this page references an older build does not mean this page is outdated. However, you should treat the actual generated JSONs on the Forge GitHub repository found [here][tagsrepo] as the ground truth. This page is provided for convenience and is not guaranteed to be up-to-date.
+
+block
+-----
+- `c:barrels`
+    - `minecraft:barrel`
+- `c:barrels/wooden`
+    - `minecraft:barrel`
+- `c:bookshelves`
+    - `minecraft:bookshelf`
+- `c:budding_blocks`
+    - `minecraft:budding_amethyst`
+- `c:buds`
+    - `minecraft:large_amethyst_bud`
+    - `minecraft:medium_amethyst_bud`
+    - `minecraft:small_amethyst_bud`
+- `c:chains`
+    - `minecraft:chain`
+- `c:chests`
+    - `minecraft:chest`
+    - `minecraft:ender_chest`
+    - `minecraft:trapped_chest`
+- `c:chests/wooden`
+    - `minecraft:chest`
+    - `minecraft:trapped_chest`
+- `c:clusters`
+    - `minecraft:amethyst_cluster`
+- `c:cobblestones`
+    - `minecraft:cobbled_deepslate`
+    - `minecraft:cobblestone`
+    - `minecraft:infested_cobblestone`
+    - `minecraft:mossy_cobblestone`
+- `c:concretes`
+    - `minecraft:black_concrete`
+    - `minecraft:blue_concrete`
+    - `minecraft:brown_concrete`
+    - `minecraft:cyan_concrete`
+    - `minecraft:gray_concrete`
+    - `minecraft:green_concrete`
+    - `minecraft:light_blue_concrete`
+    - `minecraft:light_gray_concrete`
+    - `minecraft:lime_concrete`
+    - `minecraft:magenta_concrete`
+    - `minecraft:orange_concrete`
+    - `minecraft:pink_concrete`
+    - `minecraft:purple_concrete`
+    - `minecraft:red_concrete`
+    - `minecraft:white_concrete`
+    - `minecraft:yellow_concrete`
+- `c:dyed`
+    - `minecraft:black_banner`
+    - `minecraft:black_bed`
+    - `minecraft:black_candle`
+    - `minecraft:black_carpet`
+    - `minecraft:black_concrete`
+    - `minecraft:black_concrete_powder`
+    - `minecraft:black_glazed_terracotta`
+    - `minecraft:black_shulker_box`
+    - `minecraft:black_stained_glass`
+    - `minecraft:black_stained_glass_pane`
+    - `minecraft:black_terracotta`
+    - `minecraft:black_wall_banner`
+    - `minecraft:black_wool`
+    - `minecraft:blue_banner`
+    - `minecraft:blue_bed`
+    - `minecraft:blue_candle`
+    - `minecraft:blue_carpet`
+    - `minecraft:blue_concrete`
+    - `minecraft:blue_concrete_powder`
+    - `minecraft:blue_glazed_terracotta`
+    - `minecraft:blue_shulker_box`
+    - `minecraft:blue_stained_glass`
+    - `minecraft:blue_stained_glass_pane`
+    - `minecraft:blue_terracotta`
+    - `minecraft:blue_wall_banner`
+    - `minecraft:blue_wool`
+    - `minecraft:brown_banner`
+    - `minecraft:brown_bed`
+    - `minecraft:brown_candle`
+    - `minecraft:brown_carpet`
+    - `minecraft:brown_concrete`
+    - `minecraft:brown_concrete_powder`
+    - `minecraft:brown_glazed_terracotta`
+    - `minecraft:brown_shulker_box`
+    - `minecraft:brown_stained_glass`
+    - `minecraft:brown_stained_glass_pane`
+    - `minecraft:brown_terracotta`
+    - `minecraft:brown_wall_banner`
+    - `minecraft:brown_wool`
+    - `minecraft:cyan_banner`
+    - `minecraft:cyan_bed`
+    - `minecraft:cyan_candle`
+    - `minecraft:cyan_carpet`
+    - `minecraft:cyan_concrete`
+    - `minecraft:cyan_concrete_powder`
+    - `minecraft:cyan_glazed_terracotta`
+    - `minecraft:cyan_shulker_box`
+    - `minecraft:cyan_stained_glass`
+    - `minecraft:cyan_stained_glass_pane`
+    - `minecraft:cyan_terracotta`
+    - `minecraft:cyan_wall_banner`
+    - `minecraft:cyan_wool`
+    - `minecraft:gray_banner`
+    - `minecraft:gray_bed`
+    - `minecraft:gray_candle`
+    - `minecraft:gray_carpet`
+    - `minecraft:gray_concrete`
+    - `minecraft:gray_concrete_powder`
+    - `minecraft:gray_glazed_terracotta`
+    - `minecraft:gray_shulker_box`
+    - `minecraft:gray_stained_glass`
+    - `minecraft:gray_stained_glass_pane`
+    - `minecraft:gray_terracotta`
+    - `minecraft:gray_wall_banner`
+    - `minecraft:gray_wool`
+    - `minecraft:green_banner`
+    - `minecraft:green_bed`
+    - `minecraft:green_candle`
+    - `minecraft:green_carpet`
+    - `minecraft:green_concrete`
+    - `minecraft:green_concrete_powder`
+    - `minecraft:green_glazed_terracotta`
+    - `minecraft:green_shulker_box`
+    - `minecraft:green_stained_glass`
+    - `minecraft:green_stained_glass_pane`
+    - `minecraft:green_terracotta`
+    - `minecraft:green_wall_banner`
+    - `minecraft:green_wool`
+    - `minecraft:light_blue_banner`
+    - `minecraft:light_blue_bed`
+    - `minecraft:light_blue_candle`
+    - `minecraft:light_blue_carpet`
+    - `minecraft:light_blue_concrete`
+    - `minecraft:light_blue_concrete_powder`
+    - `minecraft:light_blue_glazed_terracotta`
+    - `minecraft:light_blue_shulker_box`
+    - `minecraft:light_blue_stained_glass`
+    - `minecraft:light_blue_stained_glass_pane`
+    - `minecraft:light_blue_terracotta`
+    - `minecraft:light_blue_wall_banner`
+    - `minecraft:light_blue_wool`
+    - `minecraft:light_gray_banner`
+    - `minecraft:light_gray_bed`
+    - `minecraft:light_gray_candle`
+    - `minecraft:light_gray_carpet`
+    - `minecraft:light_gray_concrete`
+    - `minecraft:light_gray_concrete_powder`
+    - `minecraft:light_gray_glazed_terracotta`
+    - `minecraft:light_gray_shulker_box`
+    - `minecraft:light_gray_stained_glass`
+    - `minecraft:light_gray_stained_glass_pane`
+    - `minecraft:light_gray_terracotta`
+    - `minecraft:light_gray_wall_banner`
+    - `minecraft:light_gray_wool`
+    - `minecraft:lime_banner`
+    - `minecraft:lime_bed`
+    - `minecraft:lime_candle`
+    - `minecraft:lime_carpet`
+    - `minecraft:lime_concrete`
+    - `minecraft:lime_concrete_powder`
+    - `minecraft:lime_glazed_terracotta`
+    - `minecraft:lime_shulker_box`
+    - `minecraft:lime_stained_glass`
+    - `minecraft:lime_stained_glass_pane`
+    - `minecraft:lime_terracotta`
+    - `minecraft:lime_wall_banner`
+    - `minecraft:lime_wool`
+    - `minecraft:magenta_banner`
+    - `minecraft:magenta_bed`
+    - `minecraft:magenta_candle`
+    - `minecraft:magenta_carpet`
+    - `minecraft:magenta_concrete`
+    - `minecraft:magenta_concrete_powder`
+    - `minecraft:magenta_glazed_terracotta`
+    - `minecraft:magenta_shulker_box`
+    - `minecraft:magenta_stained_glass`
+    - `minecraft:magenta_stained_glass_pane`
+    - `minecraft:magenta_terracotta`
+    - `minecraft:magenta_wall_banner`
+    - `minecraft:magenta_wool`
+    - `minecraft:orange_banner`
+    - `minecraft:orange_bed`
+    - `minecraft:orange_candle`
+    - `minecraft:orange_carpet`
+    - `minecraft:orange_concrete`
+    - `minecraft:orange_concrete_powder`
+    - `minecraft:orange_glazed_terracotta`
+    - `minecraft:orange_shulker_box`
+    - `minecraft:orange_stained_glass`
+    - `minecraft:orange_stained_glass_pane`
+    - `minecraft:orange_terracotta`
+    - `minecraft:orange_wall_banner`
+    - `minecraft:orange_wool`
+    - `minecraft:pink_banner`
+    - `minecraft:pink_bed`
+    - `minecraft:pink_candle`
+    - `minecraft:pink_carpet`
+    - `minecraft:pink_concrete`
+    - `minecraft:pink_concrete_powder`
+    - `minecraft:pink_glazed_terracotta`
+    - `minecraft:pink_shulker_box`
+    - `minecraft:pink_stained_glass`
+    - `minecraft:pink_stained_glass_pane`
+    - `minecraft:pink_terracotta`
+    - `minecraft:pink_wall_banner`
+    - `minecraft:pink_wool`
+    - `minecraft:purple_banner`
+    - `minecraft:purple_bed`
+    - `minecraft:purple_candle`
+    - `minecraft:purple_carpet`
+    - `minecraft:purple_concrete`
+    - `minecraft:purple_concrete_powder`
+    - `minecraft:purple_glazed_terracotta`
+    - `minecraft:purple_shulker_box`
+    - `minecraft:purple_stained_glass`
+    - `minecraft:purple_stained_glass_pane`
+    - `minecraft:purple_terracotta`
+    - `minecraft:purple_wall_banner`
+    - `minecraft:purple_wool`
+    - `minecraft:red_banner`
+    - `minecraft:red_bed`
+    - `minecraft:red_candle`
+    - `minecraft:red_carpet`
+    - `minecraft:red_concrete`
+    - `minecraft:red_concrete_powder`
+    - `minecraft:red_glazed_terracotta`
+    - `minecraft:red_shulker_box`
+    - `minecraft:red_stained_glass`
+    - `minecraft:red_stained_glass_pane`
+    - `minecraft:red_terracotta`
+    - `minecraft:red_wall_banner`
+    - `minecraft:red_wool`
+    - `minecraft:white_banner`
+    - `minecraft:white_bed`
+    - `minecraft:white_candle`
+    - `minecraft:white_carpet`
+    - `minecraft:white_concrete`
+    - `minecraft:white_concrete_powder`
+    - `minecraft:white_glazed_terracotta`
+    - `minecraft:white_shulker_box`
+    - `minecraft:white_stained_glass`
+    - `minecraft:white_stained_glass_pane`
+    - `minecraft:white_terracotta`
+    - `minecraft:white_wall_banner`
+    - `minecraft:white_wool`
+    - `minecraft:yellow_banner`
+    - `minecraft:yellow_bed`
+    - `minecraft:yellow_candle`
+    - `minecraft:yellow_carpet`
+    - `minecraft:yellow_concrete`
+    - `minecraft:yellow_concrete_powder`
+    - `minecraft:yellow_glazed_terracotta`
+    - `minecraft:yellow_shulker_box`
+    - `minecraft:yellow_stained_glass`
+    - `minecraft:yellow_stained_glass_pane`
+    - `minecraft:yellow_terracotta`
+    - `minecraft:yellow_wall_banner`
+    - `minecraft:yellow_wool`
+- `c:dyed/black`
+    - `minecraft:black_banner`
+    - `minecraft:black_bed`
+    - `minecraft:black_candle`
+    - `minecraft:black_carpet`
+    - `minecraft:black_concrete`
+    - `minecraft:black_concrete_powder`
+    - `minecraft:black_glazed_terracotta`
+    - `minecraft:black_shulker_box`
+    - `minecraft:black_stained_glass`
+    - `minecraft:black_stained_glass_pane`
+    - `minecraft:black_terracotta`
+    - `minecraft:black_wall_banner`
+    - `minecraft:black_wool`
+- `c:dyed/blue`
+    - `minecraft:blue_banner`
+    - `minecraft:blue_bed`
+    - `minecraft:blue_candle`
+    - `minecraft:blue_carpet`
+    - `minecraft:blue_concrete`
+    - `minecraft:blue_concrete_powder`
+    - `minecraft:blue_glazed_terracotta`
+    - `minecraft:blue_shulker_box`
+    - `minecraft:blue_stained_glass`
+    - `minecraft:blue_stained_glass_pane`
+    - `minecraft:blue_terracotta`
+    - `minecraft:blue_wall_banner`
+    - `minecraft:blue_wool`
+- `c:dyed/brown`
+    - `minecraft:brown_banner`
+    - `minecraft:brown_bed`
+    - `minecraft:brown_candle`
+    - `minecraft:brown_carpet`
+    - `minecraft:brown_concrete`
+    - `minecraft:brown_concrete_powder`
+    - `minecraft:brown_glazed_terracotta`
+    - `minecraft:brown_shulker_box`
+    - `minecraft:brown_stained_glass`
+    - `minecraft:brown_stained_glass_pane`
+    - `minecraft:brown_terracotta`
+    - `minecraft:brown_wall_banner`
+    - `minecraft:brown_wool`
+- `c:dyed/cyan`
+    - `minecraft:cyan_banner`
+    - `minecraft:cyan_bed`
+    - `minecraft:cyan_candle`
+    - `minecraft:cyan_carpet`
+    - `minecraft:cyan_concrete`
+    - `minecraft:cyan_concrete_powder`
+    - `minecraft:cyan_glazed_terracotta`
+    - `minecraft:cyan_shulker_box`
+    - `minecraft:cyan_stained_glass`
+    - `minecraft:cyan_stained_glass_pane`
+    - `minecraft:cyan_terracotta`
+    - `minecraft:cyan_wall_banner`
+    - `minecraft:cyan_wool`
+- `c:dyed/gray`
+    - `minecraft:gray_banner`
+    - `minecraft:gray_bed`
+    - `minecraft:gray_candle`
+    - `minecraft:gray_carpet`
+    - `minecraft:gray_concrete`
+    - `minecraft:gray_concrete_powder`
+    - `minecraft:gray_glazed_terracotta`
+    - `minecraft:gray_shulker_box`
+    - `minecraft:gray_stained_glass`
+    - `minecraft:gray_stained_glass_pane`
+    - `minecraft:gray_terracotta`
+    - `minecraft:gray_wall_banner`
+    - `minecraft:gray_wool`
+- `c:dyed/green`
+    - `minecraft:green_banner`
+    - `minecraft:green_bed`
+    - `minecraft:green_candle`
+    - `minecraft:green_carpet`
+    - `minecraft:green_concrete`
+    - `minecraft:green_concrete_powder`
+    - `minecraft:green_glazed_terracotta`
+    - `minecraft:green_shulker_box`
+    - `minecraft:green_stained_glass`
+    - `minecraft:green_stained_glass_pane`
+    - `minecraft:green_terracotta`
+    - `minecraft:green_wall_banner`
+    - `minecraft:green_wool`
+- `c:dyed/light_blue`
+    - `minecraft:light_blue_banner`
+    - `minecraft:light_blue_bed`
+    - `minecraft:light_blue_candle`
+    - `minecraft:light_blue_carpet`
+    - `minecraft:light_blue_concrete`
+    - `minecraft:light_blue_concrete_powder`
+    - `minecraft:light_blue_glazed_terracotta`
+    - `minecraft:light_blue_shulker_box`
+    - `minecraft:light_blue_stained_glass`
+    - `minecraft:light_blue_stained_glass_pane`
+    - `minecraft:light_blue_terracotta`
+    - `minecraft:light_blue_wall_banner`
+    - `minecraft:light_blue_wool`
+- `c:dyed/light_gray`
+    - `minecraft:light_gray_banner`
+    - `minecraft:light_gray_bed`
+    - `minecraft:light_gray_candle`
+    - `minecraft:light_gray_carpet`
+    - `minecraft:light_gray_concrete`
+    - `minecraft:light_gray_concrete_powder`
+    - `minecraft:light_gray_glazed_terracotta`
+    - `minecraft:light_gray_shulker_box`
+    - `minecraft:light_gray_stained_glass`
+    - `minecraft:light_gray_stained_glass_pane`
+    - `minecraft:light_gray_terracotta`
+    - `minecraft:light_gray_wall_banner`
+    - `minecraft:light_gray_wool`
+- `c:dyed/lime`
+    - `minecraft:lime_banner`
+    - `minecraft:lime_bed`
+    - `minecraft:lime_candle`
+    - `minecraft:lime_carpet`
+    - `minecraft:lime_concrete`
+    - `minecraft:lime_concrete_powder`
+    - `minecraft:lime_glazed_terracotta`
+    - `minecraft:lime_shulker_box`
+    - `minecraft:lime_stained_glass`
+    - `minecraft:lime_stained_glass_pane`
+    - `minecraft:lime_terracotta`
+    - `minecraft:lime_wall_banner`
+    - `minecraft:lime_wool`
+- `c:dyed/magenta`
+    - `minecraft:magenta_banner`
+    - `minecraft:magenta_bed`
+    - `minecraft:magenta_candle`
+    - `minecraft:magenta_carpet`
+    - `minecraft:magenta_concrete`
+    - `minecraft:magenta_concrete_powder`
+    - `minecraft:magenta_glazed_terracotta`
+    - `minecraft:magenta_shulker_box`
+    - `minecraft:magenta_stained_glass`
+    - `minecraft:magenta_stained_glass_pane`
+    - `minecraft:magenta_terracotta`
+    - `minecraft:magenta_wall_banner`
+    - `minecraft:magenta_wool`
+- `c:dyed/orange`
+    - `minecraft:orange_banner`
+    - `minecraft:orange_bed`
+    - `minecraft:orange_candle`
+    - `minecraft:orange_carpet`
+    - `minecraft:orange_concrete`
+    - `minecraft:orange_concrete_powder`
+    - `minecraft:orange_glazed_terracotta`
+    - `minecraft:orange_shulker_box`
+    - `minecraft:orange_stained_glass`
+    - `minecraft:orange_stained_glass_pane`
+    - `minecraft:orange_terracotta`
+    - `minecraft:orange_wall_banner`
+    - `minecraft:orange_wool`
+- `c:dyed/pink`
+    - `minecraft:pink_banner`
+    - `minecraft:pink_bed`
+    - `minecraft:pink_candle`
+    - `minecraft:pink_carpet`
+    - `minecraft:pink_concrete`
+    - `minecraft:pink_concrete_powder`
+    - `minecraft:pink_glazed_terracotta`
+    - `minecraft:pink_shulker_box`
+    - `minecraft:pink_stained_glass`
+    - `minecraft:pink_stained_glass_pane`
+    - `minecraft:pink_terracotta`
+    - `minecraft:pink_wall_banner`
+    - `minecraft:pink_wool`
+- `c:dyed/purple`
+    - `minecraft:purple_banner`
+    - `minecraft:purple_bed`
+    - `minecraft:purple_candle`
+    - `minecraft:purple_carpet`
+    - `minecraft:purple_concrete`
+    - `minecraft:purple_concrete_powder`
+    - `minecraft:purple_glazed_terracotta`
+    - `minecraft:purple_shulker_box`
+    - `minecraft:purple_stained_glass`
+    - `minecraft:purple_stained_glass_pane`
+    - `minecraft:purple_terracotta`
+    - `minecraft:purple_wall_banner`
+    - `minecraft:purple_wool`
+- `c:dyed/red`
+    - `minecraft:red_banner`
+    - `minecraft:red_bed`
+    - `minecraft:red_candle`
+    - `minecraft:red_carpet`
+    - `minecraft:red_concrete`
+    - `minecraft:red_concrete_powder`
+    - `minecraft:red_glazed_terracotta`
+    - `minecraft:red_shulker_box`
+    - `minecraft:red_stained_glass`
+    - `minecraft:red_stained_glass_pane`
+    - `minecraft:red_terracotta`
+    - `minecraft:red_wall_banner`
+    - `minecraft:red_wool`
+- `c:dyed/white`
+    - `minecraft:white_banner`
+    - `minecraft:white_bed`
+    - `minecraft:white_candle`
+    - `minecraft:white_carpet`
+    - `minecraft:white_concrete`
+    - `minecraft:white_concrete_powder`
+    - `minecraft:white_glazed_terracotta`
+    - `minecraft:white_shulker_box`
+    - `minecraft:white_stained_glass`
+    - `minecraft:white_stained_glass_pane`
+    - `minecraft:white_terracotta`
+    - `minecraft:white_wall_banner`
+    - `minecraft:white_wool`
+- `c:dyed/yellow`
+    - `minecraft:yellow_banner`
+    - `minecraft:yellow_bed`
+    - `minecraft:yellow_candle`
+    - `minecraft:yellow_carpet`
+    - `minecraft:yellow_concrete`
+    - `minecraft:yellow_concrete_powder`
+    - `minecraft:yellow_glazed_terracotta`
+    - `minecraft:yellow_shulker_box`
+    - `minecraft:yellow_stained_glass`
+    - `minecraft:yellow_stained_glass_pane`
+    - `minecraft:yellow_terracotta`
+    - `minecraft:yellow_wall_banner`
+    - `minecraft:yellow_wool`
+- `c:glass_blocks`
+    - `minecraft:black_stained_glass`
+    - `minecraft:blue_stained_glass`
+    - `minecraft:brown_stained_glass`
+    - `minecraft:cyan_stained_glass`
+    - `minecraft:glass`
+    - `minecraft:gray_stained_glass`
+    - `minecraft:green_stained_glass`
+    - `minecraft:light_blue_stained_glass`
+    - `minecraft:light_gray_stained_glass`
+    - `minecraft:lime_stained_glass`
+    - `minecraft:magenta_stained_glass`
+    - `minecraft:orange_stained_glass`
+    - `minecraft:pink_stained_glass`
+    - `minecraft:purple_stained_glass`
+    - `minecraft:red_stained_glass`
+    - `minecraft:tinted_glass`
+    - `minecraft:white_stained_glass`
+    - `minecraft:yellow_stained_glass`
+- `c:glass_blocks/cheap`
+    - `minecraft:black_stained_glass`
+    - `minecraft:blue_stained_glass`
+    - `minecraft:brown_stained_glass`
+    - `minecraft:cyan_stained_glass`
+    - `minecraft:glass`
+    - `minecraft:gray_stained_glass`
+    - `minecraft:green_stained_glass`
+    - `minecraft:light_blue_stained_glass`
+    - `minecraft:light_gray_stained_glass`
+    - `minecraft:lime_stained_glass`
+    - `minecraft:magenta_stained_glass`
+    - `minecraft:orange_stained_glass`
+    - `minecraft:pink_stained_glass`
+    - `minecraft:purple_stained_glass`
+    - `minecraft:red_stained_glass`
+    - `minecraft:white_stained_glass`
+    - `minecraft:yellow_stained_glass`
+- `c:glass_blocks/colorless`
+    - `minecraft:glass`
+- `c:glass_blocks/tinted`
+    - `minecraft:tinted_glass`
+- `c:glass_panes`
+    - `minecraft:black_stained_glass_pane`
+    - `minecraft:blue_stained_glass_pane`
+    - `minecraft:brown_stained_glass_pane`
+    - `minecraft:cyan_stained_glass_pane`
+    - `minecraft:glass_pane`
+    - `minecraft:gray_stained_glass_pane`
+    - `minecraft:green_stained_glass_pane`
+    - `minecraft:light_blue_stained_glass_pane`
+    - `minecraft:light_gray_stained_glass_pane`
+    - `minecraft:lime_stained_glass_pane`
+    - `minecraft:magenta_stained_glass_pane`
+    - `minecraft:orange_stained_glass_pane`
+    - `minecraft:pink_stained_glass_pane`
+    - `minecraft:purple_stained_glass_pane`
+    - `minecraft:red_stained_glass_pane`
+    - `minecraft:white_stained_glass_pane`
+    - `minecraft:yellow_stained_glass_pane`
+- `c:glass_panes/colorless`
+    - `minecraft:glass_pane`
+- `c:glazed_terracottas`
+    - `minecraft:black_glazed_terracotta`
+    - `minecraft:blue_glazed_terracotta`
+    - `minecraft:brown_glazed_terracotta`
+    - `minecraft:cyan_glazed_terracotta`
+    - `minecraft:gray_glazed_terracotta`
+    - `minecraft:green_glazed_terracotta`
+    - `minecraft:light_blue_glazed_terracotta`
+    - `minecraft:light_gray_glazed_terracotta`
+    - `minecraft:lime_glazed_terracotta`
+    - `minecraft:magenta_glazed_terracotta`
+    - `minecraft:orange_glazed_terracotta`
+    - `minecraft:pink_glazed_terracotta`
+    - `minecraft:purple_glazed_terracotta`
+    - `minecraft:red_glazed_terracotta`
+    - `minecraft:white_glazed_terracotta`
+    - `minecraft:yellow_glazed_terracotta`
+- `c:hidden_from_recipe_viewers`
+- `c:obsidians`
+    - `minecraft:crying_obsidian`
+    - `minecraft:obsidian`
+- `c:obsidians/crying`
+    - `minecraft:crying_obsidian`
+- `c:obsidians/normal`
+    - `minecraft:obsidian`
+- `c:ores`
+    - `minecraft:ancient_debris`
+    - `minecraft:coal_ore`
+    - `minecraft:copper_ore`
+    - `minecraft:deepslate_coal_ore`
+    - `minecraft:deepslate_copper_ore`
+    - `minecraft:deepslate_diamond_ore`
+    - `minecraft:deepslate_emerald_ore`
+    - `minecraft:deepslate_gold_ore`
+    - `minecraft:deepslate_iron_ore`
+    - `minecraft:deepslate_lapis_ore`
+    - `minecraft:deepslate_redstone_ore`
+    - `minecraft:diamond_ore`
+    - `minecraft:emerald_ore`
+    - `minecraft:gold_ore`
+    - `minecraft:iron_ore`
+    - `minecraft:lapis_ore`
+    - `minecraft:nether_gold_ore`
+    - `minecraft:nether_quartz_ore`
+    - `minecraft:redstone_ore`
+- `c:ores/netherite_scrap`
+    - `minecraft:ancient_debris`
+- `c:ores/quartz`
+    - `minecraft:nether_quartz_ore`
+- `c:player_workstations/crafting_tables`
+    - `minecraft:crafting_table`
+- `c:player_workstations/furnaces`
+    - `minecraft:furnace`
+- `c:relocation_not_supported`
+- `c:ropes`
+- `c:sandstone/blocks`
+    - `minecraft:chiseled_red_sandstone`
+    - `minecraft:chiseled_sandstone`
+    - `minecraft:cut_red_sandstone`
+    - `minecraft:cut_sandstone`
+    - `minecraft:red_sandstone`
+    - `minecraft:sandstone`
+    - `minecraft:smooth_red_sandstone`
+    - `minecraft:smooth_sandstone`
+- `c:sandstone/red_blocks`
+    - `minecraft:chiseled_red_sandstone`
+    - `minecraft:cut_red_sandstone`
+    - `minecraft:red_sandstone`
+    - `minecraft:smooth_red_sandstone`
+- `c:sandstone/red_slabs`
+    - `minecraft:cut_red_sandstone_slab`
+    - `minecraft:red_sandstone_slab`
+    - `minecraft:smooth_red_sandstone_slab`
+- `c:sandstone/red_stairs`
+    - `minecraft:red_sandstone_stairs`
+    - `minecraft:smooth_red_sandstone_stairs`
+- `c:sandstone/slabs`
+    - `minecraft:cut_red_sandstone_slab`
+    - `minecraft:cut_sandstone_slab`
+    - `minecraft:red_sandstone_slab`
+    - `minecraft:sandstone_slab`
+    - `minecraft:smooth_red_sandstone_slab`
+    - `minecraft:smooth_sandstone_slab`
+- `c:sandstone/stairs`
+    - `minecraft:red_sandstone_stairs`
+    - `minecraft:sandstone_stairs`
+    - `minecraft:smooth_red_sandstone_stairs`
+    - `minecraft:smooth_sandstone_stairs`
+- `c:sandstone/uncolored_blocks`
+    - `minecraft:chiseled_sandstone`
+    - `minecraft:cut_sandstone`
+    - `minecraft:sandstone`
+    - `minecraft:smooth_sandstone`
+- `c:sandstone/uncolored_slabs`
+    - `minecraft:cut_sandstone_slab`
+    - `minecraft:sandstone_slab`
+    - `minecraft:smooth_sandstone_slab`
+- `c:sandstone/uncolored_stairs`
+    - `minecraft:sandstone_stairs`
+    - `minecraft:smooth_sandstone_stairs`
+- `c:skulls`
+    - `minecraft:creeper_head`
+    - `minecraft:creeper_wall_head`
+    - `minecraft:dragon_head`
+    - `minecraft:dragon_wall_head`
+    - `minecraft:piglin_head`
+    - `minecraft:piglin_wall_head`
+    - `minecraft:player_head`
+    - `minecraft:player_wall_head`
+    - `minecraft:skeleton_skull`
+    - `minecraft:skeleton_wall_skull`
+    - `minecraft:wither_skeleton_skull`
+    - `minecraft:wither_skeleton_wall_skull`
+    - `minecraft:zombie_head`
+    - `minecraft:zombie_wall_head`
+- `c:stones`
+    - `minecraft:andesite`
+    - `minecraft:deepslate`
+    - `minecraft:diorite`
+    - `minecraft:granite`
+    - `minecraft:stone`
+    - `minecraft:tuff`
+- `c:storage_blocks`
+    - `minecraft:bone_block`
+    - `minecraft:coal_block`
+    - `minecraft:copper_block`
+    - `minecraft:diamond_block`
+    - `minecraft:dried_kelp_block`
+    - `minecraft:emerald_block`
+    - `minecraft:gold_block`
+    - `minecraft:hay_block`
+    - `minecraft:iron_block`
+    - `minecraft:lapis_block`
+    - `minecraft:netherite_block`
+    - `minecraft:raw_copper_block`
+    - `minecraft:raw_gold_block`
+    - `minecraft:raw_iron_block`
+    - `minecraft:redstone_block`
+    - `minecraft:slime_block`
+- `c:storage_blocks/bone_meal`
+    - `minecraft:bone_block`
+- `c:storage_blocks/coal`
+    - `minecraft:coal_block`
+- `c:storage_blocks/copper`
+    - `minecraft:copper_block`
+- `c:storage_blocks/diamond`
+    - `minecraft:diamond_block`
+- `c:storage_blocks/dried_kelp`
+    - `minecraft:dried_kelp_block`
+- `c:storage_blocks/emerald`
+    - `minecraft:emerald_block`
+- `c:storage_blocks/gold`
+    - `minecraft:gold_block`
+- `c:storage_blocks/iron`
+    - `minecraft:iron_block`
+- `c:storage_blocks/lapis`
+    - `minecraft:lapis_block`
+- `c:storage_blocks/netherite`
+    - `minecraft:netherite_block`
+- `c:storage_blocks/raw_copper`
+    - `minecraft:raw_copper_block`
+- `c:storage_blocks/raw_gold`
+    - `minecraft:raw_gold_block`
+- `c:storage_blocks/raw_iron`
+    - `minecraft:raw_iron_block`
+- `c:storage_blocks/redstone`
+    - `minecraft:redstone_block`
+- `c:storage_blocks/slime`
+    - `minecraft:slime_block`
+- `c:storage_blocks/wheat`
+    - `minecraft:hay_block`
+- `c:villager_job_sites`
+    - `minecraft:barrel`
+    - `minecraft:blast_furnace`
+    - `minecraft:brewing_stand`
+    - `minecraft:cartography_table`
+    - `minecraft:cauldron`
+    - `minecraft:composter`
+    - `minecraft:fletching_table`
+    - `minecraft:grindstone`
+    - `minecraft:lava_cauldron`
+    - `minecraft:lectern`
+    - `minecraft:loom`
+    - `minecraft:powder_snow_cauldron`
+    - `minecraft:smithing_table`
+    - `minecraft:smoker`
+    - `minecraft:stonecutter`
+    - `minecraft:water_cauldron`
+- `forge:chests/ender`
+    - `minecraft:ender_chest`
+- `forge:chests/trapped`
+    - `minecraft:trapped_chest`
+- `forge:cobblestone/deepslate`
+    - `minecraft:cobbled_deepslate`
+- `forge:cobblestone/infested`
+    - `minecraft:infested_cobblestone`
+- `forge:cobblestone/mossy`
+    - `minecraft:mossy_cobblestone`
+- `forge:cobblestone/normal`
+    - `minecraft:cobblestone`
+- `forge:end_stones`
+    - `minecraft:end_stone`
+- `forge:enderman_place_on_blacklist`
+- `forge:fence_gates`
+    - `minecraft:acacia_fence_gate`
+    - `minecraft:bamboo_fence_gate`
+    - `minecraft:birch_fence_gate`
+    - `minecraft:cherry_fence_gate`
+    - `minecraft:crimson_fence_gate`
+    - `minecraft:dark_oak_fence_gate`
+    - `minecraft:jungle_fence_gate`
+    - `minecraft:mangrove_fence_gate`
+    - `minecraft:oak_fence_gate`
+    - `minecraft:spruce_fence_gate`
+    - `minecraft:warped_fence_gate`
+- `forge:fence_gates/wooden`
+    - `minecraft:acacia_fence_gate`
+    - `minecraft:bamboo_fence_gate`
+    - `minecraft:birch_fence_gate`
+    - `minecraft:cherry_fence_gate`
+    - `minecraft:crimson_fence_gate`
+    - `minecraft:dark_oak_fence_gate`
+    - `minecraft:jungle_fence_gate`
+    - `minecraft:mangrove_fence_gate`
+    - `minecraft:oak_fence_gate`
+    - `minecraft:spruce_fence_gate`
+    - `minecraft:warped_fence_gate`
+- `forge:fences`
+    - `minecraft:acacia_fence`
+    - `minecraft:bamboo_fence`
+    - `minecraft:birch_fence`
+    - `minecraft:cherry_fence`
+    - `minecraft:crimson_fence`
+    - `minecraft:dark_oak_fence`
+    - `minecraft:jungle_fence`
+    - `minecraft:mangrove_fence`
+    - `minecraft:nether_brick_fence`
+    - `minecraft:oak_fence`
+    - `minecraft:spruce_fence`
+    - `minecraft:warped_fence`
+- `forge:fences/nether_brick`
+    - `minecraft:nether_brick_fence`
+- `forge:fences/wooden`
+    - `minecraft:acacia_fence`
+    - `minecraft:bamboo_fence`
+    - `minecraft:birch_fence`
+    - `minecraft:cherry_fence`
+    - `minecraft:crimson_fence`
+    - `minecraft:dark_oak_fence`
+    - `minecraft:jungle_fence`
+    - `minecraft:mangrove_fence`
+    - `minecraft:oak_fence`
+    - `minecraft:spruce_fence`
+    - `minecraft:warped_fence`
+- `forge:gravel`
+    - `minecraft:gravel`
+- `forge:netherrack`
+    - `minecraft:netherrack`
+- `forge:ore_bearing_ground/deepslate`
+    - `minecraft:deepslate`
+- `forge:ore_bearing_ground/netherrack`
+    - `minecraft:netherrack`
+- `forge:ore_bearing_ground/stone`
+    - `minecraft:stone`
+- `forge:ore_rates/dense`
+    - `minecraft:copper_ore`
+    - `minecraft:deepslate_copper_ore`
+    - `minecraft:deepslate_lapis_ore`
+    - `minecraft:deepslate_redstone_ore`
+    - `minecraft:lapis_ore`
+    - `minecraft:redstone_ore`
+- `forge:ore_rates/singular`
+    - `minecraft:ancient_debris`
+    - `minecraft:coal_ore`
+    - `minecraft:deepslate_coal_ore`
+    - `minecraft:deepslate_diamond_ore`
+    - `minecraft:deepslate_emerald_ore`
+    - `minecraft:deepslate_gold_ore`
+    - `minecraft:deepslate_iron_ore`
+    - `minecraft:diamond_ore`
+    - `minecraft:emerald_ore`
+    - `minecraft:gold_ore`
+    - `minecraft:iron_ore`
+    - `minecraft:nether_quartz_ore`
+- `forge:ore_rates/sparse`
+    - `minecraft:nether_gold_ore`
+- `forge:ores/coal`
+    - `minecraft:coal_ore`
+    - `minecraft:deepslate_coal_ore`
+- `forge:ores/copper`
+    - `minecraft:copper_ore`
+    - `minecraft:deepslate_copper_ore`
+- `forge:ores/diamond`
+    - `minecraft:deepslate_diamond_ore`
+    - `minecraft:diamond_ore`
+- `forge:ores/emerald`
+    - `minecraft:deepslate_emerald_ore`
+    - `minecraft:emerald_ore`
+- `forge:ores/gold`
+    - `minecraft:deepslate_gold_ore`
+    - `minecraft:gold_ore`
+    - `minecraft:nether_gold_ore`
+- `forge:ores/iron`
+    - `minecraft:deepslate_iron_ore`
+    - `minecraft:iron_ore`
+- `forge:ores/lapis`
+    - `minecraft:deepslate_lapis_ore`
+    - `minecraft:lapis_ore`
+- `forge:ores/redstone`
+    - `minecraft:deepslate_redstone_ore`
+    - `minecraft:redstone_ore`
+- `forge:ores_in_ground/deepslate`
+    - `minecraft:deepslate_coal_ore`
+    - `minecraft:deepslate_copper_ore`
+    - `minecraft:deepslate_diamond_ore`
+    - `minecraft:deepslate_emerald_ore`
+    - `minecraft:deepslate_gold_ore`
+    - `minecraft:deepslate_iron_ore`
+    - `minecraft:deepslate_lapis_ore`
+    - `minecraft:deepslate_redstone_ore`
+- `forge:ores_in_ground/netherrack`
+    - `minecraft:nether_gold_ore`
+    - `minecraft:nether_quartz_ore`
+- `forge:ores_in_ground/stone`
+    - `minecraft:coal_ore`
+    - `minecraft:copper_ore`
+    - `minecraft:diamond_ore`
+    - `minecraft:emerald_ore`
+    - `minecraft:gold_ore`
+    - `minecraft:iron_ore`
+    - `minecraft:lapis_ore`
+    - `minecraft:redstone_ore`
+- `forge:sand`
+    - `minecraft:red_sand`
+    - `minecraft:sand`
+- `forge:sand/colorless`
+    - `minecraft:sand`
+- `forge:sand/red`
+    - `minecraft:red_sand`
+
+enchantment
+-----------
+- `c:entity_auxiliary_movement_enhancements`
+    - `minecraft:feather_falling`
+    - `minecraft:frost_walker`
+- `c:entity_defense_enhancements`
+    - `minecraft:blast_protection`
+    - `minecraft:feather_falling`
+    - `minecraft:fire_protection`
+    - `minecraft:projectile_protection`
+    - `minecraft:protection`
+    - `minecraft:respiration`
+- `c:entity_speed_enhancements`
+    - `minecraft:depth_strider`
+    - `minecraft:soul_speed`
+    - `minecraft:swift_sneak`
+- `c:increase_block_drops`
+    - `minecraft:fortune`
+- `c:increase_entity_drops`
+    - `minecraft:looting`
+- `c:weapon_damage_enhancements`
+    - `minecraft:bane_of_arthropods`
+    - `minecraft:impaling`
+    - `minecraft:power`
+    - `minecraft:sharpness`
+    - `minecraft:smite`
+
+entitytype
+-----------
+- `c:boats`
+    - `minecraft:boat`
+    - `minecraft:chest_boat`
+- `c:bosses`
+    - `minecraft:ender_dragon`
+    - `minecraft:wither`
+- `c:capturing_not_supported`
+- `c:minecarts`
+    - `minecraft:chest_minecart`
+    - `minecraft:command_block_minecart`
+    - `minecraft:furnace_minecart`
+    - `minecraft:hopper_minecart`
+    - `minecraft:minecart`
+    - `minecraft:spawner_minecart`
+    - `minecraft:tnt_minecart`
+- `c:teleporting_not_supported`
+
+fluid
+-----
+- `c:hidden_from_recipe_viewers`
+- `c:honey`
+- `c:lava`
+    - `minecraft:flowing_lava`
+    - `minecraft:lava`
+- `c:milk`
+- `c:water`
+    - `minecraft:flowing_water`
+    - `minecraft:water`
+- `forge:beetroot_soup`
+- `forge:gaseous`
+- `forge:mushroom_stew`
+- `forge:potion`
+- `forge:rabbit_stew`
+- `forge:suspicious_stew`
+
+item
+----
+- `c:animal_foods`
+    - `minecraft:allium`
+    - `minecraft:apple`
+    - `minecraft:azure_bluet`
+    - `minecraft:bamboo`
+    - `minecraft:beef`
+    - `minecraft:beetroot`
+    - `minecraft:beetroot_seeds`
+    - `minecraft:blue_orchid`
+    - `minecraft:cactus`
+    - `minecraft:carrot`
+    - `minecraft:cherry_leaves`
+    - `minecraft:chicken`
+    - `minecraft:chorus_flower`
+    - `minecraft:cod`
+    - `minecraft:cooked_beef`
+    - `minecraft:cooked_chicken`
+    - `minecraft:cooked_mutton`
+    - `minecraft:cooked_porkchop`
+    - `minecraft:cooked_rabbit`
+    - `minecraft:cornflower`
+    - `minecraft:crimson_fungus`
+    - `minecraft:dandelion`
+    - `minecraft:enchanted_golden_apple`
+    - `minecraft:flowering_azalea`
+    - `minecraft:flowering_azalea_leaves`
+    - `minecraft:glow_berries`
+    - `minecraft:golden_apple`
+    - `minecraft:golden_carrot`
+    - `minecraft:hay_block`
+    - `minecraft:lilac`
+    - `minecraft:lily_of_the_valley`
+    - `minecraft:mangrove_propagule`
+    - `minecraft:melon_seeds`
+    - `minecraft:mutton`
+    - `minecraft:orange_tulip`
+    - `minecraft:oxeye_daisy`
+    - `minecraft:peony`
+    - `minecraft:pink_petals`
+    - `minecraft:pink_tulip`
+    - `minecraft:pitcher_plant`
+    - `minecraft:pitcher_pod`
+    - `minecraft:poppy`
+    - `minecraft:porkchop`
+    - `minecraft:potato`
+    - `minecraft:pumpkin_seeds`
+    - `minecraft:rabbit`
+    - `minecraft:red_tulip`
+    - `minecraft:rose_bush`
+    - `minecraft:rotten_flesh`
+    - `minecraft:salmon`
+    - `minecraft:seagrass`
+    - `minecraft:slime_ball`
+    - `minecraft:spider_eye`
+    - `minecraft:spore_blossom`
+    - `minecraft:sugar`
+    - `minecraft:sunflower`
+    - `minecraft:sweet_berries`
+    - `minecraft:torchflower`
+    - `minecraft:torchflower_seeds`
+    - `minecraft:tropical_fish_bucket`
+    - `minecraft:warped_fungus`
+    - `minecraft:wheat`
+    - `minecraft:wheat_seeds`
+    - `minecraft:white_tulip`
+    - `minecraft:wither_rose`
+- `c:armors`
+    - `minecraft:chainmail_boots`
+    - `minecraft:chainmail_chestplate`
+    - `minecraft:chainmail_helmet`
+    - `minecraft:chainmail_leggings`
+    - `minecraft:diamond_boots`
+    - `minecraft:diamond_chestplate`
+    - `minecraft:diamond_helmet`
+    - `minecraft:diamond_leggings`
+    - `minecraft:golden_boots`
+    - `minecraft:golden_chestplate`
+    - `minecraft:golden_helmet`
+    - `minecraft:golden_leggings`
+    - `minecraft:iron_boots`
+    - `minecraft:iron_chestplate`
+    - `minecraft:iron_helmet`
+    - `minecraft:iron_leggings`
+    - `minecraft:leather_boots`
+    - `minecraft:leather_chestplate`
+    - `minecraft:leather_helmet`
+    - `minecraft:leather_leggings`
+    - `minecraft:netherite_boots`
+    - `minecraft:netherite_chestplate`
+    - `minecraft:netherite_helmet`
+    - `minecraft:netherite_leggings`
+    - `minecraft:turtle_helmet`
+- `c:barrels`
+    - `minecraft:barrel`
+- `c:barrels/wooden`
+    - `minecraft:barrel`
+- `c:bookshelves`
+    - `minecraft:bookshelf`
+- `c:bricks`
+    - `minecraft:brick`
+    - `minecraft:nether_brick`
+- `c:bricks/nether`
+    - `minecraft:nether_brick`
+- `c:bricks/normal`
+    - `minecraft:brick`
+- `c:buckets`
+    - `minecraft:axolotl_bucket`
+    - `minecraft:bucket`
+    - `minecraft:cod_bucket`
+    - `minecraft:lava_bucket`
+    - `minecraft:milk_bucket`
+    - `minecraft:powder_snow_bucket`
+    - `minecraft:pufferfish_bucket`
+    - `minecraft:salmon_bucket`
+    - `minecraft:tadpole_bucket`
+    - `minecraft:tropical_fish_bucket`
+    - `minecraft:water_bucket`
+- `c:buckets/empty`
+    - `minecraft:bucket`
+- `c:buckets/entity_water`
+    - `minecraft:axolotl_bucket`
+    - `minecraft:cod_bucket`
+    - `minecraft:pufferfish_bucket`
+    - `minecraft:salmon_bucket`
+    - `minecraft:tadpole_bucket`
+    - `minecraft:tropical_fish_bucket`
+- `c:buckets/lava`
+    - `minecraft:lava_bucket`
+- `c:buckets/milk`
+    - `minecraft:milk_bucket`
+- `c:buckets/powder_snow`
+    - `minecraft:powder_snow_bucket`
+- `c:buckets/water`
+    - `minecraft:water_bucket`
+- `c:budding_blocks`
+    - `minecraft:budding_amethyst`
+- `c:buds`
+    - `minecraft:large_amethyst_bud`
+    - `minecraft:medium_amethyst_bud`
+    - `minecraft:small_amethyst_bud`
+- `c:chains`
+    - `minecraft:chain`
+- `c:chests`
+    - `minecraft:chest`
+    - `minecraft:ender_chest`
+    - `minecraft:trapped_chest`
+- `c:chests/wooden`
+    - `minecraft:chest`
+    - `minecraft:trapped_chest`
+- `c:clusters`
+    - `minecraft:amethyst_cluster`
+- `c:cobblestones`
+    - `minecraft:cobbled_deepslate`
+    - `minecraft:cobblestone`
+    - `minecraft:infested_cobblestone`
+    - `minecraft:mossy_cobblestone`
+- `c:concrete_powders`
+    - `minecraft:black_concrete_powder`
+    - `minecraft:blue_concrete_powder`
+    - `minecraft:brown_concrete_powder`
+    - `minecraft:cyan_concrete_powder`
+    - `minecraft:gray_concrete_powder`
+    - `minecraft:green_concrete_powder`
+    - `minecraft:light_blue_concrete_powder`
+    - `minecraft:light_gray_concrete_powder`
+    - `minecraft:lime_concrete_powder`
+    - `minecraft:magenta_concrete_powder`
+    - `minecraft:orange_concrete_powder`
+    - `minecraft:pink_concrete_powder`
+    - `minecraft:purple_concrete_powder`
+    - `minecraft:red_concrete_powder`
+    - `minecraft:white_concrete_powder`
+    - `minecraft:yellow_concrete_powder`
+- `c:concretes`
+    - `minecraft:black_concrete`
+    - `minecraft:blue_concrete`
+    - `minecraft:brown_concrete`
+    - `minecraft:cyan_concrete`
+    - `minecraft:gray_concrete`
+    - `minecraft:green_concrete`
+    - `minecraft:light_blue_concrete`
+    - `minecraft:light_gray_concrete`
+    - `minecraft:lime_concrete`
+    - `minecraft:magenta_concrete`
+    - `minecraft:orange_concrete`
+    - `minecraft:pink_concrete`
+    - `minecraft:purple_concrete`
+    - `minecraft:red_concrete`
+    - `minecraft:white_concrete`
+    - `minecraft:yellow_concrete`
+- `c:crops`
+    - `minecraft:beetroot`
+    - `minecraft:cactus`
+    - `minecraft:carrot`
+    - `minecraft:cocoa_beans`
+    - `minecraft:melon`
+    - `minecraft:nether_wart`
+    - `minecraft:potato`
+    - `minecraft:pumpkin`
+    - `minecraft:sugar_cane`
+    - `minecraft:wheat`
+- `c:crops/beetroot`
+    - `minecraft:beetroot`
+- `c:crops/cactus`
+    - `minecraft:cactus`
+- `c:crops/carrot`
+    - `minecraft:carrot`
+- `c:crops/cocoa_bean`
+    - `minecraft:cocoa_beans`
+- `c:crops/melon`
+    - `minecraft:melon`
+- `c:crops/nether_wart`
+    - `minecraft:nether_wart`
+- `c:crops/potato`
+    - `minecraft:potato`
+- `c:crops/pumpkin`
+    - `minecraft:pumpkin`
+- `c:crops/sugar_cane`
+    - `minecraft:sugar_cane`
+- `c:crops/wheat`
+    - `minecraft:wheat`
+- `c:dusts`
+    - `minecraft:glowstone_dust`
+    - `minecraft:redstone`
+- `c:dusts/glowstone`
+    - `minecraft:glowstone_dust`
+- `c:dusts/redstone`
+    - `minecraft:redstone`
+- `c:dyed`
+    - `minecraft:black_banner`
+    - `minecraft:black_bed`
+    - `minecraft:black_candle`
+    - `minecraft:black_carpet`
+    - `minecraft:black_concrete`
+    - `minecraft:black_concrete_powder`
+    - `minecraft:black_glazed_terracotta`
+    - `minecraft:black_shulker_box`
+    - `minecraft:black_stained_glass`
+    - `minecraft:black_stained_glass_pane`
+    - `minecraft:black_terracotta`
+    - `minecraft:black_wool`
+    - `minecraft:blue_banner`
+    - `minecraft:blue_bed`
+    - `minecraft:blue_candle`
+    - `minecraft:blue_carpet`
+    - `minecraft:blue_concrete`
+    - `minecraft:blue_concrete_powder`
+    - `minecraft:blue_glazed_terracotta`
+    - `minecraft:blue_shulker_box`
+    - `minecraft:blue_stained_glass`
+    - `minecraft:blue_stained_glass_pane`
+    - `minecraft:blue_terracotta`
+    - `minecraft:blue_wool`
+    - `minecraft:brown_banner`
+    - `minecraft:brown_bed`
+    - `minecraft:brown_candle`
+    - `minecraft:brown_carpet`
+    - `minecraft:brown_concrete`
+    - `minecraft:brown_concrete_powder`
+    - `minecraft:brown_glazed_terracotta`
+    - `minecraft:brown_shulker_box`
+    - `minecraft:brown_stained_glass`
+    - `minecraft:brown_stained_glass_pane`
+    - `minecraft:brown_terracotta`
+    - `minecraft:brown_wool`
+    - `minecraft:cyan_banner`
+    - `minecraft:cyan_bed`
+    - `minecraft:cyan_candle`
+    - `minecraft:cyan_carpet`
+    - `minecraft:cyan_concrete`
+    - `minecraft:cyan_concrete_powder`
+    - `minecraft:cyan_glazed_terracotta`
+    - `minecraft:cyan_shulker_box`
+    - `minecraft:cyan_stained_glass`
+    - `minecraft:cyan_stained_glass_pane`
+    - `minecraft:cyan_terracotta`
+    - `minecraft:cyan_wool`
+    - `minecraft:gray_banner`
+    - `minecraft:gray_bed`
+    - `minecraft:gray_candle`
+    - `minecraft:gray_carpet`
+    - `minecraft:gray_concrete`
+    - `minecraft:gray_concrete_powder`
+    - `minecraft:gray_glazed_terracotta`
+    - `minecraft:gray_shulker_box`
+    - `minecraft:gray_stained_glass`
+    - `minecraft:gray_stained_glass_pane`
+    - `minecraft:gray_terracotta`
+    - `minecraft:gray_wool`
+    - `minecraft:green_banner`
+    - `minecraft:green_bed`
+    - `minecraft:green_candle`
+    - `minecraft:green_carpet`
+    - `minecraft:green_concrete`
+    - `minecraft:green_concrete_powder`
+    - `minecraft:green_glazed_terracotta`
+    - `minecraft:green_shulker_box`
+    - `minecraft:green_stained_glass`
+    - `minecraft:green_stained_glass_pane`
+    - `minecraft:green_terracotta`
+    - `minecraft:green_wool`
+    - `minecraft:light_blue_banner`
+    - `minecraft:light_blue_bed`
+    - `minecraft:light_blue_candle`
+    - `minecraft:light_blue_carpet`
+    - `minecraft:light_blue_concrete`
+    - `minecraft:light_blue_concrete_powder`
+    - `minecraft:light_blue_glazed_terracotta`
+    - `minecraft:light_blue_shulker_box`
+    - `minecraft:light_blue_stained_glass`
+    - `minecraft:light_blue_stained_glass_pane`
+    - `minecraft:light_blue_terracotta`
+    - `minecraft:light_blue_wool`
+    - `minecraft:light_gray_banner`
+    - `minecraft:light_gray_bed`
+    - `minecraft:light_gray_candle`
+    - `minecraft:light_gray_carpet`
+    - `minecraft:light_gray_concrete`
+    - `minecraft:light_gray_concrete_powder`
+    - `minecraft:light_gray_glazed_terracotta`
+    - `minecraft:light_gray_shulker_box`
+    - `minecraft:light_gray_stained_glass`
+    - `minecraft:light_gray_stained_glass_pane`
+    - `minecraft:light_gray_terracotta`
+    - `minecraft:light_gray_wool`
+    - `minecraft:lime_banner`
+    - `minecraft:lime_bed`
+    - `minecraft:lime_candle`
+    - `minecraft:lime_carpet`
+    - `minecraft:lime_concrete`
+    - `minecraft:lime_concrete_powder`
+    - `minecraft:lime_glazed_terracotta`
+    - `minecraft:lime_shulker_box`
+    - `minecraft:lime_stained_glass`
+    - `minecraft:lime_stained_glass_pane`
+    - `minecraft:lime_terracotta`
+    - `minecraft:lime_wool`
+    - `minecraft:magenta_banner`
+    - `minecraft:magenta_bed`
+    - `minecraft:magenta_candle`
+    - `minecraft:magenta_carpet`
+    - `minecraft:magenta_concrete`
+    - `minecraft:magenta_concrete_powder`
+    - `minecraft:magenta_glazed_terracotta`
+    - `minecraft:magenta_shulker_box`
+    - `minecraft:magenta_stained_glass`
+    - `minecraft:magenta_stained_glass_pane`
+    - `minecraft:magenta_terracotta`
+    - `minecraft:magenta_wool`
+    - `minecraft:orange_banner`
+    - `minecraft:orange_bed`
+    - `minecraft:orange_candle`
+    - `minecraft:orange_carpet`
+    - `minecraft:orange_concrete`
+    - `minecraft:orange_concrete_powder`
+    - `minecraft:orange_glazed_terracotta`
+    - `minecraft:orange_shulker_box`
+    - `minecraft:orange_stained_glass`
+    - `minecraft:orange_stained_glass_pane`
+    - `minecraft:orange_terracotta`
+    - `minecraft:orange_wool`
+    - `minecraft:pink_banner`
+    - `minecraft:pink_bed`
+    - `minecraft:pink_candle`
+    - `minecraft:pink_carpet`
+    - `minecraft:pink_concrete`
+    - `minecraft:pink_concrete_powder`
+    - `minecraft:pink_glazed_terracotta`
+    - `minecraft:pink_shulker_box`
+    - `minecraft:pink_stained_glass`
+    - `minecraft:pink_stained_glass_pane`
+    - `minecraft:pink_terracotta`
+    - `minecraft:pink_wool`
+    - `minecraft:purple_banner`
+    - `minecraft:purple_bed`
+    - `minecraft:purple_candle`
+    - `minecraft:purple_carpet`
+    - `minecraft:purple_concrete`
+    - `minecraft:purple_concrete_powder`
+    - `minecraft:purple_glazed_terracotta`
+    - `minecraft:purple_shulker_box`
+    - `minecraft:purple_stained_glass`
+    - `minecraft:purple_stained_glass_pane`
+    - `minecraft:purple_terracotta`
+    - `minecraft:purple_wool`
+    - `minecraft:red_banner`
+    - `minecraft:red_bed`
+    - `minecraft:red_candle`
+    - `minecraft:red_carpet`
+    - `minecraft:red_concrete`
+    - `minecraft:red_concrete_powder`
+    - `minecraft:red_glazed_terracotta`
+    - `minecraft:red_shulker_box`
+    - `minecraft:red_stained_glass`
+    - `minecraft:red_stained_glass_pane`
+    - `minecraft:red_terracotta`
+    - `minecraft:red_wool`
+    - `minecraft:white_banner`
+    - `minecraft:white_bed`
+    - `minecraft:white_candle`
+    - `minecraft:white_carpet`
+    - `minecraft:white_concrete`
+    - `minecraft:white_concrete_powder`
+    - `minecraft:white_glazed_terracotta`
+    - `minecraft:white_shulker_box`
+    - `minecraft:white_stained_glass`
+    - `minecraft:white_stained_glass_pane`
+    - `minecraft:white_terracotta`
+    - `minecraft:white_wool`
+    - `minecraft:yellow_banner`
+    - `minecraft:yellow_bed`
+    - `minecraft:yellow_candle`
+    - `minecraft:yellow_carpet`
+    - `minecraft:yellow_concrete`
+    - `minecraft:yellow_concrete_powder`
+    - `minecraft:yellow_glazed_terracotta`
+    - `minecraft:yellow_shulker_box`
+    - `minecraft:yellow_stained_glass`
+    - `minecraft:yellow_stained_glass_pane`
+    - `minecraft:yellow_terracotta`
+    - `minecraft:yellow_wool`
+- `c:dyed/black`
+    - `minecraft:black_banner`
+    - `minecraft:black_bed`
+    - `minecraft:black_candle`
+    - `minecraft:black_carpet`
+    - `minecraft:black_concrete`
+    - `minecraft:black_concrete_powder`
+    - `minecraft:black_glazed_terracotta`
+    - `minecraft:black_shulker_box`
+    - `minecraft:black_stained_glass`
+    - `minecraft:black_stained_glass_pane`
+    - `minecraft:black_terracotta`
+    - `minecraft:black_wool`
+- `c:dyed/blue`
+    - `minecraft:blue_banner`
+    - `minecraft:blue_bed`
+    - `minecraft:blue_candle`
+    - `minecraft:blue_carpet`
+    - `minecraft:blue_concrete`
+    - `minecraft:blue_concrete_powder`
+    - `minecraft:blue_glazed_terracotta`
+    - `minecraft:blue_shulker_box`
+    - `minecraft:blue_stained_glass`
+    - `minecraft:blue_stained_glass_pane`
+    - `minecraft:blue_terracotta`
+    - `minecraft:blue_wool`
+- `c:dyed/brown`
+    - `minecraft:brown_banner`
+    - `minecraft:brown_bed`
+    - `minecraft:brown_candle`
+    - `minecraft:brown_carpet`
+    - `minecraft:brown_concrete`
+    - `minecraft:brown_concrete_powder`
+    - `minecraft:brown_glazed_terracotta`
+    - `minecraft:brown_shulker_box`
+    - `minecraft:brown_stained_glass`
+    - `minecraft:brown_stained_glass_pane`
+    - `minecraft:brown_terracotta`
+    - `minecraft:brown_wool`
+- `c:dyed/cyan`
+    - `minecraft:cyan_banner`
+    - `minecraft:cyan_bed`
+    - `minecraft:cyan_candle`
+    - `minecraft:cyan_carpet`
+    - `minecraft:cyan_concrete`
+    - `minecraft:cyan_concrete_powder`
+    - `minecraft:cyan_glazed_terracotta`
+    - `minecraft:cyan_shulker_box`
+    - `minecraft:cyan_stained_glass`
+    - `minecraft:cyan_stained_glass_pane`
+    - `minecraft:cyan_terracotta`
+    - `minecraft:cyan_wool`
+- `c:dyed/gray`
+    - `minecraft:gray_banner`
+    - `minecraft:gray_bed`
+    - `minecraft:gray_candle`
+    - `minecraft:gray_carpet`
+    - `minecraft:gray_concrete`
+    - `minecraft:gray_concrete_powder`
+    - `minecraft:gray_glazed_terracotta`
+    - `minecraft:gray_shulker_box`
+    - `minecraft:gray_stained_glass`
+    - `minecraft:gray_stained_glass_pane`
+    - `minecraft:gray_terracotta`
+    - `minecraft:gray_wool`
+- `c:dyed/green`
+    - `minecraft:green_banner`
+    - `minecraft:green_bed`
+    - `minecraft:green_candle`
+    - `minecraft:green_carpet`
+    - `minecraft:green_concrete`
+    - `minecraft:green_concrete_powder`
+    - `minecraft:green_glazed_terracotta`
+    - `minecraft:green_shulker_box`
+    - `minecraft:green_stained_glass`
+    - `minecraft:green_stained_glass_pane`
+    - `minecraft:green_terracotta`
+    - `minecraft:green_wool`
+- `c:dyed/light_blue`
+    - `minecraft:light_blue_banner`
+    - `minecraft:light_blue_bed`
+    - `minecraft:light_blue_candle`
+    - `minecraft:light_blue_carpet`
+    - `minecraft:light_blue_concrete`
+    - `minecraft:light_blue_concrete_powder`
+    - `minecraft:light_blue_glazed_terracotta`
+    - `minecraft:light_blue_shulker_box`
+    - `minecraft:light_blue_stained_glass`
+    - `minecraft:light_blue_stained_glass_pane`
+    - `minecraft:light_blue_terracotta`
+    - `minecraft:light_blue_wool`
+- `c:dyed/light_gray`
+    - `minecraft:light_gray_banner`
+    - `minecraft:light_gray_bed`
+    - `minecraft:light_gray_candle`
+    - `minecraft:light_gray_carpet`
+    - `minecraft:light_gray_concrete`
+    - `minecraft:light_gray_concrete_powder`
+    - `minecraft:light_gray_glazed_terracotta`
+    - `minecraft:light_gray_shulker_box`
+    - `minecraft:light_gray_stained_glass`
+    - `minecraft:light_gray_stained_glass_pane`
+    - `minecraft:light_gray_terracotta`
+    - `minecraft:light_gray_wool`
+- `c:dyed/lime`
+    - `minecraft:lime_banner`
+    - `minecraft:lime_bed`
+    - `minecraft:lime_candle`
+    - `minecraft:lime_carpet`
+    - `minecraft:lime_concrete`
+    - `minecraft:lime_concrete_powder`
+    - `minecraft:lime_glazed_terracotta`
+    - `minecraft:lime_shulker_box`
+    - `minecraft:lime_stained_glass`
+    - `minecraft:lime_stained_glass_pane`
+    - `minecraft:lime_terracotta`
+    - `minecraft:lime_wool`
+- `c:dyed/magenta`
+    - `minecraft:magenta_banner`
+    - `minecraft:magenta_bed`
+    - `minecraft:magenta_candle`
+    - `minecraft:magenta_carpet`
+    - `minecraft:magenta_concrete`
+    - `minecraft:magenta_concrete_powder`
+    - `minecraft:magenta_glazed_terracotta`
+    - `minecraft:magenta_shulker_box`
+    - `minecraft:magenta_stained_glass`
+    - `minecraft:magenta_stained_glass_pane`
+    - `minecraft:magenta_terracotta`
+    - `minecraft:magenta_wool`
+- `c:dyed/orange`
+    - `minecraft:orange_banner`
+    - `minecraft:orange_bed`
+    - `minecraft:orange_candle`
+    - `minecraft:orange_carpet`
+    - `minecraft:orange_concrete`
+    - `minecraft:orange_concrete_powder`
+    - `minecraft:orange_glazed_terracotta`
+    - `minecraft:orange_shulker_box`
+    - `minecraft:orange_stained_glass`
+    - `minecraft:orange_stained_glass_pane`
+    - `minecraft:orange_terracotta`
+    - `minecraft:orange_wool`
+- `c:dyed/pink`
+    - `minecraft:pink_banner`
+    - `minecraft:pink_bed`
+    - `minecraft:pink_candle`
+    - `minecraft:pink_carpet`
+    - `minecraft:pink_concrete`
+    - `minecraft:pink_concrete_powder`
+    - `minecraft:pink_glazed_terracotta`
+    - `minecraft:pink_shulker_box`
+    - `minecraft:pink_stained_glass`
+    - `minecraft:pink_stained_glass_pane`
+    - `minecraft:pink_terracotta`
+    - `minecraft:pink_wool`
+- `c:dyed/purple`
+    - `minecraft:purple_banner`
+    - `minecraft:purple_bed`
+    - `minecraft:purple_candle`
+    - `minecraft:purple_carpet`
+    - `minecraft:purple_concrete`
+    - `minecraft:purple_concrete_powder`
+    - `minecraft:purple_glazed_terracotta`
+    - `minecraft:purple_shulker_box`
+    - `minecraft:purple_stained_glass`
+    - `minecraft:purple_stained_glass_pane`
+    - `minecraft:purple_terracotta`
+    - `minecraft:purple_wool`
+- `c:dyed/red`
+    - `minecraft:red_banner`
+    - `minecraft:red_bed`
+    - `minecraft:red_candle`
+    - `minecraft:red_carpet`
+    - `minecraft:red_concrete`
+    - `minecraft:red_concrete_powder`
+    - `minecraft:red_glazed_terracotta`
+    - `minecraft:red_shulker_box`
+    - `minecraft:red_stained_glass`
+    - `minecraft:red_stained_glass_pane`
+    - `minecraft:red_terracotta`
+    - `minecraft:red_wool`
+- `c:dyed/white`
+    - `minecraft:white_banner`
+    - `minecraft:white_bed`
+    - `minecraft:white_candle`
+    - `minecraft:white_carpet`
+    - `minecraft:white_concrete`
+    - `minecraft:white_concrete_powder`
+    - `minecraft:white_glazed_terracotta`
+    - `minecraft:white_shulker_box`
+    - `minecraft:white_stained_glass`
+    - `minecraft:white_stained_glass_pane`
+    - `minecraft:white_terracotta`
+    - `minecraft:white_wool`
+- `c:dyed/yellow`
+    - `minecraft:yellow_banner`
+    - `minecraft:yellow_bed`
+    - `minecraft:yellow_candle`
+    - `minecraft:yellow_carpet`
+    - `minecraft:yellow_concrete`
+    - `minecraft:yellow_concrete_powder`
+    - `minecraft:yellow_glazed_terracotta`
+    - `minecraft:yellow_shulker_box`
+    - `minecraft:yellow_stained_glass`
+    - `minecraft:yellow_stained_glass_pane`
+    - `minecraft:yellow_terracotta`
+    - `minecraft:yellow_wool`
+- `c:dyes`
+    - `minecraft:black_dye`
+    - `minecraft:blue_dye`
+    - `minecraft:brown_dye`
+    - `minecraft:cyan_dye`
+    - `minecraft:gray_dye`
+    - `minecraft:green_dye`
+    - `minecraft:light_blue_dye`
+    - `minecraft:light_gray_dye`
+    - `minecraft:lime_dye`
+    - `minecraft:magenta_dye`
+    - `minecraft:orange_dye`
+    - `minecraft:pink_dye`
+    - `minecraft:purple_dye`
+    - `minecraft:red_dye`
+    - `minecraft:white_dye`
+    - `minecraft:yellow_dye`
+- `c:dyes/black`
+    - `minecraft:black_dye`
+- `c:dyes/blue`
+    - `minecraft:blue_dye`
+- `c:dyes/brown`
+    - `minecraft:brown_dye`
+- `c:dyes/cyan`
+    - `minecraft:cyan_dye`
+- `c:dyes/gray`
+    - `minecraft:gray_dye`
+- `c:dyes/green`
+    - `minecraft:green_dye`
+- `c:dyes/light_blue`
+    - `minecraft:light_blue_dye`
+- `c:dyes/light_gray`
+    - `minecraft:light_gray_dye`
+- `c:dyes/lime`
+    - `minecraft:lime_dye`
+- `c:dyes/magenta`
+    - `minecraft:magenta_dye`
+- `c:dyes/orange`
+    - `minecraft:orange_dye`
+- `c:dyes/pink`
+    - `minecraft:pink_dye`
+- `c:dyes/purple`
+    - `minecraft:purple_dye`
+- `c:dyes/red`
+    - `minecraft:red_dye`
+- `c:dyes/white`
+    - `minecraft:white_dye`
+- `c:dyes/yellow`
+    - `minecraft:yellow_dye`
+- `c:enchantables`
+    - `minecraft:bow`
+    - `minecraft:brush`
+    - `minecraft:carrot_on_a_stick`
+    - `minecraft:carved_pumpkin`
+    - `minecraft:chainmail_boots`
+    - `minecraft:chainmail_chestplate`
+    - `minecraft:chainmail_helmet`
+    - `minecraft:chainmail_leggings`
+    - `minecraft:compass`
+    - `minecraft:creeper_head`
+    - `minecraft:crossbow`
+    - `minecraft:diamond_axe`
+    - `minecraft:diamond_boots`
+    - `minecraft:diamond_chestplate`
+    - `minecraft:diamond_helmet`
+    - `minecraft:diamond_hoe`
+    - `minecraft:diamond_leggings`
+    - `minecraft:diamond_pickaxe`
+    - `minecraft:diamond_shovel`
+    - `minecraft:diamond_sword`
+    - `minecraft:dragon_head`
+    - `minecraft:elytra`
+    - `minecraft:fishing_rod`
+    - `minecraft:flint_and_steel`
+    - `minecraft:golden_axe`
+    - `minecraft:golden_boots`
+    - `minecraft:golden_chestplate`
+    - `minecraft:golden_helmet`
+    - `minecraft:golden_hoe`
+    - `minecraft:golden_leggings`
+    - `minecraft:golden_pickaxe`
+    - `minecraft:golden_shovel`
+    - `minecraft:golden_sword`
+    - `minecraft:iron_axe`
+    - `minecraft:iron_boots`
+    - `minecraft:iron_chestplate`
+    - `minecraft:iron_helmet`
+    - `minecraft:iron_hoe`
+    - `minecraft:iron_leggings`
+    - `minecraft:iron_pickaxe`
+    - `minecraft:iron_shovel`
+    - `minecraft:iron_sword`
+    - `minecraft:leather_boots`
+    - `minecraft:leather_chestplate`
+    - `minecraft:leather_helmet`
+    - `minecraft:leather_leggings`
+    - `minecraft:mace`
+    - `minecraft:netherite_axe`
+    - `minecraft:netherite_boots`
+    - `minecraft:netherite_chestplate`
+    - `minecraft:netherite_helmet`
+    - `minecraft:netherite_hoe`
+    - `minecraft:netherite_leggings`
+    - `minecraft:netherite_pickaxe`
+    - `minecraft:netherite_shovel`
+    - `minecraft:netherite_sword`
+    - `minecraft:piglin_head`
+    - `minecraft:player_head`
+    - `minecraft:shears`
+    - `minecraft:shield`
+    - `minecraft:skeleton_skull`
+    - `minecraft:stone_axe`
+    - `minecraft:stone_hoe`
+    - `minecraft:stone_pickaxe`
+    - `minecraft:stone_shovel`
+    - `minecraft:stone_sword`
+    - `minecraft:trident`
+    - `minecraft:turtle_helmet`
+    - `minecraft:warped_fungus_on_a_stick`
+    - `minecraft:wither_skeleton_skull`
+    - `minecraft:wooden_axe`
+    - `minecraft:wooden_hoe`
+    - `minecraft:wooden_pickaxe`
+    - `minecraft:wooden_shovel`
+    - `minecraft:wooden_sword`
+    - `minecraft:zombie_head`
+- `c:ender_pearls`
+    - `minecraft:ender_pearl`
+- `c:fertilizers`
+    - `minecraft:bone_meal`
+- `c:foods`
+    - `minecraft:apple`
+    - `minecraft:baked_potato`
+    - `minecraft:beef`
+    - `minecraft:beetroot`
+    - `minecraft:beetroot_soup`
+    - `minecraft:bread`
+    - `minecraft:cake`
+    - `minecraft:carrot`
+    - `minecraft:chicken`
+    - `minecraft:chorus_fruit`
+    - `minecraft:cod`
+    - `minecraft:cooked_beef`
+    - `minecraft:cooked_chicken`
+    - `minecraft:cooked_cod`
+    - `minecraft:cooked_mutton`
+    - `minecraft:cooked_porkchop`
+    - `minecraft:cooked_rabbit`
+    - `minecraft:cooked_salmon`
+    - `minecraft:cookie`
+    - `minecraft:dried_kelp`
+    - `minecraft:enchanted_golden_apple`
+    - `minecraft:glow_berries`
+    - `minecraft:golden_apple`
+    - `minecraft:golden_carrot`
+    - `minecraft:honey_bottle`
+    - `minecraft:melon_slice`
+    - `minecraft:mushroom_stew`
+    - `minecraft:mutton`
+    - `minecraft:ominous_bottle`
+    - `minecraft:poisonous_potato`
+    - `minecraft:porkchop`
+    - `minecraft:potato`
+    - `minecraft:pufferfish`
+    - `minecraft:pumpkin_pie`
+    - `minecraft:rabbit`
+    - `minecraft:rabbit_stew`
+    - `minecraft:rotten_flesh`
+    - `minecraft:salmon`
+    - `minecraft:spider_eye`
+    - `minecraft:suspicious_stew`
+    - `minecraft:sweet_berries`
+    - `minecraft:tropical_fish`
+- `c:foods/berry`
+    - `minecraft:glow_berries`
+    - `minecraft:sweet_berries`
+- `c:foods/bread`
+    - `minecraft:bread`
+- `c:foods/candy`
+- `c:foods/cooked_fish`
+    - `minecraft:cooked_cod`
+    - `minecraft:cooked_salmon`
+- `c:foods/cooked_meat`
+    - `minecraft:cooked_beef`
+    - `minecraft:cooked_chicken`
+    - `minecraft:cooked_mutton`
+    - `minecraft:cooked_porkchop`
+    - `minecraft:cooked_rabbit`
+- `c:foods/cookie`
+    - `minecraft:cookie`
+- `c:foods/edible_when_placed`
+    - `minecraft:cake`
+- `c:foods/food_poisoning`
+    - `minecraft:chicken`
+    - `minecraft:poisonous_potato`
+    - `minecraft:pufferfish`
+    - `minecraft:rotten_flesh`
+    - `minecraft:spider_eye`
+- `c:foods/fruit`
+    - `minecraft:apple`
+    - `minecraft:chorus_fruit`
+    - `minecraft:enchanted_golden_apple`
+    - `minecraft:golden_apple`
+    - `minecraft:melon_slice`
+- `c:foods/golden`
+    - `minecraft:enchanted_golden_apple`
+    - `minecraft:golden_apple`
+    - `minecraft:golden_carrot`
+- `c:foods/raw_fish`
+    - `minecraft:cod`
+    - `minecraft:pufferfish`
+    - `minecraft:salmon`
+    - `minecraft:tropical_fish`
+- `c:foods/raw_meat`
+    - `minecraft:beef`
+    - `minecraft:chicken`
+    - `minecraft:mutton`
+    - `minecraft:porkchop`
+    - `minecraft:rabbit`
+- `c:foods/soup`
+    - `minecraft:beetroot_soup`
+    - `minecraft:mushroom_stew`
+    - `minecraft:rabbit_stew`
+    - `minecraft:suspicious_stew`
+- `c:foods/vegetable`
+    - `minecraft:beetroot`
+    - `minecraft:carrot`
+    - `minecraft:golden_carrot`
+    - `minecraft:potato`
+- `c:gems`
+    - `minecraft:amethyst_shard`
+    - `minecraft:diamond`
+    - `minecraft:emerald`
+    - `minecraft:lapis_lazuli`
+    - `minecraft:prismarine_crystals`
+    - `minecraft:quartz`
+- `c:gems/amethyst`
+    - `minecraft:amethyst_shard`
+- `c:gems/diamond`
+    - `minecraft:diamond`
+- `c:gems/emerald`
+    - `minecraft:emerald`
+- `c:gems/lapis`
+    - `minecraft:lapis_lazuli`
+- `c:gems/prismarine`
+    - `minecraft:prismarine_crystals`
+- `c:gems/quartz`
+    - `minecraft:quartz`
+- `c:glass_blocks`
+    - `minecraft:black_stained_glass`
+    - `minecraft:blue_stained_glass`
+    - `minecraft:brown_stained_glass`
+    - `minecraft:cyan_stained_glass`
+    - `minecraft:glass`
+    - `minecraft:gray_stained_glass`
+    - `minecraft:green_stained_glass`
+    - `minecraft:light_blue_stained_glass`
+    - `minecraft:light_gray_stained_glass`
+    - `minecraft:lime_stained_glass`
+    - `minecraft:magenta_stained_glass`
+    - `minecraft:orange_stained_glass`
+    - `minecraft:pink_stained_glass`
+    - `minecraft:purple_stained_glass`
+    - `minecraft:red_stained_glass`
+    - `minecraft:tinted_glass`
+    - `minecraft:white_stained_glass`
+    - `minecraft:yellow_stained_glass`
+- `c:glass_blocks/cheap`
+    - `minecraft:black_stained_glass`
+    - `minecraft:blue_stained_glass`
+    - `minecraft:brown_stained_glass`
+    - `minecraft:cyan_stained_glass`
+    - `minecraft:glass`
+    - `minecraft:gray_stained_glass`
+    - `minecraft:green_stained_glass`
+    - `minecraft:light_blue_stained_glass`
+    - `minecraft:light_gray_stained_glass`
+    - `minecraft:lime_stained_glass`
+    - `minecraft:magenta_stained_glass`
+    - `minecraft:orange_stained_glass`
+    - `minecraft:pink_stained_glass`
+    - `minecraft:purple_stained_glass`
+    - `minecraft:red_stained_glass`
+    - `minecraft:white_stained_glass`
+    - `minecraft:yellow_stained_glass`
+- `c:glass_blocks/colorless`
+    - `minecraft:glass`
+- `c:glass_blocks/tinted`
+    - `minecraft:tinted_glass`
+- `c:glass_panes`
+    - `minecraft:black_stained_glass_pane`
+    - `minecraft:blue_stained_glass_pane`
+    - `minecraft:brown_stained_glass_pane`
+    - `minecraft:cyan_stained_glass_pane`
+    - `minecraft:glass_pane`
+    - `minecraft:gray_stained_glass_pane`
+    - `minecraft:green_stained_glass_pane`
+    - `minecraft:light_blue_stained_glass_pane`
+    - `minecraft:light_gray_stained_glass_pane`
+    - `minecraft:lime_stained_glass_pane`
+    - `minecraft:magenta_stained_glass_pane`
+    - `minecraft:orange_stained_glass_pane`
+    - `minecraft:pink_stained_glass_pane`
+    - `minecraft:purple_stained_glass_pane`
+    - `minecraft:red_stained_glass_pane`
+    - `minecraft:white_stained_glass_pane`
+    - `minecraft:yellow_stained_glass_pane`
+- `c:glass_panes/colorless`
+    - `minecraft:glass_pane`
+- `c:glazed_terracottas`
+    - `minecraft:black_glazed_terracotta`
+    - `minecraft:blue_glazed_terracotta`
+    - `minecraft:brown_glazed_terracotta`
+    - `minecraft:cyan_glazed_terracotta`
+    - `minecraft:gray_glazed_terracotta`
+    - `minecraft:green_glazed_terracotta`
+    - `minecraft:light_blue_glazed_terracotta`
+    - `minecraft:light_gray_glazed_terracotta`
+    - `minecraft:lime_glazed_terracotta`
+    - `minecraft:magenta_glazed_terracotta`
+    - `minecraft:orange_glazed_terracotta`
+    - `minecraft:pink_glazed_terracotta`
+    - `minecraft:purple_glazed_terracotta`
+    - `minecraft:red_glazed_terracotta`
+    - `minecraft:white_glazed_terracotta`
+    - `minecraft:yellow_glazed_terracotta`
+- `c:hidden_from_recipe_viewers`
+- `c:ingots`
+    - `minecraft:copper_ingot`
+    - `minecraft:gold_ingot`
+    - `minecraft:iron_ingot`
+    - `minecraft:netherite_ingot`
+- `c:ingots/copper`
+    - `minecraft:copper_ingot`
+- `c:ingots/gold`
+    - `minecraft:gold_ingot`
+- `c:ingots/iron`
+    - `minecraft:iron_ingot`
+- `c:ingots/netherite`
+    - `minecraft:netherite_ingot`
+- `c:leathers`
+    - `minecraft:leather`
+- `c:music_discs`
+    - `minecraft:music_disc_11`
+    - `minecraft:music_disc_13`
+    - `minecraft:music_disc_5`
+    - `minecraft:music_disc_blocks`
+    - `minecraft:music_disc_cat`
+    - `minecraft:music_disc_chirp`
+    - `minecraft:music_disc_creator`
+    - `minecraft:music_disc_creator_music_box`
+    - `minecraft:music_disc_far`
+    - `minecraft:music_disc_mall`
+    - `minecraft:music_disc_mellohi`
+    - `minecraft:music_disc_otherside`
+    - `minecraft:music_disc_pigstep`
+    - `minecraft:music_disc_precipice`
+    - `minecraft:music_disc_relic`
+    - `minecraft:music_disc_stal`
+    - `minecraft:music_disc_strad`
+    - `minecraft:music_disc_wait`
+    - `minecraft:music_disc_ward`
+- `c:nuggets`
+    - `minecraft:gold_nugget`
+    - `minecraft:iron_nugget`
+- `c:nuggets/gold`
+    - `minecraft:gold_nugget`
+- `c:nuggets/iron`
+    - `minecraft:iron_nugget`
+- `c:obsidians`
+    - `minecraft:crying_obsidian`
+    - `minecraft:obsidian`
+- `c:obsidians/crying`
+    - `minecraft:crying_obsidian`
+- `c:obsidians/normal`
+    - `minecraft:obsidian`
+- `c:ores`
+    - `minecraft:ancient_debris`
+    - `minecraft:coal_ore`
+    - `minecraft:copper_ore`
+    - `minecraft:deepslate_coal_ore`
+    - `minecraft:deepslate_copper_ore`
+    - `minecraft:deepslate_diamond_ore`
+    - `minecraft:deepslate_emerald_ore`
+    - `minecraft:deepslate_gold_ore`
+    - `minecraft:deepslate_iron_ore`
+    - `minecraft:deepslate_lapis_ore`
+    - `minecraft:deepslate_redstone_ore`
+    - `minecraft:diamond_ore`
+    - `minecraft:emerald_ore`
+    - `minecraft:gold_ore`
+    - `minecraft:iron_ore`
+    - `minecraft:lapis_ore`
+    - `minecraft:nether_gold_ore`
+    - `minecraft:nether_quartz_ore`
+    - `minecraft:redstone_ore`
+- `c:ores/netherite_scrap`
+    - `minecraft:ancient_debris`
+- `c:ores/quartz`
+    - `minecraft:nether_quartz_ore`
+- `c:player_workstations/crafting_tables`
+    - `minecraft:crafting_table`
+- `c:player_workstations/furnaces`
+    - `minecraft:furnace`
+- `c:raw_materials`
+    - `minecraft:raw_copper`
+    - `minecraft:raw_gold`
+    - `minecraft:raw_iron`
+- `c:raw_materials/copper`
+    - `minecraft:raw_copper`
+- `c:raw_materials/gold`
+    - `minecraft:raw_gold`
+- `c:raw_materials/iron`
+    - `minecraft:raw_iron`
+- `c:rods`
+    - `minecraft:blaze_rod`
+    - `minecraft:breeze_rod`
+    - `minecraft:stick`
+- `c:rods/blaze`
+    - `minecraft:blaze_rod`
+- `c:rods/breeze`
+    - `minecraft:breeze_rod`
+- `c:rods/wooden`
+    - `minecraft:stick`
+- `c:ropes`
+- `c:sandstone/blocks`
+    - `minecraft:chiseled_red_sandstone`
+    - `minecraft:chiseled_sandstone`
+    - `minecraft:cut_red_sandstone`
+    - `minecraft:cut_sandstone`
+    - `minecraft:red_sandstone`
+    - `minecraft:sandstone`
+    - `minecraft:smooth_red_sandstone`
+    - `minecraft:smooth_sandstone`
+- `c:sandstone/red_blocks`
+    - `minecraft:chiseled_red_sandstone`
+    - `minecraft:cut_red_sandstone`
+    - `minecraft:red_sandstone`
+    - `minecraft:smooth_red_sandstone`
+- `c:sandstone/red_slabs`
+    - `minecraft:cut_red_sandstone_slab`
+    - `minecraft:red_sandstone_slab`
+    - `minecraft:smooth_red_sandstone_slab`
+- `c:sandstone/red_stairs`
+    - `minecraft:red_sandstone_stairs`
+    - `minecraft:smooth_red_sandstone_stairs`
+- `c:sandstone/slabs`
+    - `minecraft:cut_red_sandstone_slab`
+    - `minecraft:cut_sandstone_slab`
+    - `minecraft:red_sandstone_slab`
+    - `minecraft:sandstone_slab`
+    - `minecraft:smooth_red_sandstone_slab`
+    - `minecraft:smooth_sandstone_slab`
+- `c:sandstone/stairs`
+    - `minecraft:red_sandstone_stairs`
+    - `minecraft:sandstone_stairs`
+    - `minecraft:smooth_red_sandstone_stairs`
+    - `minecraft:smooth_sandstone_stairs`
+- `c:sandstone/uncolored_blocks`
+    - `minecraft:chiseled_sandstone`
+    - `minecraft:cut_sandstone`
+    - `minecraft:sandstone`
+    - `minecraft:smooth_sandstone`
+- `c:sandstone/uncolored_slabs`
+    - `minecraft:cut_sandstone_slab`
+    - `minecraft:sandstone_slab`
+    - `minecraft:smooth_sandstone_slab`
+- `c:sandstone/uncolored_stairs`
+    - `minecraft:sandstone_stairs`
+    - `minecraft:smooth_sandstone_stairs`
+- `c:shulker_boxes`
+    - `minecraft:black_shulker_box`
+    - `minecraft:blue_shulker_box`
+    - `minecraft:brown_shulker_box`
+    - `minecraft:cyan_shulker_box`
+    - `minecraft:gray_shulker_box`
+    - `minecraft:green_shulker_box`
+    - `minecraft:light_blue_shulker_box`
+    - `minecraft:light_gray_shulker_box`
+    - `minecraft:lime_shulker_box`
+    - `minecraft:magenta_shulker_box`
+    - `minecraft:orange_shulker_box`
+    - `minecraft:pink_shulker_box`
+    - `minecraft:purple_shulker_box`
+    - `minecraft:red_shulker_box`
+    - `minecraft:shulker_box`
+    - `minecraft:white_shulker_box`
+    - `minecraft:yellow_shulker_box`
+- `c:slime_balls`
+    - `minecraft:slime_ball`
+- `c:stones`
+    - `minecraft:andesite`
+    - `minecraft:deepslate`
+    - `minecraft:diorite`
+    - `minecraft:granite`
+    - `minecraft:stone`
+    - `minecraft:tuff`
+- `c:storage_blocks`
+    - `minecraft:bone_block`
+    - `minecraft:coal_block`
+    - `minecraft:copper_block`
+    - `minecraft:diamond_block`
+    - `minecraft:dried_kelp_block`
+    - `minecraft:emerald_block`
+    - `minecraft:gold_block`
+    - `minecraft:hay_block`
+    - `minecraft:iron_block`
+    - `minecraft:lapis_block`
+    - `minecraft:netherite_block`
+    - `minecraft:raw_copper_block`
+    - `minecraft:raw_gold_block`
+    - `minecraft:raw_iron_block`
+    - `minecraft:redstone_block`
+    - `minecraft:slime_block`
+- `c:storage_blocks/bone_meal`
+    - `minecraft:bone_block`
+- `c:storage_blocks/coal`
+    - `minecraft:coal_block`
+- `c:storage_blocks/copper`
+    - `minecraft:copper_block`
+- `c:storage_blocks/diamond`
+    - `minecraft:diamond_block`
+- `c:storage_blocks/dried_kelp`
+    - `minecraft:dried_kelp_block`
+- `c:storage_blocks/emerald`
+    - `minecraft:emerald_block`
+- `c:storage_blocks/gold`
+    - `minecraft:gold_block`
+- `c:storage_blocks/iron`
+    - `minecraft:iron_block`
+- `c:storage_blocks/lapis`
+    - `minecraft:lapis_block`
+- `c:storage_blocks/netherite`
+    - `minecraft:netherite_block`
+- `c:storage_blocks/raw_copper`
+    - `minecraft:raw_copper_block`
+- `c:storage_blocks/raw_gold`
+    - `minecraft:raw_gold_block`
+- `c:storage_blocks/raw_iron`
+    - `minecraft:raw_iron_block`
+- `c:storage_blocks/redstone`
+    - `minecraft:redstone_block`
+- `c:storage_blocks/slime`
+    - `minecraft:slime_block`
+- `c:storage_blocks/wheat`
+    - `minecraft:hay_block`
+- `c:strings`
+    - `minecraft:string`
+- `c:tools`
+    - `minecraft:bow`
+    - `minecraft:brush`
+    - `minecraft:crossbow`
+    - `minecraft:diamond_axe`
+    - `minecraft:diamond_hoe`
+    - `minecraft:diamond_pickaxe`
+    - `minecraft:diamond_shovel`
+    - `minecraft:diamond_sword`
+    - `minecraft:fishing_rod`
+    - `minecraft:flint_and_steel`
+    - `minecraft:golden_axe`
+    - `minecraft:golden_hoe`
+    - `minecraft:golden_pickaxe`
+    - `minecraft:golden_shovel`
+    - `minecraft:golden_sword`
+    - `minecraft:iron_axe`
+    - `minecraft:iron_hoe`
+    - `minecraft:iron_pickaxe`
+    - `minecraft:iron_shovel`
+    - `minecraft:iron_sword`
+    - `minecraft:mace`
+    - `minecraft:netherite_axe`
+    - `minecraft:netherite_hoe`
+    - `minecraft:netherite_pickaxe`
+    - `minecraft:netherite_shovel`
+    - `minecraft:netherite_sword`
+    - `minecraft:shears`
+    - `minecraft:shield`
+    - `minecraft:stone_axe`
+    - `minecraft:stone_hoe`
+    - `minecraft:stone_pickaxe`
+    - `minecraft:stone_shovel`
+    - `minecraft:stone_sword`
+    - `minecraft:trident`
+    - `minecraft:wooden_axe`
+    - `minecraft:wooden_hoe`
+    - `minecraft:wooden_pickaxe`
+    - `minecraft:wooden_shovel`
+    - `minecraft:wooden_sword`
+- `c:tools/bow`
+    - `minecraft:bow`
+- `c:tools/brush`
+    - `minecraft:brush`
+- `c:tools/crossbow`
+    - `minecraft:crossbow`
+- `c:tools/fishing_rod`
+    - `minecraft:fishing_rod`
+- `c:tools/igniter`
+    - `minecraft:flint_and_steel`
+- `c:tools/mace`
+    - `minecraft:mace`
+- `c:tools/melee_weapon`
+    - `minecraft:diamond_axe`
+    - `minecraft:diamond_sword`
+    - `minecraft:golden_axe`
+    - `minecraft:golden_sword`
+    - `minecraft:iron_axe`
+    - `minecraft:iron_sword`
+    - `minecraft:mace`
+    - `minecraft:netherite_axe`
+    - `minecraft:netherite_sword`
+    - `minecraft:stone_axe`
+    - `minecraft:stone_sword`
+    - `minecraft:trident`
+    - `minecraft:wooden_axe`
+    - `minecraft:wooden_sword`
+- `c:tools/mining_tool`
+    - `minecraft:diamond_pickaxe`
+    - `minecraft:golden_pickaxe`
+    - `minecraft:iron_pickaxe`
+    - `minecraft:netherite_pickaxe`
+    - `minecraft:stone_pickaxe`
+    - `minecraft:wooden_pickaxe`
+- `c:tools/ranged_weapon`
+    - `minecraft:bow`
+    - `minecraft:crossbow`
+    - `minecraft:trident`
+- `c:tools/shear`
+    - `minecraft:shears`
+- `c:tools/shield`
+    - `minecraft:shield`
+- `c:tools/spear`
+    - `minecraft:trident`
+- `c:villager_job_sites`
+    - `minecraft:barrel`
+    - `minecraft:blast_furnace`
+    - `minecraft:brewing_stand`
+    - `minecraft:cartography_table`
+    - `minecraft:cauldron`
+    - `minecraft:composter`
+    - `minecraft:fletching_table`
+    - `minecraft:grindstone`
+    - `minecraft:lectern`
+    - `minecraft:loom`
+    - `minecraft:smithing_table`
+    - `minecraft:smoker`
+    - `minecraft:stonecutter`
+- `forge:bones`
+    - `minecraft:bone`
+- `forge:chests/ender`
+    - `minecraft:ender_chest`
+- `forge:chests/trapped`
+    - `minecraft:trapped_chest`
+- `forge:cobblestone/deepslate`
+    - `minecraft:cobbled_deepslate`
+- `forge:cobblestone/infested`
+    - `minecraft:infested_cobblestone`
+- `forge:cobblestone/mossy`
+    - `minecraft:mossy_cobblestone`
+- `forge:cobblestone/normal`
+    - `minecraft:cobblestone`
+- `forge:eggs`
+    - `minecraft:egg`
+- `forge:enchanting_fuels`
+    - `minecraft:lapis_lazuli`
+- `forge:end_stones`
+    - `minecraft:end_stone`
+- `forge:feathers`
+    - `minecraft:feather`
+- `forge:fence_gates`
+    - `minecraft:acacia_fence_gate`
+    - `minecraft:bamboo_fence_gate`
+    - `minecraft:birch_fence_gate`
+    - `minecraft:cherry_fence_gate`
+    - `minecraft:crimson_fence_gate`
+    - `minecraft:dark_oak_fence_gate`
+    - `minecraft:jungle_fence_gate`
+    - `minecraft:mangrove_fence_gate`
+    - `minecraft:oak_fence_gate`
+    - `minecraft:spruce_fence_gate`
+    - `minecraft:warped_fence_gate`
+- `forge:fence_gates/wooden`
+    - `minecraft:acacia_fence_gate`
+    - `minecraft:bamboo_fence_gate`
+    - `minecraft:birch_fence_gate`
+    - `minecraft:cherry_fence_gate`
+    - `minecraft:crimson_fence_gate`
+    - `minecraft:dark_oak_fence_gate`
+    - `minecraft:jungle_fence_gate`
+    - `minecraft:mangrove_fence_gate`
+    - `minecraft:oak_fence_gate`
+    - `minecraft:spruce_fence_gate`
+    - `minecraft:warped_fence_gate`
+- `forge:fences`
+    - `minecraft:acacia_fence`
+    - `minecraft:bamboo_fence`
+    - `minecraft:birch_fence`
+    - `minecraft:cherry_fence`
+    - `minecraft:crimson_fence`
+    - `minecraft:dark_oak_fence`
+    - `minecraft:jungle_fence`
+    - `minecraft:mangrove_fence`
+    - `minecraft:nether_brick_fence`
+    - `minecraft:oak_fence`
+    - `minecraft:spruce_fence`
+    - `minecraft:warped_fence`
+- `forge:fences/nether_brick`
+    - `minecraft:nether_brick_fence`
+- `forge:fences/wooden`
+    - `minecraft:acacia_fence`
+    - `minecraft:bamboo_fence`
+    - `minecraft:birch_fence`
+    - `minecraft:cherry_fence`
+    - `minecraft:crimson_fence`
+    - `minecraft:dark_oak_fence`
+    - `minecraft:jungle_fence`
+    - `minecraft:mangrove_fence`
+    - `minecraft:oak_fence`
+    - `minecraft:spruce_fence`
+    - `minecraft:warped_fence`
+- `forge:foods/pie`
+    - `minecraft:pumpkin_pie`
+- `forge:gravel`
+    - `minecraft:gravel`
+- `forge:gunpowder`
+    - `minecraft:gunpowder`
+- `forge:mushrooms`
+    - `minecraft:brown_mushroom`
+    - `minecraft:red_mushroom`
+- `forge:nether_stars`
+    - `minecraft:nether_star`
+- `forge:netherrack`
+    - `minecraft:netherrack`
+- `forge:ore_bearing_ground/deepslate`
+    - `minecraft:deepslate`
+- `forge:ore_bearing_ground/netherrack`
+    - `minecraft:netherrack`
+- `forge:ore_bearing_ground/stone`
+    - `minecraft:stone`
+- `forge:ore_rates/dense`
+    - `minecraft:copper_ore`
+    - `minecraft:deepslate_copper_ore`
+    - `minecraft:deepslate_lapis_ore`
+    - `minecraft:deepslate_redstone_ore`
+    - `minecraft:lapis_ore`
+    - `minecraft:redstone_ore`
+- `forge:ore_rates/singular`
+    - `minecraft:ancient_debris`
+    - `minecraft:coal_ore`
+    - `minecraft:deepslate_coal_ore`
+    - `minecraft:deepslate_diamond_ore`
+    - `minecraft:deepslate_emerald_ore`
+    - `minecraft:deepslate_gold_ore`
+    - `minecraft:deepslate_iron_ore`
+    - `minecraft:diamond_ore`
+    - `minecraft:emerald_ore`
+    - `minecraft:gold_ore`
+    - `minecraft:iron_ore`
+    - `minecraft:nether_quartz_ore`
+- `forge:ore_rates/sparse`
+    - `minecraft:nether_gold_ore`
+- `forge:ores/coal`
+    - `minecraft:coal_ore`
+    - `minecraft:deepslate_coal_ore`
+- `forge:ores/copper`
+    - `minecraft:copper_ore`
+    - `minecraft:deepslate_copper_ore`
+- `forge:ores/diamond`
+    - `minecraft:deepslate_diamond_ore`
+    - `minecraft:diamond_ore`
+- `forge:ores/emerald`
+    - `minecraft:deepslate_emerald_ore`
+    - `minecraft:emerald_ore`
+- `forge:ores/gold`
+    - `minecraft:deepslate_gold_ore`
+    - `minecraft:gold_ore`
+    - `minecraft:nether_gold_ore`
+- `forge:ores/iron`
+    - `minecraft:deepslate_iron_ore`
+    - `minecraft:iron_ore`
+- `forge:ores/lapis`
+    - `minecraft:deepslate_lapis_ore`
+    - `minecraft:lapis_ore`
+- `forge:ores/redstone`
+    - `minecraft:deepslate_redstone_ore`
+    - `minecraft:redstone_ore`
+- `forge:ores_in_ground/deepslate`
+    - `minecraft:deepslate_coal_ore`
+    - `minecraft:deepslate_copper_ore`
+    - `minecraft:deepslate_diamond_ore`
+    - `minecraft:deepslate_emerald_ore`
+    - `minecraft:deepslate_gold_ore`
+    - `minecraft:deepslate_iron_ore`
+    - `minecraft:deepslate_lapis_ore`
+    - `minecraft:deepslate_redstone_ore`
+- `forge:ores_in_ground/netherrack`
+    - `minecraft:nether_gold_ore`
+    - `minecraft:nether_quartz_ore`
+- `forge:ores_in_ground/stone`
+    - `minecraft:coal_ore`
+    - `minecraft:copper_ore`
+    - `minecraft:diamond_ore`
+    - `minecraft:emerald_ore`
+    - `minecraft:gold_ore`
+    - `minecraft:iron_ore`
+    - `minecraft:lapis_ore`
+    - `minecraft:redstone_ore`
+- `forge:sand`
+    - `minecraft:red_sand`
+    - `minecraft:sand`
+- `forge:sand/colorless`
+    - `minecraft:sand`
+- `forge:sand/red`
+    - `minecraft:red_sand`
+- `forge:seeds`
+    - `minecraft:beetroot_seeds`
+    - `minecraft:melon_seeds`
+    - `minecraft:pumpkin_seeds`
+    - `minecraft:wheat_seeds`
+- `forge:seeds/beetroot`
+    - `minecraft:beetroot_seeds`
+- `forge:seeds/melon`
+    - `minecraft:melon_seeds`
+- `forge:seeds/pumpkin`
+    - `minecraft:pumpkin_seeds`
+- `forge:seeds/wheat`
+    - `minecraft:wheat_seeds`
+
+worldgen/biome
+--------------
+- `c:hidden_from_locator_selection`
+- `c:is_aquatic`
+    - `minecraft:cold_ocean`
+    - `minecraft:deep_cold_ocean`
+    - `minecraft:deep_frozen_ocean`
+    - `minecraft:deep_lukewarm_ocean`
+    - `minecraft:deep_ocean`
+    - `minecraft:frozen_ocean`
+    - `minecraft:frozen_river`
+    - `minecraft:lukewarm_ocean`
+    - `minecraft:ocean`
+    - `minecraft:river`
+    - `minecraft:warm_ocean`
+- `c:is_aquatic_icy`
+    - `minecraft:deep_frozen_ocean`
+    - `minecraft:frozen_ocean`
+    - `minecraft:frozen_river`
+- `c:is_badlands`
+    - `minecraft:badlands`
+    - `minecraft:eroded_badlands`
+    - `minecraft:wooded_badlands`
+- `c:is_beach`
+    - `minecraft:beach`
+    - `minecraft:snowy_beach`
+- `c:is_birch_forest`
+    - `minecraft:birch_forest`
+    - `minecraft:old_growth_birch_forest`
+- `c:is_cave`
+    - `minecraft:deep_dark`
+    - `minecraft:dripstone_caves`
+    - `minecraft:lush_caves`
+- `c:is_cold`
+    - `minecraft:cold_ocean`
+    - `minecraft:deep_cold_ocean`
+    - `minecraft:deep_frozen_ocean`
+    - `minecraft:end_barrens`
+    - `minecraft:end_highlands`
+    - `minecraft:end_midlands`
+    - `minecraft:frozen_ocean`
+    - `minecraft:frozen_peaks`
+    - `minecraft:frozen_river`
+    - `minecraft:grove`
+    - `minecraft:ice_spikes`
+    - `minecraft:jagged_peaks`
+    - `minecraft:old_growth_pine_taiga`
+    - `minecraft:old_growth_spruce_taiga`
+    - `minecraft:small_end_islands`
+    - `minecraft:snowy_beach`
+    - `minecraft:snowy_plains`
+    - `minecraft:snowy_slopes`
+    - `minecraft:snowy_taiga`
+    - `minecraft:stony_shore`
+    - `minecraft:taiga`
+    - `minecraft:the_end`
+    - `minecraft:windswept_forest`
+    - `minecraft:windswept_gravelly_hills`
+    - `minecraft:windswept_hills`
+- `c:is_cold/end`
+    - `minecraft:end_barrens`
+    - `minecraft:end_highlands`
+    - `minecraft:end_midlands`
+    - `minecraft:small_end_islands`
+    - `minecraft:the_end`
+- `c:is_cold/overworld`
+    - `minecraft:cold_ocean`
+    - `minecraft:deep_cold_ocean`
+    - `minecraft:deep_frozen_ocean`
+    - `minecraft:frozen_ocean`
+    - `minecraft:frozen_peaks`
+    - `minecraft:frozen_river`
+    - `minecraft:grove`
+    - `minecraft:ice_spikes`
+    - `minecraft:jagged_peaks`
+    - `minecraft:old_growth_pine_taiga`
+    - `minecraft:old_growth_spruce_taiga`
+    - `minecraft:snowy_beach`
+    - `minecraft:snowy_plains`
+    - `minecraft:snowy_slopes`
+    - `minecraft:snowy_taiga`
+    - `minecraft:stony_shore`
+    - `minecraft:taiga`
+    - `minecraft:windswept_forest`
+    - `minecraft:windswept_gravelly_hills`
+    - `minecraft:windswept_hills`
+- `c:is_dead`
+- `c:is_deep_ocean`
+    - `minecraft:deep_cold_ocean`
+    - `minecraft:deep_frozen_ocean`
+    - `minecraft:deep_lukewarm_ocean`
+    - `minecraft:deep_ocean`
+- `c:is_dense_vegetation`
+    - `minecraft:bamboo_jungle`
+    - `minecraft:dark_forest`
+    - `minecraft:jungle`
+    - `minecraft:mangrove_swamp`
+    - `minecraft:old_growth_birch_forest`
+    - `minecraft:old_growth_spruce_taiga`
+- `c:is_dense_vegetation/overworld`
+    - `minecraft:bamboo_jungle`
+    - `minecraft:dark_forest`
+    - `minecraft:jungle`
+    - `minecraft:mangrove_swamp`
+    - `minecraft:old_growth_birch_forest`
+    - `minecraft:old_growth_spruce_taiga`
+- `c:is_desert`
+    - `minecraft:desert`
+- `c:is_dry`
+    - `minecraft:badlands`
+    - `minecraft:basalt_deltas`
+    - `minecraft:crimson_forest`
+    - `minecraft:desert`
+    - `minecraft:end_barrens`
+    - `minecraft:end_highlands`
+    - `minecraft:end_midlands`
+    - `minecraft:eroded_badlands`
+    - `minecraft:nether_wastes`
+    - `minecraft:savanna`
+    - `minecraft:savanna_plateau`
+    - `minecraft:small_end_islands`
+    - `minecraft:soul_sand_valley`
+    - `minecraft:the_end`
+    - `minecraft:warped_forest`
+    - `minecraft:windswept_savanna`
+    - `minecraft:wooded_badlands`
+- `c:is_dry/end`
+    - `minecraft:end_barrens`
+    - `minecraft:end_highlands`
+    - `minecraft:end_midlands`
+    - `minecraft:small_end_islands`
+    - `minecraft:the_end`
+- `c:is_dry/nether`
+    - `minecraft:basalt_deltas`
+    - `minecraft:crimson_forest`
+    - `minecraft:nether_wastes`
+    - `minecraft:soul_sand_valley`
+    - `minecraft:warped_forest`
+- `c:is_dry/overworld`
+    - `minecraft:badlands`
+    - `minecraft:desert`
+    - `minecraft:eroded_badlands`
+    - `minecraft:savanna`
+    - `minecraft:savanna_plateau`
+    - `minecraft:windswept_savanna`
+    - `minecraft:wooded_badlands`
+- `c:is_end`
+    - `minecraft:end_barrens`
+    - `minecraft:end_highlands`
+    - `minecraft:end_midlands`
+    - `minecraft:small_end_islands`
+    - `minecraft:the_end`
+- `c:is_floral`
+    - `minecraft:cherry_grove`
+    - `minecraft:flower_forest`
+    - `minecraft:meadow`
+    - `minecraft:sunflower_plains`
+- `c:is_flower_forest`
+    - `minecraft:flower_forest`
+- `c:is_forest`
+    - `minecraft:birch_forest`
+    - `minecraft:dark_forest`
+    - `minecraft:flower_forest`
+    - `minecraft:forest`
+    - `minecraft:grove`
+    - `minecraft:old_growth_birch_forest`
+- `c:is_hill`
+    - `minecraft:windswept_forest`
+    - `minecraft:windswept_gravelly_hills`
+    - `minecraft:windswept_hills`
+- `c:is_hot`
+    - `minecraft:badlands`
+    - `minecraft:bamboo_jungle`
+    - `minecraft:basalt_deltas`
+    - `minecraft:crimson_forest`
+    - `minecraft:desert`
+    - `minecraft:eroded_badlands`
+    - `minecraft:jungle`
+    - `minecraft:mangrove_swamp`
+    - `minecraft:nether_wastes`
+    - `minecraft:savanna`
+    - `minecraft:savanna_plateau`
+    - `minecraft:soul_sand_valley`
+    - `minecraft:sparse_jungle`
+    - `minecraft:stony_peaks`
+    - `minecraft:swamp`
+    - `minecraft:warm_ocean`
+    - `minecraft:warped_forest`
+    - `minecraft:windswept_savanna`
+    - `minecraft:wooded_badlands`
+- `c:is_hot/nether`
+    - `minecraft:basalt_deltas`
+    - `minecraft:crimson_forest`
+    - `minecraft:nether_wastes`
+    - `minecraft:soul_sand_valley`
+    - `minecraft:warped_forest`
+- `c:is_hot/overworld`
+    - `minecraft:badlands`
+    - `minecraft:bamboo_jungle`
+    - `minecraft:desert`
+    - `minecraft:eroded_badlands`
+    - `minecraft:jungle`
+    - `minecraft:mangrove_swamp`
+    - `minecraft:savanna`
+    - `minecraft:savanna_plateau`
+    - `minecraft:sparse_jungle`
+    - `minecraft:stony_peaks`
+    - `minecraft:swamp`
+    - `minecraft:warm_ocean`
+    - `minecraft:windswept_savanna`
+    - `minecraft:wooded_badlands`
+- `c:is_icy`
+    - `minecraft:frozen_peaks`
+    - `minecraft:ice_spikes`
+- `c:is_jungle`
+    - `minecraft:bamboo_jungle`
+    - `minecraft:jungle`
+    - `minecraft:sparse_jungle`
+- `c:is_mountain`
+    - `minecraft:cherry_grove`
+    - `minecraft:frozen_peaks`
+    - `minecraft:grove`
+    - `minecraft:jagged_peaks`
+    - `minecraft:meadow`
+    - `minecraft:snowy_slopes`
+    - `minecraft:stony_peaks`
+- `c:is_mountain/peak`
+    - `minecraft:frozen_peaks`
+    - `minecraft:jagged_peaks`
+    - `minecraft:stony_peaks`
+- `c:is_mountain/slope`
+    - `minecraft:cherry_grove`
+    - `minecraft:grove`
+    - `minecraft:meadow`
+    - `minecraft:snowy_slopes`
+- `c:is_mushroom`
+    - `minecraft:mushroom_fields`
+- `c:is_nether`
+    - `minecraft:basalt_deltas`
+    - `minecraft:crimson_forest`
+    - `minecraft:nether_wastes`
+    - `minecraft:soul_sand_valley`
+    - `minecraft:warped_forest`
+- `c:is_nether_forest`
+    - `minecraft:crimson_forest`
+    - `minecraft:warped_forest`
+- `c:is_ocean`
+    - `minecraft:cold_ocean`
+    - `minecraft:deep_cold_ocean`
+    - `minecraft:deep_frozen_ocean`
+    - `minecraft:deep_lukewarm_ocean`
+    - `minecraft:deep_ocean`
+    - `minecraft:frozen_ocean`
+    - `minecraft:lukewarm_ocean`
+    - `minecraft:ocean`
+    - `minecraft:warm_ocean`
+- `c:is_old_growth`
+    - `minecraft:old_growth_birch_forest`
+    - `minecraft:old_growth_pine_taiga`
+    - `minecraft:old_growth_spruce_taiga`
+- `c:is_outer_end_island`
+    - `minecraft:end_barrens`
+    - `minecraft:end_highlands`
+    - `minecraft:end_midlands`
+- `c:is_overworld`
+    - `minecraft:badlands`
+    - `minecraft:bamboo_jungle`
+    - `minecraft:beach`
+    - `minecraft:birch_forest`
+    - `minecraft:cherry_grove`
+    - `minecraft:cold_ocean`
+    - `minecraft:dark_forest`
+    - `minecraft:deep_cold_ocean`
+    - `minecraft:deep_dark`
+    - `minecraft:deep_frozen_ocean`
+    - `minecraft:deep_lukewarm_ocean`
+    - `minecraft:deep_ocean`
+    - `minecraft:desert`
+    - `minecraft:dripstone_caves`
+    - `minecraft:eroded_badlands`
+    - `minecraft:flower_forest`
+    - `minecraft:forest`
+    - `minecraft:frozen_ocean`
+    - `minecraft:frozen_peaks`
+    - `minecraft:frozen_river`
+    - `minecraft:grove`
+    - `minecraft:ice_spikes`
+    - `minecraft:jagged_peaks`
+    - `minecraft:jungle`
+    - `minecraft:lukewarm_ocean`
+    - `minecraft:lush_caves`
+    - `minecraft:mangrove_swamp`
+    - `minecraft:meadow`
+    - `minecraft:mushroom_fields`
+    - `minecraft:ocean`
+    - `minecraft:old_growth_birch_forest`
+    - `minecraft:old_growth_pine_taiga`
+    - `minecraft:old_growth_spruce_taiga`
+    - `minecraft:plains`
+    - `minecraft:river`
+    - `minecraft:savanna`
+    - `minecraft:savanna_plateau`
+    - `minecraft:snowy_beach`
+    - `minecraft:snowy_plains`
+    - `minecraft:snowy_slopes`
+    - `minecraft:snowy_taiga`
+    - `minecraft:sparse_jungle`
+    - `minecraft:stony_peaks`
+    - `minecraft:stony_shore`
+    - `minecraft:sunflower_plains`
+    - `minecraft:swamp`
+    - `minecraft:taiga`
+    - `minecraft:warm_ocean`
+    - `minecraft:windswept_forest`
+    - `minecraft:windswept_gravelly_hills`
+    - `minecraft:windswept_hills`
+    - `minecraft:windswept_savanna`
+    - `minecraft:wooded_badlands`
+- `c:is_plains`
+    - `minecraft:plains`
+    - `minecraft:sunflower_plains`
+- `c:is_river`
+    - `minecraft:frozen_river`
+    - `minecraft:river`
+- `c:is_savanna`
+    - `minecraft:savanna`
+    - `minecraft:savanna_plateau`
+    - `minecraft:windswept_savanna`
+- `c:is_shallow_ocean`
+    - `minecraft:cold_ocean`
+    - `minecraft:frozen_ocean`
+    - `minecraft:lukewarm_ocean`
+    - `minecraft:ocean`
+    - `minecraft:warm_ocean`
+- `c:is_snowy`
+    - `minecraft:frozen_peaks`
+    - `minecraft:grove`
+    - `minecraft:ice_spikes`
+    - `minecraft:jagged_peaks`
+    - `minecraft:snowy_beach`
+    - `minecraft:snowy_plains`
+    - `minecraft:snowy_slopes`
+    - `minecraft:snowy_taiga`
+- `c:is_snowy_plains`
+    - `minecraft:snowy_plains`
+- `c:is_sparse_vegetation`
+    - `minecraft:frozen_peaks`
+    - `minecraft:jagged_peaks`
+    - `minecraft:savanna`
+    - `minecraft:savanna_plateau`
+    - `minecraft:snowy_slopes`
+    - `minecraft:sparse_jungle`
+    - `minecraft:windswept_forest`
+    - `minecraft:windswept_gravelly_hills`
+    - `minecraft:windswept_hills`
+    - `minecraft:windswept_savanna`
+    - `minecraft:wooded_badlands`
+- `c:is_sparse_vegetation/overworld`
+    - `minecraft:frozen_peaks`
+    - `minecraft:jagged_peaks`
+    - `minecraft:savanna`
+    - `minecraft:savanna_plateau`
+    - `minecraft:snowy_slopes`
+    - `minecraft:sparse_jungle`
+    - `minecraft:windswept_forest`
+    - `minecraft:windswept_gravelly_hills`
+    - `minecraft:windswept_hills`
+    - `minecraft:windswept_savanna`
+    - `minecraft:wooded_badlands`
+- `c:is_stony_shores`
+    - `minecraft:stony_shore`
+- `c:is_swamp`
+    - `minecraft:mangrove_swamp`
+    - `minecraft:swamp`
+- `c:is_taiga`
+    - `minecraft:old_growth_pine_taiga`
+    - `minecraft:old_growth_spruce_taiga`
+    - `minecraft:snowy_taiga`
+    - `minecraft:taiga`
+- `c:is_tree/coniferous`
+    - `minecraft:grove`
+    - `minecraft:old_growth_pine_taiga`
+    - `minecraft:old_growth_spruce_taiga`
+    - `minecraft:snowy_taiga`
+    - `minecraft:taiga`
+- `c:is_tree/deciduous`
+    - `minecraft:birch_forest`
+    - `minecraft:dark_forest`
+    - `minecraft:flower_forest`
+    - `minecraft:forest`
+    - `minecraft:old_growth_birch_forest`
+    - `minecraft:windswept_forest`
+- `c:is_tree/jungle`
+    - `minecraft:bamboo_jungle`
+    - `minecraft:jungle`
+    - `minecraft:sparse_jungle`
+- `c:is_tree/savanna`
+    - `minecraft:savanna`
+    - `minecraft:savanna_plateau`
+    - `minecraft:windswept_savanna`
+- `c:is_underground`
+    - `minecraft:deep_dark`
+    - `minecraft:dripstone_caves`
+    - `minecraft:lush_caves`
+- `c:is_void`
+    - `minecraft:the_void`
+- `c:is_wasteland`
+- `c:is_wet`
+    - `minecraft:bamboo_jungle`
+    - `minecraft:beach`
+    - `minecraft:dripstone_caves`
+    - `minecraft:jungle`
+    - `minecraft:lush_caves`
+    - `minecraft:mangrove_swamp`
+    - `minecraft:sparse_jungle`
+    - `minecraft:swamp`
+- `c:is_wet/overworld`
+    - `minecraft:bamboo_jungle`
+    - `minecraft:beach`
+    - `minecraft:dripstone_caves`
+    - `minecraft:jungle`
+    - `minecraft:lush_caves`
+    - `minecraft:mangrove_swamp`
+    - `minecraft:sparse_jungle`
+    - `minecraft:swamp`
+- `c:is_windswept`
+    - `minecraft:windswept_forest`
+    - `minecraft:windswept_gravelly_hills`
+    - `minecraft:windswept_hills`
+    - `minecraft:windswept_savanna`
+- `c:no_default_monsters`
+    - `minecraft:deep_dark`
+    - `minecraft:mushroom_fields`
+- `forge:is_cold/nether`
+- `forge:is_dense/end`
+- `forge:is_dense/nether`
+- `forge:is_hot/end`
+- `forge:is_lush`
+    - `minecraft:lush_caves`
+- `forge:is_magical`
+- `forge:is_modified`
+- `forge:is_plateau`
+    - `minecraft:meadow`
+    - `minecraft:savanna_plateau`
+    - `minecraft:wooded_badlands`
+- `forge:is_rare`
+    - `minecraft:bamboo_jungle`
+    - `minecraft:deep_dark`
+    - `minecraft:eroded_badlands`
+    - `minecraft:flower_forest`
+    - `minecraft:ice_spikes`
+    - `minecraft:mushroom_fields`
+    - `minecraft:old_growth_birch_forest`
+    - `minecraft:old_growth_spruce_taiga`
+    - `minecraft:savanna_plateau`
+    - `minecraft:sparse_jungle`
+    - `minecraft:sunflower_plains`
+    - `minecraft:windswept_gravelly_hills`
+    - `minecraft:windswept_savanna`
+- `forge:is_sandy`
+    - `minecraft:badlands`
+    - `minecraft:beach`
+    - `minecraft:desert`
+    - `minecraft:wooded_badlands`
+- `forge:is_sparse/end`
+- `forge:is_sparse/nether`
+- `forge:is_spooky`
+    - `minecraft:dark_forest`
+    - `minecraft:deep_dark`
+- `forge:is_wet/end`
+- `forge:is_wet/nether`
+
+worldgen/structure
+------------------
+- `c:hidden_from_displayers`
+- `c:hidden_from_locator_selection`
+
+[commontagsdumper]: https://github.com/PaintNinja/CommonTagsDumper
+[tagsrepo]: https://github.com/MinecraftForge/MinecraftForge/tree/1.21.x/src/main/generated/data

@@ -3,6 +3,22 @@ Tags
 
 Tags are generalized sets of objects in the game used for grouping related things together and providing fast membership checks.
 
+Finding Tags
+------------
+When looking for existing tags, there's two main places to check:
+
+### Vanilla Tags
+Vanilla tags are declared in the `net.minecraft.tags` package. For example, `BlockTags` contains all the Vanilla block tags, `BiomeTags` contains all the Vanilla biome tags, and so on.
+
+### Forge Tags
+Forge bundles additional tags useful for mods, both Forge-specific and de-facto common tags that apply across all major mod loaders. You can find all of them in the `net.minecraftforge.common.Tags` class. The method names for each of the fields as well as code comment groups should make it clear which is a Forge-specific tag and which is a common tag.
+
+!!! warning
+    The common `c` namespaced tags seen in Forge are common across all loaders, however other loaders may have additional loader-specific tags under the same `c` namespace. When making a multi-loader mod, it is recommended to check the tags for each loader to ensure compatibility if you are considering a `c` tag you saw on other loaders that is missing in Forge. Loader-specific `c` tags may be in Forge under the `forge` namespace until they become common across all loaders.
+
+### Full list of tags in Forge
+You can find a full list of tags Forge adds on top of Vanilla Minecraft [here][forgebundledtagslist].
+
 Declaring Your Own Groupings
 ----------------------------
 Tags are declared in your mod's [datapack][datapack]. For example, a `TagKey<Block>` with a given identifier of  `modid:foo/tagname` will reference a tag at `/data/<modid>/tags/blocks/foo/tagname.json`. Tags for `Block`s, `Item`s, `EntityType`s, `Fluid`s, and `GameEvent`s use the plural forms for their folder location while all other registries use the singular version (`EntityType` uses the folder `entity_types` while `Potion` would use the folder `potion`).
@@ -67,11 +83,11 @@ Tag-holding registry objects contain a method called `#is` in either their regis
 
 As an example:
 ```java
-public static final TagKey<Item> myItemTag = ItemTags.create(new ResourceLocation("mymod", "myitemgroup"));
+public static final TagKey<Item> myItemTag = ItemTags.create(ResourceLocation.fromNamespaceAndPath("mymod", "myitemgroup"));
 
-public static final TagKey<Potion> myPotionTag = ForgeRegistries.POTIONS.tags().createTagKey(new ResourceLocation("mymod", "mypotiongroup"));
+public static final TagKey<Potion> myPotionTag = ForgeRegistries.POTIONS.tags().createTagKey(ResourceLocation.fromNamespaceAndPath("mymod", "mypotiongroup"));
 
-public static final TagKey<VillagerType> myVillagerTypeTag = TagKey.create(Registries.VILLAGER_TYPE, new ResourceLocation("mymod", "myvillagertypegroup"));
+public static final TagKey<VillagerType> myVillagerTypeTag = TagKey.create(Registries.VILLAGER_TYPE, ResourceLocation.fromNamespaceAndPath("mymod", "myvillagertypegroup"));
 
 // In some method:
 
@@ -118,3 +134,4 @@ Tags are directly supported by Vanilla. See the respective Vanilla wiki pages fo
 [forgetags]: https://github.com/MinecraftForge/MinecraftForge/tree/1.19.x/src/generated/resources/data/forge/tags
 [recipes]: https://minecraft.wiki/w/Recipe#JSON_format
 [advancements]: https://minecraft.wiki/w/Advancement
+[forgebundledtagslist]: ./tagslist.md

@@ -6,11 +6,7 @@ If you have never made a Forge mod before, this section will provide the minimum
 Prerequisites
 -------------
 
-* An installation of the Java 17 Development Kit (JDK) and 64-bit Java Virtual Machine (JVM). Forge recommends and officially supports [Eclipse Temurin][jdk].
-
-    !!! warning
-        Make sure you are using a 64-bit JVM. One way of checking is to run `java -version` in a terminal. Using a 32-bit JVM will cause some problems when using [ForgeGradle].
-
+* An installation of the Java 21 Development Kit (JDK) and 64-bit Java Virtual Machine (JVM). Forge recommends and officially supports [Eclipse Temurin][jdk].
 * Familiarity with an Integrated Development Environment (IDE).
     * It is recommended to use an IDE with Gradle integration.
 
@@ -90,7 +86,7 @@ Set the `version` property to the current version of your mod. We recommend usin
 
 ```gradle
 // In some build.gradle
-version = '1.20-1.0.0.0'
+version = '1.21.1-1.0.0.0'
 ```
 
 ### Additional Configurations

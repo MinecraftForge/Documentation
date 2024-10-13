@@ -52,7 +52,7 @@ private void setup(final FMLClientSetupEvent event)
   event.enqueueWork(() ->
   {
     ItemProperties.register(ExampleItems.APPLE, 
-      new ResourceLocation(ExampleMod.MODID, "pulling"), (stack, level, living, id) -> {
+      ResourceLocation.fromNamespaceAndPath(ExampleMod.MODID, "pulling"), (stack, level, living, id) -> {
         return living != null && living.isUsingItem() && living.getUseItem() == stack ? 1.0F : 0.0F;
       });
   });

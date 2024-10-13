@@ -14,8 +14,8 @@ public class MyModEventSubscriber {
 
 @Mod("mymod")
 public class MyMod {
-  public MyMod() {
-    FMLModLoadingContext.get().getModEventBus().addListener(this::onCommonSetup);
+  public MyMod(FMLModLoadingContext context) {
+    context.getModEventBus().addListener(this::onCommonSetup);
   } 
 
   private void onCommonSetup(FMLCommonSetupEvent event) { ... }
@@ -36,7 +36,10 @@ The registry events are fired after the mod instance construction. There are thr
 
 `DataPackRegistryEvent$NewRegistry` allows modders to register custom datapack registries by providing a `Codec` to encode and decode the object from JSON.
 
-`RegisterEvent` is for [registering objects][registering] into the registries. The event is fired for each registry. 
+`RegisterEvent` is for [registering objects][registering] into the registries. The event is fired for each registry.
+
+!!! note
+    You should prefer using [DeferredRegister][registering] over the registry events wherever possible. DeferredRegister handles timing on your behalf and is less error-prone.
 
 Data Generation
 ---------------

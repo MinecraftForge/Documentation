@@ -68,6 +68,7 @@ nav:
       - Tags: 'resources/server/tags.md'
       - Advancements: 'resources/server/advancements.md'
       - Conditionally-Loaded Data: 'resources/server/conditional.md'
+      - Tags List: 'resources/server/tagslist.md'
   - Data Generation:
     - Introduction: 'datagen/index.md'
     - Client Assets:
@@ -98,7 +99,7 @@ nav:
 
 # Do not edit in PRs below here
 site_name: Forge Documentation
-site_url: https://docs.minecraftforge.net/en/1.20.x/
+site_url: https://docs.minecraftforge.net/en/1.21.x/
 
 markdown_extensions:
   - admonition
@@ -119,11 +120,12 @@ extra:
   types:
     MinecraftForge: latest
     ForgeGradle: fg-6.x
-  current_version: 1.20.x
+  current_version: 1.21.x
   versions:
-    1.19.x: 1.19.x
-    1.20.1: 1.20.1
+    1.21.x: 1.21.x
     1.20.x: 1.20.x
+    1.20.1: 1.20.1
+    1.19.x: 1.19.x
 
 extra_css:
   - css/version_warning_fix.css

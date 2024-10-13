@@ -55,7 +55,7 @@ The `#register` method in the `BootstapContext` provided by the builder can be u
 ```java
 public static final ResourceKey<ConfiguredFeature<?, ?>> EXAMPLE_CONFIGURED_FEATURE = ResourceKey.create(
   Registries.CONFIGURED_FEATURE,
-  new ResourceLocation(MOD_ID, "example_configured_feature")
+  ResourceLocation.fromNamespaceAndPath(MOD_ID, "example_configured_feature")
 );
 
 // In some constant location or argument
@@ -88,12 +88,12 @@ Sometimes datapack registry objects may want to use other datapack registry obje
 ```java
 public static final ResourceKey<ConfiguredFeature<?, ?>> EXAMPLE_CONFIGURED_FEATURE = ResourceKey.create(
   Registries.CONFIGURED_FEATURE,
-  new ResourceLocation(MOD_ID, "example_configured_feature")
+  ResourceLocation.fromNamespaceAndPath(MOD_ID, "example_configured_feature")
 );
 
 public static final ResourceKey<PlacedFeature> EXAMPLE_PLACED_FEATURE = ResourceKey.create(
   Registries.PLACED_FEATURE,
-  new ResourceLocation(MOD_ID, "example_placed_feature")
+  ResourceLocation.fromNamespaceAndPath(MOD_ID, "example_placed_feature")
 );
 
 // In some constant location or argument

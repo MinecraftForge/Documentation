@@ -11,7 +11,7 @@ First you need to create your `SimpleChannel` object. We recommend that you do t
 ```java
 private static final String PROTOCOL_VERSION = "1";
 public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
-  new ResourceLocation("mymodid", "main"),
+  ResourceLocation.fromNamespaceAndPath("mymodid", "main"),
   () -> PROTOCOL_VERSION,
   PROTOCOL_VERSION::equals,
   PROTOCOL_VERSION::equals

@@ -71,7 +71,7 @@ The values themselves can be obtained using `ConfigValue#get`. The values are ad
       * A class representing the data type of the config value
 
 !!! note
-    `DoubleValue`s, `IntValue`s, and `LongValue`s are range values which specify the class as `Double`, `Integer`, and `Long` respectively.
+    `FloatValue`s, `DoubleValue`s, `ByteValue`s, `ShortValue`s, `IntValue`s, and `LongValue`s are range values which specify the class as `Float`, `Double`, `Byte`, `Short`, `Integer`, and `Long` respectively.
 
 * **Whitelisted Values**
     * Description: Value must be in supplied collection
@@ -106,8 +106,8 @@ Registering a Configuration
 Once a `ForgeConfigSpec` has been built, it must be registered to allow Forge to load, track, and sync the configuration settings as required. Configurations should be registered in the mod constructor via `ModLoadingContext#registerConfig`. A configuration can be registered with a given type representing the side the config belongs to, the `ForgeConfigSpec`, and optionally a specific file name for the configuration.
 
 ```java
-// In the mod constructor with a ForgeConfigSpec CONFIG
-ModLoadingContext.get().registerConfig(Type.COMMON, CONFIG);
+// In the mod constructor with a ForgeConfigSpec CONFIG and FMLJavaModLoadingContext context
+context.registerConfig(Type.COMMON, CONFIG);
 ```
 
 Here is a list of the available configuration types:
