@@ -38,7 +38,7 @@ This is fairly self-explanatory, but some notes:
 * The changelog string can be separated into lines using `\n`. Some prefer to include a abbreviated changelog, then link to an external site that provides a full listing of changes.
 * Manually inputting data can be chore. You can configure your `build.gradle` to automatically update this file when building a release as Groovy has native JSON parsing support. Doing this is left as an exercise to the reader.
 
-- Some examples can be found here for [nocubes][] and [Corail Tombstone][corail].
+- Some examples can be found here for [nocubes][], [Forge][forge] and [Corail Tombstone][corail].
 
 Retrieving Update Check Results
 -------------------------------
@@ -59,4 +59,5 @@ The returned object will also have the target version and any changelog lines as
 
 [mvnver]: ../gettingstarted/versioning.md
 [nocubes]: https://cadiboo.github.io/projects/nocubes/update.json
+[forge]: https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
 [corail]: https://github.com/Corail31/tombstone_lite/blob/master/update.json

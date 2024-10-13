@@ -2887,4 +2887,5 @@ worldgen/structure
 - `c:hidden_from_displayers`
 - `c:hidden_from_locator_selection`
 
+[commontagsdumper]: https://github.com/PaintNinja/CommonTagsDumper
 [tagsrepo]: https://github.com/MinecraftForge/MinecraftForge/tree/1.21.x/src/main/generated/data
