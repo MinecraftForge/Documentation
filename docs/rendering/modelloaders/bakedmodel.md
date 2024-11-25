@@ -11,7 +11,7 @@ Returns the [`ItemOverrides`][overrides] to use for this model. This is only use
 
 ### `useAmbientOcclusion`
 
-If the model is rendered as a block in the level, the block in question does not emit any light, and ambient occlusion is enabled. This causes the model to be rendered with [ambient occlusion](ambocc).
+If the model is rendered as a block in the level, the block in question does not emit any light, and ambient occlusion is enabled. This causes the model to be rendered with [ambient occlusion][ambocc].
 
 ### `isGui3d`
 
@@ -43,7 +43,7 @@ See [Transform][transform].
 
 This is the main method of `BakedModel`. It returns a list of `BakedQuad`s: objects which contain the low-level vertex data that will be used to render the model. If the model is being rendered as a block, then the `BlockState` passed in is non-null. If the model is being rendered as an item, the `ItemOverrides` returned from `#getOverrides` is responsible for handling the state of the item, and the `BlockState` parameter will be `null`.
 
-!!! note 
+!!! note
     The origin point for the vertices in a `BakedQuad` is the bottom, northwest corner. Vertex coordinate values less than 0 or greater than 1 will position the vertex outside of the block. To avoid lighting issues, provide the vertices in counterclockwise order.
 
 The `Direction` passed in is used for face culling. If the block against the given side of another block being rendered is opaque, then the faces associated with that side are not rendered. If that parameter is `null`, all faces not associated with a side are returned (that will never be culled).
