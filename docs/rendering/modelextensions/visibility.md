@@ -1,7 +1,7 @@
 Part Visibility
 ===============
 
-Adding the `visibility` entry at the top level of a model JSON allows control over the visibility of different parts of the model to decide whether they should be baked into the final [`BakedModel`][bakedmodel]. The definition of a "part" is dependent on the model loader loading this model and custom model loaders are free to ignore this entry completely. Out of the model loaders provided by Forge only the [composite model loader][composite] and the [OBJ model loader][obj] make use of this functionality. The visibility entries are specified as `"part name": boolean` entries.
+Adding the `visibility` entry at the top level of a model JSON allows control over the visibility of different parts of the model to decide whether they should be baked into the final [`BakedModel`][bakedmodel]. The definition of a "part" is dependent on the model loader loading this model and custom model loaders are free to ignore this entry completely. Out of the model loaders provided by Forge only the composite model loader and the [OBJ model loader][obj] make use of this functionality. The visibility entries are specified as `"part name": boolean` entries.
 
 Example of a composite model with two parts, the second of which will not be baked into the final model, and two child models overriding this visibility to have only the first part and both parts visible respectively:
 ```js
@@ -48,5 +48,4 @@ This allows setups like the following where multiple models use different parts 
 3. These child models individually specify different visibilities for the parts
 
 [bakedmodel]: ../modelloaders/bakedmodel.md
-[composite]: ../modelloaders/index.md/#composite-models
 [obj]: ../modelloaders/index.md/#wavefront-obj-models
