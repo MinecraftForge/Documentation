@@ -224,7 +224,7 @@ public static final Codec<Integer> INT_CODEC = Codec.STRING.comapFlatMap(
 Range codecs are an implementation of `#flatXMap` which returns an error `DataResult` if the value is not inclusively between the set minimum and maximum. The value is still provided as a partial result if outside the bounds. There are implementations for integers, floats, and doubles via `#intRange`, `#floatRange`, and `#doubleRange` respectively.
 
 ```java
-public static final Codec<Integer> RANGE_CODEC = Codec.intRange(0, 4); 
+public static final Codec<Integer> RANGE_CODEC = Codec.intRange(0, 4);
 ```
 
 ```js
@@ -431,7 +431,7 @@ public static final Codec<ExampleObject> = DISPATCH.getCodec() // Gets Codec<Cod
 
 [DataFixerUpper]: https://github.com/Mojang/DataFixerUpper
 [gson]: https://github.com/google/gson
-[transformer]: #transformer-codecs
+[transformer]: #transformers
 [pair]: #pair
 [records]: #records
 [field]: #fields
