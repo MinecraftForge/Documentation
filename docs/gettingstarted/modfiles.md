@@ -127,7 +127,7 @@ Property       | Type    | Default       | Description | Example
 Mod Entrypoints
 ---------------
 
-Now that the `mods.toml` is filled out, we need to provide an entrypoint to being programming the mod. Entrypoints are essentially the starting point for executing the mod. The entrypoint itself is determined by the language loader used in the `mods.toml`.
+Now that the `mods.toml` is filled out, we need to provide an entrypoint to begin programming the mod. Entrypoints are essentially the starting point for executing the mod. The entrypoint itself is determined by the language loader used in the `mods.toml`.
 
 ### `javafml` and `@Mod`
 
