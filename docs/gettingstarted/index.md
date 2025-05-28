@@ -38,7 +38,7 @@ From Zero to Modding
 1. Generate run configurations for your selected IDE:
     * **Eclipse**: Run the `genEclipseRuns` task.
     * **IntelliJ IDEA**: Run the `genIntellijRuns` task. If a "module not specified" error occurs, set the [`ideaModule` property][config] to your 'main' module (typically `${project.name}.main`).
-    * **Visual Studio Code**: Run the `getVSCodeRuns` task.
+    * **Visual Studio Code**: Run the `genVSCodeRuns` task.
     * **Other IDEs**: You can run the configurations directly using `gradle run*` (e.g., `runClient`, `runServer`, `runData`, `runGameTestServer`). These can also be used with the supported IDEs.
 
 Customizing Your Mod Information
