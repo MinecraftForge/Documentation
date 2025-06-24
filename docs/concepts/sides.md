@@ -30,16 +30,16 @@ This check should be used as your go-to default. Aside from `DistExecutor`, rare
 
 ### `DistExecutor`
 
-Considering the use of a single "universal" jar for client and server mods, and the separation of the physical sides into two jars, an important question comes to mind: How do we use code that is only present on one physical side? All code in `net.minecraft.client` is only present on the physical client. If any class you write references those names in any way, they will crash the game when that respective class is loaded in an environment where those names do not exist. A very common mistake in beginners is to call `Minecraft.getInstance().<doStuff>()` in block or block entity classes, which will crash any physical server as soon as the class is loaded.
+Considering the use of a single "universal" jar for client and server mods, and the separation of the physical sides into two jars, an important question comes to mind: How do we use code that is only present on one physical side? All code in `net.minecraft.client` is only present on the physical client. If any class you write references those names in any way, they will crash the game when that respective class is loaded in an environment where those names do not exist. A very common mistake made by beginners is calling `Minecraft.getInstance().<doStuff>()` in block or block entity classes, which will crash any physical server as soon as the class is loaded.
 
 How do we resolve this? Luckily, FML has `DistExecutor`, which provides various methods to run different methods on different physical sides, or a single method only on one side.
 
 !!! note
-    It is important to understand that FML checks based on the **physical** side. A single player world (logical server + logical client within a physical client) will always use `Dist.CLIENT`!
+    It is important to understand that FML checks are based on the **physical** side. A single player world (logical server + logical client within a physical client) will always use `Dist.CLIENT`!
 
 `DistExecutor` works by taking in a supplied supplier executing a method, effectively preventing classloading by taking advantage of the [`invokedynamic` JVM instruction][invokedynamic]. The executed method should be static and within a different class. Additionally, if no parameters are present for the static method, a method reference should be used instead of a supplier executing a method.
 
-There are two main methods within `DistExecutor`: `#runWhenOn` and `#callWhenOn`. The methods take in the physical side the executing method should run on and the supplied executing method which either runs or returns a result respectively.
+There are two main methods within `DistExecutor`: `#runWhenOn` and `#callWhenOn`. The methods take in the physical side that the executing method should run on and the supplied executing method which either runs or returns a result respectively.
 
 These two methods are subdivided further into `#safe*` and `#unsafe*` variants. Safe and unsafe variants are misnomers for their purposes. The main difference is that when in a development environment, the `#safe*` methods will validate that the supplied executing method is a lambda returning a method reference to another class with an error being thrown otherwise. Within the production environment, `#safe*` and `#unsafe*` are functionally the same.
 
@@ -65,7 +65,7 @@ DistExecutor.safeCallWhenOn(Dist.CLIENT, () -> ExampleClass::safeCallMethodExamp
 
 ### Thread Groups
 
-If `Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER` is true, it is likely the current thread is on the logical server. Otherwise, it is likely on the logical client. This is useful to retrieve the **logical** side when you do not have access to a `Level` object to check `isClientSide`. It *guesses* which logical side you are on by looking at the group of the currently running thread. Because it is a guess, this method should only be used when other options have been exhausted. In nearly every case, you should prefer checking `Level#isClientSide`.
+If `Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER` is true, it is likely that the current thread is running on the logical server. Otherwise, it is likely running on the logical client. This is useful to retrieve the **logical** side when you do not have access to a `Level` object with which you could check the return value of `isClientSide`. It *guesses* which logical side you are on by looking at the group of the currently running thread. Because it is a guess, this method should only be used when other options have been exhausted. **In nearly every case, you should prefer checking the return value of `Level#isClientSide`**.
 
 ### `FMLEnvironment#dist` and `@OnlyIn`
 
@@ -88,7 +88,7 @@ This mistake can also be made explicitly by accessing physical client-only class
 Writing One-Sided Mods
 ----------------------
 
-In recent versions, Minecraft Forge has removed a "sidedness" attribute from the mods.toml. This means that your mods are expected to work whether they are loaded on the physical client or the physical server. So for one-sided mods, you would typically register your event handlers inside a `DistExecutor#safeRunWhenOn` or `DistExecutor#unsafeRunWhenOn` instead of directly calling the relevant registration methods in your mod constructor. Basically, if your mod is loaded on the wrong side, it should simply do nothing, listen to no events, and so on. A one-sided mod by nature should not register blocks, items, ... since they would need to be available on the other side, too.
+In recent versions, Minecraft Forge has removed a "sidedness" attribute from the mods.toml. **This means that your mods are expected to work whether they are loaded on the physical client or the physical server.** So for one-sided mods, you would typically register your event handlers inside a `DistExecutor#safeRunWhenOn` or `DistExecutor#unsafeRunWhenOn` instead of directly calling the relevant registration methods in your mod constructor. Basically, if your mod is loaded on the wrong side, it should simply do nothing, listen to no events, and so on. A one-sided mod by nature should not register blocks, items, etc. since they would need to be available on the other side, too.
 
 Additionally, if your mod is one-sided, it typically does not forbid the user from joining a server that is lacking that mod. Therefore, you should set the `displayTest` property in your [mods.toml][structuring] to whatever value is necessary.
 
@@ -96,13 +96,15 @@ Additionally, if your mod is one-sided, it typically does not forbid the user fr
 [[mods]]
   # ...
 
-  # MATCH_VERSION means that your mod will cause a red X if the versions on client and server differ. This is the default behaviour and should be what you choose if you have server and client elements to your mod.
-  # IGNORE_SERVER_VERSION means that your mod will not cause a red X if it's present on the server but not on the client. This is what you should use if you're a server only mod.
+  # MATCH_VERSION means that your mod will cause a red X if the versions on client and server mismatch. This is the default behaviour and should be what you choose if you have server and client elements to your mod.
+  # IGNORE_SERVER_VERSION means that your mod will not cause a red X if it's present on the server but not on the client. This is what you should use if your mod is a server only mod.
   # IGNORE_ALL_VERSION means that your mod will not cause a red X if it's present on the client or the server. This is a special case and should only be used if your mod has no server component.
   # NONE means that no display test is set on your mod. You need to do this yourself, see IExtensionPoint.DisplayTest for more information. You can define any scheme you wish with this value.
-  # IMPORTANT NOTE: this is NOT an instruction as to which environments (CLIENT or DEDICATED SERVER) your mod loads on. Your mod should load (and maybe do nothing!) wherever it finds itself.
   displayTest="IGNORE_ALL_VERSION" # MATCH_VERSION is the default if nothing is specified (#optional)
 ```
+
+!!! note
+      This is NOT an instruction as to which environments (CLIENT or DEDICATED SERVER) your mod loads on. Your mod should load (and maybe do nothing!) wherever it finds itself.
 
 If a custom display test is to be used, then the `displayTest` option should be set to `NONE`, and an `IExtensionPoint$DisplayTest` extension should be registered:
 

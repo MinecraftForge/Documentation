@@ -47,7 +47,12 @@ showAsResourcePack=false
   side="BOTH"
 ```
 
-`mods.toml` is broken into three parts: the non-mod-specific properties, which are linked to the mod file; the mod properties, with a section for each mod; and the dependency configurations, with a section for each mod's or mods' dependencies. Each of the properties associated with the `mods.toml` file will be explained below, where `required` means that a value must be specified or an exception will be thrown.
+`mods.toml` is broken into three parts: 
+* the non-mod-specific properties, which are linked to the mod file
+* the mod properties, with a section for each mod
+* the dependency configurations, with a section for each mod's (or mods') dependencies. 
+
+Each of the properties associated with the `mods.toml` file will be explained below, where `required` means that a value must be specified or an exception will be thrown.
 
 ### Non-Mod-Specific Properties
 
@@ -82,8 +87,8 @@ modId = "examplemod2"
 
 Property        | Type    | Default                 | Description | Example
 :---            | :---:   | :---:                   | :---:       | :---
-`modId`         | string  | **mandatory**           | The unique identifier representing this mod. The id must match `^[a-z][a-z0-9_]{1,63}$` (a string 2-64 characters; starts with a lowercase letter; made up of lowercase letters, numbers, or underscores). | `"examplemod"`
-`namespace`     | string  | value of `modId`        | An override namespace for the mod. The namespace much match `^[a-z][a-z0-9_.-]{1,63}$` (a string 2-64 characters; starts with a lowercase letter; made up of lowercase letters, numbers, underscores, dots, or dashes). Currently unused. | `"example"`
+`modId`         | string  | **mandatory**           | The unique identifier representing this mod. The id must match the following regular expression: `^[a-z][a-z0-9_]{1,63}$` (a string that is 2-64 characters long; starts with a lowercase letter; contains only lowercase letters, numbers, or underscores). | `"examplemod"`
+`namespace`     | string  | value of `modId`        | An override namespace for the mod. The namespace must match the following regular expression: `^[a-z][a-z0-9_.-]{1,63}$` (a string that is 2-64 characters long; starts with a lowercase letter; contains only lowercase letters, numbers, underscores, dots, or dashes). Currently unused. | `"example"`
 `version`       | string  | `"1"`                   | The version of the mod, preferably in a [variation of Maven versioning][mvnver]. When set to `${file.jarVersion}`, it will be replaced with the value of the `Implementation-Version` property in the JAR's manifest (displays as `0.0NONE` in a development environment). | `"1.20-1.0.0.0"`
 `displayName`   | string  | value of `modId`        | The pretty name of the mod. Used when representing the mod on a screen (e.g., mod list, mod mismatch). | `"Example Mod"`
 `description`   | string  | `"MISSING DESCRIPTION"` | The description of the mod shown in the mod list screen. It is recommended to use a [multiline literal string][multiline]. | `"This is an example."`
@@ -125,11 +130,11 @@ Property       | Type    | Default       | Description | Example
 Mod Entrypoints
 ---------------
 
-Now that the `mods.toml` is filled out, we need to provide an entrypoint to being programming the mod. Entrypoints are essentially the starting point for executing the mod. The entrypoint itself is determined by the language loader used in the `mods.toml`.
+Now that `mods.toml` is filled out, we need to define an entry point to start programming the mod. An entry point is essentially the starting point of your mod, this is where your mod's code begins execution. The entry point itself is determined by the language loader specified in `mods.toml`.
 
 ### `javafml` and `@Mod`
 
-`javafml` is a language loader provided by Forge for the Java programming language. The entrypoint is defined using a public class with the `@Mod` annotation. The value of `@Mod` must contain one of the mod ids specified within the `mods.toml`. From there, all initialization logic (e.g., [registering events][events], [adding `DeferredRegister`s][registration]) can be specified within the constructor of the class. The mod bus can be obtained from `FMLJavaModLoadingContext`.
+`javafml` is a language loader provided by Forge for the Java programming language. The entry point is defined as a public class, that uses the `@Mod` annotation. The value of `@Mod` must contain one of the mod ids specified within `mods.toml`. From there, all initialization logic (e.g., [registering events][events], [adding `DeferredRegister`s][registration]) can be specified within the constructor of the class. The mod event bus can be obtained from `FMLJavaModLoadingContext`.
 
 ```java
 @Mod("examplemod") // Must match mods.toml
