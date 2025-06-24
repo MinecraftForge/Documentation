@@ -46,7 +46,7 @@ You can find some additional naming conventions on [Oracle's tutorial page][nami
 
 ### Sub-package Organization
 
-In addition to the top-level package, it is highly recommend to break your mod's classes between subpackages. There are two major methods on how to do so:
+In addition to the top-level package, it is highly recommended to break your mod's classes into subpackages. There are two major methods for doing so:
 
 * **Group By Function**: Make subpackages for classes with a common purpose. For example, blocks can be under `block` or `blocks`, entities under `entity` or `entities`, etc. Mojang uses this structure with the singular version of the word.
 * **Group By Logic**: Make subpackages for classes with a common logic. For example, if you were creating a new type of crafting table, you would put its block, menu, item, and more under `feature.crafting_table`.

@@ -14,7 +14,7 @@ An event handler is some method that has been registered to an event bus.
 Creating an Event Handler
 -------------------------
 
-Event handlers methods have a single parameter and do not return a result. The method could be static or instance depending on implementation.
+Event handler methods have a single parameter and do not return a result. The method could be static or instance depending on implementation.
 
 Event handlers can be directly registered using `IEventBus#addListener` for or `IEventBus#addGenericListener` for generic events (as denoted by subclassing `GenericEvent<T>`). Either listener adder takes in a consumer representing the method reference. Generic event handlers need to specify the class of the generic as well. Event handlers must be registered within the constructor of the main mod class.
 
@@ -98,7 +98,7 @@ If an event can be canceled, it will be marked with the `@Cancelable` annotation
 Results
 -------
 
-Some events have an `Event$Result`. A result can be one of three things: `DENY` which stops the event, `DEFAULT` which uses the Vanilla behavior, and `ALLOW` which forces the action to take place, regardless if it would have originally. The result of an event can be set by calling `#setResult` with an `Event$Result` on the event. Not all events have results; an event with a result will be annotated with `@HasResult`.
+Some events have an `Event$Result`. A result can be one of three things: `DENY` which stops the event, `DEFAULT` which uses the Vanilla behavior, and `ALLOW` which forces the action to take place, regardless of whether it would have taken place originally. The result of an event can be set by calling `#setResult` with an `Event$Result` on the event. Not all events have results; an event with a result will be annotated with `@HasResult`.
 
 !!! important
     Different events may use results in different ways, refer to the event's JavaDoc before using the result.
@@ -111,12 +111,15 @@ Event handler methods (marked with `@SubscribeEvent`) have a priority. You can s
 Sub Events
 ----------
 
-Many events have different variations of themselves. These can be different but all based around one common factor (e.g. `PlayerEvent`) or can be an event that has multiple phases (e.g. `PotionBrewEvent`). Take note that if you listen to the parent event class, you will receive calls to your method for *all* subclasses.
+Many events have different variations of themselves. These can be different but all based around one common factor (e.g. `PlayerEvent`) or can be an event that has multiple phases (e.g. `PotionBrewEvent`). 
+
+!!! note
+    Listening to the parent event class will result in getting calls to your method from *all* sub-classes.
 
 Mod Event Bus
 -------------
 
-The mod event bus is primarily used for listening to lifecycle events in which mods should initialize. Each event on the mod bus is required to implement `IModBusEvent`. Many of these events are also ran in parallel so mods can be initialized at the same time. This does mean you can't directly execute code from other mods in these events. Use the `InterModComms` system for that.
+The mod event bus is primarily used for listening to lifecycle events in which mods should initialize. Each event on the mod bus is required to implement the `IModBusEvent` interface. Many of these events are also ran in parallel in order to allow for faster, parallel mod initialization. **This means you can't directly execute code from other mods in these events.** Use the `InterModComms` system for that.
 
 These are the four most commonly used lifecycle events that are called during mod initialization on the mod event bus:
 
