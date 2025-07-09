@@ -15,11 +15,11 @@ Block Entities are created and removed dynamically and as such are not registry 
 
 In order to create a `BlockEntity`, you need to extend the `BlockEntity` class. As such, another object is registered instead to easily create and refer to the *type* of the dynamic object. For a `BlockEntity`, these are known as `BlockEntityType`s.
 
-A `BlockEntityType` can be [registered][registration] like any other registry object. To construct a `BlockEntityType`, its builder form can be used via `BlockEntityType$Builder#of`. This takes in two arguments: a `BlockEntityType$BlockEntitySupplier` which takes in a `BlockPos` and `BlockState` to create a new instance of the associated `BlockEntity`, and a varargs of `Block`s which this `BlockEntity` can be attached to. Building the `BlockEntityType` is done by calling `BlockEntityType$Builder#build`. This takes in a `Type` which represents the type-safe reference used to refer to this registry object in a `DataFixer`. Since `DataFixer`s are an optional system to use for mods, this can be passed as `null`.
+A `BlockEntityType` can be [registered][registration] like any other registry object. The `BlockEntityType`'s constructor takes in two arguments: a `BlockEntityType$BlockEntitySupplier` which takes in a `BlockPos` and `BlockState` to create a new instance of the associated `BlockEntity`, and a `Set<Block>` of `Block`s which this `BlockEntity` can be attached to.
 
 ```java
 // For some DeferredRegister<BlockEntityType<?>> REGISTER
-public static final RegistryObject<BlockEntityType<MyBE>> MY_BE = REGISTER.register("mybe", () -> BlockEntityType.Builder.of(MyBE::new, validBlocks).build(null));
+public static final RegistryObject<BlockEntityType<MyBE>> MY_BE = REGISTER.register("mybe", () -> new BlockEntityType(MyBE::new, Set.of(validBlocks)));
 
 // In MyBE, a BlockEntity subclass
 public MyBE(BlockPos pos, BlockState state) {
