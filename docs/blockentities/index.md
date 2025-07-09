@@ -27,6 +27,10 @@ public MyBE(BlockPos pos, BlockState state) {
 }
 ```
 
+!!! note
+
+	For versions before 1.21.3, to construct a `BlockEntityType`, its builder form is used instead via `BlockEntityType$Builder#of`. This takes in two arguments: a `BlockEntityType$BlockEntitySupplier` which takes in 	a `BlockPos` and `BlockState` to 	create a new instance of the associated `BlockEntity`, and a varargs of `Block`s which this `BlockEntity` can be attached to. Building the `BlockEntityType` is done by 	calling `BlockEntityType$Builder#build`. This 	takes in a `Type` which represents the type-safe reference used to refer to this registry object in a `DataFixer`. Since `DataFixer`s are an optional system to use 	for mods, this can be passed as `null`.
+
 ## Creating a `BlockEntity`
 
 To create a `BlockEntity` and attach it to a `Block`, the `EntityBlock` interface must be implemented on your `Block` subclass. The method `EntityBlock#newBlockEntity(BlockPos, BlockState)` must be implemented and return a new instance of your `BlockEntity`.
