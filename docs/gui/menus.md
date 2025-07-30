@@ -261,10 +261,11 @@ public ItemStack quickMoveStack(Player player, int quickMovedSlotIndex) {
 
 ## Opening a Menu
 
-Once a menu type has been registered, the menu itself has been finished, and a [screen] has been attached, a menu can then be opened by the player. Menus can be opened by calling `ServerPlayer#openMenu` on the logical server. The method takes in the `MenuProvider` of the server side menu, and optionally a `FriendlyByteBuf` if extra data needs to be synced to the client.
+Once a menu type has been registered, the menu itself has been finished, and a [screen] has been attached, a menu can then be opened by the player. Menus can be opened by calling `ServerPlayer#openMenu` on the logical server. The method takes in the `MenuProvider` of the server side menu. To send additional data to the client, `NetworkHooks#openScreen` should be called instead, which will provide a `FriendlyByteBuf` for processing on the client in `IForgeMenuType#create`.
 
 !!! note
-    `ServerPlayer#openMenu` with the `FriendlyByteBuf` parameter should only be used if a menu type was created using an [`IContainerFactory`][icf].
+    `NetworkHooks#openScreen` should only be used if a menu type was created using an [`IContainerFactory`][icf].
+
 
 #### `MenuProvider`
 
