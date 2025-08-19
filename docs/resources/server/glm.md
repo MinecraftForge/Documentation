@@ -137,7 +137,7 @@ public static final RegistryObject<Codec<ExampleModifier>> = REGISTRAR.register(
 [Examples][examples] can be found on the Forge Git repository, including silk touch and smelting effects.
 
 [tags]: ./tags.md
-[resloc]: ../../concepts/resources.md#ResourceLocation
+[resloc]: ../../concepts/resources.md#resourcelocation
 [codec]: #the-loot-modifier-codec
 [registered]: ../../concepts/registries.md#methods-for-registering
 [codecdef]: ../../datastorage/codecs.md

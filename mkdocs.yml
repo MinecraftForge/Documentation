@@ -39,7 +39,6 @@ nav:
     - Screens: 'gui/screens.md'
   - Rendering:
     - Model Extensions:
-      - Introduction: 'rendering/modelextensions/index.md'
       - Root Transforms: 'rendering/modelextensions/transforms.md'
       - Render Types: 'rendering/modelextensions/rendertypes.md'
       - Part Visibility: 'rendering/modelextensions/visibility.md'

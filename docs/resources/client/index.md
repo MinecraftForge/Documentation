@@ -12,4 +12,4 @@ Additional reading: [Resource Locations][resourcelocation]
 
 [respack]: https://minecraft.wiki/w/Resource_Pack
 [createrespack]: https://minecraft.wiki/w/Tutorials/Creating_a_resource_pack
-[resourcelocation]: ../../concepts/resources.md#ResourceLocation
+[resourcelocation]: ../../concepts/resources.md#resourcelocation

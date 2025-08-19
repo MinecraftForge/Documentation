@@ -259,4 +259,4 @@ property 'forge.enableGameTest', 'true'
 [test]: #running-game-tests
 [namespaces]: #enabling-other-namespaces
 [event]: ../concepts/events.md#creating-an-event-handler
-[buildscript]: ../gettingstarted/index.md#simple-buildgradle-customizations
+[buildscript]: ../gettingstarted/index.md#customizing-your-mod-information
