@@ -36,26 +36,37 @@ To create a `BlockEntity` and attach it to a `Block`, the `EntityBlock` interfac
 
 ## Storing Data within your `BlockEntity`
 
-In order to save data, override the following two methods:
-```java
-BlockEntity#saveAdditional(CompoundTag tag)
+In order to save data a `BlockEntity` must override two methods:
 
-BlockEntity#load(CompoundTag tag)
+```java
+@Override
+protected void saveAdditional(CompoundTag tag, Provider provider) {
+    super.saveAdditional(tag, provider);
+    tag.putBoolean("something", this.isSomething);
+}
+
+@Override
+protected void loadAdditional(CompoundTag tag, Provider provider) {
+    super.loadAdditional(tag, provider);
+    if (tag.contains("something")) {
+        this.isSomething = tag.getBoolean("something")
+    }
+}
 ```
-These methods are called whenever the `LevelChunk` containing the `BlockEntity` gets loaded from/saved to a tag.
-Use them to read and write to the fields in your block entity class.
+
+These methods are called whenever the `LevelChunk` containing the `BlockEntity` gets loaded from or saved to disk. Use the `CompoundTag`'s `put*` and `get*` family of methods to ensure your persistent values are serialized.
 
 !!! note
-		Whenever your data changes, you need to call `BlockEntity#setChanged`; otherwise, the `LevelChunk` containing your `BlockEntity` might be skipped while the level is saved.
+    Whenever your data changes, you need to call `BlockEntity#setChanged` to mark `LevelChunk` containing your `BlockEntity` "dirty". Otherwise, it might be skipped when the level is saved.
 
 !!! important
-		It is important that you call the `super` methods!
+    It is important that you call the `super` methods!
 
     The tag names `id`, `x`, `y`, `z`, `ForgeData` and `ForgeCaps` are reserved by the `super` methods.
 
 ## Ticking `BlockEntities`
 
-If you need a ticking `BlockEntity`, for example to keep track of the progress during a smelting process, another method must be implemented and overridden within `EntityBlock`: `EntityBlock#getTicker(Level, BlockState, BlockEntityType)`. This can implement different tickers depending on which logical side the user is on, or just implement one general ticker. In either case, a `BlockEntityTicker` must be returned. Since this is a functional interface, it can just take in a method representing the ticker instead:
+If you need a ticking `BlockEntity`, for example to keep track of the progress during a smelting process, override `EntityBlock#getTicker` to return a `BlockEntityTicker`. This can implement different tickers depending on which logical side the user is on, or just implement one general ticker. Since this is a functional interface, it can just take in a lambda or static method representing the ticker instead:
 
 ```java
 // Inside some Block subclass
@@ -94,8 +105,8 @@ while the second one processes that data. If your `BlockEntity` doesn't contain 
 
 ### Synchronizing on Block Update
 
-This method is a bit more complicated, but again you just need to override two or three methods.
-Here is a tiny example implementation of it:
+This method is a bit more complicated, but again you just need to override two or three methods. Here is a tiny example implementation of it:
+
 ```java
 @Override
 public CompoundTag getUpdateTag() {
@@ -112,15 +123,18 @@ public Packet<ClientGamePacketListener> getUpdatePacket() {
 
 // Can override IForgeBlockEntity#onDataPacket. By default, this will defer to the #load.
 ```
+
 The static constructors `ClientboundBlockEntityDataPacket#create` takes:
 
 * The `BlockEntity`.
 * An optional function to get the `CompoundTag` from the `BlockEntity`. By default, this uses `BlockEntity#getUpdateTag`.
 
 Now, to send the packet, an update notification must be given on the server.
+
 ```java
 Level#sendBlockUpdated(BlockPos pos, BlockState oldState, BlockState newState, int flags)
 ```
+
 The `pos` should be your `BlockEntity`'s position.
 For `oldState` and `newState`, you can pass the current `BlockState` at that position.
 `flags` is a bitmask that should contain `2`, which will sync the changes to the client. See `Block` for more info as well as the rest of the flags. The flag `2` is equivalent to `Block#UPDATE_CLIENTS`.
