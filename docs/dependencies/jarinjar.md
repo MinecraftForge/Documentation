@@ -85,7 +85,8 @@ jarJar {
 !!! tip
     It is generally recommended to set at least one `include` filter when using `#fromRuntimeConfiguration`.
 
-### Generating Jar with Dependencies
+Generating Jar with Dependencies
+-------------------
 
 Jar-in-Jar dependencies are not automatically included in the jar you get when you build with the `build` task. After running the `build` task you must run the `jarJar` task in gradle. After running the `jarJar` task you will see another jar alongside your normal jar with the suffix `-all` at the end which is the jar which contains all of your intended dependencies.
 
