@@ -1,7 +1,7 @@
 Jar-in-Jar
 ==========
 
-Jar-in-Jar is a way to load dependencies for mods from within the jars of the mods. To accomplish this, Jar-in-Jar generates a metadata json within `META-INF/jarjar/metadata.json` on build containing the artifacts to load from within the jar. 
+Jar-in-Jar is a way to load dependencies for mods from within the jars of the mods. To accomplish this, Jar-in-Jar generates a metadata json within `META-INF/jarjar/metadata.json` on build containing the artifacts to load from within the jar.
 
 Jar-in-Jar is a completely optional system which can be enabled using `jarJar#enable` before the `minecraft` block. This will include all dependencies from the `jarJar` configuration into the `jarJar` task. You can configure the task similarly to other jar tasks:
 
