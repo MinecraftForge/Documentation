@@ -1,7 +1,7 @@
 Jar-in-Jar
 ==========
 
-Jar-in-Jar is a way to load dependencies for mods from within the jars of the mods. To accomplish this, Jar-in-Jar generates a metadata json within `META-INF/jarjar/metadata.json` on build containing the artifacts to load from within the jar.
+Jar-in-Jar is a way to load dependencies for mods from within the jars of the mods. To accomplish this, Jar-in-Jar generates a metadata json within `META-INF/jarjar/metadata.json` on build containing the artifacts to load from within the jar. 
 
 Jar-in-Jar is a completely optional system which can be enabled using `jarJar#enable` before the `minecraft` block. This will include all dependencies from the `jarJar` configuration into the `jarJar` task. You can configure the task similarly to other jar tasks:
 
@@ -18,6 +18,7 @@ tasks.named('jarJar') {
     // ...
 }
 ```
+The jar with dependencies is not built when you run the `build` task, you must also run the `jarJar` task in gradle. Alongside your normal jar, you will see a jar with the suffix `-all` at the end which is the jar with dependencies.
 
 Adding Dependencies
 -------------------
@@ -84,11 +85,6 @@ jarJar {
 
 !!! tip
     It is generally recommended to set at least one `include` filter when using `#fromRuntimeConfiguration`.
-
-Generating Jar with Dependencies
--------------------
-
-Jar-in-Jar dependencies are not automatically included in the jar you get when you build with the `build` task. After running the `build` task you must run the `jarJar` task in gradle. After running the `jarJar` task you will see another jar alongside your normal jar with the suffix `-all` at the end which is the jar which contains all of your intended dependencies.
 
 Publishing a Jar-in-Jar to Maven
 --------------------------------
