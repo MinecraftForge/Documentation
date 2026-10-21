@@ -11,6 +11,7 @@ nav:
   - Dependencies:
     - Introduction: 'dependencies/index.md'
     - Jar-in-Jar: 'dependencies/jarinjar.md'
+    - Jar-in-Jar - Internal Format: 'dependencies/jarinjar-internal-format.md'
   - Porting to this Version: 'porting/5.x_to_6.0.md'
 
 # Do not edit in PRs below here
